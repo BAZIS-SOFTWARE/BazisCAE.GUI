@@ -374,12 +374,10 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                 if (e.Location.X > Width - 16 & e.Location.X < Width - 8 && e.Location.Y <= 10)
                     if (!IsSceneExpand)
                     {
-                        SceneControlExpandEvent?.Invoke();
                         IsSceneExpand = true;
                     }
                     else
                     {
-                        SceneControlFoldEvent?.Invoke();
                         IsSceneExpand = false;
                     }
                 else

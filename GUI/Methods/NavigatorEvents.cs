@@ -310,7 +310,7 @@ namespace BazisGUI
 
         public void navigator_HideConditionsEvent(object arg1, IModelData modelData, HideDataEventArgs arg2)
         {
-            HideAllGeometryObjs();
+            DisplayGeometryObjectEvent = null;
             DisplayText3DEvent = null;
             foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
             {
@@ -325,7 +325,7 @@ namespace BazisGUI
         {
             try
             {
-                HideAllGeometryObjs();
+                DisplayGeometryObjectEvent = null;
                 var dataKind = Converters.ConvertToDataKind(arg2.DataName);
                 var selectedData = taskData.Find(dataKind);
 
@@ -656,7 +656,8 @@ namespace BazisGUI
 
             VBOController.DeleteVBObjects(objType.ToString());
             var pres = CreateObjectsPresentor(project.ModelData, objType);
-            CreateVBObject(pres);
+            var vb = CreateVBObject(pres);
+            VBOController.AddVbo(vb);
             DisplayObjects();
         }
 
@@ -907,7 +908,7 @@ namespace BazisGUI
 
                 panelProvider.ShowPropertiesPanel(data);
 
-                HideAllGeometryObjs();
+                DisplayGeometryObjectEvent = null;
 
                 if (data.Direction != Direction.None)
                     DisplayDirection(data.StartTime, data, data.Group);

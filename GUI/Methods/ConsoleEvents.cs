@@ -130,7 +130,7 @@ namespace BazisGUI
         {
             project.ModelData.ObjectData.Move(ObjType.Узел, new Point3D(arg2.X, arg2.Y, arg2.Z));
 
-            HideAllGeometryObjs();
+            DisplayGeometryObjectEvent = null;
             DisplayText2DEvent = null;
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
@@ -147,7 +147,7 @@ namespace BazisGUI
             var axis = new Point3D(arg2.Axis.X, arg2.Axis.Y, arg2.Axis.Z);
             project.ModelData.ObjectData.Rotate(ObjType.Узел, axis, arg2.Angle);
 
-            HideAllGeometryObjs();
+            DisplayGeometryObjectEvent = null;
             DisplayText2DEvent = null;
             DisplayText3DEvent = null;
 

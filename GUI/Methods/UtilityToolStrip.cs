@@ -43,7 +43,7 @@ namespace BazisGUI
                     form.FormClosed += (s1, s2) =>
                     {
                         btn.Checked = false;
-                        HideAllGeometryObjs();
+                        DisplayGeometryObjectEvent = null;
                         DisplayText3DEvent = null;
                         DisplayObjects();
                     };
@@ -52,7 +52,7 @@ namespace BazisGUI
                     measuringControl.PreparingMeasureEvent += (ar) =>
                     {
                         spbSelectObject.ToolTipText = ar.ToString();
-                        HideAllGeometryObjs();
+                        DisplayGeometryObjectEvent = null;
                         DisplayText3DEvent = null;
                         DisplayObjects();
                     };
@@ -607,7 +607,8 @@ namespace BazisGUI
                     clip.SetClipPlaneEvent += (plane) =>
                     {
                         var scPlane = new Geometry.Plane(new Point3D(plane.X, plane.Y, plane.Z), plane.D);
-                        ChangeClipPlane(scPlane);
+                        DisplayClipPlaneEvent = null;
+                        DisplayClipPlane(scPlane);
                     };
 
                     clip.RedrawClipPlane += () => DisplayObjects();
@@ -665,44 +666,6 @@ namespace BazisGUI
             }
         }
 
-        public void ChangeClipPlane(Geometry.Plane plane)
-        {
-            DisplayClipPlaneEvent = null;
-
-            DisplayClipPlaneEvent += new Action(() =>
-            {
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                float[] modelMatrix = new float[16];
-                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, modelMatrix);//Запоминаем предыдущую матрицу в стеке
-                Gl.glPushMatrix();
-                var origin = plane.Normal.Mult(plane.Shifting);
-
-                var sX = Math.Sign(plane.Normal._x);
-                var sY = Math.Sign(plane.Normal._y);
-                var sZ = Math.Sign(plane.Normal._z);
-
-                var bbox = clipPlaneRenderer.BoundingBox;
-
-                var diagonal = Geometry.Vector.GetVectorLenght(bbox.LeftUpNear.Sub(bbox.RightDownFar));
-                var center = bbox.RightDownFar.Sum(bbox.LeftUpNear).Mult(0.5f);
-                Gl.glTranslatef(center._x, center._y, center._z);
-                Gl.glTranslatef(sX * origin._x, sY * origin._y, sZ * origin._z);
-                var angle = Geometry.Vector.GetCosAngleVectors(new Point3D(0, 0, -1), plane.Normal);
-                angle = (float)(Math.Acos(angle) * 180 / Math.PI);
-                var axis = Geometry.Vector.CrossProd(new Point3D(0, 0, -1), plane.Normal);
-                Gl.glRotatef(angle, axis._x, axis._y, axis._z);
-                var normalSize = diagonal * 0.125f;
-
-                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, advanced3DClipper.ClipMatrix);
-                advanced3DClipper.ScaleFactor = ScaleFactor;
-
-                clipPlaneRenderer.Draw(modelMatrix, normalSize);
-
-                Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
-            });
-        }
+        
     }
 }

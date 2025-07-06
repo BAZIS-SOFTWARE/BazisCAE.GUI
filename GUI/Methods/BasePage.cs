@@ -153,7 +153,7 @@ namespace BazisGUI
                 }             
             });
 
-            HideDisplayText2D();
+            DisplayText2DEvent = null;
             DisplayObjects();
 
             PressedKey = Keys.None;

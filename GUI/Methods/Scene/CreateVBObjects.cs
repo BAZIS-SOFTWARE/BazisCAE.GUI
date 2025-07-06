@@ -23,15 +23,18 @@ namespace BazisGUI
 
                 foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
                 {
-                    var presentor = CreateObjectsPresentor(modelData, item);
-                    var vbo = CreateVBObject(presentor);
-                    VBOController.AddVbo(vbo);
+                    if(modelData.ObjectData.GetObjects(item).Count() > 0)
+                    {
+                        var presentor = CreateObjectsPresentor(modelData, item);
+                        var vbo = CreateVBObject(presentor);
+                        VBOController.AddVbo(vbo);
+                    }
                 }
             }
             else if (objects == "Элементы")
             {
                 VBOController.DeleteVBObjects(ObjType.Элемент1D.ToString());
-                var presentor1d = CreateObjectsPresentor(modelData, ObjType.Элемент1D);
+                var presentor1d = CreateObjectsPresentor(modelData, ObjType.Элемент1D);                 
                 var vb1d = CreateVBObject(presentor1d);
                 VBOController.AddVbo(vb1d);
                 VBOController.DeleteVBObjects(ObjType.Элемент2D.ToString());

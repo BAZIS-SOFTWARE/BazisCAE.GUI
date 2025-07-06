@@ -47,7 +47,9 @@ namespace BazisGUI
                     break;
             }
             // изменить в будущем на массив viewMode
-            pre.ViewMode = modelData.ObjectData.GetSetsInfo(objType).First().ViewMode;
+            var setInfo = modelData.ObjectData.GetSetsInfo(objType).FirstOrDefault();
+            if (setInfo != null)
+                pre.ViewMode = setInfo.ViewMode;
             pre.Name = objType.ToString();
             return pre;
         }

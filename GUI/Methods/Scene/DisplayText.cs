@@ -8,6 +8,8 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        event Action DisplayText3DEvent;
+        event Action DisplayText2DEvent;
         public void DisplayText3D(string str, Color color, Point3D coord)
         {
             var met = new Action(() =>

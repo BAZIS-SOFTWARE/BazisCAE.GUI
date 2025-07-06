@@ -251,13 +251,25 @@
     <Compile Include="Methods\ResultsMainMenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Scene\DisplayClipPlane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\DisplayRotationPoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\DisplayReflectionPlane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\SceneInitialization.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Scene\SetVBObjectAttribute.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Scene\CreateVBObjects.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Scene\DisplayFigures.cs">
+    <Compile Include="Methods\Scene\DisplayGeometryObject.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Scene\FitObjectsToScreen.cs">

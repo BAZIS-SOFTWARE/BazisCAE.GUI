@@ -1,0 +1,253 @@
+﻿using BazisGUI.Scene.Interfaces;
+using System;
+using Tao.OpenGl;
+using Geometry;
+using System.Drawing;
+using BazisGUI.Scene;
+
+namespace BazisGUI
+{
+    public partial class BaseForm
+    {
+        event Action DisplayGeometryObjectEvent;
+        public void DisplayLocalFrame(Frame frame)
+        {
+            var met = new Action(() =>
+            {
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                Gl.glPushMatrix();
+                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+
+                Gl.glLineWidth(1.5f);
+                Gl.glBegin(Gl.GL_LINES);
+
+                // draw "Z"
+                var axis_z = frame.Centre.Sum(frame.Dir_Z);
+
+                Gl.glColor3f(0, 0, 1);
+                Gl.glVertex3f(frame.Centre._x, frame.Centre._y, frame.Centre._z);
+                Gl.glVertex3f(axis_z._x, axis_z._y, axis_z._z);
+
+
+                // draw "Y"
+                var axis_y = frame.Centre.Sum(frame.Dir_Y);
+                Gl.glColor3f(0, 1, 0);
+                Gl.glVertex3f(frame.Centre._x, frame.Centre._y, frame.Centre._z);
+                Gl.glVertex3f(axis_y._x, axis_y._y, axis_y._z);
+
+
+                // draw "X"
+                var axis_x = frame.Centre.Sum(frame.Dir_X);
+                Gl.glColor3f(1, 0.5f, 0);
+                Gl.glVertex3f(frame.Centre._x, frame.Centre._y, frame.Centre._z);
+                Gl.glVertex3f(axis_x._x, axis_x._y, axis_x._z);
+
+                Gl.glEnd();
+                Gl.glPopMatrix();
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+            });
+
+            DisplayGeometryObjectEvent += met;
+        }
+
+        public void DisplayDistance(Segment3D line)
+        {
+            var met = new Action(() =>
+            {
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                Gl.glPushMatrix();
+                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+                Gl.glColor3f(1, 0, 0);
+                Gl.glLineWidth(5.0f);
+                Gl.glBegin(Gl.GL_LINES);
+
+                Gl.glVertex3f(line.P0._x, line.P0._y, line.P0._z);
+                Gl.glVertex3f(line.P1._x, line.P1._y, line.P1._z);
+                Gl.glEnd();
+                Gl.glPopMatrix();
+
+                var p0 = camera.GetSceenCoord(line.P0);
+                var p1 = camera.GetSceenCoord(line.P1);
+
+                var p0_2D = camera.GetScreenCoord(p0);
+                var p1_2D = camera.GetScreenCoord(p1);
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+            });
+
+            DisplayGeometryObjectEvent += met;
+
+            var coord = line.P0.Sum(line.P1).Div(2);
+
+            DisplayText3D(line.GetLength().ToString(), Color.FromArgb(0, 0, 0), coord);
+        }
+
+        public void DisplayPath(Point3D[] points)
+        {
+            Action met;
+            if (points.Length > 1)
+            {
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                var path = new ScenePath(points);
+                var quantity = path.PointsQuantity;
+                met = new Action(() =>
+                {
+                    if (IsBlending && !advanced3DClipper.IsEnable)
+                        averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                    path.Display(camera.Position);
+                    var p0 = path[quantity - 2];
+                    var p1 = path[quantity - 1];
+                    DisplayText3D(path.Length.ToString(), Color.FromArgb(0, 0, 0),
+                    new Point3D((p0._x + p1._x) / 2, (p0._y + p1._y) / 2, (p0._z + p1._z) / 2));
+                    if (IsBlending && !advanced3DClipper.IsEnable)
+                        averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+                });
+
+                DisplayGeometryObjectEvent += met;
+            }
+        }
+
+        public void DisplayLine(Point3D p0, Point3D p1, Color objColor)
+        {
+            Action met;
+
+            met = new Action(() =>
+            {
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                Gl.glPushMatrix();
+                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+                Gl.glColor3ub(objColor.R, objColor.G, objColor.B);
+                Gl.glLineWidth(5.0f);
+                Gl.glBegin(Gl.GL_LINES);
+
+                Gl.glVertex3f(p0._x, p0._y, p0._z);
+                Gl.glVertex3f(p1._x, p1._y, p1._z);
+                Gl.glEnd();
+                Gl.glPopMatrix();
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+            });
+
+            DisplayGeometryObjectEvent += met;
+        }
+
+        public void DisplaySceneScale(ISceneScale scale)
+        {
+            Action del = new Action(() => { });
+
+            del = new Action(() =>
+            {
+                scale.Display(camera.Width, camera.Height, CreateGraphics(), Font);
+            });
+
+            DisplayGeometryObjectEvent += del;
+        }
+        public void DisplaySpiral(Point3D p0, Point3D p1, Color objColor)
+        {
+            Action met;
+
+            met = new Action(() =>
+            {
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                Gl.glPushMatrix();
+                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+                Gl.glColor3ub(objColor.R, objColor.G, objColor.B);
+                Gl.glLineWidth(5.0f);
+                Gl.glBegin(Gl.GL_LINES);
+
+                Gl.glVertex3f(p0._x, p0._y, p0._z);
+                Gl.glVertex3f(p1._x, p1._y, p1._z);
+                Gl.glEnd();
+                Gl.glPopMatrix();
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+            });
+
+            DisplayGeometryObjectEvent += met;
+        }
+        /// <inheritdoc/>
+
+
+        public void DisplayConus(float UpperDiam, float BottomDiam, float length, Frame frame)
+        {
+            var upeer_rad = UpperDiam / 2;
+            var lover_rad = BottomDiam / 2;
+
+            DisplayGeometryObjectEvent += new Action(() =>
+            {
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                var quadObj = Glu.gluNewQuadric(); // создаем новый объект
+                                                   // для создания сфер и цилиндров
+                                                   //Glu.gluQuadricOrientation(quadObj, Glu.GLU_OUTSIDE);
+                Gl.glPushMatrix();
+                Gl.glColor3d(1, 0, 0);
+                Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
+
+                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+
+                //shifting
+                Gl.glTranslatef(frame.Centre._x, frame.Centre._y, frame.Centre._z);
+
+                //rotation z' and z global
+                //var dirZ = frame.Z.Sub(frame.Centre);
+                //var dirZnorm = Vector.GetVectorNorm(frame);
+                var angleZ = Vector.GetCosAngleVectors(new Point3D(0, 0, 1), frame.Dir_Z);
+                angleZ = (float)(Math.Acos(angleZ) * 180 / Math.PI);
+
+                var axisZ = Vector.CrossProd(new Point3D(0, 0, 1), frame.Dir_Z);
+                Gl.glRotatef(angleZ, axisZ._x, axisZ._y, axisZ._z);
+
+                Gl.glTranslatef(0, 0, -length);
+
+                Glu.gluCylinder(quadObj, lover_rad, upeer_rad, length, 10, 10); // рисуем конус
+
+                Gl.glPopMatrix();
+                Glu.gluDeleteQuadric(quadObj);
+                averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+            });
+        }
+        /// <inheritdoc/>
+
+        public void DisplaySphere(float width, Frame frame)
+        {
+            Action met;
+
+            met = new Action(() =>
+            {
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                var quadObj = Glu.gluNewQuadric(); // создаем новый объект
+                                                   // для создания сфер и цилиндров
+                                                   //Glu.gluQuadricOrientation(quadObj, Glu.GLU_OUTSIDE);
+                Gl.glPushMatrix();
+                Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
+                Gl.glColor3d(1, 0, 0);
+                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+
+                Gl.glTranslatef(frame.Centre._x, frame.Centre._y, frame.Centre._z);
+
+                //var dirZ = frame.Z.Sub(frame.Centre);
+                var axis = Vector.CrossProd(new Point3D(0, 0, 1), frame.Dir_Z);
+                var angle = Vector.GetCosAngleVectors(new Point3D(0, 0, 1), frame.Dir_Z);
+                angle = (float)(Math.Acos(angle) * 180 / Math.PI);
+
+                Gl.glRotatef(angle, axis._x, axis._y, axis._z);
+                //Glu.gluQuadricDrawStyle(quadObj, Glu.GLU_FILL); // устанавливаем
+                Glu.gluSphere(quadObj, width / 2, 10, 10); // рисуем сферу
+                                                           // радиусом 0.5
+                Gl.glPopMatrix();
+                Glu.gluDeleteQuadric(quadObj);
+                averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+            });
+
+            DisplayGeometryObjectEvent += met;
+        }
+    }
+}

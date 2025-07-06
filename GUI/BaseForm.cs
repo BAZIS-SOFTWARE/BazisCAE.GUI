@@ -362,14 +362,12 @@ namespace BazisGUI
         {
             try
             {
-                TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
-
                 BackGroundColor = settingsConfig.BackGroudColor;
                 IsBlending = settingsConfig.Transparency;
                 IsLighting = settingsConfig.Lighting;
-                
-                SelectionColor = Color.FromArgb(TransparencyValue, settingsConfig.SelectObjectColor);
-                SelectionGroupColor = Color.FromArgb(TransparencyValue, settingsConfig.SelectGroupColor);
+                var transpVal = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
+                SelectionColor = Color.FromArgb(transpVal, settingsConfig.SelectObjectColor);
+                SelectionGroupColor = Color.FromArgb(transpVal, settingsConfig.SelectGroupColor);
                 //module.ScenePage.NodeColor = settingsConfig.NodeColor;
                 //module.ScenePage.E2DColor = settingsConfig.Elem2DColor;
                 //module.ScenePage.E3DColor = settingsConfig.Elem3DColor;
@@ -560,7 +558,7 @@ namespace BazisGUI
 
             settings.SetTransparencyValueEvent += (ar1) =>
             {
-                TransparencyValue = (int)(ar1 / 100.0f * 255);
+                settingsConfig.TransparencyValue = (int)(ar1 / 100.0f * 255);
 
                 SelectionColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectObjectColor);
                 SelectionGroupColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectGroupColor);

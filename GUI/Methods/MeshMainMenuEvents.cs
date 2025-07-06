@@ -550,7 +550,7 @@ namespace BazisGUI
 
         public void SetGMSHController(IModelData modelData)
         {
-            HideAllGeometryObjs();
+            DisplayGeometryObjectEvent = null;
             DisplayText2DEvent = null;
             DisplayText3DEvent = null;
 
@@ -612,7 +612,7 @@ namespace BazisGUI
                     }
                 }
 
-                HideAllGeometryObjs();
+                DisplayGeometryObjectEvent = null;
                 DisplayText2DEvent = null;
                 DisplayText3DEvent = null;
 

@@ -312,7 +312,7 @@ namespace BazisGUI.Scene
         }
 
         /// <inheritdoc/>
-        public static float[] GetReflectionMatrix(Plane plane)
+        public float[] GetReflectionMatrix(Plane plane)
         {
             var reflection = new float[16];
             var x = -plane.Normal._x;

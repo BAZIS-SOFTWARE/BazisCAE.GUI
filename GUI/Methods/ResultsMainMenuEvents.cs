@@ -283,7 +283,7 @@ namespace BazisGUI
             else
             {
                 settingsConfig.ShowElementsResultsValue = false;
-                HideDisplayText3D();
+                DisplayText3DEvent = null;
                 DisplayObjects();
             }
         }
@@ -295,7 +295,7 @@ namespace BazisGUI
             else
             {
                 settingsConfig.ShowNodeResultsValue = false;
-                HideDisplayText3D();
+                DisplayText3DEvent = null;
                 DisplayObjects();
             }
         }
@@ -514,7 +514,7 @@ namespace BazisGUI
                     }
                 }
             });
-            HideDisplayText2D();
+            DisplayText2DEvent = null;
             DisplayObjects();
             PressedKey = Keys.None;
             return nodes;

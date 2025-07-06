@@ -1,14 +1,9 @@
 ﻿using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
 using BazisGUI.Scene;
-using Model.Interfaces.ObjectsCollections;
-using ModelControllerInterfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tao.OpenGl;
+using System.Drawing;
 
 namespace BazisGUI
 {
@@ -77,6 +72,24 @@ namespace BazisGUI
 
             Gl.glFlush();
             scene.Invalidate();
+        }
+
+        private void DisplayControlStatus()
+        {
+            var cornerRect = new ScreenRectangle() { Red = 0, Green = 0, Blue = 0 };
+
+            cornerRect.winScrenePosit = new Point(Width - 18, Height - 9);
+            cornerRect.winScreneCoord.X = cornerRect.winScrenePosit.X + 8;
+            cornerRect.winScreneCoord.Y = cornerRect.winScrenePosit.Y - 8;
+            cornerRect.Display(scene.Width, scene.Height);
+
+            if (IsSceneExpand)
+            {
+                cornerRect.winScrenePosit = new Point(Width - 21, Height - 12);
+                cornerRect.winScreneCoord.X = cornerRect.winScrenePosit.X + 8;
+                cornerRect.winScreneCoord.Y = cornerRect.winScrenePosit.Y - 8;
+                cornerRect.Display(scene.Width, scene.Height);
+            }
         }
 
         private void DisplayModelObjects()
