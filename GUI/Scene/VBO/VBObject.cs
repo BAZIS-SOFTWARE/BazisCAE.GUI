@@ -43,7 +43,8 @@ namespace BazisGUI.Scene.VBO
         /// <param name="glColors"></param>
         /// <param name="glNormals"></param>
         /// <param name="objName"></param>
-        public VBObject(int[] pointers, float[] glCoords, float[] glColors, float[] glNormals, string objName)
+        public VBObject(string objName,int[] pointers, float[] glCoords, float[] glColors, float[] glNormals) : 
+            this(objName, pointers, glCoords)
         {
             if (pointers.Length == 0)
                 throw new ArgumentException("Длина набора индексов не может быть нулевой");
@@ -66,6 +67,36 @@ namespace BazisGUI.Scene.VBO
             VBO.VertexDataInit(ref coordBuff, glCoords, sizeof(float));
             VBO.VertexDataInit(ref colorBuff, glColors, sizeof(float));
             VBO.VertexDataInit(ref normalBuff, glNormals, sizeof(float));
+
+            PointersBuffer = ptrBuff;
+            CoordsBuffer = coordBuff;
+            ColorsBuffer = colorBuff;
+            NormalsBuffer = normalBuff;
+
+            CalculateBoundingBox(glCoords);
+            ModelMatrix = new float[16];
+            SetIdentityModelMatrix();
+        }
+
+        public VBObject(string objName, int[] pointers, float[] glCoords)
+        {
+            if (pointers.Length == 0)
+                throw new ArgumentException("Длина набора индексов не может быть нулевой");
+            ObjName = objName;
+
+            PtrLength = pointers.Length;
+            CoordLength = glCoords.Length;
+
+            Gl_LineWidth = 1.0f;//Ширина линии и размер точки используется в Draw, не должен быть 0 и меньше, иначе возращает ошибку
+            Gl_PointSize = 1.0f;
+
+            var ptrBuff = 0;
+            var coordBuff = 0;
+            var colorBuff = 0;
+            var normalBuff = 0;
+
+            VBO.IndexDataInit(ref ptrBuff, pointers);
+            VBO.VertexDataInit(ref coordBuff, glCoords, sizeof(float));
 
             PointersBuffer = ptrBuff;
             CoordsBuffer = coordBuff;

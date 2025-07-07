@@ -16,8 +16,8 @@ namespace BazisGUI.Scene.VBO
         /// <param name="glColors"></param>
         /// <param name="glNormals"></param>
         /// <param name="objName"></param>
-        public PointObjects(int[] ptrs, float[] glCoords, float[] glColors, float[] glNormals, string objName) : 
-            base(ptrs, glCoords, glColors, glNormals, objName)
+        public PointObjects(string objName,int[] ptrs, float[] glCoords, float[] glColors, float[] glNormals) : 
+            base(objName,ptrs, glCoords, glColors, glNormals)
         {
             ViewMode = ObjView.Points;
             GL_ObjType = GLObjType.point;

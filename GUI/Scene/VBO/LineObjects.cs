@@ -23,8 +23,8 @@ namespace BazisGUI.Scene.VBO
         /// normals for every points of trialnge
         /// <param name="objName"></param>
         /// type of objects
-        public LineObjects(bool[]edges,int[] ptrs, float[] glCoords, float[] glColors, float[] glNormals, string objName) : 
-            base(ptrs, glCoords, glColors, glNormals, objName)
+        public LineObjects(string objName,bool[]edges,int[] ptrs, float[] glCoords, float[] glColors, float[] glNormals) : 
+            base(objName,ptrs, glCoords, glColors, glNormals)
         {
             GL_ObjType = GLObjType.line;
             Gl_DisplayMode = 6913;

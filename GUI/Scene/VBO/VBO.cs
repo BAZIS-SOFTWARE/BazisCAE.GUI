@@ -64,7 +64,7 @@ namespace BazisGUI.Scene.VBO
             Gl.glEdgeFlagPointer(0, IntPtr.Zero);
         }
         /// <summary>
-        /// Draw objects
+        /// Draw objects. indexLength - начало диапазона, IntPtr.Zero - конц диапазона
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="indexLength"></param>
@@ -88,9 +88,9 @@ namespace BazisGUI.Scene.VBO
         /// </summary>
         public static void UnLoadAllBuffers()
         {
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
+            //Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
+            //Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
+            //Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
             Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
             Gl.glBindBuffer(Gl.GL_ELEMENT_ARRAY_BUFFER, 0);
         }
@@ -107,7 +107,7 @@ namespace BazisGUI.Scene.VBO
             Gl.glBindBuffer(Gl.GL_ELEMENT_ARRAY_BUFFER, buffer);
             Gl.glBufferData(Gl.GL_ELEMENT_ARRAY_BUFFER,
                  (IntPtr)(indices.Length * sizeof(int)),
-                              indices, Gl.GL_STREAM_DRAW);
+                              indices, Gl.GL_DYNAMIC_DRAW);
             //Gl.glBindBuffer(Gl.GL_ELEMENT_ARRAY_BUFFER, 0);
         }
         /// <summary>

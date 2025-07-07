@@ -79,8 +79,8 @@ namespace BazisGUI.Scene.VBO
         /// <param name="objName"></param>
         /// type of objects
 
-        public SurfaceObjects(bool[] edges, int[] ptrs, float[] glCoords, float[] glColors, float[] glNormals, string objName) : 
-            base(ptrs, glCoords, glColors, glNormals, objName)
+        public SurfaceObjects(string objName,bool[] edges, int[] ptrs, float[] glCoords, float[] glColors, float[] glNormals) : 
+            base(objName,ptrs, glCoords, glColors, glNormals)
         {
             var edgeBuff = 0;
 

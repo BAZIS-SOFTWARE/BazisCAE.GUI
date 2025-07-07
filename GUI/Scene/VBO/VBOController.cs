@@ -70,7 +70,7 @@ namespace BazisGUI.Scene.VBO
         public SurfaceObjects CreateSurfaceVBObjects(int[] ptrs, float[] coords, float[] colors, float[] normals,
             bool[] edges, string objsName, int[] separs, ObjView viewMode)
         {
-            var vbObj = new SurfaceObjects(edges, ptrs, coords, colors, normals, objsName);
+            var vbObj = new SurfaceObjects(objsName,edges, ptrs, coords, colors, normals);
             vbObj.CreateSeparators(separs);
             vbObj.ViewMode = viewMode;
             return vbObj;
@@ -88,7 +88,7 @@ namespace BazisGUI.Scene.VBO
         /// <param name="objsName"></param>
         public LineObjects CreateLineVBObjects(int[] ptrs, float[] coords, float[] colors, float[] normals, bool[] edges, string objsName)
         {
-            return new LineObjects(edges, ptrs, coords, colors, normals, objsName);
+            return new LineObjects(objsName,edges, ptrs, coords, colors, normals);
             //glObjs.Add(obj);
             //obj.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
         }
@@ -102,7 +102,7 @@ namespace BazisGUI.Scene.VBO
         /// <param name="objsName"></param>
         public PointObjects CreatePointVBObjects(int[] ptrs, float[] coords, float[] colors, float[] normals, string objsName)
         {
-            return new PointObjects(ptrs, coords, colors, normals, objsName);
+            return new PointObjects(objsName,ptrs, coords, colors, normals);
             //glObjs.Add(obj);
             //obj.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
         }

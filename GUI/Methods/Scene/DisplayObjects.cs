@@ -69,8 +69,10 @@ namespace BazisGUI
 
             DisplayControlStatus();
 
-            Gl.glFlush();
-            scene.Invalidate();
+            //Gl.glFlush();
+            //scene.Invalidate();
+            Gl.glFinish(); // Обработка драйвером буффера команд. См Khronos
+            scene.SwapBuffers(); // Поменять местами буфферы кадров.
         }
 
         private void DisplayControlStatus()
