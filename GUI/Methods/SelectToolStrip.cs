@@ -158,13 +158,13 @@ namespace BazisGUI
 
             var selObjs = project.ModelData.ObjectData.GetObjects(ObjType.Элемент2D).
 
-    Where(x => x.Color == SelectionColor).ToArray();
+    Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
 
             if (selObjs?.Count() > 0)
             {
                 var element = selObjs.Last();
                 modelController.SelectionHelper.SelectE2DInPlane(project.ModelData.ObjectData,
-                    angle, element.Number, SelectionColor);
+                    angle, element.Number, settingsConfig.SelectObjectColor);
                 var pres = CreateObjectsPresentor(project.ModelData, ObjType.Элемент2D);
                 SetVBObjectAttribute(pres, "цвет");
             }
@@ -175,7 +175,7 @@ namespace BazisGUI
         {
             var selObjs = project.ModelData.ObjectData.GetObjects(ObjType.Узел).
 
-    Where(x => x.Color == SelectionColor).ToArray();
+    Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
             if (selObjs?.Count() > 2)
             {
                 var n1 = (Node)selObjs.First();
@@ -184,7 +184,7 @@ namespace BazisGUI
 
                 var plane = new Geometry.Plane(n1.Position, n2.Position, n3.Position);
                 modelController.SelectionHelper.SelectNodeInPlane(project.ModelData.ObjectData,
-                    plane, SelectionColor);
+                    plane, settingsConfig.SelectObjectColor);
 
                 var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
                 SetVBObjectAttribute(pres, "цвет");
@@ -213,19 +213,19 @@ namespace BazisGUI
         {
 
             var selObjs = project.ModelData.ObjectData.GetObjects(arg2).
-    Where(x => x.Color == SelectionColor).ToArray();
+    Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
             if (selObjs?.Count() > 1)
             {
                 if (!reverse)
                 {
                     modelController.SelectionHelper.SelectNodeInDirection(project.ModelData.ObjectData,
-                        angle, selObjs.Skip(1).First().Number, selObjs.First().Number, SelectionColor);
+                        angle, selObjs.Skip(1).First().Number, selObjs.First().Number, settingsConfig.SelectObjectColor);
                 }
 
                 else
                 {
                     modelController.SelectionHelper.SelectNodeInDirection(project.ModelData.ObjectData,
-                        angle, selObjs.First().Number, selObjs.Skip(1).First().Number, SelectionColor);
+                        angle, selObjs.First().Number, selObjs.Skip(1).First().Number, settingsConfig.SelectObjectColor);
                 }
 
                 var pres = CreateObjectsPresentor(project.ModelData, arg2);

@@ -36,19 +36,19 @@ namespace BazisGUI.Scene
         /// <summary>
         /// Включить расчет освещения
         /// </summary>
-        public static bool IsLighting { get; set; }
+        public bool IsLighting { get; set; }
         /// <summary>
         /// Игнорировать задние ребра сурфейсов
         /// </summary>
-        public static bool ShowSurfaceBackEdges { get; set; }
+        public bool ShowSurfaceBackEdges { get; set; }
         /// <summary>
         /// Установка заднего цвета - используется при смешивании цветов
         /// </summary>
-        public static Color BackgroundColor { get; set; }
+        public Color BackgroundColor { get; set; }
         /// <summary>
         /// Включение\выключения усредненного рендера
         /// </summary>
-        public static bool IsEnable { get; set; }
+        public bool IsEnable { get; set; }
         ///
         public AverageColorRenderer(int width, int height)
         {

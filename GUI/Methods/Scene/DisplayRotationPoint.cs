@@ -20,7 +20,7 @@ namespace BazisGUI
 
                 var quadObj = Glu.gluNewQuadric();
 
-                Gl.glScalef(1 / scaleFactor, 1 / scaleFactor, 1 / scaleFactor);
+                Gl.glScalef(1 / ScaleFactor, 1 / ScaleFactor, 1 / ScaleFactor);
                 Glu.gluSphere(quadObj, 0.003, 10, 10); // рисуем сферу
                 Gl.glPopMatrix();
                 Glu.gluDeleteQuadric(quadObj);

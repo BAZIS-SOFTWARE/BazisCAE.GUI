@@ -38,7 +38,7 @@ namespace BazisGUI.SettingsControls
 
         public void SetSettings(SettingsConfig settingsConfig)
         {
-            panelBackGroundColor.BackColor = settingsConfig.BackGroudColor;
+            panelBackGroundColor.BackColor = settingsConfig.BackGroundColor;
             pnlSelectionObjsColor.BackColor = settingsConfig.SelectObjectColor;
             pnlSelectionGroupColor.BackColor = settingsConfig.SelectGroupColor;
             lblSolverPath.Text = settingsConfig.SolverPath;
@@ -58,7 +58,7 @@ namespace BazisGUI.SettingsControls
 
             var config = new SettingsConfig()
             {
-                BackGroudColor = panelBackGroundColor.BackColor,
+                BackGroundColor = panelBackGroundColor.BackColor,
                 SelectObjectColor = pnlSelectionObjsColor.BackColor,
                 SelectGroupColor = pnlSelectionGroupColor.BackColor,
 

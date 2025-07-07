@@ -762,7 +762,7 @@ namespace BazisGUI
             //SelectedObjects = group.ObjType.ToString();
 
             foreach (var iobj in group)
-                iobj.Color = SelectionColor;
+                iobj.Color = settingsConfig.SelectObjectColor;
 
             var pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
             SetVBObjectAttribute(pres,"цвет");

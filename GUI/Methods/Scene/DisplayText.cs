@@ -14,18 +14,18 @@ namespace BazisGUI
         {
             var met = new Action(() =>
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 Gl.glPushMatrix();
-                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
                 Gl.glColor3b(color.R, color.G, color.B);
                 Gl.glRasterPos3f(coord._x, coord._y, coord._z);
                 Gl.glPushAttrib(Gl.GL_LIST_BASE);//Избегаем пересечений списков, сохраняем старую базу
-                Gl.glListBase(fontBase);//Устанавливаем базу на fontBase
+                Gl.glListBase(FontBase);//Устанавливаем базу на fontBase
                 Gl.glCallLists(str.Length, Gl.GL_UNSIGNED_SHORT, str);
                 Gl.glPopAttrib();//Возвращаем старую базу
                 Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
 
@@ -37,13 +37,13 @@ namespace BazisGUI
         {
             var met = new Action(() =>
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 Gl.glMatrixMode(Gl.GL_PROJECTION);
                 Gl.glPushMatrix();
                 Gl.glLoadIdentity();
 
-                Gl.glOrtho(0, camera.Width, 0, camera.Height, 0.1, 200);
+                Gl.glOrtho(0, scene.Width, 0, scene.Height, 0.1, 200);
 
                 Gl.glMatrixMode(Gl.GL_MODELVIEW);
                 Gl.glPushMatrix();
@@ -55,7 +55,7 @@ namespace BazisGUI
                 Gl.glColor3b(color.R, color.G, color.B);
                 Gl.glRasterPos3f(coord._x, coord._y, -5);
                 Gl.glPushAttrib(Gl.GL_LIST_BASE);//Избегаем пересечений списков, сохраняем старую базу
-                Gl.glListBase(fontBase);//Устанавливаем базу на fontBase
+                Gl.glListBase(FontBase);//Устанавливаем базу на fontBase
                 Gl.glCallLists(str.Length, Gl.GL_UNSIGNED_SHORT, str);
                 Gl.glPopAttrib();//Возвращаем старую базу
                 Gl.glPopMatrix();
@@ -64,7 +64,7 @@ namespace BazisGUI
                 Gl.glPopMatrix();
                 Gl.glMatrixMode(Gl.GL_MODELVIEW);
                 Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
             DisplayText2DEvent += met;

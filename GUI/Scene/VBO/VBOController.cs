@@ -133,6 +133,15 @@ namespace BazisGUI.Scene.VBO
 
 
         }
+        /// <summary>
+        /// Смена режима прозрачности для vbo-объектов
+        /// </summary>
+        /// <param name="AverageColorRenderer"></param>
+        public void ChangeVBOTransparentMode(AverageColorRenderer averageColorRenderer)
+        {
+            foreach (var globj in GetVBObjs())
+                globj.ActiveDrawingObject = averageColorRenderer;
+        }
 
         public void ChangeViewModeVBObjects(string objsName, ObjView objView)
         {

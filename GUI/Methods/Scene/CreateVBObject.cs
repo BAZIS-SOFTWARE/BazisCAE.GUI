@@ -46,7 +46,7 @@ namespace BazisGUI
                 else
                     vb = VBOController.CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
 
-                vb.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
+                vb.ActiveDrawingObject = averageColorRenderer.IsEnable ? averageColorRenderer : null;
                 return vb;
             }
             else throw new Exception("VB объект не содержит точек");

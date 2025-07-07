@@ -85,7 +85,7 @@ namespace BazisGUI
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
                 var pointObjs = modelData.ObjectData.GetObjects(objType);
-                var selObjs = pointObjs.Where(x => x.Color == SelectionColor).ToArray();
+                var selObjs = pointObjs.Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
 
                 if (selObjs.Length < 3)
                 {
@@ -164,7 +164,7 @@ namespace BazisGUI
         {
             var actConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var selObj = group.Where(x => x.Color == SelectionColor);
+                var selObj = group.Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 if (selObj.Count() == 0)
                 {

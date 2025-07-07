@@ -14,11 +14,12 @@ namespace BazisGUI
     {
         public void SceneInitialization()
         {
-            basis = new SceneBasis();
+            //basis = new SceneBasis();
+            DisplayBasis();
             DisplayRotationPointEvent = CreateRotationPoint();
-            camera = new SceneCamera(0, 0, -5, Width, Height, 2.5f);
-            UpdateProjection();
-            compass = new SceneCompass();
+            CameraInitialization(0, 0, -5);
+            UpdateProjection();        
+            DisplayCompass();
 
             selectionRectangle = new ScreenRectangle();
 
@@ -26,15 +27,15 @@ namespace BazisGUI
             IntPtr hdc = Wgl.wglGetCurrentDC();
             Wgl.wglUseFontBitmapsW(hdc, 0, 1150, 1000); // Ниже заменю на проверенный корректный вызов*/
 
-            fontBase = Gl.glGenLists(1150);//кол-во глифов (элементов для рисования букв 256 - только латиница, 1150 - поддержка еще и кирилицы)
-            ChangeTextFont(fontBase);//Используем шрифт по-умолчанию
+            FontBase = Gl.glGenLists(1150);//кол-во глифов (элементов для рисования букв 256 - только латиница, 1150 - поддержка еще и кирилицы)
+            ChangeTextFont();//Используем шрифт по-умолчанию
             //ChangeTextFont(fontBase, "Comic Sans", 18, FontStyle.Italic);//Проверка различного типа шрифтов
-            compass.FontBase = fontBase;
+            //FontBase = fontBase;
             //После этого мы должны передавать fontBase в любой класс, который использует шрифты!          
 
             //Gle.Load();
             //AverageColorRenderer.CreateAverageColorRenderer(scene.Width, scene.Height);
-            averageColorRenderer = new AverageColorRenderer(Width, Height);
+            averageColorRenderer = new AverageColorRenderer(scene.Width, scene.Height);
             clipPlaneRenderer = new ClipPlaneRenderer();
             advanced3DClipper = new Advanced3DClipper();
             Disposed += (s, e) =>
@@ -44,11 +45,47 @@ namespace BazisGUI
                 averageColorRenderer.Dispose();
                 clipPlaneRenderer.Dispose();
                 advanced3DClipper.Dispose();
-                Gl.glDeleteLists(fontBase, 1150);
+                Gl.glDeleteLists(FontBase, 1150);
             };
             //Disposed += (s, e) => AverageColorRenderer.Dispose();
             //Disposed += (s, e) => clipPlaneRenderer.Dispose();
             //DisplayClipPlane();//Регистрируем обработчик визуализации сечения
+        }
+
+        /// <summary>
+        /// SceneCamera
+        /// </summary>
+        /// <param name="moveX"></param>
+        /// <param name="moveY"></param>
+        /// <param name="moveZ"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="angleOfProjection"></param>
+        public void CameraInitialization(float moveX, float moveY, float moveZ)
+        {
+            //ScaleFactor = 1;
+            // подклюение функции проверки буфера глубины 
+            Gl.glEnable(Gl.GL_DEPTH_TEST);
+
+            // задать цвет очистки экрана
+            Gl.glClearColor(1, 1, 1, 0);
+
+            // выполнение очистки буфера цвета и буфера глубины в заданный цвет glClearColor(1, 1, 1, 0) 
+            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
+
+            // установка порта вывода в соответствии с размерами элемента anT 
+            Gl.glViewport(0, 0, scene.Width, scene.Height);
+
+            // настройка матрицы проекции 
+            Gl.glMatrixMode(Gl.GL_PROJECTION);
+            Gl.glLoadIdentity();
+            //Gl.glOrtho(0, baseScene.Width, 0, baseScene.Height, 0.1, 2000);
+            Glu.gluPerspective(settingsConfig.AngleOfProjection, (double)scene.Width / scene.Height, 1, 2000);
+
+            // настройка матрицы видовых преобразований  
+            Gl.glMatrixMode(Gl.GL_MODELVIEW);
+            Gl.glLoadIdentity();
+            Gl.glTranslatef(moveX, moveY, moveZ);
         }
 
 
@@ -70,12 +107,12 @@ namespace BazisGUI
         /// <param name="fontFamily">Семейство шрифтов например "Times New Roman"</param>
         /// <param name="size">Размер шрифта</param>
         /// <param name="style">Курсив(Italic), жирный(Bold) и т.д</param>
-        private void ChangeTextFont(int fBase, string fontFamily = "", float size = 8.25f, FontStyle style = FontStyle.Regular)
+        private void ChangeTextFont(string fontFamily = "", float size = 8.25f, FontStyle style = FontStyle.Regular)
         {
             var hdc = GetDeviceContext();
             if (string.IsNullOrEmpty(fontFamily))
             {
-                var status = Wgl.wglUseFontBitmapsW(hdc, 0, 1150, fBase);
+                var status = Wgl.wglUseFontBitmapsW(hdc, 0, 1150, FontBase);
             }
             else
             {
@@ -84,7 +121,7 @@ namespace BazisGUI
 
                 //Вызов системных функций, для корректной замены шрифта!
                 var oldFont = Gdi.SelectObject(hdc, hFont);//Делаем Swap шрифтов
-                var status = Wgl.wglUseFontBitmapsW(hdc, 0, 1150, fBase);
+                var status = Wgl.wglUseFontBitmapsW(hdc, 0, 1150, FontBase);
 
                 Gdi.SelectObject(hdc, oldFont);//Делаем текущим старый шрифт
                 Gdi.DeleteObject(hFont);//Обязательно освобождаем неуправляемый ресурс

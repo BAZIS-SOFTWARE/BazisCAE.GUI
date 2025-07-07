@@ -26,13 +26,13 @@ namespace BazisGUI
 
                 if (arg2.ClickedItem.Tag.ToString() == "0")
                 {
-                    IsInsideObjectsShown = true;
+                    settingsConfig.IsInsideObjectsShown = true;
                     ShowInsideObjects();
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "1")
                 {
-                    IsInsideObjectsShown = false;
+                    settingsConfig.IsInsideObjectsShown = false;
                     HideInsideObjects();
                 }
 
@@ -135,8 +135,8 @@ namespace BazisGUI
             var btn = (ToolStripButton)sender;
 
             if (btn.Checked)
-                DisplayBasis = true;
-            else DisplayBasis = false;
+                settingsConfig.DisplayBasis = true;
+            else settingsConfig.DisplayBasis = false;
 
             DisplayObjects();
         }

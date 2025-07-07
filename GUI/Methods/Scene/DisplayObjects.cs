@@ -11,20 +11,24 @@ namespace BazisGUI
     {
         public void DisplayObjects()
         {
-            Gl.glClearColor(BackGroundColor.R / 255.0f, BackGroundColor.G / 255.0f, BackGroundColor.B / 255.0f, 0);
+            Gl.glClearColor(settingsConfig.BackGroundColor.R / 255.0f, 
+                settingsConfig.BackGroundColor.G / 255.0f, 
+                settingsConfig.BackGroundColor.B / 255.0f, 0);
             // очистка буфера цвета и буфера глубины в заданный цвет 
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
 
-            if (IsBlending && !advanced3DClipper.IsEnable)
+            if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                 averageColorRenderer.ClearColors();
-            if (DisplayBasis)
+            if (settingsConfig.DisplayBasis)
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                basis.Display(camera, scaleFactor);
-                if (displayRotatioPoint)
-                    DisplayRotationPointEvent.Invoke();
-                if (IsBlending && !advanced3DClipper.IsEnable)
+
+                DisplayBasisEvent?.Invoke();
+                //basis.Display(ScaleFactor);
+
+                DisplayRotationPointEvent?.Invoke();
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             }
 
@@ -33,7 +37,7 @@ namespace BazisGUI
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glLoadIdentity();
 
-            var matrix = camera.GetViewMatrix();
+            var matrix = ViewMatrix;
             var viewMatrixAr = matrix.AsColumnMajorArray();
 
             Gl.glLoadMatrixf(viewMatrixAr);
@@ -42,7 +46,7 @@ namespace BazisGUI
             // вызов всех подключенных методов   
             DisplayGeometryObjectEvent?.Invoke();
 
-            if (IsCutting)
+            if (settingsConfig.IsCutting)
             {
                 Gl.glEnable(Gl.GL_CULL_FACE);
                 Gl.glCullFace(Gl.GL_BACK);
@@ -50,20 +54,15 @@ namespace BazisGUI
             }
             //if (IsLighting)//Перенес в другое место
             //Gl.glEnable(Gl.GL_LIGHTING);
-            //if(IsBlending) //Не нужно
+            //if(settingsConfig.Transparency) //Не нужно
             //Gl.glEnable(Gl.GL_BLEND);
 
             DisplayModelObjects();
-            if (IsBlending && !advanced3DClipper.IsEnable)
+            if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                 averageColorRenderer.BlendFramebuffers();
 
-            if (DisplayCompass)
-            {
-                Gl.glDisable(Gl.GL_DEPTH);
-                compass.Display(camera, scaleFactor);
-                Gl.glEnable(Gl.GL_DEPTH);
-            }
-
+            DisplayCompassEvent?.Invoke();
+                //compass.Display(camera, ScaleFactor);              
 
             DisplayText3DEvent?.Invoke();
             DisplayText2DEvent?.Invoke();
@@ -83,19 +82,19 @@ namespace BazisGUI
             cornerRect.winScreneCoord.Y = cornerRect.winScrenePosit.Y - 8;
             cornerRect.Display(scene.Width, scene.Height);
 
-            if (IsSceneExpand)
-            {
-                cornerRect.winScrenePosit = new Point(Width - 21, Height - 12);
-                cornerRect.winScreneCoord.X = cornerRect.winScrenePosit.X + 8;
-                cornerRect.winScreneCoord.Y = cornerRect.winScrenePosit.Y - 8;
-                cornerRect.Display(scene.Width, scene.Height);
-            }
+            //if (IsSceneExpand)
+            //{
+            //    cornerRect.winScrenePosit = new Point(Width - 21, Height - 12);
+            //    cornerRect.winScreneCoord.X = cornerRect.winScrenePosit.X + 8;
+            //    cornerRect.winScreneCoord.Y = cornerRect.winScrenePosit.Y - 8;
+            //    cornerRect.Display(scene.Width, scene.Height);
+            //}
         }
 
         private void DisplayModelObjects()
         {
             Gl.glPushMatrix();//У каждого VBObject теперь свои трансформации
-            Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+            Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
 
             Gl.glEnable(Gl.GL_NORMALIZE); //делам нормали одинаковой величины во избежание артефактов
             Gl.glEnable(Gl.GL_LIGHT0);
@@ -103,7 +102,7 @@ namespace BazisGUI
             //Установим вектор перемещения для источника света GL_LIGHT0
             Gl.glPushMatrix();
             Gl.glLoadIdentity();
-            Gl.glTranslatef(LightTranslateX, LightTranslateY, LightTranslateZ);
+            Gl.glTranslatef(settingsConfig.LighterPosition.X, settingsConfig.LighterPosition.Y, 0);
             var pos = new float[] { 0.0f, 0.0f, 1.0f, 1.0f };
             Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, pos);
             Gl.glPopMatrix();
@@ -115,9 +114,10 @@ namespace BazisGUI
             //Gl.glEnableClientState(Gl.GL_NORMAL_ARRAY);
             //Gl.glEnableClientState(Gl.GL_EDGE_FLAG_ARRAY);
             DisplayReflectionPlaneEvent?.Invoke();
-            if (displayClipPlane)
-                DisplayClipPlaneEvent?.Invoke();
-            if (IsLighting)
+
+            DisplayClipPlaneEvent?.Invoke();
+            
+            if (settingsConfig.Lighting)
                 Gl.glEnable(Gl.GL_LIGHTING);
             float[] global_ambient = new float[] { 0.2f, 0.2f, 0.2f, 1 };
             Gl.glLightModelfv(Gl.GL_LIGHT_MODEL_AMBIENT, global_ambient);

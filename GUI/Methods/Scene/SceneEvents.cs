@@ -123,7 +123,7 @@ spbSelectObject.ToolTipText == "Элементы")
             try
             {
                 var objs = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, SelectedObjects);
-                var selObjs = objs.Where(x => x.Color == SelectionColor);
+                var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 var message = $"Выбраны {SelectedObjects} {selObjs.Count()}";
 
@@ -164,8 +164,8 @@ spbSelectObject.ToolTipText == "Элементы")
                     var y = coords[3 * i + 1];
                     var z = coords[3 * i + 2];
 
-                    var scnCoord = camera.GetSceenCoord(x, y, z);
-                    var scrCoord = camera.GetScreenCoord(scnCoord);
+                    var scnCoord = GetSceenCoord(x, y, z);
+                    var scrCoord = GetScreenCoord(scnCoord);
 
                     if (selectionBox.IsPointInside(scrCoord))
                         selection.Add(scnCoord);
@@ -254,8 +254,8 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                         var y = coords[3 * i + 1];
                         var z = coords[3 * i + 2];
 
-                        var scnPoint = camera.GetSceenCoord(x, y, z);
-                        var scrPoint = camera.GetScreenCoord(scnPoint);
+                        var scnPoint = GetSceenCoord(x, y, z);
+                        var scrPoint = GetScreenCoord(scnPoint);
 
                         if (selectionBox.IsPointInside(scrPoint))
                             selection.Add(new Point3D(x, y, z));
@@ -276,6 +276,19 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             }
         }
 
+        /// <inheritdoc/>
+        //TO DO добавить тест
+        public void SetRotationCentre(Point3D modelPoint)
+        {
+            var viewMatrix = ViewMatrix;
+
+            Position = modelPoint; // Может быть не хранить мировые кординаты выбранной точки как позицию камеры
+
+            viewMatrix[0, 3] = 0; viewMatrix[1, 3] = 0;
+            var tempViewMatrixAr = viewMatrix.AsColumnMajorArray();
+            Gl.glLoadMatrixf(tempViewMatrixAr);
+        }
+
         private void GlControl_Resize(object sender, EventArgs e)
         {
             // установка порта вывода в соответствии с размерами элемента anT 
@@ -284,25 +297,14 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             Gl.glMatrixMode(Gl.GL_PROJECTION);
             Gl.glLoadIdentity();
 
-            if (camera == null)
-            {
-                Glu.gluPerspective(2.5f, (double)scene.Width / scene.Height, 1, 2000);//Учтется при UpdateProjection
-                Gl.glMatrixMode(Gl.GL_MODELVIEW);
-                Gl.glLoadIdentity();
-                //UpdateProjection();//Перенес в метод Initialization - сразу после создания камеры
-            }
-            else
-            {
-                //Glu.gluPerspective(camera.AngleOfProjection, (double)scene.Width / scene.Height, 1, 2000);//Учтется при UpdateProjection
-                Gl.glMatrixMode(Gl.GL_MODELVIEW);
-                var matrix = camera.GetViewMatrix().AsColumnMajorArray();
-                Gl.glLoadMatrixf(matrix);
-                camera.Width = scene.Width;
-                camera.Height = scene.Height;
-                UpdateProjection();
-                averageColorRenderer.Reshape(scene.Width, scene.Height);
-                DisplayObjects();
-            }
+            //Glu.gluPerspective(camera.AngleOfProjection, (double)scene.Width / scene.Height, 1, 2000);//Учтется при UpdateProjection
+            Gl.glMatrixMode(Gl.GL_MODELVIEW);
+            var matrix = ViewMatrix.AsColumnMajorArray();
+            Gl.glLoadMatrixf(matrix);
+
+            UpdateProjection();
+            averageColorRenderer.Reshape(scene.Width, scene.Height);
+            DisplayObjects();
 
             scene.Invalidate();
         }
@@ -324,7 +326,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
 
             else if (e.Button == MouseButtons.Right)
             {
-                camera.Move(new_mousePosition, ScreenMousePosition, scaleFactor);
+                Move(new_mousePosition, ScreenMousePosition, ScaleFactor);
                 DisplayObjects();
             }
 
@@ -335,7 +337,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                 var dx = (new_mousePosition.X - ScreenMousePosition.X) * (2 * (-moveCam_z)) / (float)(scene.Width); //(mousePosition.Y - new_mousePosition.Y)
                 var dy = (new_mousePosition.Y - ScreenMousePosition.Y) * (2 * (-moveCam_z)) / (float)(scene.Height);
 
-                camera.Rotate(dx, dy, RotationAxis, RotationAngle);
+                Rotate(dx, dy, settingsConfig.RotationAxis, settingsConfig.RotationAngle);
 
                 DisplayObjects();
             }
@@ -358,7 +360,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
         {
             MouseMoveFlag = false;
             if (e.Button == MouseButtons.Middle)
-                displayRotatioPoint = true;
+                DisplayRotationPointEvent += CreateRotationPoint();
 
             selectionRectangle.winScrenePosit.X = e.X;
             selectionRectangle.winScrenePosit.Y = -e.Y + scene.Height;
@@ -371,17 +373,17 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             if (e.Button == MouseButtons.Left)
             {
 
-                if (e.Location.X > Width - 16 & e.Location.X < Width - 8 && e.Location.Y <= 10)
-                    if (!IsSceneExpand)
-                    {
-                        IsSceneExpand = true;
-                    }
-                    else
-                    {
-                        IsSceneExpand = false;
-                    }
-                else
-                {
+                //if (e.Location.X > Width - 16 & e.Location.X < Width - 8 && e.Location.Y <= 10)
+                //    if (!IsSceneExpand)
+                //    {
+                //        IsSceneExpand = true;
+                //    }
+                //    else
+                //    {
+                //        IsSceneExpand = false;
+                //    }
+                //else
+                //{
                     var left = selectionRectangle.winScrenePosit.X - scene.Width / 2;
                     var rigth = selectionRectangle.winScreneCoord.X - scene.Width / 2;
                     var top = selectionRectangle.winScrenePosit.Y - scene.Height / 2;
@@ -398,12 +400,12 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                         SelectObjects(selectionBox, sortFlag, true);
                     else
                         SelectObjects(selectionBox, sortFlag, false);
-                }
+                //}
                 DisplayObjects();
             }
             else if (e.Button == MouseButtons.Middle)
             {
-                displayRotatioPoint = false;
+                DisplayRotationPointEvent = null;
                 DisplayObjects();
             }
         }
@@ -423,7 +425,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                         {
                             var set = project.ModelData.ObjectData.GetSetInfo(obj.ObjType, obj.Number);
                             if (isSelected)
-                                obj.Color = settingsConfig.SelectObjectColor;//  page.ScenePage.SelectionColor;
+                                obj.Color = settingsConfig.SelectObjectColor;//  page.ScenePage.settingsConfig.SelectObjectColor;
                             else
                                 obj.Color = set.Color;
                         }
@@ -436,6 +438,72 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        internal void ColorObjects(IModelData modelData, string objTypeStr)
+        {
+            if (objTypeStr == "Объекты")
+            {
+                foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
+                    SetVBObjectAttribute(CreateObjectsPresentor(modelData, type), "цвет");
+            }
+            else if (objTypeStr == "Элементы")
+            {
+                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент1D), "цвет");
+                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент2D), "цвет");
+                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент3D), "цвет");
+            }
+            else if (objTypeStr == "Фигуры")
+            {
+                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Поверхность), "цвет");
+                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Объем), "цвет");
+            }
+            else
+            {
+                var objType = Converters.ConvertToObjsType(objTypeStr);
+                var presentor = CreateObjectsPresentor(modelData, objType);
+                SetVBObjectAttribute(presentor, "цвет");
+            }
+
+
+            DisplayObjects();
+        }
+
+        public List<IModelObject> SearchObjects(IEnumerable<IModelObject> objects, RectangleBox selectionBox, bool isSorted)
+        {
+            var selections = new List<IModelObject>();
+
+            foreach (var item in objects)
+            {
+                if (item.ViewState)
+                {
+                    var scrPoints = new Point2D[item.NumberOfPoints];
+                    var scnPoints = new Point3D[item.NumberOfPoints];
+
+                    var pointCounter = 0;
+                    foreach (var point in item.GetCoordinates())
+                    {
+                        var scnPoint = GetSceenCoord(point);
+                        scnPoints[pointCounter] = scnPoint;
+
+                        var scrPoint = GetScreenCoord(scnPoint);
+                        scrPoints[pointCounter] = scrPoint;
+
+                        pointCounter++;
+                    }
+
+                    if (selectionBox.IsPointsInside(scrPoints))
+                        selections.Add(item);
+                }
+            }
+
+            if (isSorted & selections.Count > 0)
+            {
+                var near = selections.OrderByDescending(x => GetSceenCoord(x.CalcCentr())._z).FirstOrDefault();
+                selections = new List<IModelObject>() { near };
+            }
+
+            return selections;
         }
 
         private void scene_SceneExpandEvent()

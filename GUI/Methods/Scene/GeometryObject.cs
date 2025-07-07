@@ -4,6 +4,7 @@ using Tao.OpenGl;
 using Geometry;
 using System.Drawing;
 using BazisGUI.Scene;
+using System.Linq;
 
 namespace BazisGUI
 {
@@ -14,10 +15,10 @@ namespace BazisGUI
         {
             var met = new Action(() =>
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 Gl.glPushMatrix();
-                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
 
                 Gl.glLineWidth(1.5f);
                 Gl.glBegin(Gl.GL_LINES);
@@ -45,7 +46,7 @@ namespace BazisGUI
 
                 Gl.glEnd();
                 Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
 
@@ -56,10 +57,10 @@ namespace BazisGUI
         {
             var met = new Action(() =>
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 Gl.glPushMatrix();
-                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
                 Gl.glColor3f(1, 0, 0);
                 Gl.glLineWidth(5.0f);
                 Gl.glBegin(Gl.GL_LINES);
@@ -69,12 +70,12 @@ namespace BazisGUI
                 Gl.glEnd();
                 Gl.glPopMatrix();
 
-                var p0 = camera.GetSceenCoord(line.P0);
-                var p1 = camera.GetSceenCoord(line.P1);
+                var p0 = GetSceenCoord(line.P0);
+                var p1 = GetSceenCoord(line.P1);
 
-                var p0_2D = camera.GetScreenCoord(p0);
-                var p1_2D = camera.GetScreenCoord(p1);
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                var p0_2D = GetScreenCoord(p0);
+                var p1_2D = GetScreenCoord(p1);
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
 
@@ -90,20 +91,20 @@ namespace BazisGUI
             Action met;
             if (points.Length > 1)
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 var path = new ScenePath(points);
                 var quantity = path.PointsQuantity;
                 met = new Action(() =>
                 {
-                    if (IsBlending && !advanced3DClipper.IsEnable)
+                    if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                         averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                    path.Display(camera.Position);
+                    path.Display(Position);
                     var p0 = path[quantity - 2];
                     var p1 = path[quantity - 1];
                     DisplayText3D(path.Length.ToString(), Color.FromArgb(0, 0, 0),
                     new Point3D((p0._x + p1._x) / 2, (p0._y + p1._y) / 2, (p0._z + p1._z) / 2));
-                    if (IsBlending && !advanced3DClipper.IsEnable)
+                    if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                         averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
                 });
 
@@ -117,10 +118,10 @@ namespace BazisGUI
 
             met = new Action(() =>
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 Gl.glPushMatrix();
-                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
                 Gl.glColor3ub(objColor.R, objColor.G, objColor.B);
                 Gl.glLineWidth(5.0f);
                 Gl.glBegin(Gl.GL_LINES);
@@ -129,7 +130,7 @@ namespace BazisGUI
                 Gl.glVertex3f(p1._x, p1._y, p1._z);
                 Gl.glEnd();
                 Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
 
@@ -142,7 +143,7 @@ namespace BazisGUI
 
             del = new Action(() =>
             {
-                scale.Display(camera.Width, camera.Height, CreateGraphics(), Font);
+                scale.Display(scene.Width, scene.Height, CreateGraphics(), Font);
             });
 
             DisplayGeometryObjectEvent += del;
@@ -153,10 +154,10 @@ namespace BazisGUI
 
             met = new Action(() =>
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 Gl.glPushMatrix();
-                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
                 Gl.glColor3ub(objColor.R, objColor.G, objColor.B);
                 Gl.glLineWidth(5.0f);
                 Gl.glBegin(Gl.GL_LINES);
@@ -165,7 +166,7 @@ namespace BazisGUI
                 Gl.glVertex3f(p1._x, p1._y, p1._z);
                 Gl.glEnd();
                 Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
 
@@ -181,7 +182,7 @@ namespace BazisGUI
 
             DisplayGeometryObjectEvent += new Action(() =>
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 var quadObj = Glu.gluNewQuadric(); // создаем новый объект
                                                    // для создания сфер и цилиндров
@@ -190,7 +191,7 @@ namespace BazisGUI
                 Gl.glColor3d(1, 0, 0);
                 Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
 
-                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
 
                 //shifting
                 Gl.glTranslatef(frame.Centre._x, frame.Centre._y, frame.Centre._z);
@@ -221,7 +222,7 @@ namespace BazisGUI
 
             met = new Action(() =>
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 var quadObj = Glu.gluNewQuadric(); // создаем новый объект
                                                    // для создания сфер и цилиндров
@@ -229,7 +230,7 @@ namespace BazisGUI
                 Gl.glPushMatrix();
                 Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
                 Gl.glColor3d(1, 0, 0);
-                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
+                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
 
                 Gl.glTranslatef(frame.Centre._x, frame.Centre._y, frame.Centre._z);
 
@@ -248,6 +249,34 @@ namespace BazisGUI
             });
 
             DisplayGeometryObjectEvent += met;
+        }
+
+        public void HideGeometryObj(string searchMethod)
+        {
+            //var list = PlugDisplayObjectEvent?.GetInvocationList();
+            for (int i = 0; i < DisplayGeometryObjectEvent?.GetInvocationList().Count(); i++)
+            {
+                var del = DisplayGeometryObjectEvent.GetInvocationList()[i];
+                if (del.Method.Name.Contains(searchMethod))
+                {
+                    DisplayGeometryObjectEvent -= (Action)del;
+                    i--;
+                }
+            }
+        }
+
+        public bool FindGeometryObj(string searchMethod)
+        {
+            //var list = PlugDisplayObjectEvent?.GetInvocationList();
+            for (int i = 0; i < DisplayGeometryObjectEvent?.GetInvocationList().Count(); i++)
+            {
+                var del = DisplayGeometryObjectEvent.GetInvocationList()[i];
+                if (del.Method.Name.Contains(searchMethod))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

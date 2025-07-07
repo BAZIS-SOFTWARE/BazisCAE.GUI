@@ -20,7 +20,7 @@ namespace BazisGUI
 
             var met = new Action(() =>
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 var bb = original.BoundingBox;
                 Gl.glPushMatrix();
@@ -88,7 +88,7 @@ namespace BazisGUI
                 Gl.glVertex3f(arrow1._x, arrow1._y, arrow1._z);
                 Gl.glEnd();
                 Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
 

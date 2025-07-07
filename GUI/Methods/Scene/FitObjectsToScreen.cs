@@ -10,7 +10,7 @@ namespace BazisGUI
     {
         public void FitObjectsToScreen()
         {
-            var matrix = camera.GetViewMatrix();
+            var matrix = ViewMatrix;
             matrix[0, 3] = 0; matrix[1, 3] = 0;
             var tempViewMatrixAr = matrix.AsColumnMajorArray();
 
@@ -34,8 +34,8 @@ namespace BazisGUI
                         var x = coords[3 * j + 0];
                         var y = coords[3 * j + 1];
                         var z = coords[3 * j + 2];
-                        var scnCoord = camera.GetSceenCoord(x, y, z);
-                        var scrCoord = camera.GetScreenCoord(scnCoord);
+                        var scnCoord = GetSceenCoord(x, y, z);
+                        var scrCoord = GetScreenCoord(scnCoord);
 
                         var pRad = (float)Math.Sqrt((scrCoord._x * scrCoord._x) + (scrCoord._y * scrCoord._y));
 

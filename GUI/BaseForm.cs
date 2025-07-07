@@ -44,14 +44,25 @@ using BazisGUI.Scene.Interfaces;
 using ModelController.MeshObjsUtility;
 using ModelController.ModelScenePresentator;
 using BazisGUI.Scene;
+using Newtonsoft.Json.Linq;
+using Tao.OpenGl;
+using BazisGUI.Scene.VBO;
 
 namespace BazisGUI
 {
 
     public partial class BaseForm : Form
     {
+        Point ScreenMousePosition { get; set; } = new Point(0, 0);
+        bool MouseMoveFlag { get; set; }
+
         //private System.Windows.Forms.Timer connectTimer = new System.Windows.Forms.Timer();
         ProjectData project;
+
+        ScreenRectangle selectionRectangle;
+        ClipPlaneRenderer clipPlaneRenderer;
+        Advanced3DClipper advanced3DClipper;
+        AverageColorRenderer averageColorRenderer;
 
         //BasePage module;
         ModelController.ModelController modelController = new ModelController.ModelController();
@@ -61,13 +72,14 @@ namespace BazisGUI
         PropertyPanelProvider panelProvider = new PropertyPanelProvider();
         PostProcController resultsController = new PostProcController();
         IPresentersCreator presentersCreator = new PresentersCreator();
+        VBOController VBOController = new VBOController();
 
         public ChangeInsideSurface changeInsideSurface => new ChangeInsideSurface();
         ClientController serverConnection;
         
         SettingsConfig settingsConfig = new SettingsConfig()
         {
-            BackGroudColor = Color.White,
+            BackGroundColor = Color.White,
             SelectObjectColor = Color.GreenYellow,
             NodeColor = Color.FromArgb(153, 192, 86),
             Transparency = false,
@@ -362,12 +374,14 @@ namespace BazisGUI
         {
             try
             {
-                BackGroundColor = settingsConfig.BackGroudColor;
-                IsBlending = settingsConfig.Transparency;
-                IsLighting = settingsConfig.Lighting;
+                //BackGroundColor = settingsConfig.BackGroudColor;
+                averageColorRenderer.BackgroundColor = settingsConfig.BackGroundColor;
+                averageColorRenderer.IsEnable = settingsConfig.Transparency;
+                averageColorRenderer.IsLighting = settingsConfig.Lighting;//Синхронизация с рендером прозрачности
                 var transpVal = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
-                SelectionColor = Color.FromArgb(transpVal, settingsConfig.SelectObjectColor);
-                SelectionGroupColor = Color.FromArgb(transpVal, settingsConfig.SelectGroupColor);
+                settingsConfig.SelectObjectColor = Color.FromArgb(transpVal, settingsConfig.SelectObjectColor);
+                settingsConfig.SelectGroupColor = Color.FromArgb(transpVal, settingsConfig.SelectGroupColor);
+
                 //module.ScenePage.NodeColor = settingsConfig.NodeColor;
                 //module.ScenePage.E2DColor = settingsConfig.Elem2DColor;
                 //module.ScenePage.E3DColor = settingsConfig.Elem3DColor;
@@ -505,16 +519,16 @@ namespace BazisGUI
                 form.Location = location;
             }
 
-             SetSettingsToModule(settings);
+             SetSettingsToConfig(settings);
             
         }
 
-        private void SetSettingsToModule(SettingsControl settings)
+        private void SetSettingsToConfig(SettingsControl settings)
         {
 
-            settings.SetSelectionGroupColorEvent += (ar) => SelectionGroupColor = ar;
+            settings.SetSelectionGroupColorEvent += (ar) => settingsConfig.SelectGroupColor = ar;
             settings.SetSelectionObjectColorEvent += (ar) =>
-            SelectionColor = ar;
+            settingsConfig.SelectObjectColor = ar;
 
             settings.SetNodeColorEvent += (ar) => { 
                 //NodeColor = ar;
@@ -529,23 +543,25 @@ namespace BazisGUI
             };
             settings.SetBackGroundColorEvent += (ar) =>
             {
-                BackGroundColor = ar;
+                settingsConfig.BackGroundColor = ar;
+                averageColorRenderer.BackgroundColor = ar;
                 DisplayObjects();
             };
 
 
             settings.SetLightingEvent += (ar) =>
             {
-                IsLighting = ar;
+                settingsConfig.Lighting = ar;
+                averageColorRenderer.IsLighting = ar;
                 DisplayObjects();
             };
 
             settings.SetTransparencyEvent += (ar) =>
             {
-                IsBlending = ar;
-                ClearAllDataOnScene();
-                CreateVBObjects(project.ModelData, "Объекты");
-                //PresentAllModelObjectsToScene(project.ModelData);
+                settingsConfig.Transparency = ar;
+                averageColorRenderer.IsEnable = ar;
+                //ClearAllDataOnScene();
+                //CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             };
 
@@ -560,8 +576,8 @@ namespace BazisGUI
             {
                 settingsConfig.TransparencyValue = (int)(ar1 / 100.0f * 255);
 
-                SelectionColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectObjectColor);
-                SelectionGroupColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectGroupColor);
+                settingsConfig.SelectObjectColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectObjectColor);
+                settingsConfig.SelectGroupColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectGroupColor);
 
                 var objs = project.ModelData.ObjectData.GetAllObjects();
 
@@ -579,7 +595,9 @@ namespace BazisGUI
 
             settings.SetLightingIntensityEvent += (ar) =>
             {
-                LightAttenuation = 1 - ar / 100.0f;
+                settingsConfig.LightingIntensity = ar;
+                var lightAttenuation = 1 - ar / 100.0f;
+                Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_LINEAR_ATTENUATION, ref lightAttenuation);
                 DisplayObjects();
             };
 
@@ -592,8 +610,8 @@ namespace BazisGUI
                 var x = ar.X * kx;
                 var y = ar.Y * ky;
 
-                LightTranslateX = x;
-                LightTranslateY = y;
+                settingsConfig.LighterPosition.X = (int)x;
+                settingsConfig.LighterPosition.Y = (int)y;
 
                 DisplayObjects();
             };

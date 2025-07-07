@@ -38,7 +38,7 @@ namespace BazisGUI
                     pre = presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.E2DCollection.GetObjects());
                     break;
                 case ObjType.Элемент3D:
-                    if (IsInsideObjectsShown)
+                    if (settingsConfig.IsInsideObjectsShown)
                         changeInsideSurface.HideInsideSurfaces(modelData.ObjectData.E3DCollection.GetObjects());
                     pre = presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.E3DCollection.GetObjects());
                     break;

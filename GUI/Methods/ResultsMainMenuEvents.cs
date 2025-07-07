@@ -501,7 +501,7 @@ namespace BazisGUI
                     if (PressedKey == Keys.E)
                     {
                         var objs = ObjectsProvider.GraphPageProvider(objsData, objType);
-                        nodes = objs.Where(x => x.Color == SelectionColor).ToList();
+                        nodes = objs.Where(x => x.Color == settingsConfig.SelectObjectColor).ToList();
                         break;
                     }
                     if (PressedKey == Keys.Escape)
@@ -571,7 +571,7 @@ namespace BazisGUI
 
             foreach (var obj in objs)
             {
-                if (obj.Color == SelectionColor)
+                if (obj.Color == settingsConfig.SelectObjectColor)
                 {
                     var coord = obj.CalcCentr();
                     var res = result.GetValue((int)tableType, obj.Number, resName);

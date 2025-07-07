@@ -8,9 +8,10 @@ namespace BazisGUI.SettingsControls
     [Serializable]
     public class SettingsConfig
     {
+        //view settings
         public Color SelectObjectColor;
         public Color SelectGroupColor;
-        public Color BackGroudColor;
+        public Color BackGroundColor;
         public Color NodeColor;
         public string SolverPath;
         public bool Lighting;
@@ -20,6 +21,13 @@ namespace BazisGUI.SettingsControls
         public bool BackRibbers;
         public int TransparencyValue;
         public ViewProjection Projection = ViewProjection.Perspective;
+        public bool DisplayBasis = true;
+        public bool DisplayCompass = true;
+        public bool IsInsideObjectsShown = true;
+        public bool IsCutting = false;
+        public float RotationAngle = 2.5f;
+        public ViewAxis RotationAxis = ViewAxis.XYZ;
+        public float AngleOfProjection = 2.5f;
 
         //result settings
         public bool ShowResultsField;

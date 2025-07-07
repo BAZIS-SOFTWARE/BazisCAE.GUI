@@ -3,17 +3,32 @@ using BazisGUI.Scene.VBO;
 using System;
 using Tao.OpenGl;
 using Geometry;
+using System.Linq;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
         event Action DisplayClipPlaneEvent;
+
+        public void CreateClipPlane()
+        {
+            if (VBOController.GetVBObjs().Count() > 0)
+            {
+                var bbox = VBOController.GetVBObjs().OrderByDescending(v => v.BoundingBox.GetDiagonalLength())
+                                 .First().BoundingBox;
+                clipPlaneRenderer.BoundingBox = bbox;
+                clipPlaneRenderer.CreateBoudingBoxVBO(bbox.LeftUpNear, bbox.RightDownFar);
+            }
+            else
+                clipPlaneRenderer.CreateBoudingBoxVBO(new Point3D(), new Point3D());
+        }
+
         public void DisplayClipPlane(Plane plane)
         {
             DisplayClipPlaneEvent += new Action(() =>
             {
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 float[] modelMatrix = new float[16];
                 Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, modelMatrix);//Запоминаем предыдущую матрицу в стеке
@@ -42,7 +57,7 @@ namespace BazisGUI
                 clipPlaneRenderer.Draw(modelMatrix, normalSize);
 
                 Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
+                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
         }

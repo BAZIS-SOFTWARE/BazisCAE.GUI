@@ -169,7 +169,7 @@ namespace BazisGUI
             {
                 var objs = modelData.ObjectData.GetObjects(objType);
 
-                var selObjs = objs.Where(x => x.Color == SelectionColor);
+                var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 if (selObjs.Count() == 0)
                 {
@@ -210,7 +210,7 @@ namespace BazisGUI
             {
                 var objs = project.ModelData.ObjectData.GetObjects(objType);
 
-                var selObjs = objs.Where(x => x.Color == SelectionColor);
+                var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 if (selObjs.Count() == 0)
                 {
@@ -247,7 +247,7 @@ namespace BazisGUI
         private void CalcVolume(string arg2)
         {
             var objs = project.ModelData.ObjectData.GetObjects(arg2.ToEnum<ObjType>());
-            var selObjs = objs.Where(x => x.Color == SelectionColor);
+            var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
 
             var vol = 0.0f;
             foreach (var obj in selObjs)
@@ -262,7 +262,7 @@ namespace BazisGUI
         {
             var objs = project.ModelData.ObjectData.GetObjects(arg2.ToEnum<ObjType>());
 
-            var selObjs = objs.Where(x => x.Color == SelectionColor);
+            var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
             var square = 0.0;
             foreach (var obj in selObjs)
             {
@@ -303,7 +303,7 @@ namespace BazisGUI
 
             var objType = objTypeStr.ToEnum<ObjType>();
             var objs = project.ModelData.ObjectData.GetObjects(objType);
-            var color = SelectionColor;
+            var color = settingsConfig.SelectObjectColor;
             var selObjs = objs.Where(x => x.Color == color).ToList();
 
             if (selObjs.Count() > 1)
@@ -396,7 +396,7 @@ namespace BazisGUI
         private void CreateSectionSurfacesFromNodes()
         {
             var objs = project.ModelData.ObjectData.GetObjects(ObjType.Узел);
-            var selObjs = objs.Where(x => x.Color == SelectionColor).ToArray();
+            var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
             if (selObjs.Length < 3)
             {
                 console.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
@@ -555,6 +555,66 @@ namespace BazisGUI
             }
         }
 
+        /// <summary>
+        /// Создает зеркальную (относительно плоскости) копию вбо-объекта, если задано имя оригинала и копии и коэффициенты плоскости
+        /// </summary>
+        /// <param name="srcVboName">[In]Имя объекта источника или пустая строка как триггер отмены эвента рисования плоскости</param>
+        /// <param name="copyVboName">[In]Имя объекта копии</param>
+        /// <param name="coef">[In]Коэффициенты плоскости</param>
+        public void CreateReflectedVBObject(string srcVboName, string copyVboName, float[] coef)
+        {
+            var normal = new Point3D(coef[0], coef[1], coef[2]);
+            normal = Geometry.Vector.GetVectorNorm(normal);
+            var plane = new Geometry.Plane(normal, coef[3]);
+
+            var copyVbo = VBOController.FindVBObj(copyVboName);
+            if (copyVbo != null)
+                throw new Exception($"Объект с именем {copyVbo} уже существует");
+
+            var srcVbo = VBOController.FindVBObj(srcVboName) as VBObject;
+
+            if (srcVbo == null)
+                throw new Exception($"Объект с именем {srcVbo} не существует");
+
+            VBOController.CopyVBObjects(srcVbo, copyVboName);
+            var copeVbo = VBOController.FindVBObj(copyVboName);
+
+            var reflMatrix = GetReflectionMatrix(plane);//from stack
+            //DisplayReflectionPlane(src, plane);
+            Gl.glMatrixMode(Gl.GL_MODELVIEW);//видовая и модельная матрица
+            Gl.glPushMatrix();
+            Gl.glLoadMatrixf(srcVbo.ModelMatrix);
+            Gl.glMultMatrixf(reflMatrix);
+            Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, copeVbo.ModelMatrix);
+            Gl.glPopMatrix();
+        }
+
+        public float[] GetReflectionMatrix(Geometry.Plane plane)
+        {
+            var reflection = new float[16];
+            var x = -plane.Normal._x;
+            var y = -plane.Normal._y;
+            var z = -plane.Normal._z;
+            var d = plane.Shifting;
+            reflection[0] = 1 - 2 * x * x;
+            reflection[1] = -2 * x * y;
+            reflection[2] = -2 * x * z;
+            reflection[3] = 0.0f;
+            reflection[4] = -2 * x * y;
+            reflection[5] = 1 - 2 * y * y;
+            reflection[6] = -2 * y * z;
+            reflection[7] = 0.0f;
+            reflection[8] = -2 * x * z;
+            reflection[9] = -2 * y * z;
+            reflection[10] = 1 - 2 * z * z;
+            reflection[11] = 0.0f;
+            reflection[12] = -2 * x * d;
+            reflection[13] = -2 * y * d;
+            reflection[14] = -2 * z * d;
+            reflection[15] = 1.0f;
+            return reflection;
+        }
+
         private void ChangeVBOColor(string ar, Color color)
         {
             var obj = VBOController.FindVBObj(ar);
@@ -593,10 +653,17 @@ namespace BazisGUI
 
                     clipForm.Controls.Add(clip);
 
-                    IsClipPlane = true;
+
                     ChangeClipMode(Scene.ClipMode.Default, ObjType.Элемент3D.ToString());
 
-                    clip.SwitchOnOff += (v) => { IsClipPlane = v; };
+                    clip.SwitchOnOff += (v) => 
+                    { 
+                        if(v)
+                            CreateClipPlane();
+                        else
+                            clipPlaneRenderer.DestroyBoundingBoxVBO();
+
+                    };
                     clip.ChangeClipMode += (mode) =>
                     {
                         ChangeClipMode((Scene.ClipMode)mode, ObjType.Элемент3D.ToString());
@@ -615,7 +682,7 @@ namespace BazisGUI
 
                     clipForm.FormClosing += (o, ev) =>
                     {
-                        IsClipPlane = false;
+                        clipPlaneRenderer.DestroyBoundingBoxVBO();
                         ChangeClipMode(Scene.ClipMode.None, ObjType.Элемент3D.ToString());
                         btn.Checked = false;
                         DisplayObjects();
@@ -631,7 +698,7 @@ namespace BazisGUI
                     var form = forms.Find(x => x.Name == "clipPlaneForm");
                     if (form != null)
                     {
-                        IsClipPlane = false;
+                        clipPlaneRenderer.DestroyBoundingBoxVBO();
                         form.Close();
                     }
                 }

@@ -37,7 +37,7 @@ namespace BazisGUI
                 var max = curvesInfo.Max(x => x.Value);
                 var min = curvesInfo.Min(x => x.Value);
                 var scale = new SceneScale(min, max, 3, "", "");
-                scale.FontBase = fontBase;
+                scale.FontBase = FontBase;
 
                 DisplaySceneScale(scale);
 

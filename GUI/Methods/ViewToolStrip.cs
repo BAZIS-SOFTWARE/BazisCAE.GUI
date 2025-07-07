@@ -12,31 +12,23 @@ namespace BazisGUI
 
             if (e.ClickedItem.Tag.ToString() == "0")
             {
-                camera.SetOnPlane(ViewPlane.XY, scaleFactor);
+                SetOnPlane(ViewPlane.XY, ScaleFactor);
             }
             else if (e.ClickedItem.Tag.ToString() == "1")
             {
-                camera.SetOnPlane(ViewPlane.XZ, scaleFactor);
+                SetOnPlane(ViewPlane.XZ, ScaleFactor);
             }
             else if (e.ClickedItem.Tag.ToString() == "2")
             {
-                camera.SetOnPlane(ViewPlane.YZ, scaleFactor);
+                SetOnPlane(ViewPlane.YZ, ScaleFactor);
             }
             else if (e.ClickedItem.Tag.ToString() == "6")
             {
-                RotationAxis = ViewAxis.Y;
-                RotationAngle = 90;
-                camera.Rotate(RotationAxis, RotationAngle);
-                RotationAxis = ViewAxis.XYZ;
-                RotationAngle = 2.5f;
+                Rotate(ViewAxis.Y, 90);
             }
             else if (e.ClickedItem.Tag.ToString() == "7")
             {
-                RotationAxis = ViewAxis.X;
-                RotationAngle = 90;
-                camera.Rotate(RotationAxis, RotationAngle);
-                RotationAxis = ViewAxis.XYZ;
-                RotationAngle = 2.5f;
+                Rotate(ViewAxis.X, 90);
             }
             else if (e.ClickedItem.Tag.ToString() == "8")
             {
@@ -53,28 +45,28 @@ namespace BazisGUI
             {
                 if (btn.Tag.ToString() == "3")
                 {
-                    RotationAxis = ViewAxis.X;
+                    settingsConfig.RotationAxis = ViewAxis.X;
                     btnSetRotY.Checked = false;
                     btnSetRotZ.Checked = false;
                 }
 
                 else if (btn.Tag.ToString() == "4")
                 {
-                    RotationAxis = ViewAxis.Y;
+                    settingsConfig.RotationAxis = ViewAxis.Y;
                     btnSetRotX.Checked = false;
                     btnSetRotZ.Checked = false;
                 }
 
                 else
                 {
-                    RotationAxis = ViewAxis.Z;
+                    settingsConfig.RotationAxis = ViewAxis.Z;
                     btnSetRotX.Checked = false;
                     btnSetRotY.Checked = false;
                 }
 
             }
             else
-                RotationAxis = ViewAxis.XYZ;
+                settingsConfig.RotationAxis = ViewAxis.XYZ;
         }
     }
 }
