@@ -13,10 +13,8 @@ namespace BazisGUI
         event Action DisplayGeometryObjectEvent;
         public void DisplayLocalFrame(Frame frame)
         {
-            var met = new Action(() =>
+            DisplayGeometryObjectEvent += new Action(() =>
             {
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 Gl.glPushMatrix();
                 Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
 
@@ -46,19 +44,13 @@ namespace BazisGUI
 
                 Gl.glEnd();
                 Gl.glPopMatrix();
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
-
-            DisplayGeometryObjectEvent += met;
         }
 
         public void DisplayDistance(Segment3D line)
         {
             var met = new Action(() =>
             {
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 Gl.glPushMatrix();
                 Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
                 Gl.glColor3f(1, 0, 0);
@@ -75,8 +67,6 @@ namespace BazisGUI
 
                 var p0_2D = GetScreenCoord(p0);
                 var p1_2D = GetScreenCoord(p1);
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
 
             DisplayGeometryObjectEvent += met;
@@ -91,71 +81,54 @@ namespace BazisGUI
             Action met;
             if (points.Length > 1)
             {
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 var path = new ScenePath(points);
                 var quantity = path.PointsQuantity;
                 met = new Action(() =>
                 {
-                    if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                        averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                     path.Display(Position);
                     var p0 = path[quantity - 2];
                     var p1 = path[quantity - 1];
                     DisplayText3D(path.Length.ToString(), Color.FromArgb(0, 0, 0),
                     new Point3D((p0._x + p1._x) / 2, (p0._y + p1._y) / 2, (p0._z + p1._z) / 2));
-                    if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                        averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
                 });
 
                 DisplayGeometryObjectEvent += met;
             }
         }
 
-        public void DisplayLine(Point3D p0, Point3D p1, Color objColor)
+        public void DisplayVector(Point3D length, Point3D posit, Color objColor)
         {
-            Action met;
-
-            met = new Action(() =>
+            DisplayGeometryObjectEvent += new Action(() =>
             {
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 Gl.glPushMatrix();
+    
                 Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
+                Gl.glTranslatef(posit._x, posit._y, posit._z);
+                Gl.glScalef(1 / ScaleFactor, 1 / ScaleFactor, 1 / ScaleFactor);     
+
                 Gl.glColor3ub(objColor.R, objColor.G, objColor.B);
                 Gl.glLineWidth(5.0f);
                 Gl.glBegin(Gl.GL_LINES);
 
-                Gl.glVertex3f(p0._x, p0._y, p0._z);
-                Gl.glVertex3f(p1._x, p1._y, p1._z);
+                Gl.glVertex3f(0, 0, 0);
+                Gl.glVertex3f(length._x, length._y, length._z);
                 Gl.glEnd();
+               
                 Gl.glPopMatrix();
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
-
-            DisplayGeometryObjectEvent += met;
         }
 
         public void DisplaySceneScale(ISceneScale scale)
         {
-            Action del = new Action(() => { });
-
-            del = new Action(() =>
+            DisplayGeometryObjectEvent += new Action(() =>
             {
                 scale.Display(scene.Width, scene.Height, CreateGraphics(), Font);
             });
-
-            DisplayGeometryObjectEvent += del;
         }
         public void DisplaySpiral(Point3D p0, Point3D p1, Color objColor)
         {
-            Action met;
-
-            met = new Action(() =>
+            DisplayGeometryObjectEvent += new Action(() =>
             {
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 Gl.glPushMatrix();
                 Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
                 Gl.glColor3ub(objColor.R, objColor.G, objColor.B);
@@ -166,11 +139,7 @@ namespace BazisGUI
                 Gl.glVertex3f(p1._x, p1._y, p1._z);
                 Gl.glEnd();
                 Gl.glPopMatrix();
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
-
-            DisplayGeometryObjectEvent += met;
         }
         /// <inheritdoc/>
 
@@ -182,8 +151,6 @@ namespace BazisGUI
 
             DisplayGeometryObjectEvent += new Action(() =>
             {
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 var quadObj = Glu.gluNewQuadric(); // создаем новый объект
                                                    // для создания сфер и цилиндров
                                                    //Glu.gluQuadricOrientation(quadObj, Glu.GLU_OUTSIDE);

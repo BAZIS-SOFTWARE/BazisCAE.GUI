@@ -560,8 +560,8 @@ namespace BazisGUI
             {
                 settingsConfig.Transparency = ar;
                 averageColorRenderer.IsEnable = ar;
-                //ClearAllDataOnScene();
-                //CreateVBObjects(project.ModelData, "Объекты");
+                ClearAllDataOnScene();
+                CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             };
 

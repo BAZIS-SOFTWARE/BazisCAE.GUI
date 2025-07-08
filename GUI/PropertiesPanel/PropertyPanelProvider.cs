@@ -24,7 +24,7 @@ namespace BazisGUI.PropertiesPanel
         public void ShowPropertiesPanel<T>(T obj)
         {
             InitializeConverter(obj);
-            Out(new DrowPropertyOnPanelEventArgs(_converter.GetRowProperty()));
+            Out?.Invoke(new DrowPropertyOnPanelEventArgs(_converter.GetRowProperty()));
         }
 
         private void InitializeConverter<T>(T obj)

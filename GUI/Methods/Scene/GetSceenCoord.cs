@@ -39,10 +39,10 @@ namespace BazisGUI
         /// <inheritdoc/>
         public Point3D GetSceenCoord(Point2D point2D, float depth, float ScaleFactor)
         {
-            var view_port_koeff = ((float)Height / Width);
+            var view_port_koeff = ((float)scene.Height / scene.Width);
             var tan = (float)Math.Tan(settingsConfig.AngleOfProjection * 3.14f / 180);
-            var xs = point2D._x * tan * depth / view_port_koeff / Width; //вычисление экранной Хэ координат искомой точки узлов (2, 4)
-            var ys = point2D._y * tan * depth / Height; //вычисление экранной Уэ координат искомой точки
+            var xs = point2D._x * tan * depth / view_port_koeff / scene.Width; //вычисление экранной Хэ координат искомой точки узлов (2, 4)
+            var ys = point2D._y * tan * depth / scene.Height; //вычисление экранной Уэ координат искомой точки
 
             xs = xs / ScaleFactor / ScaleFactor;
             ys = ys / ScaleFactor / ScaleFactor;
@@ -57,10 +57,10 @@ namespace BazisGUI
             var zn = coord._z;
             var xn = -(coord._x / coord._z);
             var yn = -(coord._y / coord._z);
-            var view_port_koeff = ((float)Height / Width);
+            var view_port_koeff = ((float)scene.Height / scene.Width);
             var tan = (float)Math.Tan(settingsConfig.AngleOfProjection * 3.14f / 180);
-            var x_scr = xn * view_port_koeff * (Width / tan); //вычисление экранной Хэ координат искомой точки узлов (2, 4)
-            var y_scr = yn * (Height / tan); //вычисление экранной Уэ координат искомой точки
+            var x_scr = xn * view_port_koeff * (scene.Width / tan); //вычисление экранной Хэ координат искомой точки узлов (2, 4)
+            var y_scr = yn * (scene.Height / tan); //вычисление экранной Уэ координат искомой точки
 
             return new Point2D(x_scr, y_scr);
         }

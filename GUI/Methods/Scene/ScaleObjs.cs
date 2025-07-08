@@ -11,9 +11,9 @@ namespace BazisGUI
     {
         public float ScaleFactor { get; set; } = 1.0f;
 
-        public void ScaleObjs(float ScaleFactor)
+        public void ScaleObjs(float scaleFactor)
         {
-            Gl.glScalef(ScaleFactor, ScaleFactor, ScaleFactor);
+            Gl.glScalef(scaleFactor, scaleFactor, scaleFactor);
             var crd = GetSceneCoordOfScreenVector(0, 1);
             ScaleFactor = (float)Math.Sqrt(Math.Pow(crd._x, 2) + Math.Pow(crd._y, 2) + Math.Pow(crd._z, 2));
         }

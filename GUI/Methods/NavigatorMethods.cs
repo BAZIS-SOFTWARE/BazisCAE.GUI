@@ -25,6 +25,7 @@ using Gif.Components;
 using Project.Results.IO;
 using Project.Results;
 using BazisGUI.Scene;
+using BasicControls.OpenFileDialogEx;
 
 namespace BazisGUI
 {
@@ -258,16 +259,16 @@ namespace BazisGUI
                 color = Color.FromArgb(0, 0, 255);
             }
 
+            DisplayGeometryObjectEvent = null;
+            
             foreach (var obj in modelObjs)
             {
                 foreach (var point in obj.GetCoordinates())
                 {
-                    var scl = 10 * (1.0f / Height * 1.0f / ScaleFactor);
-                    vector = vector.Mult(scl);
-                    var p1 = point.Sum(vector);
-                    DisplayLine(point, p1, color);
+                    var temp = vector.Mult(0.01f);
+                    var p1 = point.Sum(temp);
+                    DisplayVector(temp, point, color);
                 }
-
                 //DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
             }
         }

@@ -906,9 +906,7 @@ namespace BazisGUI
                 panelProvider._matDBNames =
                     GetDataBase<MaterialDBData>(project.GeneralData.Materials, project.GeneralData.Path).Keys.ToList();
 
-                panelProvider.ShowPropertiesPanel(data);
-
-                DisplayGeometryObjectEvent = null;
+                panelProvider.ShowPropertiesPanel(data);               
 
                 if (data.Direction != Direction.None)
                     DisplayDirection(data.StartTime, data, data.Group);
@@ -940,23 +938,27 @@ namespace BazisGUI
 
         private void navigator_SelectGroupEvent(int grIndex)
         {
+            try
+            {
+                var group = project.ModelData.GroupData[grIndex];
 
-            var group = project.ModelData.GroupData[grIndex];
+                project.ModelData.ObjectData.SetBackColor(group.ObjType);
 
-            project.ModelData.ObjectData.SetBackColor(group.ObjType);
+                var pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
+                SetVBObjectAttribute(pres, "цвет");
 
-            var pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
-            SetVBObjectAttribute(pres, "цвет");
+                foreach (var iobj in group)
+                    iobj.Color = settingsConfig.SelectGroupColor;
 
-            foreach (var iobj in group)
-                iobj.Color = settingsConfig.SelectGroupColor;
-
-            //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
-            SetVBObjectAttribute(pres, "цвет");
-
-            DisplayObjects();
-
-            panelProvider.ShowPropertiesPanel(group);
+                //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
+                SetVBObjectAttribute(pres, "цвет");
+                DisplayObjects();
+                panelProvider.ShowPropertiesPanel(group);
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         private void navigator_SelectObjectEvent(NodeType arg1, string arg2,int arg3)

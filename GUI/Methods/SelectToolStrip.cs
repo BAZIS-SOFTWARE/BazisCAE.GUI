@@ -59,6 +59,7 @@ namespace BazisGUI
             AddObjectsType("Элементы");
 
             spbSelectObject.ToolTipText = "Объекты";
+            spbSelectObject.Invalidate();
         }
 
         //private void btnSelectObjects_Click(object sender, EventArgs e)

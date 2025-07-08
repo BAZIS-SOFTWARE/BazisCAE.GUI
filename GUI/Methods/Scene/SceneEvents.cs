@@ -320,8 +320,8 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             {
                 selectionRectangle.winScreneCoord.X = e.Location.X;
                 selectionRectangle.winScreneCoord.Y = scene.Height - e.Location.Y;
-                DisplayObjects();
-                selectionRectangle.Display(scene.Width, scene.Height);
+                
+                DisplayObjects();       
             }
 
             else if (e.Button == MouseButtons.Right)
@@ -361,11 +361,13 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             MouseMoveFlag = false;
             if (e.Button == MouseButtons.Middle)
                 DisplayRotationPointEvent += CreateRotationPoint();
-
-            selectionRectangle.winScrenePosit.X = e.X;
-            selectionRectangle.winScrenePosit.Y = -e.Y + scene.Height;
-            selectionRectangle.winScreneCoord.X = selectionRectangle.winScrenePosit.X + 10;
-            selectionRectangle.winScreneCoord.Y = selectionRectangle.winScrenePosit.Y - 10;
+            else if(e.Button == MouseButtons.Left)
+            {
+                selectionRectangle.winScrenePosit.X = e.X;
+                selectionRectangle.winScrenePosit.Y = -e.Y + scene.Height;
+                selectionRectangle.winScreneCoord.X = selectionRectangle.winScrenePosit.X + 10;
+                selectionRectangle.winScreneCoord.Y = selectionRectangle.winScrenePosit.Y - 10;
+            }
         }
 
         private void GlControl_MouseUp(object sender, MouseEventArgs e)
@@ -400,6 +402,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                         SelectObjects(selectionBox, sortFlag, true);
                     else
                         SelectObjects(selectionBox, sortFlag, false);
+                selectionRectangle.Remove();
                 //}
                 DisplayObjects();
             }

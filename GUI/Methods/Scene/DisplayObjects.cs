@@ -9,6 +9,11 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        /// <summary>
+        /// DisplayObjects. Главный метод рисования. 
+        /// Важно! Сначала рисуются объемные и самы дальние объекты, 
+        /// а потом те, что ближе к экрану
+        /// </summary>
         public void DisplayObjects()
         {
             Gl.glClearColor(settingsConfig.BackGroundColor.R / 255.0f, 
@@ -42,9 +47,15 @@ namespace BazisGUI
 
             Gl.glLoadMatrixf(viewMatrixAr);
             Gl.glPopMatrix();
+
             //----
             // вызов всех подключенных методов   
+            if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
+                averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
             DisplayGeometryObjectEvent?.Invoke();
+            if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
+                averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+
 
             if (settingsConfig.IsCutting)
             {
@@ -58,6 +69,7 @@ namespace BazisGUI
             //Gl.glEnable(Gl.GL_BLEND);
 
             DisplayModelObjects();
+
             if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                 averageColorRenderer.BlendFramebuffers();
 
@@ -69,6 +81,8 @@ namespace BazisGUI
 
             DisplayControlStatus();
 
+            selectionRectangle.Display(scene.Width, scene.Height);
+
             //Gl.glFlush();
             //scene.Invalidate();
             Gl.glFinish(); // Обработка драйвером буффера команд. См Khronos
@@ -79,7 +93,7 @@ namespace BazisGUI
         {
             var cornerRect = new ScreenRectangle() { Red = 0, Green = 0, Blue = 0 };
 
-            cornerRect.winScrenePosit = new Point(Width - 18, Height - 9);
+            cornerRect.winScrenePosit = new Point(scene.Width - 18, scene.Height - 9);
             cornerRect.winScreneCoord.X = cornerRect.winScrenePosit.X + 8;
             cornerRect.winScreneCoord.Y = cornerRect.winScrenePosit.Y - 8;
             cornerRect.Display(scene.Width, scene.Height);

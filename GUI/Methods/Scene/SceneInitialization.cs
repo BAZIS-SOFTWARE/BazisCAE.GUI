@@ -47,6 +47,7 @@ namespace BazisGUI
                 advanced3DClipper.Dispose();
                 Gl.glDeleteLists(FontBase, 1150);
             };
+
             //Disposed += (s, e) => AverageColorRenderer.Dispose();
             //Disposed += (s, e) => clipPlaneRenderer.Dispose();
             //DisplayClipPlane();//Регистрируем обработчик визуализации сечения
