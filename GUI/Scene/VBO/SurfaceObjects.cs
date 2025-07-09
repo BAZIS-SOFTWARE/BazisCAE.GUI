@@ -113,11 +113,13 @@ namespace BazisGUI.Scene.VBO
         /// <summary>
         /// Перегрузка конструктора
         /// </summary>
+        /// <param name="objName">Имя</param>
         /// <param name="pointers">Индексы</param>
         /// <param name="glCoords">Координаты</param>
         /// <param name="glColors">Цвета</param>
-        /// <param name="objName">Имя</param>
-        public SurfaceObjects(int[] pointers, float[] glCoords, float[] glColors, string objName) : base(pointers, glCoords, glColors, objName)
+
+        public SurfaceObjects(string objName,int[] pointers, float[] glCoords, float[] glColors) 
+            : base(objName,pointers, glCoords, glColors)
         {
         }
         /// <inheritdoc/>

@@ -178,19 +178,17 @@ namespace BazisGUI
 
                 Gl.glPopMatrix();
                 Glu.gluDeleteQuadric(quadObj);
-                averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+                //averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
         }
         /// <inheritdoc/>
 
         public void DisplaySphere(float width, Frame frame)
         {
-            Action met;
-
-            met = new Action(() =>
+            DisplayGeometryObjectEvent += new Action(() =>
             {
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                //if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
+                //    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 var quadObj = Glu.gluNewQuadric(); // создаем новый объект
                                                    // для создания сфер и цилиндров
                                                    //Glu.gluQuadricOrientation(quadObj, Glu.GLU_OUTSIDE);
@@ -212,10 +210,8 @@ namespace BazisGUI
                                                            // радиусом 0.5
                 Gl.glPopMatrix();
                 Glu.gluDeleteQuadric(quadObj);
-                averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+                //averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
-
-            DisplayGeometryObjectEvent += met;
         }
 
         public void HideGeometryObj(string searchMethod)

@@ -44,38 +44,33 @@ namespace BazisGUI.Scene.VBO
         /// <param name="glNormals"></param>
         /// <param name="objName"></param>
         public VBObject(string objName,int[] pointers, float[] glCoords, float[] glColors, float[] glNormals) : 
-            this(objName, pointers, glCoords)
+            this(objName, pointers, glCoords, glColors)
         {
-            if (pointers.Length == 0)
-                throw new ArgumentException("Длина набора индексов не может быть нулевой");
-            ObjName = objName;
-
-            PtrLength = pointers.Length;
-            CoordLength = glCoords.Length;
-            ColorLength = glColors.Length;
             NormalLength = glNormals.Length;
-
-            Gl_LineWidth = 1.0f;//Ширина линии и размер точки используется в Draw, не должен быть 0 и меньше, иначе возращает ошибку
-            Gl_PointSize = 1.0f;
-
-            var ptrBuff = 0;
-            var coordBuff = 0;
-            var colorBuff = 0;
             var normalBuff = 0;
 
-            VBO.IndexDataInit(ref ptrBuff, pointers);
-            VBO.VertexDataInit(ref coordBuff, glCoords, sizeof(float));
-            VBO.VertexDataInit(ref colorBuff, glColors, sizeof(float));
             VBO.VertexDataInit(ref normalBuff, glNormals, sizeof(float));
 
-            PointersBuffer = ptrBuff;
-            CoordsBuffer = coordBuff;
-            ColorsBuffer = colorBuff;
             NormalsBuffer = normalBuff;
+        }
 
-            CalculateBoundingBox(glCoords);
-            ModelMatrix = new float[16];
-            SetIdentityModelMatrix();
+        /// <summary>
+        /// Перегрузка конструктора
+        /// <param name="pointers">Индексы</param>
+        /// <param name="glCoords">Координаты</param>
+        /// <param name="glColors">Цвета</param>
+        /// <param name="objName">Имя</param>
+        public VBObject(string objName, int[] pointers, float[] glCoords, float[] glColors)
+            : this(objName, pointers, glCoords)
+        {
+
+            ColorLength = glColors.Length;
+
+            var colorBuff = 0;
+
+            VBO.VertexDataInit(ref colorBuff, glColors, sizeof(float));
+
+            ColorsBuffer = colorBuff;
         }
 
         public VBObject(string objName, int[] pointers, float[] glCoords)
@@ -92,46 +87,12 @@ namespace BazisGUI.Scene.VBO
 
             var ptrBuff = 0;
             var coordBuff = 0;
-            var colorBuff = 0;
-            var normalBuff = 0;
 
             VBO.IndexDataInit(ref ptrBuff, pointers);
             VBO.VertexDataInit(ref coordBuff, glCoords, sizeof(float));
 
             PointersBuffer = ptrBuff;
             CoordsBuffer = coordBuff;
-            ColorsBuffer = colorBuff;
-            NormalsBuffer = normalBuff;
-
-            CalculateBoundingBox(glCoords);
-            ModelMatrix = new float[16];
-            SetIdentityModelMatrix();
-        }
-        /// <summary>
-        /// Перегрузка конструктора
-        /// <param name="pointers">Индексы</param>
-        /// <param name="glCoords">Координаты</param>
-        /// <param name="glColors">Цвета</param>
-        /// <param name="objName">Имя</param>
-        public VBObject(int[] pointers, float[] glCoords, float[] glColors, string objName)
-        {
-            ObjName = objName;
-
-            PtrLength = pointers.Length;
-            CoordLength = glCoords.Length;
-            ColorLength = glColors.Length;
-
-            var ptrBuff = 0;
-            var coordBuff = 0;
-            var colorBuff = 0;
-
-            VBO.IndexDataInit(ref ptrBuff, pointers);
-            VBO.VertexDataInit(ref coordBuff, glCoords, sizeof(float));
-            VBO.VertexDataInit(ref colorBuff, glColors, sizeof(float));
-
-            PointersBuffer = ptrBuff;
-            CoordsBuffer = coordBuff;
-            ColorsBuffer = colorBuff;
 
             CalculateBoundingBox(glCoords);
             ModelMatrix = new float[16];
