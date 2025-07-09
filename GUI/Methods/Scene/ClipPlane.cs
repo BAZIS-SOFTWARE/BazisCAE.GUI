@@ -18,8 +18,8 @@ namespace BazisGUI
             {
                 var bbox = VBOController.GetVBObjs().OrderByDescending(v => v.BoundingBox.GetDiagonalLength()).First().BoundingBox;
 
-                var data = BoundingBoxVBO.CreateBoundingBoxPlanes(bbox);
-                var vboObj = new BoundingBoxVBO(data.Item1, data.Item2, data.Item3, "ClipPlane");
+                var data = ClipPlane.CreateBoundingBoxPlanes(bbox);
+                var vboObj = new ClipPlane(data.Item1, data.Item2, data.Item3, "ClipPlane");
 
                 vboObj.Renderer = clipPlaneRenderer;
 
@@ -34,7 +34,7 @@ namespace BazisGUI
             DisplayClipPlaneEvent = null;
             DisplayClipPlaneEvent += new Action(() =>
             {
-                var objBox = VBOController.FindVBObj("ClipPlane") as BoundingBoxVBO;
+                var objBox = VBOController.FindVBObj("ClipPlane") as ClipPlane;
                 if (objBox != null)
                 {
                     advanced3DClipper.ScaleFactor = ScaleFactor;

@@ -8,7 +8,7 @@ using Tao.OpenGl;
 
 namespace BazisGUI.Scene.VBO
 {
-    internal class BoundingBoxVBO :  SurfaceObjects
+    internal class ClipPlane :  SurfaceObjects
     {
         private float normalSize;
 
@@ -19,7 +19,7 @@ namespace BazisGUI.Scene.VBO
         /// <param name="glCoords">Координаты</param>
         /// <param name="glColors">Цвета</param>
         /// <param name="name">Имя</param>
-        public BoundingBoxVBO(int[] pointers, float[] glCoords, float[] glColors, string name) : base(pointers, glCoords, glColors, name)
+        public ClipPlane(int[] pointers, float[] glCoords, float[] glColors, string name) : base(pointers, glCoords, glColors, name)
         {
             Gl_DisplayMode = Gl.GL_FILL;
             Gl_LineWidth = 2.5f;
