@@ -108,7 +108,6 @@ spbSelectObject.ToolTipText == "Элементы")
                     obj.ViewState = true;
 
                 VBOController.DeleteAllVBObjects();
-                clipPlaneRenderer?.DestroyBoundingBoxVBO();
                 CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             }

@@ -108,6 +108,36 @@ namespace BazisGUI.Scene.VBO
             SetIdentityModelMatrix();
         }
         /// <summary>
+        /// Перегрузка конструктора
+        /// <param name="pointers">Индексы</param>
+        /// <param name="glCoords">Координаты</param>
+        /// <param name="glColors">Цвета</param>
+        /// <param name="objName">Имя</param>
+        public VBObject(int[] pointers, float[] glCoords, float[] glColors, string objName)
+        {
+            ObjName = objName;
+
+            PtrLength = pointers.Length;
+            CoordLength = glCoords.Length;
+            ColorLength = glColors.Length;
+
+            var ptrBuff = 0;
+            var coordBuff = 0;
+            var colorBuff = 0;
+
+            VBO.IndexDataInit(ref ptrBuff, pointers);
+            VBO.VertexDataInit(ref coordBuff, glCoords, sizeof(float));
+            VBO.VertexDataInit(ref colorBuff, glColors, sizeof(float));
+
+            PointersBuffer = ptrBuff;
+            CoordsBuffer = coordBuff;
+            ColorsBuffer = colorBuff;
+
+            CalculateBoundingBox(glCoords);
+            ModelMatrix = new float[16];
+            SetIdentityModelMatrix();
+        }
+        /// <summary>
         /// IndexInitialization
         /// </summary>
         /// <param name="buffer"></param>

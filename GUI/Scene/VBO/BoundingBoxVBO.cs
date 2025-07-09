@@ -1,47 +1,47 @@
-﻿using Geometry;
+﻿using BazisGUI.Scene.Interfaces;
+using Geometry;
 using System;
+using System.Linq;
+using System.Reflection;
+using System.Xml.Linq;
 using Tao.OpenGl;
 
 namespace BazisGUI.Scene.VBO
 {
-    public class BoundingBoxVBO : IDisposable
+    internal class BoundingBoxVBO :  SurfaceObjects
     {
-        private int vertexId;//Идентификатор буффера
-        /// <summary>
-        /// Создает геометрию ограничивающего параллелепипеда (все 6 плоскостей)
-        /// </summary>
-        /// <param name="leftUp">Крайняя левая верхняя точка объекта IVBObject</param>
-        /// <param name="rightDown">Крайняя правая нижняя точка объекта IVBObject</param>
-        public BoundingBoxVBO(Point3D leftUp, Point3D rightDown)
-        {
-            var data = CreateBoundingBoxPlanes(leftUp, rightDown);
-            CreateVBO(data);
-        }
+        private float normalSize;
 
-        public void Bind()
-        {
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, vertexId);
-            Gl.glVertexPointer(3, Gl.GL_FLOAT, 0, IntPtr.Zero);
-        }
+        internal ClipPlaneRenderer Renderer { get; set; }
 
-        /// <summary>
-        /// Очищает буффер VBO
-        /// </summary>
-        public void Dispose()
+        internal float[] ViewMatrix { get; set; } = new float[16];
+        /// <param name="pointers">Индексы</param>
+        /// <param name="glCoords">Координаты</param>
+        /// <param name="glColors">Цвета</param>
+        /// <param name="name">Имя</param>
+        public BoundingBoxVBO(int[] pointers, float[] glCoords, float[] glColors, string name) : base(pointers, glCoords, glColors, name)
         {
-            Gl.glDeleteBuffers(1, ref vertexId);
-            vertexId = 0;
+            Gl_DisplayMode = Gl.GL_FILL;
+            Gl_LineWidth = 2.5f;
+            GL_ObjType = GLObjType.triangle;
+
+            normalSize = Vector.GetVectorLenght(BoundingBox.LeftUpNear.Sub(BoundingBox.RightDownFar)) * 0.125f;
         }
         /// <summary>
-        /// Возвоащает координаты плоскостей ограничивающего параллелепипеда
+        /// Создает VBO-массивы для 6 плоскостей из паралелепипеда
         /// </summary>
-        /// <param name="leftUp">Крайняя левая верхняя точка объекта IVBObject</param>
-        /// <param name="rightDown">Крайняя правая нижняя точка объекта IVBObject</param>
-        /// <returns>Массив float координат</returns>
-        private float[] CreateBoundingBoxPlanes(Point3D leftUp, Point3D rightDown)
+        /// <param name="box">Ограничивающий паралелепипед</param>
+        /// <returns>(индексы, координаты, цвета)</returns>
+        public static Tuple<int[], float[], float[]> CreateBoundingBoxPlanes(BoundingBox box)
         {
+            var leftUp = box.LeftUpNear;
+            var rightDown = box.RightDownFar;
+
             var points = new Point3D[18];
-            var data = new float[54];
+            var indices = Enumerable.Range(0, 18).ToArray();
+            var glCoords = new float[54];
+            var glColors = new float[72];
+
             //Left Plane
             points[0] = leftUp;//Left up near
             points[1] = new Point3D(leftUp._x, leftUp._y, rightDown._z);//Left up far
@@ -66,23 +66,44 @@ namespace BazisGUI.Scene.VBO
             points[15] = leftUp;//Up left near
             points[16] = new Point3D(rightDown._x, leftUp._y, leftUp._z);//Up right near
             points[17] = new Point3D(rightDown._x, leftUp._y, rightDown._z);//Up right far
-            for(var i = 0; i < points.Length; ++i)
+            for (var i = 0; i < points.Length; ++i)
             {
-                data[i * 3] = points[i]._x;
-                data[i * 3 + 1] = points[i]._y;
-                data[i * 3 + 2] = points[i]._z;
+                glCoords[i * 3] = points[i]._x;
+                glCoords[i * 3 + 1] = points[i]._y;
+                glCoords[i * 3 + 2] = points[i]._z;
+
+                glColors[i * 4] = 0;
+                glColors[i * 4 + 1] = 1;
+                glColors[i * 4 + 2] = 0;
+                glColors[i * 4 + 3] = 1;
             }
-            return data;
+            return Tuple.Create(indices, glCoords, glColors);
         }
         /// <summary>
-        /// Создает VBO буффер и отпраляет данные на видеокарту
+        /// 
         /// </summary>
-        /// <param name="data">Массив координат</param>
-        private void CreateVBO(float[] data)
+        public override void Draw()
         {
-            Gl.glGenBuffers(1, out vertexId);
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, vertexId);
-            Gl.glBufferData(Gl.GL_ARRAY_BUFFER, (IntPtr)(data.Length * sizeof(float)), data, Gl.GL_STREAM_DRAW);
+            Renderer.Program.Bind();
+            Renderer.Program.SetUniform("modelMatrix", ViewMatrix);//Матрица модели IVBObject
+            Renderer.Program.SetUniform("normalSize", new float[] { normalSize });
+
+            VBO.Draw(this, PtrLength);
+            Renderer.Program.Unbind();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override void Load()
+        {
+            Gl.glEnableClientState(Gl.GL_VERTEX_ARRAY);
+            Gl.glEnableClientState(Gl.GL_COLOR_ARRAY);
+            VBO.LoadVertexBuffers(this);
+            Draw();
+            VBO.UnLoadAllBuffers();
+            Gl.glDisableClientState(Gl.GL_COLOR_ARRAY);
+            Gl.glDisableClientState(Gl.GL_VERTEX_ARRAY);
         }
     }
 }

@@ -31,7 +31,6 @@ namespace BazisGUI
             DisplayText2DEvent = null;
             DisplayText3DEvent = null;
             VBOController.DeleteAllVBObjects();
-            clipPlaneRenderer?.DestroyBoundingBoxVBO();
         }
 
     }

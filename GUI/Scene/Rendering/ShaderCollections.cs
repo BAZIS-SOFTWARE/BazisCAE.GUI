@@ -150,7 +150,7 @@ namespace BazisGUI.Scene
             "#version 150 compatibility\n",
             "layout(triangles) in;\n",
             "layout(line_strip, max_vertices = 14) out;\n",
-            "uniform vec4 clipPlane;\n",
+            "const vec4 clipPlane = vec4(0, 0, -1, 0);\n",
             "uniform float normalSize;\n",
             "void drawArrow(vec3 begin);\n",
             "void main(){\n",

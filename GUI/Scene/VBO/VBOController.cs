@@ -72,6 +72,7 @@ namespace BazisGUI.Scene.VBO
         {
             var vbObj = new SurfaceObjects(objsName,edges, ptrs, coords, colors, normals);
             vbObj.CreateSeparators(separs);
+            vbObj.Create3DBoundingBoxes(coords, separs);
             vbObj.ViewMode = viewMode;
             return vbObj;
             //glObjs.Add(vbObj);
