@@ -164,7 +164,7 @@ namespace BazisGUI
             if (selObjs?.Count() > 0)
             {
                 var element = selObjs.Last();
-                modelController.SelectionHelper.SelectE2DInPlane(project.ModelData.ObjectData,
+                projectController.SelectionHelper.SelectE2DInPlane(project.ModelData.ObjectData,
                     angle, element.Number, settingsConfig.SelectObjectColor);
                 var pres = CreateModelObjectsPresentor(project.ModelData, ObjType.Элемент2D);
                 SetVBObjectAttribute(pres, "цвет");
@@ -184,7 +184,7 @@ namespace BazisGUI
                 var n3 = (Node)selObjs.Skip(2).First();
 
                 var plane = new Geometry.Plane(n1.Position, n2.Position, n3.Position);
-                modelController.SelectionHelper.SelectNodeInPlane(project.ModelData.ObjectData,
+                projectController.SelectionHelper.SelectNodeInPlane(project.ModelData.ObjectData,
                     plane, settingsConfig.SelectObjectColor);
 
                 var pres = CreateModelObjectsPresentor(project.ModelData, ObjType.Узел);
@@ -219,13 +219,13 @@ namespace BazisGUI
             {
                 if (!reverse)
                 {
-                    modelController.SelectionHelper.SelectNodeInDirection(project.ModelData.ObjectData,
+                    projectController.SelectionHelper.SelectNodeInDirection(project.ModelData.ObjectData,
                         angle, selObjs.Skip(1).First().Number, selObjs.First().Number, settingsConfig.SelectObjectColor);
                 }
 
                 else
                 {
-                    modelController.SelectionHelper.SelectNodeInDirection(project.ModelData.ObjectData,
+                    projectController.SelectionHelper.SelectNodeInDirection(project.ModelData.ObjectData,
                         angle, selObjs.First().Number, selObjs.Skip(1).First().Number, settingsConfig.SelectObjectColor);
                 }
 

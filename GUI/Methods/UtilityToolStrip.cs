@@ -415,7 +415,7 @@ namespace BazisGUI
 
             var plane = CreateSectionPlane(p0, p1, p2);
 
-            var surface = modelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
+            var surface = projectController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
             var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
             presenter.Name = "crossSection";
             CreateVBObject(presenter); 
@@ -434,7 +434,7 @@ namespace BazisGUI
             var elems3D = project.ModelData.ObjectData.E3DCollection.GetObjects();
             var plane = CreateSectionPlane(arg.point1, arg.point2, arg.point3);
 
-            var surface = modelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
+            var surface = projectController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
 
             var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
             presenter.Name = "crossSection";

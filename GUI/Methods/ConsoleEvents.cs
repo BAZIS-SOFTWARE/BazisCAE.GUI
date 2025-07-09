@@ -48,13 +48,13 @@ namespace BazisGUI
                 {
                     Invoke(new Action(() => { console.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
 
-                    modelController.CoincidentObjectsFinder.ProgressEvent += (ar1, ar2) =>
+                    projectController.CoincidentObjectsFinder.ProgressEvent += (ar1, ar2) =>
                     {
                         Invoke(new Action(() => { console.PrintInfo(string.Format("{0:00}%", ar2 * 100), Color.Black); }));
                     };
 
                     var nodes = project.ModelData.ObjectData.NodesSet;
-                    var coincidentNodes = modelController.CoincidentObjectsFinder.Find(
+                    var coincidentNodes = projectController.CoincidentObjectsFinder.Find(
                         nodes.Values.ToList(), 0.001f);
 
                     Invoke(new Action(() => { console.PrintInfo($"Найдено {coincidentNodes.Count()} совпадений", Color.Black); }));
@@ -67,7 +67,7 @@ namespace BazisGUI
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
                     {
-                        modelController.ObjectsMerger.Merge(coincidentNodes, nodes);
+                        projectController.ObjectsMerger.Merge(coincidentNodes, nodes);
 
                         Invoke(new Action(() =>
                         {
@@ -99,7 +99,7 @@ namespace BazisGUI
 
         private void console_FindFreeNodesEvent()
         {
-            var freeNodes = modelController.FreeNodesFinder.Find(project.ModelData.ObjectData);
+            var freeNodes = projectController.FreeNodesFinder.Find(project.ModelData.ObjectData);
 
             Invoke(new Action(() =>
             {
@@ -122,7 +122,7 @@ namespace BazisGUI
 
         private void console_RenumberMeshEvent(object arg1, ModelRenumberEventArgs arg2)
         {
-            modelController.ObjectsRenumber.Renumber(project.ModelData.ObjectData, Converters.ConvertToObjsType(arg2.ObjsType));
+            projectController.ObjectsRenumber.Renumber(project.ModelData.ObjectData, Converters.ConvertToObjsType(arg2.ObjsType));
         }
 
         private void console_ModelShiftCoordinateEvent(object arg1, BaseModule.Console.Events.ModelShiftCoordinateEventArgs arg2)

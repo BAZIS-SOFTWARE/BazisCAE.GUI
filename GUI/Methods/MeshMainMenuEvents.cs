@@ -4,11 +4,8 @@ using BazisGUI.Scene;
 using BazisGUI.Utilities;
 using Geometry;
 using GmshApi;
-using Model;
 using Model.GeometryObjects;
 using Model.Interfaces;
-using ModelController.GmshController;
-using Project.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,10 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using static BaseModule.Interfaces.GeneralParams;
 
 namespace BazisGUI
@@ -584,13 +578,7 @@ namespace BazisGUI
                         VBOController.DeleteVBObjects(ObjType.Элемент2D.ToString());
 
                         var startNumber = project.ModelData.ObjectData.GetMaxElementNumber() + 1;
-                        var boundaryElements2D = modelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
-
-                        project.ModelData.ObjectData.E2DCollection.Add("new2DSet");
-
-                        foreach (var item in boundaryElements2D)
-                            project.ModelData.ObjectData.E2DCollection["new2DSet"].Add(item.Number, item);
-
+                        project.Create2DForm3D($"new2DSet_{startNumber}");
                     }
                 }
                 else if (objType == ObjType.Элемент1D)
@@ -603,12 +591,7 @@ namespace BazisGUI
                         VBOController.DeleteVBObjects(ObjType.Элемент1D.ToString());
 
                         var startNumber = project.ModelData.ObjectData.GetMaxElementNumber() + 1;
-                        var boundaryElements1D = modelController.Extractor1DFrom2D.Create(startNumber, els2D.ToArray());
-
-                        project.ModelData.ObjectData.E1DCollection.Add("new1DSet");
-
-                        foreach (var item in boundaryElements1D)
-                            project.ModelData.ObjectData.E1DCollection["new1DSet"].Add(item.Number, item);
+                        project.Create1DFrom2D($"new1DSet_{startNumber}");
                     }
                 }
 
@@ -616,7 +599,7 @@ namespace BazisGUI
                 DisplayText2DEvent = null;
                 DisplayText3DEvent = null;
 
-                CreateVBObject(CreateModelObjectsPresentor(project.ModelData, objType));
+                CreateVBObject(project.CreateModelObjectsPresentor(objType,settingsConfig.IsInsideObjectsShown));
 
                 DisplayObjects();
                 PresentObjectsDataOnTree(project.ModelData.ObjectData);

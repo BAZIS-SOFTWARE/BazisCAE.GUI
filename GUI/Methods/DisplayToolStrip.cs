@@ -151,7 +151,7 @@ namespace BazisGUI
                     var surfElems = project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement);
                     if (surfElems.Count() > 0)
                     {
-                        var elemsNormals = modelController.NormalCalculator.CalcElemsNormals(surfElems.Select(x => x as ISurfaceElement));
+                        var elemsNormals = projectController.NormalCalculator.CalcElemsNormals(surfElems.Select(x => x as ISurfaceElement));
 
                         var linePresenter = presentersCreator.CreateLineObjectsPresenter(elemsNormals);
                         linePresenter.Name = "Normals";
@@ -183,8 +183,8 @@ namespace BazisGUI
                 {
                     var surfElems = project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement).
             Select(x => (ISurfaceElement)x);
-                    var linesNodes = modelController.BoundaryEdgesFinder.Find(surfElems);
-                    var edges = modelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, project.ModelData);
+                    var linesNodes = projectController.BoundaryEdgesFinder.Find(surfElems);
+                    var edges = projectController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, project.ModelData);
                     var linePresenter = presentersCreator.CreateLineObjectsPresenter(edges);
                     linePresenter.Name = "Boundary";
                     CreateVBObject(linePresenter);

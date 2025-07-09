@@ -234,7 +234,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
             {
                 project.ModelData.ObjectData.SetBackColor(type);
-                var pres = CreateModelObjectsPresentor(project.ModelData, type);
+                var pres = project.CreateModelObjectsPresentor(type,settingsConfig.IsInsideObjectsShown);
                 SetVBObjectAttribute(pres, "цвет");
             }
 
@@ -361,23 +361,23 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             if (objTypeStr == "Объекты")
             {
                 foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
-                    SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, type), "цвет");
+                    SetVBObjectAttribute(project.CreateModelObjectsPresentor(type, settingsConfig.IsInsideObjectsShown), "цвет");
             }
             else if (objTypeStr == "Элементы")
             {
-                SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, ObjType.Элемент1D), "цвет");
-                SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, ObjType.Элемент2D), "цвет");
-                SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, ObjType.Элемент3D), "цвет");
+                SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Элемент1D, settingsConfig.IsInsideObjectsShown), "цвет");
+                SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Элемент2D, settingsConfig.IsInsideObjectsShown), "цвет");
+                SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Элемент3D, settingsConfig.IsInsideObjectsShown), "цвет");
             }
             else if (objTypeStr == "Фигуры")
             {
-                SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, ObjType.Поверхность), "цвет");
-                SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, ObjType.Объем), "цвет");
+                SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Поверхность, settingsConfig.IsInsideObjectsShown), "цвет");
+                SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Объем, settingsConfig.IsInsideObjectsShown), "цвет");
             }
             else
             {
                 var objType = Converters.ConvertToObjsType(objTypeStr);
-                var presentor = CreateModelObjectsPresentor(modelData, objType);
+                var presentor = project.CreateModelObjectsPresentor(objType, settingsConfig.IsInsideObjectsShown);
                 SetVBObjectAttribute(presentor, "цвет");
             }
 

@@ -217,7 +217,7 @@ namespace BazisGUI
             navigator.EndUpdate();
         }
 
-        private void DisplayMRF(float time, IPhysicalData data)
+        private void DisplayMRF(float time, ICondData data)
         {
             var mf = data.FrameFunction.LocalFrame as MovedFrame;
             mf.Time = time - data.StartTime;
@@ -236,7 +236,7 @@ namespace BazisGUI
             }
         }
 
-        public void DisplayDirection(float time, IPhysicalData data, IEnumerable<IModelObject> modelObjs)
+        public void DisplayDirection(float time, ICondData data, IEnumerable<IModelObject> modelObjs)
         {
             var vector = new Point3D();
             Color color;

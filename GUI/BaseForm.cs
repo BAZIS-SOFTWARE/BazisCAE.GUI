@@ -1,52 +1,30 @@
-﻿using BaseModule.Navigator;
-using BaseModule.Results.Animation;
-using BaseModule.SceenControls;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BazisGUI.Properties;
-using BazisGUI.SettingsControls;
-using BazisGUI.Utilities;
+﻿using BazisGUI.SettingsControls;
 using ClientGUI;
 using ClientLogic;
-using Geometry;
 using LicenseInfo;
-using MathNet.Numerics.LinearAlgebra;
-using Model.GeometryObjects;
 using Model.Interfaces;
-using Model.Interfaces.MeshObjects;
-using Model.Interfaces.ObjectsCollections;
-using Model.MeshObjects;
-using ModelController.GmshController;
 using Newtonsoft.Json;
 using Project;
-using Project.Results;
-using PropertiesCalculator.FunctionData;
-using PropertiesCalculator.MaterialData;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Numerics;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using UserControlsEx;
-using Project.Interfaces.Tasks;
-using BaseModule.Extensions;
-using BaseModule.Results.ScaleControl;
-using ModelControllerInterfaces;
-using Project.Interfaces;
 using BazisGUI.PropertiesPanel;
 using PostProc;
 using BazisGUI.Scene.Interfaces;
-using ModelController.MeshObjsUtility;
-using ModelController.ModelScenePresentator;
 using BazisGUI.Scene;
-using Newtonsoft.Json.Linq;
 using Tao.OpenGl;
 using BazisGUI.Scene.VBO;
+using OperationalController.GmshController;
+using OperationalController.ModelScenePresentator;
+using System.Collections.Generic;
+using OperationalController;
 
 namespace BazisGUI
 {
@@ -57,7 +35,7 @@ namespace BazisGUI
         bool MouseMoveFlag { get; set; }
 
         //private System.Windows.Forms.Timer connectTimer = new System.Windows.Forms.Timer();
-        ProjectData project;
+        //ProjectData project;
 
         ScreenRectangle selectionRectangle;
         ClipPlaneRenderer clipPlaneRenderer;
@@ -65,7 +43,7 @@ namespace BazisGUI
         AverageColorRenderer averageColorRenderer;
 
         //BasePage module;
-        ModelController.ModelController modelController = new ModelController.ModelController();
+        Controller project = new Controller();
         GmshController gmshController = new GmshController();
         IODataController dataController = new IODataController();
         PreProc.PreProc preProc = new PreProc.PreProc();
@@ -74,7 +52,6 @@ namespace BazisGUI
         IPresentersCreator presentersCreator = new PresentersCreator();
         VBOController VBOController = new VBOController();
 
-        public ChangeInsideSurface changeInsideSurface => new ChangeInsideSurface();
         ClientController serverConnection;
         
         SettingsConfig settingsConfig = new SettingsConfig()
@@ -162,7 +139,9 @@ namespace BazisGUI
                     if(project == null)
                         throw new Exception($"Для загрузки результатов требуется сперва загрузить проект");
 
-                    project.GeneralData.ResultDB = fullPath;
+                    navigator.TrySearchNodes("результаты", out List<TreeNode> nodes);
+                    
+                    nodes.First().Nodes[0].Text = fullPath;
                 }
                 if (args.Contains("-cad"))
                 {
@@ -183,9 +162,9 @@ namespace BazisGUI
                     var name = "new_Project.bpf";
 
                     project = dataController.CreateNewProject(path, name);
-   
-                    dataController.UpdateGeometry(gmshController, project, ObjType.Точка);
-                    dataController.UpdateGeometry(gmshController, project, ObjType.Кривая);
+
+                    dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Точка);
+                    dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Кривая);
                 }
                 lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
@@ -533,7 +512,7 @@ namespace BazisGUI
 
             settings.SetNodeColorEvent += (ar) => { 
                 //NodeColor = ar;
-                var pres = CreateModelObjectsPresentor(project.ModelData, ObjType.Узел);
+                var pres = project.CreateModelObjectsPresentor(ObjType.Узел,settingsConfig.IsInsideObjectsShown);
                 SetVBObjectAttribute(pres,"цвет");
                 DisplayObjects();
             };
@@ -784,7 +763,35 @@ namespace BazisGUI
         {
             try
             {
-                project = dataController.ImportGeometry(ref gmshController);
+                var dialog = new OpenFileDialog();
+
+                var filter =
+    "(*.brep*)|*.brep|" +
+    "(*.geo*)|*.geo|" +
+    "*.stp*)|*.stp|" +
+    "(*.step*)|*.step|" +
+    "(*.iges*)|*.iges|" +
+    "(*.igs*)|*.igs";
+
+                dialog.Filter = filter;
+
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+
+                if (gmshController == null)
+                    gmshController = dataController.LoadGMSH();
+
+                gmshController.Gmsh.Clear();
+                gmshController.Gmsh.Open(dialog.FileName);
+
+                var path = Path.GetDirectoryName(dialog.FileName);
+                var name = "новый_проект.bpf";
+
+                project = dataController.CreateNewProject(path, name);             
+
+                dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Точка);
+                dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Кривая);
 
                 if(project != null)
                 {

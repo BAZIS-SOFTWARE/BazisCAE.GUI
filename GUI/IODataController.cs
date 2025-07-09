@@ -5,11 +5,9 @@ using Model;
 using Model.Interfaces;
 using Model.IO;
 using Model.IO.STL;
-using ModelController.GmshController;
 using Newtonsoft.Json;
-using Project;
-using Project.IO;
-using Project.Tasks;
+using OperationalController;
+using OperationalController.GmshController;
 using System;
 using System.IO;
 using System.Numerics;
@@ -64,62 +62,25 @@ namespace BazisGUI
             return gmshController;
         }
 
-        public ProjectData ImportGeometry(ref GmshController gmshController)
-        {
-            var dialog = new OpenFileDialog();
-
-            var filter =
-"(*.brep*)|*.brep|" +
-"(*.geo*)|*.geo|" +
-"*.stp*)|*.stp|" +
-"(*.step*)|*.step|" +
-"(*.iges*)|*.iges|" +
-"(*.igs*)|*.igs";
-
-            dialog.Filter = filter;
-
-            if (dialog.ShowDialog() == DialogResult.Cancel)
-                return null;
-
-
-            if (gmshController == null)
-                gmshController = LoadGMSH();
-
-            gmshController.Gmsh.Clear();
-            gmshController.Gmsh.Open(dialog.FileName);
-
-            var path = Path.GetDirectoryName(dialog.FileName);
-            var name = "новый_проект.bpf";
-
-            var project = CreateNewProject(path, name);
-
-            UpdateGeometry(gmshController, project, ObjType.Точка);
-            UpdateGeometry(gmshController, project, ObjType.Кривая);
-
-            return project;
-            //gmshController.ModelGetFileName()
-
-        }
-
-        public void UpdateGeometry(GmshController gmshController, ProjectData project, ObjType objType)
+        public void UpdateGeometry(GmshController gmshController, IModelData modelData, ObjType objType)
         {
             if (objType == ObjType.Точка)
             {
                 var controlPoints = gmshController.CreateControlPoints();
                 
                 if (controlPoints.Count > 0)
-                    controlPoints.ForEach(x => project.ModelData.ObjectData.PointsSet.Add(x.Number, x));
+                    controlPoints.ForEach(x => modelData.ObjectData.PointsSet.Add(x.Number, x));
             }
             else if (objType == ObjType.Кривая)
             {
                 var curves = gmshController.CreateLines();
        
                 if (curves.Count > 0)
-                    project.ModelData.ObjectData.CurveCollection.AddRange("newLines", curves);
+                    modelData.ObjectData.CurveCollection.AddRange("newLines", curves);
             }
         }
 
-        public void SaveAsProject(ProjectData project)
+        public void SaveAsProject(Controller controller)
         {
             using (SaveFileDialog saveDialog = new SaveFileDialog())
             {
@@ -132,30 +93,30 @@ namespace BazisGUI
                 if (saveDialog.ShowDialog() == DialogResult.Cancel)
                     return;
 
-                if (project == null)
+                if (controller == null)
                     MessageBox.Show("Сначала откройте или создайте новый проект");
                 else
                 {
                     var newFolder = Path.GetDirectoryName(saveDialog.FileName);
-                    var oldFolder = project.GeneralData.Path;
+                    var oldFolder = controller.GeneralData.Path;
 
-                    project.GeneralData.Name = Path.GetFileName(saveDialog.FileName);
-                    project.GeneralData.Path = newFolder;
+                    controller.GeneralData.Name = Path.GetFileName(saveDialog.FileName);
+                    controller.GeneralData.Path = newFolder;
 
-                    if (oldFolder != project.GeneralData.Path)
+                    if (oldFolder != controller.GeneralData.Path)
                     {
-                        IOFileController.CopyFile(project.GeneralData.Materials, oldFolder, project.GeneralData.Path);
-                        IOFileController.CopyFile(project.GeneralData.Functions, oldFolder, project.GeneralData.Path);
+                        IOFileController.CopyFile(controller.GeneralData.Materials, oldFolder, controller.GeneralData.Path);
+                        IOFileController.CopyFile(controller.GeneralData.Functions, oldFolder, controller.GeneralData.Path);
                     }
 
                     var ext = Path.GetExtension(saveDialog.FileName);
 
                     if (ext == ".bpf2")
-                        project.ModelData.Saver = new SaveModelToBPF2TextFile();
+                        controller.ModelData.Saver = new SaveModelToBPF2TextFile();
                     else
-                        project.ModelData.Saver = new SaveModelToBPFTextFile();
+                        controller.ModelData.Saver = new SaveModelToBPFTextFile();
                     
-                    project.Save();
+                    controller.Save();
                 }
             }
         }
@@ -208,7 +169,7 @@ namespace BazisGUI
             mbf.Close();
         }
 
-        public async Task<ProjectData> ImportMesh()
+        public async Task<Controller> ImportMesh()
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = meshFilter;
@@ -267,7 +228,7 @@ namespace BazisGUI
             return dialog.FileName;
         }
 
-        public async Task LoadProjectAsync(ProjectData project)
+        public async Task LoadProjectAsync(Controller controller)
         {
             MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
             { Dock = DockStyle.Fill };
@@ -277,14 +238,14 @@ namespace BazisGUI
             await Task.Run(new Action(() =>
             {
 
-                project.Loader.LoadEvent += (ar1, ar2) =>
+                controller.ModelData.Loader.LoadEvent += (ar1, ar2) =>
                 {
                     mb.Invoke(new Action(() =>
                     {
                         mb.Message = ar2.Message;
                     }));
                 };
-                project.Load();
+                controller.Load();
 
             }));
             mbf.Close();
@@ -308,9 +269,10 @@ namespace BazisGUI
             return mbf;
         }
 
-        public ProjectData CreateNewProject(string path, string name)
+        public Controller CreateNewProject(string path, string name)
         {
-            var project = new ProjectData(name, path);
+            var project = new Controller();
+            project.Create(name, path);
             project.GeneralData.Materials = "materials_v3.jsf";
             project.GeneralData.Functions = "functions.jsf";
             
@@ -326,12 +288,7 @@ namespace BazisGUI
             {
                 project.ModelData.Loader = new LoadModelFromBPF2TextFile();
                 project.ModelData.Saver = new SaveModelToBPF2TextFile();
-            }
-                
-            project.GeneralData.ResultDB = string.Empty;
-
-            project.Loader = new LoadProjectFromTextFormat();
-            project.Saver = new SaveProjectTextFormat();
+            }            
 
             var startMatPath = Application.StartupPath + "\\Materials";
             IOFileController.CopyFile(project.GeneralData.Materials, startMatPath, path);
@@ -341,7 +298,7 @@ namespace BazisGUI
             return project;
         }
 
-        public async Task<ProjectData> OpenProject()
+        public async Task<Controller> OpenProject()
         {
             var filter = "Project file(*.bpf)|*.bpf|Project file(*.bpf2)|*.bpf2";
 
@@ -362,7 +319,7 @@ namespace BazisGUI
 
         }
 
-        public async Task<ProjectData> OpenProject(string fullPath)
+        public async Task<Controller> OpenProject(string fullPath)
         {
             var path = Path.GetDirectoryName(fullPath);
             var name = Path.GetFileName(fullPath);

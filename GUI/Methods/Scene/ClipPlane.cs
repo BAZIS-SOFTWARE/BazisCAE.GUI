@@ -19,7 +19,7 @@ namespace BazisGUI
                 var bbox = VBOController.GetVBObjs().OrderByDescending(v => v.BoundingBox.GetDiagonalLength()).First().BoundingBox;
 
                 var data = ClipPlane.CreateBoundingBoxPlanes(bbox);
-                var vboObj = new ClipPlane(data.Item1, data.Item2, data.Item3, "ClipPlane");
+                var vboObj = new ClipPlane("ClipPlane",data.Item1, data.Item2, data.Item3);
 
                 vboObj.Renderer = clipPlaneRenderer;
 

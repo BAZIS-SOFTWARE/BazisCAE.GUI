@@ -531,7 +531,7 @@ namespace BazisGUI
                     elements = project.ModelData.ObjectData.E2DCollection.GetObjects();
 
 
-                var interfaceNodes = modelController.InterfacedNodesFinder.Find(elements);
+                var interfaceNodes = projectController.InterfacedNodesFinder.Find(elements);
 
                 console.PrintInfo($"Выполняется пересчет на узлы", Color.Black);
                 console.PrintInfo("", Color.Black);
