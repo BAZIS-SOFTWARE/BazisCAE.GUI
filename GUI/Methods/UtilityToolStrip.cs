@@ -280,7 +280,7 @@ namespace BazisGUI
 
             project.ModelData.ObjectData.SetBackColor(objType);
 
-            var pres = CreateObjectsPresentor(project.ModelData, objType);
+            var pres = CreateModelObjectsPresentor(project.ModelData, objType);
 
             SetVBObjectAttribute(pres, "цвет");
             DisplayObjects();

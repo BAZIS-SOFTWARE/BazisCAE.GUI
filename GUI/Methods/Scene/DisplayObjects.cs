@@ -98,13 +98,13 @@ namespace BazisGUI
             cornerRect.winScreneCoord.Y = cornerRect.winScrenePosit.Y - 8;
             cornerRect.Display(scene.Width, scene.Height);
 
-            //if (IsSceneExpand)
-            //{
-            //    cornerRect.winScrenePosit = new Point(Width - 21, Height - 12);
-            //    cornerRect.winScreneCoord.X = cornerRect.winScrenePosit.X + 8;
-            //    cornerRect.winScreneCoord.Y = cornerRect.winScrenePosit.Y - 8;
-            //    cornerRect.Display(scene.Width, scene.Height);
-            //}
+            if (IsSceneExpand)
+            {
+                cornerRect.winScrenePosit = new Point(scene.Width - 21, scene.Height - 12);
+                cornerRect.winScreneCoord.X = cornerRect.winScrenePosit.X + 8;
+                cornerRect.winScreneCoord.Y = cornerRect.winScrenePosit.Y - 8;
+                cornerRect.Display(scene.Width, scene.Height);
+            }
         }
 
         private void DisplayModelObjects()

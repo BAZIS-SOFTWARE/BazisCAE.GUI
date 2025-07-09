@@ -38,7 +38,7 @@ namespace BazisGUI
                             obj.ViewState = true;
                             ClearAllDataOnScene();
 
-                            var pres = CreateObjectsPresentor(project.ModelData, obj.ObjType);
+                            var pres = CreateModelObjectsPresentor(project.ModelData, obj.ObjType);
                             CreateVBObject(pres);
                             DisplayObjects();
                         }
@@ -61,7 +61,7 @@ namespace BazisGUI
                     Invoke(new Action(() =>
                     {
                         ClearAllDataOnScene();
-                        var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
+                        var pres = CreateModelObjectsPresentor(project.ModelData, ObjType.Узел);
                         CreateVBObject(pres);
                         DisplayObjects();
                     }));
@@ -113,7 +113,7 @@ namespace BazisGUI
                 var objsTypeStr = ObjType.Узел.ToString();
                 VBOController.DeleteVBObjects(objsTypeStr);
 
-                var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
+                var pres = CreateModelObjectsPresentor(project.ModelData, ObjType.Узел);
                 CreateVBObject(pres);
 
                 DisplayObjects();
@@ -134,7 +134,7 @@ namespace BazisGUI
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
-                var pres = CreateObjectsPresentor(project.ModelData, item);
+                var pres = CreateModelObjectsPresentor(project.ModelData, item);
                 SetVBObjectAttribute(pres, "координаты");
             }
 
@@ -152,7 +152,7 @@ namespace BazisGUI
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
-                var pres = CreateObjectsPresentor(project.ModelData, item);
+                var pres = CreateModelObjectsPresentor(project.ModelData, item);
                 SetVBObjectAttribute(pres, "координаты");
             }
 

@@ -14,7 +14,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public IObjsPresenter CreateObjectsPresentor(IModelData modelData, ObjType objType)
+        public IObjsPresenter CreateModelObjectsPresentor(IModelData modelData, ObjType objType)
         {
             IObjsPresenter pre;
             switch (objType)

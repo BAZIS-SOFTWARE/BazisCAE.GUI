@@ -16,5 +16,10 @@ namespace BaseModule.Extensions
                 return result;
             else throw new ArgumentException($"Ошибка: значение '{value}' не соответствует ни одному значению.");
         }
+
+        public static bool TryToEnum<T>(this string value, out T result) where T : struct, Enum
+        {
+            return Enum.TryParse(value, out result);
+        }               
     }
 }

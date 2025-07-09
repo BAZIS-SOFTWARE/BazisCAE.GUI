@@ -616,7 +616,7 @@ namespace BazisGUI
                 DisplayText2DEvent = null;
                 DisplayText3DEvent = null;
 
-                CreateVBObject(CreateObjectsPresentor(project.ModelData, objType));
+                CreateVBObject(CreateModelObjectsPresentor(project.ModelData, objType));
 
                 DisplayObjects();
                 PresentObjectsDataOnTree(project.ModelData.ObjectData);

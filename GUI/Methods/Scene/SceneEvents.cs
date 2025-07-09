@@ -9,19 +9,12 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Tao.OpenGl;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void scene_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (!MouseMoveFlag)
-                if (e.Button == MouseButtons.Right)
-                    contextMenu.Show(this, e.Location);
-        }
-
-
         private void создатьГруппуItem_Click(object sender, EventArgs e)
         {
             try
@@ -91,6 +84,7 @@ spbSelectObject.ToolTipText == "Элементы")
                 foreach (var selObj in selObjs)
                     selObj.ViewState = false;
 
+                DeleteVBObjects(objTypeStr);
                 CreateVBObjects(project.ModelData, objTypeStr);
                 DisplayObjects();
             }
@@ -199,7 +193,30 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                 //if (arg1 is TaskPage taskPage)
                 PresentCondDataOnTree(project.GeneralData, project.TaskData);
 
-                CreateVBObjects(project.ModelData, spbSelectObject.ToolTipText);
+                ObjType objType;
+                if (spbSelectObject.ToolTipText.TryToEnum(out objType))
+                {
+                    if (objType == ObjType.Узел)
+                    {
+                        DeleteVBObjects(objType);
+                        CreateVBObjects(project.ModelData, spbSelectObject.ToolTipText);
+                        CreateVBObjects(project.ModelData, "Элементы");
+                    }
+                    else if (objType == ObjType.Точка)
+                    {
+                        DeleteVBObjects(objType);
+                        CreateVBObjects(project.ModelData, spbSelectObject.ToolTipText);
+                        CreateVBObjects(project.ModelData, ObjType.Кривая.ToString());
+                    }
+                }
+                else
+                {
+                    DeleteVBObjects(spbSelectObject.ToolTipText);
+                    CreateVBObjects(project.ModelData, spbSelectObject.ToolTipText);
+                }
+                    
+                
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -217,7 +234,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
             {
                 project.ModelData.ObjectData.SetBackColor(type);
-                var pres = CreateObjectsPresentor(project.ModelData, type);
+                var pres = CreateModelObjectsPresentor(project.ModelData, type);
                 SetVBObjectAttribute(pres, "цвет");
             }
 
@@ -228,6 +245,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
         {
             if (e.KeyCode == Keys.Escape)
             {
+                DisplayGeometryObjectEvent = null;
                 SetBackColorToAllObjects();
             }
             else if (e.KeyCode == Keys.C)
@@ -306,111 +324,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             DisplayObjects();
 
             scene.Invalidate();
-        }
-
-        private void GlControl_MouseMove(object sender, MouseEventArgs e)
-        {
-            scene.Focus();
-
-            var new_mousePosition = new Point(e.X - (scene.Width / 2), -e.Y + scene.Height / 2);
-            MouseMoveFlag = true;
-
-            if (e.Button == MouseButtons.Left)
-            {
-                selectionRectangle.winScreneCoord.X = e.Location.X;
-                selectionRectangle.winScreneCoord.Y = scene.Height - e.Location.Y;
-                
-                DisplayObjects();       
-            }
-
-            else if (e.Button == MouseButtons.Right)
-            {
-                Move(new_mousePosition, ScreenMousePosition, ScaleFactor);
-                DisplayObjects();
-            }
-
-
-            else if (e.Button == MouseButtons.Middle)
-            {
-                var moveCam_z = -5;
-                var dx = (new_mousePosition.X - ScreenMousePosition.X) * (2 * (-moveCam_z)) / (float)(scene.Width); //(mousePosition.Y - new_mousePosition.Y)
-                var dy = (new_mousePosition.Y - ScreenMousePosition.Y) * (2 * (-moveCam_z)) / (float)(scene.Height);
-
-                Rotate(dx, dy, settingsConfig.RotationAxis, settingsConfig.RotationAngle);
-
-                DisplayObjects();
-            }
-            ScreenMousePosition = new_mousePosition;
-        }
-
-        private void GlControl_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            var points = Math.Abs(e.Delta / 120);
-            for (int i = 0; i < points; i++)
-            {
-                if (Math.Sign(e.Delta) > 0)
-                    ScaleObjs(1.1f);
-                else ScaleObjs(0.9f);
-                DisplayObjects();
-            }
-        }
-
-        private void GlControl_MouseDown(object sender, MouseEventArgs e)
-        {
-            MouseMoveFlag = false;
-            if (e.Button == MouseButtons.Middle)
-                DisplayRotationPointEvent += CreateRotationPoint();
-            else if(e.Button == MouseButtons.Left)
-            {
-                selectionRectangle.winScrenePosit.X = e.X;
-                selectionRectangle.winScrenePosit.Y = -e.Y + scene.Height;
-                selectionRectangle.winScreneCoord.X = selectionRectangle.winScrenePosit.X + 10;
-                selectionRectangle.winScreneCoord.Y = selectionRectangle.winScrenePosit.Y - 10;
-            }
-        }
-
-        private void GlControl_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-
-                //if (e.Location.X > Width - 16 & e.Location.X < Width - 8 && e.Location.Y <= 10)
-                //    if (!IsSceneExpand)
-                //    {
-                //        IsSceneExpand = true;
-                //    }
-                //    else
-                //    {
-                //        IsSceneExpand = false;
-                //    }
-                //else
-                //{
-                    var left = selectionRectangle.winScrenePosit.X - scene.Width / 2;
-                    var rigth = selectionRectangle.winScreneCoord.X - scene.Width / 2;
-                    var top = selectionRectangle.winScrenePosit.Y - scene.Height / 2;
-                    var bottom = selectionRectangle.winScreneCoord.Y - scene.Height / 2;
-
-                    var selectionBox = new RectangleBox(left, rigth, bottom, top);
-
-                    var sortFlag = true;
-                    if (MouseMoveFlag)
-                        sortFlag = false;
-
-                    if (ModifierKeys != Keys.Shift)
-                        
-                        SelectObjects(selectionBox, sortFlag, true);
-                    else
-                        SelectObjects(selectionBox, sortFlag, false);
-                selectionRectangle.Remove();
-                //}
-                DisplayObjects();
-            }
-            else if (e.Button == MouseButtons.Middle)
-            {
-                DisplayRotationPointEvent = null;
-                DisplayObjects();
-            }
-        }
+        }     
 
         private void SelectObjects(RectangleBox rectangleBox, bool isSorted, bool isSelected)
         {
@@ -447,23 +361,23 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             if (objTypeStr == "Объекты")
             {
                 foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
-                    SetVBObjectAttribute(CreateObjectsPresentor(modelData, type), "цвет");
+                    SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, type), "цвет");
             }
             else if (objTypeStr == "Элементы")
             {
-                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент1D), "цвет");
-                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент2D), "цвет");
-                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент3D), "цвет");
+                SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, ObjType.Элемент1D), "цвет");
+                SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, ObjType.Элемент2D), "цвет");
+                SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, ObjType.Элемент3D), "цвет");
             }
             else if (objTypeStr == "Фигуры")
             {
-                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Поверхность), "цвет");
-                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Объем), "цвет");
+                SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, ObjType.Поверхность), "цвет");
+                SetVBObjectAttribute(CreateModelObjectsPresentor(modelData, ObjType.Объем), "цвет");
             }
             else
             {
                 var objType = Converters.ConvertToObjsType(objTypeStr);
-                var presentor = CreateObjectsPresentor(modelData, objType);
+                var presentor = CreateModelObjectsPresentor(modelData, objType);
                 SetVBObjectAttribute(presentor, "цвет");
             }
 
@@ -506,18 +420,6 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             }
 
             return selections;
-        }
-
-        private void scene_SceneExpandEvent()
-        {
-            embeddedSplitContainer.Panel1Collapsed = true;
-            embeddedSplitContainer.Panel2Collapsed = true;
-        }
-
-        private void scene_SceneFoldEvent()
-        {
-            embeddedSplitContainer.Panel1Collapsed = false;
-            embeddedSplitContainer.Panel2Collapsed = false;
         }
     }
 }

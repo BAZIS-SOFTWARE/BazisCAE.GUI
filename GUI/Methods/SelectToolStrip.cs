@@ -42,7 +42,7 @@ namespace BazisGUI
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
                 project.ModelData.ObjectData.SetBackColor(item);
-                var pres = CreateObjectsPresentor(project.ModelData, item);
+                var pres = CreateModelObjectsPresentor(project.ModelData, item);
                 SetVBObjectAttribute(pres, "цвет");
             }
 
@@ -166,7 +166,7 @@ namespace BazisGUI
                 var element = selObjs.Last();
                 modelController.SelectionHelper.SelectE2DInPlane(project.ModelData.ObjectData,
                     angle, element.Number, settingsConfig.SelectObjectColor);
-                var pres = CreateObjectsPresentor(project.ModelData, ObjType.Элемент2D);
+                var pres = CreateModelObjectsPresentor(project.ModelData, ObjType.Элемент2D);
                 SetVBObjectAttribute(pres, "цвет");
             }
             else console.PrintInfo("Выберите хотя бы один элемент", Color.Red);
@@ -187,7 +187,7 @@ namespace BazisGUI
                 modelController.SelectionHelper.SelectNodeInPlane(project.ModelData.ObjectData,
                     plane, settingsConfig.SelectObjectColor);
 
-                var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
+                var pres = CreateModelObjectsPresentor(project.ModelData, ObjType.Узел);
                 SetVBObjectAttribute(pres, "цвет");
             }
             else console.PrintInfo("Не выбрано три узла", Color.Red);
@@ -229,7 +229,7 @@ namespace BazisGUI
                         angle, selObjs.First().Number, selObjs.Skip(1).First().Number, settingsConfig.SelectObjectColor);
                 }
 
-                var pres = CreateObjectsPresentor(project.ModelData, arg2);
+                var pres = CreateModelObjectsPresentor(project.ModelData, arg2);
                 SetVBObjectAttribute(pres, "цвет");
 
                 DisplayObjects();

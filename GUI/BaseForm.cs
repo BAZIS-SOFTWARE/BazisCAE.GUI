@@ -264,6 +264,7 @@ namespace BazisGUI
             //SetGeneralSettings(moduleName);
             LicenseModule(moduleName);
             PresentProjectOnModule();
+            DisplayObjects();
         }
 
         private void LicenseModule(string moduleName)
@@ -532,7 +533,7 @@ namespace BazisGUI
 
             settings.SetNodeColorEvent += (ar) => { 
                 //NodeColor = ar;
-                var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
+                var pres = CreateModelObjectsPresentor(project.ModelData, ObjType.Узел);
                 SetVBObjectAttribute(pres,"цвет");
                 DisplayObjects();
             };
@@ -808,9 +809,7 @@ namespace BazisGUI
             PresentGeneralDataOnTree(project.GeneralData);
             PresentObjectsDataOnTree(project.ModelData.ObjectData);
             PresentGroupDataOnTree(project.ModelData.GroupData);
-
             PresentCondDataOnTree(project.GeneralData,project.TaskData);
-
             PresentModelOnSelectToolStrip(project.ModelData.ObjectData);
         }
 
@@ -839,12 +838,6 @@ namespace BazisGUI
             foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
                 if (currentItem.Name != item.Name)
                     item.Checked = false;
-
-            //module.ConfigAdvisor(WeldingKind.ARC);
-
-            if (arcWeldingMenuItem.Checked)
-                embeddedSplitContainer.Panel2Collapsed = false;
-            else embeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private void lazerWeldingMenuItem_Click(object sender, EventArgs e)
@@ -854,12 +847,6 @@ namespace BazisGUI
             foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
                 if (currentItem.Name != item.Name)
                     item.Checked = false;
-
-            //module.ConfigAdvisor(WeldingKind.Lazer);
-
-            if (lazerWeldingMenuItem.Checked)
-                embeddedSplitContainer.Panel2Collapsed = false;
-            else embeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private void fsWeldingMenuItem_Click(object sender, EventArgs e)
@@ -870,12 +857,6 @@ namespace BazisGUI
             foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
                 if (currentItem.Name != item.Name)
                     item.Checked = false;
-
-            //module.ConfigAdvisor(WeldingKind.FrictionStearing);
-
-            if (fsWeldingMenuItem.Checked)
-                embeddedSplitContainer.Panel2Collapsed = false;
-            else embeddedSplitContainer.Panel2Collapsed = true;
         }            
 
 
@@ -888,12 +869,6 @@ namespace BazisGUI
             foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
                 if(currentItem.Name != item.Name)
                     item.Checked = false;
-
-           // module.ConfigAdvisor(ProcessType.Tempering);
-
-            if (heatingMenuItem.Checked)
-                embeddedSplitContainer.Panel2Collapsed = false;
-            else embeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private void temperingMenuItem_Click(object sender, EventArgs e)
@@ -903,12 +878,6 @@ namespace BazisGUI
             foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
                 if (currentItem.Name != item.Name)
                     item.Checked = false;
-
-            //module.ConfigAdvisor(ProcessType.Tempering);
-
-            if (temperingMenuItem.Checked)
-                embeddedSplitContainer.Panel2Collapsed = false;
-            else embeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private void quenchingMenuItem_Click(object sender, EventArgs e)
@@ -918,12 +887,6 @@ namespace BazisGUI
             foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
                 if (currentItem.Name != item.Name)
                     item.Checked = false;
-
-            //module.ConfigAdvisor(ProcessType.Quenching);
-
-            if (quenchingMenuItem.Checked)
-                embeddedSplitContainer.Panel2Collapsed = false;
-            else embeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private async void экспортСеткиToolStripMenuItem_Click(object sender, EventArgs e)

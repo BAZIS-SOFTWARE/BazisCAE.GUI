@@ -1,6 +1,6 @@
 ﻿@startuml
 package "Core" {
-[model controller]
+[proj controller]
 [preProc]
 [postProc]
 [project]
@@ -26,13 +26,12 @@ package "BaseModule" {
 [baseForm] --> [ClientController]
 [baseForm] --> [OpenGL Api]
 
-[property provider] --> [project]
-[baseForm] --> [preProc]
-[baseForm] --> [postProc]
-[baseForm] --> [model controller]
-[baseForm] --> [project]
-[model controller] --> [model]
-[model controller] --> [GMSH Api]
+[property provider] --> [proj controller]
+[baseForm] --> [proj controller]
+[proj controller] --> [project]
+[proj controller] --> [preProc]
+[proj controller] --> [postProc]
+[proj controller] --> [GMSH Api]
 [preProc] --> [project]
 [postProc] --> [project]
 [project] --> [model]

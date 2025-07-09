@@ -257,6 +257,9 @@
     <Compile Include="Methods\Scene\ClipPlane.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Scene\DeleteVBObjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Scene\DisplayBasis.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -273,6 +276,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Scene\GetSceenCoord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\MouseEvents.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Scene\ScaleObjs.cs">

@@ -1,0 +1,144 @@
+﻿using Geometry;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace BazisGUI
+{
+    public partial class BaseForm
+    {
+        public bool IsSceneExpand        
+        {
+            get
+            {
+                return 
+                    splitContainer2.Panel2Collapsed & 
+                    splitContainer3.Panel1Collapsed ? true : false;
+  
+            }
+            private set
+            {
+                splitContainer2.Panel2Collapsed = value;
+                splitContainer3.Panel1Collapsed = value;
+            }
+        }
+
+        private void scene_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!MouseMoveFlag)
+                if (e.Button == MouseButtons.Right)
+                    contextMenu.Show(scene, e.Location);
+        }
+        private void GlControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            scene.Focus();
+
+            var new_mousePosition = new Point(e.X - (scene.Width / 2), -e.Y + scene.Height / 2);
+            MouseMoveFlag = true;
+
+            if (e.Button == MouseButtons.Left)
+            {
+                selectionRectangle.winScreneCoord.X = e.Location.X;
+                selectionRectangle.winScreneCoord.Y = scene.Height - e.Location.Y;
+
+                DisplayObjects();
+            }
+
+            else if (e.Button == MouseButtons.Right)
+            {
+                Move(new_mousePosition, ScreenMousePosition, ScaleFactor);
+                DisplayObjects();
+            }
+
+
+            else if (e.Button == MouseButtons.Middle)
+            {
+                var moveCam_z = -5;
+                var dx = (new_mousePosition.X - ScreenMousePosition.X) * (2 * (-moveCam_z)) / (float)(scene.Width); //(mousePosition.Y - new_mousePosition.Y)
+                var dy = (new_mousePosition.Y - ScreenMousePosition.Y) * (2 * (-moveCam_z)) / (float)(scene.Height);
+                Rotate(dx, dy, settingsConfig.RotationAxis, settingsConfig.RotationAngle);
+
+                DisplayObjects();
+            }
+            ScreenMousePosition = new_mousePosition;
+        }
+
+        private void GlControl_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            var points = Math.Abs(e.Delta / 120);
+            for (int i = 0; i < points; i++)
+            {
+                if (Math.Sign(e.Delta) > 0)
+                    ScaleObjs(1.1f);
+                else ScaleObjs(0.9f);
+                DisplayObjects();
+            }
+        }
+
+        private void GlControl_MouseDown(object sender, MouseEventArgs e)
+        {
+            MouseMoveFlag = false;
+            if (e.Button == MouseButtons.Middle)
+                DisplayRotationPointEvent += CreateRotationPoint();
+            else if (e.Button == MouseButtons.Left)
+            {
+                selectionRectangle.winScrenePosit.X = e.X;
+                selectionRectangle.winScrenePosit.Y = -e.Y + scene.Height;
+                selectionRectangle.winScreneCoord.X = selectionRectangle.winScrenePosit.X + 10;
+                selectionRectangle.winScreneCoord.Y = selectionRectangle.winScrenePosit.Y - 10;
+            }
+        }
+
+        private void GlControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+
+                if (e.Location.X > scene.Width - 16 & e.Location.X < scene.Width - 8 && e.Location.Y <= 10)
+                    if (!IsSceneExpand)
+                        IsSceneExpand = true;
+                    else
+                        IsSceneExpand = false;
+                else
+                {
+                    var left = selectionRectangle.winScrenePosit.X - scene.Width / 2;
+                    var rigth = selectionRectangle.winScreneCoord.X - scene.Width / 2;
+                    var top = selectionRectangle.winScrenePosit.Y - scene.Height / 2;
+                    var bottom = selectionRectangle.winScreneCoord.Y - scene.Height / 2;
+
+                    var selectionBox = new RectangleBox(left, rigth, bottom, top);
+
+                    var sortFlag = true;
+                    if (MouseMoveFlag)
+                        sortFlag = false;
+
+                    if (ModifierKeys != Keys.Shift)
+
+                        SelectObjects(selectionBox, sortFlag, true);
+                    else
+                        SelectObjects(selectionBox, sortFlag, false);
+                    selectionRectangle.Remove();
+                    //}
+                    DisplayObjects();
+                }
+            }
+            else if (e.Button == MouseButtons.Middle)
+            {
+                DisplayRotationPointEvent = null;
+                DisplayObjects();
+            }
+        }
+
+        private void scene_SceneExpandEvent()
+        {
+            splitContainer2.Panel2Collapsed = true;
+            splitContainer3.Panel1Collapsed = true;
+        }
+
+        private void scene_SceneFoldEvent()
+        {
+            splitContainer2.Panel2Collapsed = false;
+            splitContainer3.Panel1Collapsed = false;
+        }
+    }
+}

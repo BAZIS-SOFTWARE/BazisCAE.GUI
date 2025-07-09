@@ -39,7 +39,6 @@ namespace BazisGUI
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.webPageLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.embeddedSplitContainer = new UserControlsEx.SplitContainerEx();
             this.splitContainer3 = new UserControlsEx.SplitContainerEx();
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
             this.navigator = new BaseModule.Navigator.NavigatorControl();
@@ -137,9 +136,6 @@ namespace BazisGUI
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
             this.statusStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.embeddedSplitContainer)).BeginInit();
-            this.embeddedSplitContainer.Panel1.SuspendLayout();
-            this.embeddedSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
@@ -170,7 +166,7 @@ namespace BazisGUI
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripContainer.ContentPanel.Controls.Add(this.embeddedSplitContainer);
+            this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainer3);
             this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(5);
             this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1058, 350);
@@ -235,33 +231,12 @@ namespace BazisGUI
             this.webPageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.webPageLabel.Click += new System.EventHandler(this.webPageLabel_Click);
             // 
-            // embeddedSplitContainer
-            // 
-            this.embeddedSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.embeddedSplitContainer.IncrementButtonSize = new System.Drawing.Size(50, 5);
-            this.embeddedSplitContainer.IncrementShifting = 50;
-            this.embeddedSplitContainer.Location = new System.Drawing.Point(5, 5);
-            this.embeddedSplitContainer.Name = "embeddedSplitContainer";
-            // 
-            // embeddedSplitContainer.Panel1
-            // 
-            this.embeddedSplitContainer.Panel1.Controls.Add(this.splitContainer3);
-            // 
-            // embeddedSplitContainer.Panel2
-            // 
-            this.embeddedSplitContainer.Panel2.Padding = new System.Windows.Forms.Padding(0, 5, 5, 0);
-            this.embeddedSplitContainer.Panel2Collapsed = true;
-            this.embeddedSplitContainer.Size = new System.Drawing.Size(1048, 340);
-            this.embeddedSplitContainer.SplitterDistance = 621;
-            this.embeddedSplitContainer.SwitchShifting = true;
-            this.embeddedSplitContainer.TabIndex = 4;
-            // 
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.IncrementButtonSize = new System.Drawing.Size(50, 5);
             this.splitContainer3.IncrementShifting = 50;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Location = new System.Drawing.Point(5, 5);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
@@ -282,7 +257,6 @@ namespace BazisGUI
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.IncrementButtonSize = new System.Drawing.Size(50, 5);
             this.splitContainer1.IncrementShifting = 50;
-            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -295,7 +269,7 @@ namespace BazisGUI
             // 
             this.splitContainer1.Panel2.Controls.Add(this.propertiesPanel);
             this.splitContainer1.Size = new System.Drawing.Size(444, 340);
-            this.splitContainer1.SplitterDistance = 220;
+            this.splitContainer1.SplitterDistance = 265;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.SwitchShifting = false;
             this.splitContainer1.TabIndex = 0;
@@ -304,10 +278,10 @@ namespace BazisGUI
             // 
             this.navigator.BackColor = System.Drawing.Color.Gainsboro;
             this.navigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.navigator.CollapseIndex = 1;
+            this.navigator.CollapseIndex = 14;
             this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navigator.DownColor = System.Drawing.Color.Gainsboro;
-            this.navigator.ExpandIndex = 2;
+            this.navigator.ExpandIndex = 15;
             this.navigator.HeaderColor = System.Drawing.Color.Black;
             this.navigator.HeaderName = "Навигатор";
             this.navigator.IsPinndable = false;
@@ -316,7 +290,7 @@ namespace BazisGUI
             this.navigator.Name = "navigator";
             this.navigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(444, 220);
+            this.navigator.Size = new System.Drawing.Size(444, 265);
             this.navigator.TabIndex = 0;
             this.navigator.UpColor = System.Drawing.Color.Gainsboro;
             this.navigator.HideResultsEvent += new System.Action(this.navigator_HideResultsEvent);
@@ -377,7 +351,7 @@ namespace BazisGUI
             this.propertiesPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.propertiesPanel.Name = "propertiesPanel";
             this.propertiesPanel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.propertiesPanel.Size = new System.Drawing.Size(444, 112);
+            this.propertiesPanel.Size = new System.Drawing.Size(444, 67);
             this.propertiesPanel.TabIndex = 0;
             this.propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
             this.propertiesPanel.OnPropertyUpdate += new System.Action<BaseModule.PropertiesPanel.PropertyChangedEventArgs>(this.propertiesPanel_OnPropertyUpdate);
@@ -399,7 +373,7 @@ namespace BazisGUI
             // 
             this.splitContainer2.Panel2.Controls.Add(this.console);
             this.splitContainer2.Size = new System.Drawing.Size(596, 340);
-            this.splitContainer2.SplitterDistance = 264;
+            this.splitContainer2.SplitterDistance = 301;
             this.splitContainer2.SplitterWidth = 8;
             this.splitContainer2.SwitchShifting = false;
             this.splitContainer2.TabIndex = 0;
@@ -420,7 +394,7 @@ namespace BazisGUI
             this.scene.Location = new System.Drawing.Point(0, 0);
             this.scene.Margin = new System.Windows.Forms.Padding(5);
             this.scene.Name = "scene";
-            this.scene.Size = new System.Drawing.Size(596, 264);
+            this.scene.Size = new System.Drawing.Size(596, 301);
             this.scene.StencilBits = ((byte)(0));
             this.scene.TabIndex = 1;
             this.scene.SizeChanged += new System.EventHandler(this.GlControl_Resize);
@@ -446,7 +420,7 @@ namespace BazisGUI
             this.console.Margin = new System.Windows.Forms.Padding(0);
             this.console.Name = "console";
             this.console.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.console.Size = new System.Drawing.Size(596, 68);
+            this.console.Size = new System.Drawing.Size(596, 31);
             this.console.TabIndex = 0;
             this.console.UpColor = System.Drawing.Color.Gainsboro;
             this.console.ControlCollapseEvent += new System.Action(this.console_ControlCollapseEvent);
@@ -1496,9 +1470,6 @@ namespace BazisGUI
             this.toolStripContainer.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            this.embeddedSplitContainer.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.embeddedSplitContainer)).EndInit();
-            this.embeddedSplitContainer.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
@@ -1612,7 +1583,6 @@ namespace BazisGUI
         protected System.Windows.Forms.ToolStripButton btnSetRotHor90;
         protected System.Windows.Forms.ToolStripButton btnSetRotVer90;
         protected System.Windows.Forms.ToolStripButton btnFitObjs;
-        public UserControlsEx.SplitContainerEx embeddedSplitContainer;
         private UserControlsEx.SplitContainerEx splitContainer3;
         private UserControlsEx.SplitContainerEx splitContainer1;
         private BaseModule.Navigator.NavigatorControl navigator;
