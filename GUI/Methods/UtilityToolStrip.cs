@@ -526,7 +526,7 @@ namespace BazisGUI
                         btn.Checked = false;
                         DisplayReflectionPlaneEvent = null;
                         VBOController.DeleteAllVBObjects();
-                        clipPlaneRenderer?.DestroyBoundingBoxVBO();
+                        //clipPlaneRenderer?.DestroyBoundingBoxVBO();
                         //PresentAllModelObjectsToScene();
                         //CreateReflectedVBObject("", "", null);
                         DisplayObjects();
@@ -657,12 +657,11 @@ namespace BazisGUI
                     ChangeClipMode(Scene.ClipMode.Default, ObjType.Элемент3D.ToString());
 
                     clip.SwitchOnOff += (v) => 
-                    { 
-                        if(v)
+                    {
+                        if (v)
                             CreateClipPlane();
                         else
-                            clipPlaneRenderer.DestroyBoundingBoxVBO();
-
+                            DeleteClipPlane();
                     };
                     clip.ChangeClipMode += (mode) =>
                     {
@@ -682,8 +681,9 @@ namespace BazisGUI
 
                     clipForm.FormClosing += (o, ev) =>
                     {
-                        clipPlaneRenderer.DestroyBoundingBoxVBO();
-                        ChangeClipMode(Scene.ClipMode.None, ObjType.Элемент3D.ToString());
+                        DisplayClipPlaneEvent = null;
+                        DeleteClipPlane();
+                        ChangeClipMode(ClipMode.None, ObjType.Элемент3D.ToString());
                         btn.Checked = false;
                         DisplayObjects();
                     };
@@ -698,7 +698,7 @@ namespace BazisGUI
                     var form = forms.Find(x => x.Name == "clipPlaneForm");
                     if (form != null)
                     {
-                        clipPlaneRenderer.DestroyBoundingBoxVBO();
+                        VBOController.DeleteVBObjects("ClipPlane");
                         form.Close();
                     }
                 }
@@ -729,7 +729,6 @@ namespace BazisGUI
                 }
                 else
                     el3d.ActiveDrawingObject = advanced3DClipper;
-                advanced3DClipper.Create3DBoundingBoxes(el3d);
             }
         }
 

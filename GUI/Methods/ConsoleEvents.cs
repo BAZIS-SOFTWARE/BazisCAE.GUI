@@ -106,7 +106,6 @@ namespace BazisGUI
                 console.PrintInfo($"Найдено {freeNodes.Count()} свободных узлов", Color.Black);
 
                 VBOController.DeleteAllVBObjects();
-                clipPlaneRenderer?.DestroyBoundingBoxVBO();//Удаление VBO объекта не связанный со сценой
 
                 foreach (var freeNode in freeNodes)
                     project.ModelData.ObjectData.Find(ObjType.Узел, freeNode).ViewState = true;

@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Scene.Interfaces;
+using System;
 using Tao.OpenGl;
 
 namespace BazisGUI.Scene.VBO
@@ -14,6 +15,12 @@ namespace BazisGUI.Scene.VBO
         public int EdgeBuffer { get; private set; } = 0;
         /// <inheritdoc/>
         public int SeparatorBuffer { get; private set; } = 0;
+
+        /// <inheritdoc/>
+        public int LeftUpBuffer { get; set; } = 0;
+
+        /// <inheritdoc/>
+        public int RightDownBuffer { get; set; } = 0;
 
         /// <inheritdoc/>
         public float[] FrameColors
@@ -103,6 +110,16 @@ namespace BazisGUI.Scene.VBO
             FrameBuffer = frameBuff;
             FrameLength = frameColors.Length;
         }
+        /// <summary>
+        /// Перегрузка конструктора
+        /// </summary>
+        /// <param name="pointers">Индексы</param>
+        /// <param name="glCoords">Координаты</param>
+        /// <param name="glColors">Цвета</param>
+        /// <param name="objName">Имя</param>
+        public SurfaceObjects(int[] pointers, float[] glCoords, float[] glColors, string objName) : base(pointers, glCoords, glColors, objName)
+        {
+        }
         /// <inheritdoc/>
         public void CreateSeparators(int[] separators)
         {
@@ -111,7 +128,24 @@ namespace BazisGUI.Scene.VBO
             SeparatorsLength = separators.Length;
             SeparatorBuffer = sepBuffer;
         }
+        /// <summary>
+        /// Создать ограничивающие параллелепипеды для 3д элементов и 2д элементов
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="separators"></param>
+        public void Create3DBoundingBoxes(float[] points, int[] separators)
+        {
+            var leftUpBuffer = 0;
+            var rightDownBuffer = 0;
 
+            float[] leftUp, rightDown;
+            BuildBoundingBoxes(points, separators, out leftUp, out rightDown);
+            VBO.VertexDataInit(ref leftUpBuffer, leftUp, sizeof(float));
+            VBO.VertexDataInit(ref rightDownBuffer, rightDown, sizeof(float));
+
+            LeftUpBuffer = leftUpBuffer;
+            RightDownBuffer = rightDownBuffer;
+        }
         /// <inheritdoc/>
 
         public override void Load()
@@ -173,6 +207,63 @@ namespace BazisGUI.Scene.VBO
             Gl.glDisableClientState(Gl.GL_COLOR_ARRAY);
             Gl.glDisableClientState(Gl.GL_NORMAL_ARRAY);
             Gl.glDisableClientState(Gl.GL_EDGE_FLAG_ARRAY);
+        }
+
+        /// <summary>
+        /// Строит ограничивающие боксы для всех 3д элементов
+        /// </summary>
+        /// <param name="points">[In]Исходные точки модели</param>
+        /// <param name="separators">[In]Разметка элементов модели</param>
+        /// <param name="leftUp">[In]Левый верхний угол</param>
+        /// <param name="rightDown">[In]Правый нижний угол</param>
+        private void BuildBoundingBoxes(float[] points, int[] separators, out float[] leftUp, out float[] rightDown)
+        {
+            leftUp = new float[points.Length];
+            rightDown = new float[points.Length];
+
+            for (var i = 1; i < separators.Length; ++i)
+            {
+                var minX = float.MaxValue;
+                var maxX = float.MinValue;
+                var minY = float.MaxValue;
+                var maxY = float.MinValue;
+                var minZ = float.MaxValue;
+                var maxZ = float.MinValue;
+
+                var begin = separators[i - 1];
+                var triangles = separators[i] - separators[i - 1];
+                for (var j = 0; j < triangles; ++j)
+                {
+                    var stride = begin * 9 + j * 9;//Смещение до первой координаты треугольника
+                    for (var k = 0; k < 9; k += 3)
+                    {
+                        var pointStride = stride + k;
+                        minX = Math.Min(minX, points[pointStride + 0]);
+                        maxX = Math.Max(maxX, points[pointStride + 0]);
+
+                        minY = Math.Min(minY, points[pointStride + 1]);
+                        maxY = Math.Max(maxY, points[pointStride + 1]);
+
+                        minZ = Math.Min(minZ, points[pointStride + 2]);
+                        maxZ = Math.Max(maxZ, points[pointStride + 2]);
+                    }
+                }
+                for (var j = 0; j < triangles; ++j)
+                {
+                    var stride = begin * 9 + j * 9;//Смещение до первой координаты треугольника
+                    for (var k = 0; k < 9; k += 3)
+                    {
+                        var pointStride = stride + k;
+                        leftUp[pointStride + 0] = minX;
+                        leftUp[pointStride + 1] = maxY;
+                        leftUp[pointStride + 2] = maxZ;
+
+                        rightDown[pointStride + 0] = maxX;
+                        rightDown[pointStride + 1] = minY;
+                        rightDown[pointStride + 2] = minZ;
+                    }
+                }
+            }
         }
     }
 }

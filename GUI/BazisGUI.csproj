@@ -370,7 +370,7 @@
     <Compile Include="Scene\ScreenRectangle.cs" />
     <Compile Include="Scene\TaoExtension.cs" />
     <Compile Include="Scene\BoundingBox.cs" />
-    <Compile Include="Scene\VBO\BoundingBoxVBO.cs" />
+    <Compile Include="Scene\VBO\ClipPlane.cs" />
     <Compile Include="Scene\VBO\LineObjects.cs" />
     <Compile Include="Scene\VBO\PointObjects.cs" />
     <Compile Include="Scene\VBO\SurfaceObjects.cs" />

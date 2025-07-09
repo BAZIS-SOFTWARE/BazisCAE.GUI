@@ -526,7 +526,6 @@ namespace BazisGUI
                     }
                 }
                 VBOController.DeleteAllVBObjects();
-                clipPlaneRenderer?.DestroyBoundingBoxVBO();//Удаление VBO объекта не связанный со сценой
                 CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             }
@@ -545,7 +544,6 @@ namespace BazisGUI
                     obj.ViewState = false;
 
                 VBOController.DeleteAllVBObjects();
-                clipPlaneRenderer?.DestroyBoundingBoxVBO();
                 CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             }
@@ -624,7 +622,6 @@ namespace BazisGUI
                     obj.ViewState = true;
 
                 VBOController.DeleteAllVBObjects();
-                clipPlaneRenderer?.DestroyBoundingBoxVBO();
                 CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             }
@@ -679,7 +676,6 @@ namespace BazisGUI
                     }
                 }
                 VBOController.DeleteAllVBObjects();
-                clipPlaneRenderer?.DestroyBoundingBoxVBO();
                 CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             }
