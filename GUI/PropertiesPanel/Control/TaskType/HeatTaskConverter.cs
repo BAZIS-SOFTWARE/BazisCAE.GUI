@@ -15,7 +15,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         private HeatData _objAsHeat;
         private List<string> _func;
 
-        public HeatTaskConverter(IPhysicalData obj, List<IGroup> groupElement, List<string> func)
+        public HeatTaskConverter(ICondData obj, List<IGroup> groupElement, List<string> func)
         {
             selectObj = obj;
             dataGroupElement = groupElement;

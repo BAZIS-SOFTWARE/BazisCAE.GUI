@@ -38,7 +38,7 @@ namespace BazisGUI
                             obj.ViewState = true;
                             ClearAllDataOnScene();
 
-                            var pres = CreateModelObjectsPresentor(project.ModelData, obj.ObjType);
+                            var pres = project.CreateModelObjectsPresentor(obj.ObjType);
                             CreateVBObject(pres);
                             DisplayObjects();
                         }
@@ -48,26 +48,20 @@ namespace BazisGUI
                 {
                     Invoke(new Action(() => { console.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
 
-                    projectController.CoincidentObjectsFinder.ProgressEvent += (ar1, ar2) =>
-                    {
-                        Invoke(new Action(() => { console.PrintInfo(string.Format("{0:00}%", ar2 * 100), Color.Black); }));
-                    };
-
                     var nodes = project.ModelData.ObjectData.NodesSet;
-                    var coincidentNodes = projectController.CoincidentObjectsFinder.Find(
-                        nodes.Values.ToList(), 0.001f);
+                    var coincidentNodes = project.FindCoincidentObjects(ObjType.Узел, 0.001f);
 
                     Invoke(new Action(() => { console.PrintInfo($"Найдено {coincidentNodes.Count()} совпадений", Color.Black); }));
                     Invoke(new Action(() =>
                     {
                         ClearAllDataOnScene();
-                        var pres = CreateModelObjectsPresentor(project.ModelData, ObjType.Узел);
+                        var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
                         CreateVBObject(pres);
                         DisplayObjects();
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
                     {
-                        projectController.ObjectsMerger.Merge(coincidentNodes, nodes);
+                        project.MergeNodes(coincidentNodes);
 
                         Invoke(new Action(() =>
                         {
@@ -99,7 +93,7 @@ namespace BazisGUI
 
         private void console_FindFreeNodesEvent()
         {
-            var freeNodes = projectController.FreeNodesFinder.Find(project.ModelData.ObjectData);
+            var freeNodes = project.FindFreeNodes();
 
             Invoke(new Action(() =>
             {
@@ -113,7 +107,7 @@ namespace BazisGUI
                 var objsTypeStr = ObjType.Узел.ToString();
                 VBOController.DeleteVBObjects(objsTypeStr);
 
-                var pres = CreateModelObjectsPresentor(project.ModelData, ObjType.Узел);
+                var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
                 CreateVBObject(pres);
 
                 DisplayObjects();
@@ -122,7 +116,7 @@ namespace BazisGUI
 
         private void console_RenumberMeshEvent(object arg1, ModelRenumberEventArgs arg2)
         {
-            projectController.ObjectsRenumber.Renumber(project.ModelData.ObjectData, Converters.ConvertToObjsType(arg2.ObjsType));
+            //project.Renumber(project.ModelData.ObjectData, Converters.ConvertToObjsType(arg2.ObjsType));
         }
 
         private void console_ModelShiftCoordinateEvent(object arg1, BaseModule.Console.Events.ModelShiftCoordinateEventArgs arg2)
@@ -134,7 +128,7 @@ namespace BazisGUI
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
-                var pres = CreateModelObjectsPresentor(project.ModelData, item);
+                var pres = project.CreateModelObjectsPresentor(item);
                 SetVBObjectAttribute(pres, "координаты");
             }
 
@@ -152,7 +146,7 @@ namespace BazisGUI
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
-                var pres = CreateModelObjectsPresentor(project.ModelData, item);
+                var pres = project.CreateModelObjectsPresentor(item);
                 SetVBObjectAttribute(pres, "координаты");
             }
 

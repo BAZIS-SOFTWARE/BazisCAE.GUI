@@ -1,24 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using Tao.OpenGl;
-using Tao.Platform.Windows;
-using Geometry;
-using System.ComponentModel;
-using System.Reflection;
-using BazisGUI.Scene.Interfaces;
-using BazisGUI.Scene.VBO;
-using BazisGUI.Scene.EventsArgs;
-using BazisGUI.Scene;
-using BazisGUI.Utilities;
-using Model.Interfaces.ObjectsCollections;
-using Model.Interfaces;
-using ModelControllerInterfaces;
-using BaseModule.Extensions;
-
-namespace BazisGUI
+﻿namespace BazisGUI
 {
     public partial class BaseForm
     {

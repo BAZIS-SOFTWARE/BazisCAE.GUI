@@ -12,7 +12,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     public class ClampTaskConverter : DataConverter
     {
         private ClampData _clamp;
-        public ClampTaskConverter(IPhysicalData obj, List<IGroup> groupElement)
+        public ClampTaskConverter(ICondData obj, List<IGroup> groupElement)
         {
             _clamp = obj as ClampData;
             selectObj = obj;

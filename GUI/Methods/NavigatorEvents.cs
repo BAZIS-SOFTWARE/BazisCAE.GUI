@@ -115,7 +115,7 @@ namespace BazisGUI
                 ClearAllDataOnScene();
 
                 foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-                    CreateVBObject(project.CreateModelObjectsPresentor(item,settingsConfig.IsInsideObjectsShown));
+                    CreateVBObject(project.CreateModelObjectsPresentor(item));
 
                 DisplayObjects();
             }
@@ -315,7 +315,7 @@ namespace BazisGUI
             foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
             {
                 modelData.ObjectData.SetBackColor(type);
-                var pres = project.CreateModelObjectsPresentor(type,settingsConfig.IsInsideObjectsShown);
+                var pres = project.CreateModelObjectsPresentor(type);
                 SetVBObjectAttribute(pres, "цвет");
             }
             DisplayObjects();
@@ -353,7 +353,7 @@ namespace BazisGUI
                         }
                         if (data.Direction != Direction.None)
                             DisplayDirection(arg2.Time, data, group);
-                        var pres = project.CreateModelObjectsPresentor(group.ObjType, settingsConfig.IsInsideObjectsShown);
+                        var pres = project.CreateModelObjectsPresentor(group.ObjType);
                         SetVBObjectAttribute(pres, "цвет");
 
                         DisplayObjects();
@@ -456,7 +456,7 @@ namespace BazisGUI
                     foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
                     {
                         project.ModelData.ObjectData.SetBackColor(type);
-                        var pres = project.CreateModelObjectsPresentor(type, settingsConfig.IsInsideObjectsShown);
+                        var pres = project.CreateModelObjectsPresentor(type);
                         SetVBObjectAttribute(pres, "цвет");
                     }
 
@@ -579,7 +579,7 @@ namespace BazisGUI
             var viewMode = vbobj.ViewMode;
 
             VBOController.DeleteVBObjects(group.ObjType.ToString());
-            var pres = project.CreateModelObjectsPresentor(group.ObjType,settingsConfig.IsInsideObjectsShown);
+            var pres = project.CreateModelObjectsPresentor(group.ObjType);
             CreateVBObject(pres);
             VBOController.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
 
@@ -652,7 +652,7 @@ namespace BazisGUI
                 modelObject.ViewState = viewState;
 
             VBOController.DeleteVBObjects(objType.ToString());
-            var pres = project.CreateModelObjectsPresentor(objType, settingsConfig.IsInsideObjectsShown);
+            var pres = project.CreateModelObjectsPresentor(objType);
             var vb = CreateVBObject(pres);
             VBOController.AddVbo(vb);
             DisplayObjects();
@@ -747,7 +747,7 @@ namespace BazisGUI
             project.DeleteModelSet(objType, setName);
             VBOController.DeleteVBObjects(objType.ToString());
 
-            var ndPres = project.CreateModelObjectsPresentor(objType, settingsConfig.IsInsideObjectsShown);
+            var ndPres = project.CreateModelObjectsPresentor(objType);
             CreateVBObject(ndPres);
             DisplayObjects();
         }
@@ -760,7 +760,7 @@ namespace BazisGUI
             foreach (var iobj in group)
                 iobj.Color = settingsConfig.SelectObjectColor;
 
-            var pres = project.CreateModelObjectsPresentor(group.ObjType,settingsConfig.IsInsideObjectsShown);
+            var pres = project.CreateModelObjectsPresentor(group.ObjType);
             SetVBObjectAttribute(pres,"цвет");
 
             DisplayObjects();
@@ -781,12 +781,12 @@ namespace BazisGUI
             }
 
             VBOController.DeleteVBObjects(ObjType.Узел.ToString());
-            var ndPres = project.CreateModelObjectsPresentor(ObjType.Узел,settingsConfig.IsInsideObjectsShown);
+            var ndPres = project.CreateModelObjectsPresentor(ObjType.Узел);
             CreateVBObject(ndPres);
 
             var strObjType = group.ObjType.ToString();
             VBOController.DeleteVBObjects(strObjType);
-            var objPres = project.CreateModelObjectsPresentor(group.ObjType, settingsConfig.IsInsideObjectsShown);
+            var objPres = project.CreateModelObjectsPresentor(group.ObjType);
             CreateVBObject(objPres);
 
             DisplayObjects();
@@ -908,14 +908,14 @@ namespace BazisGUI
                     DisplayDirection(data.StartTime, data, data.Group);
 
                 project.ModelData.ObjectData.SetBackColor(data.Group.ObjType);
-                var pres = project.CreateModelObjectsPresentor(data.Group.ObjType,settingsConfig.IsInsideObjectsShown);
+                var pres = project.CreateModelObjectsPresentor(data.Group.ObjType);
 
                 SetVBObjectAttribute(pres, "цвет");
 
                 foreach (var iobj in data.Group)
                     iobj.Color = settingsConfig.SelectGroupColor;
 
-                pres = project.CreateModelObjectsPresentor(data.Group.ObjType, settingsConfig.IsInsideObjectsShown);
+                pres = project.CreateModelObjectsPresentor(data.Group.ObjType);
                 SetVBObjectAttribute(pres, "цвет");
 
                 DisplayObjects();
@@ -940,7 +940,7 @@ namespace BazisGUI
 
                 project.ModelData.ObjectData.SetBackColor(group.ObjType);
 
-                var pres = project.CreateModelObjectsPresentor(group.ObjType,settingsConfig.IsInsideObjectsShown);
+                var pres = project.CreateModelObjectsPresentor(group.ObjType);
                 SetVBObjectAttribute(pres, "цвет");
 
                 foreach (var iobj in group)

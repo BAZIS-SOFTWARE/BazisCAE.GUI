@@ -12,7 +12,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         private readonly List<string> _mat;
         private MatData _matData;
 
-        public MatTaskConverter(IPhysicalData obj, List<string> mat, List<IGroup> groupElement)
+        public MatTaskConverter(ICondData obj, List<string> mat, List<IGroup> groupElement)
         {
             _mat = mat;
             _matData = obj as MatData;

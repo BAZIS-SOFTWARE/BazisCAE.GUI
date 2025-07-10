@@ -11,7 +11,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     {
         private List<string> _func;
         private MediaData _media;
-        public EnvironmentTaskConverter(IPhysicalData obj, List<IGroup> groupElement, List<string> func)
+        public EnvironmentTaskConverter(ICondData obj, List<IGroup> groupElement, List<string> func)
         {
             selectObj = obj;
             dataGroupElement = groupElement;

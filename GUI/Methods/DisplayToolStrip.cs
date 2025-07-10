@@ -62,11 +62,11 @@ namespace BazisGUI
             try
             {
                 foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Поверхность))
-                    item.SetViewMode(ViewMode.LineSurface);
+                    item.SetViewMode(arg2);
                 foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент2D))
-                    item.SetViewMode(ViewMode.LineSurface);
+                    item.SetViewMode(arg2);
                 foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент3D))
-                    item.SetViewMode(ViewMode.LineSurface);
+                    item.SetViewMode(arg2);
 
                 var vbobjs = VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle);
 
@@ -88,45 +88,29 @@ namespace BazisGUI
 
         private void HideInsideObjects()
         {
-            var objs = project.ModelData.ObjectData.E3DCollection.GetObjects();
+            settingsConfig.IsInsideObjectsShown = false;
 
-            changeInsideSurface.HideInsideSurfaces(objs);
-
-            var presenter = presentersCreator.CreateSurfaceObjectsPresenter(objs);
+            project.ChangeInsideSurfacesState(settingsConfig.IsInsideObjectsShown);
+            var presenter = project.CreateModelObjectsPresentor(ObjType.Элемент3D);
             var name = ObjType.Элемент3D.ToString();
-            
-            var vbobj = VBOController.FindVBObj(name);
-            if (vbobj != null)
-            {
-                var viewMode = vbobj.ViewMode;
 
-                VBOController.DeleteVBObjects(name);
-                var vbo = CreateVBObject(presenter);
-                VBOController.AddVbo(vbo);
-                VBOController.ChangeViewModeVBObjects(name, viewMode);
-            }
+            VBOController.DeleteVBObjects(name);
+            var vbo = CreateVBObject(presenter);
+            VBOController.AddVbo(vbo);
+
             console.PrintInfo("Скрыты внутренние объекты", Color.Black);
         }
 
         private void ShowInsideObjects()
         {
-
-            var objs = project.ModelData.ObjectData.E3DCollection.GetObjects();
-
-            changeInsideSurface.ShowInsideSurfaces(objs);
-
-            var presenter = presentersCreator.CreateSurfaceObjectsPresenter(objs);
+            settingsConfig.IsInsideObjectsShown = true;
+            project.ChangeInsideSurfacesState(settingsConfig.IsInsideObjectsShown);
+            var presenter = project.CreateModelObjectsPresentor(ObjType.Элемент3D);
             var name = ObjType.Элемент3D.ToString();
-            var vbobj = VBOController.FindVBObj(name);
-            if (vbobj != null)
-            {
-                var viewMode = vbobj.ViewMode;
 
-                VBOController.DeleteVBObjects(name);
-                var vbo = CreateVBObject(presenter);
-                VBOController.AddVbo(vbo);
-                VBOController.ChangeViewModeVBObjects(name, viewMode);
-            }
+            VBOController.DeleteVBObjects(name);
+            var vbo = CreateVBObject(presenter);
+            VBOController.AddVbo(vbo);
             console.PrintInfo("Показаны все объекты", Color.Black);
         }
 
@@ -151,7 +135,7 @@ namespace BazisGUI
                     var surfElems = project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement);
                     if (surfElems.Count() > 0)
                     {
-                        var elemsNormals = projectController.NormalCalculator.CalcElemsNormals(surfElems.Select(x => x as ISurfaceElement));
+                        var elemsNormals = project.CalcElemsNormals(3);
 
                         var linePresenter = presentersCreator.CreateLineObjectsPresenter(elemsNormals);
                         linePresenter.Name = "Normals";
@@ -183,8 +167,8 @@ namespace BazisGUI
                 {
                     var surfElems = project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement).
             Select(x => (ISurfaceElement)x);
-                    var linesNodes = projectController.BoundaryEdgesFinder.Find(surfElems);
-                    var edges = projectController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, project.ModelData);
+                    var linesNodes = project.FindBoundaryEdges();
+                    var edges = project.CreateBoundaryEdges(linesNodes);
                     var linePresenter = presentersCreator.CreateLineObjectsPresenter(edges);
                     linePresenter.Name = "Boundary";
                     CreateVBObject(linePresenter);

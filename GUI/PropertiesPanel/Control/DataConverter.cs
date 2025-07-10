@@ -12,11 +12,11 @@ namespace BazisGUI.PropertiesPanel.Control
     public abstract class DataConverter : PanelConverter
     {
         protected Dictionary<string, string> data;
-        protected IPhysicalData selectObj;
+        protected ICondData selectObj;
         protected List<IGroup> dataGroupElement;
 
         private static List<IGroup> _groupElement;
-        public static DataConverter CreateConverter(IPhysicalData obj, List<string> func, List<string> mat, List<IGroup> allGroupElement)
+        public static DataConverter CreateConverter(ICondData obj, List<string> func, List<string> mat, List<IGroup> allGroupElement)
         {
             _groupElement = allGroupElement;
             if (obj.Kind.ToString() == NodeType.Материал.ToString()) return new MatTaskConverter(obj, mat, GetGroupsByObjTypeFromOnesName(obj));
@@ -27,7 +27,7 @@ namespace BazisGUI.PropertiesPanel.Control
             else throw new NotImplementedException("Тип задачи не определен");
         }
 
-        public static List<IGroup> GetGroupsByObjTypeFromOnesName(IPhysicalData data, string groupName = null)
+        public static List<IGroup> GetGroupsByObjTypeFromOnesName(ICondData data, string groupName = null)
         {
             if (string.IsNullOrEmpty(groupName))
                 groupName = data.Group.Name;

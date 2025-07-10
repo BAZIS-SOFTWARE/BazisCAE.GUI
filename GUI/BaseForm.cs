@@ -512,7 +512,7 @@ namespace BazisGUI
 
             settings.SetNodeColorEvent += (ar) => { 
                 //NodeColor = ar;
-                var pres = project.CreateModelObjectsPresentor(ObjType.Узел,settingsConfig.IsInsideObjectsShown);
+                var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
                 SetVBObjectAttribute(pres,"цвет");
                 DisplayObjects();
             };

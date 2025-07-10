@@ -2,12 +2,10 @@
 using BaseModule.Results.Export;
 using BaseModule.Results.GraphCreation;
 using BaseModule.Results.ScaleControl;
-using BazisGUI.SettingsControls;
 using BazisGUI.Utilities;
 using Geometry;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
-using ModelControllerInterfaces;
 using PostProc;
 using Project.Interfaces.Tasks;
 using Project.Interfaces;
@@ -22,6 +20,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx.Graph;
 using BazisGUI.Scene;
+using OperationalController;
 
 namespace BazisGUI
 {
@@ -303,9 +302,7 @@ namespace BazisGUI
         {
             var fileName = dataController.OpenResults();
 
-            project.GeneralData.ResultDB = fileName;
-
-            PresentResultsInfo(project.GeneralData.ResultDB);
+            PresentResultsInfo(fileName);
         }
 
         public void PresentResultsInfo(string fileName)
@@ -524,14 +521,11 @@ namespace BazisGUI
         {
             try
             {
-                IEnumerable<IElement> elements;
+                Dictionary<int,List<int>> interfaceNodes;
                 if (project.GeneralData.TaskType == TaskType.Volume)
-                    elements = project.ModelData.ObjectData.E3DCollection.GetObjects();
+                    interfaceNodes = project.FindInterfacedNodes(3);
                 else
-                    elements = project.ModelData.ObjectData.E2DCollection.GetObjects();
-
-
-                var interfaceNodes = projectController.InterfacedNodesFinder.Find(elements);
+                    interfaceNodes = project.FindInterfacedNodes(2);
 
                 console.PrintInfo($"Выполняется пересчет на узлы", Color.Black);
                 console.PrintInfo("", Color.Black);

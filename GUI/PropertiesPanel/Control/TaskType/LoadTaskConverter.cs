@@ -12,7 +12,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     {
         private List<string> _func;
         private LoadData _load; 
-        public LoadTaskConverter(IPhysicalData obj, List<string> func, List<IGroup> groupElement)
+        public LoadTaskConverter(ICondData obj, List<string> func, List<IGroup> groupElement)
         {
             _load = obj as LoadData;
             _func = func;

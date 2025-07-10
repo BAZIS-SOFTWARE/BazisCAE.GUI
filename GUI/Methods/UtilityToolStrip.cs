@@ -280,7 +280,7 @@ namespace BazisGUI
 
             project.ModelData.ObjectData.SetBackColor(objType);
 
-            var pres = CreateModelObjectsPresentor(project.ModelData, objType);
+            var pres = project.CreateModelObjectsPresentor(objType);
 
             SetVBObjectAttribute(pres, "цвет");
             DisplayObjects();
@@ -411,11 +411,9 @@ namespace BazisGUI
             var p1 = new Vector3(mP1._x, mP1._y, mP1._z);
             var p2 = new Vector3(mP2._x, mP2._y, mP2._z);
 
-            var elems3D = project.ModelData.ObjectData.E3DCollection.GetObjects();
-
             var plane = CreateSectionPlane(p0, p1, p2);
 
-            var surface = projectController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
+            var surface = project.GetSectionSurfaces(plane);
             var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
             presenter.Name = "crossSection";
             CreateVBObject(presenter); 
@@ -431,10 +429,9 @@ namespace BazisGUI
 
         private void CreateSectionSurfacesFromCoords(CreatePlaneFromTextArgs arg)
         {
-            var elems3D = project.ModelData.ObjectData.E3DCollection.GetObjects();
             var plane = CreateSectionPlane(arg.point1, arg.point2, arg.point3);
 
-            var surface = projectController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
+            var surface = project.GetSectionSurfaces(plane);
 
             var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
             presenter.Name = "crossSection";

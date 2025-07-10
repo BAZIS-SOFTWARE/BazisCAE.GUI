@@ -33,7 +33,7 @@ namespace BazisGUI.PropertiesPanel
 
             else if (obj is IGroup group) _converter = new GroupConverter(group);
 
-            else if (obj is IPhysicalData data)
+            else if (obj is ICondData data)
             {
                 _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, AllGroup);
             }
