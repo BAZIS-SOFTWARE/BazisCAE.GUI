@@ -1,6 +1,8 @@
-﻿using BaseModule.Results.GraphCreation;
+﻿using BaseModule.Extensions;
+using BaseModule.Results.GraphCreation;
 using Model;
 using Model.Interfaces;
+using Model.Interfaces.ObjectsCollections;
 using Project.Tasks;
 using System;
 using System.Collections.Generic;
@@ -12,20 +14,7 @@ namespace BazisGUI.Utilities
 {
     public static class ObjectsProvider
     {
-        public static IEnumerable<IModelObject> SelectorProvider(IObjectsData objectsData, string objects)
-        {
-            if (objects == "Объекты")
-                return objectsData.GetAllObjects();
-            else if (objects == "Элементы")
-                return objectsData.GetAllElements();
-            else if (objects == "Фигуры")
-                return objectsData.GetAllElements();
-            else
-            {
-                var objType = Converters.ConvertToObjsType(objects);
-                return objectsData.GetObjects(objType);
-            }
-        }
+
 
         public static IEnumerable<IModelObject> GraphPageProvider(IObjectsData objectsData, GraphObjects objects)
         {
@@ -37,5 +26,7 @@ namespace BazisGUI.Utilities
                     return objectsData.GetAllElements();
             }
         }
+
+        
     }
 }

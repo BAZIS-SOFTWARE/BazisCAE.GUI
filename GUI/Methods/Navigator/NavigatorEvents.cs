@@ -90,7 +90,7 @@ namespace BazisGUI
             try
             {
                 project.TaskData?.Clear();
-                PresentCondDataOnTree(project.GeneralData, project.TaskData);
+                PresentCondDataOnTree(project.TaskData);
             }
             catch (Exception ex)
             {
@@ -152,13 +152,12 @@ namespace BazisGUI
         {
             try
             {
-                var generalData = project.GeneralData;
                 project.Save();
-                console.PrintInfo("Проект сохранен в " + generalData.Path, Color.Black);
+                console.PrintInfo("Проект сохранен в " + project.Path, Color.Black);
 
                 CheckProjectDataBeforeCreationTCF();
 
-                var compDir = $@"{generalData.Path}\ComputationData";
+                var compDir = $@"{project.Path}\ComputationData";
 
                 if (!Directory.Exists(compDir))
                     Directory.CreateDirectory(compDir);
@@ -166,11 +165,11 @@ namespace BazisGUI
                 var result = new List<string>
             {
                 $@"\\загрузка сетки и данных",
-                $@"загрузить проект {generalData.Path}\{generalData.Name}",
+                $@"загрузить проект {project.Path}\{project.Name}",
                 $@"\\загрузка материалов",
-                $@"загрузить материалы {generalData.Path}\{generalData.Materials}",
+                $@"загрузить материалы {project.Path}\{project.MaterialsDB}",
                 $@"\\загрузка функций",
-                $@"загрузить функции {generalData.Path}\{generalData.Functions}",
+                $@"загрузить функции {project.Path}\{project.FunctionsDB}",
                 $@"\\расчет"
             };
 
@@ -200,18 +199,16 @@ namespace BazisGUI
         {
             try
             {
-                var generalData = project.GeneralData;
-
-                if (!File.Exists($@"{generalData.Path}\{generalData.Name}"))
-                    throw new Exception($"В папке проекта {generalData.Path} отсутствует файл проекта {generalData.Name}. " +
+                if (!File.Exists($@"{project.Path}\{project.Name}"))
+                    throw new Exception($"В папке проекта {project.Path} отсутствует файл проекта {project.Name}. " +
                         $"Верните файл проекта в папку проекта или выберете другой проект");
 
-                if (!File.Exists($@"{generalData.Path}\{generalData.Materials}"))
-                    throw new Exception($"В папке проекта {generalData.Path} отсутствует файл материалов {generalData.Materials}. " +
+                if (!File.Exists($@"{project.Path}\{project.MaterialsDB}"))
+                    throw new Exception($"В папке проекта {project.Path} отсутствует файл материалов {project.MaterialsDB}. " +
                         $"Верните файл материалов в папку проекта или выберете другой файл материалов");
 
-                if (!File.Exists($@"{generalData.Path}\{generalData.Functions}"))
-                    throw new Exception($"В папке проекта {generalData.Path} отсутствует файл функций {generalData.Functions}. " +
+                if (!File.Exists($@"{project.Path}\{project.FunctionsDB}"))
+                    throw new Exception($"В папке проекта {project.Path} отсутствует файл функций {project.FunctionsDB}. " +
                         $"Верните файл функций в папку проекта или выберете другой файл функций");
 
             }
@@ -249,12 +246,11 @@ namespace BazisGUI
         {
             try
             {
-                var generalData = project.GeneralData;
                 var myProcess = new Process();
 
                 myProcess.StartInfo.FileName = $@"{settingsConfig.SolverPath}\BazisSolverCP.exe";
 
-                var compDir = $@"{generalData.Path}\ComputationData";
+                var compDir = $@"{project.Path}\ComputationData";
                 var cmdFile = $@"{compDir}\computation.tcf";
 
                 var argStr = string.Join(" ", new string[] { cmdFile });
@@ -277,7 +273,7 @@ namespace BazisGUI
 
                 //var pContr = (PinnedTaskPlannerControl)EmbeddedControls.Find("pinnedTaskPlannerControl", false)[0];
 
-                var inputDir = $@"{project.GeneralData.Path}\InputData";
+                var inputDir = $@"{project.Path}\InputData";
 
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
@@ -287,7 +283,7 @@ namespace BazisGUI
 
                 var procProp = new ProcessProperty()
                 {
-                    TaskKind = project.GeneralData.TaskKind,
+                    TaskKind = project.ProjectKind,
                     CommonTaskType = ProcessType.Welding // убрать из препроцессора
                 };
 
@@ -392,17 +388,17 @@ namespace BazisGUI
                     MinimizeBox = false
                 };
 
-                var elLoadGrpsNames = GetLoadGroupsNames(project.GeneralData.TaskType, project.ModelData);
+                var elLoadGrpsNames = GetLoadGroupsNames(project.ProjectType, project.ModelData);
                 var ndGrpsNames = project.ModelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList();
 
                 var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
-                if (appFolder == project.GeneralData.Path)
+                if (appFolder == project.Path)
                 {
                     MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
                     return;
                 }
-                var matDB = GetDataBase<MaterialDBData>(project.GeneralData.Materials, project.GeneralData.Path);
-                var funDB = GetDataBase<FunctionDBData>(project.GeneralData.Functions, project.GeneralData.Path);
+                var matDB = GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path);
+                var funDB = GetDataBase<FunctionDBData>(project.FunctionsDB, project.Path);
 
                 if (matDB == null || funDB == null)
                 {
@@ -476,7 +472,7 @@ namespace BazisGUI
                     project.TaskData.Add(newData);
                 }
 
-                PresentCondDataOnTree(project.GeneralData, project.TaskData);
+                PresentCondDataOnTree(project.TaskData);
             }
             catch (Exception ex)
             {
@@ -718,7 +714,7 @@ namespace BazisGUI
             PresentGroupDataOnTree(project.ModelData.GroupData);
 
             //if (arg1 is TaskPage taskPage)
-            PresentCondDataOnTree(project.GeneralData, project.TaskData);
+            PresentCondDataOnTree(project.TaskData);
         }
 
         private void navigator_DelAllGroupsEvent()
@@ -731,7 +727,7 @@ namespace BazisGUI
                 PresentGroupDataOnTree(project.ModelData.GroupData);
 
                 //if (arg1 is TaskPage taskPage)
-                PresentCondDataOnTree(project.GeneralData, project.TaskData);
+                PresentCondDataOnTree(project.TaskData);
             }
             catch (Exception ex)
             {
@@ -809,7 +805,7 @@ namespace BazisGUI
                 PresentGroupDataOnTree(project.ModelData.GroupData);
 
                 //if (arg1 is TaskPage taskPage)
-                PresentCondDataOnTree(project.GeneralData, project.TaskData);
+                PresentCondDataOnTree(project.TaskData);
 
                 ClearAllDataOnScene();
                 CreateVBObjects(project.ModelData, "Объекты");
@@ -831,7 +827,7 @@ namespace BazisGUI
                 PresentGroupDataOnTree(project.ModelData.GroupData);
 
                 //if (obj is ToolStripPage taskPage)
-                PresentCondDataOnTree(project.GeneralData, project.TaskData);
+                PresentCondDataOnTree(project.TaskData);
 
                 ClearAllDataOnScene();
                 DisplayObjects();
@@ -859,8 +855,7 @@ namespace BazisGUI
         private void navigator_GetSetsInfoEvent(NodeType obj)
         {
             var objType = Converters.ConvertNavigatorNodeTypeToObjType(obj);
-            var info = project.ModelData.ObjectData.GetSetsInfo(objType);
-
+            var info = project.GetModelSetsInfo(objType);
 
             if (navigator.TrySearchNodes(obj, out List<TreeNode> nodes))
             {
@@ -898,11 +893,12 @@ namespace BazisGUI
                 panelProvider.AllGroup = project.ModelData.GroupData.ToList();
 
                 panelProvider._funcDBNames =
-                    GetDataBase<FunctionDBData>(project.GeneralData.Functions, project.GeneralData.Path).Keys.ToList();
+                    GetDataBase<FunctionDBData>(project.FunctionsDB, project.Path).Keys.ToList();
                 panelProvider._matDBNames =
-                    GetDataBase<MaterialDBData>(project.GeneralData.Materials, project.GeneralData.Path).Keys.ToList();
+                    GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
 
-                panelProvider.ShowPropertiesPanel(data);               
+                var rows = panelProvider.GetRowProperties(data);
+                propertiesPanel.DrawTable(rows);
 
                 if (data.Direction != Direction.None)
                     DisplayDirection(data.StartTime, data, data.Group);
@@ -927,18 +923,15 @@ namespace BazisGUI
  
         }
 
-        private void navigator_SelectGeneralInfoEvent(NodeType arg1, string arg2)
-        {
-            // TO DO
-        }
+
 
         private void navigator_SelectGroupEvent(int grIndex)
         {
             try
             {
-                var group = project.ModelData.GroupData[grIndex];
+                var group = project.GetModelGroup(grIndex);
 
-                project.ModelData.ObjectData.SetBackColor(group.ObjType);
+                project.SetModelObjectsBackColor(group.ObjType);
 
                 var pres = project.CreateModelObjectsPresentor(group.ObjType);
                 SetVBObjectAttribute(pres, "цвет");
@@ -949,7 +942,8 @@ namespace BazisGUI
                 //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
                 SetVBObjectAttribute(pres, "цвет");
                 DisplayObjects();
-                panelProvider.ShowPropertiesPanel(group);
+                var rows = panelProvider.GetRowProperties(group);
+                propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
             {
@@ -959,19 +953,38 @@ namespace BazisGUI
 
         private void navigator_SelectObjectEvent(NodeType arg1, string arg2,int arg3)
         {
-            // TO DO
+            try
+            {
+                var objType = Converters.ConvertNavigatorNodeTypeToObjType(arg1);
+                //var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
+                var objects = project.GetModelObjects(objType);
+                var item = objects.FirstOrDefault(x => x.Number == arg3);
+                var rows = panelProvider.GetRowProperties(item);
+                propertiesPanel.DrawTable(rows);
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         private void navigator_SelectSetEvent(NodeType arg1, string arg2)
         {
-            var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
+            try
+            {
+                var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
 
-            var type = Converters.ConvertNavigatorNodeTypeToObjType(arg1);
+                var objType = Converters.ConvertNavigatorNodeTypeToObjType(arg1);
+                var set = project.GetModelSetInfo(objType, setName);
 
-            var set = project.ModelData.ObjectData.GetSetsInfo(type).FirstOrDefault(x => x.Name == arg2);
-
-            if (set != null)
-                panelProvider.ShowPropertiesPanel(set);
+                var rows = panelProvider.GetRowProperties(set);
+                propertiesPanel.DrawTable(rows);
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+ 
         }
 
         private void navigator_SelectTaskEvent(NodeType arg1, string arg2)

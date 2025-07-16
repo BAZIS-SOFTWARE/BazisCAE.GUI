@@ -23,45 +23,7 @@ namespace BazisGUI
         [Description("Кнопка на клавиатуре")]
         public Keys PressedKey { get; set; }
 
-        public void PresentGroupDataOnTree(IGroupData groupData)
-        {
-            navigator.BeginUpdate();
-
-            navigator.TrySearchNodes("группыОбъектов", out List<TreeNode> nodes);
-
-            nodes[0].Nodes.Clear();
-
-            foreach (var item in groupData)
-            {
-                var r = navigator.CreateRealNode(item.ObjType.ToString(), $"{item.Name} {item.Count}");
-
-                nodes[0].Nodes.Add(r);
-                navigator.SetContextMenu(r);
-            }
-
-            navigator.EndUpdate();
-        }
-
-        public void PresentGeneralDataOnTree(IGeneralData generalData)
-        {
-            //var nodes = new List<TreeNode>();
-
-            navigator.TrySearchNodes(NodeType.названиеПроекта, out List<TreeNode> name);
-            name.First().Text = "Название : " + generalData.Name;
-
-            navigator.TrySearchNodes(NodeType.путь, out List<TreeNode> path);
-            path.First().Text = "Путь : " + generalData.Path;
-
-            navigator.TrySearchNodes(NodeType.сведения, out List<TreeNode> notes);
-            notes.First().Text = "Сведения : " + generalData.Comments;
-
-            navigator.TrySearchNodes(NodeType.вид, out List<TreeNode> kind);
-            kind.First().Text = $"Вид : {generalData.TaskType}";
-
-            navigator.TrySearchNodes(NodeType.тип, out List<TreeNode> type);
-            type.First().Text = $"Тип : {generalData.TaskKind}";
-
-        }
+        
 
         public async void WaitProcessAsync(Process process, Action<object, EventArgs> action)
         {

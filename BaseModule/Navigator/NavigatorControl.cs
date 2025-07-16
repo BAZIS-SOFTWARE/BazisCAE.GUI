@@ -49,9 +49,9 @@ namespace BaseModule.Navigator
         Закрепление,
         Нагрузка,
 
-        названиеПроекта,
-        путь,
-        сведения,
+        //названиеПроекта,
+        //путь,
+        //сведения,
         вид,
         тип,
         базаФункций,
@@ -557,9 +557,10 @@ namespace BaseModule.Navigator
 
             if (e.Node.Level == 0)
             {
-                if (e.Node.Name == NodeType.сведения.ToString() |
-e.Node.Name == NodeType.тип.ToString() |
-e.Node.Name == NodeType.вид.ToString()
+                if (e.Node.Name == NodeType.базаФункций.ToString() |
+                    e.Node.Name == NodeType.базаМатериалов.ToString() |
+                    e.Node.Name == NodeType.тип.ToString() |
+                    e.Node.Name == NodeType.вид.ToString()
 )
                     SelectGeneralInfoEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
             }
@@ -594,14 +595,14 @@ e.Node.Name == NodeType.Объем.ToString()
 
             else if (e.Node.Level == 2)
             {
-                if (e.Node.Name == NodeType.Узлы.ToString() |
-e.Node.Name == NodeType.Элементы1D.ToString() |
-e.Node.Name == NodeType.Элементы2D.ToString() |
-e.Node.Name == NodeType.Элементы3D.ToString() |
-e.Node.Name == NodeType.Точки.ToString() |
-e.Node.Name == NodeType.Кривые.ToString() |
-e.Node.Name == NodeType.Поверхности.ToString() |
-e.Node.Name == NodeType.Объемы.ToString()
+                if (e.Node.Parent.Name == NodeType.Узлы.ToString() |
+e.Node.Parent.Name == NodeType.Элементы1D.ToString() |
+e.Node.Parent.Name == NodeType.Элементы2D.ToString() |
+e.Node.Parent.Name == NodeType.Элементы3D.ToString() |
+e.Node.Parent.Name == NodeType.Точки.ToString() |
+e.Node.Parent.Name == NodeType.Кривые.ToString() |
+e.Node.Parent.Name == NodeType.Поверхности.ToString() |
+e.Node.Parent.Name == NodeType.Объемы.ToString()
 )
                     SelectSetEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
                 else if (e.Node.Name == NodeType.Время.ToString())
@@ -620,7 +621,7 @@ e.Node.Name == NodeType.Поверхность.ToString() |
 e.Node.Name == NodeType.Объем.ToString()
 )
                 {
-                    var set = node.Parent.Nodes[0].Text.Split(' ')[0];
+                    var set = node.Parent.Text.Split(' ')[0];
                     var number = int.Parse(node.Text.Split(' ')[0]);
                     SelectObjectEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), set, number);
                 }

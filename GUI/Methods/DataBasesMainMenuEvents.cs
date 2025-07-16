@@ -18,37 +18,38 @@ namespace BazisGUI
         private void материалыMenuItem_Click(object sender, EventArgs e)
         {
             //var module = (TaskPage)ModulePage;
-            OpenMaterialsDB(project.GeneralData);
+            OpenMaterialsDB();
         }
 
-        public void OpenMaterialsDB(IGeneralData generalData)
+        public void OpenMaterialsDB()
         {
             try
             {
                 var matBasePage = new MaterialsDataBasePage() { Dock = DockStyle.Fill, HeadColor = Color.Gainsboro };
-
-                matBasePage.LoadEvent += () =>
-                {
-                    ChangeMaterialDBEventHandler(generalData, matBasePage);
-                };
-
-                matBasePage.SaveEvent += () =>
-                {
-                    ChangeMaterialDBEventHandler(generalData, matBasePage);
-                };
-
-                var filePath = FindFileByPath(generalData.Path, generalData.Materials);
-                if (filePath == null)
-                    console.PrintInfo($"База данных {generalData.Materials} не найдена в директории {generalData.Path}", Color.Red);
-                else
-                    matBasePage.Load($@"{filePath}\{generalData.Materials}", false);
-
                 var name = "База материалов";
                 var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = matBasePage.Size, ShowIcon = false };
                 form.Controls.Add(matBasePage);
                 form.ClientSize = matBasePage.Size;
                 form.Show();
 
+                matBasePage.LoadEvent += () =>
+                {
+                    ChangeMaterialDBEventHandler(matBasePage);
+                };
+
+                matBasePage.SaveEvent += () =>
+                {
+                    ChangeMaterialDBEventHandler(matBasePage);
+                };
+
+                if (project == null)
+                    return;
+
+                var filePath = FindFileByPath(project.Path, project.MaterialsDB);
+                if (filePath == null)
+                    console.PrintInfo($"База данных {project.MaterialsDB} не найдена в директории {project.Path}", Color.Red);
+                else
+                    matBasePage.Load($@"{filePath}\{project.MaterialsDB}", false);
             }
             catch (Exception ex)
             {
@@ -66,29 +67,33 @@ namespace BazisGUI
         {
             try
             {
-                var generalData = project.GeneralData;
                 var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill, HeadColor = Color.Gainsboro };
                 funBasePage.LoadEvent += () =>
                 {
-                    ChangeFuncDBEventHandler(generalData, funBasePage);
+                    ChangeFuncDBEventHandler(funBasePage);
                 };
 
                 funBasePage.SaveEvent += () =>
                 {
-                    ChangeFuncDBEventHandler(generalData, funBasePage);
+                    ChangeFuncDBEventHandler(funBasePage);
                 };
-
-                var filePath = FindFileByPath(generalData.Path, generalData.Functions);
-                if (filePath == null)
-                    console.PrintInfo($"База данных {generalData.Functions} не найдена в директории {generalData.Path}", Color.Red);
-                else
-                    funBasePage.Load($@"{filePath}\{generalData.Functions}", false);
 
                 var name = "База функций";
                 var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = funBasePage.Size, ShowIcon = false };
                 form.Controls.Add(funBasePage);
                 form.ClientSize = funBasePage.Size;
                 form.Show();
+
+                if (project == null)
+                    return;
+
+                var filePath = FindFileByPath(project.Path, project.FunctionsDB);
+                if (filePath == null)
+                    console.PrintInfo($"База данных {project.FunctionsDB} не найдена в директории {project.Path}", Color.Red);
+                else
+                    funBasePage.Load($@"{filePath}\{project.FunctionsDB}", false);
+
+
             }
             catch (Exception ex)
             {
@@ -96,26 +101,26 @@ namespace BazisGUI
             }
         }
 
-        public void ChangeFuncDBEventHandler(IGeneralData generalData, FunctionDataBasePage funBasePage)
+        public void ChangeFuncDBEventHandler(FunctionDataBasePage funBasePage)
         {
-            if (funBasePage.DbPath != generalData.Path)
-                IOFileController.CopyFile(funBasePage.DbName, funBasePage.DbPath, generalData.Path);
+            if (funBasePage.DbPath != project.Path)
+                IOFileController.CopyFile(funBasePage.DbName, funBasePage.DbPath, project.Path);
 
-            generalData.Functions = funBasePage.DbName;
+            project.FunctionsDB = funBasePage.DbName;
             var funData = funBasePage.Functions;
             //GetTaskAdvisor()?.SetFunctions(funData.Keys.ToList());
-            PresentMatAndFuncDataOnTree(generalData);
+            PresentMatAndFuncData();
         }
 
-        public void ChangeMaterialDBEventHandler(IGeneralData generalData, MaterialsDataBasePage matBasePage)
+        public void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
         {
-            if (matBasePage.DbPath != generalData.Path)
-                IOFileController.CopyFile(matBasePage.DbName, matBasePage.DbPath, generalData.Path);
+            if (matBasePage.DbPath != project.Path)
+                IOFileController.CopyFile(matBasePage.DbName, matBasePage.DbPath, project.Path);
 
-            generalData.Materials = matBasePage.DbName;
+            project.MaterialsDB = matBasePage.DbName;
             var matData = matBasePage.Materials;
             //GetTaskAdvisor()?.SetMaterials(matData.Keys.ToList());
-            PresentMatAndFuncDataOnTree(generalData);
+            PresentMatAndFuncData();
         }
 
         private string FindFileByPath(string path, string fileName)

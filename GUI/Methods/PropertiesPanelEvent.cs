@@ -14,15 +14,17 @@ namespace BazisGUI
     {
         private void propertiesPanel_OnPropertyUpdate(BaseModule.PropertiesPanel.PropertyChangedEventArgs obj)
         {
+            // В зависимости от свойства данных проекта (modelData, TaskData etc
+            // вызывать нужный метод в controller
             panelProvider.UpdateObjectValue(obj.Header, obj.NewValue.ToString(), obj.OldValue.ToString());
-            
+
             // TO DO оптимизировать. Обновлять на дереве только те данные, которые на самом деле изменились
-            PresentGeneralDataOnTree(project.GeneralData);
+            PresentTaskTypeAndKind();
             PresentObjectsDataOnTree(project.ModelData.ObjectData);
             PresentGroupDataOnTree(project.ModelData.GroupData);
 
             //if (obj is TaskPage taskPage)
-            PresentCondDataOnTree(project.GeneralData, project.TaskData);
+            PresentCondDataOnTree(project.TaskData);
 
         }
 

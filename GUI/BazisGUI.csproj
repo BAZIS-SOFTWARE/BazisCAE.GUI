@@ -124,8 +124,8 @@
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=4.2.63.28, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.4.2.63.28\lib\netstandard2.0\Model.dll</HintPath>
+    <Reference Include="Model, Version=4.2.63.31, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.4.2.63.31\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -133,17 +133,17 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="OperationalController, Version=3.1.37.27, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\OperationalController.3.1.37.27\lib\netstandard2.0\OperationalController.dll</HintPath>
+    <Reference Include="OperationalController, Version=3.1.37.39, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\OperationalController.3.1.37.39\lib\netstandard2.0\OperationalController.dll</HintPath>
     </Reference>
-    <Reference Include="PostProc, Version=1.3.2.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostProc.1.3.2\lib\netstandard2.0\PostProc.dll</HintPath>
+    <Reference Include="PostProc, Version=1.3.6.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostProc.1.3.6\lib\netstandard2.0\PostProc.dll</HintPath>
     </Reference>
-    <Reference Include="PreProc, Version=1.1.1.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
-      <HintPath>..\packages\PreProc.1.1.1\lib\netstandard2.0\PreProc.dll</HintPath>
+    <Reference Include="PreProc, Version=1.1.5.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
+      <HintPath>..\packages\PreProc.1.1.5\lib\netstandard2.0\PreProc.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=4.6.80.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.4.6.80\lib\netstandard2.0\Project.dll</HintPath>
+    <Reference Include="Project, Version=4.6.84.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.4.6.84\lib\netstandard2.0\Project.dll</HintPath>
     </Reference>
     <Reference Include="PropertiesCalculator, Version=1.0.4.0, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -236,13 +236,22 @@
     <Compile Include="Methods\DisplayToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\GetData\GetModelObjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\GetData\GetSets.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\MeshMainMenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\NavigatorEvents.cs">
+    <Compile Include="Methods\Navigator\SelectGeneralInfoEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\NavigatorMethods.cs">
+    <Compile Include="Methods\Navigator\NavigatorEvents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\NavigatorMethods.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PropertiesPanelEvent.cs">
@@ -285,6 +294,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Scene\GetSceneCoordOfScreenVector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\SelectObjects\SelectByRect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\SelectObjects\SelectByPoint.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Scene\ViewMatrix.cs">
@@ -365,9 +380,6 @@
     <Compile Include="Scene\ScaleItem.cs" />
     <Compile Include="Scene\SceneCamera.cs" />
     <Compile Include="Scene\SceneCompass.cs" />
-    <Compile Include="Methods\Scene.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Scene\ScenePath.cs" />
     <Compile Include="Scene\SceneScale.cs" />
     <Compile Include="Scene\ScreenRectangle.cs" />
@@ -509,7 +521,6 @@
     <Content Include="IconShort_32.ico" />
     <None Include="Documents\EditingObjectProperties.mdpuml" />
     <None Include="Documents\UseCases.mdpuml" />
-    <None Include="Documents\Передача свойств набора на панель свойств.mdpuml" />
     <None Include="Resources\м 34.png" />
     <None Include="Resources\м 35.png" />
     <None Include="Resources\м 36.png" />

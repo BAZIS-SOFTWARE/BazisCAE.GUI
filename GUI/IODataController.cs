@@ -98,15 +98,15 @@ namespace BazisGUI
                 else
                 {
                     var newFolder = Path.GetDirectoryName(saveDialog.FileName);
-                    var oldFolder = controller.GeneralData.Path;
+                    var oldFolder = controller.Path;
 
-                    controller.GeneralData.Name = Path.GetFileName(saveDialog.FileName);
-                    controller.GeneralData.Path = newFolder;
+                    controller.Name = Path.GetFileName(saveDialog.FileName);
+                    controller.Path = newFolder;
 
-                    if (oldFolder != controller.GeneralData.Path)
+                    if (oldFolder != controller.Path)
                     {
-                        IOFileController.CopyFile(controller.GeneralData.Materials, oldFolder, controller.GeneralData.Path);
-                        IOFileController.CopyFile(controller.GeneralData.Functions, oldFolder, controller.GeneralData.Path);
+                        IOFileController.CopyFile(controller.MaterialsDB, oldFolder, controller.Path);
+                        IOFileController.CopyFile(controller.FunctionsDB, oldFolder, controller.Path);
                     }
 
                     var ext = Path.GetExtension(saveDialog.FileName);
@@ -181,27 +181,9 @@ namespace BazisGUI
 
             var project = CreateNewProject(path, name);
 
-            var ext = Path.GetExtension(dialog.FileName);
-
-            if (ext == ".inp")
-                project.ModelData.Loader = new LoadModelFromINPTextFile();
-            else if (ext == ".inp_v2")
-                project.ModelData.Loader = new LoadModelFromINPTextFile_v2();
-            else if (ext == ".ASC")
-                project.ModelData.Loader = new LoadModelFromASCIITextFile_v2();
-            else if (ext == ".dat")
-                project.ModelData.Loader = new LoadModelFromSalomeFile();
-            else if (ext == ".STL" | ext == ".stl")
-            {
-                project.ModelData.Loader = new LoadFromSTLFile();
-            }    
-
-            else
-                project.ModelData.Loader = new LoadModelFromCDBTextFile();
-
             await LoadProjectAsync(project);
 
-            project.GeneralData.Name = "новый_проект.bpf";
+            project.Name = "новый_проект.bpf";
             return project;
         }
 
@@ -272,28 +254,14 @@ namespace BazisGUI
         public Controller CreateNewProject(string path, string name)
         {
             var project = new Controller();
-            project.Create(name, path);
-            project.GeneralData.Materials = "materials_v3.jsf";
-            project.GeneralData.Functions = "functions.jsf";
-            
-            var ext = Path.GetExtension(name);
-
-            if (ext == ".bpf")
-            {
-                project.ModelData.Loader = new LoadModelFromBPFTextFile();
-                project.ModelData.Saver = new SaveModelToBPFTextFile();
-            }
-
-            else
-            {
-                project.ModelData.Loader = new LoadModelFromBPF2TextFile();
-                project.ModelData.Saver = new SaveModelToBPF2TextFile();
-            }            
+            project.Create($"{path}\\{name}");
+            project.MaterialsDB = "materials_v3.jsf";
+            project.FunctionsDB = "functions.jsf";            
 
             var startMatPath = Application.StartupPath + "\\Materials";
-            IOFileController.CopyFile(project.GeneralData.Materials, startMatPath, path);
+            IOFileController.CopyFile(project.MaterialsDB, startMatPath, path);
             var startFunPath = Application.StartupPath + "\\Functions";
-            IOFileController.CopyFile(project.GeneralData.Functions, startFunPath, path);
+            IOFileController.CopyFile(project.FunctionsDB, startFunPath, path);
 
             return project;
         }

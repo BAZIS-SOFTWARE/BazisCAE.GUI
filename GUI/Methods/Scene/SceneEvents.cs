@@ -2,11 +2,14 @@
 using BazisGUI.Scene.EventsArgs;
 using BazisGUI.Utilities;
 using Geometry;
+using Model;
 using Model.Interfaces;
+using Model.Interfaces.ObjectsCollections;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 using Tao.OpenGl;
 using static BaseModule.Interfaces.GeneralParams;
@@ -30,7 +33,7 @@ spbSelectObject.ToolTipText == "Элементы")
                 {
                     //CreatedMeshGroupEvent?.Invoke(this, spbSelectObject.ToolTipText);
                     var objTypeStr = spbSelectObject.ToolTipText;
-                    var selObjs = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, objTypeStr).
+                    var selObjs = GetModelObjects(objTypeStr).
                         Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                     if (selObjs.Count() > 0)
@@ -78,7 +81,7 @@ spbSelectObject.ToolTipText == "Элементы")
             try
             {
                 var objTypeStr = spbSelectObject.ToolTipText;
-                var selObjs = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, objTypeStr).
+                var selObjs = GetModelObjects(objTypeStr).
         Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 foreach (var selObj in selObjs)
@@ -115,7 +118,7 @@ spbSelectObject.ToolTipText == "Элементы")
         {
             try
             {
-                var objs = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, SelectedObjects);
+                var objs = GetModelObjects(SelectedObjects);
                 var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 var message = $"Выбраны {SelectedObjects} {selObjs.Count()}";
@@ -176,7 +179,7 @@ spbSelectObject.ToolTipText == "Элементы")
         {
             try
             {
-                var selObjs = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, spbSelectObject.ToolTipText).
+                var selObjs = GetModelObjects(spbSelectObject.ToolTipText).
 Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 foreach (var item in selObjs)
@@ -191,7 +194,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                 PresentGroupDataOnTree(project.ModelData.GroupData);
 
                 //if (arg1 is TaskPage taskPage)
-                PresentCondDataOnTree(project.GeneralData, project.TaskData);
+                PresentCondDataOnTree(project.TaskData);
 
                 ObjType objType;
                 if (spbSelectObject.ToolTipText.TryToEnum(out objType))
@@ -324,30 +327,18 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             DisplayObjects();
 
             scene.Invalidate();
-        }     
+        }
 
-        private void SelectObjects(RectangleBox rectangleBox, bool isSorted, bool isSelected)
+        private void SelectObjects(Point2D point, bool isSelected)
         {
             try
             {
-                if(project != null)
+                if (project != null)
                 {
-                    var objects = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, spbSelectObject.ToolTipText);
-                    var selections = SearchObjects(objects, rectangleBox, isSorted);
-
-                    if (selections.Count > 0)
-                    {
-                        foreach (var obj in selections)
-                        {
-                            var set = project.ModelData.ObjectData.GetSetInfo(obj.ObjType, obj.Number);
-                            if (isSelected)
-                                obj.Color = settingsConfig.SelectObjectColor;//  page.ScenePage.settingsConfig.SelectObjectColor;
-                            else
-                                obj.Color = set.Color;
-                        }
-
-                        ColorObjects(project.ModelData, spbSelectObject.ToolTipText);
-                    }
+                    var sets = GetModelSetsInfo(spbSelectObject.ToolTipText);
+                    //var sets = project.GetModelSetsInfo(spbSelectObject.ToolTipText);
+                    if (SelectByPoint(sets, point, isSelected))
+                        ColorObjects(spbSelectObject.ToolTipText);
                 }
             }
             catch (Exception ex)
@@ -356,7 +347,24 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             }
         }
 
-        internal void ColorObjects(IModelData modelData, string objTypeStr)
+        private void SelectObjects(RectangleBox rectangleBox, bool isSelected)
+        {
+            try
+            {
+                if(project != null)
+                {
+                    var sets = GetModelSetsInfo(spbSelectObject.ToolTipText);
+                    if (SelectByRect(sets, rectangleBox, isSelected))
+                        ColorObjects(spbSelectObject.ToolTipText);
+                }
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        internal void ColorObjects(string objTypeStr)
         {
             if (objTypeStr == "Объекты")
             {
@@ -385,41 +393,8 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             DisplayObjects();
         }
 
-        public List<IModelObject> SearchObjects(IEnumerable<IModelObject> objects, RectangleBox selectionBox, bool isSorted)
-        {
-            var selections = new List<IModelObject>();
+        
 
-            foreach (var item in objects)
-            {
-                if (item.ViewState)
-                {
-                    var scrPoints = new Point2D[item.NumberOfPoints];
-                    var scnPoints = new Point3D[item.NumberOfPoints];
-
-                    var pointCounter = 0;
-                    foreach (var point in item.GetCoordinates())
-                    {
-                        var scnPoint = GetSceenCoord(point);
-                        scnPoints[pointCounter] = scnPoint;
-
-                        var scrPoint = GetScreenCoord(scnPoint);
-                        scrPoints[pointCounter] = scrPoint;
-
-                        pointCounter++;
-                    }
-
-                    if (selectionBox.IsPointsInside(scrPoints))
-                        selections.Add(item);
-                }
-            }
-
-            if (isSorted & selections.Count > 0)
-            {
-                var near = selections.OrderByDescending(x => GetSceenCoord(x.CalcCentr())._z).FirstOrDefault();
-                selections = new List<IModelObject>() { near };
-            }
-
-            return selections;
-        }
+        
     }
 }

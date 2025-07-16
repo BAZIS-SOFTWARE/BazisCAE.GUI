@@ -41,11 +41,8 @@ namespace BazisGUI
             this.webPageLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer3 = new UserControlsEx.SplitContainerEx();
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
-            this.navigator = new BaseModule.Navigator.NavigatorControl();
-            this.propertiesPanel = new BaseModule.PropertiesPanel.PropertiesPanelControl();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.scene = new Tao.Platform.Windows.SimpleOpenGlControl();
-            this.console = new BaseModule.Console.ConsoleControl();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,6 +128,9 @@ namespace BazisGUI
             this.menuItem_InfoSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_SetRotPoint = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_DeleteSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
+            this.navigator = new BaseModule.Navigator.NavigatorControl();
+            this.propertiesPanel = new BaseModule.PropertiesPanel.PropertiesPanelControl();
+            this.console = new BaseModule.Console.ConsoleControl();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -210,6 +210,7 @@ namespace BazisGUI
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(933, 21);
             this.lblStatus.Spring = true;
+            this.lblStatus.Text = "Создайте или загрузите проект или сетку";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblVersion
@@ -274,88 +275,6 @@ namespace BazisGUI
             this.splitContainer1.SwitchShifting = false;
             this.splitContainer1.TabIndex = 0;
             // 
-            // navigator
-            // 
-            this.navigator.BackColor = System.Drawing.Color.Gainsboro;
-            this.navigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.navigator.CollapseIndex = 14;
-            this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigator.DownColor = System.Drawing.Color.Gainsboro;
-            this.navigator.ExpandIndex = 15;
-            this.navigator.HeaderColor = System.Drawing.Color.Black;
-            this.navigator.HeaderName = "Навигатор";
-            this.navigator.IsPinndable = false;
-            this.navigator.Location = new System.Drawing.Point(0, 0);
-            this.navigator.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.navigator.Name = "navigator";
-            this.navigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(444, 265);
-            this.navigator.TabIndex = 0;
-            this.navigator.UpColor = System.Drawing.Color.Gainsboro;
-            this.navigator.HideResultsEvent += new System.Action(this.navigator_HideResultsEvent);
-            this.navigator.RemoveResultsEvent += new System.Action(this.navigator_RemoveResultsEvent);
-            this.navigator.ShowGantChartEvent += new System.Action(this.navigator_ShowGantChartEvent);
-            this.navigator.RemoveAllConditionsEvent += new System.Action(this.navigator_RemoveAllConditionsEvent);
-            this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
-            this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
-            this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
-            this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
-            this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
-            this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
-            this.navigator.ChangeSetViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeSetViewEvent);
-            this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_ShowSetEvent);
-            this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_HideSetEvent);
-            this.navigator.DelSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_DelSetEvent);
-            this.navigator.SelectSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectSetEvent);
-            this.navigator.SelectGroupEvent += new System.Action<int>(this.navigator_SelectGroupEvent);
-            this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
-            this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
-            this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
-            this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
-            this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
-            this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
-            this.navigator.GetObjectsInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_GetObjectsInfoEvent);
-            this.navigator.DelObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_DelObjectsEvent);
-            this.navigator.ShowObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_ShowObjectsEvent);
-            this.navigator.HideObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_HideObjectsEvent);
-            this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_SelectObjectEvent);
-            this.navigator.DelObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_DelObjectEvent);
-            this.navigator.ShowObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_ShowObjectEvent);
-            this.navigator.HideObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_HideObjectEvent);
-            this.navigator.SelectCondEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectCondEvent);
-            this.navigator.SelectTaskEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectTaskEvent);
-            this.navigator.SelectGeneralInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectGeneralInfoEvent);
-            this.navigator.SelectTimeEvent += new System.Action<string, double>(this.navigator_SelectTimeEvent);
-            this.navigator.GetSetsInfoEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_GetSetsInfoEvent);
-            this.navigator.GetResultInfoEvent += new System.Action<string>(this.navigator_GetResultInfoEvent);
-            this.navigator.AddConditionEvent += new System.Action<object, BaseModule.Navigator.NodeType>(this.navigator_AddConditionEvent);
-            this.navigator.GenerateTSFEvent += new System.Action(this.navigator_GenerateTSFEvent);
-            this.navigator.GenerateTCFEvent += new System.Action(this.navigator_GenerateTCFEvent);
-            this.navigator.StopComputationEvent += new System.Action(this.navigator_StopComputationEvent);
-            this.navigator.SetCompPriority += new System.Action<object, BaseModule.Navigator.Priority>(this.navigator_SetCompPriority);
-            this.navigator.CreateAnimationEvent += new System.Action<object, string, System.Collections.Generic.List<string>>(this.navigator_CreateAnimationEvent);
-            this.navigator.ControlCollapseEvent += new System.Action(this.navigator_ControlCollapseEvent);
-            // 
-            // propertiesPanel
-            // 
-            this.propertiesPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.propertiesPanel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.propertiesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.propertiesPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertiesPanel.DownColor = System.Drawing.Color.Gainsboro;
-            this.propertiesPanel.HeaderColor = System.Drawing.Color.Black;
-            this.propertiesPanel.HeaderName = "Свойства";
-            this.propertiesPanel.IsPinndable = false;
-            this.propertiesPanel.Location = new System.Drawing.Point(0, 0);
-            this.propertiesPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.propertiesPanel.Name = "propertiesPanel";
-            this.propertiesPanel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.propertiesPanel.Size = new System.Drawing.Size(444, 67);
-            this.propertiesPanel.TabIndex = 0;
-            this.propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
-            this.propertiesPanel.OnPropertyUpdate += new System.Action<BaseModule.PropertiesPanel.PropertyChangedEventArgs>(this.propertiesPanel_OnPropertyUpdate);
-            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -404,31 +323,6 @@ namespace BazisGUI
             this.scene.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseMove);
             this.scene.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseUp);
             this.scene.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseWheel);
-            // 
-            // console
-            // 
-            this.console.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.console.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.console.CheckPrintElemsInfo = false;
-            this.console.CheckPrintNodesInfo = false;
-            this.console.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.console.DownColor = System.Drawing.Color.Gainsboro;
-            this.console.HeaderColor = System.Drawing.Color.Black;
-            this.console.HeaderName = "Консоль";
-            this.console.IsPinndable = false;
-            this.console.Location = new System.Drawing.Point(0, 0);
-            this.console.Margin = new System.Windows.Forms.Padding(0);
-            this.console.Name = "console";
-            this.console.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.console.Size = new System.Drawing.Size(596, 31);
-            this.console.TabIndex = 0;
-            this.console.UpColor = System.Drawing.Color.Gainsboro;
-            this.console.ControlCollapseEvent += new System.Action(this.console_ControlCollapseEvent);
-            this.console.InEvent += new System.Action<object, System.EventArgs>(this.console_InEvent);
-            this.console.FindFreeNodesEvent += new System.Action(this.console_FindFreeNodesEvent);
-            this.console.RenumberMeshEvent += new System.Action<object, BaseModule.Console.Events.ModelRenumberEventArgs>(this.console_RenumberMeshEvent);
-            this.console.ModelShiftCoordinateEvent += new System.Action<object, BaseModule.Console.Events.ModelShiftCoordinateEventArgs>(this.console_ModelShiftCoordinateEvent);
-            this.console.ModelRotateEvent += new System.Action<object, BaseModule.Console.ModelRotateEventArgs>(this.console_ModelRotateEvent);
             // 
             // menuStrip
             // 
@@ -1440,6 +1334,113 @@ namespace BazisGUI
             this.menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(203, 22);
             this.menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             this.menuItem_DeleteSelectedObjects.Click += new System.EventHandler(this.menuItem_DeleteSelectedObjects_Click);
+            // 
+            // navigator
+            // 
+            this.navigator.BackColor = System.Drawing.Color.Gainsboro;
+            this.navigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.navigator.CollapseIndex = 14;
+            this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.navigator.DownColor = System.Drawing.Color.Gainsboro;
+            this.navigator.ExpandIndex = 15;
+            this.navigator.HeaderColor = System.Drawing.Color.Black;
+            this.navigator.HeaderName = "Навигатор";
+            this.navigator.IsPinndable = false;
+            this.navigator.Location = new System.Drawing.Point(0, 0);
+            this.navigator.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.navigator.Name = "navigator";
+            this.navigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.navigator.ProjectInfoIndex = 0;
+            this.navigator.Size = new System.Drawing.Size(444, 265);
+            this.navigator.TabIndex = 0;
+            this.navigator.UpColor = System.Drawing.Color.Gainsboro;
+            this.navigator.HideResultsEvent += new System.Action(this.navigator_HideResultsEvent);
+            this.navigator.RemoveResultsEvent += new System.Action(this.navigator_RemoveResultsEvent);
+            this.navigator.ShowGantChartEvent += new System.Action(this.navigator_ShowGantChartEvent);
+            this.navigator.RemoveAllConditionsEvent += new System.Action(this.navigator_RemoveAllConditionsEvent);
+            this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
+            this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
+            this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
+            this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
+            this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
+            this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
+            this.navigator.ChangeSetViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeSetViewEvent);
+            this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_ShowSetEvent);
+            this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_HideSetEvent);
+            this.navigator.DelSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_DelSetEvent);
+            this.navigator.SelectSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectSetEvent);
+            this.navigator.SelectGroupEvent += new System.Action<int>(this.navigator_SelectGroupEvent);
+            this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
+            this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
+            this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
+            this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
+            this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
+            this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
+            this.navigator.GetObjectsInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_GetObjectsInfoEvent);
+            this.navigator.DelObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_DelObjectsEvent);
+            this.navigator.ShowObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_ShowObjectsEvent);
+            this.navigator.HideObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_HideObjectsEvent);
+            this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_SelectObjectEvent);
+            this.navigator.DelObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_DelObjectEvent);
+            this.navigator.ShowObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_ShowObjectEvent);
+            this.navigator.HideObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_HideObjectEvent);
+            this.navigator.SelectCondEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectCondEvent);
+            this.navigator.SelectTaskEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectTaskEvent);
+            this.navigator.SelectGeneralInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectGeneralInfoEvent);
+            this.navigator.SelectTimeEvent += new System.Action<string, double>(this.navigator_SelectTimeEvent);
+            this.navigator.GetSetsInfoEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_GetSetsInfoEvent);
+            this.navigator.GetResultInfoEvent += new System.Action<string>(this.navigator_GetResultInfoEvent);
+            this.navigator.AddConditionEvent += new System.Action<object, BaseModule.Navigator.NodeType>(this.navigator_AddConditionEvent);
+            this.navigator.GenerateTSFEvent += new System.Action(this.navigator_GenerateTSFEvent);
+            this.navigator.GenerateTCFEvent += new System.Action(this.navigator_GenerateTCFEvent);
+            this.navigator.StopComputationEvent += new System.Action(this.navigator_StopComputationEvent);
+            this.navigator.SetCompPriority += new System.Action<object, BaseModule.Navigator.Priority>(this.navigator_SetCompPriority);
+            this.navigator.CreateAnimationEvent += new System.Action<object, string, System.Collections.Generic.List<string>>(this.navigator_CreateAnimationEvent);
+            this.navigator.ControlCollapseEvent += new System.Action(this.navigator_ControlCollapseEvent);
+            // 
+            // propertiesPanel
+            // 
+            this.propertiesPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.propertiesPanel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.propertiesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.propertiesPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertiesPanel.DownColor = System.Drawing.Color.Gainsboro;
+            this.propertiesPanel.HeaderColor = System.Drawing.Color.Black;
+            this.propertiesPanel.HeaderName = "Свойства";
+            this.propertiesPanel.IsPinndable = false;
+            this.propertiesPanel.Location = new System.Drawing.Point(0, 0);
+            this.propertiesPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.propertiesPanel.Name = "propertiesPanel";
+            this.propertiesPanel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.propertiesPanel.Size = new System.Drawing.Size(444, 67);
+            this.propertiesPanel.TabIndex = 0;
+            this.propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
+            this.propertiesPanel.PropertyUpdateEvent += new System.Action<BaseModule.PropertiesPanel.PropertyChangedEventArgs>(this.propertiesPanel_OnPropertyUpdate);
+            // 
+            // console
+            // 
+            this.console.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.console.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.console.CheckPrintElemsInfo = false;
+            this.console.CheckPrintNodesInfo = false;
+            this.console.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.console.DownColor = System.Drawing.Color.Gainsboro;
+            this.console.HeaderColor = System.Drawing.Color.Black;
+            this.console.HeaderName = "Консоль";
+            this.console.IsPinndable = false;
+            this.console.Location = new System.Drawing.Point(0, 0);
+            this.console.Margin = new System.Windows.Forms.Padding(0);
+            this.console.Name = "console";
+            this.console.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.console.Size = new System.Drawing.Size(596, 31);
+            this.console.TabIndex = 0;
+            this.console.UpColor = System.Drawing.Color.Gainsboro;
+            this.console.ControlCollapseEvent += new System.Action(this.console_ControlCollapseEvent);
+            this.console.InEvent += new System.Action<object, System.EventArgs>(this.console_InEvent);
+            this.console.FindFreeNodesEvent += new System.Action(this.console_FindFreeNodesEvent);
+            this.console.RenumberMeshEvent += new System.Action<object, BaseModule.Console.Events.ModelRenumberEventArgs>(this.console_RenumberMeshEvent);
+            this.console.ModelShiftCoordinateEvent += new System.Action<object, BaseModule.Console.Events.ModelShiftCoordinateEventArgs>(this.console_ModelShiftCoordinateEvent);
+            this.console.ModelRotateEvent += new System.Action<object, BaseModule.Console.ModelRotateEventArgs>(this.console_ModelRotateEvent);
             // 
             // BaseForm
             // 

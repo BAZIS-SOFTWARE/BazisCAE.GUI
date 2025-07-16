@@ -43,7 +43,7 @@ namespace BazisGUI
         AverageColorRenderer averageColorRenderer;
 
         //BasePage module;
-        Controller project = new Controller();
+        Controller project;
         GmshController gmshController = new GmshController();
         IODataController dataController = new IODataController();
         PreProc.PreProc preProc = new PreProc.PreProc();
@@ -166,7 +166,7 @@ namespace BazisGUI
                     dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Точка);
                     dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Кривая);
                 }
-                lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
+                lblStatus.Text = $"{project.Path}\\{project.Name}";
 
             }
 
@@ -663,7 +663,7 @@ namespace BazisGUI
 
                 project = dataController.CreateNewProject(folderName, "newProject");
 
-                lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
+                lblStatus.Text = $"{project.Path}\\{project.Name}";
 
                 ClearAllDataOnScene();
                 PresentProjectOnModule();
@@ -685,7 +685,7 @@ namespace BazisGUI
 
                 if(project != null)
                 {
-                    lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
+                    lblStatus.Text = $"{project.Path}\\{project.Name}";
 
                     gmshController?.Gmsh?.Clear();
 
@@ -714,7 +714,7 @@ namespace BazisGUI
 
                 project = res;
 
-                lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
+                lblStatus.Text = $"{project.Path}\\{project.Name}";
 
                 gmshController?.Gmsh?.Clear();
 
@@ -748,9 +748,9 @@ namespace BazisGUI
             dataController.SaveAsProject(project);
 
             console.PrintInfo("Проект сохранен", Color.Black);
-            lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
+            lblStatus.Text = $"{project.Path}\\{project.Name}";
 
-            PresentGeneralDataOnTree(project.GeneralData);
+            PresentTaskTypeAndKind();
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -795,7 +795,7 @@ namespace BazisGUI
 
                 if(project != null)
                 {
-                    lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
+                    lblStatus.Text = $"{project.Path}\\{project.Name}";
 
                     ClearAllDataOnScene();
                     PresentProjectOnModule();
@@ -813,10 +813,10 @@ namespace BazisGUI
         private void PresentProjectOnModule()
         {
             CreateVBObjects(project.ModelData, "Объекты");
-            PresentGeneralDataOnTree(project.GeneralData);
+            PresentTaskTypeAndKind();
             PresentObjectsDataOnTree(project.ModelData.ObjectData);
             PresentGroupDataOnTree(project.ModelData.GroupData);
-            PresentCondDataOnTree(project.GeneralData,project.TaskData);
+            PresentCondDataOnTree(project.TaskData);
             PresentModelOnSelectToolStrip(project.ModelData.ObjectData);
         }
 
@@ -922,7 +922,7 @@ namespace BazisGUI
                 {
                     await dataController.AppendModel(project.ModelData);
 
-                    lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
+                    lblStatus.Text = $"{project.Path}\\{project.Name}";
 
                     gmshController?.Gmsh?.Clear();
 

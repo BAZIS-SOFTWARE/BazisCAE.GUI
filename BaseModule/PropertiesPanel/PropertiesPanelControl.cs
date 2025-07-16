@@ -12,7 +12,7 @@ namespace BaseModule.PropertiesPanel
 {
     public partial class PropertiesPanelControl : PinnedPage
     {
-        public event Action<PropertyChangedEventArgs> OnPropertyUpdate;
+        public event Action<PropertyChangedEventArgs> PropertyUpdateEvent;
 
         public delegate bool Validator(string header, string value, out string corrected);
         public event Validator ValidateValue;
@@ -39,7 +39,7 @@ namespace BaseModule.PropertiesPanel
             _overlayComboBox.Visible = false;
             _overlayComboBox.Leave += _overlayComboBox_Leave;
         }
-        public void DrawTable(DrowPropertyOnPanelEventArgs e)
+        public void DrawTable(List<RowProperty> rows)
         {
             dataGridView1.DataSource = null;
             dataGridView1.AutoGenerateColumns = false;
@@ -71,7 +71,7 @@ namespace BaseModule.PropertiesPanel
             });
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            foreach (var prop in e.Properties)// Инициализация строк через RowProperty
+            foreach (var prop in rows)// Инициализация строк через RowProperty
             {
                 var row = new DataGridViewRow();
                 row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); // Имя свойства
@@ -84,7 +84,7 @@ namespace BaseModule.PropertiesPanel
 
                 dataGridView1.Rows.Add(row);
             }
-            _rowProperties = e.Properties.ToList();
+            _rowProperties = rows;
         }
         private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
@@ -130,7 +130,7 @@ namespace BaseModule.PropertiesPanel
                 var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
 
                 var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
-                OnPropertyUpdate?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
+                PropertyUpdateEvent?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
             }
         }
         private void StartUpdate(RowProperty property, DataGridViewCell cell)

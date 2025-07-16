@@ -370,7 +370,7 @@ namespace BazisGUI
             IEnumerable<ISurfaceElement> elems;
 
 
-            if (project.GeneralData.TaskType == TaskType.Volume)
+            if (project.ProjectType == TaskType.Volume)
                 elems = project.ModelData.ObjectData.E3DCollection.GetObjects();
             else
                 elems = project.ModelData.ObjectData.E2DCollection.GetObjects();
@@ -522,7 +522,7 @@ namespace BazisGUI
             try
             {
                 Dictionary<int,List<int>> interfaceNodes;
-                if (project.GeneralData.TaskType == TaskType.Volume)
+                if (project.ProjectType == TaskType.Volume)
                     interfaceNodes = project.FindInterfacedNodes(3);
                 else
                     interfaceNodes = project.FindInterfacedNodes(2);

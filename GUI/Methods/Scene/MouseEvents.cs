@@ -108,17 +108,27 @@ namespace BazisGUI
 
                     var selectionBox = new RectangleBox(left, rigth, bottom, top);
 
-                    var sortFlag = true;
-                    if (MouseMoveFlag)
-                        sortFlag = false;
+                    if (!MouseMoveFlag)
+                    {
+                        var p = selectionBox.GetPoints();
 
-                    if (ModifierKeys != Keys.Shift)
+                        var cx = (p[3]._x + p[1]._x) / 2.0f;
+                        var cy = (p[3]._y + p[1]._y) / 2.0f;
 
-                        SelectObjects(selectionBox, sortFlag, true);
+                        if (ModifierKeys != Keys.Shift)
+                            SelectObjects(new Point2D(cx,cy) , true);
+                        else
+                            SelectObjects(new Point2D(cx, cy), false);
+                    }
                     else
-                        SelectObjects(selectionBox, sortFlag, false);
+                    {
+                        if (ModifierKeys != Keys.Shift)
+                            SelectObjects(selectionBox, true);
+                        else
+                            SelectObjects(selectionBox, false);
+                        
+                    }
                     selectionRectangle.Remove();
-                    //}
                     DisplayObjects();
                 }
             }

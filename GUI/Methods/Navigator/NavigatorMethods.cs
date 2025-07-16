@@ -99,7 +99,7 @@ namespace BazisGUI
         {
             try
             {
-                var outputFilePath = $@"{project.GeneralData.Path}\results.gif";
+                var outputFilePath = $@"{project.Path}\results.gif";
 
                 AnimatedGifEncoder e = new AnimatedGifEncoder();
 
@@ -121,7 +121,7 @@ namespace BazisGUI
                     var result = loader.GetResult(ResultDbPath, tables, args.Times[i]); //resultData.FindByTime(args.ResltsKind, args.Times[i]);
                     ShowResults(result);
                     var image = $@"screenShot_{args.Times[i]}";
-                    var imagePath = $@"{project.GeneralData.Path}\{image}.bmp";
+                    var imagePath = $@"{project.Path}\{image}.bmp";
                     CreateScreenShot(imagePath);
 
                     using (var stream = new FileStream(imagePath, FileMode.Open))
@@ -144,16 +144,47 @@ namespace BazisGUI
             }
         }
 
-        public void PresentMatAndFuncDataOnTree(IGeneralData generalData)
+        public void PresentGroupDataOnTree(IGroupData groupData)
+        {
+            navigator.BeginUpdate();
+
+            navigator.TrySearchNodes("группыОбъектов", out List<TreeNode> nodes);
+
+            nodes[0].Nodes.Clear();
+
+            foreach (var item in groupData)
+            {
+                var r = navigator.CreateRealNode(item.ObjType.ToString(), $"{item.Name} {item.Count}");
+
+                nodes[0].Nodes.Add(r);
+                navigator.SetContextMenu(r);
+            }
+
+            navigator.EndUpdate();
+        }
+
+        public void PresentTaskTypeAndKind()
+        {
+            lblStatus.Text = $"{project.Path}/{project.Name}";
+
+            navigator.TrySearchNodes(NodeType.вид, out List<TreeNode> kind);
+            kind.First().Text = $"Вид : {project.ProjectKind}";
+
+            navigator.TrySearchNodes(NodeType.тип, out List<TreeNode> type);
+            type.First().Text = $"Тип : {project.ProjectType}";
+
+        }
+
+        public void PresentMatAndFuncData()
         {
             try
             {
                 navigator.BeginUpdate();
                 navigator.TrySearchNodes(NodeType.базаМатериалов, out List<TreeNode> mats);
-                mats[0].Text = $"База материалов : {generalData.Materials}";
+                mats[0].Text = $"База материалов : {project.MaterialsDB}";
 
                 navigator.TrySearchNodes(NodeType.базаФункций, out List<TreeNode> func);
-                func[0].Text = $"База функций : {generalData.Functions}";
+                func[0].Text = $"База функций : {project.FunctionsDB}";
 
                 navigator.EndUpdate();
 
@@ -163,7 +194,7 @@ namespace BazisGUI
                 console.PrintInfo(ex.Message, Color.Red);
             }
         }
-        public void PresentCondDataOnTree(IGeneralData generalData, ITaskData taskData)
+        public void PresentCondDataOnTree(ITaskData taskData)
         {
             try
             {
@@ -171,7 +202,7 @@ namespace BazisGUI
                 navigator.TrySearchNodes(NodeType.условия, out List<TreeNode> cond);
                 cond[0].Nodes.Clear();
 
-                PresentMatAndFuncDataOnTree(generalData);
+                PresentMatAndFuncData();
 
                 foreach (var data in taskData)
                 {

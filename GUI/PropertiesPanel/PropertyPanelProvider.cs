@@ -21,13 +21,13 @@ namespace BazisGUI.PropertiesPanel
 
         private PanelConverter _converter;
 
-        public void ShowPropertiesPanel<T>(T obj)
+        public List<RowProperty> GetRowProperties<T>(T obj)
         {
-            InitializeConverter(obj);
-            Out?.Invoke(new DrowPropertyOnPanelEventArgs(_converter.GetRowProperty()));
+                CreateConverter(obj);
+                return _converter?.GetRowProperty();
         }
 
-        private void InitializeConverter<T>(T obj)
+        private void CreateConverter<T>(T obj)
         {
             if (obj is ISetInfo setInfo) _converter = new SetInfoConverter(setInfo);
 
