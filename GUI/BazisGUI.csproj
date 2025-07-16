@@ -245,6 +245,9 @@
     <Compile Include="Methods\MeshMainMenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Navigator\DelGroupEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Navigator\SelectGeneralInfoEvent.cs">
       <SubType>Form</SubType>
     </Compile>

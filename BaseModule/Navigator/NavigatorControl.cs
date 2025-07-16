@@ -385,10 +385,11 @@ namespace BaseModule.Navigator
 
         public void DelGroup_Click(object sender, EventArgs e)
         {
+            var temp = treeView.SelectedNode;
             //var groupIndex = treeView.SelectedNode.Index;
-
-            DelGroupEvent?.Invoke(treeView.SelectedNode.Index);
             treeView.SelectedNode.Remove();
+            DelGroupEvent?.Invoke(temp.Index);
+            
             //DeleteTaskDataNodes(treeView.SelectedNode);
             //treeView.Nodes["группыОбъектов"].Nodes.RemoveAt(groupIndex);
         }

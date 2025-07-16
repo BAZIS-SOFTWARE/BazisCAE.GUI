@@ -706,16 +706,7 @@ namespace BazisGUI
             }
             DisplayObjects();
         }
-        private void navigator_DelGroupEvent(int grIndex)
-        {
-            var group = project.ModelData.GroupData[grIndex];
-            project.DeleteModelGroup(group.Name);
 
-            PresentGroupDataOnTree(project.ModelData.GroupData);
-
-            //if (arg1 is TaskPage taskPage)
-            PresentCondDataOnTree(project.TaskData);
-        }
 
         private void navigator_DelAllGroupsEvent()
         {
