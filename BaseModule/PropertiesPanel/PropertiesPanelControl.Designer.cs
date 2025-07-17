@@ -50,6 +50,11 @@ namespace BaseModule.PropertiesPanel
             this.dataGridView1.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dataGridView1.Size = new System.Drawing.Size(254, 397);
             this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.DataError += DataGridView1_DataError; //Для обработки ошибки
+            this.dataGridView1.CellBeginEdit += DataGridView1_CellBeginEdit; //Для сохранения старого значения
+            this.dataGridView1.CellEndEdit += DataGridView1_CellEndEdit;
+            this.dataGridView1.CellClick += DataGridView1_CellClick;
+            this.dataGridView1.Scroll += DataGridView1_Scroll;
             // 
             // PropertiesPanelControl
             // 

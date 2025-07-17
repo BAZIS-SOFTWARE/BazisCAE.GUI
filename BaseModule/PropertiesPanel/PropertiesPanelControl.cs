@@ -1,11 +1,7 @@
-using BaseModule.Interfaces;
 using BaseModule.PinnedControl;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace BaseModule.PropertiesPanel
@@ -28,11 +24,6 @@ namespace BaseModule.PropertiesPanel
         public PropertiesPanelControl()
         {
             InitializeComponent();
-            dataGridView1.DataError += DataGridView1_DataError; //Для обработки ошибки
-            dataGridView1.CellBeginEdit += DataGridView1_CellBeginEdit; //Для сохранения старого значения
-            dataGridView1.CellEndEdit += DataGridView1_CellEndEdit;
-            dataGridView1.CellClick += DataGridView1_CellClick;
-            dataGridView1.Scroll += DataGridView1_Scroll;
 
             dataGridView1.Controls.Add(_overlayComboBox);
             _overlayComboBox.PreviewKeyDown += _overlayComboBox_PreviewKeyDown;
@@ -167,6 +158,16 @@ namespace BaseModule.PropertiesPanel
         {
             if (e.ColumnIndex == 0) return;
             var property = _rowProperties[e.RowIndex];
+            var h = property.Header;
+            if(property.Header == "Цвет")
+            {
+                ColorDialog colorDialog = new ColorDialog();
+                if(colorDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var color = colorDialog.Color;
+                    dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = color;
+                }
+            }
             if (property.CellType.Name == "DataGridViewTextBoxCell") return;
 
             _overlayComboBox.DropDownStyle = property.IsDropDown ? ComboBoxStyle.DropDown : ComboBoxStyle.DropDownList;

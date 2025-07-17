@@ -64,10 +64,11 @@
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="Model, Version=4.2.63.26, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\SceneTests\bin\x64\Debug\Model.dll</HintPath>
+      <HintPath>..\packages\Model.4.2.63.32\lib\netstandard2.0\Model.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="ModelController, Version=3.1.37.22, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.3.1.37.22\lib\netstandard2.0\ModelController.dll</HintPath>
+    <Reference Include="ModelController, Version=3.1.37.23, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelController.3.1.37.23\lib\netstandard2.0\ModelController.dll</HintPath>
     </Reference>
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
