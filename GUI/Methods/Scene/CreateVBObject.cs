@@ -12,13 +12,14 @@ namespace BazisGUI
         {
             var inds = presenter.CreateIndexes();
             var ptrs = presenter.CreatePointers(inds.Item1);
+
             var coords = presenter.CreateVertexes(inds.Item2, "координаты");
             var colors = presenter.CreateVertexes(inds.Item3, "цвет");
             var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
             var edges = presenter.CreateEdgeFlags(inds.Item4);
             var objsName = presenter.Name;
-            if (ptrs.Length != 0)
-            {
+            //
+            //{
                 VBObject vb;
                 if (presenter.PresenterType == PresenterType.Surface)
                 {
@@ -43,8 +44,8 @@ namespace BazisGUI
 
                 vb.ActiveDrawingObject = averageColorRenderer.IsEnable ? averageColorRenderer : null;
                 return vb;
-            }
-            else throw new Exception("VB объект не содержит точек");
+            //}
+            //else throw new Exception("VB объект не содержит точек");
         }
     }
 }

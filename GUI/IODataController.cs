@@ -109,14 +109,7 @@ namespace BazisGUI
                         IOFileController.CopyFile(controller.FunctionsDB, oldFolder, controller.Path);
                     }
 
-                    var ext = Path.GetExtension(saveDialog.FileName);
-
-                    if (ext == ".bpf2")
-                        controller.ModelData.Saver = new SaveModelToBPF2TextFile();
-                    else
-                        controller.ModelData.Saver = new SaveModelToBPFTextFile();
-                    
-                    controller.Save();
+                    controller.SaveAs(saveDialog.FileName);
                 }
             }
         }

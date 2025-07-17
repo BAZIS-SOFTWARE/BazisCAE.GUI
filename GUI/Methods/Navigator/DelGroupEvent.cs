@@ -17,10 +17,8 @@ namespace BazisGUI
             var group = project.ModelData.GroupData[grIndex];
             project.DeleteModelGroup(group.Name);
 
-            PresentGroupDataOnTree(project.ModelData.GroupData);
-
             //if (arg1 is TaskPage taskPage)
-            PresentCondDataOnTree(project.TaskData);
+            PresentCondDataOnTree();
         }
     }
 }

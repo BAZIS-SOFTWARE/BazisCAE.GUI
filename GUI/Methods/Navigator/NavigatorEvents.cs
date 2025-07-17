@@ -90,7 +90,7 @@ namespace BazisGUI
             try
             {
                 project.TaskData?.Clear();
-                PresentCondDataOnTree(project.TaskData);
+                PresentCondDataOnTree();
             }
             catch (Exception ex)
             {
@@ -472,7 +472,7 @@ namespace BazisGUI
                     project.TaskData.Add(newData);
                 }
 
-                PresentCondDataOnTree(project.TaskData);
+                PresentCondDataOnTree();
             }
             catch (Exception ex)
             {
@@ -644,13 +644,17 @@ namespace BazisGUI
 
         private void ChangeSetViewState(string setName, ObjType objType, bool viewState)
         {
-            foreach (var modelObject in project.ModelData.ObjectData.GetObjects(objType, setName))
-                modelObject.ViewState = viewState;
+            project.GetModelSetInfo(objType, setName).SetViewState(viewState);
 
             VBOController.DeleteVBObjects(objType.ToString());
-            var pres = project.CreateModelObjectsPresentor(objType);
-            var vb = CreateVBObject(pres);
-            VBOController.AddVbo(vb);
+
+            if(project.GetModelObjects(objType).Any(x => x.ViewState == true))
+            {
+                var pres = project.CreateModelObjectsPresentor(objType);
+                var vb = CreateVBObject(pres);
+                VBOController.AddVbo(vb);
+            }
+
             DisplayObjects();
         }
 
@@ -711,14 +715,14 @@ namespace BazisGUI
         private void navigator_DelAllGroupsEvent()
         {
             try
-            {
+            {               
                 project.ModelData.GroupData.Clear();
                 project.TaskData.Clear();
 
-                PresentGroupDataOnTree(project.ModelData.GroupData);
+                PresentGroupDataOnTree();
 
                 //if (arg1 is TaskPage taskPage)
-                PresentCondDataOnTree(project.TaskData);
+                PresentCondDataOnTree();
             }
             catch (Exception ex)
             {
@@ -727,17 +731,7 @@ namespace BazisGUI
 
         }
 
-        private void navigator_DelSetEvent(NodeType nodeType, string setName)
-        {
-            var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
 
-            project.DeleteModelSet(objType, setName);
-            VBOController.DeleteVBObjects(objType.ToString());
-
-            var ndPres = project.CreateModelObjectsPresentor(objType);
-            CreateVBObject(ndPres);
-            DisplayObjects();
-        }
 
         private async void navigator_EditGroupEvent(int obj)
         {
@@ -793,10 +787,10 @@ namespace BazisGUI
                 project.ModelData.ObjectData.ClearEmptySet();
 
                 PresentObjectsDataOnTree(project.ModelData.ObjectData);
-                PresentGroupDataOnTree(project.ModelData.GroupData);
+                PresentGroupDataOnTree();
 
                 //if (arg1 is TaskPage taskPage)
-                PresentCondDataOnTree(project.TaskData);
+                PresentCondDataOnTree();
 
                 ClearAllDataOnScene();
                 CreateVBObjects(project.ModelData, "Объекты");
@@ -815,10 +809,10 @@ namespace BazisGUI
                 project.ClearAllData();
 
                 PresentObjectsDataOnTree(project.ModelData.ObjectData);
-                PresentGroupDataOnTree(project.ModelData.GroupData);
+                PresentGroupDataOnTree();
 
                 //if (obj is ToolStripPage taskPage)
-                PresentCondDataOnTree(project.TaskData);
+                PresentCondDataOnTree();
 
                 ClearAllDataOnScene();
                 DisplayObjects();

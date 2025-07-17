@@ -442,10 +442,11 @@ namespace BaseModule.Navigator
 
         private void DelSet_Click(object sender, EventArgs e)
         {
-            var node = treeView.SelectedNode;
-            var nodeType = node.Parent.Name.ToEnum<NodeType>();
+            var temp = treeView.SelectedNode;
+            var nodeType = temp.Parent.Name.ToEnum<NodeType>();
+            treeView.SelectedNode.Remove();
 
-            DelSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
+            DelSetEvent?.Invoke(nodeType, temp.Text.Split(' ')[0]);
         }
 
         public void ShowObjects_Click(object sender, EventArgs e)

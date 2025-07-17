@@ -21,10 +21,10 @@ namespace BazisGUI
             // TO DO оптимизировать. Обновлять на дереве только те данные, которые на самом деле изменились
             PresentTaskTypeAndKind();
             PresentObjectsDataOnTree(project.ModelData.ObjectData);
-            PresentGroupDataOnTree(project.ModelData.GroupData);
+            PresentGroupDataOnTree();
 
             //if (obj is TaskPage taskPage)
-            PresentCondDataOnTree(project.TaskData);
+            PresentCondDataOnTree();
 
         }
 

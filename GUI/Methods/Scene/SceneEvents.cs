@@ -191,10 +191,10 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                 project.TaskData.ClearNotExisted(project.ModelData.GroupData);
 
                 PresentObjectsDataOnTree(project.ModelData.ObjectData);
-                PresentGroupDataOnTree(project.ModelData.GroupData);
+                PresentGroupDataOnTree();
 
                 //if (arg1 is TaskPage taskPage)
-                PresentCondDataOnTree(project.TaskData);
+                PresentCondDataOnTree();
 
                 ObjType objType;
                 if (spbSelectObject.ToolTipText.TryToEnum(out objType))

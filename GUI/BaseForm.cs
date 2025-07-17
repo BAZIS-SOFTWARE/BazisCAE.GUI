@@ -815,8 +815,8 @@ namespace BazisGUI
             CreateVBObjects(project.ModelData, "Объекты");
             PresentTaskTypeAndKind();
             PresentObjectsDataOnTree(project.ModelData.ObjectData);
-            PresentGroupDataOnTree(project.ModelData.GroupData);
-            PresentCondDataOnTree(project.TaskData);
+            PresentGroupDataOnTree();
+            PresentCondDataOnTree();
             PresentModelOnSelectToolStrip(project.ModelData.ObjectData);
         }
 

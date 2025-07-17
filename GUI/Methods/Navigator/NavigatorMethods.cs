@@ -144,7 +144,7 @@ namespace BazisGUI
             }
         }
 
-        public void PresentGroupDataOnTree(IGroupData groupData)
+        public void PresentGroupDataOnTree()
         {
             navigator.BeginUpdate();
 
@@ -152,7 +152,7 @@ namespace BazisGUI
 
             nodes[0].Nodes.Clear();
 
-            foreach (var item in groupData)
+            foreach (var item in project.GetAllModelGroups())
             {
                 var r = navigator.CreateRealNode(item.ObjType.ToString(), $"{item.Name} {item.Count}");
 
@@ -194,59 +194,9 @@ namespace BazisGUI
                 console.PrintInfo(ex.Message, Color.Red);
             }
         }
-        public void PresentCondDataOnTree(ITaskData taskData)
-        {
-            try
-            {
-                navigator.BeginUpdate();
-                navigator.TrySearchNodes(NodeType.условия, out List<TreeNode> cond);
-                cond[0].Nodes.Clear();
+        
 
-                PresentMatAndFuncData();
 
-                foreach (var data in taskData)
-                {
-                    var nodeType = data.Kind.ToString().ToEnum<NodeType>();
-                    var imgIndex = navigator.GetObjectImageIndex(nodeType);
-
-                    var child = navigator.CreateRealNode(nodeType, $"{data}");
-                    child.ImageIndex = imgIndex;
-                    child.SelectedImageIndex = imgIndex;
-
-                    navigator.TrySearchNodes(NodeType.условия.ToString(), out List<TreeNode> nodes);
-                    nodes.First().Nodes.Add(child);
-                }
-
-                navigator.EndUpdate();
-                cond[0].Expand();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
-        public void PresentObjectsDataOnTree(IObjectsData objectsData)
-        {
-            navigator.BeginUpdate();
-
-            navigator.TrySearchNodes("объекты", out List<TreeNode> nodes);
-            foreach (TreeNode item in nodes[0].Nodes)
-                item.Nodes.Clear();
-
-            foreach (ObjType objType in Enum.GetValues(typeof(ObjType)))
-                foreach (var item in objectsData.GetSetsInfo(objType))
-                {
-                    if (item.NumberOfObjects > 0)
-                    {
-                        //if(item.ObjType == ObjType.Узел)
-                        //    nodes[0].Nodes[NodeType.Узлы.ToString()]
-                        var root = Converters.ConvertToNavigatorNodeType(item.ObjType);
-                        navigator.TryCreateNode(root.ToString(), item.Name, $"{item.Name} {item.NumberOfObjects}", NodeKind.virt);
-                    }
-                }
-            navigator.EndUpdate();
-        }
 
         private void DisplayMRF(float time, ICondData data)
         {
