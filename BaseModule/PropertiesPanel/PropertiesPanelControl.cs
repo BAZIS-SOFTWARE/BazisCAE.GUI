@@ -71,13 +71,15 @@ namespace BaseModule.PropertiesPanel
             });
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // Тут при создании строки таблицы должно происходить автоопределение типа элемента ячейки
+            // comboBox,TextBox, CheckBox etc.
             foreach (var prop in rows)// Инициализация строк через RowProperty
             {
                 var row = new DataGridViewRow();
                 row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); // Имя свойства
 
-                var cell = prop.Initialization();// Создаем ячейку нужного типа через Initialization
-                cell.Value = prop.Value.ToString();
+                var cell = prop.Initialization;// Создаем ячейку нужного типа через Initialization
+                //cell.Value = prop.Value.ToString();
                 row.Cells.Add(cell);
                 cell.ReadOnly = prop.IsReadOnly;
                 cell.Tag = prop.ValidationType.ToString();
@@ -135,15 +137,19 @@ namespace BaseModule.PropertiesPanel
         }
         private void StartUpdate(RowProperty property, DataGridViewCell cell)
         {
-            var newValue = property.Update(cell);
-            if (!Equals(newValue, property.Value) && newValue != _oldValue)
-            {
-                property.Value = newValue;
-                dataGridView1.Rows[cell.RowIndex].Cells[1].Value = property.Value;
-                CellValueChanged(cell);
-                if (newValue is System.Drawing.Color a)
-                    dataGridView1.Rows[cell.RowIndex].Cells[1].Value = a.Name;
-            }
+            var newValue = property.Initialization.Value;//Update(cell);
+            //property.Value = newValue;
+            if (newValue is string str)
+                dataGridView1.Rows[cell.RowIndex].Cells[1].Value = newValue;
+
+            else if(newValue is Color col)
+                dataGridView1.Rows[cell.RowIndex].Cells[1].Value = col.Name;
+            CellValueChanged(cell);
+            //if (!Equals(newValue, property.Value) && newValue != _oldValue)
+            //{
+            //    if (property.Value is System.Drawing.Color a)
+            //        dataGridView1.Rows[cell.RowIndex].Cells[1].Value = a.Name;
+            //}
         }
         /// <summary>
         /// Исключение в DataGridView: System.ArgumentException: 

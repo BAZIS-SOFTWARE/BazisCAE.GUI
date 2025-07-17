@@ -21,23 +21,16 @@ namespace BazisGUI.PropertiesPanel.Control
         {
             return new List<RowProperty>
             {
-                RowProperty.CreateTextBox("Имя", _objectsSet.Name, ValidationType.Text),
-                new RowProperty("Цвет", _objectsSet.Color.Name, () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    using (ColorDialog colorDialog = new ColorDialog())
-                    {
-                        if (colorDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            return colorDialog.Color;
-                        }
-                    }
-                    return cell.Value;
-                },
+                CreateTextBox("Имя", _objectsSet.Name, ValidationType.Text),
+                new RowProperty(
+                    "Цвет", 
+                new DataGridViewTextBoxCell(){ Value = _objectsSet.Color.Name},
                 SequenceType.Before),
-                RowProperty.CreateComboBox("Представление", _objectsSet.ViewMode.ToString(), Converters.GetEnumNames<ViewMode>().ToList())
+                CreateComboBox("Представление", _objectsSet.ViewMode.ToString(), Converters.GetEnumNames<ViewMode>().ToList())
             };
         }
+
+
 
         public override void UpdateObject(string header, string newValue)
         {
