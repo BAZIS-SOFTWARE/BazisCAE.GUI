@@ -31,34 +31,22 @@ namespace BazisGUI
                         var scrPoints = resu.Item1;
                         // Магия выбора
                         // Если объект точка 
-                        if (coords.Count() == 1)
+                        if (IsObjectSelected(selectionPoint, scrPoints))
                         {
-                            if (IsPointObjectSelected(selectionPoint, scrPoints))
+                            selFlag = true;
+                            if (isSelected)
+                                set.SetColor(settingsConfig.SelectObjectColor, numb);
+                            else
+                                set.SetBackColor(numb);
+
+                            if (IsObjectCloser(ref tempSetInfo, ref tempSceenPoint, scnPoints))
                             {
-                                selFlag = true;
-                                if (isSelected)
-                                    set.SetColor(settingsConfig.SelectObjectColor, numb);
-                                else
-                                    set.SetBackColor(numb);
-
-                                if (IsObjectCloser(ref tempSetInfo, ref tempSceenPoint, scnPoints))
-                                {
-                                    tempSetInfo?.SetBackColor(tempNumb);
-                                    SwapInfo(ref tempNumb, ref tempSetInfo, set, numb);
-                                    tempSceenPoint = scnPoints[0];
-                                }
-                                else
-                                    set.SetBackColor(numb);
+                                tempSetInfo?.SetBackColor(tempNumb);
+                                SwapInfo(ref tempNumb, ref tempSetInfo, set, numb);
+                                tempSceenPoint = scnPoints[0];
                             }
- 
-                        }
-                        else if (coords.Count() == 2)
-                        {
-
-                        }
-                        else
-                        {
-
+                            else
+                                set.SetBackColor(numb);
                         }
                     }
                 }
@@ -107,18 +95,30 @@ namespace BazisGUI
 
         }
 
-        private bool IsPointObjectSelected(Point2D selectionPoint, Point2D[] scrPoints)
+        private bool IsObjectSelected(Point2D selectionPoint, Point2D[] scrPoints)
         {
-            if (scrPoints[0]._x > selectionPoint._x - 10
-                                            & scrPoints[0]._x < selectionPoint._x + 10
-                                            &&
-                                            scrPoints[0]._y > selectionPoint._y - 10
-                                            & scrPoints[0]._y < selectionPoint._y + 10)
+            if (scrPoints.Length == 1)
+            {
+                if (scrPoints[0]._x > selectionPoint._x - 10
+                                & scrPoints[0]._x < selectionPoint._x + 10
+                                &&
+                                scrPoints[0]._y > selectionPoint._y - 10
+                                & scrPoints[0]._y < selectionPoint._y + 10)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else if (scrPoints.Length == 2)
             {
                 return true;
             }
             else
-                return false;
+            {
+                return true;
+            }
+
         }
     }
 }
