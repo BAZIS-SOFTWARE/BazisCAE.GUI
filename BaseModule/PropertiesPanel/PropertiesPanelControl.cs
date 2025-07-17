@@ -158,7 +158,6 @@ namespace BaseModule.PropertiesPanel
         {
             if (e.ColumnIndex == 0) return;
             var property = _rowProperties[e.RowIndex];
-            var h = property.Header;
             if(property.Header == "Цвет")
             {
                 ColorDialog colorDialog = new ColorDialog();
