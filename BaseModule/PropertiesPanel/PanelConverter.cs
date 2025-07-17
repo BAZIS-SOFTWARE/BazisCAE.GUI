@@ -30,6 +30,7 @@ namespace BaseModule.PropertiesPanel
                 new DataGridViewTextBoxCell() { Value = value },
             SequenceType.After, validationType, isReadOnly);
         }
+
         /// <summary>
         /// CreateComboBox
         /// </summary>
