@@ -38,10 +38,10 @@ namespace BazisGUI
                 foreach (var item in curvesInfo)
                 {
                     var color = scale.GetValueColor(item.Value);
-                    project.ModelData.ObjectData.CurveCollection.Find(item.Key).Color = color;
+                    project.ModelData.ObjectData.CurveSet[item.Key].Color = color;
                 }
 
-                var linePres = presentersCreator.CreateLineObjectsPresenter(project.ModelData.ObjectData.CurveCollection.GetObjects());
+                var linePres = presentersCreator.CreateLineObjectsPresenter(project.ModelData.ObjectData.CurveSet.Values);
                 VBOController.DeleteVBObjects(ObjType.Кривая.ToString());
                 CreateVBObject(linePres);
                 DisplayObjects();
@@ -548,7 +548,7 @@ namespace BazisGUI
             DisplayText2DEvent = null;
             DisplayText3DEvent = null;
 
-            PresentObjectsDataOnTree(modelData.ObjectData);
+            PresentObjectsDataOnTree();
 
 
             DisplayObjects();
@@ -602,7 +602,7 @@ namespace BazisGUI
                 CreateVBObject(project.CreateModelObjectsPresentor(objType));
 
                 DisplayObjects();
-                PresentObjectsDataOnTree(project.ModelData.ObjectData);
+                PresentObjectsDataOnTree();
 
                 console.PrintInfo($"Созданы {objType}", Color.Black);
             }

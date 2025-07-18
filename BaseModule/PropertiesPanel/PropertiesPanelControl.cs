@@ -163,7 +163,7 @@ namespace BaseModule.PropertiesPanel
                 ColorDialog colorDialog = new ColorDialog();
                 if(colorDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var color = colorDialog.Color;
+                    var color = colorDialog.Color.ToString();
                     dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = color;
                 }
             }

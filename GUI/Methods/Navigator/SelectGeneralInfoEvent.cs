@@ -12,7 +12,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectGeneralInfoEvent(NodeType arg1, string arg2)
+        private void navigator_SelectGeneralInfoEvent(NodeName arg1, string arg2)
         {
             try
             {
@@ -20,19 +20,19 @@ namespace BazisGUI
                     return;
 
                     List<RowProperty> rows = null;
-                    if (arg1 == NodeType.вид)
+                    if (arg1 == NodeName.вид)
                     {
                         rows = panelProvider.GetRowProperties(project.ProjectKind);
                     }
-                    else if (arg1 == NodeType.тип)
+                    else if (arg1 == NodeName.тип)
                     {
                         rows = panelProvider.GetRowProperties(project.ProjectType);
                     }
-                    else if (arg1 == NodeType.базаФункций)
+                    else if (arg1 == NodeName.базаФункций)
                     {
                         rows = panelProvider.GetRowProperties(project.FunctionsDB);
                     }
-                    else if (arg1 == NodeType.базаМатериалов)
+                    else if (arg1 == NodeName.базаМатериалов)
                     {
                         rows = panelProvider.GetRowProperties(project.MaterialsDB);
                     }

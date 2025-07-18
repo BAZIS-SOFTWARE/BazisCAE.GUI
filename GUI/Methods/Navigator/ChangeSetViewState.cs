@@ -1,6 +1,7 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
+using Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
@@ -13,18 +14,19 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_DelSetEvent(NodeName nodeType, string setName)
+        private void ChangeSetViewState(string setName, ObjType objType, bool viewState)
         {
-            var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
+            project.GetModelSetInfo(objType, setName).SetViewState(viewState);
 
-            project.DeleteModelSet(objType, setName);
             VBOController.DeleteVBObjects(objType.ToString());
 
-            PresentGroupDataOnTree();
-            PresentCondDataOnTree();
+            if (project.GetModelObjects(objType).Any(x => x.ViewState == true))
+            {
+                var pres = project.CreateModelObjectsPresentor(objType);
+                var vb = CreateVBObject(pres);
+                VBOController.AddVbo(vb);
+            }
 
-            var ndPres = project.CreateModelObjectsPresentor(objType);
-            CreateVBObject(ndPres);
             DisplayObjects();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using BazisGUI.Scene.EventsArgs;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -1365,10 +1366,10 @@ namespace BazisGUI
             this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
             this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
             this.navigator.ChangeSetViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeSetViewEvent);
-            this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_ShowSetEvent);
-            this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_HideSetEvent);
-            this.navigator.DelSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_DelSetEvent);
-            this.navigator.SelectSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectSetEvent);
+            this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_ShowSetEvent);
+            this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_HideSetEvent);
+            this.navigator.DelSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_DelSetEvent);
+            this.navigator.SelectSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectSetEvent);
             this.navigator.SelectGroupEvent += new System.Action<int>(this.navigator_SelectGroupEvent);
             this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
             this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
@@ -1376,21 +1377,21 @@ namespace BazisGUI
             this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
             this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
             this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
-            this.navigator.GetObjectsInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_GetObjectsInfoEvent);
-            this.navigator.DelObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_DelObjectsEvent);
-            this.navigator.ShowObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_ShowObjectsEvent);
-            this.navigator.HideObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_HideObjectsEvent);
-            this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_SelectObjectEvent);
-            this.navigator.DelObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_DelObjectEvent);
-            this.navigator.ShowObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_ShowObjectEvent);
-            this.navigator.HideObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_HideObjectEvent);
-            this.navigator.SelectCondEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectCondEvent);
-            this.navigator.SelectTaskEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectTaskEvent);
-            this.navigator.SelectGeneralInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectGeneralInfoEvent);
+            this.navigator.GetObjectsInfoEvent += new System.Action<TreeNode>(this.navigator_GetObjectsInfoEvent);
+            this.navigator.DelObjectsEvent += new System.Action<BaseModule.Navigator.NodeName>(this.navigator_DelObjectsEvent);
+            this.navigator.ShowObjectsEvent += new System.Action<BaseModule.Navigator.NodeName>(this.navigator_ShowObjectsEvent);
+            this.navigator.HideObjectsEvent += new System.Action<BaseModule.Navigator.NodeName>(this.navigator_HideObjectsEvent);
+            this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeName, string, int>(this.navigator_SelectObjectEvent);
+            this.navigator.DelObjectEvent += new System.Action<BaseModule.Navigator.NodeName, string, int>(this.navigator_DelObjectEvent);
+            this.navigator.ShowObjectEvent += new System.Action<BaseModule.Navigator.NodeName, string, int>(this.navigator_ShowObjectEvent);
+            this.navigator.HideObjectEvent += new System.Action<BaseModule.Navigator.NodeName, string, int>(this.navigator_HideObjectEvent);
+            this.navigator.SelectCondEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectCondEvent);
+            this.navigator.SelectTaskEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectTaskEvent);
+            this.navigator.SelectGeneralInfoEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectGeneralInfoEvent);
             this.navigator.SelectTimeEvent += new System.Action<string, double>(this.navigator_SelectTimeEvent);
-            this.navigator.GetSetsInfoEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_GetSetsInfoEvent);
-            this.navigator.GetResultInfoEvent += new System.Action<string>(this.navigator_GetResultInfoEvent);
-            this.navigator.AddConditionEvent += new System.Action<object, BaseModule.Navigator.NodeType>(this.navigator_AddConditionEvent);
+            this.navigator.GetSetsInfoEvent += new System.Action<TreeNode>(this.navigator_GetSetsInfoEvent);
+            this.navigator.GetResultInfoEvent += new System.Action<TreeNode>(this.navigator_GetResultInfoEvent);
+            this.navigator.AddConditionEvent += new System.Action<object, BaseModule.Navigator.NodeName>(this.navigator_AddConditionEvent);
             this.navigator.GenerateTSFEvent += new System.Action(this.navigator_GenerateTSFEvent);
             this.navigator.GenerateTCFEvent += new System.Action(this.navigator_GenerateTCFEvent);
             this.navigator.StopComputationEvent += new System.Action(this.navigator_StopComputationEvent);

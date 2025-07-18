@@ -88,7 +88,7 @@ spbSelectObject.ToolTipText == "Элементы")
                     selObj.ViewState = false;
 
                 DeleteVBObjects(objTypeStr);
-                CreateVBObjects(project.ModelData, objTypeStr);
+                CreateVBObjects(objTypeStr);
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -105,7 +105,7 @@ spbSelectObject.ToolTipText == "Элементы")
                     obj.ViewState = true;
 
                 VBOController.DeleteAllVBObjects();
-                CreateVBObjects(project.ModelData, "Объекты");
+                CreateVBObjects("Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -190,7 +190,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                 project.ModelData.GroupData.ClearNotExisted();
                 project.TaskData.ClearNotExisted(project.ModelData.GroupData);
 
-                PresentObjectsDataOnTree(project.ModelData.ObjectData);
+                PresentObjectsDataOnTree();
                 PresentGroupDataOnTree();
 
                 //if (arg1 is TaskPage taskPage)
@@ -202,20 +202,20 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                     if (objType == ObjType.Узел)
                     {
                         DeleteVBObjects(objType);
-                        CreateVBObjects(project.ModelData, spbSelectObject.ToolTipText);
-                        CreateVBObjects(project.ModelData, "Элементы");
+                        CreateVBObjects(spbSelectObject.ToolTipText);
+                        CreateVBObjects("Элементы");
                     }
                     else if (objType == ObjType.Точка)
                     {
                         DeleteVBObjects(objType);
-                        CreateVBObjects(project.ModelData, spbSelectObject.ToolTipText);
-                        CreateVBObjects(project.ModelData, ObjType.Кривая.ToString());
+                        CreateVBObjects(spbSelectObject.ToolTipText);
+                        CreateVBObjects(ObjType.Кривая.ToString());
                     }
                 }
                 else
                 {
                     DeleteVBObjects(spbSelectObject.ToolTipText);
-                    CreateVBObjects(project.ModelData, spbSelectObject.ToolTipText);
+                    CreateVBObjects(spbSelectObject.ToolTipText);
                 }
                     
                 
@@ -362,39 +362,6 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        internal void ColorObjects(string objTypeStr)
-        {
-            if (objTypeStr == "Объекты")
-            {
-                foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
-                    SetVBObjectAttribute(project.CreateModelObjectsPresentor(type), "цвет");
-            }
-            else if (objTypeStr == "Элементы")
-            {
-                SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Элемент1D), "цвет");
-                SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Элемент2D), "цвет");
-                SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Элемент3D), "цвет");
-            }
-            else if (objTypeStr == "Фигуры")
-            {
-                SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Поверхность), "цвет");
-                SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Объем), "цвет");
-            }
-            else
-            {
-                var objType = Converters.ConvertToObjsType(objTypeStr);
-                var presentor = project.CreateModelObjectsPresentor(objType);
-                SetVBObjectAttribute(presentor, "цвет");
-            }
-
-
-            DisplayObjects();
-        }
-
-        
-
-        
+        }      
     }
 }

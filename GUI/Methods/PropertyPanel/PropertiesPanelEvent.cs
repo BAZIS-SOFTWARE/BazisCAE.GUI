@@ -1,10 +1,19 @@
-﻿using BaseModule.Mesh;
+﻿using BaseModule.Extensions;
+using BaseModule.Mesh;
 using BaseModule.Mesh.SettingsControls;
+using BaseModule.Navigator;
+using BaseModule.PropertiesPanel;
+using BazisGUI.PropertiesPanel.Control;
+using BazisGUI.Utilities;
 using GmshApi;
+using Model.Interfaces;
+using Model.Interfaces.ObjectsCollections;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,23 +21,101 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void propertiesPanel_OnPropertyUpdate(BaseModule.PropertiesPanel.PropertyChangedEventArgs obj)
+        private void propertiesPanel_OnPropertyUpdate(PropertyChangedEventArgs obj)
         {
             // В зависимости от свойства данных проекта (modelData, TaskData etc
             // вызывать нужный метод в controller
-            panelProvider.UpdateObjectValue(obj.Header, obj.NewValue.ToString(), obj.OldValue.ToString());
+            var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
+
+            if (navigator.SelectedNode.Level == 3)
+            {
+                if (nodeName == NodeName.Элемент3D |
+          nodeName == NodeName.Элемент2D |
+          nodeName == NodeName.Элемент1D |
+          nodeName == NodeName.Узел
+          )
+                {
+                    var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
+                    var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
+
+                    // получаем объект
+                    var mObj = project.GetModelObject(objType, number);
+                    
+                    // тут изменяем его свойства
+                    //
+                    //
+                    //
+                    
+                    PresentObjectsDataOnTree();
+                }
+                else if(nodeName == NodeName.Точка)
+                {
+                    // Тут задаем настройки сетки в контрольных узлах геометрии
+                    //SetPointSize();
+                    //SetMinMaxSizes()
+                }
+          else if(nodeName == NodeName.Кривая)
+                {
+                    // Тут задаем настройки сетки в кривых геометрии
+                    //SetCurveAttribute()
+                }
+                else if (nodeName == NodeName.Объем)
+                {
+                    // Тут задаем настройки сетки в объемах геометрии
+                    //SetMeshGradientSettings(MeshGradientSettingsEventArgs arg2)
+                }
+
+            }
+            if (navigator.SelectedNode.Level == 2)
+            {
+                if (nodeName == NodeName.Элементы3D)
+                    ChangeMeshSetProperties(obj, 3);
+                else if (nodeName == NodeName.Элементы2D)
+                    ChangeMeshSetProperties(obj, 2);
+                else
+                    ChangeMeshSetProperties(obj, 1);
+            }
+
+            else if(navigator.SelectedNode.Level == 1)
+            {
+                if (nodeName == NodeName.Элементы3D |
+                    nodeName == NodeName.Элементы2D |
+                    nodeName == NodeName.Элементы1D |
+                    nodeName == NodeName.Узлы
+                    )
+                {
+                    var index = navigator.SelectedNode.Index;
+                    ChangeMeshGroupProperties(obj, index);
+                    PresentGroupDataOnTree();
+                }
+                else if(nodeName == NodeName.Закрепление|
+                    nodeName == NodeName.Нагрев |
+                    nodeName == NodeName.Нагрузка |
+                    nodeName == NodeName.Среда |
+                    nodeName == NodeName.Материал
+                    )
+                    panelProvider.UpdateObjectValue(obj.Header, 
+                        obj.NewValue.ToString(), 
+                        obj.OldValue.ToString());
+            }
+
+
+
+           
+            
+            // Вынести обновление свойств объктов сюда!!! Важно..
 
             // TO DO оптимизировать. Обновлять на дереве только те данные, которые на самом деле изменились
             PresentTaskTypeAndKind();
-            PresentObjectsDataOnTree(project.ModelData.ObjectData);
-            PresentGroupDataOnTree();
+            
+            
 
             //if (obj is TaskPage taskPage)
-            PresentCondDataOnTree();
+            //PresentCondDataOnTree();
 
         }
 
-        private void SetCurveAttributeEvent(object arg1, CurveAttribsEventArgs arg2)
+        private void SetCurveAttribute(CurveAttribsEventArgs arg2)
         {
             gmshController.Gmsh.Model.SetAttribute($"transfinite {arg2.Tag}", arg2.Attributes);
             if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
@@ -38,19 +125,19 @@ namespace BazisGUI
             }
         }
 
-        private void SetPointSize(object sender, int pointNumber, double[] pointSize)
+        private void SetPointSize(int pointNumber, double[] pointSize)
         {
             var dimTags = new int[] { 0, pointNumber };
             gmshController.Gmsh.Model.Mesh.SetSize(dimTags, pointSize[0]);
         }
 
-        private void SetMinMaxSizes(object sender, double[] sizes)
+        private void SetMinMaxSizes(double[] sizes)
         {
             gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", sizes[0]);
             gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", sizes[1]);
         }
 
-        private void SetMeshGradientSettings(object arg1, MeshGradientSettingsEventArgs arg2)
+        private void SetMeshGradientSettings(MeshGradientSettingsEventArgs arg2)
         {
             gmshController.Gmsh.Model.Mesh.Field.Add(FieldType.Extend);
 

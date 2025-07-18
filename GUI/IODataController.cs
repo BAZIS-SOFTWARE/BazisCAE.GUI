@@ -67,16 +67,15 @@ namespace BazisGUI
             if (objType == ObjType.Точка)
             {
                 var controlPoints = gmshController.CreateControlPoints();
-                
-                if (controlPoints.Count > 0)
-                    controlPoints.ForEach(x => modelData.ObjectData.PointsSet.Add(x.Number, x));
+
+                foreach (var item in controlPoints)
+                    modelData.ObjectData.PointsSet.Add(item.Number, item);
             }
             else if (objType == ObjType.Кривая)
             {
                 var curves = gmshController.CreateLines();
-       
-                if (curves.Count > 0)
-                    modelData.ObjectData.CurveCollection.AddRange("newLines", curves);
+                foreach (var item in curves)
+                    modelData.ObjectData.CurveSet.Add(item.Number, item);            
             }
         }
 

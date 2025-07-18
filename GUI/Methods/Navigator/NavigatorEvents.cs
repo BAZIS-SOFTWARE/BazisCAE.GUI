@@ -26,25 +26,25 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_ShowObjectEvent(NodeType arg1, string arg2, int arg3)
+        private void navigator_ShowObjectEvent(NodeName arg1, string arg2, int arg3)
         {
 
         }
 
-        private void navigator_ShowObjectsEvent(NodeType obj)
+        private void navigator_ShowObjectsEvent(NodeName obj)
         {
 
         }
 
-        private void navigator_HideObjectsEvent(NodeType obj)
+        private void navigator_HideObjectsEvent(NodeName obj)
         {
 
         }
-        private void navigator_HideObjectEvent(NodeType arg1, string arg2, int arg3)
+        private void navigator_HideObjectEvent(NodeName arg1, string arg2, int arg3)
         {
 
         }
-        private void navigator_DelObjectEvent(NodeType arg1, string arg2,int arg3)
+        private void navigator_DelObjectEvent(NodeName arg1, string arg2,int arg3)
         {
 
         }
@@ -108,7 +108,7 @@ namespace BazisGUI
         {
             try
             {
-                navigator.TrySearchNodes(NodeType.результаты, out List<TreeNode> nodes);
+                navigator.TrySearchNodes(NodeName.результаты, out List<TreeNode> nodes);
                 //nodes[0].Nodes["ПоУзлам"].Nodes.Clear();
                 //nodes[0].Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
 
@@ -131,7 +131,7 @@ namespace BazisGUI
             {
                 ClearAllDataOnScene();
 
-                CreateVBObjects(project.ModelData, "Объекты");
+                CreateVBObjects("Объекты");
 
                 FitObjectsToScreen();
                 DisplayObjects();
@@ -174,7 +174,7 @@ namespace BazisGUI
             };
 
                 var tasks = new List<string>();
-                navigator.TrySearchNodes(NodeType.задачи, out List<TreeNode> task);
+                navigator.TrySearchNodes(NodeName.задачи, out List<TreeNode> task);
                 foreach (TreeNode item in task[0].Nodes)
                     tasks.Add("расчет " + item.Text);
 
@@ -372,7 +372,7 @@ namespace BazisGUI
 
         }
 
-        private void navigator_AddConditionEvent(object arg1, NodeType arg2)
+        private void navigator_AddConditionEvent(object arg1, NodeName arg2)
         {
             try
             {
@@ -522,7 +522,7 @@ namespace BazisGUI
                     }
                 }
                 VBOController.DeleteAllVBObjects();
-                CreateVBObjects(project.ModelData, "Объекты");
+                CreateVBObjects("Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -536,11 +536,11 @@ namespace BazisGUI
         {
             try
             {
-                foreach (var obj in project.ModelData.ObjectData.GetAllObjects())
+                foreach (var obj in project.GetAllModelObjects())
                     obj.ViewState = false;
 
                 VBOController.DeleteAllVBObjects();
-                CreateVBObjects(project.ModelData, "Объекты");
+                CreateVBObjects("Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -554,7 +554,7 @@ namespace BazisGUI
         {
             try
             {
-                var group = project.ModelData.GroupData[obj];
+                var group = project.GetModelGroup(obj);
                 ChangeGroupViewState(group,true);
 
             }
@@ -564,29 +564,13 @@ namespace BazisGUI
             }
         }
 
-        private void ChangeGroupViewState(IGroup group, bool viewState)
-        {
-            foreach (var iobj in group)
-                iobj.ViewState = viewState;
 
-            var vbobj = VBOController.FindVBObj(group.ObjType.ToString());
-            if (vbobj == null)
-                throw new Exception($"Объект {group.ObjType} не загружен на сцену!");
-            var viewMode = vbobj.ViewMode;
-
-            VBOController.DeleteVBObjects(group.ObjType.ToString());
-            var pres = project.CreateModelObjectsPresentor(group.ObjType);
-            CreateVBObject(pres);
-            VBOController.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
-
-            DisplayObjects();
-        }
 
         private void navigator_HideGroupEvent(int obj)
         {
             try
             {
-                var group = project.ModelData.GroupData[obj];
+                var group = project.GetModelGroup(obj);
                 ChangeGroupViewState(group, false);
 
             }
@@ -596,11 +580,11 @@ namespace BazisGUI
             }
         }
 
-        private void navigator_HideSetEvent(NodeType nodeType, string setName)
+        private void navigator_HideSetEvent(NodeName nodeType, string setName)
         {
             try
             {
-                var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
+                var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
                 ChangeSetViewState(setName, objType, false);
 
             }
@@ -618,7 +602,7 @@ namespace BazisGUI
                     obj.ViewState = true;
 
                 VBOController.DeleteAllVBObjects();
-                CreateVBObjects(project.ModelData, "Объекты");
+                CreateVBObjects("Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -628,11 +612,11 @@ namespace BazisGUI
 
         }
 
-        private void navigator_ShowSetEvent(NodeType nodeType, string setName)
+        private void navigator_ShowSetEvent(NodeName nodeType, string setName)
         {
             try
             {
-                var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
+                var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
                 ChangeSetViewState(setName, objType,true);
 
             }
@@ -640,22 +624,6 @@ namespace BazisGUI
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        private void ChangeSetViewState(string setName, ObjType objType, bool viewState)
-        {
-            project.GetModelSetInfo(objType, setName).SetViewState(viewState);
-
-            VBOController.DeleteVBObjects(objType.ToString());
-
-            if(project.GetModelObjects(objType).Any(x => x.ViewState == true))
-            {
-                var pres = project.CreateModelObjectsPresentor(objType);
-                var vb = CreateVBObject(pres);
-                VBOController.AddVbo(vb);
-            }
-
-            DisplayObjects();
         }
 
         private void navigator_InfoGroupEvent(int obj)
@@ -676,39 +644,13 @@ namespace BazisGUI
                     }
                 }
                 VBOController.DeleteAllVBObjects();
-                CreateVBObjects(project.ModelData, "Объекты");
+                CreateVBObjects("Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        private void navigator_ChangeSetViewEvent(string objs, ViewRegime viewRegime)
-        {
-            var objType = objs.ToEnum<ObjType>();
-            switch (viewRegime)
-            {
-                case ViewRegime.ribbers:
-                    VBOController.ChangeViewModeVBObjects(objs, ObjView.Lines);
-                    foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
-                        item.SetViewMode(ViewMode.Line);
-                    break;
-                case ViewRegime.surfaces:
-                    VBOController.ChangeViewModeVBObjects(objs, ObjView.Surface);
-                    foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
-                        item.SetViewMode(ViewMode.Surface);
-                    break;
-                case ViewRegime.ribbersSurfaces:
-                    VBOController.ChangeViewModeVBObjects(objType.ToString(), ObjView.LinesSurface);
-                    foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
-                        item.SetViewMode(ViewMode.LineSurface);
-                    break;
-                default:
-                    break;
-            }
-            DisplayObjects();
         }
 
 
@@ -777,23 +719,23 @@ namespace BazisGUI
             splitContainer1.Panel1Collapsed = true;
         }
 
-        private void navigator_DelObjectsEvent(NodeType obj)
+        private void navigator_DelObjectsEvent(NodeName obj)
         {
             try
             {
-                var objType = Converters.ConvertNavigatorNodeTypeToObjType(obj);
+                var objType = Converters.ConvertNavigatorNodeNameToObjType(obj);
 
                 project.ClearModelCollection(objType);
                 project.ModelData.ObjectData.ClearEmptySet();
 
-                PresentObjectsDataOnTree(project.ModelData.ObjectData);
+                PresentObjectsDataOnTree();
                 PresentGroupDataOnTree();
 
                 //if (arg1 is TaskPage taskPage)
                 PresentCondDataOnTree();
 
                 ClearAllDataOnScene();
-                CreateVBObjects(project.ModelData, "Объекты");
+                CreateVBObjects("Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -808,7 +750,7 @@ namespace BazisGUI
             {
                 project.ClearAllData();
 
-                PresentObjectsDataOnTree(project.ModelData.ObjectData);
+                PresentObjectsDataOnTree();
                 PresentGroupDataOnTree();
 
                 //if (obj is ToolStripPage taskPage)
@@ -823,53 +765,46 @@ namespace BazisGUI
             }
 
         }
-        private void navigator_GetObjectsInfoEvent(NodeType obj, string set)
+        private void navigator_GetObjectsInfoEvent(TreeNode node)
         {
-            var objType = Converters.ConvertNavigatorNodeTypeToObjType(obj);
-            var setInfo = project.ModelData.ObjectData.GetSetsInfo(objType).Where(x => x.Name == set).First();
+            var nodeType = node.Name.ToEnum<NodeName>();
+            var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
+            var setName = node.Text.Split(' ')[0];
+            var setInfo = project.GetModelSetInfo(objType, setName);
 
-
-            if (navigator.TrySearchNodes(obj, out List<TreeNode> nodes))
-            {
-                var root = nodes.First(x => x.Text.Split(' ')[0] == set);
-                var childs = navigator.CreateRealNodes(obj.ToString(), setInfo.GetObjectsInfo());
-                root.Nodes.AddRange(childs);
-            }
+            var childs = navigator.CreateRealNodes(objType.ToString(), setInfo.GetObjectsInfo());
+            node.Nodes.AddRange(childs);  
         }
 
-        private void navigator_GetSetsInfoEvent(NodeType obj)
+        private void navigator_GetSetsInfoEvent(TreeNode node)
         {
-            var objType = Converters.ConvertNavigatorNodeTypeToObjType(obj);
+            var nodeType = node.Name.ToEnum<NodeName>();
+            var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
+
             var info = project.GetModelSetsInfo(objType);
 
-            if (navigator.TrySearchNodes(obj, out List<TreeNode> nodes))
+            foreach (var item in info)
             {
-                foreach (var item in info)
-                {
-                    var text = $"{item.Name} {item.NumberOfObjects}";
-                    var r_node = navigator.CreateRealNode(item.ObjType.ToString(), text);
-                    r_node.ImageIndex = 14;
-                    r_node.SelectedImageIndex = 14;
-                    var v_node = navigator.CreateVirtualNode(item.ObjType.ToString());
-                    r_node.Nodes.Add(v_node);
-                    nodes.First().Nodes.Add(r_node);
-                    navigator.SetContextMenu(r_node);
-                }
+                var text = $"{item.Name} {item.NumberOfObjects}";
+                var r_node = navigator.CreateRealNode(node.Name, text);
+                r_node.ImageIndex = 14;
+                r_node.SelectedImageIndex = 14;
+                var v_node = navigator.CreateVirtualNode(item.ObjType.ToString());
+                r_node.Nodes.Add(v_node);
+                node.Nodes.Add(r_node);
+                navigator.SetContextMenu(r_node);
             }
         }
 
-        private void navigator_GetResultInfoEvent(string obj)
+        private void navigator_GetResultInfoEvent(TreeNode node)
         {
-            navigator.TrySearchNodes(NodeType.Результат, out List<TreeNode> nodes);
-            var tn = nodes.First(x => x.Text == obj);
-
             var times = GetResultTimes().Select(x => x.ToString());
 
-            var childs = navigator.CreateRealNodes(NodeType.Время.ToString(), times);
-            tn.Nodes.AddRange(childs);
+            var childs = navigator.CreateRealNodes(NodeName.Время.ToString(), times);
+            node.Nodes.AddRange(childs);
         }
 
-        private void navigator_SelectCondEvent(NodeType arg1, string arg2)
+        private void navigator_SelectCondEvent(NodeName arg1, string arg2)
         {
             try
             {
@@ -936,11 +871,11 @@ namespace BazisGUI
             }
         }
 
-        private void navigator_SelectObjectEvent(NodeType arg1, string arg2,int arg3)
+        private void navigator_SelectObjectEvent(NodeName arg1, string arg2,int arg3)
         {
             try
             {
-                var objType = Converters.ConvertNavigatorNodeTypeToObjType(arg1);
+                var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
                 //var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
                 var objects = project.GetModelObjects(objType);
                 var item = objects.FirstOrDefault(x => x.Number == arg3);
@@ -953,13 +888,13 @@ namespace BazisGUI
             }
         }
 
-        private void navigator_SelectSetEvent(NodeType arg1, string arg2)
+        private void navigator_SelectSetEvent(NodeName arg1, string arg2)
         {
             try
             {
                 var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
 
-                var objType = Converters.ConvertNavigatorNodeTypeToObjType(arg1);
+                var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
                 var set = project.GetModelSetInfo(objType, setName);
 
                 var rows = panelProvider.GetRowProperties(set);
@@ -972,7 +907,7 @@ namespace BazisGUI
  
         }
 
-        private void navigator_SelectTaskEvent(NodeType arg1, string arg2)
+        private void navigator_SelectTaskEvent(NodeName arg1, string arg2)
         {
             EditTSFFile(arg2);
         }

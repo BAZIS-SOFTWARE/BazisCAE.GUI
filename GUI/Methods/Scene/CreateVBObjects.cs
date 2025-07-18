@@ -9,13 +9,13 @@ namespace BazisGUI
     public partial class BaseForm
     {
         
-        public void CreateVBObjects(IModelData modelData, string objects)
+        public void CreateVBObjects(string objects)
         {
             if (objects == "Объекты")
             {
                 foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
                 {
-                    if(modelData.ObjectData.GetObjects(item).Count() > 0)
+                    if(project.GetModelObjects(item).Count() > 0)
                     {
                         var presentor = project.CreateModelObjectsPresentor(item);
                         var vbo = CreateVBObject(presentor);

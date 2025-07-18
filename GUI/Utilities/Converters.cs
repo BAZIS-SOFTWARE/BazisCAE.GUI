@@ -60,53 +60,53 @@ namespace BazisGUI.Utilities
                 throw new Exception($"Ошибка конвертации объектов {objects}");
         }
 
-        public static NodeType ConvertToNavigatorNodeType(ObjType objType)
+        public static NodeName ConvertToNavigatorNodeType(ObjType objType)
         {
             switch (objType)
             {
                 case ObjType.Точка:
-                    return NodeType.Точки;
+                    return NodeName.Точки;
                 case ObjType.Кривая:
-                    return NodeType.Кривые;
+                    return NodeName.Кривые;
                 case ObjType.Поверхность:
-                    return NodeType.Поверхности;
+                    return NodeName.Поверхности;
                 case ObjType.Объем:
-                    return NodeType.Объемы;
+                    return NodeName.Объемы;
                 case ObjType.Узел:
-                    return NodeType.Узлы;
+                    return NodeName.Узлы;
                 case ObjType.Элемент1D:
-                    return NodeType.Элементы1D;
+                    return NodeName.Элементы1D;
                 case ObjType.Элемент2D:
-                    return NodeType.Элементы2D;
+                    return NodeName.Элементы2D;
                 default:
-                    return NodeType.Элементы3D;
+                    return NodeName.Элементы3D;
             }
         }
 
-        public static ObjType ConvertNavigatorNodeTypeToObjType(NodeType navNodeName)
+        public static ObjType ConvertNavigatorNodeNameToObjType(NodeName navNodeName)
         {
             switch (navNodeName)
             {
-                case NodeType.Точки:
-                case NodeType.Точка: 
+                case NodeName.Точки:
+                case NodeName.Точка: 
                     return ObjType.Точка;
-                case NodeType.Кривые:
-                case NodeType.Кривая:
+                case NodeName.Кривые:
+                case NodeName.Кривая:
                     return ObjType.Кривая;
-                case NodeType.Поверхности:
-                case NodeType.Поверхность:
+                case NodeName.Поверхности:
+                case NodeName.Поверхность:
                     return ObjType.Поверхность;
-                case NodeType.Объемы:
-                case NodeType.Объем:
+                case NodeName.Объемы:
+                case NodeName.Объем:
                     return ObjType.Объем;
-                case NodeType.Узлы:
-                case NodeType.Узел:
+                case NodeName.Узлы:
+                case NodeName.Узел:
                     return ObjType.Узел;
-                case NodeType.Элементы1D:
-                case NodeType.Элемент1D:
+                case NodeName.Элементы1D:
+                case NodeName.Элемент1D:
                     return ObjType.Элемент1D;
-                case NodeType.Элементы2D:
-                case NodeType.Элемент2D:
+                case NodeName.Элементы2D:
+                case NodeName.Элемент2D:
                     return ObjType.Элемент2D;
                 default: return ObjType.Элемент3D;
             }

@@ -36,7 +36,9 @@ namespace BazisGUI
                             pointCounter++;
                         }
 
-                        if (selectionBox.IsPointsInside(scrPoints))
+                        var poligon = new Geometry.Polygon(scrPoints.ToList());
+                        if(poligon.IsSelectedByRectangle(selectionBox))
+                        //if (selectionBox.IsPointsInside(scrPoints))
                         {
                             selFlag = true;
                             if (isSelected)

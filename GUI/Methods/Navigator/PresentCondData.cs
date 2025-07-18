@@ -20,21 +20,21 @@ namespace BazisGUI
             try
             {
                 navigator.BeginUpdate();
-                navigator.TrySearchNodes(NodeType.условия, out List<TreeNode> cond);
+                navigator.TrySearchNodes(NodeName.условия, out List<TreeNode> cond);
                 cond[0].Nodes.Clear();
 
                 PresentMatAndFuncData();
 
                 foreach (var data in project.GetAllCondData())
                 {
-                    var nodeType = data.Kind.ToString().ToEnum<NodeType>();
+                    var nodeType = data.Kind.ToString().ToEnum<NodeName>();
                     var imgIndex = navigator.GetObjectImageIndex(nodeType);
 
                     var child = navigator.CreateRealNode(nodeType, $"{data}");
                     child.ImageIndex = imgIndex;
                     child.SelectedImageIndex = imgIndex;
 
-                    navigator.TrySearchNodes(NodeType.условия.ToString(), out List<TreeNode> nodes);
+                    navigator.TrySearchNodes(NodeName.условия.ToString(), out List<TreeNode> nodes);
                     nodes.First().Nodes.Add(child);
                 }
 

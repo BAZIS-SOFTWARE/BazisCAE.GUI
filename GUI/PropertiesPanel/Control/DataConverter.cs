@@ -19,11 +19,11 @@ namespace BazisGUI.PropertiesPanel.Control
         public static DataConverter CreateConverter(ICondData obj, List<string> func, List<string> mat, List<IGroup> allGroupElement)
         {
             _groupElement = allGroupElement;
-            if (obj.Kind.ToString() == NodeType.Материал.ToString()) return new MatTaskConverter(obj, mat, GetGroupsByObjTypeFromOnesName(obj));
-            else if (obj.Kind.ToString() == NodeType.Среда.ToString()) return new EnvironmentTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj), func);
-            else if (obj.Kind.ToString() == NodeType.Нагрев.ToString()) return new HeatTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj), func);
-            else if (obj.Kind.ToString() == NodeType.Закрепление.ToString()) return new ClampTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj));
-            else if (obj.Kind.ToString() == NodeType.Нагрузка.ToString()) return new LoadTaskConverter(obj, func, GetGroupsByObjTypeFromOnesName(obj));
+            if (obj.Kind.ToString() == NodeName.Материал.ToString()) return new MatTaskConverter(obj, mat, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Kind.ToString() == NodeName.Среда.ToString()) return new EnvironmentTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj), func);
+            else if (obj.Kind.ToString() == NodeName.Нагрев.ToString()) return new HeatTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj), func);
+            else if (obj.Kind.ToString() == NodeName.Закрепление.ToString()) return new ClampTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Kind.ToString() == NodeName.Нагрузка.ToString()) return new LoadTaskConverter(obj, func, GetGroupsByObjTypeFromOnesName(obj));
             else throw new NotImplementedException("Тип задачи не определен");
         }
 

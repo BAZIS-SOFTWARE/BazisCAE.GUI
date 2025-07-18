@@ -15,7 +15,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public void PresentObjectsDataOnTree(IObjectsData objectsData)
+        public void PresentObjectsDataOnTree()
         {
             navigator.BeginUpdate();
 
@@ -24,14 +24,14 @@ namespace BazisGUI
                 item.Nodes.Clear();
 
             foreach (ObjType objType in Enum.GetValues(typeof(ObjType)))
-                foreach (var item in objectsData.GetSetsInfo(objType))
+                foreach (var item in project.GetModelSetsInfo(objType))
                 {
                     if (item.NumberOfObjects > 0)
                     {
                         //if(item.ObjType == ObjType.Узел)
                         //    nodes[0].Nodes[NodeType.Узлы.ToString()]
                         var root = Converters.ConvertToNavigatorNodeType(item.ObjType);
-                        navigator.TryCreateNode(root.ToString(), item.Name, $"{item.Name} {item.NumberOfObjects}", NodeKind.virt);
+                        navigator.TryCreateNode(root.ToString(), root.ToString(), $"{root} {item.NumberOfObjects}", NodeKind.virt);
                     }
                 }
             navigator.EndUpdate();

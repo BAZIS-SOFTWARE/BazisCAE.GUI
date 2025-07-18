@@ -111,7 +111,7 @@ namespace BazisGUI
                 var loader = new LoadResultsFileDB();
 
                 var tables = new List<string>();
-                navigator.TrySearchNodes(NodeType.результаты.ToString(), out List<TreeNode> nodes);
+                navigator.TrySearchNodes(NodeName.результаты.ToString(), out List<TreeNode> nodes);
                 foreach (TreeNode item in nodes[0].Nodes)
                     tables.Add(item.Text);
 
@@ -167,10 +167,10 @@ namespace BazisGUI
         {
             lblStatus.Text = $"{project.Path}/{project.Name}";
 
-            navigator.TrySearchNodes(NodeType.вид, out List<TreeNode> kind);
+            navigator.TrySearchNodes(NodeName.вид, out List<TreeNode> kind);
             kind.First().Text = $"Вид : {project.ProjectKind}";
 
-            navigator.TrySearchNodes(NodeType.тип, out List<TreeNode> type);
+            navigator.TrySearchNodes(NodeName.тип, out List<TreeNode> type);
             type.First().Text = $"Тип : {project.ProjectType}";
 
         }
@@ -180,10 +180,10 @@ namespace BazisGUI
             try
             {
                 navigator.BeginUpdate();
-                navigator.TrySearchNodes(NodeType.базаМатериалов, out List<TreeNode> mats);
+                navigator.TrySearchNodes(NodeName.базаМатериалов, out List<TreeNode> mats);
                 mats[0].Text = $"База материалов : {project.MaterialsDB}";
 
-                navigator.TrySearchNodes(NodeType.базаФункций, out List<TreeNode> func);
+                navigator.TrySearchNodes(NodeName.базаФункций, out List<TreeNode> func);
                 func[0].Text = $"База функций : {project.FunctionsDB}";
 
                 navigator.EndUpdate();

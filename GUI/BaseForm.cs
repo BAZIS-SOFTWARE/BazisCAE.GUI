@@ -541,7 +541,7 @@ namespace BazisGUI
                 settingsConfig.Transparency = ar;
                 averageColorRenderer.IsEnable = ar;
                 ClearAllDataOnScene();
-                CreateVBObjects(project.ModelData, "Объекты");
+                CreateVBObjects("Объекты");
                 DisplayObjects();
             };
 
@@ -569,7 +569,7 @@ namespace BazisGUI
                 } 
                 
                 ClearAllDataOnScene();
-                CreateVBObjects(project.ModelData, "Объекты");
+                CreateVBObjects("Объекты");
                 DisplayObjects();
             };
 
@@ -812,9 +812,9 @@ namespace BazisGUI
 
         private void PresentProjectOnModule()
         {
-            CreateVBObjects(project.ModelData, "Объекты");
+            CreateVBObjects("Объекты");
             PresentTaskTypeAndKind();
-            PresentObjectsDataOnTree(project.ModelData.ObjectData);
+            PresentObjectsDataOnTree();
             PresentGroupDataOnTree();
             PresentCondDataOnTree();
             PresentModelOnSelectToolStrip(project.ModelData.ObjectData);

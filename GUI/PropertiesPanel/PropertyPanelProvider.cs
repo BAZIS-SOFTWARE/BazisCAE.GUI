@@ -19,7 +19,7 @@ namespace BazisGUI.PropertiesPanel
         public List<string> _funcDBNames;
         public List<string> _matDBNames;
 
-        private PanelConverter _converter;
+        PanelConverter _converter { get; set; }
 
         public List<RowProperty> GetRowProperties<T>(T obj)
         {

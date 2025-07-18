@@ -315,20 +315,20 @@ namespace BazisGUI
                 var scheme = loader.GetTablesSchemes(fileName).
                     FirstOrDefault(x => x.Key == ResultType.nodes.ToString());
 
-                navigator.TrySearchNodes(NodeType.результаты, out List<TreeNode> nodes);
+                navigator.TrySearchNodes(NodeName.результаты, out List<TreeNode> nodes);
                 nodes[0].Nodes.Clear();
 
                 resultTimes = loader.GetValues(fileName, scheme.Key, "Time");
 
                 foreach (var desc in scheme.Value)
                 {
-                    var rn = navigator.CreateRealNode(NodeType.Результат, $"{desc}");
+                    var rn = navigator.CreateRealNode(NodeName.Результат, $"{desc}");
                     rn.ImageIndex = 14;
                     rn.SelectedImageIndex = 14;
                     //var node = new TreeNode($"{desc}", 16, 16)
                     //{ Tag = "6.1", Name = desc };
 
-                    var vn = navigator.CreateVirtualNode(NodeType.Результат);
+                    var vn = navigator.CreateVirtualNode(NodeName.Результат);
                     rn.Nodes.Add(vn);
                     nodes[0].Nodes.Add(rn);
                 }

@@ -95,10 +95,6 @@
             this.удалитьНаборMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.скрытьНаборMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьНаборMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.отображениеНабораToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ребраToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.поверхностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ребраИПоверхностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.elGroup_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
@@ -233,35 +229,35 @@
             // материалToolStripMenuItem
             // 
             this.материалToolStripMenuItem.Name = "материалToolStripMenuItem";
-            this.материалToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.материалToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.материалToolStripMenuItem.Text = "Материал";
             this.материалToolStripMenuItem.Click += new System.EventHandler(this.материалToolStripMenuItem_Click);
             // 
             // закреплениеToolStripMenuItem
             // 
             this.закреплениеToolStripMenuItem.Name = "закреплениеToolStripMenuItem";
-            this.закреплениеToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.закреплениеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.закреплениеToolStripMenuItem.Text = "Закрепление";
             this.закреплениеToolStripMenuItem.Click += new System.EventHandler(this.закреплениеToolStripMenuItem_Click);
             // 
             // нагрузкаToolStripMenuItem
             // 
             this.нагрузкаToolStripMenuItem.Name = "нагрузкаToolStripMenuItem";
-            this.нагрузкаToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.нагрузкаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.нагрузкаToolStripMenuItem.Text = "Нагрузка";
             this.нагрузкаToolStripMenuItem.Click += new System.EventHandler(this.нагрузкаToolStripMenuItem_Click);
             // 
             // нагревToolStripMenuItem
             // 
             this.нагревToolStripMenuItem.Name = "нагревToolStripMenuItem";
-            this.нагревToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.нагревToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.нагревToolStripMenuItem.Text = "Нагрев";
             this.нагревToolStripMenuItem.Click += new System.EventHandler(this.нагревToolStripMenuItem_Click);
             // 
             // средаToolStripMenuItem
             // 
             this.средаToolStripMenuItem.Name = "средаToolStripMenuItem";
-            this.средаToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.средаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.средаToolStripMenuItem.Text = "Среда";
             this.средаToolStripMenuItem.Click += new System.EventHandler(this.средаToolStripMenuItem_Click);
             // 
@@ -437,62 +433,30 @@
             this.set_MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.удалитьНаборMenuItem,
             this.скрытьНаборMenuItem,
-            this.показатьНаборMenuItem,
-            this.отображениеНабораToolStripMenuItem});
+            this.показатьНаборMenuItem});
             this.set_MenuStrip.Name = "lv0_MenuStrip";
-            this.set_MenuStrip.Size = new System.Drawing.Size(151, 92);
+            this.set_MenuStrip.Size = new System.Drawing.Size(181, 92);
             // 
             // удалитьНаборMenuItem
             // 
             this.удалитьНаборMenuItem.Name = "удалитьНаборMenuItem";
-            this.удалитьНаборMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.удалитьНаборMenuItem.Size = new System.Drawing.Size(180, 22);
             this.удалитьНаборMenuItem.Text = "Удалить";
             this.удалитьНаборMenuItem.Click += new System.EventHandler(this.DelSet_Click);
             // 
             // скрытьНаборMenuItem
             // 
             this.скрытьНаборMenuItem.Name = "скрытьНаборMenuItem";
-            this.скрытьНаборMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.скрытьНаборMenuItem.Size = new System.Drawing.Size(180, 22);
             this.скрытьНаборMenuItem.Text = "Скрыть";
             this.скрытьНаборMenuItem.Click += new System.EventHandler(this.HideSet_Click);
             // 
             // показатьНаборMenuItem
             // 
             this.показатьНаборMenuItem.Name = "показатьНаборMenuItem";
-            this.показатьНаборMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.показатьНаборMenuItem.Size = new System.Drawing.Size(180, 22);
             this.показатьНаборMenuItem.Text = "Показать";
             this.показатьНаборMenuItem.Click += new System.EventHandler(this.ShowSet_Click);
-            // 
-            // отображениеНабораToolStripMenuItem
-            // 
-            this.отображениеНабораToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ребраToolStripMenuItem,
-            this.поверхностиToolStripMenuItem,
-            this.ребраИПоверхностиToolStripMenuItem});
-            this.отображениеНабораToolStripMenuItem.Name = "отображениеНабораToolStripMenuItem";
-            this.отображениеНабораToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.отображениеНабораToolStripMenuItem.Text = "Отображение";
-            // 
-            // ребраToolStripMenuItem
-            // 
-            this.ребраToolStripMenuItem.Name = "ребраToolStripMenuItem";
-            this.ребраToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.ребраToolStripMenuItem.Text = "Ребра";
-            this.ребраToolStripMenuItem.Click += new System.EventHandler(this.ребраToolStripMenuItem_Click);
-            // 
-            // поверхностиToolStripMenuItem
-            // 
-            this.поверхностиToolStripMenuItem.Name = "поверхностиToolStripMenuItem";
-            this.поверхностиToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.поверхностиToolStripMenuItem.Text = "Поверхности";
-            this.поверхностиToolStripMenuItem.Click += new System.EventHandler(this.поверхностиToolStripMenuItem_Click);
-            // 
-            // ребраИПоверхностиToolStripMenuItem
-            // 
-            this.ребраИПоверхностиToolStripMenuItem.Name = "ребраИПоверхностиToolStripMenuItem";
-            this.ребраИПоверхностиToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.ребраИПоверхностиToolStripMenuItem.Text = "Ребра и поверхности";
-            this.ребраИПоверхностиToolStripMenuItem.Click += new System.EventHandler(this.ребраИПоверхностиToolStripMenuItem_Click);
             // 
             // elGroup_MenuStrip
             // 
@@ -805,10 +769,6 @@
         private System.Windows.Forms.ToolStripMenuItem удалитьНаборMenuItem;
         private System.Windows.Forms.ToolStripMenuItem показатьНаборMenuItem;
         private System.Windows.Forms.ToolStripMenuItem скрытьНаборMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem отображениеНабораToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ребраToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem поверхностиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ребраИПоверхностиToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip elGroup_MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem17;
