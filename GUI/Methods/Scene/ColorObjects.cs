@@ -26,7 +26,6 @@ namespace BazisGUI
             else if (objTypeStr == "Фигуры")
             {
                 SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Поверхность), "цвет");
-                SetVBObjectAttribute(project.CreateModelObjectsPresentor(ObjType.Объем), "цвет");
             }
             else
             {

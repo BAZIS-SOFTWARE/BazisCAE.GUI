@@ -36,6 +36,7 @@ namespace BazisGUI
                             pointCounter++;
                         }
 
+                        // тест выделения рамкой
                         var poligon = new Geometry.Polygon(scrPoints.ToList());
                         if(poligon.IsSelectedByRectangle(selectionBox))
                         //if (selectionBox.IsPointsInside(scrPoints))

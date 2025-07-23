@@ -70,8 +70,6 @@ namespace BazisGUI.Utilities
                     return NodeName.Кривые;
                 case ObjType.Поверхность:
                     return NodeName.Поверхности;
-                case ObjType.Объем:
-                    return NodeName.Объемы;
                 case ObjType.Узел:
                     return NodeName.Узлы;
                 case ObjType.Элемент1D:
@@ -96,9 +94,6 @@ namespace BazisGUI.Utilities
                 case NodeName.Поверхности:
                 case NodeName.Поверхность:
                     return ObjType.Поверхность;
-                case NodeName.Объемы:
-                case NodeName.Объем:
-                    return ObjType.Объем;
                 case NodeName.Узлы:
                 case NodeName.Узел:
                     return ObjType.Узел;

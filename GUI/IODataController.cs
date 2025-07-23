@@ -61,7 +61,7 @@ namespace BazisGUI
             
             return gmshController;
         }
-
+        // Используем "проволочное" представление геометрии
         public void UpdateGeometry(GmshController gmshController, IModelData modelData, ObjType objType)
         {
             if (objType == ObjType.Точка)
@@ -73,9 +73,17 @@ namespace BazisGUI
             }
             else if (objType == ObjType.Кривая)
             {
+                
                 var curves = gmshController.CreateLines();
                 foreach (var item in curves)
                     modelData.ObjectData.CurveSet.Add(item.Number, item);            
+            }
+
+            else if (objType == ObjType.Поверхность)
+            {
+                var surfs = gmshController.CreateSurfaceSets();
+                foreach (var item in surfs)
+                    modelData.ObjectData.SurfaceCollection.Add(item);
             }
         }
 

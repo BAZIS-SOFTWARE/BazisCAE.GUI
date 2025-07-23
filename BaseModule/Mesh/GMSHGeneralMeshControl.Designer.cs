@@ -210,7 +210,7 @@ namespace BaseModule.Mesh
             // 
             // volSettingsControl
             // 
-            this.volSettingsControl.Location = new System.Drawing.Point(3, 16);
+            this.volSettingsControl.Location = new System.Drawing.Point(142, 38);
             this.volSettingsControl.Margin = new System.Windows.Forms.Padding(0);
             this.volSettingsControl.Name = "volSettingsControl";
             this.volSettingsControl.Size = new System.Drawing.Size(467, 195);
@@ -220,7 +220,7 @@ namespace BaseModule.Mesh
             // 
             // curveSettingsControl
             // 
-            this.curveSettingsControl.Location = new System.Drawing.Point(3, 16);
+            this.curveSettingsControl.Location = new System.Drawing.Point(69, 138);
             this.curveSettingsControl.Margin = new System.Windows.Forms.Padding(0);
             this.curveSettingsControl.Name = "curveSettingsControl";
             this.curveSettingsControl.Size = new System.Drawing.Size(517, 127);

@@ -3,6 +3,7 @@ using BazisGUI.Scene.EventsArgs;
 using BazisGUI.Utilities;
 using Geometry;
 using Model;
+using Model.GroupsData;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using System;
@@ -54,7 +55,7 @@ spbSelectObject.ToolTipText == "Элементы")
                             else break;
                         }
 
-                        var group = project.ModelData.GroupData.Create(name, objType);
+                        var group = new Group(name, objType);
 
                         group.AddRange(selObjs);
                         project.ModelData.GroupData.Add(group);

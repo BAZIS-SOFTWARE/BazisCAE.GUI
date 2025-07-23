@@ -8,6 +8,8 @@ using BazisGUI.Utilities;
 using GmshApi;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
+using Project.Interfaces.Tasks;
+using Project.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -88,15 +90,24 @@ namespace BazisGUI
                     ChangeMeshGroupProperties(obj, index);
                     PresentGroupDataOnTree();
                 }
+                else if(nodeName == NodeName.Материал)
+                {
+                    var index = navigator.SelectedNode.Index;
+                    var cond = project.TaskData[index];
+                    ChangeCondProperties(obj, cond);
+                    ChangeMatProperties(obj, (MatData)cond);
+                }
                 else if(nodeName == NodeName.Закрепление|
                     nodeName == NodeName.Нагрев |
                     nodeName == NodeName.Нагрузка |
-                    nodeName == NodeName.Среда |
-                    nodeName == NodeName.Материал
+                    nodeName == NodeName.Среда
                     )
-                    panelProvider.UpdateObjectValue(obj.Header, 
-                        obj.NewValue.ToString(), 
-                        obj.OldValue.ToString());
+                {
+                    var index = navigator.SelectedNode.Index;
+                    var cond = project.TaskData[index];
+                    ChangeCondProperties(obj, cond);
+                    PresentCondDataOnTree();
+                }
             }
 
 
@@ -115,6 +126,8 @@ namespace BazisGUI
 
         }
 
+
+
         private void SetCurveAttribute(CurveAttribsEventArgs arg2)
         {
             gmshController.Gmsh.Model.SetAttribute($"transfinite {arg2.Tag}", arg2.Attributes);
@@ -127,10 +140,11 @@ namespace BazisGUI
 
         private void SetPointSize(int pointNumber, double[] pointSize)
         {
+            // задаем значения парами размерность - номер
             var dimTags = new int[] { 0, pointNumber };
             gmshController.Gmsh.Model.Mesh.SetSize(dimTags, pointSize[0]);
         }
-
+        //задаем во всех контр. узлах диапазон
         private void SetMinMaxSizes(double[] sizes)
         {
             gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", sizes[0]);

@@ -15,7 +15,6 @@ namespace BazisGUI
             VBOController.DeleteVBObjects(ObjType.Точка.ToString());
             VBOController.DeleteVBObjects(ObjType.Кривая.ToString());
             VBOController.DeleteVBObjects(ObjType.Поверхность.ToString());
-            VBOController.DeleteVBObjects(ObjType.Объем.ToString());
         }
 
         public void ClearAllMeshDataOnScene()
