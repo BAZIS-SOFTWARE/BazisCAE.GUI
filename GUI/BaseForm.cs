@@ -819,8 +819,6 @@ namespace BazisGUI
             PresentTaskTypeAndKind();
             PresentObjectsDataOnTree();
 
-
-
             PresentGroupDataOnTree();
             PresentCondDataOnTree();
             PresentModelOnSelectToolStrip(project.ModelData.ObjectData);

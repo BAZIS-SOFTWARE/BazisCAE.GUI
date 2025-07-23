@@ -227,7 +227,13 @@
     <Compile Include="Methods\BasePage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\ConsoleEvents.cs">
+    <Compile Include="Methods\Console\FindCoincidentNodes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Console\FindFreeNodesEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Console\ConsoleEvents.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PhysicalDataBase\GetDataBase.cs">

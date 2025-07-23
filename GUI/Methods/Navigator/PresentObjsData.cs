@@ -46,7 +46,7 @@ namespace BazisGUI
         }
         private void PresentVolumeInfo()
         {
-            if (gmshController.Gmsh.Model.GetDimension() > 2)
+            if (gmshController.Gmsh?.Model?.GetDimension() > 2)
             {
                 var dimTags = gmshController.Gmsh.Model.GetEntities(3);
                 navigator.TrySearchNodes(NodeName.Объемы, out List<TreeNode> nodes);
