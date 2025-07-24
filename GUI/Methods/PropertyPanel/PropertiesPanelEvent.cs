@@ -80,15 +80,16 @@ namespace BazisGUI
 
             else if(navigator.SelectedNode.Level == 1)
             {
-                if (nodeName == NodeName.Элементы3D |
-                    nodeName == NodeName.Элементы2D |
-                    nodeName == NodeName.Элементы1D |
-                    nodeName == NodeName.Узлы
+                if (nodeName == NodeName.Элемент3D |
+                    nodeName == NodeName.Элемент2D |
+                    nodeName == NodeName.Элемент1D |
+                    nodeName == NodeName.Узел
                     )
                 {
                     var index = navigator.SelectedNode.Index;
                     ChangeMeshGroupProperties(obj, index);
                     PresentGroupDataOnTree();
+                    PresentCondDataOnTree();
                 }
                 else if(nodeName == NodeName.Материал)
                 {
@@ -96,6 +97,7 @@ namespace BazisGUI
                     var cond = project.TaskData[index];
                     ChangeCondProperties(obj, cond);
                     ChangeMatProperties(obj, (MatData)cond);
+                    PresentCondDataOnTree();
                 }
                 else if(nodeName == NodeName.Закрепление|
                     nodeName == NodeName.Нагрев |

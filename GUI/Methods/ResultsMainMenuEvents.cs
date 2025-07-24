@@ -119,12 +119,13 @@ namespace BazisGUI
         {
             var scPage = new ScalePage() { Dock = DockStyle.Fill };
 
+            scPage.Scale = settingsConfig.Scale_scale;
             scPage.Max = settingsConfig.Scale_MaxValue;
             scPage.Min = settingsConfig.Scale_MinValue;
 
             scPage.SetUpMaxMinEvent += (ar) => { settingsConfig.IsScaleMaxMinManual = ar; };
 
-            scPage.IsMaxMinAuto = settingsConfig.IsScaleMaxMinManual;
+            scPage.IsMaxMinAuto = settingsConfig.IsScaleMaxMinManual ? false : true;
 
             scPage.Precision = settingsConfig.Scale_Precision;
 
@@ -206,7 +207,7 @@ namespace BazisGUI
         {
             try
             {
-                if (navigator.GetSelectedNode()?.Level != 2)
+                if (navigator.SelectedNode?.Level != 2)
                 {
                     throw new Exception("Выберите вид результатов в разделе результаты");
                 }
@@ -217,7 +218,7 @@ namespace BazisGUI
 
                 var objs = await CreatePathAsync();
 
-                var selNode = navigator.GetSelectedNode();
+                var selNode = navigator.SelectedNode;
                 var resDes = selNode.Name;
 
                 var pathPoints = new List<Point3D>();
@@ -376,7 +377,9 @@ namespace BazisGUI
                 elems = project.ModelData.ObjectData.E2DCollection.GetObjects();
 
             var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, tableName, resName, elems);
-            return presentersCreator.CreateSurfaceObjectsPresenter(elsResults);
+            var pre = presentersCreator.CreateSurfaceObjectsPresenter(elsResults);
+            pre.Name = resName;
+            return pre;
         }
 
         private ItemRange[] GetScaleItems(SceneScale scale)
@@ -411,7 +414,7 @@ namespace BazisGUI
         {
             try
             {
-                if (navigator.GetSelectedNode()?.Level != 1)
+                if (navigator.SelectedNode?.Level != 1)
                     throw new Exception("Выберите вид результатов в разделе результаты");
 
                 ClearAllDataOnScene();
@@ -423,7 +426,7 @@ namespace BazisGUI
                 if (objs.Count == 0)
                     throw new Exception("Не выбран ни один объект!");
 
-                var selNode = navigator.GetSelectedNode();
+                var selNode = navigator.SelectedNode;
                 var resDes = selNode.Name;
 
                 var dbTable = Converters.ConvertToDBTablesNames(objsType);
@@ -554,11 +557,11 @@ namespace BazisGUI
             }
         }
 
-        private void ShowResultValue(ResultType tableType, string resName, Result result)
+        private void ShowResultValue(ResultType resType, string resName, Result result)
         {
             IEnumerable<IModelObject> objs;
 
-            if (tableType == ResultType.nodes)
+            if (resType == ResultType.nodes)
                 objs = project.ModelData.ObjectData.NodesSet.Values;
             else
                 objs = project.ModelData.ObjectData.GetAllElements();
@@ -568,7 +571,7 @@ namespace BazisGUI
                 if (obj.Color == settingsConfig.SelectObjectColor)
                 {
                     var coord = obj.CalcCentr();
-                    var res = result.GetValue((int)tableType, obj.Number, resName);
+                    var res = result.GetValue((int)resType, obj.Number, resName);
                     DisplayText3D(res.ToString(), Color.Black, coord);
                 }
             }

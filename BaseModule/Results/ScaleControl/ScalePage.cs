@@ -24,6 +24,12 @@ namespace BaseModule.Results.ScaleControl
             InitializeComponent();
         }
 
+        public int Scale
+        {
+            get { return int.Parse(txbScale.Text); }
+            set { txbScale.Text = value.ToString(); }
+        }
+
         public bool IsMaxMinAuto
         {
             get { return chbMaxMinSetUp.Checked; }

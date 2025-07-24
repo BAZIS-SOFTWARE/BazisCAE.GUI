@@ -401,6 +401,7 @@ namespace BaseModule.Console
             this.toolStripMenuItem61.Name = "toolStripMenuItem61";
             this.toolStripMenuItem61.Size = new System.Drawing.Size(231, 22);
             this.toolStripMenuItem61.Text = "Найти свободные узлы";
+            this.toolStripMenuItem61.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem62
             // 
@@ -427,8 +428,9 @@ namespace BaseModule.Console
             // toolStripMenuItem65
             // 
             this.toolStripMenuItem65.Name = "toolStripMenuItem65";
-            this.toolStripMenuItem65.Size = new System.Drawing.Size(102, 22);
+            this.toolStripMenuItem65.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem65.Text = "Узлы";
+            this.toolStripMenuItem65.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem66
             // 

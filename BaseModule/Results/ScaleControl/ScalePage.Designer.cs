@@ -46,7 +46,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.chbMaxMinSetUp = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.txbScale = new UserControlsEx.TextBoxEx(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.upd_YCoord)).BeginInit();
@@ -272,7 +271,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.chbMaxMinSetUp);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -296,10 +294,12 @@
             // chbMaxMinSetUp
             // 
             this.chbMaxMinSetUp.AutoSize = true;
-            this.chbMaxMinSetUp.Location = new System.Drawing.Point(21, 23);
+            this.chbMaxMinSetUp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chbMaxMinSetUp.Location = new System.Drawing.Point(0, 0);
             this.chbMaxMinSetUp.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.chbMaxMinSetUp.Name = "chbMaxMinSetUp";
-            this.chbMaxMinSetUp.Size = new System.Drawing.Size(123, 17);
+            this.chbMaxMinSetUp.Padding = new System.Windows.Forms.Padding(21, 0, 0, 0);
+            this.chbMaxMinSetUp.Size = new System.Drawing.Size(227, 99);
             this.chbMaxMinSetUp.TabIndex = 0;
             this.chbMaxMinSetUp.Text = "Уточнить значения";
             this.chbMaxMinSetUp.UseVisualStyleBackColor = true;
@@ -315,15 +315,6 @@
             this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 43;
             this.label5.Text = "Масштаб";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(105, 94);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "label6";
             // 
             // txbScale
             // 
@@ -381,7 +372,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chbMaxMinSetUp;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private UserControlsEx.TextBoxEx txbScale;
     }

@@ -21,6 +21,7 @@ using Model.Interfaces.ObjectsCollections;
 using Newtonsoft.Json;
 using PreProc.Interfaces;
 using BazisGUI.Scene.Interfaces;
+using Project.Results.IO;
 
 namespace BazisGUI
 {
@@ -143,9 +144,11 @@ namespace BazisGUI
 
         }
 
-        private void navigator_CreateAnimationEvent(object arg1, string arg2, List<string> list)
+        private void navigator_CreateAnimationEvent(object arg1, string arg2, List<double> list)
         {
-            // To Do
+            //вызов контрола анимации результатов
+            // при создании анимации в нем обработать событие методом
+            // CreateGIFAnimation()
         }      
 
         private void navigator_GenerateTCFEvent()
@@ -588,23 +591,7 @@ namespace BazisGUI
 
         }
 
-
-
-        private async void navigator_EditGroupEvent(int obj)
-        {
-            var group = project.ModelData.GroupData[obj];
-            //SelectedObjects = group.ObjType.ToString();
-
-            foreach (var iobj in group)
-                iobj.Color = settingsConfig.SelectObjectColor;
-
-            var pres = project.CreateModelObjectsPresentor(group.ObjType);
-            SetVBObjectAttribute(pres,"цвет");
-
-            DisplayObjects();
-
-            await EditGroupAsync(group);
-        }
+        
         private void navigator_ShowGroupWithNodesEvent(int obj)
         {
             var group = project.ModelData.GroupData[obj];
@@ -830,6 +817,15 @@ namespace BazisGUI
         private void navigator_SelectTimeEvent(string arg1, double arg2)
         {
             // TO DO
+
+            var loader = new LoadResultsFileDB();
+            var tables = new List<string>()
+            {
+                ResultType.nodes.ToString(),
+                ResultType.elements.ToString()
+            };
+            var res = loader.GetResult(ResultDbPath, tables, (float)arg2);
+            ShowResults(res, arg1);      
         }
     }
 }

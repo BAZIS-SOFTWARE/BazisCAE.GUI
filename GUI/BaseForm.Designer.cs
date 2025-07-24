@@ -1374,7 +1374,7 @@ namespace BazisGUI
             this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
             this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
             this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
-            this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
+            this.navigator.EditGroupEvent += new System.Action<int>(this.EditGroup);
             this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
             this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
             this.navigator.GetObjectsInfoEvent += new System.Action<TreeNode>(this.navigator_GetObjectsInfoEvent);
@@ -1396,7 +1396,7 @@ namespace BazisGUI
             this.navigator.GenerateTCFEvent += new System.Action(this.navigator_GenerateTCFEvent);
             this.navigator.StopComputationEvent += new System.Action(this.navigator_StopComputationEvent);
             this.navigator.SetCompPriority += new System.Action<object, BaseModule.Navigator.Priority>(this.navigator_SetCompPriority);
-            this.navigator.CreateAnimationEvent += new System.Action<object, string, System.Collections.Generic.List<string>>(this.navigator_CreateAnimationEvent);
+            this.navigator.CreateAnimationEvent += new System.Action<object, string, System.Collections.Generic.List<double>>(this.navigator_CreateAnimationEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_ControlCollapseEvent);
             // 
             // propertiesPanel

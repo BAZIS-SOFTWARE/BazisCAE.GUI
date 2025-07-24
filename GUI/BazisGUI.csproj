@@ -236,6 +236,15 @@
     <Compile Include="Methods\Console\ConsoleEvents.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Navigator\EditGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\CreateGIFAnimation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\ShowResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\PhysicalDataBase\GetDataBase.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -91,10 +91,6 @@ namespace BaseModule.Navigator
         [Description("Set imageIndex for project info nodes")]
         public int ProjectInfoIndex { get; set; } = 0;
 
-        public TreeNode GetSelectedNode()
-        {
-             return treeView.SelectedNode;
-        }
         public event Action HideResultsEvent;
         public event Action RemoveResultsEvent;
         public event Action ShowGantChartEvent;
@@ -148,7 +144,7 @@ namespace BaseModule.Navigator
         public event Action StopComputationEvent;
         public event Action<object, Priority> SetCompPriority;
 
-        public event Action<object, string, List<string>> CreateAnimationEvent;
+        public event Action<object, string, List<double>> CreateAnimationEvent;
 
         public NavigatorControl()
         {
@@ -791,10 +787,10 @@ e.Node.Name == NodeName.Объем.ToString()
         {
             var node = treeView.SelectedNode;
 
-            var list = new List<string>();
+            var list = new List<double>();
 
             foreach (TreeNode item in treeView.SelectedNode.Nodes)
-                list.Add(item.Text);
+                list.Add(double.Parse(item.Text));
 
             CreateAnimationEvent?.Invoke(this, node.Text, list);
         }

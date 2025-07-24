@@ -122,49 +122,6 @@ namespace BazisGUI
             return resObject;
         }        
 
-        public async Task EditGroupAsync(IGroup group)
-        {
-            var actConfirm = new Func<Tuple<bool, object>>(() =>
-            {
-                var selObj = group.Where(x => x.Color == settingsConfig.SelectObjectColor);
-
-                if (selObj.Count() == 0)
-                {
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo("Не выбран ни один объект!", Color.Black);
-                    }));
-                    return new Tuple<bool, object>(false, new object());
-                }
-                else
-                {
-                    group.Clear();
-
-                    group.AddRange(selObj);
-
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo("Группа изменена успешно", Color.Green);
-                    }));
-                    return new Tuple<bool, object>(true, new object());
-                }
-            });
-
-            var actBreak = new Action(() =>
-            {
-                Invoke(new Action(() =>
-                {
-                    console.PrintInfo("Операция отменена", Color.Black);
-                }));
-            });
-
-            var message = "Измените группу, добавив или удалив объекты, и нажмите на кнопку E или нажмите кнопку ESC";
-
-            await AsyncMethodContainer(actConfirm, actBreak, message);
-        }
-
-        
-
         public void ChangeViewMode(IModelData modelData, ObjType objType, ViewRegime viewRegime)
         {
             switch (viewRegime)
