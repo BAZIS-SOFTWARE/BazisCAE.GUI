@@ -355,6 +355,11 @@ namespace BazisGUI
         {
             try
             {
+                var intervals = settingsConfig.Scale_Intervals;
+                var min = settingsConfig.Scale_MinValue;
+                var max = settingsConfig.Scale_MaxValue;
+                var pre = settingsConfig.Scale_Precision;
+                resultsController.FillRange(min, max, intervals, pre);
                 //BackGroundColor = settingsConfig.BackGroudColor;
                 averageColorRenderer.BackgroundColor = settingsConfig.BackGroundColor;
                 averageColorRenderer.IsEnable = settingsConfig.Transparency;

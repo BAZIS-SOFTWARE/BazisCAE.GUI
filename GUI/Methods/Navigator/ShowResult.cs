@@ -2,6 +2,7 @@
 using BaseModule.PropertiesPanel;
 using BazisGUI.Scene;
 using BazisGUI.Scene.VBO;
+using BazisGUI.SettingsControls;
 using BazisGUI.Utilities;
 using GmshApi;
 using Model.GeometryObjects;
@@ -34,35 +35,35 @@ namespace BazisGUI
 
                 if (settingsConfig.ShowResultsField)
                 {
-                    var scale = new SceneScale(0, 1, 2, "", "");
-
-                    scale.Title = result.TaskKind.ToString();
-                    scale.Info = $"{resName} {result.Time}";
-                    scale.Coord_X = settingsConfig.Scale_X_Coord;
-                    scale.Coord_Y = settingsConfig.Scale_Y_Coord;
-
                     if (!settingsConfig.IsScaleMaxMinManual)
                     {
                         var res = GetMaxMin(result, tableName, resName);
-                        scale.FillRange(res.Item2, res.Item1, settingsConfig.Scale_Intervals);
+                        var intervals = settingsConfig.Scale_Intervals;
+                        var pre = settingsConfig.Scale_Precision;
+                        resultsController.FillRange(res.Item2, res.Item1, intervals, pre);
+                        //scale.FillRange(res.Item2, res.Item1, settingsConfig.Scale_Intervals);
                     }
-                    else
-                        scale.FillRange(settingsConfig.Scale_MinValue, settingsConfig.Scale_MaxValue, settingsConfig.Scale_Intervals);
-
 
                     ClearAllGeometryDataOnScene();
                     ClearAllMeshDataOnScene();
+                    var scaleItems = resultsController.GetItems();
 
-                    var scaleItems = GetScaleItems(scale);
-                    resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
+                    if (показатьШкалуToolStripMenuItem.Checked)
+                    {
+                        HideGeometryObj("DisplaySceneScale");
+                        var title = result.TaskKind.ToString();
+                        var info = $"{resName} {result.Time}";
+                        DisplaySceneScale(title,info);
+                    }
+
+
+                    resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.ToArray());
                     resultsController.ResultsFieldsCreator.ScaleFactor = settingsConfig.Scale_scale;
 
                     var presenter = CreateResultsField(result, resName, tableName);
                     VBOController.DeleteAllVBObjects();
                     var vb = CreateVBObject(presenter);
                     VBOController.AddVbo(vb);
-                    HideGeometryObj("DisplaySceneScale");
-                    DisplaySceneScale(scale);
                 }
 
                 if (settingsConfig.ShowNodeResultsValue)

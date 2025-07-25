@@ -27,10 +27,11 @@ package "BaseModule" {
 [baseForm] --> [OpenGL Api]
 
 [property provider] --> [proj controller]
+[baseForm] --> [postProc]
+[baseForm] --> [preProc]
 [baseForm] --> [proj controller]
 [proj controller] --> [project]
 [proj controller] --> [preProc]
-[proj controller] --> [postProc]
 [proj controller] --> [GMSH Api]
 [preProc] --> [project]
 [postProc] --> [project]

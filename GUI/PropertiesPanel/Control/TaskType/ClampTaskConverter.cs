@@ -23,7 +23,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 { "Группа узлов", _clamp.Group.Name.ToString() },
                 { "Вид", _clamp.ClampKind.ToString()},
                 { "Направление", _clamp.Direction.ToString()},
-                { "Функция, F(u) , Н.мм - у.ед.(default)", _clamp.ValueFunction},
+                { "Функция, F(u) , Н.мм - у.ед.(default)", _clamp.TimeFunction},
                 { "Старт, сек.", _clamp.StartTime.ToString()},
                 { "Стоп, сек.", _clamp.StopTime.ToString()},
                 { "Траектория(default)", "default"}

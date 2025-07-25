@@ -5,6 +5,7 @@ using Geometry;
 using System.Drawing;
 using BazisGUI.Scene;
 using System.Linq;
+using Project.Results;
 
 namespace BazisGUI
 {
@@ -118,11 +119,51 @@ namespace BazisGUI
             });
         }
 
-        public void DisplaySceneScale(ISceneScale scale)
+        public void DisplaySceneScale(string title, string info)
         {
+            var scale = new SceneScale();
+
+            scale.FontBase = FontBase;
+            scale.Title = title;
+            scale.Info = info;
+            var g = CreateGraphics();
             DisplayGeometryObjectEvent += new Action(() =>
             {
-                scale.Display(scene.Width, scene.Height, CreateGraphics(), Font);
+                var Coord_X = settingsConfig.Scale_X_Coord;
+                var Coord_Y = settingsConfig.Scale_Y_Coord;
+                var items = resultsController.GetItems();
+
+                Initialize_GUI_Plane(scene.Width, scene.Height);
+
+                var lenght = scene.Height - Coord_Y - 50;
+                var gap_Y = 2;
+                var cellSize_Y = (lenght - ((items.Count() - 1) * gap_Y)) / items.Count();
+
+                var step_Y = cellSize_Y + gap_Y;
+
+                scale.DisplayScale(Coord_X, Coord_Y, gap_Y, cellSize_Y, step_Y, items);
+
+                //var dec = (int)resultData.Precision;
+                var pos_y = Coord_Y;
+
+                foreach (var item in items)
+                {
+                    var incrY = pos_y + (step_Y / 2) - (step_Y / 2);
+
+                    DisplayText(item.Min.ToString(), Color.FromArgb(0, 0, 0), new Point3D(Coord_X + 20, incrY, -5));
+                    incrY = incrY + step_Y;
+                    DisplayText(item.Max.ToString(), Color.FromArgb(0, 0, 0), new Point3D(Coord_X + 20, incrY, -5));
+
+                    pos_y += step_Y;
+                }
+
+
+                SizeF messageSize = g.MeasureString(scale.Title, Font);
+                DisplayText(scale.Title, Color.FromArgb(0, 0, 0), new Point3D(Coord_X - messageSize.Width / 2, pos_y + 30, - 5));
+
+                messageSize = g.MeasureString(scale.Info, Font);
+                DisplayText(scale.Info, Color.FromArgb(0, 0, 0), new Point3D(Coord_X - messageSize.Width / 2, pos_y + 15, -5));
+                Finish_GUI_Plane();
             });
         }
         public void DisplaySpiral(Point3D p0, Point3D p1, Color objColor)

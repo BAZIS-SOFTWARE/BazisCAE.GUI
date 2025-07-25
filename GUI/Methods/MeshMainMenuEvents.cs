@@ -30,14 +30,19 @@ namespace BazisGUI
                 var curvesInfo = GetCurvesNumbersAndNodes();
                 var max = curvesInfo.Max(x => x.Value);
                 var min = curvesInfo.Min(x => x.Value);
-                var scale = new SceneScale(min, max, 3, "", "");
-                scale.FontBase = FontBase;
 
-                DisplaySceneScale(scale);
+                resultsController.FillRange(min, max, 3,2);
+  
+                //var scale = new SceneScale();
+                //scale.FontBase = FontBase;
+                //scale.Coord_X = settingsConfig.Scale_X_Coord;
+                //scale.Coord_Y = settingsConfig.Scale_Y_Coord;
+
+                DisplaySceneScale("","");
 
                 foreach (var item in curvesInfo)
                 {
-                    var color = scale.GetValueColor(item.Value);
+                    var color = resultsController.GetValueColor(item.Value);
                     project.ModelData.ObjectData.CurveSet[item.Key].Color = color;
                 }
 

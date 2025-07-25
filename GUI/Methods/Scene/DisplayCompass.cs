@@ -10,8 +10,6 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public int FontBase { get; set; }//идентификатор нужен для корректного отображения шрифтов
-
         event Action DisplayCompassEvent;
 
         public void DisplayCompass()
@@ -97,7 +95,7 @@ namespace BazisGUI
             DisplayCompassEvent += met;
         }
 
-        private void DisplayText(string str, Color color, Point3D coord)
+        public void DisplayText(string str, Color color, Point3D coord)
         {
             Gl.glPushMatrix();
             Gl.glColor3b(color.R, color.G, color.B);

@@ -17,7 +17,7 @@ namespace BaseModule.Results.ScaleControl
         public event Action<object, decimal> SetX_PositionEvent;
         public event Action<object, decimal> SetY_PositionEvent;
         public event Action<bool> SetUpMaxMinEvent;
-        public event Action<object, string> SetScaleEvent;
+        public event Action<object, int> SetScaleEvent;
 
         public ScalePage()
         {
@@ -140,7 +140,7 @@ namespace BaseModule.Results.ScaleControl
 
         private void txbScale_Leave(object sender, EventArgs e)
         {
-            SetScaleEvent(this, txbScale.Text);
+            SetScaleEvent(this, int.Parse(txbScale.Text));
         }
     }
 }

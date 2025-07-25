@@ -24,7 +24,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 { "Вид", _load.LoadKind.ToString() }, // combo box  LoadKind
                 { "Направление", _load.Direction.ToString() }, //combo box  Direction
                 { "Величина, Н", _load.Value.ToString()}, //text box 
-                { "Функция, F(t), Н - сек.", _load.ValueFunction}, //combo box
+                { "Функция, F(t), Н - сек.", _load.TimeFunction}, //combo box
                 { "Старт, сек.", _load.StartTime.ToString()},
                 { "Стоп, сек.", _load.StopTime.ToString()},
                 { "TrajectoryInfo(default)", "*"},

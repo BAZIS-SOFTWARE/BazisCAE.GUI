@@ -115,58 +115,77 @@ namespace BazisGUI
             //exportForm.Controls.Add(exportPage);
             //exportForm.Show();
         }
+
+        private void показатьШкалуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(!показатьШкалуToolStripMenuItem.Checked)
+                HideGeometryObj("DisplaySceneScale");
+        }
         private void настройкиШкалыMenuItem_Click(object sender, EventArgs e)
         {
-            var scPage = new ScalePage() { Dock = DockStyle.Fill };
-
-            scPage.Scale = settingsConfig.Scale_scale;
-            scPage.Max = settingsConfig.Scale_MaxValue;
-            scPage.Min = settingsConfig.Scale_MinValue;
-
-            scPage.SetUpMaxMinEvent += (ar) => { settingsConfig.IsScaleMaxMinManual = ar; };
-
-            scPage.IsMaxMinAuto = settingsConfig.IsScaleMaxMinManual ? false : true;
-
-            scPage.Precision = settingsConfig.Scale_Precision;
-
-            scPage.X_Coord = settingsConfig.Scale_X_Coord;
-            scPage.Y_Coord = settingsConfig.Scale_Y_Coord;
-
-            scPage.SetScaleSettingEvent += (ar1, ar2) =>
+            try
             {
-                settingsConfig.Scale_Precision = ar2.Precision;
-                settingsConfig.Scale_MaxValue = ar2.Max;
-                settingsConfig.Scale_MinValue = ar2.Min;
-                settingsConfig.Scale_Intervals = ar2.Range;
-            };
+                var scPage = new ScalePage() { Dock = DockStyle.Fill };
 
-            scPage.SetX_PositionEvent += (ar1, ar2) =>
-            {
-                settingsConfig.Scale_X_Coord = (int)ar2;
-            };
-            scPage.SetY_PositionEvent += (ar1, ar2) =>
-            {
-                settingsConfig.Scale_Y_Coord = (int)ar2;
-            };
+                scPage.Scale = settingsConfig.Scale_scale;
+                scPage.Max = settingsConfig.Scale_MaxValue;
+                scPage.Min = settingsConfig.Scale_MinValue;
 
-            scPage.SetScaleEvent += (ar1, ar2) =>
-            {
-                settingsConfig.Scale_scale = int.Parse(ar2);
-            };
+                scPage.SetUpMaxMinEvent += (ar) => { settingsConfig.IsScaleMaxMinManual = ar; };
 
-            var scForm = new Form()
-            {
-                Owner = Application.OpenForms[0],
-                TopMost = true,
-                Size = scPage.Size,
-                Name = "Scale",
-                Text = "Настройки шкалы значений",
-                ShowIcon = false,
-                ClientSize = scPage.Size
-            };
+                scPage.IsMaxMinAuto = settingsConfig.IsScaleMaxMinManual ? false : true;
 
-            scForm.Controls.Add(scPage);
-            scForm.Show();
+                scPage.Precision = settingsConfig.Scale_Precision;
+
+                scPage.X_Coord = settingsConfig.Scale_X_Coord;
+                scPage.Y_Coord = settingsConfig.Scale_Y_Coord;
+
+                scPage.SetScaleSettingEvent += (ar1, ar2) =>
+                {
+                    settingsConfig.Scale_Precision = ar2.Precision;
+                    settingsConfig.Scale_MaxValue = ar2.Max;
+                    settingsConfig.Scale_MinValue = ar2.Min;
+                    settingsConfig.Scale_Intervals = ar2.Range;
+
+                    resultsController.FillRange(ar2.Min, ar2.Max, ar2.Range, ar2.Precision);
+                    DisplayObjects();
+                };
+
+                scPage.SetX_PositionEvent += (ar1, ar2) =>
+                {
+                    settingsConfig.Scale_X_Coord = (int)ar2;
+                    DisplayObjects();
+                };
+                scPage.SetY_PositionEvent += (ar1, ar2) =>
+                {
+                    settingsConfig.Scale_Y_Coord = (int)ar2;
+                    DisplayObjects();
+                };
+
+                scPage.SetScaleEvent += (ar1, ar2) =>
+                {
+                    settingsConfig.Scale_scale = ar2;
+                };
+
+                var scForm = new Form()
+                {
+                    Owner = Application.OpenForms[0],
+                    TopMost = true,
+                    Size = scPage.Size,
+                    Name = "Scale",
+                    Text = "Настройки шкалы значений",
+                    ShowIcon = false,
+                    ClientSize = scPage.Size
+                };
+
+                scForm.Controls.Add(scPage);
+                scForm.Show();
+
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
         }
         private void createPlotMenuItem_Click(object sender, EventArgs e)
         {
@@ -380,24 +399,6 @@ namespace BazisGUI
             var pre = presentersCreator.CreateSurfaceObjectsPresenter(elsResults);
             pre.Name = resName;
             return pre;
-        }
-
-        private ItemRange[] GetScaleItems(SceneScale scale)
-        {
-            var itemRanges = new ItemRange[scale.Count()];
-
-            var scaleItems = scale.ToArray();
-
-            for (int i = 0; i < scaleItems.Length; i++)
-            {
-                itemRanges[i] = new ItemRange()
-                {
-                    Max = scaleItems[i].Max,
-                    Min = scaleItems[i].Min,
-                    Color = scaleItems[i].Color
-                };
-            }
-            return itemRanges;
         }
 
         private Tuple<float, float> GetMaxMin(Result result, string tableName, string resName)
