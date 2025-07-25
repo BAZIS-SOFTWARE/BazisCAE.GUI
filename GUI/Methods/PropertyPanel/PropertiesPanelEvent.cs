@@ -42,21 +42,21 @@ namespace BazisGUI
 
                     // получаем объект
                     var mObj = project.GetModelObject(objType, number);
-                    
+
                     // тут изменяем его свойства
                     //
                     //
                     //
-                    
+
                     PresentObjectsDataOnTree();
                 }
-                else if(nodeName == NodeName.Точка)
+                else if (nodeName == NodeName.Точка)
                 {
                     // Тут задаем настройки сетки в контрольных узлах геометрии
                     //SetPointSize();
                     //SetMinMaxSizes()
                 }
-          else if(nodeName == NodeName.Кривая)
+                else if (nodeName == NodeName.Кривая)
                 {
                     // Тут задаем настройки сетки в кривых геометрии
                     //SetCurveAttribute()
