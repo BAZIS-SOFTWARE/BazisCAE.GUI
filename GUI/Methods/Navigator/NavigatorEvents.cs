@@ -25,6 +25,7 @@ using Project.Results.IO;
 using BazisGUI.PropertiesPanel.Control;
 using static System.Resources.ResXFileRef;
 using System.Globalization;
+using BaseModule.PropertiesPanel;
 
 namespace BazisGUI
 {
@@ -658,7 +659,7 @@ namespace BazisGUI
 
         private void navigator_GetResultInfoEvent(TreeNode node)
         {
-            var times = GetResultTimes().Select(x => x.ToString());
+            var times = resultTimes.Select(x => x.ToString());
 
             var childs = navigator.CreateRealNodes(NodeName.Время.ToString(), times);
             node.Nodes.AddRange(childs);
@@ -686,8 +687,7 @@ namespace BazisGUI
                 SetVBObjectAttribute(pres, "цвет");
                 DisplayObjects();
                 
-                var _converter = new GroupConverter(group);
-                var rows = _converter.GetRowProperty();
+                var rows = GetGroupProperty(group);
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)

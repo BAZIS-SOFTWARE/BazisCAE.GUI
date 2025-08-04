@@ -82,6 +82,9 @@ namespace BaseModule.PropertiesPanel
                 else
                     cell = new DataGridViewTextBoxCell();
 
+                if (prop.Header == "Цвет")
+                    cell.Style.BackColor = (Color)prop.Value;
+
                 cell.Value = prop.Value.ToString();
                 cell.Tag = prop.ValidationType.ToString();
 
@@ -194,38 +197,7 @@ namespace BaseModule.PropertiesPanel
             //_overlayComboBox.BringToFront();
             //_overlayComboBox.Focus();
         }
-        private void _overlayComboBox_Leave(object sender, EventArgs e)
-        {
-            if (_currentComboRowIndex >= 0)
-            {
-                //var selectedValue = _overlayComboBox.Text;
-                //var cell =(DataGridViewComboBoxCell)dataGridView1.Rows[_currentComboRowIndex].Cells[_currentComboColumnIndex];
-                //var property = _rowProperties[_currentComboRowIndex];
-                //if (!property.AvailableValues.Contains(selectedValue))
-                //{
-                //    if(selectedValue != _enteredValue && _enteredValue != null)
-                //    {
-                //        property.AvailableValues.Remove(_enteredValue);
-                //    }
-                //    property.ValidationType = ValidationType.Float;
-                //    property.AvailableValues.Add(selectedValue);
-                //    cell.Tag = property.ValidationType.ToString();
-                //    cell.Items.Add(selectedValue);
-                //    _enteredValue = selectedValue;
-                //}
-                //else 
-                //{
-                //    property.ValidationType = ValidationType.None;
-                //    cell.Tag = property.ValidationType.ToString();
-                //}
-                
-               // dataGridView1.Rows[_currentComboRowIndex].Cells[1].Value = selectedValue;
-                var eArgs = new DataGridViewCellEventArgs(_currentComboColumnIndex, _currentComboRowIndex);
-                DataGridView1_CellEndEdit(sender, eArgs);
-            }
-            //_overlayComboBox.Visible = false;
-            _currentComboRowIndex = -1;
-        }
+       
         private void DataGridView1_Scroll(object sender, ScrollEventArgs e)
         {
             RepositionComboBox();

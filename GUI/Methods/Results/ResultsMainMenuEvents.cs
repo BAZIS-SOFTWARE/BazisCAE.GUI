@@ -26,17 +26,9 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        string ResultDbPath { get; set; } = string.Empty;// в дереве
-
         IEnumerable<float> resultTimes;
 
-        public IEnumerable<float> GetResultTimes()
-        {
-            foreach (var item in resultTimes)
-            {
-                yield return item;
-            }
-        }
+
         private void усреднитьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (усреднитьРезультатыToolStripMenuItem.Checked)
@@ -327,10 +319,14 @@ namespace BazisGUI
 
         public void PresentResultsInfo(string fileName)
         {
-            ResultDbPath = fileName;
-
             if (fileName != "")
             {
+                ResultDbPath = fileName;
+                navigator.TrySearchNodes(NodeName.базаРезультатов, out List<TreeNode> resBase);
+
+                resBase[0].Text = "База результатов :";
+                resBase[0].Text += $" {fileName}";
+
                 var loader = new LoadResultsFileDB();
                 var scheme = loader.GetTablesSchemes(fileName).
                     FirstOrDefault(x => x.Key == ResultType.nodes.ToString());

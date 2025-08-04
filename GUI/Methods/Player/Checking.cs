@@ -61,7 +61,7 @@ namespace BazisGUI
                 {
                     var loader = new LoadResultsFileDB();
 
-                    var times = loader.GetValues($@"{ResultDbPath}", ResultType.nodes.ToString(), "Time").ToArray();
+                    var times = resultTimes.ToArray();
                     var tables = new List<string>()
                     {
                         ResultType.nodes.ToString(),
@@ -89,12 +89,20 @@ namespace BazisGUI
 
         private void checkPlayerControl_StartCheckingEvent(object obj)
         {
-
             var name = navigator.SelectedNode.Name;
 
-            if (name.TryToEnum(out DataKind dataKind))
+            var nodeName = name.ToEnum<NodeName>();
+
+            if (nodeName != NodeName.Результат &
+                nodeName != NodeName.Материал &
+                    nodeName != NodeName.Среда &
+                    nodeName != NodeName.Нагрев &
+                    nodeName != NodeName.Нагрузка &
+                    nodeName != NodeName.Закрепление
+                    )
             {
-                DisplayGeometryObjectEvent = null;
+                checkPlayerControl.Cancelation = true;
+                console.PrintInfo("Выбранные данные не проверяются", Color.Orange);
             }
 
         }

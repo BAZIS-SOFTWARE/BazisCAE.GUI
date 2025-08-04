@@ -17,7 +17,7 @@ namespace BaseModule.Player
     {
         System.Windows.Forms.Timer timer;
 
-        
+        public bool Cancelation { get; set; } = false;
 
         [Category("Colors")]
         public Color TextValueColor
@@ -149,7 +149,7 @@ namespace BaseModule.Player
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (CurrentValue == StopValue)
+            if (CurrentValue == StopValue | Cancelation)
             {
                 timer.Stop();
                 timer.Enabled = false;
@@ -157,6 +157,7 @@ namespace BaseModule.Player
                 CheckState = CheckState.start;
                 CurrentValue = StartValue;
                 SetCheckButtonState();
+                Cancelation = false;
 
                 StopCheckingEvent?.Invoke(this);
             }

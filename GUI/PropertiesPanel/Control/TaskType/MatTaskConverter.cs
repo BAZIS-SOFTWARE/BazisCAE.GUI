@@ -10,20 +10,20 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     public class MatTaskConverter : DataConverter
     {
         private readonly List<string> _mat;
-        private MatData _matData;
+
 
         public MatTaskConverter(MatData obj, List<string> mat, List<IGroup> groupElement)
         {
             _mat = mat;
-            _matData = obj;
+
             dataGroupElement = groupElement;
             selectObj = obj;
             data = new Dictionary<string, string>()
             {
-                { "Группа элементов", _matData.Group.Name },
-                { "Материал", _matData.MatName},
-                { "Старт, сек.", _matData.StartTime.ToString()},
-                { "Стоп, сек.", _matData.StopTime.ToString()},
+                { "Группа элементов", obj.Group.Name },
+                { "Материал", obj.MatName},
+                { "Старт, сек.", obj.StartTime.ToString()},
+                { "Стоп, сек.", obj.StopTime.ToString()},
             };
         }
         public override List<RowProperty> GetRowProperty()
@@ -36,12 +36,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 new RowProperty("Старт, сек.", data["Старт, сек."]),
                 new RowProperty("Стоп, сек.", data["Стоп, сек."])
             };
-        }
-
-        public override void UpdateObject(string header, string newValue)
-        {
-            base.UpdateObject(header, newValue);
-            if(header == "Материал") _matData.MatName = newValue;
         }
     }
 }

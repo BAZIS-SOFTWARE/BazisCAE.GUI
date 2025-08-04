@@ -16,6 +16,7 @@ namespace BaseModule.Navigator
     public enum NodeName : int 
     {
         объекты,
+        группыОбъектов,
 
         Точки, 
         Кривые, 
@@ -51,6 +52,7 @@ namespace BaseModule.Navigator
         тип,
         базаФункций,
         базаМатериалов,
+        базаРезультатов,
 
         задачи,
         Тепловая,

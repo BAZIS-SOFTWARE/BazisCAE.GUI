@@ -237,9 +237,10 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
         {
             foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
             {
-                project.SetModelObjectsBackColor(type);
-                var pres = project.CreateModelObjectsPresentor(type);
-                SetVBObjectAttribute(pres, "цвет");
+                project?.SetModelObjectsBackColor(type);
+                var pres = project?.CreateModelObjectsPresentor(type);
+                if(pres != null)
+                    SetVBObjectAttribute(pres, "цвет");
             }
 
             DisplayObjects();
