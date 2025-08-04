@@ -11,6 +11,7 @@ using Model.Interfaces.ObjectsFinders;
 using Model.MeshObjects;
 using OperationalController.GmshController;
 using Project.Results;
+using Project.Results.IO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
@@ -24,6 +25,19 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        private void navigator_SelectTimeEvent(string arg1, double arg2)
+        {
+            // TO DO
+
+            var loader = new LoadResultsFileDB();
+            var tables = new List<string>()
+            {
+                ResultType.nodes.ToString(),
+                ResultType.elements.ToString()
+            };
+            var res = loader.GetResult(ResultDbPath, tables, (float)arg2);
+            ShowResults(res, arg1);
+        }
         public void ShowResults(Result result, string resName)
         {
             try

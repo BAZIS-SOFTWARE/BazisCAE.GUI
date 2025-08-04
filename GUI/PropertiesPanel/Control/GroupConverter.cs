@@ -16,7 +16,7 @@ namespace BazisGUI.PropertiesPanel.Control
         {
             return new List<RowProperty>
             {
-                CreateTextBox("Имя", _group.Name, ValidationType.Text)
+                new RowProperty("Имя", _group.Name, null)
             };
         }
 

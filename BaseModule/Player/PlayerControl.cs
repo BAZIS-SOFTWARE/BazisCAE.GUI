@@ -61,7 +61,7 @@ namespace BaseModule.Player
         [Category("General")]
         public CheckState CheckState { get; set; }
 
-        public event Action<object, float> CheckingEvent;
+        public event Action<object, int> CheckingEvent;
         public event Action<object> StopCheckingEvent;
         public event Action<object> StartCheckingEvent;
         public event Action<object> PauseCheckingEvent;

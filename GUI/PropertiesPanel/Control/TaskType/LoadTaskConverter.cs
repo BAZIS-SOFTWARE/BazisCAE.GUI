@@ -35,14 +35,14 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         {
             return new List<RowProperty>
             {
-                //RowProperty.CreateTextBox("Имя", NodeType.Нагрузка.ToString(), ValidationType.None, true),
-                CreateComboBox("Вид", data["Вид"], Converters.GetEnumNames<LoadKind>().ToList()),
-                CreateComboBox("Направление", data["Направление"],Converters.GetEnumNames<Direction>().ToList()),
-                CreateComboBox("Группа объектов", data["Группа объектов"],dataGroupElement.Select(x => x.Name).ToList()),
-                CreateTextBox("Величина, Н", data["Величина, Н"], ValidationType.FloatPositive),
-                CreateComboBox("Функция, F(t), Н - сек.", data["Функция, F(t), Н - сек."],_func),
-                CreateTextBox("Старт, сек.", data["Старт, сек."], ValidationType.FloatPositive),
-                CreateTextBox("Стоп, сек.", data["Стоп, сек."], ValidationType.FloatPositive)
+                //RowProperty.new RowProperty("Имя", NodeType.Нагрузка.ToString(), ValidationType.None, true),
+                new RowProperty("Вид", data["Вид"], Converters.GetEnumNames<LoadKind>()),
+                new RowProperty("Направление", data["Направление"],Converters.GetEnumNames<Direction>()),
+                new RowProperty("Группа объектов", data["Группа объектов"],dataGroupElement.Select(x => x.Name).ToList()),
+                new RowProperty("Величина, Н", data["Величина, Н"]),
+                new RowProperty("Функция, F(t), Н - сек.", data["Функция, F(t), Н - сек."],_func),
+                new RowProperty("Старт, сек.", data["Старт, сек."]),
+                new RowProperty("Стоп, сек.", data["Стоп, сек."])
             };
         }
 

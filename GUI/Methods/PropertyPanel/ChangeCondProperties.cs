@@ -19,10 +19,10 @@ namespace BazisGUI
             }
             else if (obj.Header == "Старт, сек.") cond.StartTime = float.Parse(obj.NewValue.ToString());
             else if (obj.Header == "Стоп, сек.") cond.StopTime = float.Parse(obj.NewValue.ToString());
-            else
-                panelProvider.UpdateObjectValue(obj.Header,
-                    obj.NewValue.ToString(),
-                    obj.OldValue.ToString());
+            //else
+            //    panelProvider.UpdateObjectValue(obj.Header,
+            //        obj.NewValue.ToString(),
+            //        obj.OldValue.ToString());
         }
 
         private void ChangeMatProperties(PropertyChangedEventArgs obj, MatData matCond)

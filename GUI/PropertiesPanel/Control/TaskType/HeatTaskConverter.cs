@@ -28,37 +28,37 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             var property = new List<RowProperty>();
             if (_objAsHeat.FrameFunction is ArcS arc)
             {
-                property.Add(CreateTextBox("Ширина шва (L), мм", arc.Width.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateTextBox("Ток, А", arc.Current.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateTextBox("Напряжение, В", arc.Voltage.ToString(), ValidationType.FloatPositive));
+                property.Add(new RowProperty("Ширина шва (L), мм", arc.Width.ToString()));
+                property.Add(new RowProperty("Ток, А", arc.Current.ToString()));
+                property.Add(new RowProperty("Напряжение, В", arc.Voltage.ToString()));
             }
             else if (_objAsHeat.FrameFunction is Lazer lazer)
             {
-                property.Add(CreateTextBox("Мощность излучения, Дж", lazer.SurfacePower.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateTextBox("Глубина проплавления (L), мм", lazer.Length.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateTextBox("Диаметр основания (D2), мм", lazer.UpperDiam.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateTextBox("Диаметр конца (D3), мм", lazer.BottomDiam.ToString(), ValidationType.FloatPositive));
+                property.Add(new RowProperty("Мощность излучения, Дж", lazer.SurfacePower.ToString()));
+                property.Add(new RowProperty("Глубина проплавления (L), мм", lazer.Length.ToString()));
+                property.Add(new RowProperty("Диаметр основания (D2), мм", lazer.UpperDiam.ToString()));
+                property.Add(new RowProperty("Диаметр конца (D3), мм", lazer.BottomDiam.ToString()));
             }
             else if (_objAsHeat.FrameFunction is FSWPin fSwPin)
             {
-                property.Add(CreateTextBox("Скорость вращения, об/cек.", fSwPin.RotSpeed.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateTextBox("Длина бура (L), мм", fSwPin.Length.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateTextBox("Диаметр основания (D2), мм", fSwPin.BottomDiam.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateTextBox("Диаметр конца (D3), мм", fSwPin.UpperDiam.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateComboBox("Предел текучести, МПа", fSwPin.GetParameters().First().Name, _func));
+                property.Add(new RowProperty("Скорость вращения, об/cек.", fSwPin.RotSpeed.ToString()));
+                property.Add(new RowProperty("Длина бура (L), мм", fSwPin.Length.ToString()));
+                property.Add(new RowProperty("Диаметр основания (D2), мм", fSwPin.BottomDiam.ToString()));
+                property.Add(new RowProperty("Диаметр конца (D3), мм", fSwPin.UpperDiam.ToString()));
+                property.Add(new RowProperty("Предел текучести, МПа", fSwPin.GetParameters().First().Name, _func));
             }
             else if (_objAsHeat.FrameFunction is FSWShoulder fSwShoulder)
             {
-                property.Add(CreateTextBox("Скорость вращения, об/cек.", fSwShoulder.RotSpeed.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateTextBox("Осевое усилие, Н", fSwShoulder.AxisForce.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateTextBox("Диаметр плеча (D1), мм", fSwShoulder.UpperDiam.ToString(), ValidationType.FloatPositive));
-                property.Add(CreateComboBox("Коэффициент трения", fSwShoulder.GetParameters().First().Name, _func));
+                property.Add(new RowProperty("Скорость вращения, об/cек.", fSwShoulder.RotSpeed.ToString()));
+                property.Add(new RowProperty("Осевое усилие, Н", fSwShoulder.AxisForce.ToString()));
+                property.Add(new RowProperty("Диаметр плеча (D1), мм", fSwShoulder.UpperDiam.ToString()));
+                property.Add(new RowProperty("Коэффициент трения", fSwShoulder.GetParameters().First().Name, _func));
             }
             else throw new InvalidOperationException("Имя FrameFunction не известно");
 
-            property.Add(CreateComboBox("Группа элементов", _objAsHeat.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
-            property.Add(CreateTextBox("Старт, сек.", _objAsHeat.StartTime.ToString(), ValidationType.FloatPositive));
-            property.Add(CreateTextBox("Стоп, сек.", _objAsHeat.StopTime.ToString(), ValidationType.None, true));
+            property.Add(new RowProperty("Группа элементов", _objAsHeat.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
+            property.Add(new RowProperty("Старт, сек.", _objAsHeat.StartTime.ToString()));
+            property.Add(new RowProperty("Стоп, сек.", _objAsHeat.StopTime.ToString()));
 
             return property;
         }

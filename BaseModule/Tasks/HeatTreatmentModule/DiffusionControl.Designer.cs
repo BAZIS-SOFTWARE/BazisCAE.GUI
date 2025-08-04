@@ -604,7 +604,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.player.StartValue = 0;
             this.player.StopValue = 100;
             this.player.TabIndex = 14;
-            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
+            this.player.CheckingEvent += new System.Action<object, int>(this.player_CheckingEvent);
             this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
             this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
             // 

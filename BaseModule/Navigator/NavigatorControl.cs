@@ -133,6 +133,7 @@ namespace BaseModule.Navigator
         public event Action<NodeName, string> SelectTaskEvent;
         public event Action<NodeName, string> SelectGeneralInfoEvent;
         public event Action<string, double> SelectTimeEvent;
+        public event Action<NodeName, string> SelectResultEvent;
 
         public event Action<TreeNode> GetSetsInfoEvent;
         public event Action<TreeNode> GetResultInfoEvent;
@@ -593,6 +594,8 @@ e.Node.Name == NodeName.Поверхность.ToString() |
 e.Node.Name == NodeName.Объем.ToString()
 )
                     SelectGroupEvent?.Invoke(e.Node.Index);
+                else if(e.Node.Name == NodeName.Результат.ToString())
+                    SelectResultEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
             }
 
             else if (e.Node.Level == 2)

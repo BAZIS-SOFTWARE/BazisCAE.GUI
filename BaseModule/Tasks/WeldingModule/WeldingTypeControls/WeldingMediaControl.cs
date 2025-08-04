@@ -209,7 +209,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         }
 
-        private void player_CheckingEvent(object arg1, float arg2)
+        private void player_CheckingEvent(object arg1, int arg2)
         {
             CheckDataEvent(this, new CheckDataEventArgs(DataName, arg2));
         }

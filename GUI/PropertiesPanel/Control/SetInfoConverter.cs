@@ -21,12 +21,10 @@ namespace BazisGUI.PropertiesPanel.Control
         {
             return new List<RowProperty>
             {
-                CreateTextBox("Имя", _objectsSet.Name, ValidationType.Text),
-                new RowProperty(
-                    "Цвет", 
-                new DataGridViewTextBoxCell(){ Value = _objectsSet.Color.Name, },
-                SequenceType.Before),
-                CreateComboBox("Представление", _objectsSet.ViewMode.ToString(), Converters.GetEnumNames<ViewMode>().ToList())
+               new RowProperty("Имя", _objectsSet.Name, null),
+               new RowProperty( "Цвет", _objectsSet.Color,null),
+               new RowProperty("Представление",_objectsSet.ViewMode,
+               Converters.GetEnumNames<ViewMode>())
             };
         }
 

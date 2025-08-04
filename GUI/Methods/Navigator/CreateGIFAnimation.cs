@@ -40,7 +40,7 @@ namespace BazisGUI
                 e.SetRepeat(0);
 
                 var loader = new LoadResultsFileDB();
-
+        
                 var tables = new List<string>();
                 navigator.TrySearchNodes(NodeName.результаты.ToString(), out List<TreeNode> nodes);
                 foreach (TreeNode item in nodes[0].Nodes)

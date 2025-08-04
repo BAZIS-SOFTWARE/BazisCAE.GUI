@@ -1,4 +1,5 @@
 using BaseModule.PinnedControl;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,29 +16,29 @@ namespace BaseModule.PropertiesPanel
 
         private string _oldValue;
         private bool _isValid;
-        private List<RowProperty> _rowProperties;
-        private ComboBox _overlayComboBox = new ComboBox();
+        //private List<RowProperty> _rowProperties;
+        //private ComboBox _overlayComboBox = new ComboBox();
         private int _currentComboRowIndex;
         private int _currentComboColumnIndex = 1;
-        private string _enteredValue = string.Empty;
+        //private string _enteredValue = string.Empty;
 
         public PropertiesPanelControl()
         {
             InitializeComponent();
 
-            dataGridView1.Controls.Add(_overlayComboBox);
-            _overlayComboBox.PreviewKeyDown += _overlayComboBox_PreviewKeyDown;
-            _overlayComboBox.Visible = false;
-            _overlayComboBox.Leave += _overlayComboBox_Leave;
+            //dataGridView1.Controls.Add(_overlayComboBox);
+            //_overlayComboBox.PreviewKeyDown += _overlayComboBox_PreviewKeyDown;
+            //_overlayComboBox.Visible = false;
+            //_overlayComboBox.Leave += _overlayComboBox_Leave;
         }
         public void DrawTable(List<RowProperty> rows)
         {
-            dataGridView1.DataSource = null;
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.AllowUserToResizeRows = false;
+            //dataGridView1.DataSource = null;
+            //dataGridView1.AutoGenerateColumns = false;
+            //dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.Columns.Clear();
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.AllowUserToAddRows = false;
+            //dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //dataGridView1.AllowUserToAddRows = false;
 
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -58,7 +59,7 @@ namespace BaseModule.PropertiesPanel
                     BackColor = SystemColors.Control,
                     SelectionBackColor = SystemColors.ControlDark
                 },
-                ReadOnly = false
+                //ReadOnly = false
             });
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
@@ -69,15 +70,27 @@ namespace BaseModule.PropertiesPanel
                 var row = new DataGridViewRow();
                 row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); // Имя свойства
 
-                var cell = prop.Initialization;// Создаем ячейку нужного типа через Initialization
-                //cell.Value = prop.Value.ToString();
-                row.Cells.Add(cell);
-                cell.ReadOnly = prop.IsReadOnly;
+                DataGridViewCell cell; // Значение свойства
+
+                if (prop.AvailableValues.Count != 0)
+                {
+                    var comboCell = new DataGridViewComboBoxCell();
+                    comboCell.Items.AddRange(prop.AvailableValues.ToArray());
+                    cell = comboCell;
+                }
+
+                else
+                    cell = new DataGridViewTextBoxCell();
+
+                cell.Value = prop.Value.ToString();
                 cell.Tag = prop.ValidationType.ToString();
+
+                row.Cells.Add(cell);
+                row.Cells[1].ReadOnly = false;
 
                 dataGridView1.Rows.Add(row);
             }
-            _rowProperties = rows;
+            //_rowProperties = rows;
         }
         private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
@@ -85,12 +98,12 @@ namespace BaseModule.PropertiesPanel
             {
                 _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
             }
-            var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            var property = _rowProperties[e.RowIndex];
-            if (property != null && property?.Sequence == SequenceType.Before)
-            {
-                StartUpdate(property, cell);
-            }
+            // var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            //var property = _rowProperties[e.RowIndex];
+            //if (property != null)
+            //{
+                //StartUpdate(cell);
+            //}
         }
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -110,11 +123,11 @@ namespace BaseModule.PropertiesPanel
             }
 
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            var property = _rowProperties[e.RowIndex];
-            if (property != null && property.Sequence == SequenceType.After)
-            {
-               StartUpdate(property, cell);
-            }
+            //var property = _rowProperties[e.RowIndex];
+            //if (property != null)
+            //{
+            CellValueChanged(cell);
+            //}
         }
         public void CellValueChanged(DataGridViewCell e)
         {
@@ -126,16 +139,16 @@ namespace BaseModule.PropertiesPanel
                 PropertyUpdateEvent?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
             }
         }
-        private void StartUpdate(RowProperty property, DataGridViewCell cell)
+        private void StartUpdate(DataGridViewCell cell)
         {
-            var newValue = property.Value;//Update(cell);
+            //var newValue = property.Value;//Update(cell);
             //property.Value = newValue;
-            if (newValue is string str)
-                dataGridView1.Rows[cell.RowIndex].Cells[1].Value = newValue;
+            //if (newValue is string str)
+            //    dataGridView1.Rows[cell.RowIndex].Cells[1].Value = newValue;
 
-            else if(newValue is Color col)
-                dataGridView1.Rows[cell.RowIndex].Cells[1].Value = col.Name;
-            CellValueChanged(cell);
+            //else if(newValue is Color col)
+            //    dataGridView1.Rows[cell.RowIndex].Cells[1].Value = col.Name;
+            //CellValueChanged(cell);
             //if (!Equals(newValue, property.Value) && newValue != _oldValue)
             //{
             //    if (property.Value is System.Drawing.Color a)
@@ -157,8 +170,8 @@ namespace BaseModule.PropertiesPanel
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0) return;
-            var property = _rowProperties[e.RowIndex];
-            if(property.Header == "Цвет")
+            //var property = _rowProperties[e.RowIndex];
+            if (dataGridView1[0,e.RowIndex].Value.ToString() == "Цвет")
             {
                 ColorDialog colorDialog = new ColorDialog();
                 if(colorDialog.ShowDialog() == DialogResult.OK)
@@ -167,50 +180,50 @@ namespace BaseModule.PropertiesPanel
                     dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = color;
                 }
             }
-            if (property.CellType.Name == "DataGridViewTextBoxCell") return;
-
-            _overlayComboBox.DropDownStyle = property.IsDropDown ? ComboBoxStyle.DropDown : ComboBoxStyle.DropDownList;
-            var cellRect = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
-            _overlayComboBox.SetBounds(cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
-            _overlayComboBox.Items.Clear();
-            _overlayComboBox.Items.AddRange(property.AvailableValues.ToArray());
-            _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            _overlayComboBox.Text = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
-            _currentComboRowIndex = e.RowIndex;
-            _overlayComboBox.Visible = true;
-            _overlayComboBox.BringToFront();
-            _overlayComboBox.Focus();
+            //if (property.AvailableValues.Count == 0) return;
+            
+            //_overlayComboBox.DropDownStyle = property.IsDropDown ? ComboBoxStyle.DropDown : ComboBoxStyle.DropDownList;
+            //var cellRect = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
+            //_overlayComboBox.SetBounds(cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+            //_overlayComboBox.Items.Clear();
+            //_overlayComboBox.Items.AddRange(property.AvailableValues.ToArray());
+            //_oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            //_overlayComboBox.Text = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
+            //_currentComboRowIndex = e.RowIndex;
+            //_overlayComboBox.Visible = true;
+            //_overlayComboBox.BringToFront();
+            //_overlayComboBox.Focus();
         }
         private void _overlayComboBox_Leave(object sender, EventArgs e)
         {
             if (_currentComboRowIndex >= 0)
             {
-                var selectedValue = _overlayComboBox.Text;
-                var cell =(DataGridViewComboBoxCell)dataGridView1.Rows[_currentComboRowIndex].Cells[_currentComboColumnIndex];
-                var property = _rowProperties[_currentComboRowIndex];
-                if (!property.AvailableValues.Contains(selectedValue))
-                {
-                    if(selectedValue != _enteredValue && _enteredValue != null)
-                    {
-                        property.AvailableValues.Remove(_enteredValue);
-                    }
-                    property.ValidationType = ValidationType.Float;
-                    property.AvailableValues.Add(selectedValue);
-                    cell.Tag = property.ValidationType.ToString();
-                    cell.Items.Add(selectedValue);
-                    _enteredValue = selectedValue;
-                }
-                else 
-                {
-                    property.ValidationType = ValidationType.None;
-                    cell.Tag = property.ValidationType.ToString();
-                }
+                //var selectedValue = _overlayComboBox.Text;
+                //var cell =(DataGridViewComboBoxCell)dataGridView1.Rows[_currentComboRowIndex].Cells[_currentComboColumnIndex];
+                //var property = _rowProperties[_currentComboRowIndex];
+                //if (!property.AvailableValues.Contains(selectedValue))
+                //{
+                //    if(selectedValue != _enteredValue && _enteredValue != null)
+                //    {
+                //        property.AvailableValues.Remove(_enteredValue);
+                //    }
+                //    property.ValidationType = ValidationType.Float;
+                //    property.AvailableValues.Add(selectedValue);
+                //    cell.Tag = property.ValidationType.ToString();
+                //    cell.Items.Add(selectedValue);
+                //    _enteredValue = selectedValue;
+                //}
+                //else 
+                //{
+                //    property.ValidationType = ValidationType.None;
+                //    cell.Tag = property.ValidationType.ToString();
+                //}
                 
-                dataGridView1.Rows[_currentComboRowIndex].Cells[1].Value = selectedValue;
+               // dataGridView1.Rows[_currentComboRowIndex].Cells[1].Value = selectedValue;
                 var eArgs = new DataGridViewCellEventArgs(_currentComboColumnIndex, _currentComboRowIndex);
                 DataGridView1_CellEndEdit(sender, eArgs);
             }
-            _overlayComboBox.Visible = false;
+            //_overlayComboBox.Visible = false;
             _currentComboRowIndex = -1;
         }
         private void DataGridView1_Scroll(object sender, ScrollEventArgs e)
@@ -219,10 +232,10 @@ namespace BaseModule.PropertiesPanel
         }
         private void RepositionComboBox()
         {
-            if (!_overlayComboBox.Visible || _currentComboRowIndex < 0) return;
+            //if (!_overlayComboBox.Visible || _currentComboRowIndex < 0) return;
 
-            var rect = dataGridView1.GetCellDisplayRectangle(_currentComboColumnIndex, _currentComboRowIndex, true);
-            _overlayComboBox.SetBounds(rect.X, rect.Y, rect.Width, rect.Height);
+            //var rect = dataGridView1.GetCellDisplayRectangle(_currentComboColumnIndex, _currentComboRowIndex, true);
+            //_overlayComboBox.SetBounds(rect.X, rect.Y, rect.Width, rect.Height);
         }
         private void _overlayComboBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {

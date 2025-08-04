@@ -34,11 +34,13 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             return new List<RowProperty>
             {
                 //RowProperty.CreateTextBox("Имя", NodeType.Закрепление.ToString(), ValidationType.Text),
-                CreateComboBox("Группа узлов", data["Группа узлов"], dataGroupElement.Select(x => x.Name).ToList()),
-                CreateComboBox("Вид", data["Вид"], Converters.GetEnumNames<ClampKind>().ToList()),
-                CreateComboBox("Направление", data["Направление"], Converters.GetEnumNames<Direction>().ToList()),
-                CreateTextBox("Старт, сек.", data["Старт, сек."], ValidationType.FloatPositive),
-                CreateTextBox("Стоп, сек.", data["Стоп, сек."], ValidationType.FloatPositive)
+
+
+                new RowProperty("Группа узлов", data["Группа узлов"],dataGroupElement.Select(x => x.Name).ToList()),
+                new RowProperty("Вид", data["Вид"], Converters.GetEnumNames<ClampKind>()),
+                new RowProperty("Направление", data["Направление"],  Converters.GetEnumNames<Direction>()),
+                new RowProperty("Старт, сек.", data["Старт, сек."]),
+                new RowProperty("Стоп, сек.", data["Стоп, сек."])
             };
         }
 
