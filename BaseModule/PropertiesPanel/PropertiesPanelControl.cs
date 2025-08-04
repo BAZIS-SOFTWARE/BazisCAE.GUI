@@ -128,7 +128,7 @@ namespace BaseModule.PropertiesPanel
         }
         private void StartUpdate(RowProperty property, DataGridViewCell cell)
         {
-            var newValue = property.Initialization.Value;//Update(cell);
+            var newValue = property.Value;//Update(cell);
             //property.Value = newValue;
             if (newValue is string str)
                 dataGridView1.Rows[cell.RowIndex].Cells[1].Value = newValue;

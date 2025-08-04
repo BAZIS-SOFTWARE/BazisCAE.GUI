@@ -43,6 +43,7 @@ namespace BazisGUI
             this.splitContainer3 = new UserControlsEx.SplitContainerEx();
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
             this.navigator = new BaseModule.Navigator.NavigatorControl();
+            this.checkPlayerControl = new BaseModule.Player.PlayerControl();
             this.propertiesPanel = new BaseModule.PropertiesPanel.PropertiesPanelControl();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.scene = new Tao.Platform.Windows.SimpleOpenGlControl();
@@ -87,6 +88,7 @@ namespace BazisGUI
             this.createPlotMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scaleSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.усреднитьРезультатыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.показатьШкалуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.содержаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -132,7 +134,7 @@ namespace BazisGUI
             this.menuItem_InfoSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_SetRotPoint = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_DeleteSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
-            this.показатьШкалуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -156,6 +158,7 @@ namespace BazisGUI
             this.instrumentalToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
             this.contextMenu.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer
@@ -250,7 +253,7 @@ namespace BazisGUI
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer3.Size = new System.Drawing.Size(1048, 340);
-            this.splitContainer3.SplitterDistance = 444;
+            this.splitContainer3.SplitterDistance = 361;
             this.splitContainer3.SplitterWidth = 8;
             this.splitContainer3.SwitchShifting = false;
             this.splitContainer3.TabIndex = 0;
@@ -270,9 +273,9 @@ namespace BazisGUI
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.propertiesPanel);
-            this.splitContainer1.Size = new System.Drawing.Size(444, 340);
-            this.splitContainer1.SplitterDistance = 265;
+            this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainer1.Size = new System.Drawing.Size(361, 340);
+            this.splitContainer1.SplitterDistance = 188;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.SwitchShifting = false;
             this.splitContainer1.TabIndex = 0;
@@ -293,7 +296,7 @@ namespace BazisGUI
             this.navigator.Name = "navigator";
             this.navigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(444, 265);
+            this.navigator.Size = new System.Drawing.Size(361, 188);
             this.navigator.TabIndex = 0;
             this.navigator.UpColor = System.Drawing.Color.Gainsboro;
             this.navigator.HideResultsEvent += new System.Action(this.navigator_HideResultsEvent);
@@ -340,6 +343,32 @@ namespace BazisGUI
             this.navigator.CreateAnimationEvent += new System.Action<object, string, System.Collections.Generic.List<double>>(this.navigator_CreateAnimationEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_ControlCollapseEvent);
             // 
+            // checkPlayerControl
+            // 
+            this.checkPlayerControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkPlayerControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.checkPlayerControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.checkPlayerControl.CheckState = BaseModule.Player.CheckState.start;
+            this.checkPlayerControl.CurrentValue = 50;
+            this.checkPlayerControl.Location = new System.Drawing.Point(0, 105);
+            this.checkPlayerControl.Margin = new System.Windows.Forms.Padding(0);
+            this.checkPlayerControl.MinimumSize = new System.Drawing.Size(215, 30);
+            this.checkPlayerControl.Name = "checkPlayerControl";
+            this.checkPlayerControl.ShowTextValue = true;
+            this.checkPlayerControl.Size = new System.Drawing.Size(361, 37);
+            this.checkPlayerControl.SliderBarInnerColor = System.Drawing.Color.Silver;
+            this.checkPlayerControl.SliderBarOuterColor = System.Drawing.Color.Silver;
+            this.checkPlayerControl.SliderElapsedInnerColor = System.Drawing.Color.Silver;
+            this.checkPlayerControl.SliderElapsedOuterColor = System.Drawing.Color.Silver;
+            this.checkPlayerControl.SpeedValue = 500;
+            this.checkPlayerControl.StartValue = 0;
+            this.checkPlayerControl.StopValue = 100;
+            this.checkPlayerControl.TabIndex = 2;
+            this.checkPlayerControl.TextValueColor = System.Drawing.Color.Black;
+            this.checkPlayerControl.CheckingEvent += new System.Action<object, float>(this.checkPlayerControl_CheckingEvent);
+            this.checkPlayerControl.StopCheckingEvent += new System.Action<object>(this.checkPlayerControl_StopCheckingEvent);
+            this.checkPlayerControl.StartCheckingEvent += new System.Action<object>(this.checkPlayerControl_StartCheckingEvent);
+            // 
             // propertiesPanel
             // 
             this.propertiesPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -351,10 +380,10 @@ namespace BazisGUI
             this.propertiesPanel.HeaderName = "Свойства";
             this.propertiesPanel.IsPinndable = false;
             this.propertiesPanel.Location = new System.Drawing.Point(0, 0);
-            this.propertiesPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.propertiesPanel.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
             this.propertiesPanel.Name = "propertiesPanel";
             this.propertiesPanel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.propertiesPanel.Size = new System.Drawing.Size(444, 67);
+            this.propertiesPanel.Size = new System.Drawing.Size(361, 96);
             this.propertiesPanel.TabIndex = 0;
             this.propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
             this.propertiesPanel.PropertyUpdateEvent += new System.Action<BaseModule.PropertiesPanel.PropertyChangedEventArgs>(this.propertiesPanel_OnPropertyUpdate);
@@ -375,8 +404,8 @@ namespace BazisGUI
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.console);
-            this.splitContainer2.Size = new System.Drawing.Size(596, 340);
-            this.splitContainer2.SplitterDistance = 301;
+            this.splitContainer2.Size = new System.Drawing.Size(679, 340);
+            this.splitContainer2.SplitterDistance = 270;
             this.splitContainer2.SplitterWidth = 8;
             this.splitContainer2.SwitchShifting = false;
             this.splitContainer2.TabIndex = 0;
@@ -397,7 +426,7 @@ namespace BazisGUI
             this.scene.Location = new System.Drawing.Point(0, 0);
             this.scene.Margin = new System.Windows.Forms.Padding(5);
             this.scene.Name = "scene";
-            this.scene.Size = new System.Drawing.Size(596, 301);
+            this.scene.Size = new System.Drawing.Size(679, 270);
             this.scene.StencilBits = ((byte)(0));
             this.scene.TabIndex = 1;
             this.scene.SizeChanged += new System.EventHandler(this.GlControl_Resize);
@@ -423,10 +452,9 @@ namespace BazisGUI
             this.console.Margin = new System.Windows.Forms.Padding(0);
             this.console.Name = "console";
             this.console.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.console.Size = new System.Drawing.Size(596, 31);
+            this.console.Size = new System.Drawing.Size(679, 62);
             this.console.TabIndex = 0;
             this.console.UpColor = System.Drawing.Color.Gainsboro;
-            this.console.ControlCollapseEvent += new System.Action(this.console_ControlCollapseEvent);
             this.console.InEvent += new System.Action<object, System.EventArgs>(this.console_InEvent);
             this.console.FindFreeNodesEvent += new System.Action(this.console_FindFreeNodesEvent);
             this.console.RenumberMeshEvent += new System.Action<object, BaseModule.Console.Events.ModelRenumberEventArgs>(this.console_RenumberMeshEvent);
@@ -781,6 +809,14 @@ namespace BazisGUI
             this.усреднитьРезультатыToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
             this.усреднитьРезультатыToolStripMenuItem.Text = "Усреднить результаты";
             this.усреднитьРезультатыToolStripMenuItem.Click += new System.EventHandler(this.усреднитьРезультатыToolStripMenuItem_Click);
+            // 
+            // показатьШкалуToolStripMenuItem
+            // 
+            this.показатьШкалуToolStripMenuItem.CheckOnClick = true;
+            this.показатьШкалуToolStripMenuItem.Name = "показатьШкалуToolStripMenuItem";
+            this.показатьШкалуToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.показатьШкалуToolStripMenuItem.Text = "Показать шкалу";
+            this.показатьШкалуToolStripMenuItem.Click += new System.EventHandler(this.показатьШкалуToolStripMenuItem_Click);
             // 
             // настройкиToolStripMenuItem
             // 
@@ -1445,13 +1481,21 @@ namespace BazisGUI
             this.menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             this.menuItem_DeleteSelectedObjects.Click += new System.EventHandler(this.menuItem_DeleteSelectedObjects_Click);
             // 
-            // показатьШкалуToolStripMenuItem
+            // tableLayoutPanel1
             // 
-            this.показатьШкалуToolStripMenuItem.CheckOnClick = true;
-            this.показатьШкалуToolStripMenuItem.Name = "показатьШкалуToolStripMenuItem";
-            this.показатьШкалуToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
-            this.показатьШкалуToolStripMenuItem.Text = "Показать шкалу";
-            this.показатьШкалуToolStripMenuItem.Click += new System.EventHandler(this.показатьШкалуToolStripMenuItem_Click);
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.checkPlayerControl, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.propertiesPanel, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(361, 144);
+            this.tableLayoutPanel1.TabIndex = 3;
             // 
             // BaseForm
             // 
@@ -1505,6 +1549,7 @@ namespace BazisGUI
             this.viewToolStrip.ResumeLayout(false);
             this.viewToolStrip.PerformLayout();
             this.contextMenu.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1611,6 +1656,8 @@ namespace BazisGUI
         private System.Windows.Forms.ToolStripMenuItem menuItem_SetRotPoint;
         private System.Windows.Forms.ToolStripMenuItem menuItem_DeleteSelectedObjects;
         private ToolStripMenuItem показатьШкалуToolStripMenuItem;
+        private BaseModule.Player.PlayerControl checkPlayerControl;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }
 

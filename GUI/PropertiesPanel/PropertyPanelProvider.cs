@@ -12,33 +12,7 @@ namespace BazisGUI.PropertiesPanel
 {
     public class PropertyPanelProvider
     {
-        public event Action<DrowPropertyOnPanelEventArgs> Out;
-        public event Action OnUpdateNavigator;
-
-        public List<IGroup> AllGroup;
-        public List<string> _funcDBNames;
-        public List<string> _matDBNames;
-
         PanelConverter _converter { get; set; }
-
-        public List<RowProperty> GetRowProperties<T>(T obj)
-        {
-                CreateConverter(obj);
-                return _converter?.GetRowProperty();
-        }
-
-        private void CreateConverter<T>(T obj)
-        {
-            if (obj is ISetInfo setInfo) _converter = new SetInfoConverter(setInfo);
-
-            else if (obj is IGroup group) _converter = new GroupConverter(group);
-
-            else if (obj is ICondData data)
-            {
-                _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, AllGroup);
-            }
-            else throw new NotImplementedException("Тип конвертера не определен");
-        }
 
         public bool ValidationData(string tag, string newValue, out string corrected)
         {
@@ -78,7 +52,6 @@ namespace BazisGUI.PropertiesPanel
         public void UpdateObjectValue(string header, string newValue, string oldValue)
         {
             _converter.UpdateObject(header, newValue);
-            //OnUpdateNavigator.Invoke();
         }
     }
 }

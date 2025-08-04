@@ -26,8 +26,7 @@ namespace BaseModule.PropertiesPanel
         /// <param name="isReadOnly">По умолчанию ячейка доступна для редактирования</param>
         public RowProperty CreateTextBox(string header, string value, ValidationType validationType = ValidationType.None, bool isReadOnly = false)
         {
-            return new RowProperty(header,
-                new DataGridViewTextBoxCell() { Value = value },
+            return new RowProperty(header,value,
             SequenceType.After, validationType, isReadOnly);
         }
 

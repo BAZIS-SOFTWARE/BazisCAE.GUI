@@ -24,7 +24,7 @@ namespace BazisGUI.PropertiesPanel.Control
                 CreateTextBox("Имя", _objectsSet.Name, ValidationType.Text),
                 new RowProperty(
                     "Цвет", 
-                new DataGridViewTextBoxCell(){ Value = _objectsSet.Color.Name},
+                new DataGridViewTextBoxCell(){ Value = _objectsSet.Color.Name, },
                 SequenceType.Before),
                 CreateComboBox("Представление", _objectsSet.ViewMode.ToString(), Converters.GetEnumNames<ViewMode>().ToList())
             };

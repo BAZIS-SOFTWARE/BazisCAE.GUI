@@ -16,10 +16,6 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void console_ControlCollapseEvent()
-        {
-
-        }
         public async void console_InEvent(object arg1, EventArgs arg2)
         {
             try

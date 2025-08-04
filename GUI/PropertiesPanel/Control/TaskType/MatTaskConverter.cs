@@ -12,10 +12,10 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         private readonly List<string> _mat;
         private MatData _matData;
 
-        public MatTaskConverter(ICondData obj, List<string> mat, List<IGroup> groupElement)
+        public MatTaskConverter(MatData obj, List<string> mat, List<IGroup> groupElement)
         {
             _mat = mat;
-            _matData = obj as MatData;
+            _matData = obj;
             dataGroupElement = groupElement;
             selectObj = obj;
             data = new Dictionary<string, string>()

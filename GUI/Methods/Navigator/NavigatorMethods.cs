@@ -92,7 +92,7 @@ namespace BazisGUI
         {
             var mf = data.FrameFunction.LocalFrame as MovedFrame;
             mf.Time = time - data.StartTime;
-
+            mf.CalcPosition();
             DisplayLocalFrame(mf.Frame);
             var trajPoints = mf.BaseLine.Select(x => x.CalcCentr()).ToArray();
             DisplayPath(trajPoints);

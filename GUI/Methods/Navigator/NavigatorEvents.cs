@@ -22,6 +22,9 @@ using Newtonsoft.Json;
 using PreProc.Interfaces;
 using BazisGUI.Scene.Interfaces;
 using Project.Results.IO;
+using BazisGUI.PropertiesPanel.Control;
+using static System.Resources.ResXFileRef;
+using System.Globalization;
 
 namespace BazisGUI
 {
@@ -318,52 +321,7 @@ namespace BazisGUI
                 SetVBObjectAttribute(pres, "цвет");
             }
             DisplayObjects();
-        }
-
-        public void navigator_CheckConditionsEvent(ITaskData taskData, IModelData modelData, CheckDataEventArgs arg2)
-        {
-            try
-            {
-                DisplayGeometryObjectEvent = null;
-                var dataKind = Converters.ConvertToDataKind(arg2.DataName);
-                var selectedData = taskData.Find(dataKind);
-
-                foreach (var data in selectedData)
-                {
-                    if (arg2.Time >= data.StartTime & arg2.Time <= data.StopTime)
-                    {
-                        if (data.FrameFunction != null)
-                            DisplayMRF(arg2.Time, data);
-
-                        var group = data.Group;
-
-                        foreach (var iobj in group)
-                        {
-                            if (data.Kind == DataKind.Материал)
-                                iobj.Color = Color.FromArgb(255, 255, 0);
-                            else if (data.Kind == DataKind.Среда)
-                                iobj.Color = Color.FromArgb(255, 155, 0);
-                            else if (data.Kind == DataKind.Закрепление | data.Kind == DataKind.Нагрузка)
-                                iobj.Color = Color.FromArgb(255, 0, 0);
-                            else if (data.Kind == DataKind.Нагрев)
-                                iobj.Color = Color.FromArgb(125, 155, 255, 0);
-
-                            //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
-                        }
-                        if (data.Direction != Direction.None)
-                            DisplayDirection(arg2.Time, data, group);
-                        var pres = project.CreateModelObjectsPresentor(group.ObjType);
-                        SetVBObjectAttribute(pres, "цвет");
-
-                        DisplayObjects();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }    
+        }     
 
         private void navigator_ControlCollapseEvent()
         {
@@ -706,44 +664,7 @@ namespace BazisGUI
             node.Nodes.AddRange(childs);
         }
 
-        private void navigator_SelectCondEvent(NodeName arg1, string arg2)
-        {
-            try
-            {
-                var data = project.TaskData.First(x => x.ToString() == arg2);
-
-                panelProvider.AllGroup = project.ModelData.GroupData.ToList();
-
-                panelProvider._funcDBNames =
-                    GetDataBase<FunctionDBData>(project.FunctionsDB, project.Path).Keys.ToList();
-                panelProvider._matDBNames =
-                    GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
-
-                var rows = panelProvider.GetRowProperties(data);
-                propertiesPanel.DrawTable(rows);
-
-                if (data.Direction != Direction.None)
-                    DisplayDirection(data.StartTime, data, data.Group);
-
-                project.ModelData.ObjectData.SetBackColor(data.Group.ObjType);
-                var pres = project.CreateModelObjectsPresentor(data.Group.ObjType);
-
-                SetVBObjectAttribute(pres, "цвет");
-
-                foreach (var iobj in data.Group)
-                    iobj.Color = settingsConfig.SelectGroupColor;
-
-                pres = project.CreateModelObjectsPresentor(data.Group.ObjType);
-                SetVBObjectAttribute(pres, "цвет");
-
-                DisplayObjects();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
- 
-        }
+        
 
 
 
@@ -764,7 +685,9 @@ namespace BazisGUI
                 //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
                 SetVBObjectAttribute(pres, "цвет");
                 DisplayObjects();
-                var rows = panelProvider.GetRowProperties(group);
+                
+                var _converter = new GroupConverter(group);
+                var rows = _converter.GetRowProperty();
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
@@ -781,8 +704,13 @@ namespace BazisGUI
                 //var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
                 var objects = project.GetModelObjects(objType);
                 var item = objects.FirstOrDefault(x => x.Number == arg3);
-                var rows = panelProvider.GetRowProperties(item);
-                propertiesPanel.DrawTable(rows);
+
+
+                // TO DO
+                //var _converter = new ModelObjectConverter(item);
+
+                //var rows = _converter.GetRowProperty();
+                //propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
             {
@@ -798,8 +726,8 @@ namespace BazisGUI
 
                 var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
                 var set = project.GetModelSetInfo(objType, setName);
-
-                var rows = panelProvider.GetRowProperties(set);
+                var _converter = new SetInfoConverter(set);
+                var rows = _converter.GetRowProperty();
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
