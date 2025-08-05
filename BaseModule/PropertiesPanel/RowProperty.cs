@@ -11,7 +11,8 @@ namespace BaseModule.PropertiesPanel
         //public DataGridViewCell Initialization { get; } //Возврашает тип ячейки (textbox, combobox)
         //public Func<DataGridViewCell, object> Update { get; } // Логика обновления значения
         public ValidationType ValidationType { get; set; }
-        public List<string> AvailableValues { get; }
+        public List<string> AvailableValues { get; } = new List<string>();
+
         //public Type CellType { get; }
         public bool IsReadOnly
         {
@@ -22,7 +23,13 @@ namespace BaseModule.PropertiesPanel
             get { return AvailableValues == null ? false : true; }
         }
 
-        public RowProperty(string header, object value, List<string> availableValues = null)
+        public RowProperty(string header, object value,List<string> availableValues) :
+            this(header, value)
+        {
+            AvailableValues = availableValues;
+        }
+
+        public RowProperty(string header, object value)
         {
             Header = header;
             Value = value;
@@ -35,11 +42,6 @@ namespace BaseModule.PropertiesPanel
                 ValidationType = ValidationType.Enum;
             else
                 ValidationType = ValidationType.Color;
-            //Initialization = initialization;
-            //Update = update;
-
-            //CellType = initialization.GetType();
-            AvailableValues = availableValues ?? new List<string>();
         }
     }
 }

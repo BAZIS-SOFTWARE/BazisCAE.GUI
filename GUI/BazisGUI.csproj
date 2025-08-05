@@ -308,6 +308,21 @@
     <Compile Include="Methods\Player\Checking.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\PropertyPanel\GetClampProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\PropertyPanel\GetLocalFrameProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\PropertyPanel\GetLoadProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\PropertyPanel\GetMatProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\PropertyPanel\GetSetProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\PropertyPanel\GetGroupProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -422,12 +437,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="PropertiesPanel\Control\DataConverter.cs" />
-    <Compile Include="PropertiesPanel\Control\SetInfoConverter.cs" />
-    <Compile Include="PropertiesPanel\Control\TaskType\ClampTaskConverter.cs" />
     <Compile Include="PropertiesPanel\Control\TaskType\EnvironmentTaskConverter.cs" />
     <Compile Include="PropertiesPanel\Control\TaskType\HeatTaskConverter.cs" />
-    <Compile Include="PropertiesPanel\Control\TaskType\LoadTaskConverter.cs" />
-    <Compile Include="PropertiesPanel\Control\TaskType\MatTaskConverter.cs" />
     <Compile Include="PropertiesPanel\PropertyPanelProvider.cs" />
     <Compile Include="PropertiesPanel\ShowPropertyEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

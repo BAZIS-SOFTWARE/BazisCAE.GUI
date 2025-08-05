@@ -39,17 +39,23 @@ namespace BazisGUI
 
                 var groups = project.GetAllModelGroups().Where(x => x.ObjType == data.Group.ObjType).ToList();
 
-                if (arg1 == NodeName.Материал) 
-                    _converter = new MatTaskConverter((MatData)data, _mats, groups);
-                else if (arg1 == NodeName.Среда) _converter = new EnvironmentTaskConverter((MediaData)data, groups, _funcs);
-                else if (arg1 == NodeName.Нагрев) _converter = new HeatTaskConverter((HeatData)data, groups, _funcs);
-                else if (arg1 == NodeName.Закрепление) _converter = new ClampTaskConverter((ClampData)data, groups);
-                else if (arg1 == NodeName.Нагрузка) _converter = new LoadTaskConverter((LoadData)data, _funcs, groups);
+                List<RowProperty> rows;
+
+                if (arg1 == NodeName.Материал)
+                    rows = GetMatProperty((MatData)data, _mats, groups);
+                else if (arg1 == NodeName.Среда) 
+                    _converter = new EnvironmentTaskConverter((MediaData)data, groups, _funcs);
+                else if (arg1 == NodeName.Нагрев) 
+                    _converter = new HeatTaskConverter((HeatData)data, groups, _funcs);
+                else if (arg1 == NodeName.Закрепление)
+                    _converter = new ClampTaskConverter((ClampData)data, groups);
+                else if (arg1 == NodeName.Нагрузка) 
+                    _converter = new LoadTaskConverter((LoadData)data, _funcs, groups);
                 else throw new NotImplementedException("Тип задачи не определен");
 
 
                 //var _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, allGroup);
-                var rows = _converter.GetRowProperty();
+        
                 propertiesPanel.DrawTable(rows);
 
                 //if (data.Direction != Direction.None)

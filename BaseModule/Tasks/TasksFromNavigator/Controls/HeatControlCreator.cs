@@ -44,7 +44,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
         public bool IsValidated()
         {
             var checks = new List<bool>();
-            if (rbtARC.Checked)
+            if (rbtSPH.Checked)
             {
                 checks = new List<bool>()
                 {
@@ -54,7 +54,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
                 };
             }
 
-            else if (rbtLW.Checked)
+            else if (rbtCIL.Checked)
             {
                 checks = new List<bool>()
                 {
@@ -65,7 +65,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
                 };
             }
 
-            else if (rbtFS.Checked)
+            else if (rbtCustom.Checked)
             {
                 if (rbtPin.Checked)
                 {
@@ -95,9 +95,9 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
         {
             groupBox3.Controls.Clear();
 
-            if (rbtARC.Checked) groupBox3.Controls.Add(tableLayoutPanel3);
-            else if (rbtLW.Checked) groupBox3.Controls.Add(tableLayoutPanel2);
-            else if (rbtFS.Checked)
+            if (rbtSPH.Checked) groupBox3.Controls.Add(tableLayoutPanel3);
+            else if (rbtCIL.Checked) groupBox3.Controls.Add(tableLayoutPanel2);
+            else if (rbtCustom.Checked)
             {
                 groupBox3.Controls.Add(tableLayoutPanel4);
                 SelectingFSWMode(sender, e);
@@ -132,19 +132,19 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
         private string CreateRowInfo(string stopTime)
         {
             var frameFunction = "*";
-            if (rbtARC.Checked)
+            if (rbtSPH.Checked)
             {
                 frameFunction = $"ARC;{txbCurrent.Text};{txbVoltage.Text};{txbWidth.Text}";
             }
-            else if (rbtLW.Checked)
+            else if (rbtCIL.Checked)
             {
                 frameFunction = $"LW;{txbPower.Text};{txbDepth.Text};{txbBaseDiameter.Text};{txbEndDiameter.Text}";
             }
-            else if (rbtLW.Checked)
+            else if (rbtCIL.Checked)
             {
                 frameFunction = $"LW;{txbPower.Text};{txbDepth.Text};{txbBaseDiameter.Text};{txbEndDiameter.Text}";
             }
-            else if (rbtFS.Checked)
+            else if (rbtCustom.Checked)
             {
                 if (rbtPin.Checked)
                 {

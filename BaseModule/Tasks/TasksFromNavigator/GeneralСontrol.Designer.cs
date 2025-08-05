@@ -88,13 +88,15 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // 
             // movementParametersGroupBox
             // 
-            this.movementParametersGroupBox.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             this.movementParametersGroupBox.AutoSize = true;
+            this.movementParametersGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.movementParametersGroupBox.Controls.Add(this.trajectoryTableLayoutPanel);
             this.movementParametersGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.movementParametersGroupBox.Location = new System.Drawing.Point(4, 139);
             this.movementParametersGroupBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.movementParametersGroupBox.Name = "movementParametersGroupBox";
             this.movementParametersGroupBox.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.movementParametersGroupBox.Size = new System.Drawing.Size(837, 264);
             this.movementParametersGroupBox.TabIndex = 1;
             this.movementParametersGroupBox.TabStop = false;
             this.movementParametersGroupBox.Text = "Параметры движения";
@@ -126,6 +128,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.trajectoryTableLayoutPanel.Controls.Add(this.btnCreatePhysicalData, 3, 6);
             this.trajectoryTableLayoutPanel.Controls.Add(this.btnClean, 0, 6);
             this.trajectoryTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trajectoryTableLayoutPanel.Location = new System.Drawing.Point(4, 16);
             this.trajectoryTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.trajectoryTableLayoutPanel.Name = "trajectoryTableLayoutPanel";
             this.trajectoryTableLayoutPanel.RowCount = 7;
@@ -136,13 +139,16 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.trajectoryTableLayoutPanel.Size = new System.Drawing.Size(829, 245);
             this.trajectoryTableLayoutPanel.TabIndex = 0;
             // 
             // baseLineLabel
             // 
             this.baseLineLabel.AutoSize = true;
+            this.baseLineLabel.Location = new System.Drawing.Point(10, 10);
             this.baseLineLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.baseLineLabel.Name = "baseLineLabel";
+            this.baseLineLabel.Size = new System.Drawing.Size(92, 13);
             this.baseLineLabel.TabIndex = 0;
             this.baseLineLabel.Text = "Линия движения";
             // 
@@ -150,13 +156,15 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // 
             this.cmbTraj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTraj.DropDownStyle = ComboBoxStyle.DropDownList;
             this.trajectoryTableLayoutPanel.SetColumnSpan(this.cmbTraj, 3);
+            this.cmbTraj.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTraj.FormattingEnabled = true;
             this.cmbTraj.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbTraj.IsValidating = true;
+            this.cmbTraj.Location = new System.Drawing.Point(242, 3);
             this.cmbTraj.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbTraj.Name = "cmbTraj";
+            this.cmbTraj.Size = new System.Drawing.Size(572, 21);
             this.cmbTraj.TabIndex = 29;
             this.cmbTraj.UserRegExCheck = null;
             this.cmbTraj.UserRegExCheckErrorMessage = null;
@@ -164,8 +172,10 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // refLineLabel
             // 
             this.refLineLabel.AutoSize = true;
+            this.refLineLabel.Location = new System.Drawing.Point(10, 45);
             this.refLineLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.refLineLabel.Name = "refLineLabel";
+            this.refLineLabel.Size = new System.Drawing.Size(84, 13);
             this.refLineLabel.TabIndex = 0;
             this.refLineLabel.Text = "Опорная линия";
             // 
@@ -174,12 +184,14 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.cmbRef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trajectoryTableLayoutPanel.SetColumnSpan(this.cmbRef, 3);
-            this.cmbRef.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cmbRef.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRef.FormattingEnabled = true;
             this.cmbRef.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbRef.IsValidating = true;
+            this.cmbRef.Location = new System.Drawing.Point(242, 38);
             this.cmbRef.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbRef.Name = "cmbRef";
+            this.cmbRef.Size = new System.Drawing.Size(572, 21);
             this.cmbRef.TabIndex = 29;
             this.cmbRef.UserRegExCheck = null;
             this.cmbRef.UserRegExCheckErrorMessage = null;
@@ -187,8 +199,10 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // sourcePositionLabel
             // 
             this.sourcePositionLabel.AutoSize = true;
+            this.sourcePositionLabel.Location = new System.Drawing.Point(10, 80);
             this.sourcePositionLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.sourcePositionLabel.Name = "sourcePositionLabel";
+            this.sourcePositionLabel.Size = new System.Drawing.Size(61, 13);
             this.sourcePositionLabel.TabIndex = 0;
             this.sourcePositionLabel.Text = "Смещение";
             // 
@@ -201,16 +215,20 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.tableLayoutPanelX.Controls.Add(this.labelX, 0, 0);
             this.tableLayoutPanelX.Controls.Add(this.txbX, 1, 0);
             this.tableLayoutPanelX.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelX.Location = new System.Drawing.Point(235, 73);
             this.tableLayoutPanelX.Name = "tableLayoutPanelX";
             this.tableLayoutPanelX.RowCount = 1;
             this.tableLayoutPanelX.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelX.Size = new System.Drawing.Size(192, 29);
             this.tableLayoutPanelX.TabIndex = 30;
             // 
             // labelX
             // 
             this.labelX.AutoSize = true;
+            this.labelX.Location = new System.Drawing.Point(10, 10);
             this.labelX.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.labelX.Name = "labelX";
+            this.labelX.Size = new System.Drawing.Size(23, 13);
             this.labelX.TabIndex = 0;
             this.labelX.Text = "dX:";
             // 
@@ -221,12 +239,14 @@ namespace BaseModule.Tasks.TasksFromNavigator
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbX.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbX.IsValidating = true;
+            this.txbX.Location = new System.Drawing.Point(76, 5);
             this.txbX.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
             this.txbX.Name = "txbX";
+            this.txbX.Size = new System.Drawing.Size(101, 20);
             this.txbX.TabIndex = 0;
+            this.txbX.Text = "0";
             this.txbX.UserRegExCheck = null;
             this.txbX.UserRegExCheckErrorMessage = null;
-            this.txbX.Text = "0";
             // 
             // tableLayoutPanelY
             // 
@@ -237,16 +257,20 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.tableLayoutPanelY.Controls.Add(this.labelY, 0, 0);
             this.tableLayoutPanelY.Controls.Add(this.txbY, 1, 0);
             this.tableLayoutPanelY.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelY.Location = new System.Drawing.Point(433, 73);
             this.tableLayoutPanelY.Name = "tableLayoutPanelY";
             this.tableLayoutPanelY.RowCount = 1;
             this.tableLayoutPanelY.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelY.Size = new System.Drawing.Size(192, 29);
             this.tableLayoutPanelY.TabIndex = 31;
             // 
             // labelY
             // 
             this.labelY.AutoSize = true;
+            this.labelY.Location = new System.Drawing.Point(10, 10);
             this.labelY.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.labelY.Name = "labelY";
+            this.labelY.Size = new System.Drawing.Size(26, 13);
             this.labelY.TabIndex = 0;
             this.labelY.Text = "dY: ";
             // 
@@ -257,12 +281,14 @@ namespace BaseModule.Tasks.TasksFromNavigator
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbY.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbY.IsValidating = true;
+            this.txbY.Location = new System.Drawing.Point(76, 5);
             this.txbY.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
             this.txbY.Name = "txbY";
+            this.txbY.Size = new System.Drawing.Size(101, 20);
             this.txbY.TabIndex = 0;
+            this.txbY.Text = "0";
             this.txbY.UserRegExCheck = null;
             this.txbY.UserRegExCheckErrorMessage = null;
-            this.txbY.Text = "0";
             // 
             // tableLayoutPanelZ
             // 
@@ -273,16 +299,20 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.tableLayoutPanelZ.Controls.Add(this.labelZ, 0, 0);
             this.tableLayoutPanelZ.Controls.Add(this.txbZ, 1, 0);
             this.tableLayoutPanelZ.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelZ.Location = new System.Drawing.Point(631, 73);
             this.tableLayoutPanelZ.Name = "tableLayoutPanelZ";
             this.tableLayoutPanelZ.RowCount = 1;
             this.tableLayoutPanelZ.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelZ.Size = new System.Drawing.Size(195, 29);
             this.tableLayoutPanelZ.TabIndex = 32;
             // 
             // labelZ
             // 
             this.labelZ.AutoSize = true;
+            this.labelZ.Location = new System.Drawing.Point(10, 10);
             this.labelZ.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.labelZ.Name = "labelZ";
+            this.labelZ.Size = new System.Drawing.Size(26, 13);
             this.labelZ.TabIndex = 0;
             this.labelZ.Text = "dZ: ";
             // 
@@ -293,18 +323,22 @@ namespace BaseModule.Tasks.TasksFromNavigator
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbZ.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbZ.IsValidating = true;
+            this.txbZ.Location = new System.Drawing.Point(78, 5);
             this.txbZ.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
             this.txbZ.Name = "txbZ";
+            this.txbZ.Size = new System.Drawing.Size(102, 20);
             this.txbZ.TabIndex = 0;
+            this.txbZ.Text = "0";
             this.txbZ.UserRegExCheck = null;
             this.txbZ.UserRegExCheckErrorMessage = null;
-            this.txbZ.Text = "0";
             // 
             // rotationLabel
             // 
             this.rotationLabel.AutoSize = true;
+            this.rotationLabel.Location = new System.Drawing.Point(10, 115);
             this.rotationLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.rotationLabel.Name = "rotationLabel";
+            this.rotationLabel.Size = new System.Drawing.Size(50, 13);
             this.rotationLabel.TabIndex = 0;
             this.rotationLabel.Text = "Поворот";
             // 
@@ -317,16 +351,20 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.tableLayoutPanelAngleX.Controls.Add(this.labelAngleX, 0, 0);
             this.tableLayoutPanelAngleX.Controls.Add(this.txbAngleX, 1, 0);
             this.tableLayoutPanelAngleX.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelAngleX.Location = new System.Drawing.Point(235, 108);
             this.tableLayoutPanelAngleX.Name = "tableLayoutPanelAngleX";
             this.tableLayoutPanelAngleX.RowCount = 1;
             this.tableLayoutPanelAngleX.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelAngleX.Size = new System.Drawing.Size(192, 29);
             this.tableLayoutPanelAngleX.TabIndex = 33;
             // 
             // labelAngleX
             // 
             this.labelAngleX.AutoSize = true;
+            this.labelAngleX.Location = new System.Drawing.Point(10, 10);
             this.labelAngleX.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.labelAngleX.Name = "labelAngleX";
+            this.labelAngleX.Size = new System.Drawing.Size(40, 13);
             this.labelAngleX.TabIndex = 0;
             this.labelAngleX.Text = "Ось Х:";
             // 
@@ -337,12 +375,14 @@ namespace BaseModule.Tasks.TasksFromNavigator
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbAngleX.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbAngleX.IsValidating = true;
+            this.txbAngleX.Location = new System.Drawing.Point(76, 5);
             this.txbAngleX.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
             this.txbAngleX.Name = "txbAngleX";
+            this.txbAngleX.Size = new System.Drawing.Size(101, 20);
             this.txbAngleX.TabIndex = 0;
+            this.txbAngleX.Text = "0";
             this.txbAngleX.UserRegExCheck = null;
             this.txbAngleX.UserRegExCheckErrorMessage = null;
-            this.txbAngleX.Text = "0";
             // 
             // tableLayoutPanelAngleY
             // 
@@ -353,16 +393,20 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.tableLayoutPanelAngleY.Controls.Add(this.labelAngleY, 0, 0);
             this.tableLayoutPanelAngleY.Controls.Add(this.txbAngleY, 1, 0);
             this.tableLayoutPanelAngleY.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelAngleY.Location = new System.Drawing.Point(433, 108);
             this.tableLayoutPanelAngleY.Name = "tableLayoutPanelAngleY";
             this.tableLayoutPanelAngleY.RowCount = 1;
             this.tableLayoutPanelAngleY.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelAngleY.Size = new System.Drawing.Size(192, 29);
             this.tableLayoutPanelAngleY.TabIndex = 34;
             // 
             // labelAngleY
             // 
             this.labelAngleY.AutoSize = true;
+            this.labelAngleY.Location = new System.Drawing.Point(10, 10);
             this.labelAngleY.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.labelAngleY.Name = "labelAngleY";
+            this.labelAngleY.Size = new System.Drawing.Size(40, 13);
             this.labelAngleY.TabIndex = 0;
             this.labelAngleY.Text = "Ось Y:";
             // 
@@ -373,12 +417,14 @@ namespace BaseModule.Tasks.TasksFromNavigator
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbAngleY.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbAngleY.IsValidating = true;
+            this.txbAngleY.Location = new System.Drawing.Point(76, 5);
             this.txbAngleY.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
             this.txbAngleY.Name = "txbAngleY";
+            this.txbAngleY.Size = new System.Drawing.Size(101, 20);
             this.txbAngleY.TabIndex = 0;
+            this.txbAngleY.Text = "0";
             this.txbAngleY.UserRegExCheck = null;
             this.txbAngleY.UserRegExCheckErrorMessage = null;
-            this.txbAngleY.Text = "0";
             // 
             // tableLayoutPanelAngleZ
             // 
@@ -389,16 +435,20 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.tableLayoutPanelAngleZ.Controls.Add(this.labelAngleZ, 0, 0);
             this.tableLayoutPanelAngleZ.Controls.Add(this.txbAngleZ, 1, 0);
             this.tableLayoutPanelAngleZ.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelAngleZ.Location = new System.Drawing.Point(631, 108);
             this.tableLayoutPanelAngleZ.Name = "tableLayoutPanelAngleZ";
             this.tableLayoutPanelAngleZ.RowCount = 1;
             this.tableLayoutPanelAngleZ.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelAngleZ.Size = new System.Drawing.Size(195, 29);
             this.tableLayoutPanelAngleZ.TabIndex = 35;
             // 
             // labelAngleZ
             // 
             this.labelAngleZ.AutoSize = true;
+            this.labelAngleZ.Location = new System.Drawing.Point(10, 10);
             this.labelAngleZ.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.labelAngleZ.Name = "labelAngleZ";
+            this.labelAngleZ.Size = new System.Drawing.Size(40, 13);
             this.labelAngleZ.TabIndex = 0;
             this.labelAngleZ.Text = "Ось Z:";
             // 
@@ -409,18 +459,22 @@ namespace BaseModule.Tasks.TasksFromNavigator
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbAngleZ.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbAngleZ.IsValidating = true;
+            this.txbAngleZ.Location = new System.Drawing.Point(78, 5);
             this.txbAngleZ.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
             this.txbAngleZ.Name = "txbAngleZ";
+            this.txbAngleZ.Size = new System.Drawing.Size(102, 20);
             this.txbAngleZ.TabIndex = 0;
+            this.txbAngleZ.Text = "0";
             this.txbAngleZ.UserRegExCheck = null;
             this.txbAngleZ.UserRegExCheckErrorMessage = null;
-            this.txbAngleZ.Text = "0";
             // 
             // sourceVelocityLabel
             // 
             this.sourceVelocityLabel.AutoSize = true;
+            this.sourceVelocityLabel.Location = new System.Drawing.Point(10, 150);
             this.sourceVelocityLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.sourceVelocityLabel.Name = "sourceVelocityLabel";
+            this.sourceVelocityLabel.Size = new System.Drawing.Size(103, 13);
             this.sourceVelocityLabel.TabIndex = 0;
             this.sourceVelocityLabel.Text = "Скорость, мм/сек.";
             // 
@@ -432,18 +486,22 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.trajectoryTableLayoutPanel.SetColumnSpan(this.txbVelosity, 3);
             this.txbVelosity.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbVelosity.IsValidating = true;
+            this.txbVelosity.Location = new System.Drawing.Point(242, 143);
             this.txbVelosity.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbVelosity.Name = "txbVelosity";
+            this.txbVelosity.Size = new System.Drawing.Size(572, 20);
             this.txbVelosity.TabIndex = 31;
+            this.txbVelosity.Text = "0";
             this.txbVelosity.UserRegExCheck = null;
             this.txbVelosity.UserRegExCheckErrorMessage = null;
-            this.txbVelosity.Text = "0";
             // 
             // startLabel
             // 
             this.startLabel.AutoSize = true;
+            this.startLabel.Location = new System.Drawing.Point(10, 185);
             this.startLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.startLabel.Name = "startLabel";
+            this.startLabel.Size = new System.Drawing.Size(63, 13);
             this.startLabel.TabIndex = 0;
             this.startLabel.Text = "Старт, сек.";
             // 
@@ -455,16 +513,19 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.trajectoryTableLayoutPanel.SetColumnSpan(this.txbStartTime, 3);
             this.txbStartTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
+            this.txbStartTime.Location = new System.Drawing.Point(242, 178);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
+            this.txbStartTime.Size = new System.Drawing.Size(572, 20);
             this.txbStartTime.TabIndex = 43;
+            this.txbStartTime.Text = "0";
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
-            this.txbStartTime.Text = "0";
             // 
             // btnCreatePhysicalData
             // 
             this.btnCreatePhysicalData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCreatePhysicalData.Location = new System.Drawing.Point(714, 215);
             this.btnCreatePhysicalData.Margin = new System.Windows.Forms.Padding(10, 5, 15, 5);
             this.btnCreatePhysicalData.MinimumSize = new System.Drawing.Size(90, 25);
             this.btnCreatePhysicalData.Name = "btnCreatePhysicalData";
@@ -472,11 +533,10 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.btnCreatePhysicalData.TabIndex = 0;
             this.btnCreatePhysicalData.Text = "Создать";
             this.btnCreatePhysicalData.UseVisualStyleBackColor = true;
-            this.btnCreatePhysicalData.Click += btnCreatePhysicalData_Click;
             // 
             // btnClean
             // 
-            this.btnClean.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClean.Location = new System.Drawing.Point(10, 215);
             this.btnClean.Margin = new System.Windows.Forms.Padding(10, 5, 15, 5);
             this.btnClean.MinimumSize = new System.Drawing.Size(90, 25);
             this.btnClean.Name = "btnClean";
@@ -484,7 +544,6 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.btnClean.TabIndex = 0;
             this.btnClean.Text = "Очистить";
             this.btnClean.UseVisualStyleBackColor = true;
-            this.btnClean.Click += btnClean_Click;
             // 
             // generalTableLayoutPanel
             // 
@@ -494,19 +553,23 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.generalTableLayoutPanel.Controls.Add(this.heatControl, 0, 0);
             this.generalTableLayoutPanel.Controls.Add(this.movementParametersGroupBox, 0, 1);
             this.generalTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.generalTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.generalTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.generalTableLayoutPanel.Name = "generalTableLayoutPanel";
             this.generalTableLayoutPanel.RowCount = 2;
-            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(SizeType.AutoSize));
-            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(SizeType.AutoSize));
+            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.generalTableLayoutPanel.Size = new System.Drawing.Size(845, 406);
             this.generalTableLayoutPanel.TabIndex = 0;
             // 
             // matControl
             // 
             this.matControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.matControl.AutoSize = true;
+            this.matControl.Location = new System.Drawing.Point(0, 0);
             this.matControl.Margin = new System.Windows.Forms.Padding(2);
             this.matControl.Name = "matControl";
+            this.matControl.Size = new System.Drawing.Size(528, 158);
             this.matControl.TabIndex = 0;
             this.matControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
@@ -514,8 +577,10 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // 
             this.clampControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.clampControl.AutoSize = true;
+            this.clampControl.Location = new System.Drawing.Point(0, 0);
             this.clampControl.Margin = new System.Windows.Forms.Padding(2);
             this.clampControl.Name = "clampControl";
+            this.clampControl.Size = new System.Drawing.Size(150, 150);
             this.clampControl.TabIndex = 0;
             this.clampControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
@@ -523,8 +588,10 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // 
             this.loadControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.loadControl.AutoSize = true;
+            this.loadControl.Location = new System.Drawing.Point(0, 0);
             this.loadControl.Margin = new System.Windows.Forms.Padding(2);
             this.loadControl.Name = "loadControl";
+            this.loadControl.Size = new System.Drawing.Size(150, 150);
             this.loadControl.TabIndex = 0;
             this.loadControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
@@ -532,29 +599,35 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // 
             this.mediaControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.mediaControl.AutoSize = true;
+            this.mediaControl.Location = new System.Drawing.Point(0, 0);
             this.mediaControl.Margin = new System.Windows.Forms.Padding(2);
             this.mediaControl.Name = "mediaControl";
+            this.mediaControl.Size = new System.Drawing.Size(150, 150);
             this.mediaControl.TabIndex = 0;
             this.mediaControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
             // heatControl
             // 
-            this.heatControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.heatControl.AutoSize = true;
+            this.heatControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.heatControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.heatControl.Location = new System.Drawing.Point(2, 2);
             this.heatControl.Margin = new System.Windows.Forms.Padding(2);
             this.heatControl.Name = "heatControl";
+            this.heatControl.Size = new System.Drawing.Size(841, 132);
             this.heatControl.TabIndex = 0;
             this.heatControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
-
             // 
             // GeneralСontrol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.generalTableLayoutPanel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GeneralСontrol";
+            this.Size = new System.Drawing.Size(845, 406);
             this.movementParametersGroupBox.ResumeLayout(false);
             this.movementParametersGroupBox.PerformLayout();
             this.trajectoryTableLayoutPanel.ResumeLayout(false);
@@ -617,6 +690,6 @@ namespace BaseModule.Tasks.TasksFromNavigator
         private BaseModule.Tasks.TasksFromNavigator.Controls.ClampControlCreator clampControl;
         private BaseModule.Tasks.TasksFromNavigator.Controls.LoadControlCreator loadControl;
         private BaseModule.Tasks.TasksFromNavigator.Controls.MediaControlCreator mediaControl;
-        private BaseModule.Tasks.TasksFromNavigator.Controls.HeatControlCreator heatControl;
+        private HeatControlCreator heatControl;
     }
 }

@@ -726,8 +726,8 @@ namespace BazisGUI
 
                 var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
                 var set = project.GetModelSetInfo(objType, setName);
-                var _converter = new SetInfoConverter(set);
-                var rows = _converter.GetRowProperty();
+
+                var rows = GetSetProperty(set);
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
