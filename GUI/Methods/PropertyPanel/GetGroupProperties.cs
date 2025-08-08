@@ -16,7 +16,7 @@ namespace BazisGUI
         {
             return new List<RowProperty>
             {
-                new RowProperty("Имя", obj.Name, null)
+                new RowProperty("Имя", obj.Name)
             };
         }
     }

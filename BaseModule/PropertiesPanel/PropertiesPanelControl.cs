@@ -25,12 +25,18 @@ namespace BaseModule.PropertiesPanel
         public PropertiesPanelControl()
         {
             InitializeComponent();
-
+            dataGridView1.DataError += DataGridView1_DataError; ;
             //dataGridView1.Controls.Add(_overlayComboBox);
             //_overlayComboBox.PreviewKeyDown += _overlayComboBox_PreviewKeyDown;
             //_overlayComboBox.Visible = false;
             //_overlayComboBox.Leave += _overlayComboBox_Leave;
         }
+
+        private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Pfukeirf
+        }
+
         public void DrawTable(List<RowProperty> rows)
         {
             //dataGridView1.DataSource = null;
@@ -157,16 +163,6 @@ namespace BaseModule.PropertiesPanel
             //    if (property.Value is System.Drawing.Color a)
             //        dataGridView1.Rows[cell.RowIndex].Cells[1].Value = a.Name;
             //}
-        }
-        /// <summary>
-        /// Исключение в DataGridView: System.ArgumentException: 
-        /// Недопустимое значение DataGridViewComboBoxCell. 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            /*Заглушка*/
         }
 
         #region [OverlayComboBox Logic (to be moved) ]

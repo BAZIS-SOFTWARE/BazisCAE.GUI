@@ -14,18 +14,9 @@ using BaseModule.Tasks.TasksFromNavigator;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
 using System.IO;
-using Geometry;
 using PreProc;
 using System.Diagnostics;
-using Model.Interfaces.ObjectsCollections;
-using Newtonsoft.Json;
 using PreProc.Interfaces;
-using BazisGUI.Scene.Interfaces;
-using Project.Results.IO;
-using BazisGUI.PropertiesPanel.Control;
-using static System.Resources.ResXFileRef;
-using System.Globalization;
-using BaseModule.PropertiesPanel;
 
 namespace BazisGUI
 {

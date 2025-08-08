@@ -4,7 +4,6 @@ using ClientLogic;
 using LicenseInfo;
 using Model.Interfaces;
 using Newtonsoft.Json;
-using Project;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -15,7 +14,6 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using UserControlsEx;
-using BazisGUI.PropertiesPanel;
 using PostProc;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene;
@@ -25,14 +23,6 @@ using OperationalController.GmshController;
 using OperationalController.ModelScenePresentator;
 using System.Collections.Generic;
 using OperationalController;
-using BazisGUI.Utilities;
-using Project.Interfaces.Tasks;
-using Project.Tasks;
-using BaseModule.Extensions;
-using BaseModule.Results.ScaleControl;
-using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
-using System.Data.Common;
-using System.Globalization;
 
 namespace BazisGUI
 {
@@ -55,7 +45,6 @@ namespace BazisGUI
         GmshController gmshController = new GmshController();
         IODataController dataController = new IODataController();
         PreProc.PreProc preProc = new PreProc.PreProc();
-        PropertyPanelProvider panelProvider = new PropertyPanelProvider();
         PostProcController resultsController = new PostProcController();
         IPresentersCreator presentersCreator = new PresentersCreator();
         VBOController VBOController = new VBOController();

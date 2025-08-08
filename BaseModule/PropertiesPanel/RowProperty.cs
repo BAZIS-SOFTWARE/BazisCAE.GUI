@@ -6,6 +6,10 @@ namespace BaseModule.PropertiesPanel
 {
     public class RowProperty //: DataGridViewRow // Свойства строки
     {
+        public override string ToString()
+        {
+            return $"{Header} {Value}";
+        }
         public string Header { get; } // Заголовок
         public object Value { get; set; } // Значение
         //public DataGridViewCell Initialization { get; } //Возврашает тип ячейки (textbox, combobox)

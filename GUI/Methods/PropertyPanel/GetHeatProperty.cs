@@ -1,8 +1,10 @@
 ﻿using BaseModule.PropertiesPanel;
-using BazisGUI.Utilities;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
+using Project.Tasks.FrameCreators;
+using Project.Tasks.Functions;
+using Project.Tasks.Functions.Welding;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
@@ -11,26 +13,26 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public List<RowProperty> GetClampProperty(ClampData obj, IEnumerable<IGroup> groups)
+        public List<RowProperty> GetHeatProperty(HeatData obj, IEnumerable<IGroup> groups, List<string> _func)
         {
             var rows = new List<RowProperty>
             {
-                new RowProperty("Группа узлов", obj.Group.Name,groups.
-                Where(x => x.ObjType == ObjType.Узел).
+                new RowProperty("Мощность, Дж", obj.Heat),
+                new RowProperty("Функция, F(t), F - Дж.", obj.TimeFunction,_func),
+                new RowProperty("Группа элементов", obj.Group.Name, 
+                groups.
+                Where(x => x.ObjType == obj.Group.ObjType).
                 Select(x => x.Name).ToList()),
-                new RowProperty("Вид", obj.Kind, Converters.GetEnumNames<ClampKind>()),
-                new RowProperty("Направление", obj.Direction,  Converters.GetEnumNames<Direction>()),
                 new RowProperty("Старт, сек.", obj.StartTime),
-                new RowProperty("Стоп, сек.", obj.StopTime)
+                new RowProperty("Стоп, сек.", obj.StopTime),
             };
-
-            var funcNames = new List<string>() { "*", "Custom" };
-
+            var funcNames = new List<string>() { "*", "SPH", "CIL", "Custom" };
+            
             if (obj.FrameFunction != null)
             {
                 rows.Add(new RowProperty
 (
- "Функция, F(v(x,y,z)), F - мм.| Н/мм.", obj.FrameFunction.Name, funcNames
+"Функция, F(v(x,y,z)), F - Дж.", obj.FrameFunction.Name, funcNames
 ));
                 rows.AddRange(GetFrameFunctionProperties(obj.FrameFunction));
                 rows.AddRange(GetLocalFrameProperties(obj.FrameFunction.LocalFrame, groups));
@@ -39,9 +41,10 @@ namespace BazisGUI
             {
                 rows.Add(new RowProperty
 (
- "Функция, F(v(x,y,z)), F - мм.| Н/мм.", "*", funcNames
+"Функция, F(v(x,y,z)), F - Дж.","*",funcNames
 ));
             }
+
 
             return rows;
         }

@@ -1,12 +1,5 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
+﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BazisGUI.PropertiesPanel.Control;
-using BazisGUI.PropertiesPanel.Control.TaskType;
-using BazisGUI.Utilities;
-using Model.Interfaces;
-using Project.Interfaces.Tasks;
 using Project.Tasks;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
@@ -15,10 +8,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Resources.ResXFileRef;
 
 namespace BazisGUI
 {
@@ -35,22 +24,20 @@ namespace BazisGUI
                 var _mats =
                 GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
 
-                DataConverter _converter;
-
-                var groups = project.GetAllModelGroups().Where(x => x.ObjType == data.Group.ObjType).ToList();
+                var groups = project.GetAllModelGroups();
 
                 List<RowProperty> rows;
 
                 if (arg1 == NodeName.Материал)
                     rows = GetMatProperty((MatData)data, _mats, groups);
-                else if (arg1 == NodeName.Среда) 
-                    _converter = new EnvironmentTaskConverter((MediaData)data, groups, _funcs);
-                else if (arg1 == NodeName.Нагрев) 
-                    _converter = new HeatTaskConverter((HeatData)data, groups, _funcs);
+                else if (arg1 == NodeName.Среда)
+                    rows = GetMediaProperty((MediaData)data, groups, _funcs);
+                else if (arg1 == NodeName.Нагрев)
+                    rows = GetHeatProperty((HeatData)data, groups, _funcs);
                 else if (arg1 == NodeName.Закрепление)
-                    _converter = new ClampTaskConverter((ClampData)data, groups);
-                else if (arg1 == NodeName.Нагрузка) 
-                    _converter = new LoadTaskConverter((LoadData)data, _funcs, groups);
+                    rows = GetClampProperty((ClampData)data, groups);
+                else if (arg1 == NodeName.Нагрузка)
+                    rows = GetLoadProperty((LoadData)data, _funcs, groups);
                 else throw new NotImplementedException("Тип задачи не определен");
 
 

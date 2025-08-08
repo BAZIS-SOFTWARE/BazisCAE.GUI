@@ -18,8 +18,8 @@ namespace BazisGUI
         {
             return new List<RowProperty>
             {
-               new RowProperty("Имя", _objectsSet.Name, null),
-               new RowProperty( "Цвет", _objectsSet.Color,null),
+               new RowProperty("Имя", _objectsSet.Name),
+               new RowProperty( "Цвет", _objectsSet.Color),
                new RowProperty("Представление",_objectsSet.ViewMode,
                Converters.GetEnumNames<ViewMode>())
             };

@@ -9,16 +9,39 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public List<RowProperty> GetLocalFrameProperty(LocalFrame frame)
+        public List<RowProperty> GetLocalFrameProperties(LocalFrame frame, IEnumerable<IGroup> groups)
         {
-            List<RowProperty> rows = new List<RowProperty>();
+            var rows = new List<RowProperty>();
 
-            rows.Add(new RowProperty("Смещение по Х", frame.Shifting._x));
-            rows.Add(new RowProperty("Смещение по Х", frame.Shifting._y));
-            rows.Add(new RowProperty("Смещение по Х", frame.Shifting._z));
-            rows.Add(new RowProperty("Поворот вокруг Х", frame.Rotation));
-            if (frame is MovedFrame mff)
-                rows.Add(new RowProperty("Скорость", mff.Velocity));
+            rows.Add(new RowProperty
+ (
+     "Система координат",
+     frame is MovedFrame == true ? "MRF" : "SRF",
+     new List<string>() { "MRF" , "SRF" }
+ ));
+
+            if (frame is MovedFrame mf)
+            {
+                rows.Add(new RowProperty("Траектория", mf.BaseLine.Name, 
+                    groups.
+                    Where(x=> x.ObjType == ObjType.Узел).
+                    Select(x => x.Name).ToList()));
+                rows.Add(new RowProperty("Опорная линия", mf.RefLine.Name, 
+                    groups.
+                    Where(x => x.ObjType == ObjType.Узел).
+                    Select(x => x.Name).ToList()));
+                rows.Add(new RowProperty("Скорость, мм./сек.", mf.Velocity));
+            }
+            else
+            {
+                var sf = frame as StaticFrame;
+                rows.Add(new RowProperty("Плоскость", sf.BaseGroup.Name, groups.Select(x => x.Name).ToList()));
+            }
+            rows.Add(new RowProperty("Смещение x", frame.Shifting._x));
+            rows.Add(new RowProperty("Смещение y", frame.Shifting._y));
+            rows.Add(new RowProperty("Смещение z", frame.Shifting._z));
+            rows.Add(new RowProperty("Поворот x", frame.Rotation));
+
             return rows;
         }
     }

@@ -1,21 +1,8 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Mesh;
-using BaseModule.Mesh.SettingsControls;
-using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
-using BazisGUI.PropertiesPanel.Control;
-using BazisGUI.Utilities;
-using GmshApi;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BazisGUI
 {
