@@ -9,24 +9,9 @@ package "Core" {
 [GMSH Api]
 }
 
-package "BaseForm" {
-[IOController]
-[settingsConfig]
-[VBOController]
-[property provider]
-[baseForm]
-}
-
-package "BaseModule" {
-[baseForm] --> [console]
-[baseForm] --> [navigator]
-[baseForm] --> [property panel]
-
-}
 [baseForm] --> [ClientController]
-[baseForm] --> [OpenGL Api]
+[baseForm] --> [Tao.OpenGL Api]
 
-[property provider] --> [proj controller]
 [baseForm] --> [postProc]
 [baseForm] --> [preProc]
 [baseForm] --> [proj controller]

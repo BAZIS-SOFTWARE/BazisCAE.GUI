@@ -605,7 +605,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
-    <None Include="Documents\components.mdpuml" />
+    <None Include="Documents\Classes.mdpuml" />
+    <None Include="Documents\Components.mdpuml" />
     <Content Include="IconShort_16.ico" />
     <Content Include="IconShort_32.ico" />
     <None Include="Documents\EditingObjectProperties.mdpuml" />

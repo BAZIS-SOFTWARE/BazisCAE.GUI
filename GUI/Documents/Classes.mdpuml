@@ -1,0 +1,9 @@
+﻿@startuml
+
+class BaseForm
+
+BaseForm *- IOController
+BaseForm *- VBOController
+BaseForm *- settingsConfig
+
+@enduml

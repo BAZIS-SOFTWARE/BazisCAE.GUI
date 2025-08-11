@@ -2,7 +2,7 @@
 
 |#pink|Navigator|
 |#lightblue|PropertiesPanel|
-|#blue|PropertiesProvider|
+|#blue|BaseForm|
 |Controller|
 
 |#pink|Navigator|
@@ -27,7 +27,7 @@ note left
 - параметры задачи
 end note
 
-|#blue|PropertiesProvider|
+|#blue|BaseForm|
 :формирование списка строк;
 note
 каждая строка 
@@ -59,11 +59,10 @@ end note
 
 |Controller|
 :изменение свойства;
-note left
-Если это условие задачи и выбирается координатная фун-я
-, то происходит вызов окна с ее параметрами
-end note
-:вывод на экран, консоль, навигатор;
+
+|#lightblue|PropertiesPanel|
+:повторное
+отрисовывание таблицы;
 stop
 
 @enduml
