@@ -1,12 +1,10 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
+using BazisGUI.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BazisGUI
 {
@@ -19,26 +17,28 @@ namespace BazisGUI
                 if (project == null)
                     return;
 
-                    List<RowProperty> rows = new List<RowProperty>();
+                
+                List<RowProperty> rows = new List<RowProperty>();
                 if (arg1 == NodeName.вид)
                 {
-                    /* TO DO
-                    
+                    /* TO DO  
                     1. Преобразовать arg2 в нужный enum (TaskKind)
                     2. Сформировать RowProperty со списком перечислителей
                     3. Добавить RowProperty в rows
-
                     */
+                    var selectedTaskKind = project.ProjectKind;
+                    rows = GetTaskKindProperty(selectedTaskKind);
+
                 }
                 else if (arg1 == NodeName.тип)
                 {
                     /* TO DO
-                    
                     1. Преобразовать arg2 в нужный enum (TaskType)
                     2. Сформировать RowProperty со списком перечислителей
                     3. Добавить RowProperty в rows
-
                     */
+                    var selectedTaskType = project.ProjectType;
+                    rows = GetTaskTypeProperty(selectedTaskType);
                 }
                 propertiesPanel.DrawTable(rows);             
             }
