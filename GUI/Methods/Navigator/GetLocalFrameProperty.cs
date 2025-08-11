@@ -22,11 +22,11 @@ namespace BazisGUI
 
             if (frame is MovedFrame mf)
             {
-                rows.Add(new RowProperty("Траектория", mf.BaseLine.Name, 
+                rows.Add(new RowProperty("Траектория", mf.BaseLine?.Name == null ? "*" : mf.BaseLine.Name, 
                     groups.
                     Where(x=> x.ObjType == ObjType.Узел).
                     Select(x => x.Name).ToList()));
-                rows.Add(new RowProperty("Опорная линия", mf.RefLine.Name, 
+                rows.Add(new RowProperty("Опорная линия", mf.RefLine?.Name == null ? "*" : mf.RefLine.Name,
                     groups.
                     Where(x => x.ObjType == ObjType.Узел).
                     Select(x => x.Name).ToList()));
@@ -35,7 +35,8 @@ namespace BazisGUI
             else
             {
                 var sf = frame as StaticFrame;
-                rows.Add(new RowProperty("Плоскость", sf.BaseGroup.Name, groups.Select(x => x.Name).ToList()));
+                rows.Add(new RowProperty("Плоскость", 
+                    sf.BaseGroup?.Name == null ? "*" : sf.BaseGroup?.Name, groups.Select(x => x.Name).ToList()));
             }
             rows.Add(new RowProperty("Смещение x", frame.Shifting._x));
             rows.Add(new RowProperty("Смещение y", frame.Shifting._y));

@@ -19,26 +19,26 @@ namespace BazisGUI
                 if (project == null)
                     return;
 
-                    List<RowProperty> rows = null;
+                    List<RowProperty> rows = new List<RowProperty>();
                 if (arg1 == NodeName.вид)
                 {
-                    // TO DO
-                    //rows = panelProvider.GetRowProperties(project.ProjectKind);
+                    /* TO DO
+                    
+                    1. Преобразовать arg2 в нужный enum (TaskKind)
+                    2. Сформировать RowProperty со списком перечислителей
+                    3. Добавить RowProperty в rows
+
+                    */
                 }
                 else if (arg1 == NodeName.тип)
                 {
-                    // TO DO
-                    //rows = panelProvider.GetRowProperties(project.ProjectType);
-                }
-                else if (arg1 == NodeName.базаФункций)
-                {
-                    // TO DO
-                    //rows = panelProvider.GetRowProperties(project.FunctionsDB);
-                }
-                else if (arg1 == NodeName.базаМатериалов)
-                {
-                    // TO DO
-                    //rows = panelProvider.GetRowProperties(project.MaterialsDB);
+                    /* TO DO
+                    
+                    1. Преобразовать arg2 в нужный enum (TaskType)
+                    2. Сформировать RowProperty со списком перечислителей
+                    3. Добавить RowProperty в rows
+
+                    */
                 }
                 propertiesPanel.DrawTable(rows);             
             }

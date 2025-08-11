@@ -10,6 +10,7 @@ namespace BaseModule.PropertiesPanel
     public partial class PropertiesPanelControl : PinnedPage
     {
         public event Action<PropertyChangedEventArgs> PropertyUpdateEvent;
+        public event Action<PropertyChangedEventArgs> ReDrawEvent;
 
         public delegate bool Validator(string header, string value, out string corrected);
         public event Validator ValidateValue;
@@ -25,26 +26,7 @@ namespace BaseModule.PropertiesPanel
         public PropertiesPanelControl()
         {
             InitializeComponent();
-            dataGridView1.DataError += DataGridView1_DataError; ;
-            //dataGridView1.Controls.Add(_overlayComboBox);
-            //_overlayComboBox.PreviewKeyDown += _overlayComboBox_PreviewKeyDown;
-            //_overlayComboBox.Visible = false;
-            //_overlayComboBox.Leave += _overlayComboBox_Leave;
-        }
-
-        private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            // Pfukeirf
-        }
-
-        public void DrawTable(List<RowProperty> rows)
-        {
-            //dataGridView1.DataSource = null;
-            //dataGridView1.AutoGenerateColumns = false;
-            //dataGridView1.AllowUserToResizeRows = false;
-            dataGridView1.Columns.Clear();
-            //dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.DataError += DataGridView1_DataError;
 
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -68,7 +50,31 @@ namespace BaseModule.PropertiesPanel
                 //ReadOnly = false
             });
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //dataGridView1.Controls.Add(_overlayComboBox);
+            //_overlayComboBox.PreviewKeyDown += _overlayComboBox_PreviewKeyDown;
+            //_overlayComboBox.Visible = false;
+            //_overlayComboBox.Leave += _overlayComboBox_Leave;
+        }
 
+        private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Pfukeirf
+        }
+
+        public void ClearTable()
+        {
+            dataGridView1.Rows.Clear();
+        }
+
+        public void DrawTable(List<RowProperty> rows)
+        {
+            //dataGridView1.DataSource = null;
+            //dataGridView1.AutoGenerateColumns = false;
+            //dataGridView1.AllowUserToResizeRows = false;
+            //dataGridView1.Columns.Clear();
+            //dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.Rows.Clear();
             // Тут при создании строки таблицы должно происходить автоопределение типа элемента ячейки
             // comboBox,TextBox, CheckBox etc.
             foreach (var prop in rows)// Инициализация строк через RowProperty
@@ -114,55 +120,18 @@ namespace BaseModule.PropertiesPanel
                 //StartUpdate(cell);
             //}
         }
-        private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString() != ValidationType.None.ToString())
-            {
-                var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-                var tag = dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString();
-                var corrected = newValue;
-                _isValid = ValidateValue?.Invoke(tag, newValue, out corrected) ?? true;
 
-                if (!_isValid)
-                {
-                    dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = _oldValue;
-                    return;
-                }
-                if (newValue != corrected) dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = corrected;
-            }
-
-            var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            //var property = _rowProperties[e.RowIndex];
-            //if (property != null)
-            //{
-            CellValueChanged(cell);
-            //}
-        }
         public void CellValueChanged(DataGridViewCell e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
                 var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+                var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
 
-                var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
+                //dataGridView1.Rows.Clear();
+
                 PropertyUpdateEvent?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
             }
-        }
-        private void StartUpdate(DataGridViewCell cell)
-        {
-            //var newValue = property.Value;//Update(cell);
-            //property.Value = newValue;
-            //if (newValue is string str)
-            //    dataGridView1.Rows[cell.RowIndex].Cells[1].Value = newValue;
-
-            //else if(newValue is Color col)
-            //    dataGridView1.Rows[cell.RowIndex].Cells[1].Value = col.Name;
-            //CellValueChanged(cell);
-            //if (!Equals(newValue, property.Value) && newValue != _oldValue)
-            //{
-            //    if (property.Value is System.Drawing.Color a)
-            //        dataGridView1.Rows[cell.RowIndex].Cells[1].Value = a.Name;
-            //}
         }
 
         #region [OverlayComboBox Logic (to be moved) ]
@@ -213,5 +182,29 @@ namespace BaseModule.PropertiesPanel
             }
         }
         #endregion
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString() != ValidationType.None.ToString())
+            {
+                var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                var tag = dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString();
+                var corrected = newValue;
+                _isValid = ValidateValue?.Invoke(tag, newValue, out corrected) ?? true;
+
+                if (!_isValid)
+                {
+                    dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = _oldValue;
+                    return;
+                }
+                if (newValue != corrected) dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = corrected;
+            }
+
+            var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            //var property = _rowProperties[e.RowIndex];
+            //if (property != null)
+            //{
+            CellValueChanged(cell);
+        }
     }
 }

@@ -72,9 +72,14 @@ namespace BaseModule.Navigator
         public TreeNode SelectedNode
         {
             get 
-            { 
+            {
                 return treeView.SelectedNode; 
             }
+        }
+
+        public void SelectNode(TreeNode treeNode)
+        {
+            treeView.SelectedNode = treeNode;
         }
 
         private const string VIRTUALNODE = "VIRT";

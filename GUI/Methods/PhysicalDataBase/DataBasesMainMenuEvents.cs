@@ -103,6 +103,9 @@ namespace BazisGUI
 
         public void ChangeFuncDBEventHandler(FunctionDataBasePage funBasePage)
         {
+            if (project == null)
+                return;
+
             if (funBasePage.DbPath != project.Path)
                 IOFileController.CopyFile(funBasePage.DbName, funBasePage.DbPath, project.Path);
 
@@ -114,6 +117,9 @@ namespace BazisGUI
 
         public void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
         {
+            if (project == null)
+                return; 
+
             if (matBasePage.DbPath != project.Path)
                 IOFileController.CopyFile(matBasePage.DbName, matBasePage.DbPath, project.Path);
 

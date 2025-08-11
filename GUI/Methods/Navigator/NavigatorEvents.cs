@@ -17,6 +17,7 @@ using System.IO;
 using PreProc;
 using System.Diagnostics;
 using PreProc.Interfaces;
+using Project.Tasks;
 
 namespace BazisGUI
 {
@@ -325,58 +326,7 @@ namespace BazisGUI
 
         }
 
-        private void navigator_AddConditionEvent(object arg1, NodeName arg2)
-        {
-            try
-            {
-                System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
-                var generalForm = new Form
-                {
-                    Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon"))),
-                    Text = "Инструмент создания физических данных",
-                    AutoSize = true,
-                    AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                    FormBorderStyle = FormBorderStyle.FixedSingle,
-                    MaximizeBox = false,
-                    MinimizeBox = false
-                };
-
-                var elLoadGrpsNames = GetLoadGroupsNames(project.ProjectType, project.ModelData);
-                var ndGrpsNames = project.ModelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList();
-
-                var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
-                if (appFolder == project.Path)
-                {
-                    MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
-                    return;
-                }
-                var matDB = GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path);
-                var funDB = GetDataBase<FunctionDBData>(project.FunctionsDB, project.Path);
-
-                if (matDB == null || funDB == null)
-                {
-                    console.PrintInfo("Не выбран источник базы данных!", Color.Red);
-                    return;
-                }
-                var mat = matDB.Keys.ToList();
-                var func = funDB.Keys.ToList();
-
-                var generalControlCreator = new GeneralСontrol(arg2.ToString(), mat, func, elLoadGrpsNames, ndGrpsNames);
-                generalControlCreator.CreatePhysicalDataEvent += (arg) => { AddConditions(arg); };
-                //generalControlCreator.CreatePhysicalDataEvent += (s) => generalForm.Close();
-                generalForm.Controls.Add(generalControlCreator);
-                generalForm.Show(this);
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-            
-        }
-
-
-
-        
+       
 
         private void navigator_HideAllGroupsEvent()
         {

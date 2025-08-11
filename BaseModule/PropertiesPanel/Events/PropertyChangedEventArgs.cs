@@ -5,10 +5,10 @@ namespace BaseModule.PropertiesPanel
     public class PropertyChangedEventArgs : EventArgs
     {
         public string Header { get; set; }
-        public object NewValue { get; set; }
-        public object OldValue { get; }
+        public string NewValue { get; set; }
+        public string OldValue { get; }
 
-        public PropertyChangedEventArgs(string header, object newValue, object oldValue)
+        public PropertyChangedEventArgs(string header, string newValue, string oldValue)
         {
             Header = header;
             NewValue = newValue;

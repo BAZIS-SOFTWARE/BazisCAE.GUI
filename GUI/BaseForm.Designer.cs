@@ -365,6 +365,7 @@ namespace BazisGUI
             this.checkPlayerControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkPlayerControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.checkPlayerControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.checkPlayerControl.Cancelation = false;
             this.checkPlayerControl.CheckState = BaseModule.Player.CheckState.start;
             this.checkPlayerControl.CurrentValue = 50;
             this.checkPlayerControl.Location = new System.Drawing.Point(0, 105);

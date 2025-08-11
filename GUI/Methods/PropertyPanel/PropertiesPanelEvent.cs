@@ -5,10 +5,15 @@ using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using GmshApi;
+using Project.Interfaces.Tasks;
 using Project.Tasks;
+using PropertiesCalculator.FunctionData;
+using PropertiesCalculator.MaterialData;
 using System;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 
 namespace BazisGUI
 {
@@ -16,6 +21,8 @@ namespace BazisGUI
     {
         private void propertiesPanel_OnPropertyUpdate(PropertyChangedEventArgs obj)
         {
+            try
+            {
             // В зависимости от свойства данных проекта (modelData, TaskData etc
             // вызывать нужный метод в controller
             var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
@@ -71,52 +78,100 @@ namespace BazisGUI
 
             else if(navigator.SelectedNode.Level == 1)
             {
-                if (nodeName == NodeName.Элемент3D |
-                    nodeName == NodeName.Элемент2D |
-                    nodeName == NodeName.Элемент1D |
-                    nodeName == NodeName.Узел
-                    )
+                var index = navigator.SelectedNode.Index;
+                var parentName = navigator.SelectedNode.Parent.Name.ToEnum<NodeName>();
+                if (parentName == NodeName.группыОбъектов)
                 {
-                    var index = navigator.SelectedNode.Index;
-                    ChangeMeshGroupProperties(obj, index);
-                    PresentGroupDataOnTree();
-                    PresentCondDataOnTree();
+                    if (nodeName == NodeName.Элемент3D |
+    nodeName == NodeName.Элемент2D |
+    nodeName == NodeName.Элемент1D |
+    nodeName == NodeName.Узел
+    )
+                    {         
+                        ChangeMeshGroupProperties(obj, index);
+                        PresentGroupDataOnTree();
+                        PresentCondDataOnTree();
+                    }
                 }
-                else if(nodeName == NodeName.Материал)
+                else if(parentName == NodeName.условия)
                 {
-                    var index = navigator.SelectedNode.Index;
-                    var cond = project.TaskData[index];
-                    ChangeCondProperties(obj, cond);
-                    ChangeMatProperties(obj, (MatData)cond);
-                    PresentCondDataOnTree();
-                }
-                else if(nodeName == NodeName.Закрепление|
-                    nodeName == NodeName.Нагрев |
-                    nodeName == NodeName.Нагрузка |
-                    nodeName == NodeName.Среда
-                    )
-                {
-                    var index = navigator.SelectedNode.Index;
-                    var cond = project.TaskData[index];
-                    ChangeCondProperties(obj, cond);
-                    PresentCondDataOnTree();
-                }
+                        var _funcs =
+GetDataBase<FunctionDBData>(project.FunctionsDB, project.Path).Keys.ToList();
+                        var _mats =
+GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
+                        var groups = project.GetAllModelGroups();
+                        var cond = project.TaskData[index];
+                    if (nodeName == NodeName.Материал)
+                    {
+                            ChangeMatProperties(obj, (MatData)cond);
+                            var rows = GetMatProperty((MatData)cond, _mats, groups);
+                            propertiesPanel.DrawTable(rows);
+                        }
+                    else if(nodeName == NodeName.Нагрев)
+                        {
+                            ChangeGeneralProperties(obj, cond);
+                            var rows = GetHeatProperty((HeatData)cond, groups,_funcs);
+                            propertiesPanel.DrawTable(rows);
+                        }
+                    else if (nodeName == NodeName.Закрепление |
+                        nodeName == NodeName.Нагрев |
+                        nodeName == NodeName.Нагрузка |
+                        nodeName == NodeName.Среда
+                        )
+                    {
+                        ChangeGeneralProperties(obj, cond);
+                            //PresentCondDataOnTree();
+                    }
+                    navigator.SelectedNode.Text = cond.ToString();
+
+                    }
+                
             }
 
+            else if(navigator.SelectedNode.Level == 0)
+                {
+                    if(nodeName == NodeName.вид)
+                    {
+                        /*
+                        * TO DO
+                        * 1. Перобразовать текст выбранного узла в нужный enum
+                        * 2. вызвать метод в контроллере для изменения вида задачи. 
+                        * Метод нужно реализовать. Метод назвать ChangeTaskKind(TaskKind taskKind).
+                        * Вызов project.ChangeTaskKind(TaskKind taskKind);
+                        * 3. Обновить текст выбранного узла. Только тескт узла. Без обносления всего дерева.
+                        */
+                        //var index = navigator.SelectedNode.Index;
+                        //var text = navigator.SelectedNode.Text; 
+                    }
+                    else if(nodeName == NodeName.тип)
+                    {
+                        /*
+                        * TO DO
+                        * 1. Перобразовать текст выбранного узла в нужный enum
+                        * 2. вызвать метод в контроллере для изменения вида задачи. 
+                        * Метод нужно реализовать. Метод назвать ChangeTaskType(TaskType taskType).
+                        * Вызов project.ChangeTaskType(TaskType taskType);
+                        * 3. Обновить текст выбранного узла. Только тескт узла. Без обносления всего дерева.
+                        */
+                    }
 
 
-           
-            
-            // Вынести обновление свойств объктов сюда!!! Важно..
 
-            // TO DO оптимизировать. Обновлять на дереве только те данные, которые на самом деле изменились
-            PresentTaskTypeAndKind();
-            
-            
+                }
 
-            //if (obj is TaskPage taskPage)
-            //PresentCondDataOnTree();
+                // Вынести обновление свойств объктов сюда!!! Важно..
 
+                // TO DO оптимизировать. Обновлять на дереве только те данные, которые на самом деле изменились
+                PresentTaskTypeAndKind();
+
+                //if (obj is TaskPage taskPage)
+                //PresentCondDataOnTree();
+
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
 

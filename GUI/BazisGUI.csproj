@@ -133,17 +133,17 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="OperationalController, Version=3.1.37.55, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\OperationalController.3.1.37.55\lib\netstandard2.0\OperationalController.dll</HintPath>
+    <Reference Include="OperationalController, Version=3.1.45.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\OperationalController.3.1.45\lib\netstandard2.0\OperationalController.dll</HintPath>
     </Reference>
-    <Reference Include="PostProc, Version=1.5.0.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostProc.1.5.0\lib\netstandard2.0\PostProc.dll</HintPath>
+    <Reference Include="PostProc, Version=1.5.8.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostProc.1.5.8\lib\netstandard2.0\PostProc.dll</HintPath>
     </Reference>
-    <Reference Include="PreProc, Version=1.2.8.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
-      <HintPath>..\packages\PreProc.1.2.8\lib\netstandard2.0\PreProc.dll</HintPath>
+    <Reference Include="PreProc, Version=1.3.6.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
+      <HintPath>..\packages\PreProc.1.3.6\lib\netstandard2.0\PreProc.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=4.6.97.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.4.6.97\lib\netstandard2.0\Project.dll</HintPath>
+    <Reference Include="Project, Version=4.7.7.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.4.7.7\lib\netstandard2.0\Project.dll</HintPath>
     </Reference>
     <Reference Include="PropertiesCalculator, Version=1.0.4.0, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -308,34 +308,37 @@
     <Compile Include="Methods\Player\Checking.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\PropertyPanel\GetClampProperty.cs">
+    <Compile Include="Methods\Navigator\GetClampProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\PropertyPanel\GetFrameFunctionProperties.cs">
+    <Compile Include="Methods\Navigator\GetFrameFunctionProperties.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\PropertyPanel\GetMediaProperty.cs">
+    <Compile Include="Methods\Navigator\GetMediaProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\PropertyPanel\GetLocalFrameProperty.cs">
+    <Compile Include="Methods\Navigator\GetLocalFrameProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\PropertyPanel\GetLoadProperty.cs">
+    <Compile Include="Methods\Navigator\GetLoadProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\PropertyPanel\GetHeatProperty.cs">
+    <Compile Include="Methods\Navigator\GetHeatProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\PropertyPanel\GetMatProperty.cs">
+    <Compile Include="Methods\Navigator\GetMatProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\PropertyPanel\GetSetProperty.cs">
+    <Compile Include="Methods\Navigator\GetSetProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\PropertyPanel\GetGroupProperties.cs">
+    <Compile Include="Methods\Navigator\GetGroupProperties.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PropertyPanel\ChangeCondProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\PropertyPanel\ChangeTaskTypeProperties.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PropertyPanel\PropertiesPanelEvent.cs">

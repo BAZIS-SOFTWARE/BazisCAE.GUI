@@ -664,7 +664,7 @@ namespace BazisGUI
 
                 var folderName = dialog.SelectedPath;
 
-                project = dataController.CreateNewProject(folderName, "newProject");
+                project = dataController.CreateNewProject(folderName, "newProject.bpf2");
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
