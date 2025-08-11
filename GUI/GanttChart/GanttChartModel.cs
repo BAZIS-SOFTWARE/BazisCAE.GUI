@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Drawing;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -43,13 +44,14 @@ namespace BaseModule.GanttChart
         {
             var series = Chart.Series.Add("gantt diagram");
             series.ChartType = SeriesChartType.RangeBar;
-            series.YValueType = ChartValueType.Double;
+            series.YValueType = ChartValueType.Single;
             series.SetCustomProperty("PixelPointWidth", "30");
 
             ConfigureAxisX(barMaxCount);
             ConfigureAxisY(minValue, maxValue, intervalLength);
         }
 
+        //vertical axis
         private void ConfigureAxisX(int barMaxCount)
         {
             var ax = Chart.ChartAreas[0].AxisX;
@@ -58,23 +60,22 @@ namespace BaseModule.GanttChart
             ax.MajorGrid.Enabled = false;
             ax.IsLabelAutoFit = true;
             ax.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;
+
             ax.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
             ax.ScrollBar.BackColor = Color.FromKnownColor(KnownColor.Control);
             ax.ScrollBar.ButtonColor = Color.FromKnownColor(KnownColor.Control);
             ax.ScrollBar.LineColor = Color.FromKnownColor(KnownColor.Control);
         }
 
+        //horizontal axis
         private void ConfigureAxisY(double minValue, double maxValue, double intervalLength)
         {
             var ay = Chart.ChartAreas[0].AxisY;
             ay.Minimum = minValue;
             ay.Maximum = maxValue;
-            //ay.MajorGrid.Interval = intervalLength;
             ay.IntervalAutoMode = IntervalAutoMode.FixedCount;
-            //ay.LabelStyle.Interval = intervalLength;
             ay.IsLabelAutoFit = true;
             ay.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep30;
-            ay.ScaleView.Size = maxValue;
             ay.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
             ay.ScrollBar.BackColor = Color.FromKnownColor(KnownColor.Control);
             ay.ScrollBar.ButtonColor = Color.FromKnownColor(KnownColor.Control);
