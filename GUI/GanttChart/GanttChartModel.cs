@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Drawing;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -58,7 +58,6 @@ namespace BaseModule.GanttChart
             ax.MajorGrid.Enabled = false;
             ax.IsLabelAutoFit = true;
             ax.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;
-            ax.ScaleView.Size = 8;
             ax.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
             ax.ScrollBar.BackColor = Color.FromKnownColor(KnownColor.Control);
             ax.ScrollBar.ButtonColor = Color.FromKnownColor(KnownColor.Control);
@@ -69,12 +68,13 @@ namespace BaseModule.GanttChart
         {
             var ay = Chart.ChartAreas[0].AxisY;
             ay.Minimum = minValue;
-            ay.Maximum = maxValue + intervalLength;
-            ay.MajorGrid.Interval = intervalLength;
-            ay.LabelStyle.Interval = intervalLength;
+            ay.Maximum = maxValue;
+            //ay.MajorGrid.Interval = intervalLength;
+            ay.IntervalAutoMode = IntervalAutoMode.FixedCount;
+            //ay.LabelStyle.Interval = intervalLength;
             ay.IsLabelAutoFit = true;
             ay.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep30;
-            ay.ScaleView.Size = 0.9 * maxValue;
+            ay.ScaleView.Size = maxValue;
             ay.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
             ay.ScrollBar.BackColor = Color.FromKnownColor(KnownColor.Control);
             ay.ScrollBar.ButtonColor = Color.FromKnownColor(KnownColor.Control);
