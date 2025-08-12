@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -40,7 +39,7 @@ namespace BaseModule.GanttChart
             }
         }
 
-        private void ConfigureChart(double minValue, double maxValue, double intervalLength, int barMaxCount)
+        private void ConfigureChart(double minValue, double maxValue, double averageBarSize, int barMaxCount)
         {
             var series = Chart.Series.Add("gantt diagram");
             series.ChartType = SeriesChartType.RangeBar;
@@ -48,7 +47,7 @@ namespace BaseModule.GanttChart
             series.SetCustomProperty("PixelPointWidth", "30");
 
             ConfigureAxisX(barMaxCount);
-            ConfigureAxisY(minValue, maxValue, intervalLength);
+            ConfigureAxisY(minValue, maxValue);
         }
 
         //vertical axis
@@ -60,19 +59,20 @@ namespace BaseModule.GanttChart
             ax.MajorGrid.Enabled = false;
             ax.IsLabelAutoFit = true;
             ax.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;
-
             ax.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
             ax.ScrollBar.BackColor = Color.FromKnownColor(KnownColor.Control);
             ax.ScrollBar.ButtonColor = Color.FromKnownColor(KnownColor.Control);
             ax.ScrollBar.LineColor = Color.FromKnownColor(KnownColor.Control);
+            ax.ScrollBar.IsPositionedInside = false;
+            ax.ScaleView.Size = 9;
         }
 
         //horizontal axis
-        private void ConfigureAxisY(double minValue, double maxValue, double intervalLength)
+        private void ConfigureAxisY(double minValue, double maxValue)
         {
             var ay = Chart.ChartAreas[0].AxisY;
             ay.Minimum = minValue;
-            ay.Maximum = maxValue;
+            ay.Maximum = Math.Ceiling(maxValue * 1.1);
             ay.IntervalAutoMode = IntervalAutoMode.FixedCount;
             ay.IsLabelAutoFit = true;
             ay.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep30;
@@ -80,6 +80,8 @@ namespace BaseModule.GanttChart
             ay.ScrollBar.BackColor = Color.FromKnownColor(KnownColor.Control);
             ay.ScrollBar.ButtonColor = Color.FromKnownColor(KnownColor.Control);
             ay.ScrollBar.LineColor = Color.FromKnownColor(KnownColor.Control);
+            ay.ScrollBar.IsPositionedInside = true;
+            ay.ScaleView.Size = 30;
         }
     }
 }
