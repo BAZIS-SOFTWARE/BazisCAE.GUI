@@ -10,10 +10,12 @@ using Project.Tasks;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -149,18 +151,17 @@ GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
 
             else if(navigator.SelectedNode.Level == 0)
                 {
-                    if(nodeName == NodeName.вид)
+                    if (nodeName == NodeName.вид)
                     {
                         ChangeTaskKindProperties(obj);
                     }
                     else if(nodeName == NodeName.тип)
                     {
-
                         ChangeTaskTypeProperties(obj);
+                        navigator.SelectedNode.Parent.Nodes.Clear();
                     }
-
-
-
+                    navigator.TrySearchNodes(NodeName.условия, out List<TreeNode> nodes);
+                    nodes[0].Nodes.Clear();
                 }
 
                 // Вынести обновление свойств объктов сюда!!! Важно..

@@ -29,30 +29,40 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectObjectEvent(NodeName arg1, string arg2, int arg3)
+        private void navigator_SelectObjectEvent(NodeName nodeName, string setName, int number)
         {
             try
             {
-                var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
+                var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
                 //var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
-                var objects = project.GetModelObjects(objType);
-                var item = objects.FirstOrDefault(x => x.Number == arg3);
 
 
                 // TO DO
                 var rows = new List<RowProperty>();
                 if (objType == ObjType.Точка)
                 {
-                    var dimTags = new int[] { 0, arg3 };
+                    var dimTags = new int[] { 0, number };
                     var meshSize = gmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
 
                     var row = new RowProperty("Размер элементов", meshSize[0]);
                     rows.Add(row);
                 }
 
+                else if(objType == ObjType.Узел)
+                {
+                    var node = (Node)project.GetModelObject(objType, number);
+
+                    /*
+                     * Из объекта item сформировать строки (rowProperties)
+                     * строка 1 - номер
+                     * строка 2,3,4 - координата x,y,z
+                     * строка 5 - с какими элементами связан. Только номера (GetElements())
+                     */
+                }
+
                 else if(objType == ObjType.Кривая)
                 {
-                    rows.AddRange(GetCurveProperties(arg3));
+                    rows.AddRange(GetCurveProperties(number));
                 }
                 //var _converter = new ModelObjectConverter(item);
                 propertiesPanel.DrawTable(rows);
