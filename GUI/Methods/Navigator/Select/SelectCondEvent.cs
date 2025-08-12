@@ -5,7 +5,6 @@ using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
 
