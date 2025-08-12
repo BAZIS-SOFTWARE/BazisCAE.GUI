@@ -225,7 +225,9 @@
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GanttChart\GanttChartModel.cs" />
-    <Compile Include="GanttChart\GanttChartTreeView.cs" />
+    <Compile Include="GanttChart\GanttChartTreeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="GanttChart\GanttChartTreeView.Designer.cs">
       <DependentUpon>GanttChartTreeView.cs</DependentUpon>
     </Compile>
