@@ -29,14 +29,15 @@ namespace BazisGUI
 
             if (navigator.SelectedNode.Level == 3)
             {
-                if (nodeName == NodeName.Элемент3D |
+                    var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
+                    if (nodeName == NodeName.Элемент3D |
           nodeName == NodeName.Элемент2D |
           nodeName == NodeName.Элемент1D |
           nodeName == NodeName.Узел
           )
                 {
                     var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
-                    var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
+  
 
                     // получаем объект
                     var mObj = project.GetModelObject(objType, number);
@@ -56,8 +57,26 @@ namespace BazisGUI
                 }
                 else if (nodeName == NodeName.Кривая)
                 {
-                    // Тут задаем настройки сетки в кривых геометрии
-                    //SetCurveAttribute()
+                        var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite {number}");
+
+ 
+                        if (obj.Header == "Алгоритм")
+                        {
+                            if (attributes.Length == 0)
+                                attributes = new string[] { "0", obj.NewValue,"1" };
+                            
+                            attributes[1] = obj.NewValue;
+                            //1 - law
+                            //2 - koeff
+                            //0 - points
+                            gmshController.Gmsh.Model.SetAttribute($"transfinite {number}", attributes);
+                        }
+
+                        //if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
+                        //{
+                        //    MeshType meshtType = (MeshType)Enum.Parse(typeof(MeshType), arg2.Attributes[1], true);
+                        //    gmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(arg2.Tag, arg2.Points, meshtType, arg2.Coef);
+                        //}
                 }
                 else if (nodeName == NodeName.Объем)
                 {
@@ -159,17 +178,25 @@ GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
             }
         }
 
+        //public void SetCurveAttributes(string[] attributes)
+        //{
+        //    if (attributes.Length == 0)
+        //        ResetTransfinition();
+        //    else
+        //    {
+        //        var law = attributes[1];
+        //        if (rbtnBump.Text.Contains(law))
+        //            rbtnBump.Checked = true;
+        //        else if (rbtnBeta.Text.Contains(law))
+        //            rbtnBeta.Checked = true;
+        //        else
+        //            rbtnProgressive.Checked = true;
 
+        //        txbAlgoNPoints.Text = attributes[0];
+        //        txbAlgoCoef.Text = attributes[2].Length == 0 ? "1.0" : attributes[2];
+        //    }
+        //}
 
-        private void SetCurveAttribute(CurveAttribsEventArgs arg2)
-        {
-            gmshController.Gmsh.Model.SetAttribute($"transfinite {arg2.Tag}", arg2.Attributes);
-            if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
-            {
-                MeshType meshtType = (MeshType)Enum.Parse(typeof(MeshType), arg2.Attributes[1], true);
-                gmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(arg2.Tag, arg2.Points, meshtType, arg2.Coef);
-            }
-        }
 
         private void SetPointSize(int pointNumber, double[] pointSize)
         {
@@ -236,22 +263,6 @@ GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
         {
             var dimTags = new int[] { 0, obj };
             gmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
-        }
-
-        private void GetPointSize(object arg1, int arg2)
-        {
-            try
-            {
-                var dimTags = new int[] { 0, arg2 };
-                var meshSize = gmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
-                var pointControl = arg1 as GMSHPointSettingsControl;
-                pointControl.SetPointSize(meshSize[0]);
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
         }
 
         private void DelMeshGradient(object arg1)

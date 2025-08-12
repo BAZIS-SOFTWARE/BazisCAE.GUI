@@ -606,58 +606,6 @@ namespace BazisGUI
             node.Nodes.AddRange(childs);
         }
 
-        
-
-
-
-        private void navigator_SelectGroupEvent(int grIndex)
-        {
-            try
-            {
-                var group = project.GetModelGroup(grIndex);
-
-                project.SetModelObjectsBackColor(group.ObjType);
-
-                var pres = project.CreateModelObjectsPresentor(group.ObjType);
-                SetVBObjectAttribute(pres, "цвет");
-
-                foreach (var iobj in group)
-                    iobj.Color = settingsConfig.SelectGroupColor;
-
-                //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
-                SetVBObjectAttribute(pres, "цвет");
-                DisplayObjects();
-                
-                var rows = GetGroupProperty(group);
-                propertiesPanel.DrawTable(rows);
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
-        private void navigator_SelectObjectEvent(NodeName arg1, string arg2,int arg3)
-        {
-            try
-            {
-                var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
-                //var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
-                var objects = project.GetModelObjects(objType);
-                var item = objects.FirstOrDefault(x => x.Number == arg3);
-
-
-                // TO DO
-                //var _converter = new ModelObjectConverter(item);
-
-                //var rows = _converter.GetRowProperty();
-                //propertiesPanel.DrawTable(rows);
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
 
         private void navigator_SelectSetEvent(NodeName arg1, string arg2)
         {

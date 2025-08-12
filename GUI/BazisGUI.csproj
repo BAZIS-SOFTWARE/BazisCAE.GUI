@@ -251,10 +251,16 @@
     <Compile Include="Methods\Navigator\CheckCondData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\SelectResultEvent.cs">
+    <Compile Include="Methods\Navigator\Select\SelectObjectEvent .cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\SelectTimeEvent.cs">
+    <Compile Include="Methods\Navigator\Select\SelectGroupEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Select\SelectResultEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Select\SelectTimeEvent.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PhysicalDataBase\GetDataBase.cs">
@@ -299,7 +305,7 @@
     <Compile Include="Methods\Navigator\DelGroupEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\SelectGeneralInfoEvent.cs">
+    <Compile Include="Methods\Navigator\Select\SelectGeneralInfoEvent.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\NavigatorEvents.cs">

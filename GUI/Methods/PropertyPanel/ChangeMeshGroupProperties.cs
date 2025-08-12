@@ -53,8 +53,13 @@ namespace BazisGUI
                     //(Color)ColorConverter.ConvertFromString()
                     color = Color.FromName(obj.NewValue.ToString());
                 }
-                _objectsSet.SetColor(color);
-                ColorObjects(_objectsSet.ObjType.ToString());
+
+                if(_objectsSet != null)
+                {
+                    _objectsSet.SetColor(color);
+                    ColorObjects(_objectsSet.ObjType.ToString());
+                }
+
             }
             else if (obj.Header == "Представление")
                 _objectsSet.SetViewMode(obj.NewValue.ToString().ToEnum<ViewMode>());
