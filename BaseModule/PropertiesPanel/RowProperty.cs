@@ -18,10 +18,11 @@ namespace BaseModule.PropertiesPanel
         public List<string> AvailableValues { get; } = new List<string>();
 
         //public Type CellType { get; }
-        public bool IsReadOnly
-        {
-            get { return AvailableValues == null ? false : true; }
-        }
+        //public bool IsReadOnly
+        //{
+        //    get { return AvailableValues == null ? false : true; }
+        //}
+        public bool IsReadOnly { get; set; }
         public bool IsDropDown 
         {
             get { return AvailableValues == null ? false : true; }
@@ -33,19 +34,21 @@ namespace BaseModule.PropertiesPanel
             AvailableValues = availableValues;
         }
 
-        public RowProperty(string header, object value)
+        public RowProperty(string header, object value, bool isReadOnly = false)
         {
             Header = header;
             Value = value;
+            IsReadOnly = isReadOnly;
 
             if (value is string)
                 ValidationType = ValidationType.Text;
-            else if(value is float)
+            else if (value is float)
                 ValidationType = ValidationType.Float;
             else if (value is Enum)
                 ValidationType = ValidationType.Enum;
             else
                 ValidationType = ValidationType.Color;
+            IsReadOnly = isReadOnly;
         }
     }
 }

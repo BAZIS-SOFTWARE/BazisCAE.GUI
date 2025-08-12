@@ -101,6 +101,8 @@ namespace BaseModule.PropertiesPanel
                 cell.Tag = prop.ValidationType.ToString();
 
                 row.Cells.Add(cell);
+                cell.ReadOnly = prop.IsReadOnly;
+
                 row.Cells[1].ReadOnly = false;
 
                 dataGridView1.Rows.Add(row);

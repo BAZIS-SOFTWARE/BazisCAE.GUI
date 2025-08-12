@@ -1,29 +1,14 @@
 ﻿using BaseModule.Mesh.SettingsControls;
 using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
-using BazisGUI.Scene;
-using BazisGUI.Scene.VBO;
-using BazisGUI.SettingsControls;
 using BazisGUI.Utilities;
-using GmshApi;
-using Model.GeometryObjects;
 using Model.Interfaces;
-using Model.Interfaces.ObjectsFinders;
 using Model.MeshObjects;
-using OperationalController.GmshController;
-using Project.Interfaces.Tasks;
-using Project.Results;
-using Project.Results.IO;
-using Project.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
+using System.Runtime.Remoting.Messaging;
 
 namespace BazisGUI
 {
@@ -51,13 +36,14 @@ namespace BazisGUI
                 else if(objType == ObjType.Узел)
                 {
                     var node = (Node)project.GetModelObject(objType, number);
+                    var coord = node.GetCoordinates();
+                    var listNumbers = string.Join(";", node.GetElements().Select(element => element.Number).ToList());
 
-                    /* TO DO
-                     * Из объекта item сформировать строки (rowProperties)
-                     * строка 1 - номер
-                     * строка 2,3,4 - координата x,y,z
-                     * строка 5 - с какими элементами связан. Только номера (GetElements())
-                     */
+                    rows.Add(new RowProperty("Номер", node.Number, true));
+                    rows.Add(new RowProperty("Координата X", node.Position._x));
+                    rows.Add(new RowProperty("Координата Y", node.Position._y));
+                    rows.Add(new RowProperty("Координата Z", node.Position._z));
+                    rows.Add(new RowProperty("Связанные элементы", listNumbers, true));
                 }
 
                 else if(objType == ObjType.Кривая)

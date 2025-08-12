@@ -1,15 +1,7 @@
 ﻿using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using GmshApi;
-using Model.Interfaces;
-using Model.Interfaces.ObjectsCollections;
-using Project.Interfaces.Tasks;
-using Project.Tasks;
-using PropertiesCalculator.FunctionData;
-using PropertiesCalculator.MaterialData;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 
 namespace BazisGUI
 {
