@@ -1,32 +1,23 @@
 ﻿using BaseModule.Extensions;
 using BaseModule.PropertiesPanel;
-using Model.Interfaces;
-using Model.Interfaces.ObjectsCollections;
-using System.Drawing;
+using Project.Interfaces.Tasks;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void ChangeTaskTypeProperties(PropertyChangedEventArgs obj, int index)
+        private void ChangeTaskTypeProperties(PropertyChangedEventArgs obj)
         {
             /*
              TO DO
             обратиться к выбранному узлу дерева navigator.SelectedNode.Text
-
              */
-            var grName = navigator.SelectedNode.Text.Split(' ')[0];
-            var _objectsGr = project.GetModelGroup(index);
-            if (obj.Header == "Имя")
-                _objectsGr.Name = obj.NewValue.ToString();
+            project.ProjectType = obj.NewValue.ToEnum<TaskType>();
         }
 
-        private void ChangeTaskKindProperties(PropertyChangedEventArgs obj, int index)
+        private void ChangeTaskKindProperties(PropertyChangedEventArgs obj)
         {
-            var grName = navigator.SelectedNode.Text.Split(' ')[0];
-            var _objectsGr = project.GetModelGroup(index);
-            if (obj.Header == "Имя")
-                _objectsGr.Name = obj.NewValue.ToString();
+            project.ProjectKind = obj.NewValue.ToEnum<TaskKind>();
         }
     }
 }
