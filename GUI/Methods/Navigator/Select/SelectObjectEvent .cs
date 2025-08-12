@@ -52,7 +52,7 @@ namespace BazisGUI
                 {
                     var node = (Node)project.GetModelObject(objType, number);
 
-                    /*
+                    /* TO DO
                      * Из объекта item сформировать строки (rowProperties)
                      * строка 1 - номер
                      * строка 2,3,4 - координата x,y,z
