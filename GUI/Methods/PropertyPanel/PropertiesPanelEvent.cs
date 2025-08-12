@@ -33,24 +33,28 @@ namespace BazisGUI
             {
                     var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
                     if (nodeName == NodeName.Элемент3D |
-          nodeName == NodeName.Элемент2D |
-          nodeName == NodeName.Элемент1D |
-          nodeName == NodeName.Узел
-          )
-                {
-                    var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
-  
-
-                    // получаем объект
-                    var mObj = project.GetModelObject(objType, number);
-
-                    // тут изменяем его свойства
-                    //
-                    //
-                    //
-
-                    PresentObjectsDataOnTree();
-                }
+                        nodeName == NodeName.Элемент2D |
+                        nodeName == NodeName.Элемент1D |
+                        nodeName == NodeName.Узел)
+                    {
+                        var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
+                        
+                        // получаем объект
+                        var mObj = project.GetModelObject(objType, number);
+                        
+                        if(mObj.ObjType == Model.Interfaces.ObjType.Узел)
+                        {
+                            var c = mObj.GetCoordinates().First();
+                            
+                            if(obj.Header == "Координата X")
+                                c._x = float.Parse(obj.NewValue);
+                            else if(obj.Header == "Координата Y")
+                                c._y = float.Parse(obj.NewValue);
+                            else
+                                c._z = float.Parse(obj.NewValue);
+                        }
+                        PresentObjectsDataOnTree();
+                    }
                 else if (nodeName == NodeName.Точка)
                 {
                     // Тут задаем настройки сетки в контрольных узлах геометрии
