@@ -236,6 +236,9 @@
     <Compile Include="Methods\Console\ConsoleEvents.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Navigator\GetGeneralInfoProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Navigator\SelectCondEvent.cs">
       <SubType>Form</SubType>
     </Compile>

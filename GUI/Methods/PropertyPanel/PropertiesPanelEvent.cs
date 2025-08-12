@@ -132,27 +132,12 @@ GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
                 {
                     if(nodeName == NodeName.вид)
                     {
-                        /*
-                        * TO DO
-                        * 1. Перобразовать текст выбранного узла в нужный enum
-                        * 2. вызвать метод в контроллере для изменения вида задачи. 
-                        * Метод нужно реализовать. Метод назвать ChangeTaskKind(TaskKind taskKind).
-                        * Вызов project.ChangeTaskKind(TaskKind taskKind);
-                        * 3. Обновить текст выбранного узла. Только тескт узла. Без обносления всего дерева.
-                        */
-                        //var index = navigator.SelectedNode.Index;
-                        //var text = navigator.SelectedNode.Text; 
+                        ChangeTaskKindProperties(obj);
                     }
                     else if(nodeName == NodeName.тип)
                     {
-                        /*
-                        * TO DO
-                        * 1. Перобразовать текст выбранного узла в нужный enum
-                        * 2. вызвать метод в контроллере для изменения вида задачи. 
-                        * Метод нужно реализовать. Метод назвать ChangeTaskType(TaskType taskType).
-                        * Вызов project.ChangeTaskType(TaskType taskType);
-                        * 3. Обновить текст выбранного узла. Только тескт узла. Без обносления всего дерева.
-                        */
+
+                        ChangeTaskTypeProperties(obj);
                     }
 
 
