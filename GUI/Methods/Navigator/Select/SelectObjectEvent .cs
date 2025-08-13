@@ -45,13 +45,21 @@ namespace BazisGUI
                     rows.Add(new RowProperty("Связанные элементы", listNumbers, true));
                 }
 
+                else if(objType == ObjType.Элемент1D | objType == ObjType.Элемент2D | objType == ObjType.Элемент3D)
+                {
+                    var mObj = project.GetModelObject(objType, number);
+                    var el = mObj as Element;
+                    var n = el.Number;
+                    var le = el.Level;
+                    var nodes = el.GetVertexes();
+                    //rows.AddRange();
+                }
+
                 else if(objType == ObjType.Кривая)
                 {
                     rows.AddRange(GetCurveProperties(number));
                 }
-                //var _converter = new ModelObjectConverter(item);
                 propertiesPanel.DrawTable(rows);
-
             }
             catch (Exception ex)
             {
