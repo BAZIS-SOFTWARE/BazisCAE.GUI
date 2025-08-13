@@ -25,10 +25,10 @@ namespace BaseModule.GanttChart
             ganttChart.Chart.Dock = DockStyle.Fill;
             splitContainer.Panel2.Controls.Add(ganttChart.Chart);
 
-            AddTasks(conditions);
+            AddConditions(conditions);
         }
 
-        private void AddTasks(IEnumerable<ICondData> tasks)
+        private void AddConditions(IEnumerable<ICondData> tasks)
         {
             var chartLayer = 1;
             foreach(var task in tasks)
@@ -48,14 +48,14 @@ namespace BaseModule.GanttChart
                 node.Checked = true;
                 var start = task.StartTime;
                 var end = task.StopTime;
-                ganttChart.AddTask(start, end, chartLayer, dataKind, MapTaskToColor(task), description);
+                ganttChart.AddTask(start, end, chartLayer, dataKind, MapConditionToColor(task), description);
                 chartLayer++;
             }
         }
 
-        private Color MapTaskToColor(ICondData task)
+        private Color MapConditionToColor(ICondData condition)
         {
-            switch (task.Kind)
+            switch (condition.Kind)
             {
                 case DataKind.Закрепление: return Color.FromArgb(194, 174, 95);
                 case DataKind.Нагрев: return Color.FromArgb(194, 110, 96);
