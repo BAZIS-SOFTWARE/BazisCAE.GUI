@@ -1,14 +1,7 @@
 ﻿using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
-using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
-using Project.Interfaces.Tasks;
-using Project.Tasks;
-using PropertiesCalculator.FunctionData;
-using PropertiesCalculator.MaterialData;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 
 namespace BazisGUI
 {
@@ -19,7 +12,7 @@ namespace BazisGUI
             return new List<RowProperty>
             {
                new RowProperty("Имя", _objectsSet.Name),
-               new RowProperty( "Цвет", _objectsSet.Color),
+               new RowProperty("Цвет", _objectsSet.Color),
                new RowProperty("Представление",_objectsSet.ViewMode,
                Converters.GetEnumNames<ViewMode>())
             };

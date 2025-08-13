@@ -1,25 +1,10 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
-using BazisGUI.Scene;
-using BazisGUI.Scene.VBO;
-using BazisGUI.SettingsControls;
-using BazisGUI.Utilities;
-using GmshApi;
-using Model.GeometryObjects;
-using Model.Interfaces;
-using Model.Interfaces.ObjectsFinders;
-using Model.MeshObjects;
-using OperationalController.GmshController;
+﻿using BazisGUI.Scene.VBO;
 using Project.Results;
 using Project.Results.IO;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace BazisGUI
 {
