@@ -10,12 +10,12 @@ namespace BaseModule.GanttChart
 
         private Color defaultLabelForeColor;
 
-        public GanttChartModel(double minValue, double maxValue, double intervalLength, int barMaxCount)
+        public GanttChartModel(double minValue, double maxValue)
         {
             Chart = new Chart();
             Chart.ChartAreas.Add(new ChartArea());
             defaultLabelForeColor = Color.Black;
-            ConfigureChart(minValue, maxValue, intervalLength, barMaxCount);
+            ConfigureChart(minValue, maxValue);
         }
 
         public void AddTask(double start, double end, int layer, string name, Color color, string description = "")
@@ -39,23 +39,22 @@ namespace BaseModule.GanttChart
             }
         }
 
-        private void ConfigureChart(double minValue, double maxValue, double averageBarSize, int barMaxCount)
+        private void ConfigureChart(double minValue, double maxValue)
         {
             var series = Chart.Series.Add("gantt diagram");
             series.ChartType = SeriesChartType.RangeBar;
             series.YValueType = ChartValueType.Single;
             series.SetCustomProperty("PixelPointWidth", "30");
 
-            ConfigureAxisX(barMaxCount);
+            ConfigureAxisX();
             ConfigureAxisY(minValue, maxValue);
         }
 
         //vertical axis
-        private void ConfigureAxisX(int barMaxCount)
+        private void ConfigureAxisX()
         {
             var ax = Chart.ChartAreas[0].AxisX;
             ax.Minimum = 0;
-            ax.Maximum = barMaxCount + 1;
             ax.MajorGrid.Enabled = false;
             ax.IsLabelAutoFit = true;
             ax.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;

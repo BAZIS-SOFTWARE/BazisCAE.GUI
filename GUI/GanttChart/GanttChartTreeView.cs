@@ -12,21 +12,20 @@ namespace BaseModule.GanttChart
         private GanttChartModel ganttChart;
         private Dictionary<TreeNode, int> mapTreeNodeToChartIndex;
 
-        public GanttChartTreeView(IEnumerable<ICondData> conds, int timesteps)
+        public GanttChartTreeView(IEnumerable<ICondData> conditions, int timesteps)
         {
             InitializeComponent();
 
-            var start = conds.Min(c => c.StartTime);
-            var end = conds.Max(c => c.StopTime);
-            var interval = (end - start) / timesteps;
+            var start = conditions.Min(c => c.StartTime);
+            var end = conditions.Max(c => c.StopTime);
 
-            ganttChart = new GanttChartModel(start, end, interval, conds.Count());
+            ganttChart = new GanttChartModel(start, end);
             mapTreeNodeToChartIndex = new Dictionary<TreeNode, int>();
 
             ganttChart.Chart.Dock = DockStyle.Fill;
             splitContainer.Panel2.Controls.Add(ganttChart.Chart);
 
-            AddTasks(conds);
+            AddTasks(conditions);
         }
 
         private void AddTasks(IEnumerable<ICondData> tasks)
