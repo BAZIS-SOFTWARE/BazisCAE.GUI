@@ -350,6 +350,9 @@
     <Compile Include="Methods\PropertyPanel\ChangeCondProperties.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\PropertyPanel\ChangeModelObjectProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\PropertyPanel\ChangeTaskTypeProperties.cs">
       <SubType>Form</SubType>
     </Compile>
