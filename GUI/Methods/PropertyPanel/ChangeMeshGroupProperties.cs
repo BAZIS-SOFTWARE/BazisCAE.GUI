@@ -50,11 +50,10 @@ namespace BazisGUI
                 }
                 else
                 {
-                    //(Color)ColorConverter.ConvertFromString()
-                    color = Color.FromName(obj.NewValue.ToString());
+                    color = Color.FromName(newValue.Replace("Color [", "").Replace("]", ""));
                 }
 
-                if(_objectsSet != null)
+                if (_objectsSet != null)
                 {
                     _objectsSet.SetColor(color);
                     ColorObjects(_objectsSet.ObjType.ToString());

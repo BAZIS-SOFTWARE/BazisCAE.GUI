@@ -47,13 +47,17 @@ namespace BazisGUI
                             var c = mObj.GetCoordinates().First();
                             
                             if(obj.Header == "Координата X")
+                            {
                                 c._x = float.Parse(obj.NewValue);
+                            }
+                                
                             else if(obj.Header == "Координата Y")
                                 c._y = float.Parse(obj.NewValue);
                             else
                                 c._z = float.Parse(obj.NewValue);
                         }
-                        PresentObjectsDataOnTree();
+                        navigator.SelectedNode.Text = mObj.ToString();
+                        //PresentObjectsDataOnTree();
                     }
                 else if (nodeName == NodeName.Точка)
                 {

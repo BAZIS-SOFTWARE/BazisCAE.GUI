@@ -1,5 +1,4 @@
 using BaseModule.PinnedControl;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,11 +16,6 @@ namespace BaseModule.PropertiesPanel
 
         private string _oldValue;
         private bool _isValid;
-        //private List<RowProperty> _rowProperties;
-        //private ComboBox _overlayComboBox = new ComboBox();
-        private int _currentComboRowIndex;
-        private int _currentComboColumnIndex = 1;
-        //private string _enteredValue = string.Empty;
 
         public PropertiesPanelControl()
         {
@@ -47,13 +41,8 @@ namespace BaseModule.PropertiesPanel
                     BackColor = SystemColors.Control,
                     SelectionBackColor = SystemColors.ControlDark
                 },
-                //ReadOnly = false
             });
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            //dataGridView1.Controls.Add(_overlayComboBox);
-            //_overlayComboBox.PreviewKeyDown += _overlayComboBox_PreviewKeyDown;
-            //_overlayComboBox.Visible = false;
-            //_overlayComboBox.Leave += _overlayComboBox_Leave;
         }
 
         private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -68,12 +57,6 @@ namespace BaseModule.PropertiesPanel
 
         public void DrawTable(List<RowProperty> rows)
         {
-            //dataGridView1.DataSource = null;
-            //dataGridView1.AutoGenerateColumns = false;
-            //dataGridView1.AllowUserToResizeRows = false;
-            //dataGridView1.Columns.Clear();
-            //dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //dataGridView1.AllowUserToAddRows = false;
             dataGridView1.Rows.Clear();
             // Тут при создании строки таблицы должно происходить автоопределение типа элемента ячейки
             // comboBox,TextBox, CheckBox etc.
@@ -107,7 +90,6 @@ namespace BaseModule.PropertiesPanel
 
                 dataGridView1.Rows.Add(row);
             }
-            //_rowProperties = rows;
         }
         private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
@@ -115,12 +97,6 @@ namespace BaseModule.PropertiesPanel
             {
                 _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
             }
-            // var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            //var property = _rowProperties[e.RowIndex];
-            //if (property != null)
-            //{
-                //StartUpdate(cell);
-            //}
         }
 
         public void CellValueChanged(DataGridViewCell e)
@@ -129,9 +105,13 @@ namespace BaseModule.PropertiesPanel
             {
                 var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                 var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-
+                
+                if (header == "Цвет")
+                {
+                    var color = ChangeColorCell(newValue);
+                    dataGridView1.Rows[e.RowIndex].Cells[1].Style.BackColor = color;
+                }
                 //dataGridView1.Rows.Clear();
-
                 PropertyUpdateEvent?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
             }
         }
@@ -140,7 +120,6 @@ namespace BaseModule.PropertiesPanel
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0) return;
-            //var property = _rowProperties[e.RowIndex];
             if (dataGridView1[0,e.RowIndex].Value.ToString() == "Цвет")
             {
                 ColorDialog colorDialog = new ColorDialog();
@@ -148,39 +127,9 @@ namespace BaseModule.PropertiesPanel
                 {
                     var color = colorDialog.Color.ToString();
                     dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = color;
-                }
-            }
-            //if (property.AvailableValues.Count == 0) return;
-            
-            //_overlayComboBox.DropDownStyle = property.IsDropDown ? ComboBoxStyle.DropDown : ComboBoxStyle.DropDownList;
-            //var cellRect = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
-            //_overlayComboBox.SetBounds(cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
-            //_overlayComboBox.Items.Clear();
-            //_overlayComboBox.Items.AddRange(property.AvailableValues.ToArray());
-            //_oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            //_overlayComboBox.Text = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
-            //_currentComboRowIndex = e.RowIndex;
-            //_overlayComboBox.Visible = true;
-            //_overlayComboBox.BringToFront();
-            //_overlayComboBox.Focus();
-        }
-       
-        private void DataGridView1_Scroll(object sender, ScrollEventArgs e)
-        {
-            RepositionComboBox();
-        }
-        private void RepositionComboBox()
-        {
-            //if (!_overlayComboBox.Visible || _currentComboRowIndex < 0) return;
 
-            //var rect = dataGridView1.GetCellDisplayRectangle(_currentComboColumnIndex, _currentComboRowIndex, true);
-            //_overlayComboBox.SetBounds(rect.X, rect.Y, rect.Width, rect.Height);
-        }
-        private void _overlayComboBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            if (e.KeyCode == Keys.Tab || e.KeyCode == Keys.Enter || e.KeyCode == Keys.Escape)
-            {
-                dataGridView1.Focus();
+                    dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[0];
+                }
             }
         }
         #endregion
@@ -207,6 +156,25 @@ namespace BaseModule.PropertiesPanel
             //if (property != null)
             //{
             CellValueChanged(cell);
+        }
+
+        private Color ChangeColorCell(string colorName) 
+        {
+            Color color;
+            if (colorName.StartsWith("Color [A="))
+            {
+                string[] parts = colorName.Trim('C', 'o', 'l', 'r', ' ', '[', ']').Split(',');
+                int a = int.Parse(parts[0].Split('=')[1]);
+                int r = int.Parse(parts[1].Split('=')[1]);
+                int g = int.Parse(parts[2].Split('=')[1]);
+                int b = int.Parse(parts[3].Split('=')[1]);
+                color = Color.FromArgb(a, r, g, b);
+            }
+            else
+            {
+                color = Color.FromName(colorName.Replace("Color [", "").Replace("]", ""));
+            }
+            return color;
         }
     }
 }
