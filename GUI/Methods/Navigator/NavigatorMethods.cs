@@ -147,7 +147,7 @@ namespace BazisGUI
 
         public void ShowGantChart(IEnumerable<ICondData> tasks)
         {
-            var ganttContol = new GanttChartTreeView(tasks, 10);
+            var ganttContol = new GanttChartTreeView(tasks);
             var ganttDiagramForm = new Form
             {
                 ClientSize = new Size(850, 600),

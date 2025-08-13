@@ -12,7 +12,7 @@ namespace BaseModule.GanttChart
         private GanttChartModel ganttChart;
         private Dictionary<TreeNode, int> mapTreeNodeToChartIndex;
 
-        public GanttChartTreeView(IEnumerable<ICondData> conditions, int timesteps)
+        public GanttChartTreeView(IEnumerable<ICondData> conditions)
         {
             InitializeComponent();
 
