@@ -479,8 +479,6 @@
     <Compile Include="Scene\Rendering\ShaderCollections.cs" />
     <Compile Include="Scene\Rendering\ShaderProgramCreator.cs" />
     <Compile Include="Scene\ScaleItem.cs" />
-    <Compile Include="Scene\SceneCamera.cs" />
-    <Compile Include="Scene\SceneCompass.cs" />
     <Compile Include="Scene\ScenePath.cs" />
     <Compile Include="Scene\SceneScale.cs" />
     <Compile Include="Scene\ScreenRectangle.cs" />

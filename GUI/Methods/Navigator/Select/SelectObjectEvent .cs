@@ -36,6 +36,17 @@ namespace BazisGUI
                 var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
                 //var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
 
+                project.SetModelObjectsBackColor(objType);
+
+                var pres = project.CreateModelObjectsPresentor(objType);
+                SetVBObjectAttribute(pres, "цвет");
+
+                var obj = project.GetModelObject(objType, number);
+                obj.Color = settingsConfig.SelectGroupColor;
+
+                //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
+                SetVBObjectAttribute(pres, "цвет");
+                DisplayObjects();
 
                 // TO DO
                 var rows = new List<RowProperty>();
@@ -50,8 +61,34 @@ namespace BazisGUI
 
                 else if(objType == ObjType.Узел)
                 {
-                    var node = (Node)project.GetModelObject(objType, number);
+                    /* TO DO
+                     * Из объекта item сформировать строки (rowProperties)
+                     * строка 1 - номер
+                     * строка 2,3,4 - координата x,y,z
+                     * строка 5 - с какими элементами связан. Только номера (GetElements())
+                     */
+                }
+                else if (objType == ObjType.Элемент1D)
+                {
+                    /* TO DO
+                     * Из объекта item сформировать строки (rowProperties)
+                     * строка 1 - номер
+                     * строка 2 - Порядок элемента. Свойство Level (нередактируемое).
+                     * строка 3 - Их каких узлов состоит (нередактируемое). Только номера (GetVertexes())
 
+                     */
+                }
+                else if (objType == ObjType.Элемент2D)
+                {
+                    /* TO DO
+                     * Из объекта item сформировать строки (rowProperties)
+                     * строка 1 - номер
+                     * строка 2,3,4 - координата x,y,z
+                     * строка 5 - с какими элементами связан. Только номера (GetElements())
+                     */
+                }
+                else if (objType == ObjType.Элемент3D)
+                {
                     /* TO DO
                      * Из объекта item сформировать строки (rowProperties)
                      * строка 1 - номер

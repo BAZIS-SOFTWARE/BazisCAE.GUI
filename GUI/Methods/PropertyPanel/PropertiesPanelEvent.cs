@@ -75,7 +75,7 @@ namespace BazisGUI
                         if(attributes[0] != "0")
                         {
                             var points = int.Parse(attributes[0]);
-                            var meshType = attributes[0].ToEnum<MeshType>();
+                            var meshType = attributes[1].ToEnum<MeshType>();
                             var coeff = double.Parse(attributes[2]);
                             gmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(number, points, meshType, coeff);
                         }

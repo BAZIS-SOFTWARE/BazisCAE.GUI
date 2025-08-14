@@ -3,7 +3,6 @@ using System;
 using Tao.OpenGl;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
-using Geometry;
 
 namespace BazisGUI.Scene
 {
