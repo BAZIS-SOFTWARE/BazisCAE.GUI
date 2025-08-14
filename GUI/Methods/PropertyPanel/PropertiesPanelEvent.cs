@@ -47,23 +47,25 @@ namespace BazisGUI
                     {
                         var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite {number}");
 
+ 
+                        if (obj.Header == "Алгоритм")    
+                            attributes[1] = obj.NewValue;         
+                        else if(obj.Header == "Колличество точек")
+                            attributes[0] = obj.NewValue;
+                        else
+                            attributes[2] = obj.NewValue;
 
-                        if (obj.Header == "Алгоритм")
-                        {
-                            if (attributes.Length == 0)
-                                attributes = new string[] { "0", obj.NewValue, "1" };
-
-                            attributes[1] = obj.NewValue;
-                            //1 - law
-                            //2 - koeff
-                            //0 - points
-                            gmshController.Gmsh.Model.SetAttribute($"transfinite {number}", attributes);
-                        }
-
+                        gmshController.Gmsh.Model.SetAttribute($"transfinite curve {number}", attributes);
                         //if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
                         //{
-                        //    MeshType meshtType = (MeshType)Enum.Parse(typeof(MeshType), arg2.Attributes[1], true);
-                        //    gmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(arg2.Tag, arg2.Points, meshtType, arg2.Coef);
+                        if(attributes[0] != "0")
+                        {
+                            var points = int.Parse(attributes[0]);
+                            var meshType = attributes[0].ToEnum<MeshType>();
+                            var coeff = double.Parse(attributes[2]);
+                            gmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(number, points, meshType, coeff);
+                        }
+                           
                         //}
                     }
                     else if (nodeName == NodeName.Объем)

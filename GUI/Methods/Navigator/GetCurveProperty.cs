@@ -21,19 +21,23 @@ namespace BazisGUI
             //if (txbAlgoNPoints.IsValueValid())
             //    attributes[0] = txbAlgoNPoints.Text;
 
-            var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite {arg3}");
-
+            var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite curve {arg3}");
+                
             if (attributes.Length == 0)
             {
-                rows.Add(new RowProperty("Алгоритм", "*", algo));
-                rows.Add(new RowProperty("Коэффициент", 1));
+                attributes = new string[] { "0", MeshType.Progression.ToString(), "1" };
+                gmshController.Gmsh.Model.SetAttribute($"transfinite curve {arg3}", attributes);
+
                 rows.Add(new RowProperty("Колличество точек", 0));
+                rows.Add(new RowProperty("Алгоритм", MeshType.Progression, algo));
+                rows.Add(new RowProperty("Коэффициент", 1));
+                
             }
             else
             {
-                rows.Add(new RowProperty("Алгоритм", attributes[2], algo));
-                rows.Add(new RowProperty("Коэффициент", attributes[1]));
                 rows.Add(new RowProperty("Колличество точек", attributes[0]));
+                rows.Add(new RowProperty("Алгоритм", attributes[1], algo));
+                rows.Add(new RowProperty("Коэффициент", attributes[2]));    
             }
 
             return rows;
