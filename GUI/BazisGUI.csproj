@@ -251,6 +251,9 @@
     <Compile Include="Methods\Navigator\CheckCondData.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Navigator\GetObjectProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Navigator\Select\SelectCondEvent.cs">
       <SubType>Form</SubType>
     </Compile>

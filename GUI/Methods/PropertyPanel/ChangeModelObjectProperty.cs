@@ -2,6 +2,7 @@
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using Model.Interfaces;
+using Model.MeshObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace BazisGUI
                 // получаем объект
                 var mObj = project.GetModelObject(objType, number);
 
-                if (mObj.ObjType == Model.Interfaces.ObjType.Узел)
+                if (objType == Model.Interfaces.ObjType.Узел)
                 {
                     var c = mObj.GetCoordinates().First();
 
@@ -40,7 +41,12 @@ namespace BazisGUI
                         SetVBObjectAttribute(presentor, "координаты");
                     }
                 }
-                navigator.SelectedNode.Text = mObj.ToString();
+                else if(objType == ObjType.Элемент1D | objType == ObjType.Элемент2D | objType == ObjType.Элемент3D)
+                {
+                    var element = mObj as Element;
+                    element.Level = int.Parse(obj.NewValue);
+                }
+                    navigator.SelectedNode.Text = mObj.ToString();
                 DisplayObjects();
             }
         }
