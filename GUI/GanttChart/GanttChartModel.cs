@@ -10,12 +10,12 @@ namespace BaseModule.GanttChart
 
         private Color defaultLabelForeColor;
 
-        public GanttChartModel(double minValue, double maxValue, double intervalLength, int barMaxCount)
+        public GanttChartModel(double minValue, double maxValue)
         {
             Chart = new Chart();
             Chart.ChartAreas.Add(new ChartArea());
             defaultLabelForeColor = Color.Black;
-            ConfigureChart(minValue, maxValue, intervalLength, barMaxCount);
+            ConfigureChart(minValue, maxValue);
         }
 
         public void AddTask(double start, double end, int layer, string name, Color color, string description = "")
@@ -39,46 +39,48 @@ namespace BaseModule.GanttChart
             }
         }
 
-        private void ConfigureChart(double minValue, double maxValue, double intervalLength, int barMaxCount)
+        private void ConfigureChart(double minValue, double maxValue)
         {
             var series = Chart.Series.Add("gantt diagram");
             series.ChartType = SeriesChartType.RangeBar;
-            series.YValueType = ChartValueType.Double;
+            series.YValueType = ChartValueType.Single;
             series.SetCustomProperty("PixelPointWidth", "30");
 
-            ConfigureAxisX(barMaxCount);
-            ConfigureAxisY(minValue, maxValue, intervalLength);
+            ConfigureAxisX();
+            ConfigureAxisY(minValue, maxValue);
         }
 
-        private void ConfigureAxisX(int barMaxCount)
+        //vertical axis
+        private void ConfigureAxisX()
         {
             var ax = Chart.ChartAreas[0].AxisX;
             ax.Minimum = 0;
-            ax.Maximum = barMaxCount + 1;
             ax.MajorGrid.Enabled = false;
             ax.IsLabelAutoFit = true;
             ax.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;
-            ax.ScaleView.Size = 8;
             ax.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
             ax.ScrollBar.BackColor = Color.FromKnownColor(KnownColor.Control);
             ax.ScrollBar.ButtonColor = Color.FromKnownColor(KnownColor.Control);
             ax.ScrollBar.LineColor = Color.FromKnownColor(KnownColor.Control);
+            ax.ScrollBar.IsPositionedInside = false;
+            ax.ScaleView.Size = 9;
         }
 
-        private void ConfigureAxisY(double minValue, double maxValue, double intervalLength)
+        //horizontal axis
+        private void ConfigureAxisY(double minValue, double maxValue)
         {
             var ay = Chart.ChartAreas[0].AxisY;
             ay.Minimum = minValue;
-            ay.Maximum = maxValue + intervalLength;
-            ay.MajorGrid.Interval = intervalLength;
-            ay.LabelStyle.Interval = intervalLength;
+            ay.Maximum = Math.Ceiling(maxValue * 1.1);
+            ay.IntervalAutoMode = IntervalAutoMode.FixedCount;
             ay.IsLabelAutoFit = true;
             ay.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep30;
-            ay.ScaleView.Size = 0.9 * maxValue;
             ay.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
             ay.ScrollBar.BackColor = Color.FromKnownColor(KnownColor.Control);
             ay.ScrollBar.ButtonColor = Color.FromKnownColor(KnownColor.Control);
             ay.ScrollBar.LineColor = Color.FromKnownColor(KnownColor.Control);
+            ay.ScrollBar.IsPositionedInside = true;
+            ay.ScaleView.Size = 30;
         }
     }
 }

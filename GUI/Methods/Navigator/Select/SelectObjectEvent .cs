@@ -15,27 +15,31 @@ namespace BazisGUI
             try
             {
                 var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
+                project.SetModelObjectsBackColor(objType);
+
+                var pres = project.CreateModelObjectsPresentor(objType);
+                SetVBObjectAttribute(pres, "цвет");
+
+                var obj = project.GetModelObject(objType, number);
+                obj.Color = settingsConfig.SelectGroupColor;
+
+                //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
+                SetVBObjectAttribute(pres, "цвет");
+                DisplayObjects();
 
                 var rows = new List<RowProperty>();
                 if (objType == ObjType.Точка)
-                {
                     rows.Add(GetPointProperty(number));
-                }
 
                 else if(objType == ObjType.Узел)
-                {
                     rows.AddRange(GetNodeProperty(objType, number));
-                }
 
                 else if(objType == ObjType.Элемент1D | objType == ObjType.Элемент2D | objType == ObjType.Элемент3D)
-                {
                     rows.AddRange(GetElementProperty(objType, number));
-                }
 
                 else if(objType == ObjType.Кривая)
-                {
                     rows.AddRange(GetCurveProperties(number));
-                }
+
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)

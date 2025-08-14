@@ -1,9 +1,33 @@
 ﻿@startuml
 
-class BaseForm
+class IODataController
+class VBOController
+class settingsConfig
+class GmshController
+class PreProc
+class PostProc
+class VBOController
+class ClientController
+class Advanced3DClipper
+class ClipPlaneRenderer
+class ScreenRectangle
+class AverageColorRenderer
+class ClientController
+class ScalePage
+class VBObject
+interface IVBObject
+class SurfaceObjects
+class PointObjects
+class LineObjects
+class BoundingBox
+class ClipPlane
 
-BaseForm *- IOController
-BaseForm *- VBOController
-BaseForm *- settingsConfig
-
+IVBObject <|.. VBObject
+VBObject *-- BoundingBox
+VBObject <|-- PointObjects
+VBObject <|-- LineObjects
+VBObject <|-- SurfaceObjects
+SurfaceObjects <|-- ClipPlane
+ClipPlane *-- ClipPlaneRenderer
+VBOController *-- VBObject
 @enduml

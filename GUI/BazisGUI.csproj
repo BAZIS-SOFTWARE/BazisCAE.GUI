@@ -224,6 +224,13 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GanttChart\GanttChartModel.cs" />
+    <Compile Include="GanttChart\GanttChartTreeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GanttChart\GanttChartTreeView.Designer.cs">
+      <DependentUpon>GanttChartTreeView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Methods\BasePage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -485,8 +492,6 @@
     <Compile Include="Scene\Rendering\ShaderCollections.cs" />
     <Compile Include="Scene\Rendering\ShaderProgramCreator.cs" />
     <Compile Include="Scene\ScaleItem.cs" />
-    <Compile Include="Scene\SceneCamera.cs" />
-    <Compile Include="Scene\SceneCompass.cs" />
     <Compile Include="Scene\ScenePath.cs" />
     <Compile Include="Scene\SceneScale.cs" />
     <Compile Include="Scene\ScreenRectangle.cs" />
@@ -572,6 +577,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GanttChart\GanttChartTreeView.resx">
+      <DependentUpon>GanttChartTreeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MessageBoxEx\MessageBoxEx.resx">
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
