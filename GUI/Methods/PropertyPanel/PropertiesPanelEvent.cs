@@ -5,7 +5,6 @@ using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using GmshApi;
-using Project.Interfaces.Tasks;
 using Project.Tasks;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
@@ -14,7 +13,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace BazisGUI
@@ -25,41 +23,29 @@ namespace BazisGUI
         {
             try
             {
-            // В зависимости от свойства данных проекта (modelData, TaskData etc
-            // вызывать нужный метод в controller
-            var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
+                // В зависимости от свойства данных проекта (modelData, TaskData etc
+                // вызывать нужный метод в controller
+                var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
 
-            if (navigator.SelectedNode.Level == 3)
-            {
+                if (navigator.SelectedNode.Level == 3)
+                {
                     var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
                     if (nodeName == NodeName.Элемент3D |
-          nodeName == NodeName.Элемент2D |
-          nodeName == NodeName.Элемент1D |
-          nodeName == NodeName.Узел
-          )
-                {
-                    var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
-  
-
-                    // получаем объект
-                    var mObj = project.GetModelObject(objType, number);
-
-                    // тут изменяем его свойства
-                    //
-                    //
-                    //
-
-                    PresentObjectsDataOnTree();
-                }
-                else if (nodeName == NodeName.Точка)
-                {
-                    // Тут задаем настройки сетки в контрольных узлах геометрии
-                    //SetPointSize();
-                    //SetMinMaxSizes()
-                }
-                else if (nodeName == NodeName.Кривая)
-                {
-                        var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite curve {number}");
+                        nodeName == NodeName.Элемент2D |
+                        nodeName == NodeName.Элемент1D |
+                        nodeName == NodeName.Узел) 
+                    {
+                        ChangeModelObjectProperty(obj, nodeName);
+                    }
+                    else if (nodeName == NodeName.Точка)
+                    {
+                        // Тут задаем настройки сетки в контрольных узлах геометрии
+                        //SetPointSize();
+                        //SetMinMaxSizes()
+                    }
+                    else if (nodeName == NodeName.Кривая)
+                    {
+                        var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite {number}");
 
  
                         if (obj.Header == "Алгоритм")    
@@ -81,83 +67,82 @@ namespace BazisGUI
                         }
                            
                         //}
-                }
-                else if (nodeName == NodeName.Объем)
-                {
-                    // Тут задаем настройки сетки в объемах геометрии
-                    //SetMeshGradientSettings(MeshGradientSettingsEventArgs arg2)
-                }
-
-            }
-            if (navigator.SelectedNode.Level == 2)
-            {
-                if (nodeName == NodeName.Элементы3D)
-                    ChangeMeshSetProperties(obj, 3);
-                else if (nodeName == NodeName.Элементы2D)
-                    ChangeMeshSetProperties(obj, 2);
-                else
-                    ChangeMeshSetProperties(obj, 1);
-            }
-
-            else if(navigator.SelectedNode.Level == 1)
-            {
-                var index = navigator.SelectedNode.Index;
-                var parentName = navigator.SelectedNode.Parent.Name.ToEnum<NodeName>();
-                if (parentName == NodeName.группыОбъектов)
-                {
-                    if (nodeName == NodeName.Элемент3D |
-    nodeName == NodeName.Элемент2D |
-    nodeName == NodeName.Элемент1D |
-    nodeName == NodeName.Узел
-    )
-                    {         
-                        ChangeMeshGroupProperties(obj, index);
-                        PresentGroupDataOnTree();
-                        PresentCondDataOnTree();
+                    }
+                    else if (nodeName == NodeName.Объем)
+                    {
+                        // Тут задаем настройки сетки в объемах геометрии
+                        //SetMeshGradientSettings(MeshGradientSettingsEventArgs arg2)
                     }
                 }
-                else if(parentName == NodeName.условия)
+                if (navigator.SelectedNode.Level == 2)
                 {
+                    if (nodeName == NodeName.Элементы3D)
+                        ChangeMeshSetProperties(obj, 3);
+                    else if (nodeName == NodeName.Элементы2D)
+                        ChangeMeshSetProperties(obj, 2);
+                    else
+                        ChangeMeshSetProperties(obj, 1);
+                }
+
+                else if (navigator.SelectedNode.Level == 1)
+                {
+                    var index = navigator.SelectedNode.Index;
+                    var parentName = navigator.SelectedNode.Parent.Name.ToEnum<NodeName>();
+                    if (parentName == NodeName.группыОбъектов)
+                    {
+                        if (nodeName == NodeName.Элемент3D |
+        nodeName == NodeName.Элемент2D |
+        nodeName == NodeName.Элемент1D |
+        nodeName == NodeName.Узел
+        )
+                        {
+                            ChangeMeshGroupProperties(obj, index);
+                            PresentGroupDataOnTree();
+                            PresentCondDataOnTree();
+                        }
+                    }
+                    else if (parentName == NodeName.условия)
+                    {
                         var _funcs =
 GetDataBase<FunctionDBData>(project.FunctionsDB, project.Path).Keys.ToList();
                         var _mats =
 GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
                         var groups = project.GetAllModelGroups();
                         var cond = project.TaskData[index];
-                    if (nodeName == NodeName.Материал)
-                    {
+                        if (nodeName == NodeName.Материал)
+                        {
                             ChangeMatProperties(obj, (MatData)cond);
                             var rows = GetMatProperty((MatData)cond, _mats, groups);
                             propertiesPanel.DrawTable(rows);
                         }
-                    else if(nodeName == NodeName.Нагрев)
+                        else if (nodeName == NodeName.Нагрев)
                         {
                             ChangeGeneralProperties(obj, cond);
-                            var rows = GetHeatProperty((HeatData)cond, groups,_funcs);
+                            var rows = GetHeatProperty((HeatData)cond, groups, _funcs);
                             propertiesPanel.DrawTable(rows);
                         }
-                    else if (nodeName == NodeName.Закрепление |
-                        nodeName == NodeName.Нагрев |
-                        nodeName == NodeName.Нагрузка |
-                        nodeName == NodeName.Среда
-                        )
-                    {
-                        ChangeGeneralProperties(obj, cond);
+                        else if (nodeName == NodeName.Закрепление |
+                            nodeName == NodeName.Нагрев |
+                            nodeName == NodeName.Нагрузка |
+                            nodeName == NodeName.Среда
+                            )
+                        {
+                            ChangeGeneralProperties(obj, cond);
                             //PresentCondDataOnTree();
-                    }
-                    navigator.SelectedNode.Text = cond.ToString();
+                        }
+                        navigator.SelectedNode.Text = cond.ToString();
 
                     }
-                
-            }
 
-            else if(navigator.SelectedNode.Level == 0)
+                }
+
+                else if (navigator.SelectedNode.Level == 0)
                 {
                     if (nodeName == NodeName.вид)
                     {
                         ChangeTaskKindProperties(obj);
                     }
-                    else if(nodeName == NodeName.тип)
+                    else if (nodeName == NodeName.тип)
                     {
                         ChangeTaskTypeProperties(obj);
                         navigator.SelectedNode.Parent.Nodes.Clear();

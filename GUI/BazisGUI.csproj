@@ -258,6 +258,9 @@
     <Compile Include="Methods\Navigator\CheckCondData.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Navigator\GetObjectProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Navigator\Select\SelectCondEvent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -355,6 +358,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PropertyPanel\ChangeCondProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\PropertyPanel\ChangeModelObjectProperty.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PropertyPanel\ChangeTaskTypeProperties.cs">

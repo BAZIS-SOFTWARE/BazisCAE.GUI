@@ -1,17 +1,12 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.Results.GraphCreation;
 using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
-using Model;
 using Model.Interfaces;
-using Model.Interfaces.ObjectsCollections;
-using PreProc.Interfaces;
-using Project.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
-using System.Xml.Linq;
 using static BaseModule.Interfaces.GeneralParams;
 
 namespace BazisGUI.Utilities
@@ -132,7 +127,5 @@ namespace BazisGUI.Utilities
         {
             return Enum.GetNames(typeof(T)).ToList();
         }
-
-
     }
 }

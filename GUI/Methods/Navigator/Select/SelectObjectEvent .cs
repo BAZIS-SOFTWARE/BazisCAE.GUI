@@ -1,29 +1,10 @@
-﻿using BaseModule.Mesh.SettingsControls;
-using BaseModule.Navigator;
+﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
-using BazisGUI.Scene;
-using BazisGUI.Scene.VBO;
-using BazisGUI.SettingsControls;
 using BazisGUI.Utilities;
-using GmshApi;
-using Model.GeometryObjects;
 using Model.Interfaces;
-using Model.Interfaces.ObjectsFinders;
-using Model.MeshObjects;
-using OperationalController.GmshController;
-using Project.Interfaces.Tasks;
-using Project.Results;
-using Project.Results.IO;
-using Project.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace BazisGUI
 {
@@ -34,8 +15,6 @@ namespace BazisGUI
             try
             {
                 var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
-                //var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
-
                 project.SetModelObjectsBackColor(objType);
 
                 var pres = project.CreateModelObjectsPresentor(objType);
@@ -48,85 +27,25 @@ namespace BazisGUI
                 SetVBObjectAttribute(pres, "цвет");
                 DisplayObjects();
 
-                // TO DO
                 var rows = new List<RowProperty>();
                 if (objType == ObjType.Точка)
-                {
-                    var dimTags = new int[] { 0, number };
-                    var meshSize = gmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
-
-                    var row = new RowProperty("Размер элементов", meshSize[0]);
-                    rows.Add(row);
-                }
+                    rows.Add(GetPointProperty(number));
 
                 else if(objType == ObjType.Узел)
-                {
-                    /* TO DO
-                     * Из объекта item сформировать строки (rowProperties)
-                     * строка 1 - номер
-                     * строка 2,3,4 - координата x,y,z
-                     * строка 5 - с какими элементами связан. Только номера (GetElements())
-                     */
-                }
-                else if (objType == ObjType.Элемент1D)
-                {
-                    /* TO DO
-                     * Из объекта item сформировать строки (rowProperties)
-                     * строка 1 - номер
-                     * строка 2 - Порядок элемента. Свойство Level (нередактируемое).
-                     * строка 3 - Их каких узлов состоит (нередактируемое). Только номера (GetVertexes())
+                    rows.AddRange(GetNodeProperty(objType, number));
 
-                     */
-                }
-                else if (objType == ObjType.Элемент2D)
-                {
-                    /* TO DO
-                     * Из объекта item сформировать строки (rowProperties)
-                     * строка 1 - номер
-                     * строка 2,3,4 - координата x,y,z
-                     * строка 5 - с какими элементами связан. Только номера (GetElements())
-                     */
-                }
-                else if (objType == ObjType.Элемент3D)
-                {
-                    /* TO DO
-                     * Из объекта item сформировать строки (rowProperties)
-                     * строка 1 - номер
-                     * строка 2,3,4 - координата x,y,z
-                     * строка 5 - с какими элементами связан. Только номера (GetElements())
-                     */
-                }
+                else if(objType == ObjType.Элемент1D | objType == ObjType.Элемент2D | objType == ObjType.Элемент3D)
+                    rows.AddRange(GetElementProperty(objType, number));
 
                 else if(objType == ObjType.Кривая)
-                {
                     rows.AddRange(GetCurveProperties(number));
-                }
-                //var _converter = new ModelObjectConverter(item);
+
                 propertiesPanel.DrawTable(rows);
-
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        
-
-        private void GetPointSize(object arg1, int arg2)
-        {
-            try
-            {
-                var dimTags = new int[] { 0, arg2 };
-                var meshSize = gmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
-                var pointControl = arg1 as GMSHPointSettingsControl;
-                pointControl.SetPointSize(meshSize[0]);
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
         }
     }
 }

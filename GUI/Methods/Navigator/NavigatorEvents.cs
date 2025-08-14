@@ -1,23 +1,19 @@
-﻿using BaseModule.Navigator;
+﻿using BaseModule.Extensions;
+using BaseModule.Navigator;
 using BaseModule.Tasks.BasicAdvisorControls.Events;
 using BazisGUI.Utilities;
 using Model.Interfaces;
+using Model.Interfaces.MeshObjects;
+using PreProc;
+using PreProc.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using BaseModule.Extensions;
-using Model.Interfaces.MeshObjects;
-using BaseModule.Tasks.TasksFromNavigator;
-using PropertiesCalculator.FunctionData;
-using PropertiesCalculator.MaterialData;
-using System.IO;
-using PreProc;
-using System.Diagnostics;
-using PreProc.Interfaces;
-using Project.Tasks;
 
 namespace BazisGUI
 {

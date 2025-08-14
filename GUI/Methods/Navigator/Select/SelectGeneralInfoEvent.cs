@@ -1,10 +1,8 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
-using BazisGUI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 
 namespace BazisGUI
 {
