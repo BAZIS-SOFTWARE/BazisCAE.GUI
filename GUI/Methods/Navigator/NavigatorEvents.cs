@@ -49,7 +49,7 @@ namespace BazisGUI
         {
             try
             {
-                ShowGantChart(project.TaskData.Select(x => x.ToString()));
+                ShowGantChart(project.TaskData.Select(x => x));
             }
             catch (Exception ex)
             {
