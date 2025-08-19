@@ -21,6 +21,7 @@ class PointObjects
 class LineObjects
 class BoundingBox
 class ClipPlane
+class ShaderProgramCreator
 
 IVBObject <|.. VBObject
 VBObject *-- BoundingBox
@@ -30,4 +31,6 @@ VBObject <|-- SurfaceObjects
 SurfaceObjects <|-- ClipPlane
 ClipPlane *-- ClipPlaneRenderer
 VBOController *-- VBObject
+Advanced3DClipper *-- ShaderProgramCreator
+ClipPlaneRenderer *-- ShaderProgramCreator 
 @enduml

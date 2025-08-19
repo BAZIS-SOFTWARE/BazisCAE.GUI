@@ -112,7 +112,6 @@ namespace BazisGUI
             project.FunctionsDB = funBasePage.DbName;
             var funData = funBasePage.Functions;
             //GetTaskAdvisor()?.SetFunctions(funData.Keys.ToList());
-            PresentMatAndFuncData();
         }
 
         public void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
@@ -126,7 +125,6 @@ namespace BazisGUI
             project.MaterialsDB = matBasePage.DbName;
             var matData = matBasePage.Materials;
             //GetTaskAdvisor()?.SetMaterials(matData.Keys.ToList());
-            PresentMatAndFuncData();
         }
 
         private string FindFileByPath(string path, string fileName)

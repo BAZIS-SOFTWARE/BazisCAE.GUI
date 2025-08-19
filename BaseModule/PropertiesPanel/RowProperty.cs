@@ -4,7 +4,11 @@ using System.Collections.Generic;
 
 namespace BaseModule.PropertiesPanel
 {
-    public class RowProperty //: DataGridViewRow // Свойства строки
+    //public abstract class RowProperty
+    //{
+    // в случае если потребуется сравнивать RowProperties
+    //}
+    public class RowProperty//<T> : RowProperty where T : IComparable<T> //: DataGridViewRow // Свойства строки
     {
         public override string ToString()
         {
@@ -23,9 +27,11 @@ namespace BaseModule.PropertiesPanel
         //    get { return AvailableValues == null ? false : true; }
         //}
         public bool IsReadOnly { get; set; }
+
+        public bool IsCheckable { get; set; }
         public bool IsDropDown 
         {
-            get { return AvailableValues == null ? false : true; }
+            get { return AvailableValues.Count == 0 ? false : true; }
         }
 
         public RowProperty(string header, object value,List<string> availableValues) :
@@ -45,10 +51,15 @@ namespace BaseModule.PropertiesPanel
             else if (value is float)
                 ValidationType = ValidationType.Float;
             else if (value is Enum)
-                ValidationType = ValidationType.Enum;
+                ValidationType = ValidationType.None;
+            else if (value is bool bval)
+            {
+                ValidationType = ValidationType.None;
+                IsCheckable = bval;
+            }
+
             else
-                ValidationType = ValidationType.Color;
-            IsReadOnly = isReadOnly;
+                ValidationType = ValidationType.None;
         }
     }
 }

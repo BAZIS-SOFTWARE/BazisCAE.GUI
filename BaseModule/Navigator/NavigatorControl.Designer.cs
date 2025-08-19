@@ -30,32 +30,35 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigatorControl));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Вид :");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Тип :");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("База материалов :");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("База функций :");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("База результатов :");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Точки", 14, 14);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Кривые", 14, 14);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Поверхности", 14, 14);
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Объемы", 14, 14);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Геометрия", 14, 14, new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4});
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Узлы", 14, 14);
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Точки", 14, 14);
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Кривые", 14, 14);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Поверхности", 14, 14);
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Объемы", 14, 14);
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Элементы1D", 14, 14);
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Элементы2D", 14, 14);
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Элементы3D", 14, 14);
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Объекты", 14, 14, new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Элементы1D", 14, 14);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Элементы2D", 14, 14);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Элементы3D", 14, 14);
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Сетка", 14, 14, new System.Windows.Forms.TreeNode[] {
             treeNode6,
             treeNode7,
             treeNode8,
-            treeNode9,
+            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Группы", 14, 14);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Задача", 14, 14);
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Расчет", 14, 14);
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Результаты", 14, 14);
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Проект", 14, 14, new System.Windows.Forms.TreeNode[] {
+            treeNode5,
             treeNode10,
             treeNode11,
             treeNode12,
-            treeNode13});
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Группы объектов", 14, 14);
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Условия", 14, 14);
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Задачи", 14, 14);
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Результаты", 14, 14);
+            treeNode13,
+            treeNode14});
             this.objects_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +67,7 @@
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
-            this.condsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.taskMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diagram_gantt_toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,7 +76,7 @@
             this.нагрузкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.нагревToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.средаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tasksMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.compMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.низкийПриорToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.среднийПриорToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -116,10 +119,11 @@
             this.удалитьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.скрытьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.objects_MenuStrip.SuspendLayout();
             this.groups_MenuStrip.SuspendLayout();
-            this.condsMenuStrip.SuspendLayout();
-            this.tasksMenuStrip.SuspendLayout();
+            this.taskMenuStrip.SuspendLayout();
+            this.compMenuStrip.SuspendLayout();
             this.resultsMenuStrip.SuspendLayout();
             this.ndGroup_MenuStrip.SuspendLayout();
             this.set_MenuStrip.SuspendLayout();
@@ -191,15 +195,15 @@
             this.toolStripMenuItem12.Text = "Показать";
             this.toolStripMenuItem12.Click += new System.EventHandler(this.ShowAllGroups_Click);
             // 
-            // condsMenuStrip
+            // taskMenuStrip
             // 
-            this.condsMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.condsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.taskMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.taskMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.удалитьToolStripMenuItem,
             this.diagram_gantt_toolStripMenuItem,
             this.добавитьToolStripMenuItem});
-            this.condsMenuStrip.Name = "taskMenuStrip";
-            this.condsMenuStrip.Size = new System.Drawing.Size(214, 70);
+            this.taskMenuStrip.Name = "taskMenuStrip";
+            this.taskMenuStrip.Size = new System.Drawing.Size(214, 70);
             // 
             // удалитьToolStripMenuItem
             // 
@@ -262,16 +266,16 @@
             this.средаToolStripMenuItem.Text = "Среда";
             this.средаToolStripMenuItem.Click += new System.EventHandler(this.средаToolStripMenuItem_Click);
             // 
-            // tasksMenuStrip
+            // compMenuStrip
             // 
-            this.tasksMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.tasksMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.compMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.compMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem8,
             this.сформироватьИнструкцииToolStripMenuItem,
             this.запуститьРасчетToolStripMenuItem,
             this.остановитьРасчетToolStripMenuItem});
-            this.tasksMenuStrip.Name = "taskMenuStrip";
-            this.tasksMenuStrip.Size = new System.Drawing.Size(227, 92);
+            this.compMenuStrip.Name = "taskMenuStrip";
+            this.compMenuStrip.Size = new System.Drawing.Size(227, 92);
             // 
             // toolStripMenuItem8
             // 
@@ -329,22 +333,23 @@
             // 
             this.resultsMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.resultsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.загрузитьToolStripMenuItem,
             this.скрытьРезToolStripMenuItem,
             this.удалитьРезToolStripMenuItem});
             this.resultsMenuStrip.Name = "resultsMenuStrip";
-            this.resultsMenuStrip.Size = new System.Drawing.Size(119, 48);
+            this.resultsMenuStrip.Size = new System.Drawing.Size(181, 92);
             // 
             // скрытьРезToolStripMenuItem
             // 
             this.скрытьРезToolStripMenuItem.Name = "скрытьРезToolStripMenuItem";
-            this.скрытьРезToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.скрытьРезToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.скрытьРезToolStripMenuItem.Text = "Скрыть";
             this.скрытьРезToolStripMenuItem.Click += new System.EventHandler(this.скрытьРезToolStripMenuItem_Click);
             // 
             // удалитьРезToolStripMenuItem
             // 
             this.удалитьРезToolStripMenuItem.Name = "удалитьРезToolStripMenuItem";
-            this.удалитьРезToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.удалитьРезToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.удалитьРезToolStripMenuItem.Text = "Удалить";
             this.удалитьРезToolStripMenuItem.Click += new System.EventHandler(this.удалитьРезToolStripMenuItem_Click);
             // 
@@ -528,18 +533,35 @@
             this.treeView.Location = new System.Drawing.Point(0, 15);
             this.treeView.Margin = new System.Windows.Forms.Padding(0);
             this.treeView.Name = "treeView";
-            treeNode1.Name = "вид";
-            treeNode1.Tag = "3";
-            treeNode1.Text = "Вид :";
-            treeNode2.Name = "тип";
-            treeNode2.Tag = "4";
-            treeNode2.Text = "Тип :";
-            treeNode3.Name = "базаМатериалов";
-            treeNode3.Text = "База материалов :";
-            treeNode4.Name = "базаФункций";
-            treeNode4.Text = "База функций :";
-            treeNode5.Name = "базаРезультатов";
-            treeNode5.Text = "База результатов :";
+            treeNode1.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode1.ImageIndex = 14;
+            treeNode1.Name = "Точки";
+            treeNode1.SelectedImageIndex = 14;
+            treeNode1.Tag = "5.1";
+            treeNode1.Text = "Точки";
+            treeNode2.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode2.ImageIndex = 14;
+            treeNode2.Name = "Кривые";
+            treeNode2.SelectedImageIndex = 14;
+            treeNode2.Tag = "5.1";
+            treeNode2.Text = "Кривые";
+            treeNode3.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode3.ImageIndex = 14;
+            treeNode3.Name = "Поверхности";
+            treeNode3.SelectedImageIndex = 14;
+            treeNode3.Tag = "5.1";
+            treeNode3.Text = "Поверхности";
+            treeNode4.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode4.ImageIndex = 14;
+            treeNode4.Name = "Объемы";
+            treeNode4.SelectedImageIndex = 14;
+            treeNode4.Tag = "5.1";
+            treeNode4.Text = "Объемы";
+            treeNode5.ImageIndex = 14;
+            treeNode5.Name = "геометрия";
+            treeNode5.SelectedImageIndex = 14;
+            treeNode5.Tag = "5";
+            treeNode5.Text = "Геометрия";
             treeNode6.ContextMenuStrip = this.objects_MenuStrip;
             treeNode6.ImageIndex = 14;
             treeNode6.Name = "Узлы";
@@ -548,87 +570,56 @@
             treeNode6.Text = "Узлы";
             treeNode7.ContextMenuStrip = this.objects_MenuStrip;
             treeNode7.ImageIndex = 14;
-            treeNode7.Name = "Точки";
+            treeNode7.Name = "Элементы1D";
             treeNode7.SelectedImageIndex = 14;
             treeNode7.Tag = "5.1";
-            treeNode7.Text = "Точки";
+            treeNode7.Text = "Элементы1D";
             treeNode8.ContextMenuStrip = this.objects_MenuStrip;
             treeNode8.ImageIndex = 14;
-            treeNode8.Name = "Кривые";
+            treeNode8.Name = "Элементы2D";
             treeNode8.SelectedImageIndex = 14;
             treeNode8.Tag = "5.1";
-            treeNode8.Text = "Кривые";
+            treeNode8.Text = "Элементы2D";
             treeNode9.ContextMenuStrip = this.objects_MenuStrip;
             treeNode9.ImageIndex = 14;
-            treeNode9.Name = "Поверхности";
+            treeNode9.Name = "Элементы3D";
             treeNode9.SelectedImageIndex = 14;
             treeNode9.Tag = "5.1";
-            treeNode9.Text = "Поверхности";
-            treeNode10.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode9.Text = "Элементы3D";
             treeNode10.ImageIndex = 14;
-            treeNode10.Name = "Объемы";
+            treeNode10.Name = "сетка";
             treeNode10.SelectedImageIndex = 14;
-            treeNode10.Tag = "5.1";
-            treeNode10.Text = "Объемы";
-            treeNode11.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode10.Text = "Сетка";
+            treeNode11.ContextMenuStrip = this.groups_MenuStrip;
             treeNode11.ImageIndex = 14;
-            treeNode11.Name = "Элементы1D";
+            treeNode11.Name = "группы";
             treeNode11.SelectedImageIndex = 14;
-            treeNode11.Tag = "5.1";
-            treeNode11.Text = "Элементы1D";
-            treeNode12.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode11.Tag = "6";
+            treeNode11.Text = "Группы";
+            treeNode12.ContextMenuStrip = this.taskMenuStrip;
             treeNode12.ImageIndex = 14;
-            treeNode12.Name = "Элементы2D";
+            treeNode12.Name = "задача";
             treeNode12.SelectedImageIndex = 14;
-            treeNode12.Tag = "5.1";
-            treeNode12.Text = "Элементы2D";
-            treeNode13.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode12.Tag = "7";
+            treeNode12.Text = "Задача";
+            treeNode13.ContextMenuStrip = this.compMenuStrip;
             treeNode13.ImageIndex = 14;
-            treeNode13.Name = "Элементы3D";
+            treeNode13.Name = "расчет";
             treeNode13.SelectedImageIndex = 14;
-            treeNode13.Tag = "5.1";
-            treeNode13.Text = "Элементы3D";
-            treeNode14.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode13.Tag = "8";
+            treeNode13.Text = "Расчет";
+            treeNode14.ContextMenuStrip = this.resultsMenuStrip;
             treeNode14.ImageIndex = 14;
-            treeNode14.Name = "объекты";
+            treeNode14.Name = "результаты";
             treeNode14.SelectedImageIndex = 14;
-            treeNode14.Tag = "5";
-            treeNode14.Text = "Объекты";
-            treeNode15.ContextMenuStrip = this.groups_MenuStrip;
+            treeNode14.Tag = "9";
+            treeNode14.Text = "Результаты";
             treeNode15.ImageIndex = 14;
-            treeNode15.Name = "группыОбъектов";
+            treeNode15.Name = "проект";
             treeNode15.SelectedImageIndex = 14;
-            treeNode15.Tag = "6";
-            treeNode15.Text = "Группы объектов";
-            treeNode16.ContextMenuStrip = this.condsMenuStrip;
-            treeNode16.ImageIndex = 14;
-            treeNode16.Name = "условия";
-            treeNode16.SelectedImageIndex = 14;
-            treeNode16.Tag = "7";
-            treeNode16.Text = "Условия";
-            treeNode17.ContextMenuStrip = this.tasksMenuStrip;
-            treeNode17.ImageIndex = 14;
-            treeNode17.Name = "задачи";
-            treeNode17.SelectedImageIndex = 14;
-            treeNode17.Tag = "8";
-            treeNode17.Text = "Задачи";
-            treeNode18.ContextMenuStrip = this.resultsMenuStrip;
-            treeNode18.ImageIndex = 14;
-            treeNode18.Name = "результаты";
-            treeNode18.SelectedImageIndex = 14;
-            treeNode18.Tag = "9";
-            treeNode18.Text = "Результаты";
+            treeNode15.Text = "Проект";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode14,
-            treeNode15,
-            treeNode16,
-            treeNode17,
-            treeNode18});
+            treeNode15});
             this.treeView.SelectedImageIndex = 16;
             this.treeView.ShowLines = false;
             this.treeView.Size = new System.Drawing.Size(256, 539);
@@ -729,6 +720,13 @@
             this.показатьОбъектMenuItem.Text = "Показать";
             this.показатьОбъектMenuItem.Click += new System.EventHandler(this.показатьОбъектMenuItem_Click);
             // 
+            // загрузитьToolStripMenuItem
+            // 
+            this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.загрузитьToolStripMenuItem.Text = "Загрузить";
+            this.загрузитьToolStripMenuItem.Click += new System.EventHandler(this.загрузитьРезультатыToolStripMenuItem_Click);
+            // 
             // NavigatorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -741,8 +739,8 @@
             this.Size = new System.Drawing.Size(256, 554);
             this.objects_MenuStrip.ResumeLayout(false);
             this.groups_MenuStrip.ResumeLayout(false);
-            this.condsMenuStrip.ResumeLayout(false);
-            this.tasksMenuStrip.ResumeLayout(false);
+            this.taskMenuStrip.ResumeLayout(false);
+            this.compMenuStrip.ResumeLayout(false);
             this.resultsMenuStrip.ResumeLayout(false);
             this.ndGroup_MenuStrip.ResumeLayout(false);
             this.set_MenuStrip.ResumeLayout(false);
@@ -783,7 +781,7 @@
         private System.Windows.Forms.ImageList treeNodesImageList_16x16;
         private System.Windows.Forms.ContextMenuStrip objects_MenuStrip;
         private System.Windows.Forms.TreeView treeView;
-        private System.Windows.Forms.ContextMenuStrip tasksMenuStrip;
+        private System.Windows.Forms.ContextMenuStrip compMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem низкийПриорToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem среднийПриорToolStripMenuItem;
@@ -794,7 +792,7 @@
         private System.Windows.Forms.ContextMenuStrip resultsMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem скрытьРезToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьРезToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip condsMenuStrip;
+        private System.Windows.Forms.ContextMenuStrip taskMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem diagram_gantt_toolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
@@ -815,5 +813,6 @@
         private System.Windows.Forms.ToolStripMenuItem удалитьОбъектMenuItem;
         private System.Windows.Forms.ToolStripMenuItem скрытьОбъектMenuItem;
         private System.Windows.Forms.ToolStripMenuItem показатьОбъектMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
     }
 }

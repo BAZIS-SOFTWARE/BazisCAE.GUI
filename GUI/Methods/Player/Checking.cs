@@ -1,15 +1,11 @@
 ﻿using BaseModule.Extensions;
 using BaseModule.Navigator;
-using MathNet.Numerics.Distributions;
 using Project.Interfaces.Tasks;
-using Project.Results.IO;
-using Project.Tasks.Functions.Welding;
+using ResultDB.IO;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BazisGUI
 {

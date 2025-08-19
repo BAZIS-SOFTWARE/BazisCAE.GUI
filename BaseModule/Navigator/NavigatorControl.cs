@@ -15,46 +15,39 @@ namespace BaseModule.Navigator
 
     public enum NodeName : int 
     {
-        объекты,
-        группыОбъектов,
+        проект,
+        геометрия,
 
-        Точки, 
-        Кривые, 
-        Поверхности, 
-        Объемы,
-
+        Точки,
         Точка,
+        Кривые,
         Кривая,
+        Поверхности,
         Поверхность,
+        Объемы,
         Объем,
 
-        Узлы, 
-        Элементы1D, 
-        Элементы2D, 
-        Элементы3D,
+        сетка,
 
+        Узлы,
+        Элементы1D,
+        Элементы2D,
+        Элементы3D,
         Узел,
         Элемент1D,
         Элемент2D,
         Элемент3D,
 
-        условия,
+        группы,
+        задача,
+
         Материал,
         Среда,
         Нагрев,
         Закрепление,
         Нагрузка,
 
-        //названиеПроекта,
-        //путь,
-        //сведения,
-        вид,
-        тип,
-        базаФункций,
-        базаМатериалов,
-        базаРезультатов,
-
-        задачи,
+        расчет,
         Тепловая,
         Механическая,
         Химическая,
@@ -137,8 +130,13 @@ namespace BaseModule.Navigator
         public event Action<NodeName, string, int> HideObjectEvent;
 
         public event Action<NodeName, string> SelectCondEvent;
-        public event Action<NodeName, string> SelectTaskEvent;
-        public event Action<NodeName, string> SelectGeneralInfoEvent;
+        public event Action SelectTaskEvent;
+        public event Action SelectGeoEvent;
+        public event Action SelectResultsEvent;
+        public event Action LoadResultsEvent;
+ 
+        public event Action<NodeName, string> SelectInstrEvent;
+        public event Action SelectGeneralInfoEvent;
         public event Action<string, double> SelectTimeEvent;
         public event Action<NodeName, string> SelectResultEvent;
 
@@ -462,11 +460,7 @@ namespace BaseModule.Navigator
             var node = treeView.SelectedNode;
 
             var nodeType = node.Name.ToEnum<NodeName>();
-
-            if (nodeType == NodeName.объекты)
-                ShowAllObjectsEvent?.Invoke();
-            else
-                ShowObjectsEvent?.Invoke(nodeType);
+            ShowObjectsEvent?.Invoke(nodeType);
         }
 
         public void DelObjects_Click(object sender, EventArgs e)
@@ -474,11 +468,7 @@ namespace BaseModule.Navigator
             var node = treeView.SelectedNode;
 
             var nodeType = node.Name.ToEnum<NodeName>();
-
-            if (nodeType == NodeName.объекты)
-                DelAllObjectsEvent?.Invoke();
-            else
-                DelObjectsEvent?.Invoke(nodeType);
+            DelObjectsEvent?.Invoke(nodeType);
         }
 
         public void HideObjects_Click(object sender, EventArgs e)
@@ -486,11 +476,7 @@ namespace BaseModule.Navigator
             var node = treeView.SelectedNode;
 
             var nodeType = node.Name.ToEnum<NodeName>();
-
-            if (nodeType == NodeName.объекты)
-                HideAllObjectsEvent?.Invoke();
-            else
-                HideObjectsEvent?.Invoke(nodeType);
+            HideObjectsEvent?.Invoke(nodeType);
         }
 
         public void HideAllGroups_Click(object sender, EventArgs e)
@@ -566,16 +552,19 @@ namespace BaseModule.Navigator
             var node = e.Node;
 
             if (e.Node.Level == 0)
+                SelectGeneralInfoEvent?.Invoke();
+            
+            else if(e.Node.Level == 1)
             {
-                if (e.Node.Name == NodeName.базаФункций.ToString() |
-                    e.Node.Name == NodeName.базаМатериалов.ToString() |
-                    e.Node.Name == NodeName.тип.ToString() |
-                    e.Node.Name == NodeName.вид.ToString()
-)
-                    SelectGeneralInfoEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
+                if (node.Name == NodeName.геометрия.ToString())
+                    SelectGeoEvent?.Invoke();
+                else if (node.Name == NodeName.задача.ToString())
+                    SelectTaskEvent?.Invoke();
+                else if (node.Name == NodeName.результаты.ToString())
+                    SelectResultsEvent?.Invoke();
             }
 
-            else if (e.Node.Level == 1)
+            else if (e.Node.Level == 2)
             {
                 if (e.Node.Name == NodeName.Материал.ToString() |
 e.Node.Name == NodeName.Среда.ToString() |
@@ -589,7 +578,7 @@ e.Node.Name == NodeName.Механическая.ToString() |
 e.Node.Name == NodeName.Химическая.ToString()
 )
                 {
-                    SelectTaskEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
+                    SelectInstrEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
                 }
                 else if (e.Node.Name == NodeName.Узел.ToString() |
 e.Node.Name == NodeName.Элемент1D.ToString() |
@@ -601,11 +590,11 @@ e.Node.Name == NodeName.Поверхность.ToString() |
 e.Node.Name == NodeName.Объем.ToString()
 )
                     SelectGroupEvent?.Invoke(e.Node.Index);
-                else if(e.Node.Name == NodeName.Результат.ToString())
+                else if (e.Node.Name == NodeName.Результат.ToString())
                     SelectResultEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
             }
 
-            else if (e.Node.Level == 2)
+            else if (e.Node.Level == 3)
             {
                 if (e.Node.Parent.Name == NodeName.Узлы.ToString() |
 e.Node.Parent.Name == NodeName.Элементы1D.ToString() |
@@ -621,7 +610,7 @@ e.Node.Parent.Name == NodeName.Объемы.ToString()
                     SelectTimeEvent?.Invoke(e.Node.Parent.Text, double.Parse(e.Node.Text));
             }
 
-            else if (e.Node.Level == 3)
+            else if (e.Node.Level == 4)
             {
                 if (e.Node.Name == NodeName.Узел.ToString() |
 e.Node.Name == NodeName.Элемент1D.ToString() |
@@ -692,7 +681,7 @@ e.Node.Name == NodeName.Объем.ToString()
         public void PresentCompDataOnTree(List<string> compData)
         {
             BeginUpdate();
-            TrySearchNodes(NodeName.задачи.ToString(), out List<TreeNode> tasks);
+            TrySearchNodes(NodeName.задача.ToString(), out List<TreeNode> tasks);
 
             tasks[0].Nodes.Clear();
 
@@ -879,6 +868,11 @@ e.Node.Name == NodeName.Объем.ToString()
             }
 
             return bounds;
+        }
+
+        private void загрузитьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadResultsEvent?.Invoke();
         }
     }
 }

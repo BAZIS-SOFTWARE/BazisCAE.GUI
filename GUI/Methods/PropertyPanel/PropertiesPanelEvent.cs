@@ -27,7 +27,7 @@ namespace BazisGUI
                 // вызывать нужный метод в controller
                 var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
 
-                if (navigator.SelectedNode.Level == 3)
+                if (navigator.SelectedNode.Level == 4)
                 {
                     var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
                     if (nodeName == NodeName.Элемент3D |
@@ -74,7 +74,7 @@ namespace BazisGUI
                         //SetMeshGradientSettings(MeshGradientSettingsEventArgs arg2)
                     }
                 }
-                if (navigator.SelectedNode.Level == 2)
+                if (navigator.SelectedNode.Level == 3)
                 {
                     if (nodeName == NodeName.Элементы3D)
                         ChangeMeshSetProperties(obj, 3);
@@ -84,11 +84,11 @@ namespace BazisGUI
                         ChangeMeshSetProperties(obj, 1);
                 }
 
-                else if (navigator.SelectedNode.Level == 1)
+                else if (navigator.SelectedNode.Level == 2)
                 {
                     var index = navigator.SelectedNode.Index;
                     var parentName = navigator.SelectedNode.Parent.Name.ToEnum<NodeName>();
-                    if (parentName == NodeName.группыОбъектов)
+                    if (parentName == NodeName.группы)
                     {
                         if (nodeName == NodeName.Элемент3D |
         nodeName == NodeName.Элемент2D |
@@ -101,7 +101,7 @@ namespace BazisGUI
                             PresentCondDataOnTree();
                         }
                     }
-                    else if (parentName == NodeName.условия)
+                    else if (parentName == NodeName.задача)
                     {
                         var _funcs =
 GetDataBase<FunctionDBData>(project.FunctionsDB, project.Path).Keys.ToList();
@@ -136,25 +136,17 @@ GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
 
                 }
 
-                else if (navigator.SelectedNode.Level == 0)
+                else if (navigator.SelectedNode.Level == 1)
                 {
-                    if (nodeName == NodeName.вид)
-                    {
-                        ChangeTaskKindProperties(obj);
-                    }
-                    else if (nodeName == NodeName.тип)
-                    {
-                        ChangeTaskTypeProperties(obj);
-                        navigator.SelectedNode.Parent.Nodes.Clear();
-                    }
-                    navigator.TrySearchNodes(NodeName.условия, out List<TreeNode> nodes);
-                    nodes[0].Nodes.Clear();
+                    if (nodeName == NodeName.задача)
+                        ChangeTaskProperties(obj);
+                    else if (nodeName == NodeName.геометрия)
+                        ChangeGeoProperties(obj);
                 }
 
                 // Вынести обновление свойств объктов сюда!!! Важно..
 
                 // TO DO оптимизировать. Обновлять на дереве только те данные, которые на самом деле изменились
-                PresentTaskTypeAndKind();
 
                 //if (obj is TaskPage taskPage)
                 //PresentCondDataOnTree();

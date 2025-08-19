@@ -43,9 +43,6 @@ namespace BaseModule.Mesh
             this.geometryLayout = new System.Windows.Forms.TableLayoutPanel();
             this.geomTree = new System.Windows.Forms.TreeView();
             this.entitieSettingsBox = new UserControlsEx.GroupBoxEx();
-            this.volSettingsControl = new BaseModule.Mesh.SettingsControls.GMSHVolSettingsControl();
-            this.curveSettingsControl = new BaseModule.Mesh.SettingsControls.GMSHCurveSettingsControl();
-            this.pointSettingsControl = new BaseModule.Mesh.SettingsControls.GMSHPointSettingsControl();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.btnMinMaxSizes = new System.Windows.Forms.Button();
@@ -75,6 +72,9 @@ namespace BaseModule.Mesh
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnGenVolMesh = new System.Windows.Forms.Button();
             this.btnDelVolMesh = new System.Windows.Forms.Button();
+            this.volSettingsControl = new BaseModule.Mesh.SettingsControls.GMSHVolSettingsControl();
+            this.curveSettingsControl = new BaseModule.Mesh.SettingsControls.GMSHCurveSettingsControl();
+            this.pointSettingsControl = new BaseModule.Mesh.SettingsControls.GMSHPointSettingsControl();
             this.cmsRemoveMesh2D.SuspendLayout();
             this.cmsRemoveMesh3D.SuspendLayout();
             this.gmshTab.SuspendLayout();
@@ -207,36 +207,6 @@ namespace BaseModule.Mesh
             this.entitieSettingsBox.TabIndex = 18;
             this.entitieSettingsBox.TabStop = false;
             this.entitieSettingsBox.Text = "Настройки разметки";
-            // 
-            // volSettingsControl
-            // 
-            this.volSettingsControl.Location = new System.Drawing.Point(202, 174);
-            this.volSettingsControl.Margin = new System.Windows.Forms.Padding(0);
-            this.volSettingsControl.Name = "volSettingsControl";
-            this.volSettingsControl.Size = new System.Drawing.Size(467, 195);
-            this.volSettingsControl.TabIndex = 3;
-            this.volSettingsControl.setMeshGradientEvent += new System.Action<object, BaseModule.Mesh.MeshGradientSettingsEventArgs>(this.gmshVolSettingsControl_setMeshGradientSettingsEventHandler);
-            this.volSettingsControl.delMeshGradientEvent += new System.Action<object>(this.gmshVolSettingsControl_delMeshGradientEventHandler);
-            // 
-            // curveSettingsControl
-            // 
-            this.curveSettingsControl.Location = new System.Drawing.Point(53, 155);
-            this.curveSettingsControl.Margin = new System.Windows.Forms.Padding(0);
-            this.curveSettingsControl.Name = "curveSettingsControl";
-            this.curveSettingsControl.Size = new System.Drawing.Size(517, 127);
-            this.curveSettingsControl.TabIndex = 2;
-            this.curveSettingsControl.pressOkEvent += new System.Action<object, string[]>(this.CurveSettingsControl_pressOkEvent);
-            this.curveSettingsControl.pressDelEvent += new System.Action<object>(this.CurveSettingsControl_pressDelEvent);
-            // 
-            // pointSettingsControl
-            // 
-            this.pointSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pointSettingsControl.Location = new System.Drawing.Point(3, 16);
-            this.pointSettingsControl.Name = "pointSettingsControl";
-            this.pointSettingsControl.Size = new System.Drawing.Size(666, 217);
-            this.pointSettingsControl.TabIndex = 1;
-            this.pointSettingsControl.pressOkEvent += new System.Action<object, double[]>(this.PointSettingsControl_pressOkEvent);
-            this.pointSettingsControl.pressDelEvent += new System.Action<object>(this.PointSettingsControl_pressDelEvent);
             // 
             // tableLayoutPanel2
             // 
@@ -666,6 +636,36 @@ namespace BaseModule.Mesh
             this.btnDelVolMesh.Text = "Удалить";
             this.btnDelVolMesh.UseVisualStyleBackColor = true;
             this.btnDelVolMesh.Click += new System.EventHandler(this.OnDeleteMesh3D);
+            // 
+            // volSettingsControl
+            // 
+            this.volSettingsControl.Location = new System.Drawing.Point(103, 38);
+            this.volSettingsControl.Margin = new System.Windows.Forms.Padding(0);
+            this.volSettingsControl.Name = "volSettingsControl";
+            this.volSettingsControl.Size = new System.Drawing.Size(467, 195);
+            this.volSettingsControl.TabIndex = 3;
+            this.volSettingsControl.setMeshGradientEvent += new System.Action<object, BaseModule.Mesh.MeshGradientSettingsEventArgs>(this.gmshVolSettingsControl_setMeshGradientSettingsEventHandler);
+            this.volSettingsControl.delMeshGradientEvent += new System.Action<object>(this.gmshVolSettingsControl_delMeshGradientEventHandler);
+            // 
+            // curveSettingsControl
+            // 
+            this.curveSettingsControl.Location = new System.Drawing.Point(53, 155);
+            this.curveSettingsControl.Margin = new System.Windows.Forms.Padding(0);
+            this.curveSettingsControl.Name = "curveSettingsControl";
+            this.curveSettingsControl.Size = new System.Drawing.Size(517, 127);
+            this.curveSettingsControl.TabIndex = 2;
+            this.curveSettingsControl.pressOkEvent += new System.Action<object, string[]>(this.CurveSettingsControl_pressOkEvent);
+            this.curveSettingsControl.pressDelEvent += new System.Action<object>(this.CurveSettingsControl_pressDelEvent);
+            // 
+            // pointSettingsControl
+            // 
+            this.pointSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pointSettingsControl.Location = new System.Drawing.Point(3, 16);
+            this.pointSettingsControl.Name = "pointSettingsControl";
+            this.pointSettingsControl.Size = new System.Drawing.Size(666, 217);
+            this.pointSettingsControl.TabIndex = 1;
+            this.pointSettingsControl.pressOkEvent += new System.Action<object, double[]>(this.PointSettingsControl_pressOkEvent);
+            this.pointSettingsControl.pressDelEvent += new System.Action<object>(this.PointSettingsControl_pressDelEvent);
             // 
             // GMSHGeneralMeshControl
             // 

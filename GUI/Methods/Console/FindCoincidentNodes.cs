@@ -34,7 +34,7 @@ namespace BazisGUI
                 {
                     var set = project.ModelData.ObjectData.GetSetsInfo(ObjType.Узел).First();
 
-                    navigator.TrySearchNodes(NodeName.объекты, out List<TreeNode> objects);
+                    navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> objects);
                     objects[0].Nodes[0].Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
                     console.PrintInfo("Узлы слиты", Color.Green);
 

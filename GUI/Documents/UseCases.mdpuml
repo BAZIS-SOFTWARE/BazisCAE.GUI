@@ -47,7 +47,7 @@ note "Model.dll" as N1
 (загрузить/импортировать\n сетку) .. N1
 N1 .. (создать сеточные группы)
 (геометрические преобразования) .. N1
-note "gmsh.dll" as N2
+note "GmshApi.dll\n-Gmsh.Open(file)\n-Mesh.Generate(dim)" as N2
 (загрузить CAD) .. N2
 N2 .. (построить сетку)
 @enduml

@@ -6,21 +6,17 @@ using BazisGUI.Utilities;
 using Geometry;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
-using PostProc;
 using Project.Interfaces.Tasks;
-using Project.Interfaces;
-using Project.Results;
-using Project.Results.IO;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx.Graph;
-using BazisGUI.Scene;
 using OperationalController;
+using ResultDB;
+using ResultDB.IO;
 
 namespace BazisGUI
 {
@@ -310,10 +306,10 @@ namespace BazisGUI
                 DisplayObjects();
             }
         }
-        private void loadResultsMenuItem_Click(object sender, EventArgs e)
+
+        private void navigator_LoadResultsEvent()
         {
             var fileName = dataController.OpenResults();
-
             PresentResultsInfo(fileName);
         }
 
@@ -322,10 +318,6 @@ namespace BazisGUI
             if (fileName != "")
             {
                 ResultDbPath = fileName;
-                navigator.TrySearchNodes(NodeName.базаРезультатов, out List<TreeNode> resBase);
-
-                resBase[0].Text = "База результатов :";
-                resBase[0].Text += $" {fileName}";
 
                 var loader = new LoadResultsFileDB();
                 var scheme = loader.GetTablesSchemes(fileName).
@@ -600,7 +592,7 @@ namespace BazisGUI
             catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
         }
 
-        private async void ExportGridAsync(IModelData modelData, IGeneralData generalData, Result result, ExportResultEventArgs args)
+        private async void ExportGridAsync(IModelData modelData, ITaskData taskData, Result result, ExportResultEventArgs args)
         {
             try
             {
@@ -610,7 +602,7 @@ namespace BazisGUI
                 await Task.Run(() =>
                 {
                     IEnumerable<ISurfaceElement> elements;
-                    if (generalData.TaskType == TaskType.Volume)
+                    if (taskData.TaskType == TaskType.Volume)
                         elements = modelData.ObjectData.E3DCollection.GetObjects();
                     else
                         elements = modelData.ObjectData.E2DCollection.GetObjects();

@@ -1,16 +1,11 @@
 ﻿using BaseModule.Navigator;
-using BazisGUI.Utilities;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
-using Project.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using BaseModule.Extensions;
 using Project.Tasks.FrameCreators;
 using Project.Tasks.Functions.Welding;
 using Geometry;
@@ -20,13 +15,6 @@ using BazisGUI.TasksControls;
 using Newtonsoft.Json;
 using Project.TaskParameters;
 using System.IO;
-using BaseModule.Results.Animation;
-using Gif.Components;
-using Project.Results.IO;
-using Project.Results;
-using BazisGUI.Scene;
-using BasicControls.OpenFileDialogEx;
-using Project.Tasks;
 
 namespace BazisGUI
 {
@@ -53,42 +41,7 @@ namespace BazisGUI
 
             navigator.EndUpdate();
         }
-
-        public void PresentTaskTypeAndKind()
-        {
-            lblStatus.Text = $"{project.Path}/{project.Name}";
-
-            navigator.TrySearchNodes(NodeName.вид, out List<TreeNode> kind);
-            kind.First().Text = $"Вид : {project.ProjectKind}";
-
-            navigator.TrySearchNodes(NodeName.тип, out List<TreeNode> type);
-            type.First().Text = $"Тип : {project.ProjectType}";
-
-        }
-
-        public void PresentMatAndFuncData()
-        {
-            try
-            {
-                navigator.BeginUpdate();
-                navigator.TrySearchNodes(NodeName.базаМатериалов, out List<TreeNode> mats);
-                mats[0].Text = $"База материалов : {project.MaterialsDB}";
-
-                navigator.TrySearchNodes(NodeName.базаФункций, out List<TreeNode> func);
-                func[0].Text = $"База функций : {project.FunctionsDB}";
-
-                navigator.EndUpdate();
-
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-        
-
-
-
+      
         private void DisplayMRF(float time, ICondData data)
         {
             var mf = data.FrameFunction.LocalFrame as MovedFrame;

@@ -23,6 +23,7 @@ using OperationalController.GmshController;
 using OperationalController.ModelScenePresentator;
 using System.Collections.Generic;
 using OperationalController;
+using Model;
 
 namespace BazisGUI
 {
@@ -152,20 +153,12 @@ namespace BazisGUI
                     if (gmshController == null)
                         gmshController = dataController.LoadGMSH();
 
-                    gmshController.Gmsh.Clear();
-                    gmshController.Gmsh.Open(fullPath);
-
-                    var path = Path.GetDirectoryName(fullPath);
-                    var name = "new_Project.bpf";
-
-                    project = dataController.CreateNewProject(path, name);
-
-                    dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Точка);
-                    dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Кривая);
-                    dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Поверхность);
+                    if (project == null)
+                        project = new Controller();
+                    project.ImportCAD(fullPath, gmshController);
                 }
-                lblStatus.Text = $"{project.Path}\\{project.Name}";
 
+                lblStatus.Text = $"{project.Path}\\{project.Name}";
             }
 
 
@@ -752,8 +745,6 @@ namespace BazisGUI
 
             console.PrintInfo("Проект сохранен", Color.Black);
             lblStatus.Text = $"{project.Path}\\{project.Name}";
-
-            PresentTaskTypeAndKind();
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -785,18 +776,9 @@ namespace BazisGUI
                 if (gmshController.Gmsh == null)
                     gmshController = dataController.LoadGMSH();
 
-                gmshController.Gmsh.Clear();
-                gmshController.Gmsh.Open(dialog.FileName);
-
-                var path = Path.GetDirectoryName(dialog.FileName);
-                var name = "новый_проект.bpf";
-
-                project = dataController.CreateNewProject(path, name);
-                gmshController.Gmsh.Model.Mesh.ImportStl(); //обязательно для представления stl
-                dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Точка);
-                dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Кривая);
-                dataController.UpdateGeometry(gmshController, project.ModelData, ObjType.Поверхность);
-   
+                if (project == null)
+                    project = new Controller();
+                project.ImportCAD(dialog.FileName, gmshController);
 
                 if (project != null)
                 {
@@ -818,7 +800,7 @@ namespace BazisGUI
         private void PresentProjectOnModule()
         {
             CreateVBObjects("Объекты");
-            PresentTaskTypeAndKind();
+
             PresentObjectsDataOnTree();
 
             PresentGroupDataOnTree();
@@ -944,7 +926,7 @@ namespace BazisGUI
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
 
-        }
+        }      
     }
 
 }

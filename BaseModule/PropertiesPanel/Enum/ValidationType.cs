@@ -11,10 +11,7 @@ namespace BaseModule.PropertiesPanel
         Text = 4,
 
         PositiveOnly = 8,
-        NegativeAndPositive = 16,
-        Color = 32,
-        Enum = 64,
-
+        NegativeAndPositive = 16,      
 
         IntPositive = Integer | PositiveOnly,
         IntAny = Integer | NegativeAndPositive,

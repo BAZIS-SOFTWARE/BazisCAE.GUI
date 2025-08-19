@@ -5,7 +5,6 @@ using Geometry;
 using System.Drawing;
 using BazisGUI.Scene;
 using System.Linq;
-using Project.Results;
 
 namespace BazisGUI
 {

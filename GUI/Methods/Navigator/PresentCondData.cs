@@ -20,10 +20,8 @@ namespace BazisGUI
             try
             {
                 navigator.BeginUpdate();
-                navigator.TrySearchNodes(NodeName.условия, out List<TreeNode> cond);
-                cond[0].Nodes.Clear();
-
-                PresentMatAndFuncData();
+                navigator.TrySearchNodes(NodeName.задача, out List<TreeNode> task);
+                task[0].Nodes.Clear();
 
                 foreach (var data in project.GetAllCondData())
                 {
@@ -34,12 +32,12 @@ namespace BazisGUI
                     child.ImageIndex = imgIndex;
                     child.SelectedImageIndex = imgIndex;
 
-                    navigator.TrySearchNodes(NodeName.условия.ToString(), out List<TreeNode> nodes);
-                    nodes.First().Nodes.Add(child);
+                    //navigator.TrySearchNodes(NodeName.условия.ToString(), out List<TreeNode> nodes);
+                    task.First().Nodes.Add(child);
                 }
 
                 navigator.EndUpdate();
-                cond[0].Expand();
+                task[0].Expand();
             }
             catch (Exception ex)
             {

@@ -94,7 +94,7 @@
       <HintPath>..\packages\ClientLogicCP.1.1.10\lib\netstandard2.0\ClientLogicCP.dll</HintPath>
     </Reference>
     <Reference Include="CsvHelper, Version=33.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <HintPath>..\packages\CsvHelper.33.0.1\lib\net48\CsvHelper.dll</HintPath>
+      <HintPath>..\packages\CsvHelper.33.1.0\lib\net48\CsvHelper.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
@@ -102,15 +102,15 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Geometry, Version=2.0.9.4, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geometry.2.0.9.4\lib\netstandard2.0\Geometry.dll</HintPath>
+    <Reference Include="Geometry, Version=2.1.0.0, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Geometry.2.1.0\lib\netstandard2.0\Geometry.dll</HintPath>
     </Reference>
     <Reference Include="Gif.Components, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Gif.Components.dll</HintPath>
     </Reference>
-    <Reference Include="GmshApi, Version=3.1.0.10, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
-      <HintPath>..\packages\GmshApi.3.1.0.10\lib\netstandard2.0\GmshApi.dll</HintPath>
+    <Reference Include="GmshApi, Version=3.1.1.0, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
+      <HintPath>..\packages\GmshApi.3.1.1\lib\netstandard2.0\GmshApi.dll</HintPath>
     </Reference>
     <Reference Include="LicenseInfo">
       <HintPath>..\Libs\LicenseInfo.dll</HintPath>
@@ -124,8 +124,8 @@
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=4.2.63.410, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.4.2.63.410\lib\netstandard2.0\Model.dll</HintPath>
+    <Reference Include="Model, Version=4.2.65.0, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.4.2.65\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -133,21 +133,24 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="OperationalController, Version=3.1.45.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\OperationalController.3.1.45\lib\netstandard2.0\OperationalController.dll</HintPath>
+    <Reference Include="OperationalController, Version=3.1.51.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\OperationalController.3.1.51\lib\netstandard2.0\OperationalController.dll</HintPath>
     </Reference>
-    <Reference Include="PostProc, Version=1.5.8.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostProc.1.5.8\lib\netstandard2.0\PostProc.dll</HintPath>
+    <Reference Include="PostProc, Version=1.6.2.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostProc.1.6.2\lib\netstandard2.0\PostProc.dll</HintPath>
     </Reference>
-    <Reference Include="PreProc, Version=1.3.6.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
-      <HintPath>..\packages\PreProc.1.3.6\lib\netstandard2.0\PreProc.dll</HintPath>
+    <Reference Include="PreProc, Version=1.4.1.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
+      <HintPath>..\packages\PreProc.1.4.1\lib\netstandard2.0\PreProc.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=4.7.7.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.4.7.7\lib\netstandard2.0\Project.dll</HintPath>
+    <Reference Include="Project, Version=4.8.1.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.4.8.1\lib\netstandard2.0\Project.dll</HintPath>
     </Reference>
     <Reference Include="PropertiesCalculator, Version=1.0.4.0, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PropertiesCalculator.dll</HintPath>
+    </Reference>
+    <Reference Include="ResultDB, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
+      <HintPath>..\packages\ResultDB.1.5.1\lib\netstandard2.0\ResultDB.dll</HintPath>
     </Reference>
     <Reference Include="SurfaceMesherInterfaces, Version=1.0.1.15, Culture=neutral, PublicKeyToken=408a34659fa24684, processorArchitecture=MSIL">
       <HintPath>..\packages\SurfaceMesherInterfaces.1.0.1.15\lib\net48\SurfaceMesherInterfaces.dll</HintPath>
@@ -243,10 +246,10 @@
     <Compile Include="Methods\Console\ConsoleEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetCurveProperty.cs">
+    <Compile Include="Methods\Navigator\Get\GetCurveProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetGeneralInfoProperty.cs">
+    <Compile Include="Methods\Navigator\Get\GetGeneralInfoProperty.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\EditGroup.cs">
@@ -258,10 +261,16 @@
     <Compile Include="Methods\Navigator\CheckCondData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetObjectProperty.cs">
+    <Compile Include="Methods\Navigator\Get\GetObjectProperty.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Select\SelectCondEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Select\SelectResultsEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Select\SelectTaskInfoEvent .cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Select\SelectObjectEvent .cs">
@@ -330,31 +339,31 @@
     <Compile Include="Methods\Player\Checking.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetClampProperty.cs">
+    <Compile Include="Methods\Navigator\Get\GetClampProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetFrameFunctionProperties.cs">
+    <Compile Include="Methods\Navigator\Get\GetFrameFunctionProperties.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetMediaProperty.cs">
+    <Compile Include="Methods\Navigator\Get\GetMediaProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetLocalFrameProperty.cs">
+    <Compile Include="Methods\Navigator\Get\GetLocalFrameProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetLoadProperty.cs">
+    <Compile Include="Methods\Navigator\Get\GetLoadProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetHeatProperty.cs">
+    <Compile Include="Methods\Navigator\Get\GetHeatProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetMatProperty.cs">
+    <Compile Include="Methods\Navigator\Get\GetMatProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetSetProperty.cs">
+    <Compile Include="Methods\Navigator\Get\GetSetProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GetGroupProperties.cs">
+    <Compile Include="Methods\Navigator\Get\GetGroupProperties.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PropertyPanel\ChangeCondProperties.cs">
@@ -363,7 +372,10 @@
     <Compile Include="Methods\PropertyPanel\ChangeModelObjectProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangeTaskTypeProperties.cs">
+    <Compile Include="Methods\PropertyPanel\ChangeGeoProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\PropertyPanel\ChangeTaskProperties.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PropertyPanel\PropertiesPanelEvent.cs">
@@ -491,7 +503,6 @@
     <Compile Include="Scene\Rendering\ClipPlaneRenderer.cs" />
     <Compile Include="Scene\Rendering\ShaderCollections.cs" />
     <Compile Include="Scene\Rendering\ShaderProgramCreator.cs" />
-    <Compile Include="Scene\ScaleItem.cs" />
     <Compile Include="Scene\ScenePath.cs" />
     <Compile Include="Scene\SceneScale.cs" />
     <Compile Include="Scene\ScreenRectangle.cs" />

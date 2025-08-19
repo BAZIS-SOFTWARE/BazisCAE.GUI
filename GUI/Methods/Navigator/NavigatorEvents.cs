@@ -169,7 +169,7 @@ namespace BazisGUI
             };
 
                 var tasks = new List<string>();
-                navigator.TrySearchNodes(NodeName.задачи, out List<TreeNode> task);
+                navigator.TrySearchNodes(NodeName.задача, out List<TreeNode> task);
                 foreach (TreeNode item in task[0].Nodes)
                     tasks.Add("расчет " + item.Text);
 

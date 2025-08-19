@@ -1,6 +1,6 @@
 ﻿using BazisGUI.Scene.VBO;
-using Project.Results;
-using Project.Results.IO;
+using ResultDB;
+using ResultDB.IO;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -50,7 +50,7 @@ namespace BazisGUI
                     if (показатьШкалуToolStripMenuItem.Checked)
                     {
                         HideGeometryObj("DisplaySceneScale");
-                        var title = result.TaskKind.ToString();
+                        var title = result.Name;
                         var info = $"{resName} {result.Time}";
                         DisplaySceneScale(title,info);
                     }

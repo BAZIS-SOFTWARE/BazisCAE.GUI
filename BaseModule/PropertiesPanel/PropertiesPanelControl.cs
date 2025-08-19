@@ -67,7 +67,10 @@ namespace BaseModule.PropertiesPanel
 
                 DataGridViewCell cell; // Значение свойства
 
-                if (prop.AvailableValues.Count != 0)
+                if(prop.IsCheckable)
+                    cell = new DataGridViewCheckBoxCell();
+
+                else if (prop.IsDropDown)
                 {
                     var comboCell = new DataGridViewComboBoxCell();
                     comboCell.Items.AddRange(prop.AvailableValues.ToArray());

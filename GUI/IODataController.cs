@@ -54,37 +54,13 @@ namespace BazisGUI
             else
                 path = $@"{path}";
 
+
             var gmshController = new GmshController();
             gmshController.Load(path);
             //ObjectData = new ObjectsData();
-            gmshController.Gmsh.Option.SetNumber("General.AbortOnError", 0);//Запретить поделию Кристофа обваливать Базис
+            gmshController.Gmsh.Option.SetNumber("General.AbortOnError", 0);//Запретить изделию Кристофа обваливать Базис
             
             return gmshController;
-        }
-        // Используем "проволочное" представление геометрии
-        public void UpdateGeometry(GmshController gmshController, IModelData modelData, ObjType objType)
-        {
-            if (objType == ObjType.Точка)
-            {
-                var controlPoints = gmshController.CreateControlPoints();
-
-                foreach (var item in controlPoints)
-                    modelData.ObjectData.PointsSet.Add(item.Number, item);
-            }
-            else if (objType == ObjType.Кривая)
-            {
-                
-                var curves = gmshController.CreateLines();
-                foreach (var item in curves)
-                    modelData.ObjectData.CurveSet.Add(item.Number, item);            
-            }
-
-            else if (objType == ObjType.Поверхность)
-            {
-                var surfs = gmshController.CreateSurfaceSets();
-                foreach (var item in surfs)
-                    modelData.ObjectData.SurfaceCollection.Add(item);
-            }
         }
 
         public void SaveAsProject(Controller controller)
@@ -254,7 +230,7 @@ namespace BazisGUI
         public Controller CreateNewProject(string path, string name)
         {
             var project = new Controller();
-            project.Create($"{path}\\{name}");
+            project.CreateProject($"{path}\\{name}");
             project.MaterialsDB = "materials_v3.jsf";
             project.FunctionsDB = "functions.jsf";            
 

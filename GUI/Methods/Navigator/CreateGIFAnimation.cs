@@ -1,25 +1,11 @@
 ﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
 using BaseModule.Results.Animation;
-using BazisGUI.Scene;
-using BazisGUI.Utilities;
 using Gif.Components;
-using GmshApi;
-using Model.GeometryObjects;
-using Model.Interfaces;
-using Model.Interfaces.ObjectsFinders;
-using Model.MeshObjects;
-using OperationalController.GmshController;
-using Project.Results;
-using Project.Results.IO;
+using ResultDB.IO;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BazisGUI
