@@ -21,27 +21,7 @@ namespace BazisGUI
     enum ResultType { nodes, elements }
     public partial class BaseForm
     {
-              
-
-        public void PresentGroupDataOnTree()
-        {
-            navigator.BeginUpdate();
-
-            navigator.TrySearchNodes("группыОбъектов", out List<TreeNode> nodes);
-
-            nodes[0].Nodes.Clear();
-
-            foreach (var item in project.GetAllModelGroups())
-            {
-                var r = navigator.CreateRealNode(item.ObjType.ToString(), $"{item.Name} {item.Count}");
-
-                nodes[0].Nodes.Add(r);
-                navigator.SetContextMenu(r);
-            }
-
-            navigator.EndUpdate();
-        }
-      
+               
         private void DisplayMRF(float time, ICondData data)
         {
             var mf = data.FrameFunction.LocalFrame as MovedFrame;

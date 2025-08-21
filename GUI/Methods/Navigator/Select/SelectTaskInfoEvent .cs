@@ -13,32 +13,25 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectTaskInfoEvent(NodeName arg1, string arg2)
+        private void navigator_SelectTaskEvent()
         {
             try
             {
                 if (project == null)
                     return;
 
-                
                 List<RowProperty> rows = new List<RowProperty>();
-                if (arg1 == NodeName.задача)
-                {
-                    rows.Add(new RowProperty("Вид", project.ProjectKind,
-               Converters.GetEnumNames<TaskKind>()));
-                    rows.Add(new RowProperty("Тип", project.ProjectType,
-Converters.GetEnumNames<TaskType>()));
 
-                    var _funcs =
-                    GetDataBase<FunctionDBData>(project.FunctionsDB, project.Path).Keys.ToList();
-                    var _mats =
-GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
+                rows.Add(new RowProperty("Вид", project.ProjectType,
+           Converters.GetEnumNames<TaskType>()));
+                rows.Add(new RowProperty("Тип", project.ProjectKind,
+Converters.GetEnumNames<TaskKind>()));
 
-                    rows.Add(new RowProperty("Материалы", project.MaterialsDB,_mats));
-                    rows.Add(new RowProperty("Функции", project.FunctionsDB, _funcs));
-                }
+                rows.Add(new RowProperty("Материалы", project.MaterialsDB));
+                rows.Add(new RowProperty("Функции", project.FunctionsDB));
 
-                propertiesPanel.DrawTable(rows);             
+
+                propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
             {

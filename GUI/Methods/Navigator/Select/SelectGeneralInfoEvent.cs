@@ -21,7 +21,7 @@ namespace BazisGUI
                 List<RowProperty> rows = new List<RowProperty>();
 
                     rows.Add(new RowProperty("Имя", project.Name,true));
-                    rows.Add(new RowProperty("Тип", project.Path, true));
+                    rows.Add(new RowProperty("Путь", project.Path, true));
                     // TO DO добавить комментарии
                 
 

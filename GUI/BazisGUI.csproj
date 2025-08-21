@@ -109,8 +109,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Gif.Components.dll</HintPath>
     </Reference>
-    <Reference Include="GmshApi, Version=3.1.1.0, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
-      <HintPath>..\packages\GmshApi.3.1.1\lib\netstandard2.0\GmshApi.dll</HintPath>
+    <Reference Include="GmshApi, Version=3.1.2.0, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
+      <HintPath>..\packages\GmshApi.3.1.2\lib\netstandard2.0\GmshApi.dll</HintPath>
     </Reference>
     <Reference Include="LicenseInfo">
       <HintPath>..\Libs\LicenseInfo.dll</HintPath>
@@ -124,8 +124,8 @@
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=4.2.65.0, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.4.2.65\lib\netstandard2.0\Model.dll</HintPath>
+    <Reference Include="Model, Version=4.2.66.0, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.4.2.66\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -133,17 +133,17 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="OperationalController, Version=3.1.51.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\OperationalController.3.1.51\lib\netstandard2.0\OperationalController.dll</HintPath>
+    <Reference Include="OperationalController, Version=3.1.54.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\OperationalController.3.1.54\lib\netstandard2.0\OperationalController.dll</HintPath>
     </Reference>
-    <Reference Include="PostProc, Version=1.6.2.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostProc.1.6.2\lib\netstandard2.0\PostProc.dll</HintPath>
+    <Reference Include="PostProc, Version=1.6.3.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostProc.1.6.3\lib\netstandard2.0\PostProc.dll</HintPath>
     </Reference>
-    <Reference Include="PreProc, Version=1.4.1.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
-      <HintPath>..\packages\PreProc.1.4.1\lib\netstandard2.0\PreProc.dll</HintPath>
+    <Reference Include="PreProc, Version=1.4.5.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
+      <HintPath>..\packages\PreProc.1.4.5\lib\netstandard2.0\PreProc.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=4.8.1.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.4.8.1\lib\netstandard2.0\Project.dll</HintPath>
+    <Reference Include="Project, Version=4.8.3.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.4.8.3\lib\netstandard2.0\Project.dll</HintPath>
     </Reference>
     <Reference Include="PropertiesCalculator, Version=1.0.4.0, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -264,7 +264,16 @@
     <Compile Include="Methods\Navigator\Get\GetObjectProperty.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Navigator\Present\PresentCompData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Present\PresentGroupData.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Navigator\Select\SelectCondEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Select\SelectSetEvent.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Select\SelectResultsEvent.cs">
@@ -315,10 +324,10 @@
     <Compile Include="Methods\Navigator\AddCondition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\PresentObjsData.cs">
+    <Compile Include="Methods\Navigator\Present\PresentObjsData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\PresentCondData.cs">
+    <Compile Include="Methods\Navigator\Present\PresentCondData.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\DelSetEvent.cs">
@@ -367,6 +376,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PropertyPanel\ChangeCondProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\PropertyPanel\ChangeMeshSetProperties.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PropertyPanel\ChangeModelObjectProperty.cs">

@@ -169,7 +169,7 @@ namespace BazisGUI
             };
 
                 var tasks = new List<string>();
-                navigator.TrySearchNodes(NodeName.задача, out List<TreeNode> task);
+                navigator.TrySearchNodes(NodeName.расчет, out List<TreeNode> task);
                 foreach (TreeNode item in task[0].Nodes)
                     tasks.Add("расчет " + item.Text);
 
@@ -288,7 +288,7 @@ namespace BazisGUI
 
                 var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
 
-                navigator.PresentCompDataOnTree(sortedFiles);
+                PresentCompDataOnTree(sortedFiles);
 
                 console.PrintInfo($"Входные Данные задачи сгенерированы в {inputDir}", Color.Green);
 
@@ -602,29 +602,9 @@ namespace BazisGUI
             node.Nodes.AddRange(childs);
         }
 
-
-        private void navigator_SelectSetEvent(NodeName arg1, string arg2)
-        {
-            try
-            {
-                var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
-
-                var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
-                var set = project.GetModelSetInfo(objType, setName);
-
-                var rows = GetSetProperty(set);
-                propertiesPanel.DrawTable(rows);
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
- 
-        }
-
         private void navigator_SelectTaskEvent(NodeName arg1, string arg2)
         {
-            EditTSFFile(arg2);
+            EditTSFFile(arg2.Split(' ')[1]);
         }
     }
 }

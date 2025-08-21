@@ -926,7 +926,7 @@ namespace BazisGUI
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
 
-        }      
+        }
     }
 
 }

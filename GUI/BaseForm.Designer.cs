@@ -1406,6 +1406,7 @@ namespace BazisGUI
             this.navigator.ShowObjectEvent += new System.Action<BaseModule.Navigator.NodeName, string, int>(this.navigator_ShowObjectEvent);
             this.navigator.HideObjectEvent += new System.Action<BaseModule.Navigator.NodeName, string, int>(this.navigator_HideObjectEvent);
             this.navigator.SelectCondEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectCondEvent);
+            this.navigator.SelectTaskEvent += new System.Action(this.navigator_SelectTaskEvent);
             this.navigator.SelectResultsEvent += new System.Action(this.navigator_SelectResultsEvent);
             this.navigator.LoadResultsEvent += new System.Action(this.navigator_LoadResultsEvent);
             this.navigator.SelectInstrEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectTaskEvent);

@@ -37,7 +37,7 @@ namespace BazisGUI
                     rows = GetClampProperty((ClampData)data, groups);
                 else if (arg1 == NodeName.Нагрузка)
                     rows = GetLoadProperty((LoadData)data, _funcs, groups);
-                else throw new NotImplementedException("Тип задачи не определен");
+                else throw new NotImplementedException("Вид условия не определен");
 
 
                 //var _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, allGroup);

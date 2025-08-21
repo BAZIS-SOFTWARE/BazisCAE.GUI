@@ -48,9 +48,9 @@ namespace BaseModule.Navigator
         Нагрузка,
 
         расчет,
-        Тепловая,
-        Механическая,
-        Химическая,
+        термическая,
+        механическая,
+        химическая,
 
         результаты,
         Результат,
@@ -265,7 +265,7 @@ namespace BaseModule.Navigator
                 node.Parent.Name == NodeName.Элементы2D.ToString() |
                 node.Parent.Name == NodeName.Элементы3D.ToString())
                 node.ContextMenuStrip = set_MenuStrip;
-            else if (node.Parent.Name == "группыОбъектов")
+            else if (node.Parent.Name == NodeName.группы.ToString())
                 if (node.Name == NodeName.Узел.ToString())
                     node.ContextMenuStrip = ndGroup_MenuStrip;
                 else if (node.Name == NodeName.Элемент1D.ToString() |
@@ -573,9 +573,9 @@ e.Node.Name == NodeName.Нагрузка.ToString() |
 e.Node.Name == NodeName.Закрепление.ToString()
 )
                     SelectCondEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
-                else if (e.Node.Name == NodeName.Тепловая.ToString() |
-e.Node.Name == NodeName.Механическая.ToString() |
-e.Node.Name == NodeName.Химическая.ToString()
+                else if (e.Node.Name == NodeName.термическая.ToString() |
+e.Node.Name == NodeName.механическая.ToString() |
+e.Node.Name == NodeName.химическая.ToString()
 )
                 {
                     SelectInstrEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
@@ -643,30 +643,28 @@ e.Node.Name == NodeName.Объем.ToString()
                     // Clear out all of the children
                     e.Node.Nodes.Clear();
 
-                    //if(e.Node.Level == 1)
-                    //{
-                    //    if (e.Node.Name == NodeType.Результат.ToString())
-                    //        GetResultInfoEvent?.Invoke(e.Node.Text);
-                    //}
-
                     if(e.Node.Level == 1)
                     {
+
+                    } 
+                    else if(e.Node.Level == 2)
+                    {
                         if (e.Node.Name == NodeName.Узлы.ToString() |
-    e.Node.Name == NodeName.Элементы1D.ToString() |
-    e.Node.Name == NodeName.Элементы2D.ToString() |
-    e.Node.Name == NodeName.Элементы3D.ToString() |
-    e.Node.Name == NodeName.Точки.ToString() |
-    e.Node.Name == NodeName.Кривые.ToString() |
-    e.Node.Name == NodeName.Поверхности.ToString() |
-    e.Node.Name == NodeName.Объемы.ToString()
-    )
+      e.Node.Name == NodeName.Элементы1D.ToString() |
+      e.Node.Name == NodeName.Элементы2D.ToString() |
+      e.Node.Name == NodeName.Элементы3D.ToString() |
+      e.Node.Name == NodeName.Точки.ToString() |
+      e.Node.Name == NodeName.Кривые.ToString() |
+      e.Node.Name == NodeName.Поверхности.ToString() |
+      e.Node.Name == NodeName.Объемы.ToString()
+      )
                             GetSetsInfoEvent?.Invoke(e.Node);
                         else if (e.Node.Name == NodeName.Результат.ToString())
                             GetResultInfoEvent?.Invoke(e.Node);
-                    } 
-                    else if(e.Node.Level == 2)
-                                                
-                                GetObjectsInfoEvent?.Invoke(e.Node);
+                    }
+
+                    else if(e.Node.Level == 3)
+                        GetObjectsInfoEvent?.Invoke(e.Node);
 
                 }
                 catch
@@ -676,23 +674,6 @@ e.Node.Name == NodeName.Объем.ToString()
                     //AddVirtualNode(e.Node);
                 }
             }
-        }
-
-        public void PresentCompDataOnTree(List<string> compData)
-        {
-            BeginUpdate();
-            TrySearchNodes(NodeName.задача.ToString(), out List<TreeNode> tasks);
-
-            tasks[0].Nodes.Clear();
-
-            foreach (var item in compData)
-            {
-                var r = CreateRealNode("расчет", item);
-
-                tasks[0].Nodes.Add(r);
-            }
-
-            EndUpdate();
         }
 
         public void BeginUpdate()
@@ -873,6 +854,16 @@ e.Node.Name == NodeName.Объем.ToString()
         private void загрузитьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadResultsEvent?.Invoke();
+        }
+
+        private void SetFirstOrder_Click(object sender, EventArgs e)
+        {
+            //TO DO реализовать смену порядка на 1
+        }
+
+        private void SetSecondOrder_Click(object sender, EventArgs e)
+        {
+            //TO DO реализовать смену порядка на 2
         }
     }
 }

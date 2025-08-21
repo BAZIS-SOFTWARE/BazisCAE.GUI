@@ -24,8 +24,12 @@ namespace BazisGUI
         {
             navigator.BeginUpdate();
 
-            navigator.TrySearchNodes("объекты", out List<TreeNode> nodes);
-            foreach (TreeNode item in nodes[0].Nodes)
+            navigator.TrySearchNodes(NodeName.геометрия, out List<TreeNode> geo);
+            foreach (TreeNode item in geo[0].Nodes)
+                item.Nodes.Clear();
+
+            navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> mesh);
+            foreach (TreeNode item in mesh[0].Nodes)
                 item.Nodes.Clear();
 
             foreach (ObjType objType in Enum.GetValues(typeof(ObjType)))
@@ -46,30 +50,12 @@ namespace BazisGUI
         }
         private void PresentVolumeInfo()
         {
-            if (gmshController.Gmsh?.Model?.GetDimension() > 2)
+            navigator.TrySearchNodes(NodeName.Объемы, out List<TreeNode> nodes);
+            foreach (var item in project.GetModelVolumes())
             {
-                var dimTags = gmshController.Gmsh.Model.GetEntities(3);
-                navigator.TrySearchNodes(NodeName.Объемы, out List<TreeNode> nodes);
-                for (var i = 0; i < dimTags.Length; i += 2)
-                {
-                    var dim = dimTags[i];
-                    var tag = dimTags[i + 1];
-                    var data = gmshController.Gmsh.Model.GetAdjacencies(dim, tag);
-                    var downward = data.Item2;
-                   
-                    var surfNumbers = string.Join(" ", downward);
-
-                    var name = gmshController.Gmsh.Model.GetEntityName(dim, tag);
-                    if (name == "" | name == null)
-                        name = $"Объем_{tag}";
-                    else
-                        name = name.Replace("Shapes/", "");
-
-                    var text = $"{tag} {name}: {surfNumbers}";
-                    var r_node = navigator.CreateRealNode(NodeName.Объем, text);
-                    nodes[0].Nodes.Add(r_node);
-                }
-            }
+                var r_node = navigator.CreateRealNode(NodeName.Объем, item.ToString());
+                nodes[0].Nodes.Add(r_node);
+            }      
         }
     }
 }
