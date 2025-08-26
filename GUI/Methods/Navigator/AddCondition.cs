@@ -37,14 +37,13 @@ namespace BazisGUI
                     if (groups.Count() == 0)
                         return;
 
-                    var matDB = GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path);
+                    var matDB = project.MaterialsDB;
                     if (matDB == null)
                         return;
-                    var mat = matDB.Keys.ToList();
-                    if (mat.Count == 0)
+                    if (matDB.Count == 0)
                         return;
 
-                    var matData = new MatData(mat.First(), groups.First(), 0, 1);
+                    var matData = new MatData(matDB.First().Value, groups.First(), 0, 1);
                     project.TaskData.Add(matData);
                     PresentCondDataOnTree();
                 }

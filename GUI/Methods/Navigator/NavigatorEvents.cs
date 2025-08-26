@@ -161,10 +161,12 @@ namespace BazisGUI
             {
                 $@"\\загрузка сетки и данных",
                 $@"загрузить проект {project.Path}\{project.Name}",
+                /*
                 $@"\\загрузка материалов",
                 $@"загрузить материалы {project.Path}\{project.MaterialsDB}",
                 $@"\\загрузка функций",
                 $@"загрузить функции {project.Path}\{project.FunctionsDB}",
+                */
                 $@"\\расчет"
             };
 
@@ -605,6 +607,20 @@ namespace BazisGUI
         private void navigator_SelectTaskEvent(NodeName arg1, string arg2)
         {
             EditTSFFile(arg2.Split(' ')[1]);
+        }
+
+        private void navigator_SetElementsOrderEvent(int obj)
+        {
+            var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
+
+            if (nodeName == NodeName.Элементы1D)
+                project.ChangeMeshSetOrder(1, navigator.SelectedNode.Text.Split(' ')[0], obj);
+            else if (nodeName == NodeName.Элементы2D)
+                project.ChangeMeshSetOrder(2, navigator.SelectedNode.Text.Split(' ')[0], obj);
+            else if (nodeName == NodeName.Элементы3D)
+                project.ChangeMeshSetOrder(3, navigator.SelectedNode.Text.Split(' ')[0], obj);
+
+            PresentObjectsDataOnTree();
         }
     }
 }

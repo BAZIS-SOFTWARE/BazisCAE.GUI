@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -103,10 +104,8 @@ namespace BazisGUI
                     }
                     else if (parentName == NodeName.задача)
                     {
-                        var _funcs =
-GetDataBase<FunctionDBData>(project.FunctionsDB, project.Path).Keys.ToList();
-                        var _mats =
-GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
+                        var _funcs = project.FunctionsDB.Keys.ToList();
+                        var _mats =project.MaterialsDB.Keys.ToList();
                         var groups = project.GetAllModelGroups();
                         var cond = project.TaskData[index];
                         if (nodeName == NodeName.Материал)

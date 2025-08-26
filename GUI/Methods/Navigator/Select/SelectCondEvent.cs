@@ -18,10 +18,8 @@ namespace BazisGUI
             {
                 var data = project.TaskData.First(x => x.ToString() == arg2);
 
-                var _funcs =
-                    GetDataBase<FunctionDBData>(project.FunctionsDB, project.Path).Keys.ToList();
-                var _mats =
-                GetDataBase<MaterialDBData>(project.MaterialsDB, project.Path).Keys.ToList();
+                var _funcs = project.FunctionsDB.Keys.ToList();
+                var _mats = project.MaterialsDB.Keys.ToList();
 
                 var groups = project.GetAllModelGroups();
 

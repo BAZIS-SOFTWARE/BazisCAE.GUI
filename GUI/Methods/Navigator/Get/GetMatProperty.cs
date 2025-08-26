@@ -15,7 +15,7 @@ namespace BazisGUI
             {
                 //RowProperty.CreateTextBox("Имя", NodeType.Материал.ToString(), ValidationType.None, true),
                 new RowProperty("Группа элементов", obj.Group.Name, groups.Select(x => x.Name).ToList()),
-                new RowProperty("Материал", obj.MatName,  mat),
+                new RowProperty("Материал", obj.Material.Name,  mat),
                 new RowProperty("Старт, сек.", obj.StartTime),
                 new RowProperty("Стоп, сек.", obj.StopTime),
             };

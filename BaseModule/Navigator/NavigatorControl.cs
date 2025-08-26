@@ -118,6 +118,9 @@ namespace BaseModule.Navigator
         public event Action<int> InfoGroupEvent;
         public event Action<int> ShowGroupWithNodesEvent;
 
+        public event Action<int> GenerateMesh2DEvent;
+        public event Action GenerateMesh3DEvent;
+
         public event Action<TreeNode> GetObjectsInfoEvent;
         public event Action<NodeName> DelObjectsEvent;
         public event Action<NodeName> ShowObjectsEvent;
@@ -140,6 +143,7 @@ namespace BaseModule.Navigator
         public event Action<string, double> SelectTimeEvent;
         public event Action<NodeName, string> SelectResultEvent;
 
+        public event Action<int> SetElementsOrderEvent;
         public event Action<TreeNode> GetSetsInfoEvent;
         public event Action<TreeNode> GetResultInfoEvent;
 
@@ -178,6 +182,8 @@ namespace BaseModule.Navigator
                 { NodeName.Закрепление,11},
                 { NodeName.Нагрузка,12}
             };
+
+            treeView.Nodes[0].Expand();
         }
 
         public void SetObjectImageIndex(NodeName nodeType,int imgInd)
@@ -858,12 +864,22 @@ e.Node.Name == NodeName.Объем.ToString()
 
         private void SetFirstOrder_Click(object sender, EventArgs e)
         {
-            //TO DO реализовать смену порядка на 1
+            SetElementsOrderEvent?.Invoke(1);
         }
 
         private void SetSecondOrder_Click(object sender, EventArgs e)
         {
-            //TO DO реализовать смену порядка на 2
+            SetElementsOrderEvent?.Invoke(2);
+        }
+
+        private void треугольная2DMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateMesh2DEvent?.Invoke(3);
+        }
+
+        private void создать3DMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateMesh3DEvent?.Invoke();
         }
     }
 }

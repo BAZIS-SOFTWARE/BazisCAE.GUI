@@ -1,16 +1,6 @@
-﻿using BaseModule.Utilities;
-using Newtonsoft.Json;
-using Project.Interfaces;
-using PropertiesCalculator.MaterialData;
-using PropertiesDataBases.DataBases;
-using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace BazisGUI
 {

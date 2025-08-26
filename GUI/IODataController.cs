@@ -88,8 +88,10 @@ namespace BazisGUI
 
                     if (oldFolder != controller.Path)
                     {
-                        IOFileController.CopyFile(controller.MaterialsDB, oldFolder, controller.Path);
-                        IOFileController.CopyFile(controller.FunctionsDB, oldFolder, controller.Path);
+                        if(controller.MaterialsDB != null)
+                            IOFileController.CopyFile(controller.MaterialsDB.Name, oldFolder, controller.Path);
+                        if (controller.FunctionsDB != null)
+                            IOFileController.CopyFile(controller.FunctionsDB.Name, oldFolder, controller.Path);
                     }
 
                     controller.SaveAs(saveDialog.FileName);
@@ -231,13 +233,15 @@ namespace BazisGUI
         {
             var project = new Controller();
             project.CreateProject($"{path}\\{name}");
-            project.MaterialsDB = "materials_v3.jsf";
-            project.FunctionsDB = "functions.jsf";            
+            //project.MaterialsDB = "materials_v3.jsf";
+            //project.FunctionsDB = "functions.jsf";   
+            
 
-            var startMatPath = Application.StartupPath + "\\Materials";
-            IOFileController.CopyFile(project.MaterialsDB, startMatPath, path);
-            var startFunPath = Application.StartupPath + "\\Functions";
-            IOFileController.CopyFile(project.FunctionsDB, startFunPath, path);
+
+            //var startMatPath = Application.StartupPath + "\\Materials";
+            //IOFileController.CopyFile(project.MaterialsDB, startMatPath, path);
+            //var startFunPath = Application.StartupPath + "\\Functions";
+            //IOFileController.CopyFile(project.FunctionsDB, startFunPath, path);
 
             return project;
         }

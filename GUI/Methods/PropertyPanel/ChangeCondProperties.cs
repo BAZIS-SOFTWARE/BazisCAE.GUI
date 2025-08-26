@@ -85,7 +85,7 @@ namespace BazisGUI
             ChangeGeneralProperties(obj, matCond);
             if (obj.Header == "Материал")
             {
-                matCond.MatName = obj.NewValue.ToString();
+                matCond.Material = project.MaterialsDB[obj.NewValue.ToString()];
             }  
         }
     }

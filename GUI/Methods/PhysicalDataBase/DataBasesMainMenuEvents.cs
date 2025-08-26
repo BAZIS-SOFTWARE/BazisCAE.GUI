@@ -45,11 +45,13 @@ namespace BazisGUI
                 if (project == null)
                     return;
 
-                var filePath = FindFileByPath(project.Path, project.MaterialsDB);
-                if (filePath == null)
-                    console.PrintInfo($"База данных {project.MaterialsDB} не найдена в директории {project.Path}", Color.Red);
-                else
-                    matBasePage.Load($@"{filePath}\{project.MaterialsDB}", false);
+                if (project.MaterialsDB == null)
+                {
+                    console.PrintInfo($"База данных материалов не загружена", Color.Red);
+                    return;
+                }
+
+                matBasePage.Load($@"{project.Path}\{project.MaterialsDB.Name}", false);
             }
             catch (Exception ex)
             {
@@ -87,13 +89,13 @@ namespace BazisGUI
                 if (project == null)
                     return;
 
-                var filePath = FindFileByPath(project.Path, project.FunctionsDB);
-                if (filePath == null)
-                    console.PrintInfo($"База данных {project.FunctionsDB} не найдена в директории {project.Path}", Color.Red);
-                else
-                    funBasePage.Load($@"{filePath}\{project.FunctionsDB}", false);
+                if (project.FunctionsDB == null)
+                {
+                    console.PrintInfo($"База данных функций не загружена", Color.Red);
+                    return;
+                }
 
-
+                funBasePage.Load($@"{project.Path}\{project.FunctionsDB.Name}", false);
             }
             catch (Exception ex)
             {
@@ -109,9 +111,7 @@ namespace BazisGUI
             if (funBasePage.DbPath != project.Path)
                 IOFileController.CopyFile(funBasePage.DbName, funBasePage.DbPath, project.Path);
 
-            project.FunctionsDB = funBasePage.DbName;
-            var funData = funBasePage.Functions;
-            //GetTaskAdvisor()?.SetFunctions(funData.Keys.ToList());
+            project.FunctionsDB = funBasePage.Functions;
         }
 
         public void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
@@ -122,9 +122,7 @@ namespace BazisGUI
             if (matBasePage.DbPath != project.Path)
                 IOFileController.CopyFile(matBasePage.DbName, matBasePage.DbPath, project.Path);
 
-            project.MaterialsDB = matBasePage.DbName;
-            var matData = matBasePage.Materials;
-            //GetTaskAdvisor()?.SetMaterials(matData.Keys.ToList());
+            project.MaterialsDB = matBasePage.Materials;
         }
 
         private string FindFileByPath(string path, string fileName)

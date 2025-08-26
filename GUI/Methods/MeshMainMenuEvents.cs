@@ -83,7 +83,7 @@ namespace BazisGUI
                 meshGenerator.delMeshGradientEvent += MeshGenerator_delMeshGradientEvent;
                 meshGenerator.showShowSurfaceNumbersEvent += MeshGenerator_showSurfaceNumbers;
                 meshGenerator.showNumberOfCurveNodesEvent += MeshGenerator_showNumberOfCurveNodes;
-                meshGenerator.generate3DTetraMeshEvent += MeshGenerator_generate3DMeshEvent;
+                
                 meshGenerator.generate2DTriangleMeshEvent += MeshGenerator_generate2DMeshEvent;
                 meshGenerator.deleteMeshEvent += MeshGenerator_deleteMeshEvent;
                 meshGenerator.showNodesOnCurvesEvent += MeshGenerator_showNodesOnCurves;
@@ -377,30 +377,6 @@ namespace BazisGUI
         private void MeshGenerator_refineMesh(object sender)
         {
             gmshController.Gmsh.Model.Mesh.Refine();
-
-            project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
-
-            FitObjectsToScreen();
-            DisplayObjects();
-        }
-
-        [HandleProcessCorruptedStateExceptions]
-        [SecurityCritical]
-        private void MeshGenerator_generate3DMeshEvent(object sender)
-        {
-            try
-            {
-                DeleteGMSHMeshObjects(ObjType.Элемент3D);
-                gmshController.Gmsh.Model.Mesh.Generate(3);
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-                return;
-            }
-            var error = gmshController.Gmsh.Logger.GetLastError();
-            if (!string.IsNullOrEmpty(error))
-                console.PrintInfo(error, Color.Red);
 
             project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
 

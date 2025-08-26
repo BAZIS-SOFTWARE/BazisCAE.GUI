@@ -68,7 +68,10 @@ namespace BaseModule.PropertiesPanel
                 DataGridViewCell cell; // Значение свойства
 
                 if(prop.IsCheckable)
+                {
                     cell = new DataGridViewCheckBoxCell();
+                    cell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
 
                 else if (prop.IsDropDown)
                 {

@@ -55,7 +55,7 @@ namespace BaseModule.PropertiesPanel
             else if (value is bool bval)
             {
                 ValidationType = ValidationType.None;
-                IsCheckable = bval;
+                IsCheckable = true;
             }
 
             else
