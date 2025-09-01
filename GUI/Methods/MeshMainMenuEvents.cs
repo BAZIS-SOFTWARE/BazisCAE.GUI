@@ -106,7 +106,7 @@ namespace BazisGUI
 
                 meshGenerator.setMinMaxSizesEvent += SetMinMaxSizesEvent;
 
-                SetGMSHController(project.ModelData);
+                //SetGMSHController(project.ModelData);
             }
         }
 
@@ -308,8 +308,23 @@ namespace BazisGUI
                 //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
                 var text = $"Поверхность {dimTags[i]}";
 
-                DisplayText3D(text, Color.Black, point.Sum(new Point3D(5, 5, 5)));
+                DisplaySurfaceNumbers(text, Color.Black, point.Sum(new Point3D(5, 5, 5)));
             }
+        }
+
+        public void DisplaySurfaceNumbers(string str, Color color, Point3D coord)
+        {
+            var met = new Action(() =>
+            {
+                //if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
+                //    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                DisplayText3DTemplate(str, color, coord);
+                //if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
+                //    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+
+            });
+
+            DisplayText3DEvent += met;
         }
 
         private void ShowNumberOfCurveNodes()
@@ -343,16 +358,6 @@ namespace BazisGUI
             var data = gmshController.Gmsh.Model.Occ.GetCenterOfMass(dim, tag);
             var point = new Point3D((float)data.Item1, (float)data.Item2, (float)data.Item3);
             return point;
-        }
-
-        private void GmshForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //HideAllGeometryObjs();
-            //HideDisplayText3D();
-
-            ClearAllDataOnScene();
-            //PresentAllModelObjectsToScene();
-            DisplayObjects();
         }
 
         private void MeshGenerator_generate2DQuadMesh(object obj)
@@ -523,17 +528,6 @@ namespace BazisGUI
             return gPoints;
         }
 
-        public void SetGMSHController(IModelData modelData)
-        {
-            DisplayGeometryObjectEvent = null;
-            DisplayText2DEvent = null;
-            DisplayText3DEvent = null;
-
-            PresentObjectsDataOnTree();
-
-
-            DisplayObjects();
-        }
         private void createSurfaceElementsMenuItem_Click(object sender, EventArgs e)
         {
             CreateSurfaceElements(ObjType.Элемент2D);

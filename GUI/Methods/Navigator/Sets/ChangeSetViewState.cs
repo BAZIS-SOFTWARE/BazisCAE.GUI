@@ -1,5 +1,6 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
+using BazisGUI.Scene.VBO;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using System;
@@ -16,13 +17,17 @@ namespace BazisGUI
     {
         private void ChangeSetViewState(string setName, ObjType objType, bool viewState)
         {
-            project.GetModelSetInfo(objType, setName).SetViewState(viewState);
+            var set = project.GetModelSetInfo(objType, setName);
+            set.SetViewState(viewState);
+            set.SetBackColor();
+            // Сделать выключение vbo не получиться. Потеряется синхронизация.
+            //VBOController.SwitchVBObject(setName, viewState);
 
-            VBOController.DeleteVBObjects(objType.ToString());
+            VBOController.DeleteVBObjects(setName);
 
-            if (project.GetModelObjects(objType).Any(x => x.ViewState == true))
-            {
-                var pres = project.CreateModelObjectsPresentor(objType);
+            if (viewState)
+            {    
+                var pres = project.CreateModelObjectsPresentor(set);
                 var vb = CreateVBObject(pres);
                 VBOController.AddVbo(vb);
             }

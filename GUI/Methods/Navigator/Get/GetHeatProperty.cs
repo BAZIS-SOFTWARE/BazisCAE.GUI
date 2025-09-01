@@ -18,7 +18,7 @@ namespace BazisGUI
             var rows = new List<RowProperty>
             {
                 new RowProperty("Мощность, Дж", obj.Heat),
-                new RowProperty("Функция, F(t), F - Дж.", obj.TimeFunction,_func),
+                new RowProperty("Функция, F(t), F - Дж.", obj.TimeFunction == null ? "*" : obj.TimeFunction.Name,_func),
                 new RowProperty("Группа элементов", obj.Group.Name, 
                 groups.
                 Where(x => x.ObjType == obj.Group.ObjType).

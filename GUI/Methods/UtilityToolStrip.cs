@@ -480,18 +480,19 @@ namespace BazisGUI
 
                     reflect.ShowObjs += (ar) =>
                     {
+                        SetBackColorToAllObjects();
+
                         var vbo = VBOController.FindVBObj(ar);
 
-                        var a = (int)vbo.PointsColors[0];
-                        var r = (int)vbo.PointsColors[1];
-                        var g = (int)vbo.PointsColors[2];
-                        var b = (int)vbo.PointsColors[3];
+                        //var a = (int)vbo.PointsColors[0];
+                        //var r = (int)vbo.PointsColors[1];
+                        //var g = (int)vbo.PointsColors[2];
+                        //var b = (int)vbo.PointsColors[3];
 
-                        var color = Color.FromArgb(a, r, g, b);
+                        //var color = Color.FromArgb(a, r, g, b);
 
-                        foreach (var item in reflect.GetAllSrcObjs())
-                            ChangeVBOColor(item, color);
-
+                        //foreach (var item in reflect.GetAllSrcObjs())
+                        //    ChangeVBOColor(item, color);
                         ChangeVBOColor(ar, Color.Red);
                         DisplayObjects();
                     };
@@ -649,8 +650,8 @@ namespace BazisGUI
 
                     clipForm.Controls.Add(clip);
 
-
-                    ChangeClipMode(Scene.ClipMode.Default, ObjType.Элемент3D.ToString());
+                    foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
+                        ChangeClipMode(Scene.ClipMode.Default, item.Name);
 
                     clip.SwitchOnOff += (v) => 
                     {
@@ -661,7 +662,8 @@ namespace BazisGUI
                     };
                     clip.ChangeClipMode += (mode) =>
                     {
-                        ChangeClipMode((Scene.ClipMode)mode, ObjType.Элемент3D.ToString());
+                        foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
+                            ChangeClipMode((Scene.ClipMode)mode, item.Name);
                     };
 
                     clip.ChangeLayerThickness += (layerThickness) => advanced3DClipper.LayerThickness = layerThickness;
@@ -679,7 +681,8 @@ namespace BazisGUI
                     {
                         DisplayClipPlaneEvent = null;
                         DeleteClipPlane();
-                        ChangeClipMode(ClipMode.None, ObjType.Элемент3D.ToString());
+                        foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
+                            ChangeClipMode(ClipMode.None, item.Name);
                         btn.Checked = false;
                         DisplayObjects();
                     };

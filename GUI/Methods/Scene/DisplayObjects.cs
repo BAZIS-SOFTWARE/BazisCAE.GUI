@@ -74,9 +74,14 @@ namespace BazisGUI
                 averageColorRenderer.BlendFramebuffers();
 
             DisplayCompassEvent?.Invoke();
-                //compass.Display(camera, ScaleFactor);              
-
+            //compass.Display(camera, ScaleFactor);              
+            
+            //if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
+            //    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
             DisplayText3DEvent?.Invoke();
+            //if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
+            //    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+
             DisplayText2DEvent?.Invoke();
 
             DisplayControlStatus();

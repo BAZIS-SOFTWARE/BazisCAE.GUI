@@ -19,6 +19,8 @@ namespace BazisGUI
         {
             try
             {
+                if (gmshController.Gmsh == null)
+                    return;
                 List<RowProperty> rows = new List<RowProperty>();
 
                 var actMinSize = gmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeMin");

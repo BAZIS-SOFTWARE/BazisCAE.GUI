@@ -3,6 +3,7 @@ using BazisGUI.Scene.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,23 +13,23 @@ namespace BazisGUI.Scene.VBO
     {
         public Action<object, MessageEventArgs> MessageEvent;
 
-        List<VBObject> glObjs = new List<VBObject>();
+        Dictionary<string,VBObject> glObjs = new Dictionary<string,VBObject>();
 
         public VBObject FindVBObj(string objName)
         {
-            return glObjs.Find(x => x.ObjName == objName);
+            return glObjs.ContainsKey(objName) ? glObjs[objName] : null ;
         }
 
         public void AddVbo(VBObject vbObject)
         {
 
-            glObjs.Add(vbObject);
+            glObjs.Add(vbObject.ObjName,vbObject);
         }
 
         public void DeleteAllVBObjects()
         {
             foreach (var glObj in glObjs)
-                VBO.DeleteAllBuffers(glObj);//Если удаляем объект, то чистим массивы во избежании утечки памяти на видеокарте
+                VBO.DeleteAllBuffers(glObj.Value);//Если удаляем объект, то чистим массивы во избежании утечки памяти на видеокарте
             glObjs.Clear();
             
         }
@@ -36,24 +37,27 @@ namespace BazisGUI.Scene.VBO
 
         public bool DeleteVBObjects(string objName)
         {
-            var glObj = glObjs.Find(x => x.ObjName == objName);
-            if (glObj != null)
+            if (glObjs.ContainsKey(objName))
             {
-                VBO.DeleteAllBuffers(glObj);//Если удаляем объект, то чистим массивы во избежании утечки памяти на видеокарте
-                return glObjs.Remove(glObj);
+                VBO.DeleteAllBuffers(glObjs[objName]);//Если удаляем объект, то чистим массивы во избежании утечки памяти на видеокарте
+                return glObjs.Remove(objName);
             }
             else return false;
 
         }
-
+        [Obsolete("Не реккомендуется использовать," +
+    "так как может привести к рассинхронизации данных")]
         public void ShowAllVBObjects()
         {
-            glObjs.ForEach(x => x.ViewState = true);
+            foreach (var item in glObjs)
+                item.Value.ViewState = true;
         }
-
+        [Obsolete("Не реккомендуется использовать," +
+    "так как может привести к рассинхронизации данных")]
         public void HideAllVBObjects()
         {
-            glObjs.ForEach(x => x.ViewState = false);
+            foreach (var item in glObjs)
+                item.Value.ViewState = false;
         }
 
         /// <summary>
@@ -114,24 +118,26 @@ namespace BazisGUI.Scene.VBO
 
         public void CopyVBObjects(VBObject original, string copyName)
         {
+            VBObject copyVbo;
             var pointers = original.PointsIndexes;
             var coords = original.PointsCoords;
             var colors = original.PointsColors;
             var normals = original.NormalsCoords;
 
             if (original.GL_ObjType == GLObjType.point)
-                CreatePointVBObjects(pointers, coords, colors, normals, copyName);
+                copyVbo = CreatePointVBObjects(pointers, coords, colors, normals, copyName);
             else if (original.GL_ObjType == GLObjType.line)
-                CreateLineVBObjects(pointers, coords, colors, normals, new bool[0], copyName);
-            else if (original.GL_ObjType == GLObjType.triangle)
+                copyVbo = CreateLineVBObjects(pointers, coords, colors, normals, new bool[0], copyName);
+            else
             {
                 var sObj = original as SurfaceObjects;
                 var edges = sObj.EdgeFlags;
                 normals = normals.Select(v => -v).ToArray();
 
-                CreateSurfaceVBObjects(pointers, coords, colors, normals, edges, copyName, sObj.Separators, ObjView.LinesSurface);
+                copyVbo = CreateSurfaceVBObjects(pointers, coords, colors, normals, edges, copyName, sObj.Separators, ObjView.LinesSurface);
+                
             }
-
+            glObjs.Add(copyName,copyVbo);
 
         }
         /// <summary>
@@ -146,7 +152,7 @@ namespace BazisGUI.Scene.VBO
 
         public void ChangeViewModeVBObjects(string objsName, ObjView objView)
         {
-            var glObj = glObjs.Find(x => x.ObjName == objsName);
+            var glObj = glObjs[objsName];
             if (glObj == null)
                 MessageEvent?.Invoke(this, new MessageEventArgs("Не найдены объекты указанного типа!"));
             else
@@ -155,7 +161,7 @@ namespace BazisGUI.Scene.VBO
 
         public void ChangeSettingsVBObjects(string objsName, float pointsSize, float linesWith)
         {
-            var glObj = glObjs.Find(x => x.ObjName == objsName);
+            var glObj = glObjs[objsName];
             if (glObj == null)
                 MessageEvent?.Invoke(this, new MessageEventArgs("Не найдены объекты указанного типа!"));
             else
@@ -165,32 +171,25 @@ namespace BazisGUI.Scene.VBO
             }
         }
 
-        public void SwitchOnVBObject(string objsName)
+        [Obsolete("Не реккомендуется использовать," +
+            "так как может привести к рассинхронизации данных")]
+        public void SwitchVBObject(string objsName, bool viewState)
         {
-            var glObj = glObjs.Find(x => x.ObjName == objsName);
+            var glObj = glObjs[objsName];
 
             if (glObj != null)
-                glObj.ViewState = true;
-        }
-
-
-        public void SwitchOffVBObject(string objsName)
-        {
-            var glObj = glObjs.Find(x => x.ObjName == objsName);
-
-            if (glObj != null)
-                glObj.ViewState = false;
+                glObj.ViewState = viewState;
         }
 
         public bool IsVBObjectShown(string objsName)
         {
-            var glObj = glObjs.Find(x => x.ObjName == objsName);
+            var glObj = glObjs[objsName];
             return glObj?.ViewState == true ? true : false;
         }
 
         public IEnumerable<VBObject> GetVBObjs()
         {
-            foreach (var item in glObjs)
+            foreach (var item in glObjs.Values)
             {
                 yield return item;
             }

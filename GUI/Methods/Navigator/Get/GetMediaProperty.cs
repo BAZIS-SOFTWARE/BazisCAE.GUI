@@ -17,11 +17,13 @@ namespace BazisGUI
             {
             new RowProperty("Группа элементов", obj.Group.Name, groups.Select(x => x.Name).ToList()),
             new RowProperty("Коэф. теплоотдачи", obj.HeatExchangeValue),
-            new RowProperty("Функция, F(t), F - Дж./мм.^2", obj.HeatExchangeFunc, func),
+            new RowProperty("Функция, F(t), F - Дж./мм.^2", 
+            obj.HeatExchangeFunc == null ? "*" : obj.HeatExchangeFunc.Name, func),
             new RowProperty("Температура среды", obj.TemperatureValue),
             new RowProperty("Старт, сек.", obj.StartTime),
             new RowProperty("Стоп, сек.", obj.StopTime),
-            new RowProperty("Функция, F(t), F - Град.", obj.TemperatureFunc)
+            new RowProperty("Функция, F(t), F - Град.",
+            obj.TemperatureFunc == null ? "*" : obj.TemperatureFunc.Name, func)
             };
 
             var funcNames = new List<string>() { "*", "Custom" };

@@ -27,8 +27,10 @@ namespace BazisGUI
                 rows.Add(new RowProperty("Тип", project.ProjectKind,
 Converters.GetEnumNames<TaskKind>()));
 
-                rows.Add(new RowProperty("Материалы", project.MaterialsDB.Name,true));
-                rows.Add(new RowProperty("Функции", project.FunctionsDB.Name,true));
+                if(project.MaterialsDB != null)
+                    rows.Add(new RowProperty("Материалы", project.MaterialsDB.Name,true));
+                if (project.FunctionsDB != null)
+                    rows.Add(new RowProperty("Функции", project.FunctionsDB.Name,true));
 
 
                 propertiesPanel.DrawTable(rows);

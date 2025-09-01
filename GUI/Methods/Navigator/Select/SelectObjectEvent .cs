@@ -15,9 +15,11 @@ namespace BazisGUI
             try
             {
                 var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
-                project.SetModelObjectsBackColor(objType);
 
-                var pres = project.CreateModelObjectsPresentor(objType);
+                var setIndo = project.GetModelSetInfo(objType, setName);
+                setIndo.SetBackColor();
+
+                var pres = project.CreateModelObjectsPresentor(setIndo);
                 SetVBObjectAttribute(pres, "цвет");
 
                 var obj = project.GetModelObject(objType, number);

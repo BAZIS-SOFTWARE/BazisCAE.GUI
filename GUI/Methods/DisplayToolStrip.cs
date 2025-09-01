@@ -26,14 +26,12 @@ namespace BazisGUI
 
                 if (arg2.ClickedItem.Tag.ToString() == "0")
                 {
-                    settingsConfig.IsInsideObjectsShown = true;
-                    ShowInsideObjects();
+                    ChangeInsideObjects(true);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "1")
                 {
-                    settingsConfig.IsInsideObjectsShown = false;
-                    HideInsideObjects();
+                    ChangeInsideObjects(false);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "2")
@@ -86,19 +84,24 @@ namespace BazisGUI
 
         }
 
-        private void HideInsideObjects()
+        private void ChangeInsideObjects(bool flag)
         {
-            settingsConfig.IsInsideObjectsShown = false;
+            settingsConfig.IsInsideObjectsShown = flag;
 
             project.ChangeInsideSurfacesState(settingsConfig.IsInsideObjectsShown);
-            var presenter = project.CreateModelObjectsPresentor(ObjType.Элемент3D);
-            var name = ObjType.Элемент3D.ToString();
 
-            VBOController.DeleteVBObjects(name);
-            var vbo = CreateVBObject(presenter);
-            VBOController.AddVbo(vbo);
+            foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
+            {
+                VBOController.DeleteVBObjects(item.Name);
+                var presenter = project.CreateModelObjectsPresentor(item);
+                var vbo = CreateVBObject(presenter);
+                VBOController.AddVbo(vbo);
+            }
 
-            console.PrintInfo("Скрыты внутренние объекты", Color.Black);
+            if(!flag)
+                console.PrintInfo("Скрыты внутренние объекты", Color.Black);
+            else
+                console.PrintInfo("Показаны все объекты", Color.Black);
         }
 
         private void ShowInsideObjects()

@@ -11,37 +11,51 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public bool SelectByRect(IEnumerable<ISetInfo> sets, RectangleBox selectionBox, bool isSelected)
+        public void SelectByRect(IEnumerable<ISetInfo> sets, RectangleBox selectionBox, bool isSelected)
         {
-            var selFlag = false;
+            
             foreach (var set in sets)
             {
+                var changeFlag = false;
+                // TO DO добавить проверку состояния viewState набора
                 foreach (var numb in set.GetNumbers())
                 {
                     if (set.GetViewState(numb))
                     {
                         var coords = set.GetCoords(numb);
-                        var scrPoints = new Point2D[coords.Count()];
-                        var scnPoints = new Point3D[coords.Count()];
+                        var scrPoints = new List<Point2D>();//[coords.Count()];
+                        var scnPoints = new List<Point3D>();//[coords.Count()];
 
-                        var pointCounter = 0;
+                        //var pointCounter = 0;
                         foreach (var point in coords)
                         {
                             var scnPoint = GetSceenCoord(point);
-                            scnPoints[pointCounter] = scnPoint;
+                            scnPoints.Add(scnPoint);
 
                             var scrPoint = GetScreenCoord(scnPoint);
-                            scrPoints[pointCounter] = scrPoint;
+                            scrPoints.Add(scrPoint);
 
-                            pointCounter++;
+                            //pointCounter++;
                         }
 
                         // тест выделения рамкой
-                        var poligon = new Geometry.Polygon(scrPoints.ToList());
-                        if(poligon.IsSelectedByRectangle(selectionBox))
-                        //if (selectionBox.IsPointsInside(scrPoints))
+                        bool selectionFlag;
+                        if (scrPoints.Count == 1)
+                            selectionFlag = selectionBox.IsPointInside(scrPoints[0]);
+                        else if (scrPoints.Count == 2)
                         {
-                            selFlag = true;
+                            //select by line
+                            selectionFlag = scrPoints.Any(x => selectionBox.IsPointInside(x));
+                        }
+                        else
+                        {
+                            var poligon = new Geometry.Polygon(scrPoints);
+                            selectionFlag = poligon.IsSelectedByRectangle(selectionBox);
+                        }
+
+                        if (selectionFlag)
+                        {
+                            changeFlag = true;
                             if (isSelected)
                                 set.SetColor(settingsConfig.SelectObjectColor, numb);//  page.ScenePage.settingsConfig.SelectObjectColor;
                             else
@@ -50,15 +64,20 @@ namespace BazisGUI
                     }
                 }
 
+                if(changeFlag)
+                {
+                    var pres = project.CreateModelObjectsPresentor(set);
+                    SetVBObjectAttribute(pres, "цвет");
+                }
             }
-
+            DisplayObjects();
             //if (isSorted & selections.Count > 0)
             //{
             //    var near = selections.OrderByDescending(x => GetSceenCoord(x.CalcCentr())._z).FirstOrDefault();
             //    selections = new List<IModelObject>() { near };
             //}
 
-            return selFlag;
+            //return changeFlag;
         }
     }
 }

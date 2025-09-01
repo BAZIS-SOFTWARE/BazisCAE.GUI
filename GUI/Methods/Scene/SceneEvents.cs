@@ -1,4 +1,5 @@
 ﻿using BaseModule.Extensions;
+using BaseModule.Navigator;
 using BazisGUI.Scene.EventsArgs;
 using BazisGUI.Utilities;
 using Geometry;
@@ -6,9 +7,11 @@ using Model;
 using Model.GroupsData;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
+using Model.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Windows.Forms;
@@ -65,7 +68,7 @@ spbSelectObject.ToolTipText == "Элементы")
                         var text = $"{group.Name} {selObjs.Count()}";
                         var node = navigator.CreateRealNode(objType.ToString(), text);
 
-                        navigator.TrySearchNodes("группыОбъектов", out List<TreeNode> nodes);
+                        navigator.TrySearchNodes(NodeName.группы, out List<TreeNode> nodes);
                         nodes.First().Nodes.Add(node);
                         navigator.SetContextMenu(node);
                     }
@@ -82,14 +85,28 @@ spbSelectObject.ToolTipText == "Элементы")
             try
             {
                 var objTypeStr = spbSelectObject.ToolTipText;
+
                 var selObjs = GetModelObjects(objTypeStr).
         Where(x => x.Color == settingsConfig.SelectObjectColor);
-
+                //& x.ViewState == true);
+                
                 foreach (var selObj in selObjs)
                     selObj.ViewState = false;
 
-                DeleteVBObjects(objTypeStr);
-                CreateVBObjects(objTypeStr);
+                var sets = selObjs.Select(x => project.GetModelSetInfo(x.ObjType,x.Number)).
+        Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
+
+                foreach (var set in sets)
+                {
+                    VBOController.DeleteVBObjects(set.Name);
+                    if (set.ViewState)
+                    {
+                        var pre = project.CreateModelObjectsPresentor(set);
+                        var vbo = CreateVBObject(pre);
+                        VBOController.AddVbo(vbo);
+                    }
+                }
+
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -102,7 +119,7 @@ spbSelectObject.ToolTipText == "Элементы")
         {
             try
             {
-                foreach (var obj in project.ModelData.ObjectData.GetAllObjects())
+                foreach (var obj in project.GetAllModelObjects())
                     obj.ViewState = true;
 
                 VBOController.DeleteAllVBObjects();
@@ -186,6 +203,28 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                 foreach (var item in selObjs)
                     item.ExistState = false;
 
+                if(spbSelectObject.ToolTipText == ObjType.Узел.ToString())
+                {
+                    DeleteVBObjects("Элементы");
+                    CreateVBObjects("Элементы");
+                }
+ 
+                var sets = selObjs.Select(x => project.GetModelSetInfo(x.ObjType, x.Number)).
+Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
+
+                foreach (var set in sets)
+                {
+                    VBOController.DeleteVBObjects(set.Name);
+                    if (set.ViewState)
+                    {
+                        var pre = project.CreateModelObjectsPresentor(set);
+                        var vbo = CreateVBObject(pre);
+                        VBOController.AddVbo(vbo);
+                    }
+                }
+
+                DisplayObjects();
+
                 project.ModelData.ObjectData.ClearNotExisted();
                 project.ModelData.ObjectData.ClearEmptySet();
                 project.ModelData.GroupData.ClearNotExisted();
@@ -193,34 +232,8 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 PresentObjectsDataOnTree();
                 PresentGroupDataOnTree();
-
-                //if (arg1 is TaskPage taskPage)
                 PresentCondDataOnTree();
 
-                ObjType objType;
-                if (spbSelectObject.ToolTipText.TryToEnum(out objType))
-                {
-                    if (objType == ObjType.Узел)
-                    {
-                        DeleteVBObjects(objType);
-                        CreateVBObjects(spbSelectObject.ToolTipText);
-                        CreateVBObjects("Элементы");
-                    }
-                    else if (objType == ObjType.Точка)
-                    {
-                        DeleteVBObjects(objType);
-                        CreateVBObjects(spbSelectObject.ToolTipText);
-                        CreateVBObjects(ObjType.Кривая.ToString());
-                    }
-                }
-                else
-                {
-                    DeleteVBObjects(spbSelectObject.ToolTipText);
-                    CreateVBObjects(spbSelectObject.ToolTipText);
-                }
-                    
-                
-                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -237,13 +250,14 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
         {
             foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
             {
-                project?.SetModelObjectsBackColor(type);
-                var pres = project?.CreateModelObjectsPresentor(type);
-                if(pres != null)
-                    SetVBObjectAttribute(pres, "цвет");
+                foreach (var set in project?.GetModelSetsInfo(type))
+                {
+                    set.SetBackColor();
+                    var pres = project.CreateModelObjectsPresentor(set);
+                    if (pres != null)
+                        SetVBObjectAttribute(pres, "цвет");
+                }
             }
-
-            DisplayObjects();
         }
 
         private void GlControl_KeyDown(object sender, KeyEventArgs e)
@@ -252,6 +266,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             {
                 DisplayGeometryObjectEvent = null;
                 SetBackColorToAllObjects();
+                DisplayObjects();
             }
             else if (e.KeyCode == Keys.C)
             {
@@ -340,7 +355,14 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                     var sets = GetModelSetsInfo(spbSelectObject.ToolTipText);
                     //var sets = project.GetModelSetsInfo(spbSelectObject.ToolTipText);
                     if (SelectByPoint(sets, point, isSelected))
-                        ColorObjects(spbSelectObject.ToolTipText);
+                    {
+                        foreach (var set in sets)
+                        {
+                            var pres = project.CreateModelObjectsPresentor(set);
+                            SetVBObjectAttribute(pres, "цвет");
+                        }
+                        DisplayObjects();
+                    }
                 }
             }
             catch (Exception ex)
@@ -356,8 +378,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                 if(project != null)
                 {
                     var sets = GetModelSetsInfo(spbSelectObject.ToolTipText);
-                    if (SelectByRect(sets, rectangleBox, isSelected))
-                        ColorObjects(spbSelectObject.ToolTipText);
+                    SelectByRect(sets, rectangleBox, isSelected);   
                 }
             }
             catch (Exception ex)

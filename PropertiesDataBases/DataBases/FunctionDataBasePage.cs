@@ -22,7 +22,7 @@ namespace PropertiesDataBases.DataBases
         }
 
         public FunctionDBData Functions { get; internal set; }
-    = new FunctionDBData();
+        = new FunctionDBData() { Name = "newFuncDataBase.jsf" };
 
         public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
@@ -31,14 +31,18 @@ namespace PropertiesDataBases.DataBases
 
         public override void DelBrachButton_Click(object sender, EventArgs e)
         {
-            if (Functions.Remove(TreeView.SelectedNode.Name.Split(',')[0]))
+            try
             {
-                MessageBox.Show("Данные удалены успешно");
-                TreeView.Nodes.Remove(TreeView.SelectedNode);
-            }
+                if (Functions.Remove(TreeView.SelectedNode.Name.Split(',')[0]))
+                {
+                    //MessageBox.Show("Данные удалены успешно");
+                    TreeView.Nodes.Remove(TreeView.SelectedNode);
+                }
 
-            else
-                MessageBox.Show("Возникла ошибка при удалении данных!");
+                else throw new Exception("Возникла ошибка при удалении данных!");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
         }
 
         public override void AddNewRowButton_Click(object sender, EventArgs e)
@@ -100,49 +104,68 @@ namespace PropertiesDataBases.DataBases
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-/// <inheritdoc/>
+        public override void DelAllRowsButton_Click(object sender, EventArgs e)
+        {
+            //TO DO реализовать метод очистки столбца
+        }
+
+        /// <inheritdoc/>
 
         public override void Load(string fileName, bool addFlag)
         {
-            base.Load(fileName, addFlag);
-
-            var ext = Path.GetExtension(fileName);
-            DataExtension = ext;
-
-            FunctionDBData functions = new FunctionDBData();
-
-            switch (ext)
+            try
             {
-                case ".txt":
-                    var dataSet = Loader.LoadDataBase(fileName);
-                    functions = ConvertToFunctions(dataSet);
-                    break;
-                case ".jsf":
-                    var settingsSerializer = new JsonSerializerSettings
-                    {
-                        TypeNameHandling = TypeNameHandling.Auto,
-                        Formatting = Formatting.Indented,
-                    };
-                    functions = JsonConvert.DeserializeObject<FunctionDBData>
-                        (File.ReadAllText(fileName), settingsSerializer);
-                    break;
-            }
+                base.Load(fileName, addFlag);
 
-            if (addFlag)
-            {
-                foreach (var function in functions)
+                var ext = Path.GetExtension(fileName);
+                DataExtension = ext;
+
+                FunctionDBData functions = new FunctionDBData();
+
+                switch (ext)
                 {
-                    if (!Functions.ContainsKey(function.Key))
-                        Functions.Add(function.Key, function.Value);
+                    case ".txt":
+                        var dataSet = Loader.LoadDataBase(fileName);
+                        functions = ConvertToFunctions(dataSet);
+                        break;
+                    case ".jsf":
+                        var settingsSerializer = new JsonSerializerSettings
+                        {
+                            TypeNameHandling = TypeNameHandling.Auto,
+                            Formatting = Formatting.Indented,
+                        };
+                        functions = JsonConvert.DeserializeObject<FunctionDBData>
+                            (File.ReadAllText(fileName), settingsSerializer);
+                        break;
                 }
+
+                if (addFlag)
+                {
+                    if (Functions == null)
+                        throw new Exception("Загрузите базу или создайте новую");
+
+                    foreach (var function in functions)
+                    {
+                        if (!Functions.ContainsKey(function.Key))
+                            Functions.Add(function.Key, function.Value);
+                    }
+                }
+                else
+                {
+                    if (functions == null)
+                        throw new Exception("Загружаемая база повреждена");
+                    Functions = functions;
+                    var name = Path.GetFileName(fileName);
+                    Functions.Name = name;
+                }
+
+
+
+                TreeView.Nodes.Clear();
+                foreach (var function in Functions)
+                    AddTreeNode(function.Value);
             }
-            else
-                Functions = functions;
-
-
-            TreeView.Nodes.Clear();
-            foreach (var function in Functions)
-                AddTreeNode(function.Value);
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void RenameMatItem_Click(object sender, EventArgs e)

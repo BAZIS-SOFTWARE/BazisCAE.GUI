@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -24,15 +25,7 @@ namespace BazisGUI
 
         }
 
-        private void navigator_ShowObjectsEvent(NodeName obj)
-        {
-
-        }
-
-        private void navigator_HideObjectsEvent(NodeName obj)
-        {
-
-        }
+     
         private void navigator_HideObjectEvent(NodeName arg1, string arg2, int arg3)
         {
 
@@ -83,6 +76,7 @@ namespace BazisGUI
             try
             {
                 project.TaskData?.Clear();
+                navigator.SelectedNode.Nodes.Clear();
                 PresentCondDataOnTree();
             }
             catch (Exception ex)
@@ -394,21 +388,7 @@ namespace BazisGUI
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        private void navigator_HideSetEvent(NodeName nodeType, string setName)
-        {
-            try
-            {
-                var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
-                ChangeSetViewState(setName, objType, false);
-
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
+        }    
 
         private void navigator_ShowAllObjectsEvent()
         {
@@ -426,20 +406,6 @@ namespace BazisGUI
                 console.PrintInfo(ex.Message, Color.Red);
             }
 
-        }
-
-        private void navigator_ShowSetEvent(NodeName nodeType, string setName)
-        {
-            try
-            {
-                var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
-                ChangeSetViewState(setName, objType,true);
-
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
         }
 
         private void navigator_InfoGroupEvent(int obj)
@@ -567,9 +533,16 @@ namespace BazisGUI
         }
         private void navigator_GetObjectsInfoEvent(TreeNode node)
         {
-            var nodeType = node.Name.ToEnum<NodeName>();
-            var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
+            var nodeName = node.Name.ToEnum<NodeName>();
+            var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
+
             var setName = node.Text.Split(' ')[0];
+            if (nodeName == NodeName.Объем | nodeName == NodeName.Поверхности)
+            {
+                var ar = node.Text.Split(' ');
+                setName = string.Join(" ", ar, 0, ar.Length - 1);
+            }
+
             var setInfo = project.GetModelSetInfo(objType, setName);
 
             var childs = navigator.CreateRealNodes(objType.ToString(), setInfo.GetObjectsInfo());

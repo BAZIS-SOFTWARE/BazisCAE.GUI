@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace BaseModule.Navigator
 {
-    public enum ViewRegime : int { ribbers, surfaces, ribbersSurfaces };
+    //public enum ViewRegime : int { ribbers, surfaces, ribbersSurfaces };
 
     public enum NodeKind : int { real,virt}
 
@@ -104,11 +104,12 @@ namespace BaseModule.Navigator
         public event Action HideAllObjectsEvent;
         public event Action DelAllObjectsEvent;
 
-        public event Action<string, ViewRegime> ChangeSetViewEvent;
         public event Action<NodeName, string> ShowSetEvent;
         public event Action<NodeName, string> HideSetEvent;
         public event Action<NodeName, string> DelSetEvent;
         public event Action<NodeName, string> SelectSetEvent;
+        public event Action<TreeNode> GetSetsInfoEvent;
+        public event Action<int> SetElementsOrderEvent;
 
         public event Action<int> SelectGroupEvent;
         public event Action<int> DelGroupEvent;
@@ -143,8 +144,6 @@ namespace BaseModule.Navigator
         public event Action<string, double> SelectTimeEvent;
         public event Action<NodeName, string> SelectResultEvent;
 
-        public event Action<int> SetElementsOrderEvent;
-        public event Action<TreeNode> GetSetsInfoEvent;
         public event Action<TreeNode> GetResultInfoEvent;
 
         public event Action<object,NodeName> AddConditionEvent;
@@ -436,7 +435,7 @@ namespace BaseModule.Navigator
             //treeView.SelectedNode.ImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
             //treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
 
-            ShowSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
+            ShowSetEvent?.Invoke(nodeType, node.Text);
         }
 
         public void HideSet_Click(object sender, EventArgs e)
@@ -449,7 +448,7 @@ namespace BaseModule.Navigator
             //treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
             //treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
 
-            HideSetEvent?.Invoke(nodeType, node?.Text.Split(' ')[0]);
+            HideSetEvent?.Invoke(nodeType, node.Text);
         }
 
         private void DelSet_Click(object sender, EventArgs e)
@@ -458,7 +457,7 @@ namespace BaseModule.Navigator
             var nodeType = temp.Parent.Name.ToEnum<NodeName>();
             treeView.SelectedNode.Remove();
 
-            DelSetEvent?.Invoke(nodeType, temp.Text.Split(' ')[0]);
+            DelSetEvent?.Invoke(nodeType, temp.Text);
         }
 
         public void ShowObjects_Click(object sender, EventArgs e)
@@ -499,7 +498,6 @@ namespace BaseModule.Navigator
 
         public void DelAllGroups_Click(object sender, EventArgs e)
         {
-            treeView.Nodes["группыОбъектов"].Nodes.Clear();
             DelAllGroupsEvent?.Invoke();
         }
 
@@ -518,21 +516,6 @@ namespace BaseModule.Navigator
             var groupIndex = treeView.SelectedNode.Index;
 
             InfoGroupEvent?.Invoke(groupIndex);
-        }
-
-        public void ребраToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChangeSetViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.ribbers);
-        }
-
-        public void поверхностиToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChangeSetViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.surfaces);
-        }
-
-        public void ребраИПоверхностиToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChangeSetViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.ribbersSurfaces);
         }
         
         private void treeView_Enter(object sender, EventArgs e)

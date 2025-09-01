@@ -157,7 +157,7 @@ namespace BazisGUI
         private void SelectE2DInPlane(float angle)
         {
 
-            var selObjs = project.ModelData.ObjectData.GetObjects(ObjType.Элемент2D).
+            var selObjs = project.GetModelObjects(ObjType.Элемент2D).
 
     Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
 
@@ -166,8 +166,17 @@ namespace BazisGUI
                 var element = selObjs.Last();
                 project.SelectE2DInPlane(
                     angle, element.Number, settingsConfig.SelectObjectColor);
-                var pres = project.CreateModelObjectsPresentor(ObjType.Элемент2D);
-                SetVBObjectAttribute(pres, "цвет");
+
+                // TO DO исправить метод
+
+                foreach (var set in GetModelSetsInfo(SelectedObjects))
+                {
+                    var pres = project.CreateModelObjectsPresentor(set);
+                    SetVBObjectAttribute(pres, "цвет");
+                }
+
+                DisplayObjects();
+
             }
             else console.PrintInfo("Выберите хотя бы один элемент", Color.Red);
         }

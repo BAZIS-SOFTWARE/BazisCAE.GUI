@@ -124,8 +124,8 @@
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=4.3.9.0, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.4.3.9\lib\netstandard2.0\Model.dll</HintPath>
+    <Reference Include="Model, Version=4.5.1.0, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.4.5.1\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -133,17 +133,17 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="OperationalController, Version=3.1.58.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\OperationalController.3.1.58\lib\netstandard2.0\OperationalController.dll</HintPath>
+    <Reference Include="OperationalController, Version=3.3.0.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\OperationalController.3.3.0\lib\netstandard2.0\OperationalController.dll</HintPath>
     </Reference>
-    <Reference Include="PostProc, Version=1.6.5.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostProc.1.6.5\lib\netstandard2.0\PostProc.dll</HintPath>
+    <Reference Include="PostProc, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostProc.1.7.0\lib\netstandard2.0\PostProc.dll</HintPath>
     </Reference>
-    <Reference Include="PreProc, Version=1.4.8.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
-      <HintPath>..\packages\PreProc.1.4.8\lib\netstandard2.0\PreProc.dll</HintPath>
+    <Reference Include="PreProc, Version=1.5.3.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
+      <HintPath>..\packages\PreProc.1.5.3\lib\netstandard2.0\PreProc.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=4.8.6.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.4.8.6\lib\netstandard2.0\Project.dll</HintPath>
+    <Reference Include="Project, Version=4.9.1.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.4.9.1\lib\netstandard2.0\Project.dll</HintPath>
     </Reference>
     <Reference Include="PropertiesCalculator, Version=1.0.4.0, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -255,7 +255,7 @@
     <Compile Include="Methods\Navigator\Get\GetGeneralInfoProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\EditGroup.cs">
+    <Compile Include="Methods\Navigator\Groups\EditGroup.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\CreateGIFAnimation.cs">
@@ -265,6 +265,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Get\GetObjectProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Objects\ShowHideEvents.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Present\PresentCompData.cs">
@@ -300,6 +303,9 @@
     <Compile Include="Methods\Navigator\Select\SelectTimeEvent.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Navigator\Sets\ShowHideSetEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\PhysicalDataBase\GetDataBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -318,13 +324,10 @@
     <Compile Include="Methods\MeshMainMenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\ChangeSetViewMode.cs">
+    <Compile Include="Methods\Navigator\Sets\ChangeSetViewState.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\ChangeSetViewState.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\ChangeGroupViewState.cs">
+    <Compile Include="Methods\Navigator\Groups\ChangeGroupViewState.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\AddCondition.cs">
@@ -336,10 +339,10 @@
     <Compile Include="Methods\Navigator\Present\PresentCondData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\DelSetEvent.cs">
+    <Compile Include="Methods\Navigator\Sets\DelSetEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\DelGroupEvent.cs">
+    <Compile Include="Methods\Navigator\Groups\DelGroupEvent.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Select\SelectGeneralInfoEvent.cs">
@@ -414,7 +417,7 @@
     <Compile Include="Methods\Scene\ClipPlane.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Scene\DeleteVBObjects.cs">
+    <Compile Include="Methods\Scene\VBObjects\DeleteVBObjects.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Scene\DisplayBasis.cs">
@@ -432,7 +435,7 @@
     <Compile Include="Methods\Scene\CameraActions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Scene\ColorObjects.cs">
+    <Compile Include="Methods\Scene\VBObjects\ColorObjects.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Scene\GetSceenCoord.cs">
@@ -465,7 +468,7 @@
     <Compile Include="Methods\Scene\SetVBObjectAttribute.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Scene\CreateVBObjects.cs">
+    <Compile Include="Methods\Scene\VBObjects\CreateVBObjects.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Scene\DisplayGeometryObject.cs">
@@ -513,7 +516,7 @@
     <Compile Include="Scene\Interfaces\ISceneControl.cs" />
     <Compile Include="Scene\Interfaces\ISceneScale.cs" />
     <Compile Include="Scene\Interfaces\IVBObject.cs" />
-    <Compile Include="Methods\Scene\CreateVBObject.cs">
+    <Compile Include="Methods\Scene\VBObjects\CreateVBObject.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Scene\Rendering\Advanced3DClipper.cs" />

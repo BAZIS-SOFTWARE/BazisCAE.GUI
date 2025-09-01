@@ -30,40 +30,30 @@ namespace BazisGUI
         {
             try
             {
-                DeleteGMSHMeshObjects(ObjType.Элемент3D);
-                gmshController.Gmsh.Model.Mesh.Generate(3);
+                DeleteGMSHMeshObjects(ObjType.Узел);
+                project.ClearModelCollection(ObjType.Узел);
+                project.GenerateMesh(3, gmshController);
+
+                //gmshController.Gmsh.Model.Mesh.Generate(3);
+                //var nds = gmshController.GetNodes();
+
+            var error = gmshController.Gmsh.Logger.GetLastError();
+            if (!string.IsNullOrEmpty(error))
+                console.PrintInfo(error, Color.Red);
+
+            DeleteVBObjsByObjsType(ObjType.Узел);
+            CreateVBObjsByObjsType(ObjType.Узел);
+            DeleteVBObjects("Элементы");
+            CreateVBObjects("Элементы");
+            PresentObjectsDataOnTree();
+            FitObjectsToScreen();
+            DisplayObjects();
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
                 return;
             }
-            var error = gmshController.Gmsh.Logger.GetLastError();
-            if (!string.IsNullOrEmpty(error))
-                console.PrintInfo(error, Color.Red);
-
-            UpdateMesh();
-            DeleteVBObjects(ObjType.Узел);
-            CreateVBObjects("Объекты");
-            PresentObjectsDataOnTree();
-            FitObjectsToScreen();
-            DisplayObjects();
-        }
-
-        private void UpdateMesh()
-        {
-            project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
-
-            var objs = gmshController.GetMeshObjects();
-    
-            if (objs.Item1.Count > 0)
-                objs.Item1.ForEach(x => project.ModelData.ObjectData.NodesSet.Add(x.Number, x));
-            if (objs.Item2.Count > 0)
-                project.ModelData.ObjectData.E1DCollection.AddRange("e1d", objs.Item2.Select(x => (Beam)x));
-            if (objs.Item3.Count > 0)
-                project.ModelData.ObjectData.E2DCollection.AddRange("e2d", objs.Item3);
-            if (objs.Item4.Count > 0)
-                project.ModelData.ObjectData.E3DCollection.AddRange("e3d", objs.Item4);
         }
     }
 }

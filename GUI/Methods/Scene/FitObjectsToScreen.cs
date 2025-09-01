@@ -42,14 +42,17 @@ namespace BazisGUI
                         if (pRad > maxRad) maxRad = pRad;
                     }
 
-                    if (Width > Height)
-                        factor = 1 / (maxRad / (float)(Height / 2));
-                    else { factor = 1 / (maxRad / (float)(Width / 2)); }
-
-                    if (factor == 0) factor = 1;
-
-                    ScaleObjs(factor);
+                    if (maxRad == 0)
+                        break;
                 }
+                if (Width > Height)
+                    factor = 1 / (maxRad / (float)(Height / 2));
+                else { factor = 1 / (maxRad / (float)(Width / 2)); }
+
+                if (factor == 0) factor = 1;
+
+                ScaleObjs(factor);
+
                 if (Math.Abs(factor - 1) < 0.1) break;
             }
         }

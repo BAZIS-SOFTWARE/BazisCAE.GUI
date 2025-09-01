@@ -1,5 +1,6 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
+using Model.Utilities;
 using Project.Tasks;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
@@ -19,6 +20,7 @@ namespace BazisGUI
                 var data = project.TaskData.First(x => x.ToString() == arg2);
 
                 var _funcs = project.FunctionsDB.Keys.ToList();
+                _funcs.Add("*");
                 var _mats = project.MaterialsDB.Keys.ToList();
 
                 var groups = project.GetAllModelGroups();
@@ -45,16 +47,28 @@ namespace BazisGUI
                 //if (data.Direction != Direction.None)
                 //    DisplayDirection(data.StartTime, data, data.Group);
 
-                project.SetModelObjectsBackColor(data.Group.ObjType);
-                var pres = project.CreateModelObjectsPresentor(data.Group.ObjType);
+                foreach (var item in project.GetAllModelSetsInfo()) // возврат цвета всем объектам, которые были выделены
+                    item.SetBackColor();
 
-                SetVBObjectAttribute(pres, "цвет");
+                ColorObjects("Объекты"); // возврат цвета всем объектам уже на сцене
 
-                foreach (var iobj in data.Group)
-                    iobj.Color = settingsConfig.SelectGroupColor;
+                /*
+                 * TO DO в целях инкапсуляции: 
+                 * Group.SetBackColor(Color color);
+                 */
+                
+                foreach (var obj in data.Group) // закраска объектов в выделяемой группе
+                    obj.Color = settingsConfig.SelectGroupColor;
 
-                pres = project.CreateModelObjectsPresentor(data.Group.ObjType);
-                SetVBObjectAttribute(pres, "цвет");
+
+                foreach (var set in data.Group.Select(x => project.
+                GetModelSetInfo(x.ObjType, x.Number)).
+                Distinct(new DefaultSetInfoComparer()))
+                {
+                    var pres = project.CreateModelObjectsPresentor(set);
+                    SetVBObjectAttribute(pres, "цвет");
+                }
+                DisplayObjects();
 
 
                 checkPlayerControl.StartValue = 0;

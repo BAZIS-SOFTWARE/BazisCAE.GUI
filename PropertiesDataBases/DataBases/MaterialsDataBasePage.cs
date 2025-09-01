@@ -25,7 +25,7 @@ namespace PropertiesDataBases.DataBases
         }
 
         public MaterialDBData Materials { get; internal set; }
-            = new MaterialDBData();
+        = new MaterialDBData() { Name = "newMatDataBase.jsf" };
 /// <inheritdoc/>
 
         public override void SafeFileButton_Click(object sender, EventArgs e)
@@ -90,45 +90,58 @@ namespace PropertiesDataBases.DataBases
 
         public override void Load(string fileName, bool addFlag)
         {
-            base.Load(fileName, addFlag);
-
-            var ext = Path.GetExtension(fileName);
-            DataExtension = ext;
-
-            MaterialDBData materials = new MaterialDBData();
-
-            switch (ext)
+            try
             {
-                case ".txt":
-                    var dataSet = Loader.LoadDataBase(fileName);
-                    materials = ConvertToMaterials(dataSet);
-                    break;
-                case ".jsf":
-                    var settingsSerializer = new JsonSerializerSettings
-                    {
-                        TypeNameHandling = TypeNameHandling.Auto,
-                        Formatting = Formatting.Indented,
-                    };
-                    materials = JsonConvert.DeserializeObject<MaterialDBData>
-                        (File.ReadAllText(fileName), settingsSerializer);
-                    break;
-            }
+                base.Load(fileName, addFlag);
 
-            if (addFlag)
-            {
-                foreach (var material in materials)
+                var ext = Path.GetExtension(fileName);
+                DataExtension = ext;
+
+                MaterialDBData materials = new MaterialDBData();
+
+                switch (ext)
                 {
-                    if (!Materials.ContainsKey(material.Key))
-                        Materials.Add(material.Key, material.Value);
+                    case ".txt":
+                        var dataSet = Loader.LoadDataBase(fileName);
+                        materials = ConvertToMaterials(dataSet);
+                        break;
+                    case ".jsf":
+                        var settingsSerializer = new JsonSerializerSettings
+                        {
+                            TypeNameHandling = TypeNameHandling.Auto,
+                            Formatting = Formatting.Indented,
+                        };
+                        materials = JsonConvert.DeserializeObject<MaterialDBData>
+                            (File.ReadAllText(fileName), settingsSerializer);
+                        break;
                 }
+
+                if (addFlag)
+                {
+                    if (Materials == null)
+                        throw new Exception("Загрузите базу или создайте новую");
+
+                    foreach (var material in materials)
+                    {
+                        if (!Materials.ContainsKey(material.Key))
+                            Materials.Add(material.Key, material.Value);
+                    }
+                }
+                else
+                {
+                    if (materials == null)
+                        throw new Exception("Загружаемая база повреждена");
+                    Materials = materials;
+                    var name = Path.GetFileName(fileName);
+                    Materials.Name = name;
+                }
+
+
+                TreeView.Nodes.Clear();
+                foreach (var material in Materials)
+                    AddTreeNode(material.Value);
             }
-            else
-                Materials = materials;
-
-
-            TreeView.Nodes.Clear();
-            foreach (var material in Materials)
-                AddTreeNode(material.Value);
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         public void AddTreeNode(MaterialDBItem material)
@@ -630,46 +643,54 @@ namespace PropertiesDataBases.DataBases
 
         public override void DelBrachButton_Click(object sender, EventArgs e)
         {
-            if (Materials.Remove(TreeView.SelectedNode.Name))
+            try
             {
-                MessageBox.Show("Данные удалены успешно");
-                TreeView.Nodes.Remove(TreeView.SelectedNode);
+                if (Materials.Remove(TreeView.SelectedNode.Name))
+                {
+                    MessageBox.Show("Данные удалены успешно");
+                    TreeView.Nodes.Remove(TreeView.SelectedNode);
+                }
+
+                else throw
+                        new Exception("Возникла ошибка при удалении данных!");
             }
- 
-            else
-                MessageBox.Show("Возникла ошибка при удалении данных!");
+            catch (Exception ex) { MessageBox.Show("Ошибка удаления : " + ex.Message); }
         }
 
         public override void DelAllRowsButton_Click(object sender, EventArgs e)
         {
-            if(TreeView.SelectedNode.Level == 2)
+            try
             {
-                var dataAr = TreeView.SelectedNode.FullPath.Split('\\', ',');
-
-                var mat = dataAr[0];
-                var cat = dataAr[1];
-                var prop = dataAr[2];
-
-                var table = Materials[mat][cat][prop].DataTable;
-
-                if(prop == "Структура")
+                if (TreeView.SelectedNode.Level == 2)
                 {
-                    var phaseTable = Materials[mat]["Общие сведения"]["Структура"].DataTable;
-                    var phaseNames = phaseTable.AsEnumerable().Select(r => r.Field<string>(0)).ToArray();
+                    var dataAr = TreeView.SelectedNode.FullPath.Split('\\', ',');
 
-                    foreach (var phaseName in phaseNames)
+                    var mat = dataAr[0];
+                    var cat = dataAr[1];
+                    var prop = dataAr[2];
+
+                    var table = Materials[mat][cat][prop].DataTable;
+
+                    if (prop == "Структура")
                     {
-                        var termTables = Materials[mat]["Тепловые свойства"].PropertyData.Values.Select(x => x.DataTable);
-                        DelColumn(termTables, phaseName);
-                        var mechTables = Materials[mat]["Механические свойства"].PropertyData.Values.Select(x => x.DataTable);
-                        DelColumn(mechTables, phaseName);
-                    }
-                    Materials[mat]["Металлургия"].PropertyData.Clear();
-                    TreeView.Nodes.Find(mat, true)[0].Nodes.Find("Металлургия", true)[0].Nodes.Clear();
-                }
+                        var phaseTable = Materials[mat]["Общие сведения"]["Структура"].DataTable;
+                        var phaseNames = phaseTable.AsEnumerable().Select(r => r.Field<string>(0)).ToArray();
 
-                table.Clear();
+                        foreach (var phaseName in phaseNames)
+                        {
+                            var termTables = Materials[mat]["Тепловые свойства"].PropertyData.Values.Select(x => x.DataTable);
+                            DelColumn(termTables, phaseName);
+                            var mechTables = Materials[mat]["Механические свойства"].PropertyData.Values.Select(x => x.DataTable);
+                            DelColumn(mechTables, phaseName);
+                        }
+                        Materials[mat]["Металлургия"].PropertyData.Clear();
+                        TreeView.Nodes.Find(mat, true)[0].Nodes.Find("Металлургия", true)[0].Nodes.Clear();
+                    }
+
+                    table.Clear();
+                }
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
 
 
             //var grView = (DataGridView)sender;

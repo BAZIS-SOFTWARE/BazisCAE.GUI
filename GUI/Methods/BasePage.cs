@@ -120,31 +120,6 @@ namespace BazisGUI
 
             PressedKey = Keys.None;
             return resObject;
-        }        
-
-        public void ChangeViewMode(IModelData modelData, ObjType objType, ViewRegime viewRegime)
-        {
-            switch (viewRegime)
-            {
-                case ViewRegime.ribbers:
-                    VBOController.ChangeViewModeVBObjects(objType.ToString(), ObjView.Lines);
-                    foreach (var item in modelData.ObjectData.GetSetsInfo(objType))
-                        item.SetViewMode(ViewMode.Line);
-                    break;
-                case ViewRegime.surfaces:
-                    VBOController.ChangeViewModeVBObjects(objType.ToString(), ObjView.Surface);
-                    foreach (var item in modelData.ObjectData.GetSetsInfo(objType))
-                        item.SetViewMode(ViewMode.Surface);
-                    break;
-                case ViewRegime.ribbersSurfaces:
-                    VBOController.ChangeViewModeVBObjects(objType.ToString(), ObjView.LinesSurface);
-                    foreach (var item in modelData.ObjectData.GetSetsInfo(objType))
-                        item.SetViewMode(ViewMode.LineSurface);
-                    break;
-                default:
-                    break;
-            }
-            DisplayObjects();
-        }          
+        }                 
     }
 }

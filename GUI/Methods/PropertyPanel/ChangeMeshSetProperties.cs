@@ -1,5 +1,7 @@
 ﻿using BaseModule.Extensions;
+using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
+using BazisGUI.Scene.Interfaces;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using System.Drawing;
@@ -53,12 +55,35 @@ namespace BazisGUI
 
             }
             else if (obj.Header == "Представление")
-                _objectsSet.SetViewMode(obj.NewValue.ToString().ToEnum<ViewMode>());
-
-            else if(obj.Header == "Порядок элементов")
             {
-                //_objectsSet.SetLevel(int.Parse(obj.NewValue));
-            }    
+                var viewMode = obj.NewValue.ToString().ToEnum<ViewMode>();
+                _objectsSet.SetViewMode(viewMode);
+
+                ObjView objView;
+                //var set = project.GetModelSetInfo(objType, setName);
+                if (viewMode == ViewMode.Line)
+                {
+                    objView = ObjView.Lines;
+                    //set.SetViewMode(ViewMode.Line);
+                }
+
+                else if (viewMode == ViewMode.Surface)
+                {
+                    objView = ObjView.Surface;
+                    //set.SetViewMode(ViewMode.Surface);
+                }
+
+                else
+                {
+                    objView = ObjView.LinesSurface;
+                    //set.SetViewMode(ViewMode.LineSurface);
+                }
+
+                VBOController.ChangeViewModeVBObjects(setName, objView);
+
+                DisplayObjects();
+            }
+               
 
         }
     }

@@ -1,4 +1,5 @@
-﻿using BazisGUI.Scene.EventsArgs;
+﻿using BaseModule.Navigator;
+using BazisGUI.Scene.EventsArgs;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -308,7 +309,7 @@ namespace BazisGUI
             this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
             this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
             this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
-            this.navigator.ChangeSetViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeSetViewEvent);
+            //this.navigator.ChangeSetViewEvent += new System.Action<NodeName,string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeSetViewEvent);
             this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_ShowSetEvent);
             this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_HideSetEvent);
             this.navigator.DelSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_DelSetEvent);

@@ -199,6 +199,11 @@ namespace BazisGUI.Scene.VBO
         /// </summary>
         public abstract void Draw();
 
+        public override string ToString()
+        {
+            return $"{ObjName} {ViewState} {ViewMode}";
+        }
+
         /* Убранные элементы
           
          Попробовали, но идея до конца не сработала.

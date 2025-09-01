@@ -1,0 +1,48 @@
+﻿using BazisGUI.Scene.Interfaces;
+using System;
+using Tao.OpenGl;
+using Geometry;
+using System.Drawing;
+using BazisGUI.Utilities;
+using Model.Interfaces;
+
+namespace BazisGUI
+{
+    public partial class BaseForm
+    {
+        internal void ColorObjects(string objTypeStr)
+        {
+            if (objTypeStr == "Объекты")
+            {
+                foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
+                    ColorVBObjsByObjsType(type);
+            }
+            else if (objTypeStr == "Элементы")
+            {
+                ColorVBObjsByObjsType(ObjType.Элемент1D);
+                ColorVBObjsByObjsType(ObjType.Элемент2D);
+                ColorVBObjsByObjsType(ObjType.Элемент3D);
+            }
+            else
+            {
+                var objType = Converters.ConvertToObjsType(objTypeStr);
+                ColorVBObjsByObjsType(objType);
+            }
+
+
+            DisplayObjects();
+        }
+
+        public void ColorVBObjsByObjsType(ObjType objType)
+        {
+            foreach (var setInfo in project.GetModelSetsInfo(objType))
+            {
+                if (setInfo.NumberOfObjects > 0)
+                {
+                    var pre = project.CreateModelObjectsPresentor(setInfo);
+                    SetVBObjectAttribute(pre, "цвет");
+                }
+            }
+        }
+    }
+}

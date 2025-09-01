@@ -53,7 +53,7 @@ namespace BazisGUI
             navigator.TrySearchNodes(NodeName.Объемы, out List<TreeNode> nodes);
             foreach (var item in project.GetModelVolumes())
             {
-                var r_node = navigator.CreateRealNode(NodeName.Объем, item.ToString());
+                var r_node = navigator.CreateRealNode(NodeName.Объем, $"{item.Name} {item.NumberOfSides}");
                 nodes[0].Nodes.Add(r_node);
             }      
         }

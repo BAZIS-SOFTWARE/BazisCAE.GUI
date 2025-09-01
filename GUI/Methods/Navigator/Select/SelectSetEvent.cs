@@ -2,6 +2,7 @@
 using BazisGUI.Utilities;
 using System;
 using System.Drawing;
+using System.Linq;
 
 namespace BazisGUI
 {
@@ -11,13 +12,30 @@ namespace BazisGUI
         {
             try
             {
-                var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
+                var setName = arg2.Split(' ')[0];
+                if (arg1 == NodeName.Объем | arg1 == NodeName.Поверхности)
+                {
+                    var ar = arg2.Split(' ');
+                    setName = string.Join(" ", ar, 0, ar.Length - 1);
+                }
 
-                var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
-                var set = project.GetModelSetInfo(objType, setName);
+                if(arg1 != NodeName.Объем)
+                {
+                    var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
 
-                var rows = GetSetProperty(set);
-                propertiesPanel.DrawTable(rows);
+                    var set = project.GetModelSetInfo(objType, setName);
+                    var rows = GetSetProperty(set);
+                    propertiesPanel.DrawTable(rows);
+                }
+                else
+                {
+                    var vol = project.GetModelVolumes().FirstOrDefault(x => x.Name == setName);
+                    /*
+                     * TO DO Реализовать для объема
+                     */
+                }
+
+
             }
             catch (Exception ex)
             {

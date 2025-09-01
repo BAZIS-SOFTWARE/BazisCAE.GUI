@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Model.Interfaces.ObjectsCollections;
+using Model.Interfaces;
+using System;
 using System.Drawing;
+using System.Linq;
+using Model.Utilities;
 
 namespace BazisGUI
 {
@@ -8,19 +12,28 @@ namespace BazisGUI
         private void navigator_SelectGroupEvent(int grIndex)
         {
             try
-            {
-                var group = project.GetModelGroup(grIndex);
+            {  
+                foreach (var item in project.GetAllModelSetsInfo()) // возврат цвета всем объектам, которые были выделены
+                    item.SetBackColor();
+                
+                ColorObjects("Объекты"); // возврат цвета всем объектам уже на сцене
 
-                project.SetModelObjectsBackColor(group.ObjType);
+                /*
+                 * TO DO в целях инкапсуляции: 
+                 * Group.SetBackColor(Color color);
+                 */
+                var group = project.GetModelGroup(grIndex); // закраска объектов в выделяемой группе
+                foreach (var obj in group)
+                    obj.Color = settingsConfig.SelectGroupColor;
 
-                var pres = project.CreateModelObjectsPresentor(group.ObjType);
-                SetVBObjectAttribute(pres, "цвет");
 
-                foreach (var iobj in group)
-                    iobj.Color = settingsConfig.SelectGroupColor;
-
-                //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
-                SetVBObjectAttribute(pres, "цвет");
+                foreach (var set in group.Select(x => project.
+                GetModelSetInfo(x.ObjType, x.Number)).
+                Distinct(new DefaultSetInfoComparer()))
+                {
+                    var pres = project.CreateModelObjectsPresentor(set);
+                    SetVBObjectAttribute(pres, "цвет");
+                }          
                 DisplayObjects();
 
                 var rows = GetGroupProperty(group);
