@@ -9,7 +9,7 @@ namespace BazisGUI.SettingsControls
 {
     public partial class SettingsControl : UserControl
     {
-        public event Action<SettingsConfig> SaveSettingsEvent;
+        //public event Action SaveSettingsEvent;
         public event Action<Color> SetSelectionObjectColorEvent;
         public event Action<Color> SetSelectionGroupColorEvent;
         public event Action<Color> SetBackGroundColorEvent;
@@ -26,6 +26,8 @@ namespace BazisGUI.SettingsControls
         public Action<int> SetTransparencyValueEvent;
 
         public Action<bool> SetOrtoProjectionEvent;
+        
+        SettingsConfig config;
         public SettingsControl()
         {
             InitializeComponent();
@@ -38,6 +40,8 @@ namespace BazisGUI.SettingsControls
 
         public void SetSettings(SettingsConfig settingsConfig)
         {
+            // возможно не самое лучшее решение
+            config = settingsConfig;
             panelBackGroundColor.BackColor = settingsConfig.BackGroundColor;
             pnlSelectionObjsColor.BackColor = settingsConfig.SelectObjectColor;
             pnlSelectionGroupColor.BackColor = settingsConfig.SelectGroupColor;
@@ -56,26 +60,26 @@ namespace BazisGUI.SettingsControls
         private void btnSaveConfig_Click(object sender, EventArgs e)
         {
 
-            var config = new SettingsConfig()
-            {
-                BackGroundColor = panelBackGroundColor.BackColor,
-                SelectObjectColor = pnlSelectionObjsColor.BackColor,
-                SelectGroupColor = pnlSelectionGroupColor.BackColor,
+            //var config = new SettingsConfig()
+            //{
+            config.BackGroundColor = panelBackGroundColor.BackColor;
+            config.SelectObjectColor = pnlSelectionObjsColor.BackColor;
+            config.SelectGroupColor = pnlSelectionGroupColor.BackColor;
 
-                SolverPath = lblSolverPath.Text,
-                Lighting = chbLighting.Checked,
-                LighterPosition = lightingControl.BallPosition,
-                LightingIntensity = clslLigthingIntensity.Value,
-                Transparency = chbTransparency.Checked,
-                BackRibbers = chbBackRibbers.Checked,
-                Projection = chbOrtoProjection.Checked == true ? 
-                ViewProjection.Parallel : ViewProjection.Perspective,
+            config.SolverPath = lblSolverPath.Text;
+            config.Lighting = chbLighting.Checked;
+            config.LighterPosition = lightingControl.BallPosition;
+            config.LightingIntensity = clslLigthingIntensity.Value;
+            config.Transparency = chbTransparency.Checked;
+            config.BackRibbers = chbBackRibbers.Checked;
+            config.Projection = chbOrtoProjection.Checked == true ?
+            ViewProjection.Parallel : ViewProjection.Perspective;
 
-                TransparencyValue = clslTransparency.Value,
-                NodeColor = pnlNodeColor.BackColor
-            };
-            
-            SaveSettingsEvent(config);
+            config.TransparencyValue = clslTransparency.Value;
+            config.NodeColor = pnlNodeColor.BackColor;
+            //};
+
+            //SaveSettingsEvent();
 
             var settingsSerializer = new JsonSerializerSettings
             {
@@ -89,7 +93,7 @@ namespace BazisGUI.SettingsControls
 
             File.WriteAllText($@"{folder}\settingsConfig.json", configString);
 
-            MessageBox.Show($@"Конфигурация сохранена в {folder}\settingsConfig.json");          
+            MessageBox.Show($@"Конфигурация сохранена в {folder}\settingsConfig.json");
         }
 
         private void btnSelectObjectColor_Click(object sender, EventArgs e)

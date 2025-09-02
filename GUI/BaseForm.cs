@@ -469,10 +469,10 @@ namespace BazisGUI
 
             settings.SetSettings(settingsConfig);
             
-            settings.SaveSettingsEvent += (ar) =>
-            {
-                settingsConfig = ar;
-            };
+            //settings.SaveSettingsEvent += (ar) =>
+            //{
+            //    settingsConfig = ar;
+            //};
 
             var forms = Application.OpenForms.Cast<Form>().ToList();
 
