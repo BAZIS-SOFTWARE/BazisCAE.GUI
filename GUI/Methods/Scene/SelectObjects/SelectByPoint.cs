@@ -31,6 +31,8 @@ namespace BazisGUI
                         var scrPoints = resu.Item1;
                         // Магия выбора
                         // Если объект точка 
+                        // TO DO сделать выбор для остальных объектов через
+                        // барицентрические координаты
                         if (IsObjectSelected(selectionPoint, scrPoints))
                         {
                             selFlag = true;

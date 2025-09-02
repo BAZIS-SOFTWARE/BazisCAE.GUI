@@ -88,5 +88,15 @@ namespace BazisGUI
                 matCond.Material = project.MaterialsDB[obj.NewValue.ToString()];
             }  
         }
+
+        private void ChangeHeatProperties(PropertyChangedEventArgs obj, HeatData heatCond)
+        {
+            //Мощность, Дж
+            ChangeGeneralProperties(obj, heatCond);
+            if (obj.Header == "Мощность, Дж")
+            {
+                heatCond.Heat = float.Parse(obj.NewValue);
+            }
+        }
     }
 }

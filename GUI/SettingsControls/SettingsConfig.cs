@@ -14,6 +14,7 @@ namespace BazisGUI.SettingsControls
         public Color BackGroundColor;
         public Color NodeColor;
         public string SolverPath;
+        public string SolverFile;
         public bool Lighting;
         public int LightingIntensity;
         public Point LighterPosition;

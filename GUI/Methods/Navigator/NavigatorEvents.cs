@@ -239,7 +239,7 @@ namespace BazisGUI
             {
                 var myProcess = new Process();
 
-                myProcess.StartInfo.FileName = $@"{settingsConfig.SolverPath}\BazisSolverCP.exe";
+                myProcess.StartInfo.FileName = $@"{settingsConfig.SolverPath}\{settingsConfig.SolverFile}";
 
                 var compDir = $@"{project.Path}\ComputationData";
                 var cmdFile = $@"{compDir}\computation.tcf";

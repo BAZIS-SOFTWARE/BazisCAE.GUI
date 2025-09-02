@@ -116,7 +116,7 @@ namespace BazisGUI
                         }
                         else if (nodeName == NodeName.Нагрев)
                         {
-                            ChangeGeneralProperties(obj, cond);
+                            ChangeHeatProperties(obj, (HeatData)cond);
                             var rows = GetHeatProperty((HeatData)cond, groups, _funcs);
                             propertiesPanel.DrawTable(rows);
                         }
