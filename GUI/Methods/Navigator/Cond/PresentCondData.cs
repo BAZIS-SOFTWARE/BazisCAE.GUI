@@ -34,6 +34,7 @@ namespace BazisGUI
 
                     //navigator.TrySearchNodes(NodeName.условия.ToString(), out List<TreeNode> nodes);
                     task.First().Nodes.Add(child);
+                    navigator.SetContextMenu(child);
                 }
 
                 navigator.EndUpdate();

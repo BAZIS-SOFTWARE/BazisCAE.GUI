@@ -133,8 +133,8 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="OperationalController, Version=3.3.0.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\OperationalController.3.3.0\lib\netstandard2.0\OperationalController.dll</HintPath>
+    <Reference Include="OperationalController, Version=3.3.1.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\OperationalController.3.3.1\lib\netstandard2.0\OperationalController.dll</HintPath>
     </Reference>
     <Reference Include="PostProc, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
       <HintPath>..\packages\PostProc.1.7.0\lib\netstandard2.0\PostProc.dll</HintPath>
@@ -246,6 +246,9 @@
     <Compile Include="Methods\Console\ConsoleEvents.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Navigator\Cond\DelCondEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Navigator\GenerateMesh3DEvent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,7 +264,7 @@
     <Compile Include="Methods\Navigator\CreateGIFAnimation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\CheckCondData.cs">
+    <Compile Include="Methods\Navigator\Cond\CheckCondData.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Get\GetObjectProperty.cs">
@@ -270,19 +273,19 @@
     <Compile Include="Methods\Navigator\Objects\ShowHideEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Present\PresentCompData.cs">
+    <Compile Include="Methods\Navigator\Comp\PresentCompData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Present\PresentGroupData.cs">
+    <Compile Include="Methods\Navigator\Groups\PresentGroupData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Select\SelectCondEvent.cs">
+    <Compile Include="Methods\Navigator\Cond\SelectCondEvent.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Select\SelectGeoEvent .cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Select\SelectSetEvent.cs">
+    <Compile Include="Methods\Navigator\Sets\SelectSetEvent.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Select\SelectResultsEvent.cs">
@@ -291,10 +294,10 @@
     <Compile Include="Methods\Navigator\Select\SelectTaskInfoEvent .cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Select\SelectObjectEvent .cs">
+    <Compile Include="Methods\Navigator\Objects\SelectObjectEvent .cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Select\SelectGroupEvent.cs">
+    <Compile Include="Methods\Navigator\Groups\SelectGroupEvent.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Select\SelectResultEvent.cs">
@@ -330,13 +333,13 @@
     <Compile Include="Methods\Navigator\Groups\ChangeGroupViewState.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\AddCondition.cs">
+    <Compile Include="Methods\Navigator\Cond\AddCondition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Present\PresentObjsData.cs">
+    <Compile Include="Methods\Navigator\Objects\PresentObjsData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Present\PresentCondData.cs">
+    <Compile Include="Methods\Navigator\Cond\PresentCondData.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Sets\DelSetEvent.cs">

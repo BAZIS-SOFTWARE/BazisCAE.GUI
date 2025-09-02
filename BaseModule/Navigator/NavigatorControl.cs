@@ -147,6 +147,7 @@ namespace BaseModule.Navigator
         public event Action<TreeNode> GetResultInfoEvent;
 
         public event Action<object,NodeName> AddConditionEvent;
+        public event Action DelCondEvent;
         public event Action GenerateTSFEvent;
         public event Action GenerateTCFEvent;
 
@@ -271,12 +272,17 @@ namespace BaseModule.Navigator
                 node.Parent.Name == NodeName.Элементы3D.ToString())
                 node.ContextMenuStrip = set_MenuStrip;
             else if (node.Parent.Name == NodeName.группы.ToString())
+            {
                 if (node.Name == NodeName.Узел.ToString())
                     node.ContextMenuStrip = ndGroup_MenuStrip;
                 else if (node.Name == NodeName.Элемент1D.ToString() |
                     node.Name == NodeName.Элемент2D.ToString() |
                     node.Name == NodeName.Элемент3D.ToString())
                     node.ContextMenuStrip = elGroup_MenuStrip;
+            }
+
+            else if(node.Parent.Name == NodeName.задача.ToString())
+                    node.ContextMenuStrip = condMenuStrip;
         }
 
         public void SearchNodeRec(TreeNode startNode, string nodeName, List<TreeNode> nodes)
@@ -863,6 +869,11 @@ e.Node.Name == NodeName.Объем.ToString()
         private void создать3DMenuItem_Click(object sender, EventArgs e)
         {
             GenerateMesh3DEvent?.Invoke();
+        }
+
+        private void удалитьУсловиеMenuItem_Click(object sender, EventArgs e)
+        {
+            DelCondEvent?.Invoke();
         }
     }
 }
