@@ -15,7 +15,7 @@ namespace BazisGUI
             var selFlag = false;
             var tempNumb = 0;
             ISetInfo tempSetInfo = null;
-            Point3D tempSceenPoint = null;
+            var cur_z_depth = 0.0f;
 
             foreach (var set in sets)
             {
@@ -24,15 +24,26 @@ namespace BazisGUI
                     if (set.GetViewState(numb))
                     {
                         var coords = set.GetCoords(numb);
+                        var scrPoints = new List<Point2D>();//[coords.Count()];
+                        var scnPoints = new List<Point3D>();//[coords.Count()];
 
-                        var resu = ConvertObjectCoords(coords);
+                        //var pointCounter = 0;
+                        foreach (var point in coords)
+                        {
+                            var scnPoint = GetSceenCoord(point);
+                            scnPoints.Add(scnPoint);
 
-                        var scnPoints = resu.Item2;
-                        var scrPoints = resu.Item1;
+                            var scrPoint = GetScreenCoord(scnPoint);
+                            scrPoints.Add(scrPoint);
+
+                            //pointCounter++;
+                        }
                         // Магия выбора
                         // Если объект точка 
                         // TO DO сделать выбор для остальных объектов через
                         // барицентрические координаты
+
+
                         if (IsObjectSelected(selectionPoint, scrPoints))
                         {
                             selFlag = true;
@@ -41,11 +52,26 @@ namespace BazisGUI
                             else
                                 set.SetBackColor(numb);
 
-                            if (IsObjectCloser(ref tempSetInfo, ref tempSceenPoint, scnPoints))
+                            bool isObjectCloser;
+
+                            var temp_z_depth = 0.0f;
+
+                            if (scnPoints.Count == 1)
+                                temp_z_depth = scnPoints[0]._z;
+                            else
+                                temp_z_depth = scnPoints.Sum(x => x._z) / scnPoints.Count;
+
+                            if (cur_z_depth == 0)
+                                isObjectCloser = true;
+                            else
+                                isObjectCloser = temp_z_depth > cur_z_depth ? true : false;
+
+                            if (isObjectCloser)
                             {
                                 tempSetInfo?.SetBackColor(tempNumb);
-                                SwapInfo(ref tempNumb, ref tempSetInfo, set, numb);
-                                tempSceenPoint = scnPoints[0];
+                                tempSetInfo = set;
+                                tempNumb = numb;
+                                cur_z_depth = temp_z_depth;
                             }
                             else
                                 set.SetBackColor(numb);
@@ -64,61 +90,61 @@ namespace BazisGUI
             tempNumb = numb;
         }
 
-        private Tuple<Point2D[], Point3D[]> ConvertObjectCoords(IEnumerable<Point3D> coords)
+        //private Tuple<Point2D[], Point3D[]> ConvertObjectCoords(IEnumerable<Point3D> coords)
+        //{
+        //    var scrPoints = new Point2D[coords.Count()];
+        //    var scnPoints = new Point3D[coords.Count()];
+
+        //    var pointCounter = 0;
+        //    foreach (var point in coords)
+        //    {
+        //        var scnPoint = GetSceenCoord(point);
+        //        scnPoints[pointCounter] = scnPoint;
+
+        //        var scrPoint = GetScreenCoord(scnPoint);
+        //        scrPoints[pointCounter] = scrPoint;
+
+        //        pointCounter++;
+        //    }
+
+        //    return new Tuple<Point2D[], Point3D[]>(scrPoints, scnPoints);
+        //}
+
+        private bool IsObjectCloser(ref ISetInfo tempSetInfo, ref Point3D tempScnPoint, List<Point3D> scnPoints)
         {
-            var scrPoints = new Point2D[coords.Count()];
-            var scnPoints = new Point3D[coords.Count()];
-
-            var pointCounter = 0;
-            foreach (var point in coords)
-            {
-                var scnPoint = GetSceenCoord(point);
-                scnPoints[pointCounter] = scnPoint;
-
-                var scrPoint = GetScreenCoord(scnPoint);
-                scrPoints[pointCounter] = scrPoint;
-
-                pointCounter++;
-            }
-
-            return new Tuple<Point2D[], Point3D[]>(scrPoints, scnPoints);
-        }
-
-        private bool IsObjectCloser(ref ISetInfo tempSetInfo, ref Point3D tempScnPoint, Point3D[] scnPoints)
-        {
-            if (tempSetInfo == null ||
-                    tempSetInfo != null &
-                    scnPoints[0]._z > tempScnPoint._z)
-            {
-                return true;
-            }
+            if (scnPoints.Count == 1)
+                return scnPoints[0]._z > tempScnPoint._z ? true : false;
             else
-                return false;
-
+            {
+                var _z = scnPoints.Sum(x => x._z) / scnPoints.Count;
+                return _z > tempScnPoint._z ? true : false;
+            }
         }
 
-        private bool IsObjectSelected(Point2D selectionPoint, Point2D[] scrPoints)
+        private bool IsObjectSelected(Point2D selectionPoint, List<Point2D> scrPoints)
         {
-            if (scrPoints.Length == 1)
+            if (scrPoints.Count == 1)
             {
                 if (scrPoints[0]._x > selectionPoint._x - 10
-                                & scrPoints[0]._x < selectionPoint._x + 10
+                                & scrPoints[0]._x < selectionPoint._x + 5
                                 &&
-                                scrPoints[0]._y > selectionPoint._y - 10
-                                & scrPoints[0]._y < selectionPoint._y + 10)
+                                scrPoints[0]._y > selectionPoint._y - 5
+                                & scrPoints[0]._y < selectionPoint._y + 5)
                 {
                     return true;
                 }
                 else
                     return false;
             }
-            else if (scrPoints.Length == 2)
+            else if (scrPoints.Count == 2)
             {
-                return true;
+                var curve = new Curve2D(scrPoints);
+                return curve.IsPointBelongCurve(selectionPoint) ? true : false;
             }
             else
             {
-                return true;
+                var poligon = new Polygon(scrPoints);
+                return poligon.IsPointInsidePolygon(selectionPoint) ? true : false;
             }
 
         }
