@@ -249,13 +249,16 @@
     <Compile Include="Methods\Navigator\Cond\DelCondEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\GenerateMesh3DEvent.cs">
+    <Compile Include="Methods\Navigator\Mesh\GreateBoundaryMesh.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Get\GetCurveProperty.cs">
+    <Compile Include="Methods\Navigator\Mesh\GenerateMesh2DEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Get\GetGeneralInfoProperty.cs">
+    <Compile Include="Methods\Navigator\Mesh\GenerateMesh3DEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Objects\GetCurveProperty.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Groups\EditGroup.cs">
@@ -267,7 +270,7 @@
     <Compile Include="Methods\Navigator\Cond\CheckCondData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Get\GetObjectProperty.cs">
+    <Compile Include="Methods\Navigator\Objects\GetObjectProperty.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Objects\ShowHideEvents.cs">
@@ -282,7 +285,7 @@
     <Compile Include="Methods\Navigator\Cond\SelectCondEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Select\SelectGeoEvent .cs">
+    <Compile Include="Methods\Navigator\Geo\SelectGeoEvent .cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Sets\SelectSetEvent.cs">
@@ -291,7 +294,7 @@
     <Compile Include="Methods\Navigator\Results\SelectResultsEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Select\SelectTaskInfoEvent .cs">
+    <Compile Include="Methods\Navigator\Task\SelectTaskInfoEvent .cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Objects\SelectObjectEvent .cs">
@@ -363,7 +366,7 @@
     <Compile Include="Methods\Navigator\Cond\GetClampProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Get\GetFrameFunctionProperties.cs">
+    <Compile Include="Methods\Navigator\Cond\GetFrameFunctionProperties.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Cond\GetMediaProperty.cs">
@@ -384,7 +387,7 @@
     <Compile Include="Methods\Navigator\Sets\GetSetProperty.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Get\GetGroupProperties.cs">
+    <Compile Include="Methods\Navigator\Groups\GetGroupProperties.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\PropertyPanel\ChangeCondProperties.cs">

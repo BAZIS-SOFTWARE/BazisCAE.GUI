@@ -526,65 +526,6 @@ namespace BazisGUI
                 gPoints.Add(gPoint);
             }
             return gPoints;
-        }
-
-        private void createSurfaceElementsMenuItem_Click(object sender, EventArgs e)
-        {
-            CreateSurfaceElements(ObjType.Элемент2D);
-        }
-
-        private void создать1DПо2DЭлементамToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CreateSurfaceElements(ObjType.Элемент1D);
-        }
-
-        public void CreateSurfaceElements( ObjType objType)
-        {
-
-            try
-            {
-                if (objType == ObjType.Элемент2D)
-                {
-                    var els3D = project.ModelData.ObjectData.E3DCollection.GetObjects();
-                    if (els3D.Count() == 0)
-                        console.PrintInfo("Модель не содержит 3D элементов!", Color.Red);
-                    else
-                    {
-                        VBOController.DeleteVBObjects(ObjType.Элемент2D.ToString());
-
-                        var startNumber = project.ModelData.ObjectData.GetMaxElementNumber() + 1;
-                        project.Create2DForm3D($"new2DSet_{startNumber}");
-                    }
-                }
-                else if (objType == ObjType.Элемент1D)
-                {
-                    var els2D = project.ModelData.ObjectData.E2DCollection.GetObjects();
-                    if (els2D.Count() == 0)
-                        console.PrintInfo("Модель не содержит 2D элементов!", Color.Red);
-                    else
-                    {
-                        VBOController.DeleteVBObjects(ObjType.Элемент1D.ToString());
-
-                        var startNumber = project.ModelData.ObjectData.GetMaxElementNumber() + 1;
-                        project.Create1DFrom2D($"new1DSet_{startNumber}");
-                    }
-                }
-
-                DisplayGeometryObjectEvent = null;
-                DisplayText2DEvent = null;
-                DisplayText3DEvent = null;
-
-                CreateVBObject(project.CreateModelObjectsPresentor(objType));
-
-                DisplayObjects();
-                PresentObjectsDataOnTree();
-
-                console.PrintInfo($"Созданы {objType}", Color.Black);
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
+        }      
     }
 }

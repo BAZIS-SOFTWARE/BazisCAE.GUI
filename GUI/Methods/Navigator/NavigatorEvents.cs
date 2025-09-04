@@ -554,15 +554,15 @@ namespace BazisGUI
             var nodeType = node.Name.ToEnum<NodeName>();
             var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
 
-            var info = project.GetModelSetsInfo(objType);
+            var sets = project.GetModelSetsInfo(objType);
 
-            foreach (var item in info)
+            foreach (var set in sets)
             {
-                var text = $"{item.Name} {item.NumberOfObjects}";
+                var text = $"{set.Name} {set.NumberOfObjects}";
                 var r_node = navigator.CreateRealNode(node.Name, text);
                 r_node.ImageIndex = 14;
                 r_node.SelectedImageIndex = 14;
-                var v_node = navigator.CreateVirtualNode(item.ObjType.ToString());
+                var v_node = navigator.CreateVirtualNode(set.ObjType.ToString());
                 r_node.Nodes.Add(v_node);
                 node.Nodes.Add(r_node);
                 navigator.SetContextMenu(r_node);

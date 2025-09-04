@@ -68,8 +68,6 @@ namespace BazisGUI
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.meshMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createSurfaceElementsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.создать1DПо2DЭлементамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mesh3DGeneratorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьПлотностьСеткиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tasksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -323,6 +321,8 @@ namespace BazisGUI
             this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
             this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
             this.navigator.GenerateMesh3DEvent += new System.Action(this.navigator_GenerateMesh3DEvent);
+            this.navigator.Create2DFrom3DEvent += new System.Action(this.navigator_Create2DFrom3DEvent);
+            this.navigator.Create1DFrom2DEvent += new System.Action(this.navigator_Create1DFrom2DEvent);
             this.navigator.GetObjectsInfoEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_GetObjectsInfoEvent);
             this.navigator.DelObjectsEvent += new System.Action<BaseModule.Navigator.NodeName>(this.navigator_DelObjectsEvent);
             this.navigator.ShowObjectsEvent += new System.Action<BaseModule.Navigator.NodeName>(this.navigator_ShowObjectsEvent);
@@ -641,27 +641,11 @@ namespace BazisGUI
             // meshMenuItem
             // 
             this.meshMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createSurfaceElementsMenuItem,
-            this.создать1DПо2DЭлементамToolStripMenuItem,
             this.mesh3DGeneratorMenuItem,
             this.показатьПлотностьСеткиToolStripMenuItem});
             this.meshMenuItem.Name = "meshMenuItem";
             this.meshMenuItem.Size = new System.Drawing.Size(49, 20);
             this.meshMenuItem.Text = "Сетка";
-            // 
-            // createSurfaceElementsMenuItem
-            // 
-            this.createSurfaceElementsMenuItem.Name = "createSurfaceElementsMenuItem";
-            this.createSurfaceElementsMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.createSurfaceElementsMenuItem.Text = "Создать 2D из 3D";
-            this.createSurfaceElementsMenuItem.Click += new System.EventHandler(this.createSurfaceElementsMenuItem_Click);
-            // 
-            // создать1DПо2DЭлементамToolStripMenuItem
-            // 
-            this.создать1DПо2DЭлементамToolStripMenuItem.Name = "создать1DПо2DЭлементамToolStripMenuItem";
-            this.создать1DПо2DЭлементамToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.создать1DПо2DЭлементамToolStripMenuItem.Text = "Создать 1D из 2D";
-            this.создать1DПо2DЭлементамToolStripMenuItem.Click += new System.EventHandler(this.создать1DПо2DЭлементамToolStripMenuItem_Click);
             // 
             // mesh3DGeneratorMenuItem
             // 
@@ -1586,7 +1570,6 @@ namespace BazisGUI
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem meshMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem createSurfaceElementsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mesh3DGeneratorMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tasksMenuItem;
         private System.Windows.Forms.ToolStripMenuItem arcWeldingMenuItem;
@@ -1603,7 +1586,6 @@ namespace BazisGUI
         private System.Windows.Forms.ToolStripMenuItem createFieldMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createPlotMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scaleSettingsMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem создать1DПо2DЭлементамToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem экспортСеткиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem показатьЗначенияВЭлементахToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem усреднитьРезультатыToolStripMenuItem;

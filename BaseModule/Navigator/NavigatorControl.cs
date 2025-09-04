@@ -121,6 +121,8 @@ namespace BaseModule.Navigator
 
         public event Action<int> GenerateMesh2DEvent;
         public event Action GenerateMesh3DEvent;
+        public event Action Create2DFrom3DEvent;
+        public event Action Create1DFrom2DEvent;
 
         public event Action<TreeNode> GetObjectsInfoEvent;
         public event Action<NodeName> DelObjectsEvent;
@@ -874,6 +876,16 @@ e.Node.Name == NodeName.Объем.ToString()
         private void удалитьУсловиеMenuItem_Click(object sender, EventArgs e)
         {
             DelCondEvent?.Invoke();
+        }
+
+        private void создать2Dпо3DToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Create2DFrom3DEvent?.Invoke();
+        }
+
+        private void создать1Dпо2DToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Create1DFrom2DEvent?.Invoke();
         }
     }
 }
