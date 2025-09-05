@@ -83,14 +83,15 @@ namespace BaseModule.PropertiesPanel
 
                 else if (prop.IsNumericUpDown)
                 {
+                    var setting = prop.Value as NumericUpDownConfig;
                     var numericUpDownCell = new DataGridViewNumericUpDownCell()
                     {
-                        Minimum = 0,
-                        Maximum = 10,
-                        Increment = 1,
-                        DecimalPlaces = 0,
+                        Minimum = setting.Minimum,
+                        Maximum = setting.Maximum,
+                        Increment = setting.Increment,
+                        DecimalPlaces = setting.DecimalPlaces,
                     };
-                    numericUpDownCell.Value = Convert.ToDecimal(prop.Value);
+                    numericUpDownCell.Value = Convert.ToDecimal(setting.Value);
                     cell = numericUpDownCell;
                 }
 
@@ -132,12 +133,11 @@ namespace BaseModule.PropertiesPanel
                     var color = ChangeColorCell(newValue);
                     dataGridView1.Rows[e.RowIndex].Cells[1].Style.BackColor = color;
                 }
-                //dataGridView1.Rows.Clear();
+
                 PropertyUpdateEvent?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
             }
         }
 
-        #region [OverlayComboBox Logic (to be moved) ]
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0) return;
@@ -153,8 +153,6 @@ namespace BaseModule.PropertiesPanel
                 }
             }
         }
-        #endregion
-
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString() != ValidationType.None.ToString())

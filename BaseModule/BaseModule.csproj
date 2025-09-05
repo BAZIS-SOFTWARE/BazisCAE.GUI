@@ -159,6 +159,7 @@
     <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\DataGridViewNumericUpDownEditingControl.Designer.cs">
       <DependentUpon>DataGridViewNumericUpDownEditingControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\NumericUpDownConfig.cs" />
     <Compile Include="SceenControls\ClipControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
