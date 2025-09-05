@@ -65,28 +65,33 @@ namespace BazisGUI
                 if (dim == 2)
                     objType = ObjType.Элемент2D;
                 else
-                    objType = ObjType.Элемент3D;
+                    objType = ObjType.Элемент1D;
 
-                var startNumber = project.GetModelObjects(objType).
-    Max(x => x.Number) + 1;
-                // TO DO проверить метод создания при условии, что кол-я 2д элме-ов пустая
+                bool resFlag;
                 if (dim == 2)
-                    project.Create2DForm3D($"new{dim}DSet_{startNumber}");
+                    resFlag = project.Create2DForm3D();
                 else
-                    project.Create1DFrom2D($"new{dim}DSet_{startNumber}");
+                    resFlag = project.Create1DFrom2D();
 
-                var set = project.GetModelSetInfo(objType, $"new{dim}DSet_{startNumber}");
-
-                if (set != null)
+                if (resFlag)
                 {
-                    var root = Converters.ConvertToNavigatorNodeType(set.ObjType);
-                    navigator.TryCreateNode(root.ToString(), root.ToString(), $"{root} {set.NumberOfObjects}", NodeKind.virt);
+                    var set = project.GetModelSetsInfo(objType).LastOrDefault();
+
+                    if (set != null)
+                    {
+                        var nodeName = Converters.ConvertToNavigatorNodeType(set.ObjType);
+                        var v = navigator.CreateVirtualNode(nodeName);
+                        navigator.TrySearchNodes(nodeName, out List<TreeNode> nodes);
+                        nodes.First().Nodes.Add(v);
+                    }
+
+                    var pre = project.CreateModelObjectsPresentor(set);
+                    var vbo = CreateVBObject(pre);
+                    VBOController.AddVbo(vbo);
+
+                    DisplayObjects();
                 }
 
-
-                var pre = project.CreateModelObjectsPresentor(set);
-                var vbo = CreateVBObject(pre);
-                VBOController.AddVbo(vbo);
             }
         }
     }

@@ -102,6 +102,8 @@ namespace BazisGUI
                 console.PrintInfo("Скрыты внутренние объекты", Color.Black);
             else
                 console.PrintInfo("Показаны все объекты", Color.Black);
+
+            DisplayObjects();
         }
 
         private void ShowInsideObjects()
@@ -142,18 +144,17 @@ namespace BazisGUI
 
                         var linePresenter = presentersCreator.CreateLineObjectsPresenter(elemsNormals);
                         linePresenter.Name = "Normals";
-                        CreateVBObject(linePresenter);
-                        DisplayObjects();
+                        var vbo = CreateVBObject(linePresenter);
+                        VBOController.AddVbo(vbo);
                     }
                     else
-                        throw new Exception("Для отображения нормалей модели не заданы объекты типа \"Элемент\"," +
-                            "возможно вы пользуетесь модулем Геометрии");
+                        throw new Exception("Для отображения нормалей модели не заданы объекты типа \"Элемент\"");
                 }
                 else
                 {
                     VBOController.DeleteVBObjects("Normals");
-                    DisplayObjects();
                 }
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -174,14 +175,12 @@ namespace BazisGUI
                     var edges = project.CreateBoundaryEdges(linesNodes);
                     var linePresenter = presentersCreator.CreateLineObjectsPresenter(edges);
                     linePresenter.Name = "Boundary";
-                    CreateVBObject(linePresenter);
-                    DisplayObjects();
+                    var vbo = CreateVBObject(linePresenter);
+                    VBOController.AddVbo(vbo);
                 }
                 else
-                {
                     VBOController.DeleteVBObjects("Boundary");
-                    DisplayObjects();
-                }
+                DisplayObjects();
             }
             catch (Exception ex)
             {

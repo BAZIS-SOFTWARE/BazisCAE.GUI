@@ -43,5 +43,7 @@ namespace BazisGUI.SettingsControls
         public int Scale_Precision;
         public int Scale_Intervals;
         public int Scale_scale;
+
+
     }
 }
