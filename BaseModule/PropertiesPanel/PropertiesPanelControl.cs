@@ -1,4 +1,5 @@
 using BaseModule.PinnedControl;
+using BaseModule.PropertiesPanel.DataGridViewNumericUpDown;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -80,13 +81,26 @@ namespace BaseModule.PropertiesPanel
                     cell = comboCell;
                 }
 
+                else if (prop.IsNumericUpDown)
+                {
+                    var numericUpDownCell = new DataGridViewNumericUpDownCell()
+                    {
+                        Minimum = 0,
+                        Maximum = 10,
+                        Increment = 1,
+                        DecimalPlaces = 0,
+                    };
+                    numericUpDownCell.Value = Convert.ToDecimal(prop.Value);
+                    cell = numericUpDownCell;
+                }
+
                 else
                     cell = new DataGridViewTextBoxCell();
 
                 if (prop.Header == "Цвет")
                     cell.Style.BackColor = (Color)prop.Value;
 
-                cell.Value = prop.Value.ToString();
+                //cell.Value = prop.Value.ToString();
                 cell.Tag = prop.ValidationType.ToString();
 
                 row.Cells.Add(cell);
@@ -101,7 +115,8 @@ namespace BaseModule.PropertiesPanel
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
-                _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                if(dataGridView1.Rows[e.RowIndex].Cells[1].Value != null)
+                    _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
             }
         }
 

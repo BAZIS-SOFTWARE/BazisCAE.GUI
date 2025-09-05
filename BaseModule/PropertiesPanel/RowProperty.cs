@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 
 namespace BaseModule.PropertiesPanel
@@ -16,17 +15,13 @@ namespace BaseModule.PropertiesPanel
         }
         public string Header { get; } // Заголовок
         public object Value { get; set; } // Значение
-        //public DataGridViewCell Initialization { get; } //Возврашает тип ячейки (textbox, combobox)
-        //public Func<DataGridViewCell, object> Update { get; } // Логика обновления значения
+
         public ValidationType ValidationType { get; set; }
         public List<string> AvailableValues { get; } = new List<string>();
 
-        //public Type CellType { get; }
-        //public bool IsReadOnly
-        //{
-        //    get { return AvailableValues == null ? false : true; }
-        //}
         public bool IsReadOnly { get; set; }
+
+        public bool IsNumericUpDown { get; set; }
 
         public bool IsCheckable { get; set; }
         public bool IsDropDown 
@@ -40,11 +35,12 @@ namespace BaseModule.PropertiesPanel
             AvailableValues = availableValues;
         }
 
-        public RowProperty(string header, object value, bool isReadOnly = false)
+        public RowProperty(string header, object value, bool isReadOnly = false, bool isNumericUpDown = false)
         {
             Header = header;
             Value = value;
             IsReadOnly = isReadOnly;
+            IsNumericUpDown = isNumericUpDown;
 
             if (value is string)
                 ValidationType = ValidationType.Text;

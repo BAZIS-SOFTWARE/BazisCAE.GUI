@@ -152,7 +152,13 @@
     <Compile Include="Player\PlayerControl.Designer.cs">
       <DependentUpon>PlayerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="PropertiesPanel\NumericUpDownCell.cs" />
+    <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\DataGridViewNumericUpDownCell.cs" />
+    <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\DataGridViewNumericUpDownEditingControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\DataGridViewNumericUpDownEditingControl.Designer.cs">
+      <DependentUpon>DataGridViewNumericUpDownEditingControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="SceenControls\ClipControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
