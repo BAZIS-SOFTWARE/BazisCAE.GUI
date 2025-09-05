@@ -1,5 +1,6 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
+using BaseModule.PropertiesPanel.DataGridViewNumericUpDown;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using ResultDB.IO;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -17,9 +19,7 @@ namespace BazisGUI
         {
             /*
              * TO DO
-             * Показать значения в узлах (checkBox)
-             * Показать значения в элементах (checkBox)
-             * Усреднять результаты (checkBox)
+
              * Показывать шкалу
              * Масштаб (TextBox)
              * Уточнить значения (checkBox)
@@ -36,7 +36,19 @@ namespace BazisGUI
 
 
             rows.Add(new RowProperty("Показывать поле", settingsConfig.ShowResultsField));
-            // настройки шкалы
+            rows.Add(new RowProperty("Показать значения в узлах", settingsConfig.ShowNodeResultsValue));
+            rows.Add(new RowProperty("Показать значения в элементах", settingsConfig.ShowElementsResultsValue));
+            rows.Add(new RowProperty("Усреднять результаты", settingsConfig.MergeResultsValue));
+            rows.Add(new RowProperty("Показывать шкалу", false));
+            rows.Add(new RowProperty("Масштаб", 1));
+            rows.Add(new RowProperty("Уточнить значения", false));
+            rows.Add(new RowProperty("Макс. значение", 1));
+            rows.Add(new RowProperty("Мин. значение", 0));
+            rows.Add(new RowProperty("Точность", new NumericUpDownConfig(4, 0, 15, 0, 1), false, true));
+            rows.Add(new RowProperty("Интервалы", new NumericUpDownConfig(10, 2, 10, 0, 1), false, true));
+
+            rows.Add(new RowProperty("Положение шкалы по Х", new NumericUpDownConfig(70, 0, 2000, 0, 1), false, true));
+            rows.Add(new RowProperty("Положение шкалы по Y", new NumericUpDownConfig(170, 0, 2000, 0, 1), false, true));
 
             //var _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, allGroup);
 

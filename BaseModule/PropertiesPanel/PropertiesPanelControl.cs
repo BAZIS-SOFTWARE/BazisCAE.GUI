@@ -1,4 +1,5 @@
 using BaseModule.PinnedControl;
+using BaseModule.PropertiesPanel.DataGridViewNumericUpDown;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -80,13 +81,27 @@ namespace BaseModule.PropertiesPanel
                     cell = comboCell;
                 }
 
+                else if (prop.IsNumericUpDown)
+                {
+                    var setting = prop.Value as NumericUpDownConfig;
+                    var numericUpDownCell = new DataGridViewNumericUpDownCell()
+                    {
+                        Minimum = setting.Minimum,
+                        Maximum = setting.Maximum,
+                        Increment = setting.Increment,
+                        DecimalPlaces = setting.DecimalPlaces,
+                    };
+                    numericUpDownCell.Value = Convert.ToDecimal(setting.Value);
+                    cell = numericUpDownCell;
+                }
+
                 else
                     cell = new DataGridViewTextBoxCell();
 
                 if (prop.Header == "Цвет")
                     cell.Style.BackColor = (Color)prop.Value;
 
-                cell.Value = prop.Value.ToString();
+                //cell.Value = prop.Value.ToString();
                 cell.Tag = prop.ValidationType.ToString();
 
                 row.Cells.Add(cell);
@@ -101,7 +116,8 @@ namespace BaseModule.PropertiesPanel
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
-                _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                if(dataGridView1.Rows[e.RowIndex].Cells[1].Value != null)
+                    _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
             }
         }
 
@@ -117,12 +133,11 @@ namespace BaseModule.PropertiesPanel
                     var color = ChangeColorCell(newValue);
                     dataGridView1.Rows[e.RowIndex].Cells[1].Style.BackColor = color;
                 }
-                //dataGridView1.Rows.Clear();
+
                 PropertyUpdateEvent?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
             }
         }
 
-        #region [OverlayComboBox Logic (to be moved) ]
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0) return;
@@ -138,8 +153,6 @@ namespace BaseModule.PropertiesPanel
                 }
             }
         }
-        #endregion
-
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString() != ValidationType.None.ToString())
