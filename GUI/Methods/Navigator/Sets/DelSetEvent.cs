@@ -34,10 +34,10 @@ namespace BazisGUI
                 PresentGroupDataOnTree();
                 PresentCondDataOnTree();
 
-                var set = project.GetModelSetInfo(objType, setName);
-                VBOController.DeleteVBObjects(set.Name);
+                //var set = project.GetModelSetInfo(objType, setName);
+                VBOController.DeleteVBObjects(setName);
 
-                if (set.ObjType == ObjType.Узел)
+                if (objType == ObjType.Узел)
                     DeleteVBObjects("Элементы");
 
                 DisplayObjects();

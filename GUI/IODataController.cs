@@ -157,11 +157,21 @@ namespace BazisGUI
             var path = Path.GetDirectoryName(dialog.FileName);
             var name = Path.GetFileName(dialog.FileName);
 
-            var project = CreateNewProject(path, name);
+            var project = new Controller();
 
-            await LoadProjectAsync(project);
+            MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
+            { Dock = DockStyle.Fill };
 
-            project.Name = "новый_проект.bpf";
+            var mbf = CreateMessageBoxExForm(mb);
+            mbf.Show();
+            mb.Message = "Импорт сетки...";
+            await Task.Run(new Action(() =>
+            {
+                project.ImportMesh($"{path}\\{name}");
+            }));
+            mbf.Close();
+
+            project.Name = "новый_проект.bpf2";
             return project;
         }
 

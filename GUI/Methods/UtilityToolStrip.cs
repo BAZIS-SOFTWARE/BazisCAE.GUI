@@ -416,7 +416,9 @@ namespace BazisGUI
             var surface = project.GetSectionSurfaces(plane);
             var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
             presenter.Name = "crossSection";
-            CreateVBObject(presenter); 
+            var vbo = CreateVBObject(presenter);
+            VBOController.AddVbo(vbo);
+            DisplayObjects();
         }
 
         public Geometry.Plane CreateSectionPlane(Vector3 p0, Vector3 p1, Vector3 p2)
