@@ -72,12 +72,14 @@ namespace BaseModule.PropertiesPanel
                 {
                     cell = new DataGridViewCheckBoxCell();
                     cell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    cell.Value = Convert.ToBoolean(prop.Value);
                 }
 
                 else if (prop.IsDropDown)
                 {
                     var comboCell = new DataGridViewComboBoxCell();
                     comboCell.Items.AddRange(prop.AvailableValues.ToArray());
+                    comboCell.Value= prop.Value.ToString();
                     cell = comboCell;
                 }
 
@@ -96,12 +98,15 @@ namespace BaseModule.PropertiesPanel
                 }
 
                 else
+                {
                     cell = new DataGridViewTextBoxCell();
+                    cell.Value= prop.Value.ToString() ;
+                }
+                    
 
                 if (prop.Header == "Цвет")
                     cell.Style.BackColor = (Color)prop.Value;
 
-                //cell.Value = prop.Value.ToString();
                 cell.Tag = prop.ValidationType.ToString();
 
                 row.Cells.Add(cell);
