@@ -94,7 +94,7 @@ namespace BazisGUI
                             IOFileController.CopyFile(controller.FunctionsDB.Name, oldFolder, controller.Path);
                     }
 
-                    controller.SaveAs(saveDialog.FileName);
+                    controller.Save(saveDialog.FileName);
                 }
             }
         }
@@ -175,7 +175,7 @@ namespace BazisGUI
             return project;
         }
 
-        public async Task<string> ExportMesh(IModelData modelData)
+        public async Task<string> ExportMesh(Controller project)
         {
 
             var filter =
@@ -187,19 +187,23 @@ namespace BazisGUI
             if (dialog.ShowDialog() == DialogResult.Cancel)
                 return null;
 
-            var ext = Path.GetExtension(dialog.FileName);
+            project.ExportMesh(dialog.FileName);
 
-            if (ext == ".STL" | ext == ".stl")
-            {
-                var saver = new SaveToTxtSTLFile();
-                saver.Save(modelData, dialog.FileName);
-            }
+            //var ext = Path.GetExtension(dialog.FileName);
+
+
+            //if (ext == ".STL" | ext == ".stl")
+            //{
+            //    var saver = new SaveToTxtSTLFile();
+            //    saver.Save(modelData, dialog.FileName);
+            //}
 
             return dialog.FileName;
         }
 
-        public async Task LoadProjectAsync(Controller controller)
+        public async Task<Controller> LoadProjectAsync(string path)
         {
+            var controller = new Controller();
             MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
             { Dock = DockStyle.Fill };
 
@@ -207,18 +211,20 @@ namespace BazisGUI
             mbf.Show();
             await Task.Run(new Action(() =>
             {
-
-                controller.ModelData.Loader.LoadEvent += (ar1, ar2) =>
+                // TO DO Сделать динамическое отображение данных при загрузке
+                //controller.ModelData.Loader.LoadEvent += (ar1, ar2) =>
+                //{
+                mb.Invoke(new Action(() =>
                 {
-                    mb.Invoke(new Action(() =>
-                    {
-                        mb.Message = ar2.Message;
-                    }));
-                };
-                controller.Load();
+                    mb.Message = "Открытие проекта...";
+                }));
+                //};
+                controller.Load(path);
 
             }));
             mbf.Close();
+
+            return controller;
         }
 
         public Form CreateMessageBoxExForm(MessageBoxEx.MessageBoxEx mb)
@@ -269,26 +275,27 @@ namespace BazisGUI
             var path = Path.GetDirectoryName(dialog.FileName);
             var name = Path.GetFileName(dialog.FileName);
 
-            var project = CreateNewProject(path, name);
+            //var project = CreateNewProject(path, name);
 
-            await LoadProjectAsync(project);
+            var res = LoadProjectAsync(dialog.FileName);
+            await res;
 
-            return project;
-
-        }
-
-        public async Task<Controller> OpenProject(string fullPath)
-        {
-            var path = Path.GetDirectoryName(fullPath);
-            var name = Path.GetFileName(fullPath);
-
-            var project = CreateNewProject(path, name);
-
-            await LoadProjectAsync(project);
-
-            return project;
+            return res.Result;
 
         }
+
+        //public async Task<Controller> OpenProject(string fullPath)
+        //{
+        //    var path = Path.GetDirectoryName(fullPath);
+        //    var name = Path.GetFileName(fullPath);
+
+        //    var project = CreateNewProject(path, name);
+
+        //    LoadProjectAsync(project);
+        //    //await res;
+        //    return project;
+
+        //}
 
         public string OpenResults()
         {

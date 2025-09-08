@@ -23,25 +23,26 @@ namespace BazisGUI
                     if (set.GetViewState(numb))
                     {
                         var coords = set.GetCoords(numb);
-                        var scrPoints = new List<Point2D>();//[coords.Count()];
-                        var scnPoints = new List<Point3D>();//[coords.Count()];
+                        var scrPoints = new HashSet<Point2D>();//[coords.Count()];
+                        //var scnPoints = new List<Point3D>();//[coords.Count()];
 
-                        //var pointCounter = 0;
+                        //scnPoints.Add(scnPoint);
+                        //scrPoints.Add(scrPoint);
+
                         foreach (var point in coords)
                         {
                             var scnPoint = GetSceenCoord(point);
-                            scnPoints.Add(scnPoint);
-
                             var scrPoint = GetScreenCoord(scnPoint);
-                            scrPoints.Add(scrPoint);
 
-                            //pointCounter++;
+            
+                            //scnPoints.Add(scnPoint);
+                            scrPoints.Add(scrPoint);             
                         }
 
                         // тест выделения рамкой
                         bool selectionFlag;
                         if (scrPoints.Count == 1)
-                            selectionFlag = selectionBox.IsPointInside(scrPoints[0]);
+                            selectionFlag = selectionBox.IsPointInside(scrPoints.First());
                         else if (scrPoints.Count == 2)
                         {
                             //select by line
@@ -49,8 +50,21 @@ namespace BazisGUI
                         }
                         else
                         {
-                            var poligon = new Geometry.Polygon(scrPoints);
+                            // TO DO Пробовать разные варианты использования выпуклой оболочки
+                            // пока результаты неудовлетворительные
+
+                            var creator = new Hull2DCreator(scrPoints);
+                            var hull = creator.GetHullGraham();
+                            var poligon = new Geometry.Polygon(hull.ToList());
+
                             selectionFlag = poligon.IsSelectedByRectangle(selectionBox);
+
+                            //if (!checker.CheckAllPointsOnLine(list))
+                            //{
+                            //    var poligon = new Geometry.Polygon(list);
+                            //    selectionFlag = poligon.IsSelectedByRectangle(selectionBox);
+                            //}
+                            //else selectionFlag = false;
                         }
 
                         if (selectionFlag)

@@ -141,7 +141,7 @@ namespace BazisGUI
         {
             try
             {
-                project.Save();
+                project.Save(lblStatus.Text);
                 console.PrintInfo("Проект сохранен в " + project.Path, Color.Black);
 
                 CheckProjectDataBeforeCreationTCF();

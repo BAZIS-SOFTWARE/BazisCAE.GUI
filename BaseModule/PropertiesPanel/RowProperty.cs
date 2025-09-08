@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseModule.PropertiesPanel.DataGridViewNumericUpDown;
+using System;
 using System.Collections.Generic;
 
 namespace BaseModule.PropertiesPanel
@@ -35,12 +36,11 @@ namespace BaseModule.PropertiesPanel
             AvailableValues = availableValues;
         }
 
-        public RowProperty(string header, object value, bool isReadOnly = false, bool isNumericUpDown = false)
+        public RowProperty(string header, object value, bool isReadOnly = false)
         {
             Header = header;
             Value = value;
             IsReadOnly = isReadOnly;
-            IsNumericUpDown = isNumericUpDown;
 
             if (value is string)
                 ValidationType = ValidationType.Text;
@@ -48,6 +48,11 @@ namespace BaseModule.PropertiesPanel
                 ValidationType = ValidationType.Float;
             else if (value is Enum)
                 ValidationType = ValidationType.None;
+            else if (value is NumericUpDownValue)
+            {
+                ValidationType = ValidationType.None;
+                IsNumericUpDown = true;
+            }
             else if (value is bool bval)
             {
                 ValidationType = ValidationType.None;

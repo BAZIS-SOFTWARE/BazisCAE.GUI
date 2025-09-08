@@ -47,7 +47,7 @@ namespace BazisGUI
             xs = xs / ScaleFactor / ScaleFactor;
             ys = ys / ScaleFactor / ScaleFactor;
 
-            var scnc = GetSceneCoordOfScreenVector(xs, ys);
+            var scnc = GetSceneCoordOfScreenVector((float)xs, (float)ys);
 
             return new Point3D(scnc._x, scnc._y, scnc._z);
         }

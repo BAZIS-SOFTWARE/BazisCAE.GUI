@@ -123,8 +123,8 @@ namespace BazisGUI
                     var path = Path.GetDirectoryName(args[projInd + 1]);
                     var name = Path.GetFileName(args[projInd + 1]);
 
-                    project = dataController.CreateNewProject(path,name);
-                    project.Load();
+                    project = new Controller();
+                    project.Load(path);
                 }
                 if(args.Contains("-res"))
                 {
@@ -750,7 +750,8 @@ namespace BazisGUI
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            project?.Save();
+            //Path.GetDirectoryName
+            project?.Save(lblStatus.Text);
             console.PrintInfo("Проект сохранен", Color.Black);
         }
 
@@ -889,7 +890,7 @@ namespace BazisGUI
         {
             try
             {
-                var res = await dataController.ExportMesh(project.ModelData);
+                var res = await dataController.ExportMesh(project);
 
                 if (res == null)
                     return;

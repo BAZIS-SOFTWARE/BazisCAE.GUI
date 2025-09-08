@@ -16,7 +16,7 @@ namespace BazisGUI
             Invoke(new Action(() => { console.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
 
             var nodes = project.ModelData.ObjectData.NodesSet;
-            var coincidentNodes = project.FindCoincidentObjects(ObjType.Узел, 0.001f);
+            var coincidentNodes = project.FindCoincidentObjects(ObjType.Узел, 0.1f);
 
             Invoke(new Action(() => { console.PrintInfo($"Найдено {coincidentNodes.Count()} совпадений", Color.Black); }));
             Invoke(new Action(() =>

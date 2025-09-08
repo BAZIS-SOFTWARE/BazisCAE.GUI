@@ -85,7 +85,7 @@ namespace BaseModule.PropertiesPanel
 
                 else if (prop.IsNumericUpDown)
                 {
-                    var setting = prop.Value as NumericUpDownConfig;
+                    var setting = prop.Value as NumericUpDownValue;
                     var numericUpDownCell = new DataGridViewNumericUpDownCell()
                     {
                         Minimum = setting.Minimum,

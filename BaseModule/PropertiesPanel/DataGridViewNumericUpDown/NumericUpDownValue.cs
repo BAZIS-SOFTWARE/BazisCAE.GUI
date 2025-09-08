@@ -1,6 +1,6 @@
 ﻿namespace BaseModule.PropertiesPanel.DataGridViewNumericUpDown
 {
-    public class NumericUpDownConfig
+    public class NumericUpDownValue
     {
         public decimal Value { get; set; }
         public decimal Minimum { get; set; }
@@ -9,7 +9,7 @@
         public int DecimalPlaces { get; set; } = 0;
         public decimal Increment { get; set; } = 1;
 
-        public NumericUpDownConfig(decimal value, decimal minimum, decimal maximum, int decimalPlaces, decimal increment)
+        public NumericUpDownValue(decimal value, decimal minimum, decimal maximum, int decimalPlaces, decimal increment)
         {
             DecimalPlaces = decimalPlaces;
             Increment = increment;

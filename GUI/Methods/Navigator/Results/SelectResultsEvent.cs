@@ -44,11 +44,11 @@ namespace BazisGUI
             rows.Add(new RowProperty("Уточнить значения", false));
             rows.Add(new RowProperty("Макс. значение", 1));
             rows.Add(new RowProperty("Мин. значение", 0));
-            rows.Add(new RowProperty("Точность", new NumericUpDownConfig(4, 0, 15, 0, 1), false, true));
-            rows.Add(new RowProperty("Интервалы", new NumericUpDownConfig(10, 2, 10, 0, 1), false, true));
+            rows.Add(new RowProperty("Точность", new NumericUpDownValue(4, 0, 15, 0, 1)));
+            rows.Add(new RowProperty("Интервалы", new NumericUpDownValue(10, 2, 10, 0, 1)));
 
-            rows.Add(new RowProperty("Положение шкалы по Х", new NumericUpDownConfig(70, 0, 2000, 0, 1), false, true));
-            rows.Add(new RowProperty("Положение шкалы по Y", new NumericUpDownConfig(170, 0, 2000, 0, 1), false, true));
+            rows.Add(new RowProperty("Положение шкалы по Х", new NumericUpDownValue(70, 0, 2000, 0, 1)));
+            rows.Add(new RowProperty("Положение шкалы по Y", new NumericUpDownValue(170, 0, 2000, 0, 1)));
 
             //var _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, allGroup);
 
