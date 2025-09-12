@@ -158,6 +158,9 @@
     <Compile Include="DataBases\VelEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DataBases\FunctionDataBasePage.resx">
+      <DependentUpon>FunctionDataBasePage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataForm.resx">
       <DependentUpon>DataForm.cs</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

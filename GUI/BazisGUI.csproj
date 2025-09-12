@@ -133,8 +133,6 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="OperationalController, Version=3.3.5.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\OperationalController.3.3.5\lib\netstandard2.0\OperationalController.dll</HintPath>
     <Reference Include="OperationalController, Version=3.3.8.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
       <HintPath>..\packages\OperationalController.3.3.8\lib\netstandard2.0\OperationalController.dll</HintPath>
     </Reference>
@@ -149,10 +147,6 @@
     </Reference>
     <Reference Include="PropertiesCalculator, Version=1.0.6.0, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertiesCalculator.1.0.6\lib\netstandard2.0\PropertiesCalculator.dll</HintPath>
-    </Reference>
-    <Reference Include="PropertiesDataBases, Version=1.0.1.0, Culture=neutral, PublicKeyToken=1410fedc1714d211, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>\\192.168.10.49\Plm-Ural\OrgUnits\developers\Packages\Libs\BazisGUIToolkit\PropertiesDataBases.dll</HintPath>
     </Reference>
     <Reference Include="ResultDB, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
       <HintPath>..\packages\ResultDB.1.5.1\lib\netstandard2.0\ResultDB.dll</HintPath>
@@ -693,6 +687,10 @@
     <ProjectReference Include="..\BaseModule\BaseModule.csproj">
       <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
       <Name>BaseModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PropertiesDataBases\PropertiesDataBases.csproj">
+      <Project>{cdde2abd-68f3-441b-8220-94652083904f}</Project>
+      <Name>PropertiesDataBases</Name>
     </ProjectReference>
     <ProjectReference Include="..\UserControlEx\UserControlsEx.csproj">
       <Project>{452d36b3-7997-48ac-96cb-4aa349e2b608}</Project>

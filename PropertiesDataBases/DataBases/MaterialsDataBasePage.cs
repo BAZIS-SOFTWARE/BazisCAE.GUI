@@ -24,30 +24,23 @@ namespace PropertiesDataBases.DataBases
             Saver = new SaveMaterialDataBaseToTextFormat();
         }
 
-        public MaterialDBData Materials { get; internal set; }
+        public MaterialDBData Materials { get; set; }
         = new MaterialDBData() { Name = "newMatDataBase.jsf" };
 /// <inheritdoc/>
 
-        public override void SafeFileButton_Click(object sender, EventArgs e)
+        public void SafeDBEventHandler(string dbFullPath)
         {
-            SaveFileDialog saveFile = new SaveFileDialog();
-            saveFile.DefaultExt = ".jsf";
-
-            if (saveFile.ShowDialog() == DialogResult.OK && saveFile.FileName.Length > 0)
-            {
                 var settingsSerializer = new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.Auto,
                     Formatting = Formatting.Indented
                 };
                 var propertyString = JsonConvert.SerializeObject(Materials, settingsSerializer);
-                File.WriteAllText(saveFile.FileName, propertyString);
+                File.WriteAllText(dbFullPath, propertyString);
 
-                DbName = Path.GetFileName(saveFile.FileName);
-                DbPath = Path.GetDirectoryName(saveFile.FileName);
-
-                base.SafeFileButton_Click(sender, e);
-            }
+                DbName = Path.GetFileName(dbFullPath);
+                //DbPath = Path.GetDirectoryName(saveFile.FileName);
+            
         }
 
         public override void AddDB_Click(object sender, EventArgs e)
@@ -85,15 +78,20 @@ namespace PropertiesDataBases.DataBases
 
             base.OpenFileDB_Click(sender, e);
         }
-      
-/// <inheritdoc/>
 
-        public override void Load(string fileName, bool addFlag)
+        /// <summary>
+        /// Load
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="addFlag"></param>
+
+
+        public void Load(string fileName, bool addFlag)
         {
             try
             {
-                base.Load(fileName, addFlag);
-
+                //base.Load(fileName, addFlag);
+                DbName = Path.GetFileName(fileName);
                 var ext = Path.GetExtension(fileName);
                 DataExtension = ext;
 

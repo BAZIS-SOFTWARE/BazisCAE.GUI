@@ -31,8 +31,16 @@ namespace PropertiesDataBases.DataBases
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FunctionDataBasePage
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "FunctionDataBasePage";
+            this.SaveEvent += new System.Action<string>(this.SafeDBEventHandler);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

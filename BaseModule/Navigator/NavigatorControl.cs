@@ -104,6 +104,9 @@ namespace BaseModule.Navigator
         public event Action HideAllObjectsEvent;
         public event Action DelAllObjectsEvent;
 
+        public event Action LoadMaterialsEvent;
+        public event Action LoadFunctionsEvent;
+
         public event Action<NodeName, string> ShowSetEvent;
         public event Action<NodeName, string> HideSetEvent;
         public event Action<NodeName, string> DelSetEvent;

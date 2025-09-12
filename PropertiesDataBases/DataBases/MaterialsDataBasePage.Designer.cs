@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -44,6 +43,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Name = "MaterialsDataBasePage";
             this.Size = new System.Drawing.Size(693, 639);
+            this.SaveEvent += new System.Action<string>(this.SafeDBEventHandler);
             this.ResumeLayout(false);
 
         }

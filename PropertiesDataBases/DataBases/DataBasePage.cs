@@ -13,7 +13,7 @@ namespace PropertiesDataBases.DataBases
     public partial class DataBasePage : UserControl
     {
         public event Action LoadEvent;
-        public event Action SaveEvent;
+        public event Action<string> SaveEvent;
         /// <summary>
         /// DataExtension
         /// </summary>
@@ -83,11 +83,16 @@ namespace PropertiesDataBases.DataBases
         /// <summary>
         /// Path to data base
         /// </summary>
-        public string DbPath { get; internal set; }
+        //public string DbPath { get; internal set; }
         /// <summary>
         /// Name of data base
         /// </summary>
-        public string DbName { get; internal set; }
+        public string DbName 
+        
+        { 
+            get { return lblDBName.Text; }
+            internal set { lblDBName.Text = value; }
+        }
 
         public DataBasePage()
         {
@@ -101,18 +106,6 @@ namespace PropertiesDataBases.DataBases
         public virtual void OpenFileDB_Click(object sender, EventArgs e)
         {
             LoadEvent?.Invoke();
-        }
-        /// <summary>
-        /// Load DB
-        /// </summary>
-        /// <param name="dbfullPath"></param>
-        /// <param name="addFlag"></param>
-        public virtual void Load(string dbfullPath, bool addFlag)
-        {
-            DbName = Path.GetFileName(dbfullPath);
-            DbPath = Path.GetDirectoryName(dbfullPath);
-
-            lblPath.Text = $@"{DbPath}\{DbName}";
         }
 
         public virtual void ConvertToDictionary(DataSet dataSet)
@@ -157,10 +150,17 @@ namespace PropertiesDataBases.DataBases
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public virtual void SafeFileButton_Click(object sender, EventArgs e)
+        public void SafeFileButton_Click(object sender, EventArgs e)
         {
-            lblPath.Text = $@"{DbPath}\{DbName}";
-            SaveEvent?.Invoke();
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.DefaultExt = ".jsf";
+
+            var filter = "(*.jsf)|*.jsf";
+            saveFile.Filter = filter;
+
+            if (saveFile.ShowDialog() == DialogResult.OK && saveFile.FileName.Length > 0)
+                SaveEvent?.Invoke(saveFile.FileName);
+            //lblPath.Text = $@"{DbPath}\{DbName}";
         }
         /// <summary>
         /// AddBranchButton_Click

@@ -54,7 +54,7 @@ namespace PropertiesDataBases.DataBases
             this.btnAddNewRow = new System.Windows.Forms.ToolStripButton();
             this.btnDelRow = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.lblPath = new System.Windows.Forms.Label();
+            this.lblDBName = new System.Windows.Forms.Label();
             this.menuLev0 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itmRename = new System.Windows.Forms.ToolStripMenuItem();
             this.itmDelete = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,7 +82,7 @@ namespace PropertiesDataBases.DataBases
             this.tableLayoutPanel.Controls.Add(this.treePanel, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.graphPanel, 1, 1);
             this.tableLayoutPanel.Controls.Add(this.dataPanel, 1, 0);
-            this.tableLayoutPanel.Controls.Add(this.lblPath, 0, 2);
+            this.tableLayoutPanel.Controls.Add(this.lblDBName, 0, 2);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
@@ -415,13 +415,13 @@ namespace PropertiesDataBases.DataBases
             // 
             // lblPath
             // 
-            this.lblPath.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblPath.AutoSize = true;
-            this.tableLayoutPanel.SetColumnSpan(this.lblPath, 2);
-            this.lblPath.Location = new System.Drawing.Point(3, 635);
-            this.lblPath.Name = "lblPath";
-            this.lblPath.Size = new System.Drawing.Size(0, 13);
-            this.lblPath.TabIndex = 6;
+            this.lblDBName.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblDBName.AutoSize = true;
+            this.tableLayoutPanel.SetColumnSpan(this.lblDBName, 2);
+            this.lblDBName.Location = new System.Drawing.Point(3, 635);
+            this.lblDBName.Name = "lblPath";
+            this.lblDBName.Size = new System.Drawing.Size(0, 13);
+            this.lblDBName.TabIndex = 6;
             // 
             // menuLev0
             // 
@@ -501,7 +501,7 @@ namespace PropertiesDataBases.DataBases
         private ToolStripMenuItem itmDelete;
         private ToolStripButton toolStripButton1;
         private ToolStripButton btnAddDB;
-        private Label lblPath;
+        private Label lblDBName;
         private ToolStripButton btnCreateCopy;
         private GraphContainer graphContainer;
     }

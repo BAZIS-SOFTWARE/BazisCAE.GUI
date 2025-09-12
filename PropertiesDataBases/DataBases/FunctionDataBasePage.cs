@@ -21,7 +21,7 @@ namespace PropertiesDataBases.DataBases
             Saver = new SaveFunctionDataBaseToTextFormat();
         }
 
-        public FunctionDBData Functions { get; internal set; }
+        public FunctionDBData Functions { get; set; }
         = new FunctionDBData() { Name = "newFuncDataBase.jsf" };
 
         public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -109,13 +109,18 @@ namespace PropertiesDataBases.DataBases
             //TO DO реализовать метод очистки столбца
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Load
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="addFlag"></param>
 
-        public override void Load(string fileName, bool addFlag)
+        public void Load(string fileName, bool addFlag)
         {
             try
             {
-                base.Load(fileName, addFlag);
+                DbName = Path.GetFileName(fileName);
+                //base.Load(fileName, addFlag);
 
                 var ext = Path.GetExtension(fileName);
                 DataExtension = ext;
@@ -187,26 +192,22 @@ namespace PropertiesDataBases.DataBases
         }
 /// <inheritdoc/>
 
-        public override void SafeFileButton_Click(object sender, EventArgs e)
+        public void SafeDBEventHandler(string dbFullPath)
         {
-            SaveFileDialog saveFile = new SaveFileDialog();
-            saveFile.DefaultExt = ".jsf";
 
-            if (saveFile.ShowDialog() == System.Windows.Forms.DialogResult.OK && saveFile.FileName.Length > 0)
-            {
                 var settingsSerializer = new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.Auto,
                     Formatting = Formatting.Indented
                 };
                 var propertyString = JsonConvert.SerializeObject(Functions, settingsSerializer);
-                File.WriteAllText(saveFile.FileName, propertyString);
+                File.WriteAllText(dbFullPath, propertyString);
 
-                DbName = Path.GetFileName(saveFile.FileName);
-                DbPath = Path.GetDirectoryName(saveFile.FileName);
+                DbName = Path.GetFileName(dbFullPath);
+                //DbPath = Path.GetDirectoryName(saveFile.FileName);
 
-                base.SafeFileButton_Click(sender, e);
-            }
+                //base.SafeFileButton_Click(sender, e);
+            
         }
 /// <inheritdoc/>
 

@@ -34,24 +34,24 @@ namespace BazisGUI
 
                 matBasePage.LoadEvent += () =>
                 {
-                    ChangeMaterialDBEventHandler(matBasePage);
-                };
+                    if (project == null)
+                        return;
 
-                matBasePage.SaveEvent += () =>
-                {
-                    ChangeMaterialDBEventHandler(matBasePage);
+                    project.MaterialsDB = matBasePage.Materials;
                 };
 
                 if (project == null)
                     return;
+
+                // Проект без базы здесь не существует. При его создании она берется по-умолчанию
 
                 if (project.MaterialsDB == null)
                 {
                     console.PrintInfo($"База данных материалов не загружена", Color.Red);
                     return;
                 }
-
-                matBasePage.Load($@"{project.Path}\{project.MaterialsDB.Name}", false);
+                matBasePage.Materials = project.MaterialsDB;
+                //matBasePage.Load($@"{project.Path}\{project.MaterialsDB.Name}", false);
             }
             catch (Exception ex)
             {
@@ -72,12 +72,10 @@ namespace BazisGUI
                 var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill, HeadColor = Color.Gainsboro };
                 funBasePage.LoadEvent += () =>
                 {
-                    ChangeFuncDBEventHandler(funBasePage);
-                };
+                    if (project == null)
+                        return;
 
-                funBasePage.SaveEvent += () =>
-                {
-                    ChangeFuncDBEventHandler(funBasePage);
+                    project.FunctionsDB = funBasePage.Functions;
                 };
 
                 var name = "База функций";
@@ -94,35 +92,13 @@ namespace BazisGUI
                     console.PrintInfo($"База данных функций не загружена", Color.Red);
                     return;
                 }
-
-                funBasePage.Load($@"{project.Path}\{project.FunctionsDB.Name}", false);
+                funBasePage.Functions = project.FunctionsDB;
+                //funBasePage.Load($@"{project.Path}\{project.FunctionsDB.Name}", false);
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        public void ChangeFuncDBEventHandler(FunctionDataBasePage funBasePage)
-        {
-            if (project == null)
-                return;
-
-            if (funBasePage.DbPath != project.Path)
-                IOFileController.CopyFile(funBasePage.DbName, funBasePage.DbPath, project.Path);
-
-            project.FunctionsDB = funBasePage.Functions;
-        }
-
-        public void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
-        {
-            if (project == null)
-                return; 
-
-            if (matBasePage.DbPath != project.Path)
-                IOFileController.CopyFile(matBasePage.DbName, matBasePage.DbPath, project.Path);
-
-            project.MaterialsDB = matBasePage.Materials;
         }
 
         private string FindFileByPath(string path, string fileName)
