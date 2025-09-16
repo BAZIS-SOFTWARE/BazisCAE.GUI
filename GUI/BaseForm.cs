@@ -24,6 +24,8 @@ using OperationalController.ModelScenePresentator;
 using System.Collections.Generic;
 using OperationalController;
 using Model;
+using BaseModule.Utilities;
+using System.Xml.Linq;
 
 namespace BazisGUI
 {
@@ -658,14 +660,13 @@ namespace BazisGUI
 
                 var folderName = dialog.SelectedPath;
 
-                project = dataController.CreateNewProject(folderName, "newProject.bpf2");
+                project = new Controller();
+                project.CreateProject("newProject.bpf2");
 
-                lblStatus.Text = $"{project.Path}\\{project.Name}";
-
+                lblStatus.Text = $"{folderName}\\{project.Name}";
+                
                 ClearAllDataOnScene();
-                PresentProjectOnModule();
 
-                FitObjectsToScreen();
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -742,10 +743,45 @@ namespace BazisGUI
         private void сохранитькакToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            dataController.SaveAsProject(project);
+            using (SaveFileDialog saveDialog = new SaveFileDialog())
+            {
+                saveDialog.DefaultExt = "bpf";
 
-            console.PrintInfo("Проект сохранен", Color.Black);
-            lblStatus.Text = $"{project.Path}\\{project.Name}";
+                var filter = "(*.bpf)|*.bpf|(*.bpf2)|*.bpf2";
+
+                saveDialog.Filter = filter;
+
+                if (saveDialog.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                if (project == null)
+                    MessageBox.Show("Сначала откройте или создайте новый проект");
+                else
+                {
+                    var newFolder = Path.GetDirectoryName(saveDialog.FileName);
+                    var oldFolder = Path.GetDirectoryName(lblStatus.Text);
+
+                    project.Name = Path.GetFileName(saveDialog.FileName);
+                    
+                    // Пробуем не использовать это свойство
+                    //project.Path = newFolder;
+
+                    if (oldFolder != newFolder)
+                    {
+                        if (project.MaterialsDB != null)
+                            IOFileController.CopyFile(project.MaterialsDB.Name, oldFolder, newFolder);
+                        if (project.FunctionsDB != null)
+                            IOFileController.CopyFile(project.FunctionsDB.Name, oldFolder, newFolder);
+                    }
+
+                    project.Save(saveDialog.FileName);
+
+                    console.PrintInfo("Проект сохранен", Color.Black);
+                    lblStatus.Text = saveDialog.FileName;
+                }
+            }
+
+
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -784,7 +820,7 @@ namespace BazisGUI
 
                 if (project != null)
                 {
-                    lblStatus.Text = $"{project.Path}\\{project.Name}";
+                    lblStatus.Text = $"{project.Name}";
 
                     ClearAllDataOnScene();
                     PresentProjectOnModule();

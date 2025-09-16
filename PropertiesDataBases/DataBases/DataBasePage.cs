@@ -36,7 +36,7 @@ namespace PropertiesDataBases.DataBases
         /// TreeView
         /// </summary>
         /// 
-        public TreeView TreeView
+        internal TreeView TreeView
         {
             get
             {

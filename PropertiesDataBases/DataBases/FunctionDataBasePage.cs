@@ -164,13 +164,16 @@ namespace PropertiesDataBases.DataBases
                     Functions.Name = name;
                 }
 
-
-
-                TreeView.Nodes.Clear();
-                foreach (var function in Functions)
-                    AddTreeNode(function.Value);
+                PresentFunctions();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        public void PresentFunctions()
+        {
+            TreeView.Nodes.Clear();
+            foreach (var function in Functions)
+                AddTreeNode(function.Value);
         }
 
         private void RenameMatItem_Click(object sender, EventArgs e)

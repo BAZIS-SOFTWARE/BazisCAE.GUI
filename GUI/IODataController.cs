@@ -63,40 +63,9 @@ namespace BazisGUI
             return gmshController;
         }
 
-        public void SaveAsProject(Controller controller)
+        public void SaveAsProject(Controller controller, string oldFolder)
         {
-            using (SaveFileDialog saveDialog = new SaveFileDialog())
-            {
-                saveDialog.DefaultExt = "bpf";
-
-                var filter = "(*.bpf)|*.bpf|(*.bpf2)|*.bpf2";
-
-                saveDialog.Filter = filter;
-
-                if (saveDialog.ShowDialog() == DialogResult.Cancel)
-                    return;
-
-                if (controller == null)
-                    MessageBox.Show("Сначала откройте или создайте новый проект");
-                else
-                {
-                    var newFolder = Path.GetDirectoryName(saveDialog.FileName);
-                    var oldFolder = controller.Path;
-
-                    controller.Name = Path.GetFileName(saveDialog.FileName);
-                    controller.Path = newFolder;
-
-                    if (oldFolder != controller.Path)
-                    {
-                        if(controller.MaterialsDB != null)
-                            IOFileController.CopyFile(controller.MaterialsDB.Name, oldFolder, controller.Path);
-                        if (controller.FunctionsDB != null)
-                            IOFileController.CopyFile(controller.FunctionsDB.Name, oldFolder, controller.Path);
-                    }
-
-                    controller.Save(saveDialog.FileName);
-                }
-            }
+            
         }
 
         public async Task AppendModel(IModelData modelData)

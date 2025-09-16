@@ -51,6 +51,7 @@ namespace BazisGUI
                     return;
                 }
                 matBasePage.Materials = project.MaterialsDB;
+                matBasePage.PresentMaterials();
                 //matBasePage.Load($@"{project.Path}\{project.MaterialsDB.Name}", false);
             }
             catch (Exception ex)
@@ -93,7 +94,7 @@ namespace BazisGUI
                     return;
                 }
                 funBasePage.Functions = project.FunctionsDB;
-                //funBasePage.Load($@"{project.Path}\{project.FunctionsDB.Name}", false);
+                funBasePage.PresentFunctions();
             }
             catch (Exception ex)
             {

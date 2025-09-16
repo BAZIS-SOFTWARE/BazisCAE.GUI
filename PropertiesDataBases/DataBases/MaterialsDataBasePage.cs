@@ -134,12 +134,16 @@ namespace PropertiesDataBases.DataBases
                     Materials.Name = name;
                 }
 
-
-                TreeView.Nodes.Clear();
-                foreach (var material in Materials)
-                    AddTreeNode(material.Value);
+                PresentMaterials();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        public void PresentMaterials()
+        {
+            TreeView.Nodes.Clear();
+            foreach (var material in Materials)
+                AddTreeNode(material.Value);
         }
 
         public void AddTreeNode(MaterialDBItem material)
