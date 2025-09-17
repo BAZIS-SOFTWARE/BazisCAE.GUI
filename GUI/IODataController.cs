@@ -185,7 +185,9 @@ namespace BazisGUI
                 //{
                 mb.Invoke(new Action(() =>
                 {
-                    mb.Message = controller.Message;
+                    mb.Message = "test";
+                    //controller.LoadEvent += (ar1) =>
+                    //{ mb.Message = ar1; };
                 }));
                 //};
                 controller.Load(path);
