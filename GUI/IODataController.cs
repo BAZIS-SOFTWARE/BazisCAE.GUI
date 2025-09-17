@@ -185,7 +185,7 @@ namespace BazisGUI
                 //{
                 mb.Invoke(new Action(() =>
                 {
-                    mb.Message = "Открытие проекта...";
+                    mb.Message = controller.Message;
                 }));
                 //};
                 controller.Load(path);
