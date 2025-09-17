@@ -81,7 +81,7 @@ namespace BazisGUI
 
                 Gl.glPushMatrix();
 
-                Gl.glColor3b(color.R, color.G, color.B);
+                Gl.glColor3ub(color.R, color.G, color.B);
                 Gl.glRasterPos3d(coord._x, coord._y, -5);
                 Gl.glPushAttrib(Gl.GL_LIST_BASE);//Избегаем пересечений списков, сохраняем старую базу
                 Gl.glListBase(FontBase);//Устанавливаем базу на fontBase

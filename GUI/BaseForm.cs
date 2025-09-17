@@ -965,8 +965,6 @@ namespace BazisGUI
             }
 
         }
-
-      
     }
 
 }

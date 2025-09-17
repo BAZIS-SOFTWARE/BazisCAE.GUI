@@ -90,7 +90,10 @@ namespace BazisGUI
             PressedKey = Keys.None;
             Invoke(new Action(() => 
             {
-                DisplayText2D(cmdMessage, Color.Black, new Point2D(10, 10));
+
+                var color = GetTextColor();
+
+                DisplayText2D(cmdMessage, color, new Point2D(10, 10));
                 DisplayObjects();
             }));
             await System.Threading.Tasks.Task.Run(() =>
@@ -120,6 +123,22 @@ namespace BazisGUI
 
             PressedKey = Keys.None;
             return resObject;
-        }                 
+        }
+
+        private Color GetTextColor()
+        {
+            var backgroundBrightness = 0.299 * settingsConfig.BackGroundColor.R + 0.587 * 
+                settingsConfig.BackGroundColor.G + 0.114 * 
+                settingsConfig.BackGroundColor.B;
+
+            if (backgroundBrightness > 125) // Или другое пороговое значение
+            {
+                return Color.Black; // Светлый фон -> черный шрифт
+            }
+            else
+            {
+                return Color.White; // Темный фон -> белый шрифт
+            }
+        }
     }
 }

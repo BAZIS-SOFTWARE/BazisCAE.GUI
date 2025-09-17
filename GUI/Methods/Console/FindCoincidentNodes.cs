@@ -13,6 +13,8 @@ namespace BazisGUI
     {
         private async Task FindCoincidentNodes()
         {
+            if (project == null)
+                return;
             Invoke(new Action(() => { console.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
 
             var nodes = project.ModelData.ObjectData.NodesSet;
