@@ -577,11 +577,6 @@ namespace BazisGUI
             node.Nodes.AddRange(childs);
         }
 
-        private void navigator_SelectTaskEvent(NodeName arg1, string arg2)
-        {
-            EditTSFFile(arg2.Split(' ')[1]);
-        }
-
         private void navigator_SetElementsOrderEvent(int obj)
         {
             var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
