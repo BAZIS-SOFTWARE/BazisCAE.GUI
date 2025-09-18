@@ -29,6 +29,7 @@ namespace BazisGUI
             navigator_SelectTaskEvent(nodeName, nodeText);
         }
 
+        [Obsolete ("Отсутствует химические задачи, не протестировано")]
         private void ChangeChemicalTask(PropertyChangedEventArgs obj, ChemicalParameters cmp)
         {
             if(obj.Header == "Макс.концентр. (dCt max), %")
