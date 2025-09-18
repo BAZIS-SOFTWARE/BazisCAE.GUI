@@ -62,8 +62,8 @@ spb.Width - 2 * ItemLocation.X, SplitButtonClickWidth - ItemLocation.Y);
             var points = CreateTriangle(centre, SplitButtonTriangleSize);
             e.Graphics.FillPolygon(Brushes.Black, points);
 
-            SizeF messageSize = e.Graphics.MeasureString(spb.ToolTipText, ComponentsPainter.Font);
-            e.Graphics.DrawString(spb.ToolTipText, ComponentsPainter.Font, SystemBrushes.WindowText,
+            SizeF messageSize = e.Graphics.MeasureString(spb.ToolTipText, e.ToolStrip.Font);
+            e.Graphics.DrawString(spb.ToolTipText, e.ToolStrip.Font, SystemBrushes.WindowText,
 5, spb.Height / 2 - messageSize.Height);
 
             //sbtn.Width = (int)messageSize.Width + 2 * sbtn.DropDownButtonWidth;
@@ -170,10 +170,10 @@ spb.Width - 2 * ItemLocation.X, SplitButtonClickWidth - ItemLocation.Y);
                     e.Graphics.DrawRectangle(new Pen(FrameColor, 1.0f), rectangle);
                 }
 
-                SizeF messageSize = gr.MeasureString(tls.Text, ComponentsPainter.Font);
+                SizeF messageSize = gr.MeasureString(tls.Text, e.ToolStrip.Font);
                 var x = tls.Width / 2 - messageSize.Width / 2;
                 var y = tls.Height - messageSize.Height - 2;
-                gr.DrawString(tls.Text, ComponentsPainter.Font, SystemBrushes.WindowText, x, y);
+                gr.DrawString(tls.Text, e.ToolStrip.Font, SystemBrushes.WindowText, x, y);
             }            
         }
         

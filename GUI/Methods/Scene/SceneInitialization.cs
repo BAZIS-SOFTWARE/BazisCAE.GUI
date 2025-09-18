@@ -25,10 +25,12 @@ namespace BazisGUI
 
             /*
             IntPtr hdc = Wgl.wglGetCurrentDC();
-            Wgl.wglUseFontBitmapsW(hdc, 0, 1150, 1000); // Ниже заменю на проверенный корректный вызов*/
+            Wgl.wglUseFontBitmapsW(hdc, 0, 1150, 1000); // Ниже заменю на проверенный корректный вызов
+            */
 
             FontBase = Gl.glGenLists(1150);//кол-во глифов (элементов для рисования букв 256 - только латиница, 1150 - поддержка еще и кирилицы)
             ChangeTextFont();//Используем шрифт по-умолчанию
+            
             //ChangeTextFont(fontBase, "Comic Sans", 18, FontStyle.Italic);//Проверка различного типа шрифтов
             //FontBase = fontBase;
             //После этого мы должны передавать fontBase в любой класс, который использует шрифты!          

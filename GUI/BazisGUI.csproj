@@ -233,6 +233,9 @@
     <Compile Include="GanttChart\GanttChartTreeView.Designer.cs">
       <DependentUpon>GanttChartTreeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Methods\BaseForm\SetPadding.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\BasePage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -695,7 +698,6 @@
     <None Include="Resources\м 37.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Methods\BaseForm\" />
     <Folder Include="Projects\" />
   </ItemGroup>
   <ItemGroup>

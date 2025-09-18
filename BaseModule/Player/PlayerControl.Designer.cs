@@ -40,8 +40,8 @@ namespace BaseModule.Player
             // 
             // btnStopCheck
             // 
-            this.btnStopCheck.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnStopCheck.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnStopCheck.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStopCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStopCheck.Image = ((System.Drawing.Image)(resources.GetObject("btnStopCheck.Image")));
             this.btnStopCheck.Location = new System.Drawing.Point(36, 3);
@@ -55,7 +55,7 @@ namespace BaseModule.Player
             // 
             // btnCheckDinamic
             // 
-            this.btnCheckDinamic.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnCheckDinamic.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCheckDinamic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCheckDinamic.Image = global::BaseModule.Properties.Resources.StartCheck;
             this.btnCheckDinamic.Location = new System.Drawing.Point(3, 3);
@@ -69,6 +69,7 @@ namespace BaseModule.Player
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -84,17 +85,17 @@ namespace BaseModule.Player
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 166F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(343, 34);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(215, 33);
             this.tableLayoutPanel1.TabIndex = 27;
             // 
             // colorSlider
             // 
-            this.colorSlider.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.colorSlider.BackColor = System.Drawing.Color.Transparent;
             this.colorSlider.BarInnerColor = System.Drawing.Color.Silver;
             this.colorSlider.BarOuterColor = System.Drawing.Color.Silver;
             this.colorSlider.BarPenColor = System.Drawing.Color.Black;
             this.colorSlider.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            this.colorSlider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.colorSlider.ElapsedInnerColor = System.Drawing.Color.Silver;
             this.colorSlider.ElapsedOuterColor = System.Drawing.Color.Silver;
             this.colorSlider.LargeChange = ((uint)(5u));
@@ -102,7 +103,7 @@ namespace BaseModule.Player
             this.colorSlider.MaximumSize = new System.Drawing.Size(0, 27);
             this.colorSlider.Name = "colorSlider";
             this.colorSlider.ShowTextValue = true;
-            this.colorSlider.Size = new System.Drawing.Size(271, 27);
+            this.colorSlider.Size = new System.Drawing.Size(143, 27);
             this.colorSlider.SmallChange = ((uint)(1u));
             this.colorSlider.TabIndex = 26;
             this.colorSlider.Text = "colorSlider";
@@ -115,14 +116,16 @@ namespace BaseModule.Player
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MinimumSize = new System.Drawing.Size(215, 30);
             this.Name = "PlayerControl";
-            this.Size = new System.Drawing.Size(343, 34);
+            this.Size = new System.Drawing.Size(215, 33);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

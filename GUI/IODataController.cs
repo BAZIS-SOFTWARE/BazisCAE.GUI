@@ -63,11 +63,6 @@ namespace BazisGUI
             return gmshController;
         }
 
-        public void SaveAsProject(Controller controller, string oldFolder)
-        {
-            
-        }
-
         public async Task AppendModel(IModelData modelData)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -126,7 +121,7 @@ namespace BazisGUI
             var path = Path.GetDirectoryName(dialog.FileName);
             var name = Path.GetFileName(dialog.FileName);
 
-            var project = new Controller();
+            var controller = new Controller();
 
             MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
             { Dock = DockStyle.Fill };
@@ -136,12 +131,19 @@ namespace BazisGUI
             mb.Message = "Импорт сетки...";
             await Task.Run(new Action(() =>
             {
-                project.ImportMesh($"{path}\\{name}");
+                controller.MessageEvent += (ar1) =>
+                {
+                    mb.Invoke(new Action(() =>
+                    {
+                        mb.Message = ar1;
+                    }));
+                };
+                controller.ImportMesh($"{path}\\{name}");
             }));
             mbf.Close();
 
-            project.Name = "новый_проект.bpf2";
-            return project;
+            controller.Name = "новый_проект.bpf2";
+            return controller;
         }
 
         public async Task<string> ExportMesh(Controller project)
@@ -181,15 +183,13 @@ namespace BazisGUI
             await Task.Run(new Action(() =>
             {
                 // TO DO Сделать динамическое отображение данных при загрузке
-                //controller.ModelData.Loader.LoadEvent += (ar1, ar2) =>
-                //{
-                mb.Invoke(new Action(() =>
+                controller.MessageEvent += (ar1) =>
                 {
-                    mb.Message = "test";
-                    //controller.LoadEvent += (ar1) =>
-                    //{ mb.Message = ar1; };
-                }));
-                //};
+                    mb.Invoke(new Action(() =>
+                    {
+                        mb.Message = ar1;
+                    }));
+                };
                 controller.Load(path);
 
             }));
@@ -214,23 +214,6 @@ namespace BazisGUI
 
             mbf.Controls.Add(mb);
             return mbf;
-        }
-
-        public Controller CreateNewProject(string path, string name)
-        {
-            var project = new Controller();
-            project.CreateProject($"{path}\\{name}");
-            //project.MaterialsDB = "materials_v3.jsf";
-            //project.FunctionsDB = "functions.jsf";   
-            
-
-
-            //var startMatPath = Application.StartupPath + "\\Materials";
-            //IOFileController.CopyFile(project.MaterialsDB, startMatPath, path);
-            //var startFunPath = Application.StartupPath + "\\Functions";
-            //IOFileController.CopyFile(project.FunctionsDB, startFunPath, path);
-
-            return project;
         }
 
         public async Task<Controller> OpenProject()

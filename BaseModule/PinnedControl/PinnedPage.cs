@@ -48,7 +48,7 @@ namespace BaseModule.PinnedControl
             }
 
 
-            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(HeaderColor), 15, 0);
+            e.Graphics.DrawString(HeaderName, Font, new SolidBrush(HeaderColor), 15, 0);
         }
 
         private void PinnedPageControl_MouseClick(object sender, MouseEventArgs e)
