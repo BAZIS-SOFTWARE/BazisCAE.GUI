@@ -307,14 +307,10 @@ namespace BazisGUI
             }
         }
 
-        private void navigator_LoadResultsEvent()
+        private void открытьToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var fileName = dataController.OpenResults();
-            PresentResultsInfo(fileName);
-        }
-
-        public void PresentResultsInfo(string fileName)
-        {
+            
             if (fileName != "")
             {
                 ResultDbPath = fileName;
@@ -341,7 +337,6 @@ namespace BazisGUI
                     nodes[0].Nodes.Add(rn);
                 }
             }
-
         }
 
         public void SortCharNumberStrings(string[] anArray)

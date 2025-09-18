@@ -56,59 +56,59 @@ namespace BazisGUI
                 console.PrintInfo(ex.Message, Color.Red);
             }
         }
-        private void mesh3DGeneratorMenuItem_Click(object sender, EventArgs e)
-        {
-            if (mesh3DGeneratorMenuItem.Checked)
-            {
-                var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" " +
-    "Все данные о задаче будут удалены!",
-"Внимание!", MessageBoxButtons.OKCancel);
+//        private void mesh3DGeneratorMenuItem_Click(object sender, EventArgs e)
+//        {
+//            if (mesh3DGeneratorMenuItem.Checked)
+//            {
+//                var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" " +
+//    "Все данные о задаче будут удалены!",
+//"Внимание!", MessageBoxButtons.OKCancel);
 
-                if (res == DialogResult.OK)
-                    project.TaskData.Clear();
-                else
-                {
-                    mesh3DGeneratorMenuItem.Checked = false;
-                    return;
-                }
+//                if (res == DialogResult.OK)
+//                    project.TaskData.Clear();
+//                else
+//                {
+//                    mesh3DGeneratorMenuItem.Checked = false;
+//                    return;
+//                }
 
-                var meshGenerator = new GMSHGeneralMeshControl();
+//                var meshGenerator = new GMSHGeneralMeshControl();
 
-                meshGenerator.setMeshAlgoEvent += (ar) =>
-                {
-                    gmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", ar);
-                };
+//                meshGenerator.setMeshAlgoEvent += (ar) =>
+//                {
+//                    gmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", ar);
+//                };
 
 
-                meshGenerator.delMeshGradientEvent += MeshGenerator_delMeshGradientEvent;
-                meshGenerator.showShowSurfaceNumbersEvent += MeshGenerator_showSurfaceNumbers;
-                meshGenerator.showNumberOfCurveNodesEvent += MeshGenerator_showNumberOfCurveNodes;
+//                meshGenerator.delMeshGradientEvent += MeshGenerator_delMeshGradientEvent;
+//                meshGenerator.showShowSurfaceNumbersEvent += MeshGenerator_showSurfaceNumbers;
+//                meshGenerator.showNumberOfCurveNodesEvent += MeshGenerator_showNumberOfCurveNodes;
                 
-                meshGenerator.generate2DTriangleMeshEvent += MeshGenerator_generate2DMeshEvent;
-                meshGenerator.deleteMeshEvent += MeshGenerator_deleteMeshEvent;
-                meshGenerator.showNodesOnCurvesEvent += MeshGenerator_showNodesOnCurves;
+//                meshGenerator.generate2DTriangleMeshEvent += MeshGenerator_generate2DMeshEvent;
+//                meshGenerator.deleteMeshEvent += MeshGenerator_deleteMeshEvent;
+//                meshGenerator.showNodesOnCurvesEvent += MeshGenerator_showNodesOnCurves;
       
-                //meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
-                meshGenerator.refineMesh += MeshGenerator_refineMesh;
+//                //meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
+//                meshGenerator.refineMesh += MeshGenerator_refineMesh;
        
-                meshGenerator.generate2DQuadMesh += MeshGenerator_generate2DQuadMesh;
+//                meshGenerator.generate2DQuadMesh += MeshGenerator_generate2DQuadMesh;
 
-                meshGenerator.SetCurveAttributeEvent += MeshGenerator_SetCurveAttributeEvent;
-                meshGenerator.GetCurveAttribEvent += MeshGenerator_GetCurveAttribEvent;
-                meshGenerator.CurveAttribDeleteEvent += MeshGenerator_CurveAttribDeleteEvent;
+//                meshGenerator.SetCurveAttributeEvent += MeshGenerator_SetCurveAttributeEvent;
+//                meshGenerator.GetCurveAttribEvent += MeshGenerator_GetCurveAttribEvent;
+//                meshGenerator.CurveAttribDeleteEvent += MeshGenerator_CurveAttribDeleteEvent;
 
-                meshGenerator.deleteElementEvent += DeleteElementsByNumber;
-                meshGenerator.setMeshGradientSettingsEvent += MeshGenerator_setMeshGradientSettingsEvent;
+//                meshGenerator.deleteElementEvent += DeleteElementsByNumber;
+//                meshGenerator.setMeshGradientSettingsEvent += MeshGenerator_setMeshGradientSettingsEvent;
 
-                meshGenerator.SetPointSizeEvent += SetPointSizesEventHandler;
-                meshGenerator.PointAttribDeleteEvent += MeshGenerator_PointAttribDeleteEvent;
-                meshGenerator.GetPointSizeEvent += MeshGenerator_GetPointSizeEvent;
+//                meshGenerator.SetPointSizeEvent += SetPointSizesEventHandler;
+//                meshGenerator.PointAttribDeleteEvent += MeshGenerator_PointAttribDeleteEvent;
+//                meshGenerator.GetPointSizeEvent += MeshGenerator_GetPointSizeEvent;
 
-                meshGenerator.setMinMaxSizesEvent += SetMinMaxSizesEvent;
+//                meshGenerator.setMinMaxSizesEvent += SetMinMaxSizesEvent;
 
-                //SetGMSHController(project.ModelData);
-            }
-        }
+//                //SetGMSHController(project.ModelData);
+//            }
+//        }
 
         private void MeshGenerator_SetCurveAttributeEvent(object arg1, CurveAttribsEventArgs arg2)
         {

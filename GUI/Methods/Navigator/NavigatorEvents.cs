@@ -142,11 +142,11 @@ namespace BazisGUI
             try
             {
                 project.Save(lblStatus.Text);
-                console.PrintInfo("Проект сохранен в " + project.Path, Color.Black);
+                console.PrintInfo("Проект сохранен в " + WorkingDir, Color.Black);
 
                 CheckProjectDataBeforeCreationTCF();
 
-                var compDir = $@"{project.Path}\ComputationData";
+                var compDir = $@"{WorkingDir}\ComputationData";
 
                 if (!Directory.Exists(compDir))
                     Directory.CreateDirectory(compDir);
@@ -154,7 +154,7 @@ namespace BazisGUI
                 var result = new List<string>
             {
                 $@"\\загрузка сетки и данных",
-                $@"загрузить проект {project.Path}\{project.Name}",
+                $@"загрузить проект {WorkingDir}\{project.Name}",
                 /*
                 $@"\\загрузка материалов",
                 $@"загрузить материалы {project.Path}\{project.MaterialsDB}",
@@ -190,16 +190,16 @@ namespace BazisGUI
         {
             try
             {
-                if (!File.Exists($@"{project.Path}\{project.Name}"))
-                    throw new Exception($"В папке проекта {project.Path} отсутствует файл проекта {project.Name}. " +
+                if (!File.Exists($@"{WorkingDir}\{project.Name}"))
+                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл проекта {project.Name}. " +
                         $"Верните файл проекта в папку проекта или выберете другой проект");
 
-                if (!File.Exists($@"{project.Path}\{project.MaterialsDB}"))
-                    throw new Exception($"В папке проекта {project.Path} отсутствует файл материалов {project.MaterialsDB}. " +
+                if (!File.Exists($@"{WorkingDir}\{project.MaterialsDB}"))
+                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл материалов {project.MaterialsDB}. " +
                         $"Верните файл материалов в папку проекта или выберете другой файл материалов");
 
-                if (!File.Exists($@"{project.Path}\{project.FunctionsDB}"))
-                    throw new Exception($"В папке проекта {project.Path} отсутствует файл функций {project.FunctionsDB}. " +
+                if (!File.Exists($@"{WorkingDir}\{project.FunctionsDB}"))
+                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл функций {project.FunctionsDB}. " +
                         $"Верните файл функций в папку проекта или выберете другой файл функций");
 
             }
@@ -241,7 +241,7 @@ namespace BazisGUI
 
                 myProcess.StartInfo.FileName = $@"{settingsConfig.SolverPath}\{settingsConfig.SolverFile}";
 
-                var compDir = $@"{project.Path}\ComputationData";
+                var compDir = $@"{WorkingDir}\ComputationData";
                 var cmdFile = $@"{compDir}\computation.tcf";
 
                 var argStr = string.Join(" ", new string[] { cmdFile });
@@ -264,7 +264,7 @@ namespace BazisGUI
 
                 //var pContr = (PinnedTaskPlannerControl)EmbeddedControls.Find("pinnedTaskPlannerControl", false)[0];
 
-                var inputDir = $@"{project.Path}\InputData";
+                var inputDir = $@"{WorkingDir}\InputData";
 
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);

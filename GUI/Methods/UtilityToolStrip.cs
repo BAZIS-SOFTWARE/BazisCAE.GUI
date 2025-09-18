@@ -442,8 +442,8 @@ namespace BazisGUI
 
         private void btnScreenShot_Click(object sender, EventArgs e)
         {
-            CreateScreenShot(project.Path + "\\screenShot.bmp");
-            console.PrintInfo($"Сделан снимок экрана {project.Path}\\screenShot.bmp", Color.Black);
+            CreateScreenShot(WorkingDir + "\\screenShot.bmp");
+            console.PrintInfo($"Сделан снимок экрана {WorkingDir}\\screenShot.bmp", Color.Black);
         }
 
         public void CreateScreenShot(string fileName)

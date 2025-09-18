@@ -19,8 +19,10 @@ namespace BazisGUI
         {
             try
             {
+                if (!navigator.TrySearchNodes(NodeName.задача, out List<TreeNode> task))
+                    throw new Exception("Сначала создайте задачу");
+
                 navigator.BeginUpdate();
-                navigator.TrySearchNodes(NodeName.задача, out List<TreeNode> task);
                 task[0].Nodes.Clear();
 
                 foreach (var data in project.GetAllCondData())

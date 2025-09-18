@@ -13,19 +13,13 @@ using System.IO;
 using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace BazisGUI
 {
     public class IODataController
     {
-        string meshFilter =
-"All files(*.*)|*.*|" +
-"Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
-"GMSH(*.inp)|*.inp|" +
-"GMSH(*.inp_v2)|*.inp_v2|" +
-"ANSYS(*.cdb*)|*.cdb|" +
-"STL(*.stl*)|*.stl|" +
-"SOLOMIA(*.dat*)|*.dat";
+
         public SettingsConfig LoadConfig()
         {
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -63,14 +57,9 @@ namespace BazisGUI
             return gmshController;
         }
 
-        public async Task AppendModel(IModelData modelData)
+        public async Task AppendModelAsync(IModelData modelData, string path)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = meshFilter;
-            if (dialog.ShowDialog() == DialogResult.Cancel)
-                return;
-
-            var ext = Path.GetExtension(dialog.FileName);
+            var ext = Path.GetExtension(path);
 
             if (ext == ".inp")
                 modelData.Loader = new LoadModelFromINPTextFile();
@@ -85,11 +74,6 @@ namespace BazisGUI
             else
                 modelData.Loader = new LoadModelFromCDBTextFile();
 
-            await AppendModelAsync(modelData, dialog.FileName);
-        }
-
-        private async Task AppendModelAsync(IModelData modelData, string path)
-        {
             MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
             { Dock = DockStyle.Fill };
 
@@ -111,16 +95,8 @@ namespace BazisGUI
             mbf.Close();
         }
 
-        public async Task<Controller> ImportMesh()
+        public async Task<Controller> ImportMesh(string fullPath)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = meshFilter;
-            if (dialog.ShowDialog() == DialogResult.Cancel)
-                return null;
-
-            var path = Path.GetDirectoryName(dialog.FileName);
-            var name = Path.GetFileName(dialog.FileName);
-
             var controller = new Controller();
 
             MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
@@ -138,7 +114,7 @@ namespace BazisGUI
                         mb.Message = ar1;
                     }));
                 };
-                controller.ImportMesh($"{path}\\{name}");
+                controller.ImportMesh(fullPath);
             }));
             mbf.Close();
 
@@ -216,26 +192,29 @@ namespace BazisGUI
             return mbf;
         }
 
-        public async Task<Controller> OpenProject()
+        public async Task<Controller> OpenProject(string fullPath)
         {
-            var filter = "Project file(*.bpf)|*.bpf|Project file(*.bpf2)|*.bpf2";
+            var controller = new Controller();
+            MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
+            { Dock = DockStyle.Fill };
 
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = filter;
-            dialog.DefaultExt = "bpf";
-            if (dialog.ShowDialog() == DialogResult.Cancel)
-                return null;
+            var mbf = CreateMessageBoxExForm(mb);
+            mbf.Show();
+            await Task.Run(new Action(() =>
+            {
+                controller.MessageEvent += (ar1) =>
+                {
+                    mb.Invoke(new Action(() =>
+                    {
+                        mb.Message = ar1;
+                    }));
+                };
+                controller.Load(fullPath);
 
-            var path = Path.GetDirectoryName(dialog.FileName);
-            var name = Path.GetFileName(dialog.FileName);
+            }));
+            mbf.Close();
 
-            //var project = CreateNewProject(path, name);
-
-            var res = LoadProjectAsync(dialog.FileName);
-            await res;
-
-            return res.Result;
-
+            return controller;
         }
 
         //public async Task<Controller> OpenProject(string fullPath)

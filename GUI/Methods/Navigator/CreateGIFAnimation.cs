@@ -16,7 +16,7 @@ namespace BazisGUI
         {
             try
             {
-                var outputFilePath = $@"{project.Path}\results.gif";
+                var outputFilePath = $@"{WorkingDir}\results.gif";
 
                 AnimatedGifEncoder e = new AnimatedGifEncoder();
 
@@ -39,7 +39,7 @@ namespace BazisGUI
                     var resName = navigator.SelectedNode.Text;
                     ShowResults(result, resName);
                     var image = $@"screenShot_{args.Times[i]}";
-                    var imagePath = $@"{project.Path}\{image}.bmp";
+                    var imagePath = $@"{WorkingDir}\{image}.bmp";
                     CreateScreenShot(imagePath);
 
                     using (var stream = new FileStream(imagePath, FileMode.Open))

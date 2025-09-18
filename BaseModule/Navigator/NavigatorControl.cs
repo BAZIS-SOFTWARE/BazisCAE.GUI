@@ -143,7 +143,6 @@ namespace BaseModule.Navigator
         public event Action SelectTaskEvent;
         public event Action SelectGeoEvent;
         public event Action SelectResultsEvent;
-        public event Action LoadResultsEvent;
  
         public event Action<NodeName, string> SelectInstrEvent;
         public event Action SelectGeneralInfoEvent;
@@ -851,11 +850,6 @@ e.Node.Name == NodeName.Объем.ToString()
             }
 
             return bounds;
-        }
-
-        private void загрузитьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadResultsEvent?.Invoke();
         }
 
         private void SetFirstOrder_Click(object sender, EventArgs e)

@@ -35,6 +35,14 @@ namespace BazisGUI
         Point ScreenMousePosition { get; set; } = new Point(0, 0);
         bool MouseMoveFlag { get; set; }
 
+        string WorkingDir
+        {
+            get
+            {
+               return Path.GetDirectoryName(lblStatus.Text);
+            }
+        }
+
         //private System.Windows.Forms.Timer connectTimer = new System.Windows.Forms.Timer();
         //ProjectData project;
 
@@ -117,6 +125,7 @@ namespace BazisGUI
 
             if (args.Length != 0)
             {
+                var path = string.Empty;
                 if (args.Contains("-proj"))
                 {
                     var projInd = Array.IndexOf(args, "-proj");
@@ -124,7 +133,7 @@ namespace BazisGUI
                     if (args.Length - 1 - projInd < 1)
                         throw new Exception($"Отсутствуют необходимые аргументы для -proj path file");
 
-                    var path = Path.GetDirectoryName(args[projInd + 1]);
+                    path = Path.GetDirectoryName(args[projInd + 1]);
                     var name = Path.GetFileName(args[projInd + 1]);
 
                     project = new Controller();
@@ -161,9 +170,10 @@ namespace BazisGUI
                     if (project == null)
                         project = new Controller();
                     project.ImportCAD(fullPath, gmshController);
+                    path = Path.GetDirectoryName(fullPath);
                 }
-
-                lblStatus.Text = $"{project.Path}\\{project.Name}";
+   
+                lblStatus.Text = $"{path}\\{project.Name}";
             }
 
 
@@ -681,21 +691,27 @@ namespace BazisGUI
         {
             try
             {
-                project =  await dataController.OpenProject();
+                var filter = "Project file(*.bpf)|*.bpf|Project file(*.bpf2)|*.bpf2";
 
-                if(project != null)
-                {
-                    lblStatus.Text = $"{project.Path}\\{project.Name}";
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = filter;
+                dialog.DefaultExt = "bpf";
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
 
-                    gmshController?.Gmsh?.Clear();
+                project = await dataController.OpenProject(dialog.FileName);
 
-                    ClearAllDataOnScene();
-                    PresentProjectOnModule();
+                var path = Path.GetDirectoryName(dialog.FileName);
 
-                    FitObjectsToScreen();
-                    DisplayObjects();
-                }
+                lblStatus.Text = $"{path}\\{project.Name}";
 
+                gmshController?.Gmsh?.Clear();
+
+                ClearAllDataOnScene();
+                PresentProjectOnModule();
+
+                FitObjectsToScreen();
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -707,14 +723,28 @@ namespace BazisGUI
         {
             try
             {
-                var res = await dataController.ImportMesh();
+                string meshFilter =
+"All files(*.*)|*.*|" +
+"Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
+"GMSH(*.inp)|*.inp|" +
+"GMSH(*.inp_v2)|*.inp_v2|" +
+"ANSYS(*.cdb*)|*.cdb|" +
+"STL(*.stl*)|*.stl|" +
+"SOLOMIA(*.dat*)|*.dat";
+
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = meshFilter;
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                var res = await dataController.ImportMesh(dialog.FileName);
 
                 if (res == null)
                     return;
 
                 project = res;
-
-                lblStatus.Text = $"{project.Path}\\{project.Name}";
+                var path = Path.GetDirectoryName(dialog.FileName);
+                lblStatus.Text = $"{path}\\{project.Name}";
 
                 gmshController?.Gmsh?.Clear();
 
@@ -948,9 +978,24 @@ namespace BazisGUI
             {
                 if(project != null)
                 {
-                    await dataController.AppendModel(project.ModelData);
+                    string meshFilter =
+"All files(*.*)|*.*|" +
+"Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
+"GMSH(*.inp)|*.inp|" +
+"GMSH(*.inp_v2)|*.inp_v2|" +
+"ANSYS(*.cdb*)|*.cdb|" +
+"STL(*.stl*)|*.stl|" +
+"SOLOMIA(*.dat*)|*.dat";
 
-                    lblStatus.Text = $"{project.Path}\\{project.Name}";
+                    OpenFileDialog dialog = new OpenFileDialog();
+                    dialog.Filter = meshFilter;
+                    if (dialog.ShowDialog() == DialogResult.Cancel)
+                        return;
+
+                    await dataController.AppendModelAsync(project.ModelData, dialog.FileName);
+
+                    var path = Path.GetDirectoryName(dialog.FileName);
+                    lblStatus.Text = $"{path}\\{project.Name}";
 
                     gmshController?.Gmsh?.Clear();
 
@@ -966,7 +1011,7 @@ namespace BazisGUI
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
 
-        }     
+        }
     }
 
 }
