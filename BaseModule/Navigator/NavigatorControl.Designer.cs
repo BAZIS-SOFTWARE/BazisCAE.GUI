@@ -321,7 +321,7 @@
             this.diagram_gantt_toolStripMenuItem,
             this.добавитьToolStripMenuItem});
             this.taskMenuStrip.Name = "taskMenuStrip";
-            this.taskMenuStrip.Size = new System.Drawing.Size(214, 92);
+            this.taskMenuStrip.Size = new System.Drawing.Size(214, 70);
             // 
             // удалитьToolStripMenuItem
             // 

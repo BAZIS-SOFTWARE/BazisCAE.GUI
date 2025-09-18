@@ -88,11 +88,13 @@ namespace BazisGUI
         public BaseForm(string[] args)
         {
             InitializeComponent();
+
+            SetPadding();
+
             scene.InitializeContexts();
             Gle.Load();
             SceneInitialization();
-            ComponentsPainter.Font = this.Font;
-            ComponentsPainter.ScreenDPI = this.DeviceDpi;
+            //ComponentsPainter.Font = this.Font; //попробуем не контролировать кегль вручную. Пусть кон-ет система
 
             splitContainer1.SplitterWidth = 8;
             splitContainer2.SplitterWidth = 8;
@@ -115,7 +117,7 @@ namespace BazisGUI
 
             if (args.Length != 0)
             {
-                if(args.Contains("-proj"))
+                if (args.Contains("-proj"))
                 {
                     var projInd = Array.IndexOf(args, "-proj");
 
@@ -128,7 +130,7 @@ namespace BazisGUI
                     project = new Controller();
                     project.Load(path);
                 }
-                if(args.Contains("-res"))
+                if (args.Contains("-res"))
                 {
                     var resInd = Array.IndexOf(args, "-res");
 
@@ -137,11 +139,11 @@ namespace BazisGUI
 
                     var fullPath = Path.GetFullPath(args[resInd + 1]);
 
-                    if(project == null)
+                    if (project == null)
                         throw new Exception($"Для загрузки результатов требуется сперва загрузить проект");
 
                     navigator.TrySearchNodes("результаты", out List<TreeNode> nodes);
-                    
+
                     nodes.First().Nodes[0].Text = fullPath;
                 }
                 if (args.Contains("-cad"))
@@ -964,7 +966,7 @@ namespace BazisGUI
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
 
-        }
+        }     
     }
 
 }

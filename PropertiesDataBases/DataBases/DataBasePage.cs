@@ -267,7 +267,7 @@ namespace PropertiesDataBases.DataBases
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString("Список", ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString("Список", Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
 
         private void dataPanel_Paint(object sender, PaintEventArgs e)
@@ -279,7 +279,7 @@ namespace PropertiesDataBases.DataBases
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString("Данные", ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString("Данные", Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
 
         private void graphPanel_Paint(object sender, PaintEventArgs e)
@@ -291,7 +291,7 @@ namespace PropertiesDataBases.DataBases
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString("График", ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString("График", Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
 
         public virtual void treeView_MouseDown(object sender, MouseEventArgs e)
