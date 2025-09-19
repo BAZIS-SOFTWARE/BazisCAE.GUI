@@ -9,13 +9,12 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private GeneralParameters parameters;
         private void navigator_SelectTaskEvent(NodeName arg1, string arg2)
         {
             //EditTSFFile(arg2.Split(' ')[1]); на время разработки храню
             try
             {
-                parameters = ReadTaskParametersFromFile(arg2.Split(' ')[1]);
+                var parameters = ReadTaskParametersFromFile(arg2.Split(' ')[1]);
                 List<RowProperty> rows = new List<RowProperty>();
                 if (parameters is ChemicalParameters cmp)
                     rows = GetPropertyChemicalTask(cmp);
@@ -24,9 +23,9 @@ namespace BazisGUI
                 else if (parameters is TermalParameters tmp)
                     rows = GetPropertyTermalTask(tmp);
 
-                rows.AddRange(GetPropertySolverSettings());
-                rows.AddRange(GetPropertyBasic());
-                rows.AddRange(GetPropertyTimeSettings());
+                rows.AddRange(GetPropertySolverSettings(parameters));
+                rows.AddRange(GetPropertyBasic(parameters));
+                rows.AddRange(GetPropertyTimeSettings(parameters));
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
@@ -35,7 +34,7 @@ namespace BazisGUI
             }
         }
 
-        private List<RowProperty> GetPropertySolverSettings() 
+        private List<RowProperty> GetPropertySolverSettings(GeneralParameters parameters) 
         {
             return new List<RowProperty>
             {
@@ -47,7 +46,7 @@ namespace BazisGUI
             };
         }
 
-        private List<RowProperty> GetPropertyBasic()
+        private List<RowProperty> GetPropertyBasic(GeneralParameters parameters)
         {
             return new List<RowProperty>
             {
@@ -57,7 +56,7 @@ namespace BazisGUI
             };
         }
 
-        private List<RowProperty> GetPropertyTimeSettings()
+        private List<RowProperty> GetPropertyTimeSettings(GeneralParameters parameters)
         {
             return new List<RowProperty>
             {

@@ -10,23 +10,64 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private string _nodeText = string.Empty;
         private void ChangeCompProperties(PropertyChangedEventArgs obj, string nodeText)
         {
-            _nodeText = nodeText;
             var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
-            //parameters = ReadTaskParametersFromFile(nodeText.Split(' ')[1]);
+            var parameters = ReadTaskParametersFromFile(nodeText.Split(' ')[1]);
             if (parameters is ChemicalParameters cmp) 
-            {
                 ChangeChemicalTask(obj, cmp);
-            }
             else if (parameters is MechanicalParameters mhp) 
                 ChangeMechanicalTask(obj, mhp);
             else if (parameters is TermalParameters tmp)
                 ChangeTermalTask(obj, tmp);
 
-            SaveGeneralParametersToFile();
-            navigator_SelectTaskEvent(nodeName, nodeText);
+
+            switch(obj.Header)
+            {
+                case "Алгоритм решения":
+                    parameters.SolverSettings.Solver = obj.NewValue;
+                    break;
+                case "Кол-во итераций решения":
+                    parameters.SolverSettings.MaxIter = int.Parse(obj.NewValue);
+                    break;
+                case "Точность решения, у.ед.":
+                    parameters.SolverSettings.Precision = ParseFloatValue(obj.NewValue);
+                    break;
+                case "Коэф. релаксации (w)":
+                    parameters.SolverSettings.Relaxation = ParseFloatValue(obj.NewValue);
+                    break;
+                case "Приоритет":
+                    parameters.SolverSettings.Priority = obj.NewValue;
+                    break;
+                case "Кол-во итераций на шаге":
+                    parameters.Iterations = int.Parse(obj.NewValue);
+                    break;
+                case "Частота сохранений, шаг":
+                    parameters.SaveRate = int.Parse(obj.NewValue);
+                    break;
+                case "Начальная температура, C°":
+                    parameters.InitTemp = ParseFloatValue(obj.NewValue);
+                    break;
+                case "Время начала, сек":
+                    parameters.TimeSettings.StartTime = ParseFloatValue(obj.NewValue);
+                    break;
+                case "Время окончания, сек":
+                    parameters.TimeSettings.StopTime = ParseFloatValue(obj.NewValue);
+                    break;
+                case "Начальный шаг расчета, сек":
+                    parameters.TimeSettings.InitTimeStep = ParseFloatValue(obj.NewValue);
+                    break;
+                case "Минимальный шаг расчета, сек":
+                    parameters.TimeSettings.MinTimeStep = ParseFloatValue(obj.NewValue);
+                    break;
+                case "Максимальный шаг расчета, сек":
+                    parameters.TimeSettings.MaxTimeStep = ParseFloatValue(obj.NewValue);
+                    break;
+            }
+            SaveGeneralParametersToFile(parameters, nodeText);
+
+            if(bool.TryParse(obj.NewValue, out bool res))
+                    navigator_SelectTaskEvent(nodeName, nodeText);
         }
 
         [Obsolete ("Отсутствует химические задачи, не протестировано")]
@@ -35,9 +76,9 @@ namespace BazisGUI
             if(obj.Header == "Макс.концентр. (dCt max), %")
                 cmp.ChemicalConvergence.Is_Switched_Cm = bool.Parse(obj.NewValue);
             else if(obj.Header == "Значение макс.концентр.")
-                cmp.ChemicalConvergence.Cm = float.Parse(obj.NewValue);
+                cmp.ChemicalConvergence.Cm = ParseFloatValue(obj.NewValue);
             else if (obj.Header == "Начальная концентрация, %")
-                cmp.InitConcentration = float.Parse(obj.NewValue);
+                cmp.InitConcentration = ParseFloatValue(obj.NewValue);
         }
 
         private void ChangeTermalTask(PropertyChangedEventArgs obj, TermalParameters tmp)
@@ -45,24 +86,24 @@ namespace BazisGUI
             if (obj.Header == "Макс. темп. (dTt max), C°")
                 tmp.TermalConvergence.Is_Switched_Tm = bool.Parse(obj.NewValue);
             else if (obj.Header == "Значение макс. темп.")
-                tmp.TermalConvergence.Tm = float.Parse(obj.NewValue);
+                tmp.TermalConvergence.Tm = ParseFloatValue(obj.NewValue);
         }
 
         private void ChangeMechanicalTask(PropertyChangedEventArgs obj, MechanicalParameters mhp)
         {
             if (obj.Header == "Макс. разница dU, >0")
-                mhp.MechanicalConvergence.DUm = float.Parse(obj.NewValue);
+                mhp.MechanicalConvergence.DUm = ParseFloatValue(obj.NewValue);
             else if (obj.Header == "Макс. перемещения U, >0")
                 mhp.MechanicalConvergence.Is_Switched_Um = bool.Parse(obj.NewValue);
             else if (obj.Header == "Значение макс. перемещения U")
-                mhp.MechanicalConvergence.Um = float.Parse(obj.NewValue);
+                mhp.MechanicalConvergence.Um = ParseFloatValue(obj.NewValue);
             else if (obj.Header == "Пласт. деформации Si/St, >1")
                 mhp.MechanicalConvergence.Is_Physically_NonLinear = bool.Parse(obj.NewValue);
             else if (obj.Header == "Значение пласт. деформации Si/St")
-                mhp.MechanicalConvergence.PlasticityCriterion = float.Parse(obj.NewValue);
+                mhp.MechanicalConvergence.PlasticityCriterion = ParseFloatValue(obj.NewValue);
         }
 
-        private void SaveGeneralParametersToFile()
+        private void SaveGeneralParametersToFile(GeneralParameters parameters, string nodeText)
         {
             var settingsSerializer = new JsonSerializerSettings
             {
@@ -71,8 +112,14 @@ namespace BazisGUI
             };
 
             var parLine = JsonConvert.SerializeObject(parameters, settingsSerializer);
-            var path = _nodeText.Split(' ')[1];
+            var path = nodeText.Split(' ')[1];
             File.WriteAllText(path, parLine);
+        }
+
+        private float ParseFloatValue(string value)
+        {
+            value = value.Trim().Replace(',', '.');
+            return float.Parse(value);
         }
     }
 }
