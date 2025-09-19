@@ -82,7 +82,7 @@ namespace BaseModule.PropertiesPanel
                 if(prop.IsCheckable)
                 {
                     cell = new DataGridViewCheckBoxCell();
-                    cell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    cell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
                     cell.Value = Convert.ToBoolean(prop.Value);
                 }
 
