@@ -98,6 +98,7 @@ namespace BazisGUI
                 navigator.TrySearchNodes(NodeName.результаты, out List<TreeNode> nodes);
                 //nodes[0].Nodes["ПоУзлам"].Nodes.Clear();
                 //nodes[0].Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
+                nodes[0].Remove();
 
                 ClearAllDataOnScene();
 

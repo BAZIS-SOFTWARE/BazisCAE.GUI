@@ -268,7 +268,9 @@ namespace BaseModule.Navigator
 
         public void SetContextMenu(TreeNode node)
         {
-            if (node.Parent.Name == NodeName.Точки.ToString() |
+            if(node.Name == NodeName.результаты.ToString())
+                node.ContextMenuStrip = resultsMenuStrip;
+            else if (node.Parent.Name == NodeName.Точки.ToString() |
                 node.Parent.Name == NodeName.Кривые.ToString() |
                 node.Parent.Name == NodeName.Поверхности.ToString() |
                 node.Parent.Name == NodeName.Объемы.ToString() |
@@ -553,7 +555,12 @@ namespace BaseModule.Navigator
             var node = e.Node;
 
             if (e.Node.Level == 0)
-                SelectGeneralInfoEvent?.Invoke();
+            {
+                if (node.Name == NodeName.проект.ToString())
+                    SelectGeneralInfoEvent?.Invoke();
+                else if (node.Name == NodeName.результаты.ToString())
+                    SelectResultsEvent?.Invoke();
+            }           
             
             else if(e.Node.Level == 1)
             {

@@ -148,31 +148,31 @@ namespace BazisGUI
             return dialog.FileName;
         }
 
-        public async Task<Controller> LoadProjectAsync(string path)
-        {
-            var controller = new Controller();
-            MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
-            { Dock = DockStyle.Fill };
+        //public async Task<Controller> LoadProjectAsync(string path)
+        //{
+        //    var controller = new Controller();
+        //    MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
+        //    { Dock = DockStyle.Fill };
 
-            var mbf = CreateMessageBoxExForm(mb);
-            mbf.Show();
-            await Task.Run(new Action(() =>
-            {
-                // TO DO Сделать динамическое отображение данных при загрузке
-                controller.MessageEvent += (ar1) =>
-                {
-                    mb.Invoke(new Action(() =>
-                    {
-                        mb.Message = ar1;
-                    }));
-                };
-                controller.Load(path);
+        //    var mbf = CreateMessageBoxExForm(mb);
+        //    mbf.Show();
+        //    await Task.Run(new Action(() =>
+        //    {
+        //        // TO DO Сделать динамическое отображение данных при загрузке
+        //        controller.MessageEvent += (ar1) =>
+        //        {
+        //            mb.Invoke(new Action(() =>
+        //            {
+        //                mb.Message = ar1;
+        //            }));
+        //        };
+        //        controller.Load(path);
 
-            }));
-            mbf.Close();
+        //    }));
+        //    mbf.Close();
 
-            return controller;
-        }
+        //    return controller;
+        //}
 
         public Form CreateMessageBoxExForm(MessageBoxEx.MessageBoxEx mb)
         {
@@ -229,20 +229,5 @@ namespace BazisGUI
         //    return project;
 
         //}
-
-        public string OpenResults()
-        {
-            var openDialog = new OpenFileDialog();
-
-            openDialog.InitialDirectory = Path.GetFullPath(System.Windows.Forms.Application.ExecutablePath);
-            openDialog.AddExtension = true;
-
-            openDialog.Filter = "Results files (*.db)|*.db";
-
-            if (openDialog.ShowDialog() == DialogResult.Cancel)
-                return string.Empty;
-
-            return openDialog.FileName;
-        }
     }
 }

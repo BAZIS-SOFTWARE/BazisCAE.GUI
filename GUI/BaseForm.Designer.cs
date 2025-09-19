@@ -63,12 +63,6 @@ namespace BazisGUI
             this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.геометрияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.импортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.meshMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.импортСеткиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.экспортСеткиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.добавитьСеткуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tasksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.arcWeldingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lazerWeldingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -493,12 +487,10 @@ namespace BazisGUI
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
-            this.viewMenuItem,
-            this.геометрияToolStripMenuItem,
-            this.meshMenuItem,
             this.dataBasesMenuItem,
             this.tasksMenuItem,
             this.resultsMenuItem,
+            this.viewMenuItem,
             this.настройкиToolStripMenuItem,
             this.справкаToolStripMenuItem,
             this.лицензияToolStripMenuItem});
@@ -606,52 +598,6 @@ namespace BazisGUI
             this.toolStripMenuItem3.Text = "Консоль";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
-            // геометрияToolStripMenuItem
-            // 
-            this.геометрияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.импортToolStripMenuItem});
-            this.геометрияToolStripMenuItem.Name = "геометрияToolStripMenuItem";
-            this.геометрияToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
-            this.геометрияToolStripMenuItem.Text = "Геометрия";
-            // 
-            // импортToolStripMenuItem
-            // 
-            this.импортToolStripMenuItem.Name = "импортToolStripMenuItem";
-            this.импортToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.импортToolStripMenuItem.Text = "Импорт";
-            this.импортToolStripMenuItem.Click += new System.EventHandler(this.импортГеометрииToolStripMenuItem_Click);
-            // 
-            // meshMenuItem
-            // 
-            this.meshMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.импортСеткиToolStripMenuItem,
-            this.экспортСеткиToolStripMenuItem,
-            this.добавитьСеткуToolStripMenuItem});
-            this.meshMenuItem.Name = "meshMenuItem";
-            this.meshMenuItem.Size = new System.Drawing.Size(49, 20);
-            this.meshMenuItem.Text = "Сетка";
-            // 
-            // импортСеткиToolStripMenuItem
-            // 
-            this.импортСеткиToolStripMenuItem.Name = "импортСеткиToolStripMenuItem";
-            this.импортСеткиToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.импортСеткиToolStripMenuItem.Text = "Импорт";
-            this.импортСеткиToolStripMenuItem.Click += new System.EventHandler(this.импортСеткиToolStripMenuItem_Click);
-            // 
-            // экспортСеткиToolStripMenuItem
-            // 
-            this.экспортСеткиToolStripMenuItem.Name = "экспортСеткиToolStripMenuItem";
-            this.экспортСеткиToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.экспортСеткиToolStripMenuItem.Text = "Экспорт";
-            this.экспортСеткиToolStripMenuItem.Click += new System.EventHandler(this.экспортСеткиToolStripMenuItem_Click);
-            // 
-            // добавитьСеткуToolStripMenuItem
-            // 
-            this.добавитьСеткуToolStripMenuItem.Name = "добавитьСеткуToolStripMenuItem";
-            this.добавитьСеткуToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.добавитьСеткуToolStripMenuItem.Text = "Добавить";
-            this.добавитьСеткуToolStripMenuItem.Click += new System.EventHandler(this.добавитьСеткуToolStripMenuItem_Click);
-            // 
             // tasksMenuItem
             // 
             this.tasksMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -662,8 +608,8 @@ namespace BazisGUI
             this.temperingMenuItem,
             this.quenchingMenuItem});
             this.tasksMenuItem.Name = "tasksMenuItem";
-            this.tasksMenuItem.Size = new System.Drawing.Size(56, 20);
-            this.tasksMenuItem.Text = "Задача";
+            this.tasksMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.tasksMenuItem.Text = "Мастер";
             // 
             // arcWeldingMenuItem
             // 
@@ -1562,7 +1508,6 @@ namespace BazisGUI
         private System.Windows.Forms.ToolStripMenuItem viewMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem meshMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tasksMenuItem;
         private System.Windows.Forms.ToolStripMenuItem arcWeldingMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lazerWeldingMenuItem;
@@ -1628,11 +1573,6 @@ namespace BazisGUI
         private ToolStripMenuItem показатьШкалуToolStripMenuItem;
         private BaseModule.Player.PlayerControl checkPlayerControl;
         private TableLayoutPanel tableLayoutPanel1;
-        private ToolStripMenuItem геометрияToolStripMenuItem;
-        private ToolStripMenuItem импортСеткиToolStripMenuItem;
-        private ToolStripMenuItem импортToolStripMenuItem;
-        private ToolStripMenuItem экспортСеткиToolStripMenuItem;
-        private ToolStripMenuItem добавитьСеткуToolStripMenuItem;
         private ToolStripMenuItem открытьToolStripMenuItem1;
     }
 }

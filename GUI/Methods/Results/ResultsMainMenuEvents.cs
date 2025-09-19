@@ -17,6 +17,8 @@ using UserControlsEx.Graph;
 using OperationalController;
 using ResultDB;
 using ResultDB.IO;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace BazisGUI
 {
@@ -309,34 +311,55 @@ namespace BazisGUI
 
         private void открытьToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var fileName = dataController.OpenResults();
-            
-            if (fileName != "")
+            var openDialog = new OpenFileDialog();
+
+            openDialog.InitialDirectory = Path.GetFullPath(System.Windows.Forms.Application.ExecutablePath);
+            openDialog.AddExtension = true;
+
+            openDialog.Filter = "Results files (*.db)|*.db";
+
+            if (openDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+
+            ResultDbPath = openDialog.FileName;
+
+            var loader = new LoadResultsFileDB();
+            var scheme = loader.GetTablesSchemes(openDialog.FileName).
+                FirstOrDefault(x => x.Key == ResultType.nodes.ToString());
+
+            List<TreeNode> results;
+
+            if (!navigator.TrySearchNodes(NodeName.результаты, out results))
             {
-                ResultDbPath = fileName;
+                var rn = navigator.CreateRealNode(NodeName.результаты, "Результаты");
+                rn.ImageIndex = 14;
+                rn.SelectedImageIndex = 14;
 
-                var loader = new LoadResultsFileDB();
-                var scheme = loader.GetTablesSchemes(fileName).
-                    FirstOrDefault(x => x.Key == ResultType.nodes.ToString());
-
-                navigator.TrySearchNodes(NodeName.результаты, out List<TreeNode> nodes);
-                nodes[0].Nodes.Clear();
-
-                resultTimes = loader.GetValues(fileName, scheme.Key, "Time");
-
-                foreach (var desc in scheme.Value)
-                {
-                    var rn = navigator.CreateRealNode(NodeName.Результат, $"{desc}");
-                    rn.ImageIndex = 14;
-                    rn.SelectedImageIndex = 14;
-                    //var node = new TreeNode($"{desc}", 16, 16)
-                    //{ Tag = "6.1", Name = desc };
-
-                    var vn = navigator.CreateVirtualNode(NodeName.Результат);
-                    rn.Nodes.Add(vn);
-                    nodes[0].Nodes.Add(rn);
-                }
+                navigator.SetContextMenu(rn);
+                navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
+                prNodes[0].Nodes.Add(rn);
+                results.Add(rn);
             }
+            else
+                results[0].Nodes.Clear();
+
+            resultTimes = loader.GetValues(openDialog.FileName, scheme.Key, "Time");
+
+
+            foreach (var desc in scheme.Value)
+            {
+                var rn = navigator.CreateRealNode(NodeName.Результат, $"{desc}");
+                rn.ImageIndex = 14;
+                rn.SelectedImageIndex = 14;
+                //var node = new TreeNode($"{desc}", 16, 16)
+                //{ Tag = "6.1", Name = desc };
+
+                var vn = navigator.CreateVirtualNode(NodeName.Результат);
+                rn.Nodes.Add(vn);
+                results[0].Nodes.Add(rn);
+            }
+
         }
 
         public void SortCharNumberStrings(string[] anArray)

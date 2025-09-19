@@ -273,14 +273,14 @@ namespace BazisGUI
                 {
                     tasksMenuItem.Enabled = true;
                     dataBasesMenuItem.Enabled = true;
-                    meshMenuItem.Visible = true;
+                    //meshMenuItem.Visible = true;
                     resultsMenuItem.Visible = true;
                 }
                 else
                 {
                     tasksMenuItem.Enabled = false;
                     dataBasesMenuItem.Enabled = false;
-                    meshMenuItem.Visible = false;
+                    //meshMenuItem.Visible = false;
                     resultsMenuItem.Visible = false;
                 }
             }
