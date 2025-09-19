@@ -66,6 +66,7 @@ namespace BazisGUI
             }
             SaveGeneralParametersToFile(parameters, nodeText);
 
+            //перерисовывает панель свойств если был нажат какой либо чек бокс
             if(bool.TryParse(obj.NewValue, out bool res))
                     navigator_SelectTaskEvent(nodeName, nodeText);
         }
