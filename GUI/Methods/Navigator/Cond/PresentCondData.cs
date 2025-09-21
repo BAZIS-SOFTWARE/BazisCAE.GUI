@@ -19,33 +19,55 @@ namespace BazisGUI
         {
             try
             {
-                if (!navigator.TrySearchNodes(NodeName.задача, out List<TreeNode> task))
-                    throw new Exception("Сначала создайте задачу");
+                List<TreeNode> tasks;
+                var search = navigator.TrySearchNodes(NodeName.задача, out tasks);
 
-                navigator.BeginUpdate();
-                task[0].Nodes.Clear();
-
-                foreach (var data in project.GetAllCondData())
+                if (project.GetAllCondData().Count() != 0)
+                    if (search)
+                    {
+                        PresentConds(tasks.First());
+                    }
+                    else
+                    {
+                        var rn = navigator.CreateRealNode(NodeName.задача, "Задача");
+                        navigator.SetContextMenu(rn);
+                        PresentConds(rn);
+                        navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
+                        prNodes[0].Nodes.Add(rn);
+                    }
+                else
                 {
-                    var nodeType = data.Kind.ToString().ToEnum<NodeName>();
-                    var imgIndex = navigator.GetObjectImageIndex(nodeType);
-
-                    var child = navigator.CreateRealNode(nodeType, $"{data}");
-                    child.ImageIndex = imgIndex;
-                    child.SelectedImageIndex = imgIndex;
-
-                    //navigator.TrySearchNodes(NodeName.условия.ToString(), out List<TreeNode> nodes);
-                    task.First().Nodes.Add(child);
-                    navigator.SetContextMenu(child);
+                    if (search)
+                        tasks.First().Remove();
                 }
-
-                navigator.EndUpdate();
-                task[0].Expand();
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        private void PresentConds(TreeNode taskNode)
+        {
+            navigator.BeginUpdate();
+            taskNode.Nodes.Clear();
+
+            foreach (var data in project.GetAllCondData())
+            {
+                var nodeType = data.Kind.ToString().ToEnum<NodeName>();
+                var imgIndex = navigator.GetObjectImageIndex(nodeType);
+
+                var child = navigator.CreateRealNode(nodeType, $"{data}");
+                child.ImageIndex = imgIndex;
+                child.SelectedImageIndex = imgIndex;
+
+                //navigator.TrySearchNodes(NodeName.условия.ToString(), out List<TreeNode> nodes);
+                taskNode.Nodes.Add(child);
+                navigator.SetContextMenu(child);
+            }
+
+            navigator.EndUpdate();
+            taskNode.Expand();
         }
     }
 }

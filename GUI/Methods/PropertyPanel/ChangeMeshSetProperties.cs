@@ -26,7 +26,7 @@ namespace BazisGUI
                 project.ChangeMeshSetName(dimm,
                     obj.OldValue.ToString(),
                     obj.NewValue.ToString());
-                PresentObjectsDataOnTree();
+                PresentGeoData();
             }
             else if (obj.Header == "Цвет")
             {

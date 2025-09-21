@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using UserControlsEx;
 
 namespace BaseModule.Navigator
@@ -268,8 +269,15 @@ namespace BaseModule.Navigator
 
         public void SetContextMenu(TreeNode node)
         {
-            if(node.Name == NodeName.результаты.ToString())
+            if (node.Name == NodeName.результаты.ToString())
                 node.ContextMenuStrip = resultsMenuStrip;
+            else if (node.Name == NodeName.задача.ToString())
+                node.ContextMenuStrip = taskMenuStrip;
+            else if (node.Name == NodeName.геометрия.ToString())
+            { }//TO DO определить какие действия
+            else if (node.Name == NodeName.сетка.ToString())
+                node.ContextMenuStrip = meshMenuStrip;
+
             else if (node.Parent.Name == NodeName.Точки.ToString() |
                 node.Parent.Name == NodeName.Кривые.ToString() |
                 node.Parent.Name == NodeName.Поверхности.ToString() |
@@ -289,8 +297,8 @@ namespace BaseModule.Navigator
                     node.ContextMenuStrip = elGroup_MenuStrip;
             }
 
-            else if(node.Parent.Name == NodeName.задача.ToString())
-                    node.ContextMenuStrip = condMenuStrip;
+            else if (node.Parent.Name == NodeName.задача.ToString())
+                node.ContextMenuStrip = condMenuStrip;
         }
 
         public void SearchNodeRec(TreeNode startNode, string nodeName, List<TreeNode> nodes)

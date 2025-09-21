@@ -248,7 +248,7 @@ namespace BazisGUI
 
             //SetGeneralSettings(moduleName);
             LicenseModule(moduleName);
-            PresentProjectOnModule();
+            PresentProject();
             DisplayObjects();
         }
 
@@ -691,24 +691,60 @@ namespace BazisGUI
         {
             try
             {
-                var filter = "Project file(*.bpf)|*.bpf|Project file(*.bpf2)|*.bpf2";
-
+                var projFilters = "Project file(*.bpf)|*.bpf|Project file(*.bpf2)|*.bpf2";
+                var geomFilter =
+"(*.brep*)|*.brep|" +
+"(*.geo*)|*.geo|" +
+"*.stp*)|*.stp|" +
+"(*.step*)|*.step|" +
+"(*.iges*)|*.iges|" +
+"(*.igs*)|*.igs";
+                string meshFilter =
+"Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
+"GMSH(*.inp)|*.inp|" +
+"GMSH(*.inp_v2)|*.inp_v2|" +
+"ANSYS(*.cdb*)|*.cdb|" +
+"STL(*.stl*)|*.stl|" +
+"SOLOMIA(*.dat*)|*.dat";
                 OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = filter;
-                dialog.DefaultExt = "bpf";
+                dialog.Filter = "All files(*.*)|*.*|" + 
+                    projFilters + "|" +
+                    geomFilter + "|" +
+                    meshFilter;
+                dialog.DefaultExt = "*.bpf2";
                 if (dialog.ShowDialog() == DialogResult.Cancel)
                     return;
 
-                project = await dataController.OpenProject(dialog.FileName);
+                var ext = Path.GetExtension(dialog.FileName);
+
+                if (projFilters.Contains(ext))
+                {
+                    project = await dataController.OpenProject(dialog.FileName);
+                    gmshController?.Gmsh?.Clear();
+                }
+                    
+                else if (geomFilter.Contains(ext))
+                {
+                    if (gmshController.Gmsh == null)
+                        gmshController = dataController.LoadGMSH();
+
+                    if (project == null)
+                        project = new Controller();
+                    project.ImportCAD(dialog.FileName, gmshController);
+                }
+                else
+                {
+                    project = await dataController.ImportMesh(dialog.FileName);
+                    gmshController?.Gmsh?.Clear();
+                }
 
                 var path = Path.GetDirectoryName(dialog.FileName);
 
                 lblStatus.Text = $"{path}\\{project.Name}";
 
-                gmshController?.Gmsh?.Clear();
 
                 ClearAllDataOnScene();
-                PresentProjectOnModule();
+                PresentProject();
 
                 FitObjectsToScreen();
                 DisplayObjects();
@@ -749,7 +785,7 @@ namespace BazisGUI
                 gmshController?.Gmsh?.Clear();
 
                 ClearAllDataOnScene();
-                PresentProjectOnModule();
+                PresentProject();
 
                 FitObjectsToScreen();
                 DisplayObjects();
@@ -855,7 +891,7 @@ namespace BazisGUI
                     lblStatus.Text = $"{project.Name}";
 
                     ClearAllDataOnScene();
-                    PresentProjectOnModule();
+                    PresentProject();
 
                     FitObjectsToScreen();
                     DisplayObjects();
@@ -867,12 +903,12 @@ namespace BazisGUI
             }
         }
 
-        private void PresentProjectOnModule()
+        private void PresentProject()
         {
             CreateVBObjects("Объекты");
 
-            PresentObjectsDataOnTree();
-
+            PresentGeoData();
+            PresentMeshData();
             PresentGroupDataOnTree();
             PresentCondDataOnTree();
             PresentModelOnSelectToolStrip(project.ModelData.ObjectData);
@@ -1010,6 +1046,11 @@ namespace BazisGUI
             {
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
+
+        }
+
+        private void материалToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
         }
     }

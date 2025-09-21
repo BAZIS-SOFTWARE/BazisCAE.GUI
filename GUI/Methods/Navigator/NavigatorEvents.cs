@@ -495,7 +495,7 @@ namespace BazisGUI
                 project.ClearModelCollection(objType);
                 project.ModelData.ObjectData.ClearEmptySet();
 
-                PresentObjectsDataOnTree();
+                PresentGeoData();
                 PresentGroupDataOnTree();
 
                 //if (arg1 is TaskPage taskPage)
@@ -517,7 +517,7 @@ namespace BazisGUI
             {
                 project.ClearAllData();
 
-                PresentObjectsDataOnTree();
+                PresentGeoData();
                 PresentGroupDataOnTree();
 
                 //if (obj is ToolStripPage taskPage)
@@ -594,7 +594,7 @@ namespace BazisGUI
             else if (nodeName == NodeName.Элементы3D)
                 project.ChangeMeshSetOrder(3, navigator.SelectedNode.Text.Split(' ')[0], obj);
 
-            PresentObjectsDataOnTree();
+            PresentGeoData();
         }
     }
 }

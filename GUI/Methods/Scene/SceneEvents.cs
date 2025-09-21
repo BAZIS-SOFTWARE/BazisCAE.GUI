@@ -230,7 +230,7 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
                 project.ModelData.GroupData.ClearNotExisted();
                 project.TaskData.ClearNotExisted(project.ModelData.GroupData);
 
-                PresentObjectsDataOnTree();
+                PresentGeoData();
                 PresentGroupDataOnTree();
                 PresentCondDataOnTree();
 

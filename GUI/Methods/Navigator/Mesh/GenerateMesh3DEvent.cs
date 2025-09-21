@@ -45,7 +45,7 @@ namespace BazisGUI
             CreateVBObjsByObjsType(ObjType.Узел);
             DeleteVBObjects("Элементы");
             CreateVBObjects("Элементы");
-            PresentObjectsDataOnTree();
+            PresentGeoData();
             FitObjectsToScreen();
             DisplayObjects();
             }
