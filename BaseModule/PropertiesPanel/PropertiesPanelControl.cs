@@ -18,7 +18,6 @@ namespace BaseModule.PropertiesPanel
         private string _oldValue;
         private bool _isValid;
 
-        private List<RowProperty> rowProperties;
         public PropertiesPanelControl()
         {
             InitializeComponent();
@@ -51,9 +50,7 @@ namespace BaseModule.PropertiesPanel
         {
 
             if (dataGridView1.CurrentCell is DataGridViewCheckBoxCell)
-            {
                 dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            }
         }
 
         private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -68,7 +65,6 @@ namespace BaseModule.PropertiesPanel
 
         public void DrawTable(List<RowProperty> rows)
         {
-            rowProperties = rows;
             dataGridView1.Rows.Clear();
             // Тут при создании строки таблицы должно происходить автоопределение типа элемента ячейки
             // comboBox,TextBox, CheckBox etc.
@@ -188,9 +184,6 @@ namespace BaseModule.PropertiesPanel
                 if (newValue != corrected) dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = corrected;
             }
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            //var property = _rowProperties[e.RowIndex];
-            //if (property != null)
-            //{
             CellValueChanged(cell);
         }
 
