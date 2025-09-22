@@ -257,45 +257,6 @@ namespace BazisGUI
             }
         }
 
-        private void navigator_GenerateTSFEvent()
-        {
-            try
-            {
-                var data = project.TaskData.ToList();
-
-                //var pContr = (PinnedTaskPlannerControl)EmbeddedControls.Find("pinnedTaskPlannerControl", false)[0];
-
-                var inputDir = $@"{WorkingDir}\InputData";
-
-                if (!Directory.Exists(inputDir))
-                    Directory.CreateDirectory(inputDir);
-
-                var oldTSF = Directory.GetFiles(inputDir);
-                if (oldTSF.Length > 0) Array.ForEach(oldTSF, x => File.Delete(x));
-
-                var procProp = new ProcessProperty()
-                {
-                    TaskKind = project.ProjectKind,
-                    CommonTaskType = ProcessType.Welding // убрать из препроцессора
-                };
-
-                preProc.CalcCompDataV2(data, procProp, inputDir);
-
-                var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
-
-                var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
-
-                PresentCompDataOnTree(sortedFiles);
-
-                console.PrintInfo($"Входные Данные задачи сгенерированы в {inputDir}", Color.Green);
-
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
         public void navigator_HideConditionsEvent(object arg1, IModelData modelData, HideDataEventArgs arg2)
         {
             DisplayGeometryObjectEvent = null;
@@ -515,15 +476,21 @@ namespace BazisGUI
         {
             try
             {
-                project.ClearAllData();
+                var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
 
-                PresentGeoData();
-                PresentGroupDataOnTree();
+                // TODO Подумать над очисткой данных
+                if(nodeName == NodeName.сетка)
+                {
+                    project.ClearAllData();
 
-                //if (obj is ToolStripPage taskPage)
-                PresentCondDataOnTree();
+                    PresentGeoData();
+                    PresentMeshData();
+                    PresentGroupDataOnTree();
+                    PresentCondDataOnTree();
 
-                ClearAllDataOnScene();
+                    ClearAllDataOnScene();
+                }
+
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -535,39 +502,95 @@ namespace BazisGUI
         private void navigator_GetObjectsInfoEvent(TreeNode node)
         {
             var nodeName = node.Name.ToEnum<NodeName>();
-            var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
 
-            var setName = node.Text.Split(' ')[0];
-            if (nodeName == NodeName.Объем | nodeName == NodeName.Поверхности)
+            if (nodeName == NodeName.Объемы)
             {
-                var ar = node.Text.Split(' ');
-                setName = string.Join(" ", ar, 0, ar.Length - 1);
+                foreach (var item in project.GetModelVolumes())
+                {
+                    var text = $"{item.Number} {item.Name} {item.NumberOfSides}";
+                    var r_node = navigator.CreateRealNode(NodeName.Объем, text);
+                    //r_node.ImageIndex = 14;
+                    //r_node.SelectedImageIndex = 14;
+                    node.Nodes.Add(r_node);
+                }
+            }
+            else
+            {
+                var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
+
+                var setName = node.Text.Split(' ')[1];
+                if (nodeName == NodeName.Поверхности)
+                {
+                    var ar = node.Text.Split(' ');
+                    setName = string.Join(" ", ar, 1, ar.Length - 2);
+                }
+
+                var setInfo = project.GetModelSetInfo(objType, setName);
+                var childs = navigator.CreateRealNodes(objType.ToString(), setInfo.GetObjectsInfo());
+                node.Nodes.AddRange(childs);
             }
 
-            var setInfo = project.GetModelSetInfo(objType, setName);
-
-            var childs = navigator.CreateRealNodes(objType.ToString(), setInfo.GetObjectsInfo());
-            node.Nodes.AddRange(childs);  
+ 
         }
 
         private void navigator_GetSetsInfoEvent(TreeNode node)
         {
             var nodeType = node.Name.ToEnum<NodeName>();
-            var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
+            //var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
 
-            var sets = project.GetModelSetsInfo(objType);
+            //var sets = project.GetModelSetsInfo(objType);
 
-            foreach (var set in sets)
+            List<ObjType> objTypes;
+            if (nodeType == NodeName.сетка)
+                objTypes = new List<ObjType>()
+                {
+                    ObjType.Узел,
+                    ObjType.Элемент1D,
+                    ObjType.Элемент2D,
+                    ObjType.Элемент3D
+                };
+            else
             {
-                var text = $"{set.Name} {set.NumberOfObjects}";
-                var r_node = navigator.CreateRealNode(node.Name, text);
+                objTypes = new List<ObjType>()
+                {
+                    ObjType.Точка,
+                    ObjType.Кривая,
+                    ObjType.Поверхность
+                };
+            }
+            foreach (var item in objTypes)
+                foreach (var set in project.GetModelSetsInfo(item))
+                {
+                    var nodeName = Converters.ConvertToNavigatorNodeType(set.ObjType);
+                    var text = $"{nodeName} {set.Name} {set.NumberOfObjects}";
+                    var r_node = navigator.CreateRealNode(nodeName, text);
+                    r_node.ImageIndex = 14;
+                    r_node.SelectedImageIndex = 14;
+                    var v_node = navigator.CreateVirtualNode();
+                    r_node.Nodes.Add(v_node);
+                    node.Nodes.Add(r_node);
+                    navigator.SetContextMenu(r_node);
+                }
+            // загрузка объемов
+            if (nodeType == NodeName.геометрия)
+            {
+                var text = $"{NodeName.Объемы} {NodeName.Объем} {project.GetModelVolumes().Count()}";
+                var r_node = navigator.CreateRealNode(NodeName.Объемы, text);
+
                 r_node.ImageIndex = 14;
                 r_node.SelectedImageIndex = 14;
-                var v_node = navigator.CreateVirtualNode(set.ObjType.ToString());
+                var v_node = navigator.CreateVirtualNode();
                 r_node.Nodes.Add(v_node);
                 node.Nodes.Add(r_node);
                 navigator.SetContextMenu(r_node);
             }
+                //foreach (var item in project.GetModelVolumes())
+                //{
+                //    var r_node = navigator.CreateRealNode(NodeName.Объем, $"{NodeName.Объем} {item.Name} {item.NumberOfSides}");
+                //    r_node.ImageIndex = 14;
+                //    r_node.SelectedImageIndex = 14;
+                //    node.Nodes.Add(r_node);
+                //}
         }
 
         private void navigator_GetResultInfoEvent(TreeNode node)

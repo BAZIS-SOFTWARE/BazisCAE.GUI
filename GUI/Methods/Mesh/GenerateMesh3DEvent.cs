@@ -26,7 +26,7 @@ namespace BazisGUI
     {
         [HandleProcessCorruptedStateExceptions]
         [SecurityCritical]
-        private void navigator_GenerateMesh3DEvent()
+        private void создать3DСеткуToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace BazisGUI
             CreateVBObjsByObjsType(ObjType.Узел);
             DeleteVBObjects("Элементы");
             CreateVBObjects("Элементы");
-            PresentGeoData();
+            PresentMeshData();
             FitObjectsToScreen();
             DisplayObjects();
             }

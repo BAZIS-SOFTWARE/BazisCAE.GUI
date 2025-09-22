@@ -12,7 +12,7 @@ namespace BazisGUI
         {
             try
             {
-                var setName = arg2.Split(' ')[0];
+                var setName = arg2.Split(' ')[1];
                 if (arg1 == NodeName.Объем | arg1 == NodeName.Поверхности)
                 {
                     var ar = arg2.Split(' ');

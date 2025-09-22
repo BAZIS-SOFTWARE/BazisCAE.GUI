@@ -1,6 +1,7 @@
 ﻿using BaseModule.Extensions;
 using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
+using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
@@ -19,26 +20,48 @@ namespace BazisGUI
         {
             try
             {
-                navigator.BeginUpdate();
-                navigator.TrySearchNodes(NodeName.расчет, out List<TreeNode> comp);
+                List<TreeNode> comp;
+                var search = navigator.TrySearchNodes(NodeName.расчет, out comp);
 
-                comp[0].Nodes.Clear();
-
-                foreach (var item in compData)
+                if (compData.Count() != 0)
+                    if(search)
+                    {
+                        NewMethod(compData, comp.First());
+                    }
+                    else
+                    {
+                        var rn = navigator.CreateRealNode(NodeName.расчет, "Расчет");
+                        navigator.SetContextMenu(rn);
+                        NewMethod(compData, rn);
+                        navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
+                        prNodes[0].Nodes.Add(rn);
+                    }
+                else
                 {
-                    var nodeName = item.Split(' ')[0].ToEnum<NodeName>();
-                    var r = navigator.CreateRealNode(nodeName, item);
-
-                    comp[0].Nodes.Add(r);
+                    if (search)
+                        comp.First().Remove();
                 }
-
-                navigator.EndUpdate();
-                comp[0].Expand();
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        private void NewMethod(List<string> compData, TreeNode compNode)
+        {
+            navigator.BeginUpdate();
+            compNode.Nodes.Clear();
+            foreach (var item in compData)
+            {
+                var nodeName = item.Split(' ')[0].ToEnum<NodeName>();
+                var r = navigator.CreateRealNode(nodeName, item);
+
+                compNode.Nodes.Add(r);
+            }
+
+            navigator.EndUpdate();
+            compNode.Expand();
         }
     }
 }

@@ -26,6 +26,8 @@ using OperationalController;
 using Model;
 using BaseModule.Utilities;
 using System.Xml.Linq;
+using PreProc.Interfaces;
+using PreProc;
 
 namespace BazisGUI
 {
@@ -1046,11 +1048,6 @@ namespace BazisGUI
             {
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
-
-        }
-
-        private void материалToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
         }
     }

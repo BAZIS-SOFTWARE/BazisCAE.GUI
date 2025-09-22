@@ -1,5 +1,6 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
+using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
 using BazisGUI.Utilities;
 using GmshApi;
 using Model.GeometryObjects;
@@ -22,21 +23,44 @@ namespace BazisGUI
     {
         public void PresentGroupDataOnTree()
         {
+            List<TreeNode> nodes;
+            var search = navigator.TrySearchNodes(NodeName.группы, out nodes);
+
+            if (project.GetAllModelGroups().Count() != 0)
+                if (search)
+                {
+                    PresentGroups(nodes.First());
+                }
+                else
+                {
+                    var rn = navigator.CreateRealNode(NodeName.группы, "Группы");
+                    navigator.SetContextMenu(rn);
+                    PresentGroups(rn);
+                    navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
+                    prNodes[0].Nodes.Add(rn);
+                }
+            else
+            {
+                if (search)
+                    nodes.First().Remove();
+            }
+        }
+
+        private void PresentGroups(TreeNode grNode)
+        {
             navigator.BeginUpdate();
-
-            navigator.TrySearchNodes(NodeName.группы, out List<TreeNode> nodes);
-
-            nodes[0].Nodes.Clear();
+            grNode.Nodes.Clear();
 
             foreach (var item in project.GetAllModelGroups())
             {
                 var r = navigator.CreateRealNode(item.ObjType.ToString(), $"{item.Name} {item.Count}");
 
-                nodes[0].Nodes.Add(r);
+                grNode.Nodes.Add(r);
                 navigator.SetContextMenu(r);
             }
 
             navigator.EndUpdate();
+            grNode.Expand();
         }
     }
 }

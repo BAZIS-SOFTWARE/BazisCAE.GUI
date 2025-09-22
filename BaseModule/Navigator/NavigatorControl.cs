@@ -124,10 +124,10 @@ namespace BaseModule.Navigator
         public event Action<int> InfoGroupEvent;
         public event Action<int> ShowGroupWithNodesEvent;
 
-        public event Action<int> GenerateMesh2DEvent;
-        public event Action GenerateMesh3DEvent;
-        public event Action Create2DFrom3DEvent;
-        public event Action Create1DFrom2DEvent;
+        //public event Action<int> GenerateMesh2DEvent;
+        //public event Action GenerateMesh3DEvent;
+        //public event Action Create2DFrom3DEvent;
+        //public event Action Create1DFrom2DEvent;
 
         public event Action<TreeNode> GetObjectsInfoEvent;
         public event Action<NodeName> DelObjectsEvent;
@@ -154,7 +154,7 @@ namespace BaseModule.Navigator
 
         public event Action<object,NodeName> AddConditionEvent;
         public event Action DelCondEvent;
-        public event Action GenerateTSFEvent;
+        //public event Action GenerateTSFEvent;
         public event Action GenerateTCFEvent;
 
         public event Action StopComputationEvent;
@@ -187,7 +187,9 @@ namespace BaseModule.Navigator
                 { NodeName.Среда,9},
                 { NodeName.Нагрев,10},
                 { NodeName.Закрепление,11},
-                { NodeName.Нагрузка,12}
+                { NodeName.Нагрузка,12},
+                { NodeName.сетка,14},
+                { NodeName.геометрия,14}
             };
 
             treeView.Nodes[0].Expand();
@@ -218,7 +220,7 @@ namespace BaseModule.Navigator
             var tVirt = new TreeNode("Loading...") { Name = name.ToString() };
             tVirt.Name = VIRTUALNODE;
             tVirt.ForeColor = Color.Blue;
-            tVirt.NodeFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Underline);
+            //tVirt.NodeFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Underline);
             return tVirt;
         }
 
@@ -227,7 +229,16 @@ namespace BaseModule.Navigator
             var tVirt = new TreeNode("Loading...") { Name = name };
             tVirt.Name = VIRTUALNODE;
             tVirt.ForeColor = Color.Blue;
-            tVirt.NodeFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Underline);
+            //tVirt.NodeFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Underline);
+            return tVirt;
+        }
+
+        public TreeNode CreateVirtualNode()
+        {
+            var tVirt = new TreeNode("Loading...");
+            tVirt.Name = VIRTUALNODE;
+            tVirt.ForeColor = Color.Blue;
+            //tVirt.NodeFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Underline);
             return tVirt;
         }
 
@@ -277,6 +288,10 @@ namespace BaseModule.Navigator
             { }//TO DO определить какие действия
             else if (node.Name == NodeName.сетка.ToString())
                 node.ContextMenuStrip = meshMenuStrip;
+            else if (node.Name == NodeName.группы.ToString())
+                node.ContextMenuStrip = groups_MenuStrip;
+            else if (node.Name == NodeName.расчет.ToString())
+                node.ContextMenuStrip = compMenuStrip;
 
             else if (node.Parent.Name == NodeName.Точки.ToString() |
                 node.Parent.Name == NodeName.Кривые.ToString() |
@@ -525,8 +540,8 @@ namespace BaseModule.Navigator
 
         public void DelAllObjects_Click(object sender, EventArgs e)
         {
-            foreach (TreeNode item in treeView.Nodes["объекты"].Nodes)
-                item.Nodes.Clear();
+            //foreach (TreeNode item in treeView.Nodes["объекты"].Nodes)
+            //    item.Nodes.Clear();
 
             DelAllObjectsEvent?.Invoke();
         }
@@ -610,23 +625,23 @@ e.Node.Name == NodeName.Объем.ToString()
                     SelectResultEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
             }
 
-            else if (e.Node.Level == 3)
-            {
-                if (e.Node.Parent.Name == NodeName.Узлы.ToString() |
-e.Node.Parent.Name == NodeName.Элементы1D.ToString() |
-e.Node.Parent.Name == NodeName.Элементы2D.ToString() |
-e.Node.Parent.Name == NodeName.Элементы3D.ToString() |
-e.Node.Parent.Name == NodeName.Точки.ToString() |
-e.Node.Parent.Name == NodeName.Кривые.ToString() |
-e.Node.Parent.Name == NodeName.Поверхности.ToString() |
-e.Node.Parent.Name == NodeName.Объемы.ToString()
-)
-                    SelectSetEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
-                else if (e.Node.Name == NodeName.Время.ToString())
-                    SelectTimeEvent?.Invoke(e.Node.Parent.Text, double.Parse(e.Node.Text));
-            }
+            //else if (e.Node.Level == 3)
+            //{
+//                if (e.Node.Parent.Name == NodeName.Узлы.ToString() |
+//e.Node.Parent.Name == NodeName.Элементы1D.ToString() |
+//e.Node.Parent.Name == NodeName.Элементы2D.ToString() |
+//e.Node.Parent.Name == NodeName.Элементы3D.ToString() |
+//e.Node.Parent.Name == NodeName.Точки.ToString() |
+//e.Node.Parent.Name == NodeName.Кривые.ToString() |
+//e.Node.Parent.Name == NodeName.Поверхности.ToString() |
+//e.Node.Parent.Name == NodeName.Объемы.ToString()
+//)
+//                    SelectSetEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
+                //else if (e.Node.Name == NodeName.Время.ToString())
+                    //SelectTimeEvent?.Invoke(e.Node.Parent.Text, double.Parse(e.Node.Text));
+            //}
 
-            else if (e.Node.Level == 4)
+            else if (e.Node.Level == 3)
             {
                 if (e.Node.Name == NodeName.Узел.ToString() |
 e.Node.Name == NodeName.Элемент1D.ToString() |
@@ -638,11 +653,12 @@ e.Node.Name == NodeName.Поверхность.ToString() |
 e.Node.Name == NodeName.Объем.ToString()
 )
                 {
-                    var set = node.Parent.Text.Split(' ')[0];
+                    var set = node.Parent.Text.Split(' ')[1];
                     var number = int.Parse(node.Text.Split(' ')[0]);
                     SelectObjectEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), set, number);
                 }
-
+                else if (e.Node.Name == NodeName.Время.ToString())
+                    SelectTimeEvent?.Invoke(e.Node.Parent.Text, double.Parse(e.Node.Text));
             }
         }
 
@@ -661,26 +677,32 @@ e.Node.Name == NodeName.Объем.ToString()
 
                     if(e.Node.Level == 1)
                     {
-
-                    } 
-                    else if(e.Node.Level == 2)
-                    {
-                        if (e.Node.Name == NodeName.Узлы.ToString() |
-      e.Node.Name == NodeName.Элементы1D.ToString() |
-      e.Node.Name == NodeName.Элементы2D.ToString() |
-      e.Node.Name == NodeName.Элементы3D.ToString() |
-      e.Node.Name == NodeName.Точки.ToString() |
-      e.Node.Name == NodeName.Кривые.ToString() |
-      e.Node.Name == NodeName.Поверхности.ToString() |
-      e.Node.Name == NodeName.Объемы.ToString()
-      )
+                        if(e.Node.Name == NodeName.сетка.ToString() |
+                            e.Node.Name == NodeName.геометрия.ToString())
                             GetSetsInfoEvent?.Invoke(e.Node);
-                        else if (e.Node.Name == NodeName.Результат.ToString())
-                            GetResultInfoEvent?.Invoke(e.Node);
-                    }
+                    } 
+                    //else if(e.Node.Level == 2)
+                    //{
+                        // !!!!Пока посмотрим как будет работать если все наборы будут в одной куче
+      //
+      //                  if (e.Node.Name == NodeName.Узлы.ToString() |
+      //e.Node.Name == NodeName.Элементы1D.ToString() |
+      //e.Node.Name == NodeName.Элементы2D.ToString() |
+      //e.Node.Name == NodeName.Элементы3D.ToString() |
+      //e.Node.Name == NodeName.Точки.ToString() |
+      //e.Node.Name == NodeName.Кривые.ToString() |
+      //e.Node.Name == NodeName.Поверхности.ToString() |
+      //e.Node.Name == NodeName.Объемы.ToString()
+      //)
+      //                      GetSetsInfoEvent?.Invoke(e.Node);
 
-                    else if(e.Node.Level == 3)
-                        GetObjectsInfoEvent?.Invoke(e.Node);
+                    //}
+
+                    else if(e.Node.Level == 2)
+                        if (e.Node.Name == NodeName.Результат.ToString())
+                            GetResultInfoEvent?.Invoke(e.Node);
+                        else
+                            GetObjectsInfoEvent?.Invoke(e.Node);
 
                 }
                 catch
@@ -715,11 +737,6 @@ e.Node.Name == NodeName.Объем.ToString()
         private void высокийПриорToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetCompPriority?.Invoke(this, Priority.Высокий);
-        }
-
-        private void сформироватьИнструкцииToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GenerateTSFEvent?.Invoke();
         }
 
         private void запуститьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
@@ -877,29 +894,9 @@ e.Node.Name == NodeName.Объем.ToString()
             SetElementsOrderEvent?.Invoke(2);
         }
 
-        private void треугольная2DMenuItem_Click(object sender, EventArgs e)
-        {
-            GenerateMesh2DEvent?.Invoke(3);
-        }
-
-        private void создать3DMenuItem_Click(object sender, EventArgs e)
-        {
-            GenerateMesh3DEvent?.Invoke();
-        }
-
         private void удалитьУсловиеMenuItem_Click(object sender, EventArgs e)
         {
             DelCondEvent?.Invoke();
-        }
-
-        private void создать2Dпо3DToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Create2DFrom3DEvent?.Invoke();
-        }
-
-        private void создать1Dпо2DToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Create1DFrom2DEvent?.Invoke();
         }
     }
 }

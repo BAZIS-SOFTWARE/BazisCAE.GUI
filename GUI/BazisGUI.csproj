@@ -239,6 +239,9 @@
     <Compile Include="Methods\BasePage.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Comp\GenerateTSF.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Console\FindCoincidentNodes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -251,13 +254,13 @@
     <Compile Include="Methods\Navigator\Cond\DelCondEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Mesh\GreateBoundaryMesh.cs">
+    <Compile Include="Methods\Mesh\GreateBoundaryMesh.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Mesh\GenerateMesh2DEvent.cs">
+    <Compile Include="Methods\Mesh\GenerateMesh2DEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Mesh\GenerateMesh3DEvent.cs">
+    <Compile Include="Methods\Mesh\GenerateMesh3DEvent.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Objects\GetCurveProperty.cs">

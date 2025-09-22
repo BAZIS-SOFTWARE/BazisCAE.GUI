@@ -9,6 +9,7 @@ using Model.Interfaces;
 using Model.Interfaces.ObjectsFinders;
 using Model.MeshObjects;
 using OperationalController.GmshController;
+using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
@@ -28,7 +29,7 @@ namespace BazisGUI
         {
             try
             {
-                navigator.BeginUpdate();
+                //navigator.BeginUpdate();
 
                 var searchGeo = navigator.TrySearchNodes(NodeName.геометрия, out List<TreeNode> geo);
 
@@ -36,18 +37,31 @@ namespace BazisGUI
 
                 if (points.Count() != 0)
                 {
-                    var types = new List<ObjType>() { ObjType.Точка, ObjType.Кривая, ObjType.Поверхность };
+                    //var types = new List<ObjType>() { ObjType.Точка, ObjType.Кривая, ObjType.Поверхность };
                     if (searchGeo)
-                        PresentObjects(geo.First(), types);
+                    {
+                        var v_node = navigator.CreateVirtualNode();
+                        geo[0].Nodes.Clear();
+                        geo[0].Nodes.Add(v_node);
+                    }
+                        //PresentObjects(geo.First(), types);
                     else
                     {
                         var rn = navigator.CreateRealNode(NodeName.геометрия, "Геометрия");
                         navigator.SetContextMenu(rn);
-                        PresentObjects(rn, types);
+
+                        var imgIndex = navigator.GetObjectImageIndex(NodeName.геометрия);
+
+                        rn.ImageIndex = imgIndex;
+                        rn.SelectedImageIndex = imgIndex;
+
+                        var v_node = navigator.CreateVirtualNode();
+                        rn.Nodes.Add(v_node);
+                        //PresentObjects(rn, types);
                         navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
                         prNodes[0].Nodes.Add(rn);
                     }
-                    PresentVolumeInfo();
+                    //PresentVolumeInfo();
                 }
 
                 else
@@ -62,72 +76,77 @@ namespace BazisGUI
             }
         }
 
-        private void PresentObjects(TreeNode geoNode, List<ObjType> types)
+        private void PresentObjects(TreeNode objNode, List<ObjType> types)
         {
             navigator.BeginUpdate();
-            geoNode.Nodes.Clear();
+            objNode.Nodes.Clear();
 
             foreach (ObjType objType in types)
                 foreach (var item in project.GetModelSetsInfo(objType))
                 {
                     if (item.NumberOfObjects > 0)
                     {
-                        //if(item.ObjType == ObjType.Узел)
-                        //    nodes[0].Nodes[NodeType.Узлы.ToString()]
+                        //var r_node = navigator.CreateRealNode(NodeName.Объем, $"{item.Name} {item.NumberOfSides}");
                         var root = Converters.ConvertToNavigatorNodeType(item.ObjType);
-                        navigator.TryCreateNode(root.ToString(), root.ToString(), $"{root} {item.NumberOfObjects}", NodeKind.virt);
+                        var text = $"{root} {item.Name} {item.NumberOfObjects}";
+                        var node = navigator.CreateRealNode(root, text);
+                        objNode.Nodes.Add(node);
                     }
                 }
 
             navigator.EndUpdate();
-            geoNode.Expand();
+            objNode.Expand();
         }
-        private void PresentVolumeInfo()
-        {
-            navigator.TrySearchNodes(NodeName.Объемы, out List<TreeNode> nodes);
-            foreach (var item in project.GetModelVolumes())
-            {
-                var r_node = navigator.CreateRealNode(NodeName.Объем, $"{item.Name} {item.NumberOfSides}");
-                nodes[0].Nodes.Add(r_node);
-            }      
-        }
-
 
         public void PresentMeshData()
         {
             try
             {
-                navigator.BeginUpdate();
+                //navigator.BeginUpdate();
 
-                var searchGeo = navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> geo);
+                var searchMesh = navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> mesh);
 
-                var points = project.GetModelObjects(ObjType.Узел);
+                var nodes = project.GetModelObjects(ObjType.Узел);
 
-                var types = new List<ObjType>() 
-                { 
-                    ObjType.Узел, 
-                    ObjType.Элемент1D, 
-                    ObjType.Элемент2D, 
-                    ObjType.Элемент3D 
-                };
+                //var types = new List<ObjType>() 
+                //{ 
+                //    ObjType.Узел, 
+                //    ObjType.Элемент1D, 
+                //    ObjType.Элемент2D, 
+                //    ObjType.Элемент3D 
+                //};
 
-                if (points.Count() != 0)
-                    if (searchGeo)
+                if (nodes.Count() != 0)
+                    if (searchMesh)
                     {
-                        PresentObjects(geo.First(),types);
+                        var v_node = navigator.CreateVirtualNode();
+                        mesh[0].Nodes.Clear();
+                        mesh[0].Nodes.Add(v_node);
+                        //PresentObjects(mesh.First(),types);
                     }
                     else
                     {
                         var rn = navigator.CreateRealNode(NodeName.сетка, "Сетка");
                         navigator.SetContextMenu(rn);
-                        PresentObjects(rn,types);
+
+                        var imgIndex = navigator.GetObjectImageIndex(NodeName.сетка);
+
+                        rn.ImageIndex = imgIndex;
+                        rn.SelectedImageIndex = imgIndex;
+
+                        var v_node = navigator.CreateVirtualNode();
+                        rn.Nodes.Add(v_node);
+
+                        // Наборы будет виртуальные
+
+                        //PresentObjects(rn,types);
                         navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
                         prNodes[0].Nodes.Add(rn);
                     }
                 else
                 {
-                    if (searchGeo)
-                        geo.First().Remove();
+                    if (searchMesh)
+                        mesh.First().Remove();
                 }
             }
             catch (Exception ex)

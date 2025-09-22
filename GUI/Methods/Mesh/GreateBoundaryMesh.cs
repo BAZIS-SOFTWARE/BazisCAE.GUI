@@ -25,7 +25,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_Create1DFrom2DEvent()
+        private void наПоверхности2DToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace BazisGUI
             }
         }
 
-        private void navigator_Create2DFrom3DEvent()
+        private void наПоверхности3DToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
