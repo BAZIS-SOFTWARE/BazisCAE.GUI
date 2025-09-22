@@ -5,10 +5,10 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
+using UserControlsEx.Graph;
 using PropertiesCalculator;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
-using UserControlsEx.Graph;
 
 namespace PropertiesDataBases.DataBases
 {

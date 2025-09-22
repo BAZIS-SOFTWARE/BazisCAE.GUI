@@ -22,7 +22,7 @@ namespace BaseModule.PropertiesPanel
         {
             InitializeComponent();
             dataGridView1.DataError += DataGridView1_DataError;
-
+            dataGridView1.CurrentCellDirtyStateChanged += DataGridView1_CurrentCellDirtyStateChanged;
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Header",
@@ -44,6 +44,13 @@ namespace BaseModule.PropertiesPanel
                 },
             });
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void DataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+
+            if (dataGridView1.CurrentCell is DataGridViewCheckBoxCell)
+                dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
 
         private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -71,7 +78,7 @@ namespace BaseModule.PropertiesPanel
                 if(prop.IsCheckable)
                 {
                     cell = new DataGridViewCheckBoxCell();
-                    cell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    cell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
                     cell.Value = Convert.ToBoolean(prop.Value);
                 }
 
@@ -124,6 +131,7 @@ namespace BaseModule.PropertiesPanel
                 if(dataGridView1.Rows[e.RowIndex].Cells[1].Value != null)
                     _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
             }
+
         }
 
         public void CellValueChanged(DataGridViewCell e)
@@ -138,6 +146,7 @@ namespace BaseModule.PropertiesPanel
                     var color = ChangeColorCell(newValue);
                     dataGridView1.Rows[e.RowIndex].Cells[1].Style.BackColor = color;
                 }
+
 
                 PropertyUpdateEvent?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
             }
@@ -174,11 +183,7 @@ namespace BaseModule.PropertiesPanel
                 }
                 if (newValue != corrected) dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = corrected;
             }
-
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            //var property = _rowProperties[e.RowIndex];
-            //if (property != null)
-            //{
             CellValueChanged(cell);
         }
 

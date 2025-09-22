@@ -251,6 +251,21 @@
     <Compile Include="Methods\Console\ConsoleEvents.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Navigator\Comp\ChangeCompProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Comp\GetPropertyChemicalTask.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Comp\GetPropertyMechanicalTask.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Comp\GetPropertyTermalTask.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Navigator\Comp\SelectCompEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Navigator\Cond\DelCondEvent.cs">
       <SubType>Form</SubType>
     </Compile>

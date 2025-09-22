@@ -132,6 +132,11 @@ namespace BazisGUI
                         navigator.SelectedNode.Text = cond.ToString();
 
                     }
+                    else if(parentName == NodeName.расчет)
+                    {
+                        var s = navigator.SelectedNode.Text;
+                        ChangeCompProperties(obj, s);
+                    }
 
                 }
 
