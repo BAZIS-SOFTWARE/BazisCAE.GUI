@@ -155,7 +155,7 @@ namespace BazisGUI
                 var result = new List<string>
             {
                 $@"\\загрузка сетки и данных",
-                $@"загрузить проект {WorkingDir}\{project.Name}",
+                $@"загрузить проект {lblStatus.Text}",
                 /*
                 $@"\\загрузка материалов",
                 $@"загрузить материалы {project.Path}\{project.MaterialsDB}",
@@ -191,15 +191,15 @@ namespace BazisGUI
         {
             try
             {
-                if (!File.Exists($@"{WorkingDir}\{project.Name}"))
+                if (!File.Exists($@"{lblStatus.Text}"))
                     throw new Exception($"В папке проекта {WorkingDir} отсутствует файл проекта {project.Name}. " +
                         $"Верните файл проекта в папку проекта или выберете другой проект");
 
-                if (!File.Exists($@"{WorkingDir}\{project.MaterialsDB}"))
+                if (!File.Exists($@"{WorkingDir}\{project.MaterialsDB.Name}"))
                     throw new Exception($"В папке проекта {WorkingDir} отсутствует файл материалов {project.MaterialsDB}. " +
                         $"Верните файл материалов в папку проекта или выберете другой файл материалов");
 
-                if (!File.Exists($@"{WorkingDir}\{project.FunctionsDB}"))
+                if (!File.Exists($@"{WorkingDir}\{project.FunctionsDB.Name}"))
                     throw new Exception($"В папке проекта {WorkingDir} отсутствует файл функций {project.FunctionsDB}. " +
                         $"Верните файл функций в папку проекта или выберете другой файл функций");
 
@@ -446,32 +446,6 @@ namespace BazisGUI
         {
             splitContainer1.Panel1Collapsed = true;
         }
-
-        private void navigator_DelObjectsEvent(NodeName obj)
-        {
-            try
-            {
-                var objType = Converters.ConvertNavigatorNodeNameToObjType(obj);
-
-                project.ClearModelCollection(objType);
-                project.ModelData.ObjectData.ClearEmptySet();
-
-                PresentGeoData();
-                PresentGroupDataOnTree();
-
-                //if (arg1 is TaskPage taskPage)
-                PresentCondDataOnTree();
-
-                ClearAllDataOnScene();
-                CreateVBObjects("Объекты");
-                DisplayObjects();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
-        }
         private void navigator_DelAllObjectsEvent()
         {
             try
@@ -606,13 +580,17 @@ namespace BazisGUI
             var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
 
             if (nodeName == NodeName.Элементы1D)
-                project.ChangeMeshSetOrder(1, navigator.SelectedNode.Text.Split(' ')[0], obj);
+                project.ChangeMeshSetOrder(1, navigator.SelectedNode.Text.Split(' ')[1], obj);
             else if (nodeName == NodeName.Элементы2D)
-                project.ChangeMeshSetOrder(2, navigator.SelectedNode.Text.Split(' ')[0], obj);
+                project.ChangeMeshSetOrder(2, navigator.SelectedNode.Text.Split(' ')[1], obj);
             else if (nodeName == NodeName.Элементы3D)
-                project.ChangeMeshSetOrder(3, navigator.SelectedNode.Text.Split(' ')[0], obj);
+                project.ChangeMeshSetOrder(3, navigator.SelectedNode.Text.Split(' ')[1], obj);
 
-            PresentGeoData();
+            PresentMeshData();
+            navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> mesh);
+            
+            mesh.First().Collapse();
+            mesh.First().Expand();
         }
     }
 }

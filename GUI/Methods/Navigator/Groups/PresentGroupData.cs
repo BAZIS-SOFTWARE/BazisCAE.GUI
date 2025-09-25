@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace BazisGUI
 {
@@ -53,7 +54,11 @@ namespace BazisGUI
 
             foreach (var item in project.GetAllModelGroups())
             {
-                var r = navigator.CreateRealNode(item.ObjType.ToString(), $"{item.Name} {item.Count}");
+                var nodeName = Converters.ConvertToNavigatorNodeType(item.ObjType);
+                var r = navigator.CreateRealNode(nodeName, $"{item.Name} {item.Count}");
+                var ind = navigator.GetObjectImageIndex(nodeName);
+                r.ImageIndex = ind;
+                r.SelectedImageIndex = ind;
 
                 grNode.Nodes.Add(r);
                 navigator.SetContextMenu(r);

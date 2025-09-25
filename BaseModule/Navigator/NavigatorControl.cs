@@ -124,15 +124,7 @@ namespace BaseModule.Navigator
         public event Action<int> InfoGroupEvent;
         public event Action<int> ShowGroupWithNodesEvent;
 
-        //public event Action<int> GenerateMesh2DEvent;
-        //public event Action GenerateMesh3DEvent;
-        //public event Action Create2DFrom3DEvent;
-        //public event Action Create1DFrom2DEvent;
-
         public event Action<TreeNode> GetObjectsInfoEvent;
-        public event Action<NodeName> DelObjectsEvent;
-        public event Action<NodeName> ShowObjectsEvent;
-        public event Action<NodeName> HideObjectsEvent;
 
         public event Action<NodeName, string, int> SelectObjectEvent;
         public event Action<NodeName, string, int> DelObjectEvent;
@@ -177,9 +169,9 @@ namespace BaseModule.Navigator
             {
                 { NodeName.Узлы,3},
                 { NodeName.Точки,3},
-                { NodeName.Кривые,4},
-                { NodeName.Поверхности,4},
-                { NodeName.Объемы,4},
+                { NodeName.Кривые,7},
+                { NodeName.Поверхности,7},
+                { NodeName.Объемы,7},
                 { NodeName.Элементы3D,4},
                 { NodeName.Элементы2D,4},
                 { NodeName.Элементы1D,4},
@@ -287,31 +279,36 @@ namespace BaseModule.Navigator
             else if (node.Name == NodeName.геометрия.ToString())
             { }//TO DO определить какие действия
             else if (node.Name == NodeName.сетка.ToString())
-                node.ContextMenuStrip = meshMenuStrip;
+                node.ContextMenuStrip = objectsMenuStrip;
             else if (node.Name == NodeName.группы.ToString())
                 node.ContextMenuStrip = groups_MenuStrip;
             else if (node.Name == NodeName.расчет.ToString())
                 node.ContextMenuStrip = compMenuStrip;
 
-            else if (node.Parent.Name == NodeName.Точки.ToString() |
-                node.Parent.Name == NodeName.Кривые.ToString() |
-                node.Parent.Name == NodeName.Поверхности.ToString() |
-                node.Parent.Name == NodeName.Объемы.ToString() |
-                node.Parent.Name == NodeName.Узлы.ToString() |
-                node.Parent.Name == NodeName.Элементы1D.ToString() |
-                node.Parent.Name == NodeName.Элементы2D.ToString() |
-                node.Parent.Name == NodeName.Элементы3D.ToString())
-                node.ContextMenuStrip = set_MenuStrip;
-            else if (node.Parent.Name == NodeName.группы.ToString())
+   
+            else if (node.Name == NodeName.Точки.ToString() |
+                node.Name == NodeName.Кривые.ToString() |
+                node.Name == NodeName.Поверхности.ToString() |
+                node.Name == NodeName.Объемы.ToString() |
+                node.Name == NodeName.Узлы.ToString() |
+                node.Name == NodeName.Элементы1D.ToString() |
+                node.Name == NodeName.Элементы2D.ToString() |
+                node.Name == NodeName.Элементы3D.ToString())
             {
-                if (node.Name == NodeName.Узел.ToString())
-                    node.ContextMenuStrip = ndGroup_MenuStrip;
-                else if (node.Name == NodeName.Элемент1D.ToString() |
-                    node.Name == NodeName.Элемент2D.ToString() |
-                    node.Name == NodeName.Элемент3D.ToString())
-                    node.ContextMenuStrip = elGroup_MenuStrip;
-            }
+                if(node.Parent.Name == NodeName.сетка.ToString())
+                    node.ContextMenuStrip = set_MenuStrip;
+                else if (node.Parent.Name == NodeName.группы.ToString())
+                {
+                    if (node.Name == NodeName.Узлы.ToString())
+                        node.ContextMenuStrip = ndGroup_MenuStrip;
+                    else if (node.Name == NodeName.Элементы1D.ToString() |
+                        node.Name == NodeName.Элементы2D.ToString() |
+                        node.Name == NodeName.Элементы3D.ToString())
+                        node.ContextMenuStrip = elGroup_MenuStrip;
+                }
 
+            }    
+                
             else if (node.Parent.Name == NodeName.задача.ToString())
                 node.ContextMenuStrip = condMenuStrip;
         }
@@ -335,7 +332,7 @@ namespace BaseModule.Navigator
         /// <param name="nodeName"></param>
         /// <returns></returns>
         public bool TrySearchNodes(string nodeName, out List<TreeNode> nodes)
-        {
+        {       
             nodes = new List<TreeNode>();
 
             foreach (TreeNode n in treeView.Nodes)
@@ -466,60 +463,36 @@ namespace BaseModule.Navigator
         {
             var node = treeView.SelectedNode;
 
-            NodeName nodeType;
-            Enum.TryParse(node.Parent.Name, out nodeType);
+            var nodeName = treeView.SelectedNode.Name.ToEnum<NodeName>();
 
             //treeView.SelectedNode.ImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
             //treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
 
-            ShowSetEvent?.Invoke(nodeType, node.Text);
+            ShowSetEvent?.Invoke(nodeName, node.Text);
         }
 
         public void HideSet_Click(object sender, EventArgs e)
         {
             var node = treeView.SelectedNode;
 
-            NodeName nodeType;
-            Enum.TryParse(node?.Parent.Name, out nodeType);
+            var nodeName = treeView.SelectedNode.Name.ToEnum<NodeName>();
+            //Enum.TryParse(node?.Parent.Name, out nodeType);
 
             //treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
             //treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
 
-            HideSetEvent?.Invoke(nodeType, node.Text);
+            HideSetEvent?.Invoke(nodeName, node.Text);
         }
 
         private void DelSet_Click(object sender, EventArgs e)
         {
             var temp = treeView.SelectedNode;
-            var nodeType = temp.Parent.Name.ToEnum<NodeName>();
-            treeView.SelectedNode.Remove();
+            var nodeName = treeView.SelectedNode.Name.ToEnum<NodeName>();
+            //treeView.SelectedNode.Remove();
 
-            DelSetEvent?.Invoke(nodeType, temp.Text);
+            DelSetEvent?.Invoke(nodeName, temp.Text);
         }
 
-        public void ShowObjects_Click(object sender, EventArgs e)
-        {
-            var node = treeView.SelectedNode;
-
-            var nodeType = node.Name.ToEnum<NodeName>();
-            ShowObjectsEvent?.Invoke(nodeType);
-        }
-
-        public void DelObjects_Click(object sender, EventArgs e)
-        {
-            var node = treeView.SelectedNode;
-
-            var nodeType = node.Name.ToEnum<NodeName>();
-            DelObjectsEvent?.Invoke(nodeType);
-        }
-
-        public void HideObjects_Click(object sender, EventArgs e)
-        {
-            var node = treeView.SelectedNode;
-
-            var nodeType = node.Name.ToEnum<NodeName>();
-            HideObjectsEvent?.Invoke(nodeType);
-        }
 
         public void HideAllGroups_Click(object sender, EventArgs e)
         {
@@ -536,14 +509,6 @@ namespace BaseModule.Navigator
         public void DelAllGroups_Click(object sender, EventArgs e)
         {
             DelAllGroupsEvent?.Invoke();
-        }
-
-        public void DelAllObjects_Click(object sender, EventArgs e)
-        {
-            //foreach (TreeNode item in treeView.Nodes["объекты"].Nodes)
-            //    item.Nodes.Clear();
-
-            DelAllObjectsEvent?.Invoke();
         }
 
 
@@ -611,16 +576,22 @@ e.Node.Name == NodeName.химическая.ToString()
                 {
                     SelectInstrEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
                 }
-                else if (e.Node.Name == NodeName.Узел.ToString() |
-e.Node.Name == NodeName.Элемент1D.ToString() |
-e.Node.Name == NodeName.Элемент2D.ToString() |
-e.Node.Name == NodeName.Элемент3D.ToString() |
-e.Node.Name == NodeName.Точка.ToString() |
-e.Node.Name == NodeName.Кривая.ToString() |
-e.Node.Name == NodeName.Поверхность.ToString() |
-e.Node.Name == NodeName.Объем.ToString()
+                else if (e.Node.Name == NodeName.Узлы.ToString() |
+e.Node.Name == NodeName.Элементы1D.ToString() |
+e.Node.Name == NodeName.Элементы2D.ToString() |
+e.Node.Name == NodeName.Элементы3D.ToString() |
+e.Node.Name == NodeName.Точки.ToString() |
+e.Node.Name == NodeName.Кривые.ToString() |
+e.Node.Name == NodeName.Поверхности.ToString() |
+e.Node.Name == NodeName.Объемы.ToString()
 )
-                    SelectGroupEvent?.Invoke(e.Node.Index);
+                {
+                    if(e.Node.Parent.Name == NodeName.группы.ToString())
+                        SelectGroupEvent?.Invoke(e.Node.Index);
+                    else
+                        SelectSetEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
+                }    
+ 
                 else if (e.Node.Name == NodeName.Результат.ToString())
                     SelectResultEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
             }
@@ -897,6 +868,22 @@ e.Node.Name == NodeName.Объем.ToString()
         private void удалитьУсловиеMenuItem_Click(object sender, EventArgs e)
         {
             DelCondEvent?.Invoke();
+        }
+
+        private void скрытьОбъектыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HideAllObjectsEvent?.Invoke();
+        }
+
+
+        private void удалитьОбъектыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DelAllObjectsEvent?.Invoke();
+        }
+
+        private void показатьОбъектыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowAllObjectsEvent?.Invoke();
         }
     }
 }

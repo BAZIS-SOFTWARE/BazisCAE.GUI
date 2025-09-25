@@ -6,6 +6,7 @@ using Model.Interfaces;
 using System.Drawing;
 using System.Windows.Forms;
 using BaseModule.Navigator;
+using BazisGUI.Scene.VBO;
 
 namespace BazisGUI
 {
@@ -17,15 +18,24 @@ namespace BazisGUI
                 return;
             Invoke(new Action(() => { console.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
 
-            var nodes = project.ModelData.ObjectData.NodesSet;
             var coincidentNodes = project.FindCoincidentObjects(ObjType.Узел, 0.1f);
 
             Invoke(new Action(() => { console.PrintInfo($"Найдено {coincidentNodes.Count()} совпадений", Color.Black); }));
             Invoke(new Action(() =>
             {
                 ClearAllDataOnScene();
+
+                foreach (var item in coincidentNodes)
+                    item.ForEach(x => project.GetModelObject(ObjType.Узел, x).
+                    Color = settingsConfig.SelectObjectColor);
+
+                //var ndSet = project.GetModelSetsInfo(ObjType.Узел).First();
+                //var pres = project.CreateModelObjectsPresentor(ndSet);
+                //SetVBObjectAttribute(pres, "цвет");
+
                 var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
-                CreateVBObject(pres);
+                var vbo = CreateVBObject(pres);
+                VBOController.AddVbo(vbo);
                 DisplayObjects();
             }));
             var actConfirm = new Func<Tuple<bool, object>>(() =>
@@ -34,11 +44,17 @@ namespace BazisGUI
 
                 Invoke(new Action(() =>
                 {
-                    var set = project.ModelData.ObjectData.GetSetsInfo(ObjType.Узел).First();
+                    var set = project.GetModelSetsInfo(ObjType.Узел).First();
 
-                    navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> objects);
-                    objects[0].Nodes[0].Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
+                    //navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> objects);
+                    //objects[0].Nodes[0].Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
                     console.PrintInfo("Узлы слиты", Color.Green);
+                    PresentMeshData();
+                    PresentCondDataOnTree();
+
+                    VBOController.DeleteAllVBObjects();
+                    CreateVBObjects("Объекты");
+                    DisplayObjects();
 
                 }));
                 return new Tuple<bool, object>(true, new object());

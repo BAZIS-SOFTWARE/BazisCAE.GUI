@@ -16,7 +16,7 @@ namespace BazisGUI
                 if (arg1 == NodeName.Объем | arg1 == NodeName.Поверхности)
                 {
                     var ar = arg2.Split(' ');
-                    setName = string.Join(" ", ar, 0, ar.Length - 1);
+                    setName = string.Join(" ", ar, 1, ar.Length - 2);
                 }
 
                 if(arg1 != NodeName.Объем)

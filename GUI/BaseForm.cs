@@ -28,6 +28,7 @@ using BaseModule.Utilities;
 using System.Xml.Linq;
 using PreProc.Interfaces;
 using PreProc;
+using System.Threading.Tasks;
 
 namespace BazisGUI
 {
@@ -742,7 +743,7 @@ namespace BazisGUI
 
                 var path = Path.GetDirectoryName(dialog.FileName);
 
-                lblStatus.Text = $"{path}\\{project.Name}";
+                lblStatus.Text = dialog.FileName;
 
 
                 ClearAllDataOnScene();
@@ -1029,15 +1030,30 @@ namespace BazisGUI
                     dialog.Filter = meshFilter;
                     if (dialog.ShowDialog() == DialogResult.Cancel)
                         return;
+                    
+                    var mb = new MessageBoxEx.MessageBoxEx()
+                    { Dock = DockStyle.Fill };
+                    var mbf = dataController.CreateMessageBoxExForm(mb);
+                    mbf.Show();
+                    await Task.Run(new Action(() =>
+                    {
+                        project.MessageEvent += (ar1) =>
+                        {
+                            mb.Invoke(new Action(() =>
+                            {
+                                mb.Message = ar1;
+                            }));
+                        };
+                        project.Append(dialog.FileName);
 
-                    await dataController.AppendModelAsync(project.ModelData, dialog.FileName);
+                    }));
+                    mbf.Close();
+                    project.UnsubMessasge();
+                    // сбрасывать gmsh  не обязательно
+                    //gmshController?.Gmsh?.Clear();
 
-                    var path = Path.GetDirectoryName(dialog.FileName);
-                    lblStatus.Text = $"{path}\\{project.Name}";
-
-                    gmshController?.Gmsh?.Clear();
-
-                    //SetModule("Weld");
+                    ClearAllDataOnScene();
+                    PresentProject();
 
                     FitObjectsToScreen();
                     DisplayObjects();
@@ -1049,7 +1065,7 @@ namespace BazisGUI
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
 
-        }
+        }    
     }
 
 }

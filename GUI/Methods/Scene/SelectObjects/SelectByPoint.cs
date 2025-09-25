@@ -143,8 +143,11 @@ namespace BazisGUI
             }
             else
             {
-                var poligon = new Polygon(scrPoints);
-                return poligon.IsPointInsidePolygon(selectionPoint) ? true : false;
+                var creator = new Hull2DCreator();
+                if(creator.TryCreateHullGraham(scrPoints, out Polygon polygon))
+                    return polygon.IsPointInsidePolygon(selectionPoint) ? true : false;
+
+                return false;
             }
 
         }

@@ -2,7 +2,10 @@
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -14,18 +17,21 @@ namespace BazisGUI
             {
                 
 
-                var setName = nodeText.Split(' ')[0];
-                if (nodeName == NodeName.Объемы | nodeName == NodeName.Поверхности)
-                {
-                    var ar = nodeText.Split(' ');
-                    setName = string.Join(" ", ar, 0, ar.Length - 1);
-                }
+                var setName = nodeText.Split(' ')[1];
 
-                // не применимо к одиночным наборам!!!
-                if (nodeName == NodeName.Узлы |
+                // Пока запретим удалять геометрические сущности
+                if (nodeName == NodeName.Объемы |
+                    nodeName == NodeName.Поверхности |
                     nodeName == NodeName.Кривые |
                     nodeName == NodeName.Точки)
                     return;
+
+                // Пока закоментируем..позже сделаем с синхронизацие gmsh
+                //if (nodeName == NodeName.Объемы | nodeName == NodeName.Поверхности)
+                //{
+                //    var ar = nodeText.Split(' ');
+                //    setName = string.Join(" ", ar, 1, ar.Length - 2);
+                //}
  
                 var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
 
@@ -33,6 +39,13 @@ namespace BazisGUI
 
                 PresentGroupDataOnTree();
                 PresentCondDataOnTree();
+                PresentMeshData();
+
+                if (navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> nodes))
+                {
+                    nodes.First().Collapse();
+                    nodes.First().Expand();
+                }              
 
                 //var set = project.GetModelSetInfo(objType, setName);
                 VBOController.DeleteVBObjects(setName);

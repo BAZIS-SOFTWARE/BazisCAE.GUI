@@ -24,18 +24,25 @@ namespace BazisGUI
             {
                 console.PrintInfo($"Найдено {freeNodes.Count()} свободных узлов", Color.Black);
 
-                VBOController.DeleteAllVBObjects();
+                if(freeNodes.Count() != 0)
+                {
+                    VBOController.DeleteAllVBObjects();
+                    project.GetModelSetsInfo(ObjType.Узел).First().SetViewState(false);
 
-                foreach (var freeNode in freeNodes)
-                    project.ModelData.ObjectData.Find(ObjType.Узел, freeNode).ViewState = true;
+                    foreach (var freeNode in freeNodes)
+                        project.GetModelObject(ObjType.Узел, freeNode).ViewState = true;
 
-                var objsTypeStr = ObjType.Узел.ToString();
-                VBOController.DeleteVBObjects(objsTypeStr);
 
-                var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
-                CreateVBObject(pres);
+                    var objsTypeStr = ObjType.Узел.ToString();
+                    VBOController.DeleteVBObjects(objsTypeStr);
 
-                DisplayObjects();
+                    var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
+
+                    var vbo = CreateVBObject(pres);
+                    VBOController.AddVbo(vbo);
+
+                    DisplayObjects();
+                }
             }));
         }
     }

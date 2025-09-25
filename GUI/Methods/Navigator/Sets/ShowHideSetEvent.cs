@@ -17,11 +17,11 @@ namespace BazisGUI
             {
                 var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
 
-                var setName = nodeText.Split(' ')[0];
+                var setName = nodeText.Split(' ')[1];
                 if (nodeType == NodeName.Объемы | nodeType == NodeName.Поверхности)
                 {
                     var ar = nodeText.Split(' ');
-                    setName = string.Join(" ", ar, 0, ar.Length - 1);
+                    setName = string.Join(" ", ar, 1, ar.Length - 2);
                 }
 
                 ChangeSetViewState(setName, objType, false);
@@ -39,11 +39,11 @@ namespace BazisGUI
             {
                 var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeType);
 
-                var setName = nodeText.Split(' ')[0];
+                var setName = nodeText.Split(' ')[1];
                 if (nodeType == NodeName.Объемы | nodeType == NodeName.Поверхности)
                 {
                     var ar = nodeText.Split(' ');
-                    setName = string.Join(" ", ar, 0, ar.Length - 1);
+                    setName = string.Join(" ", ar, 1, ar.Length - 2);
                 }
 
                 ChangeSetViewState(setName, objType, true);

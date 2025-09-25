@@ -57,44 +57,6 @@ namespace BazisGUI
             return gmshController;
         }
 
-        public async Task AppendModelAsync(IModelData modelData, string path)
-        {
-            var ext = Path.GetExtension(path);
-
-            if (ext == ".inp")
-                modelData.Loader = new LoadModelFromINPTextFile();
-            else if (ext == ".inp_v2")
-                modelData.Loader = new LoadModelFromINPTextFile_v2();
-            else if (ext == ".ASC")
-                modelData.Loader = new LoadModelFromASCIITextFile_v2();
-            else if (ext == ".dat")
-                modelData.Loader = new LoadModelFromSalomeFile();
-            else if (ext == ".STL" | ext == ".stl")
-                modelData.Loader = new LoadFromSTLFile();
-            else
-                modelData.Loader = new LoadModelFromCDBTextFile();
-
-            MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
-            { Dock = DockStyle.Fill };
-
-            var mbf = CreateMessageBoxExForm(mb);
-            mbf.Show();
-            await Task.Run(new Action(() =>
-            {
-
-                modelData.Loader.LoadEvent += (ar1, ar2) =>
-                {
-                    mb.Invoke(new Action(() =>
-                    {
-                        mb.Message = ar2.Message;
-                    }));
-                };
-                modelData.Append(path);
-
-            }));
-            mbf.Close();
-        }
-
         public async Task<Controller> ImportMesh(string fullPath)
         {
             var controller = new Controller();
@@ -117,6 +79,8 @@ namespace BazisGUI
                 controller.ImportMesh(fullPath);
             }));
             mbf.Close();
+
+            controller.UnsubMessasge();
 
             controller.Name = "новый_проект.bpf2";
             return controller;
@@ -213,9 +177,11 @@ namespace BazisGUI
 
             }));
             mbf.Close();
-
+            controller.UnsubMessasge();
             return controller;
         }
+
+
 
         //public async Task<Controller> OpenProject(string fullPath)
         //{

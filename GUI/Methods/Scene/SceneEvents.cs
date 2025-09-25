@@ -66,7 +66,10 @@ spbSelectObject.ToolTipText == "Элементы")
                         console.PrintInfo(string.Format("Создана новая группа {0}", group.Name), Color.Black);
 
                         var text = $"{group.Name} {selObjs.Count()}";
-                        var node = navigator.CreateRealNode(objType.ToString(), text);
+
+                        var nodeName = Converters.ConvertToNavigatorNodeType(objType);
+
+                        var node = navigator.CreateRealNode(nodeName, text);
 
                         navigator.TrySearchNodes(NodeName.группы, out List<TreeNode> nodes);
                         nodes.First().Nodes.Add(node);
@@ -197,7 +200,13 @@ spbSelectObject.ToolTipText == "Элементы")
         {
             try
             {
-                var selObjs = GetModelObjects(spbSelectObject.ToolTipText).
+                // Пока нельзя удалить геометрию рамкой с экрана. Пока только через дерево.
+                if (spbSelectObject.ToolTipText == ObjType.Точка.ToString() |
+                    spbSelectObject.ToolTipText == ObjType.Кривая.ToString() |
+                    spbSelectObject.ToolTipText == ObjType.Поверхность.ToString())
+                    return;
+
+                    var selObjs = GetModelObjects(spbSelectObject.ToolTipText).
 Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 foreach (var item in selObjs)
@@ -230,7 +239,7 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
                 project.ModelData.GroupData.ClearNotExisted();
                 project.TaskData.ClearNotExisted(project.ModelData.GroupData);
 
-                PresentGeoData();
+                PresentMeshData();
                 PresentGroupDataOnTree();
                 PresentCondDataOnTree();
 
