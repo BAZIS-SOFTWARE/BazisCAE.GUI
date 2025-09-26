@@ -71,6 +71,10 @@ spbSelectObject.ToolTipText == "Элементы")
 
                         var node = navigator.CreateRealNode(nodeName, text);
 
+                        var ind = navigator.GetObjectImageIndex(nodeName);
+                        node.ImageIndex = ind;
+                        node.SelectedImageIndex = ind;
+
                         navigator.TrySearchNodes(NodeName.группы, out List<TreeNode> nodes);
                         nodes.First().Nodes.Add(node);
                         navigator.SetContextMenu(node);

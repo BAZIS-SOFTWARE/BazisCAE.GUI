@@ -32,6 +32,7 @@ namespace BazisGUI.SettingsControls
 
         //result settings
         public bool ShowResultsField;
+        public bool ShowResultsScale;
         public bool ShowNodeResultsValue;
         public bool ShowElementsResultsValue;
         public bool MergeResultsValue;

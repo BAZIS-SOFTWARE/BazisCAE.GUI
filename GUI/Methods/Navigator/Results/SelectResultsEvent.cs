@@ -39,8 +39,8 @@ namespace BazisGUI
             rows.Add(new RowProperty("Показать значения в узлах", settingsConfig.ShowNodeResultsValue));
             rows.Add(new RowProperty("Показать значения в элементах", settingsConfig.ShowElementsResultsValue));
             rows.Add(new RowProperty("Усреднять результаты", settingsConfig.MergeResultsValue));
-            rows.Add(new RowProperty("Показывать шкалу", false));
-            rows.Add(new RowProperty("Масштаб", 1));
+            rows.Add(new RowProperty("Показывать шкалу", settingsConfig.ShowResultsScale));
+            rows.Add(new RowProperty("Масштаб", settingsConfig.Scale_scale));
             rows.Add(new RowProperty("Уточнить значения", false));
             rows.Add(new RowProperty("Макс. значение", 1));
             rows.Add(new RowProperty("Мин. значение", 0));

@@ -42,7 +42,7 @@ namespace BazisGUI
 
                 PresentCompDataOnTree(sortedFiles);
 
-                console.PrintInfo($"Входные Данные задачи сгенерированы в {inputDir}", Color.Green);
+                console.PrintInfo($"Инструкции задачи сгенерированы в {inputDir}", Color.Green);
 
             }
             catch (Exception ex)

@@ -92,6 +92,7 @@
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
+    <Compile Include="Console\Events\FindVolElemsEventArgs.cs" />
     <Compile Include="Console\ModelRotateEventArgs.cs" />
     <Compile Include="Extensions\StringEx.cs" />
     <Compile Include="Interfaces\GeneralParams.cs" />

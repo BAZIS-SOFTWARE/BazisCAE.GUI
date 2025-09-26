@@ -11,6 +11,8 @@ using Geometry;
 using System.Drawing;
 using BaseModule.Navigator;
 using System.Windows.Forms;
+using Model.Interfaces.MeshObjects;
+using Model.Utilities;
 
 namespace BazisGUI
 {
@@ -43,6 +45,30 @@ namespace BazisGUI
                 else if (arg2 is ModelFindCoincidentsNodesEventArgs coincidentNodesEventArgs)
                 {
                     FindCoincidentNodes();
+                }
+                else if(arg2 is FindVolElemsEventArgs findVolElemsArgs)
+                {
+                    var e3ds = project.GetModelElements().Select(x => (IElement3D)x);
+                    var findElmems = e3ds.Where(
+                        e3d => e3d.CalcVolume() < findVolElemsArgs.Volume);
+
+                    if(findElmems.Count() > 0)
+                    {
+                        // TO DO потом можно поискать способ более быстрый и
+                        // технологичный для отображения найденных элементов
+                        foreach (var item in findElmems)
+                            item.Color = settingsConfig.SelectObjectColor;
+
+                        foreach (var set in findElmems.Select(x => project.
+                        GetModelSetInfo(x.ObjType, x.Number)).
+                        Distinct(new DefaultSetInfoComparer()))
+                        {
+                            var pres = project.CreateModelObjectsPresentor(set);
+                            SetVBObjectAttribute(pres, "цвет");
+                        }
+                        DisplayObjects();                     
+                    }
+                    Invoke(new Action(() => { console.PrintInfo($"Найдено {findElmems.Count()} объемных элементов", Color.Black); }));
                 }
             }
             catch (Exception ex)

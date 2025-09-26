@@ -68,7 +68,7 @@ namespace BazisGUI
 
             //перерисовывает панель свойств если был нажат какой либо чек бокс
             if(bool.TryParse(obj.NewValue, out bool res))
-                    navigator_SelectTaskEvent(nodeName, nodeText);
+                    navigator_SelectCompEvent(nodeName, nodeText);
         }
 
         [Obsolete ("Отсутствует химические задачи, не протестировано")]

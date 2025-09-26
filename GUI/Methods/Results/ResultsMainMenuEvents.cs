@@ -27,15 +27,6 @@ namespace BazisGUI
         IEnumerable<float> resultTimes;
 
 
-        private void усреднитьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (усреднитьРезультатыToolStripMenuItem.Checked)
-                settingsConfig.MergeResultsValue = true;
-            else
-            {
-                settingsConfig.MergeResultsValue = false;
-            }
-        }
         private void exportResultsMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -106,11 +97,6 @@ namespace BazisGUI
             //exportForm.Show();
         }
 
-        private void показатьШкалуToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if(!показатьШкалуToolStripMenuItem.Checked)
-                HideGeometryObj("DisplaySceneScale");
-        }
         private void настройкиШкалыMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -276,38 +262,30 @@ namespace BazisGUI
                 console.PrintInfo(ex.Message, Color.Red);
             }
         }
-        private void createFieldMenuItem_Click(object sender, EventArgs e)
-        {
-            if (createFieldMenuItem.Checked)
-                settingsConfig.ShowResultsField = true;
-            else
-            {
-                settingsConfig.ShowResultsField = false;
-            }
-        }
-        private void показатьЗначенияВЭлементахToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (показатьЗначенияВЭлементахToolStripMenuItem.Checked)
-                settingsConfig.ShowElementsResultsValue = true;
-            else
-            {
-                settingsConfig.ShowElementsResultsValue = false;
-                DisplayText3DEvent = null;
-                DisplayObjects();
-            }
-        }
-        private void showNodeValueMenuItem_Click(object sender, EventArgs e)
-        {
 
-            if (showNodeValueMenuItem.Checked)
-                settingsConfig.ShowNodeResultsValue = true;
-            else
-            {
-                settingsConfig.ShowNodeResultsValue = false;
-                DisplayText3DEvent = null;
-                DisplayObjects();
-            }
-        }
+        //private void показатьЗначенияВЭлементахToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    if (показатьЗначенияВЭлементахToolStripMenuItem.Checked)
+        //        settingsConfig.ShowElementsResultsValue = true;
+        //    else
+        //    {
+        //        settingsConfig.ShowElementsResultsValue = false;
+        //        DisplayText3DEvent = null;
+        //        DisplayObjects();
+        //    }
+        //}
+        //private void showNodeValueMenuItem_Click(object sender, EventArgs e)
+        //{
+
+        //    if (showNodeValueMenuItem.Checked)
+        //        settingsConfig.ShowNodeResultsValue = true;
+        //    else
+        //    {
+        //        settingsConfig.ShowNodeResultsValue = false;
+        //        DisplayText3DEvent = null;
+        //        DisplayObjects();
+        //    }
+        //}
 
         private void открытьToolStripMenuItem1_Click(object sender, EventArgs e)
         {
