@@ -204,13 +204,6 @@ namespace BazisGUI
                     }
                 }
 
-                // Вынести обновление свойств объктов сюда!!! Важно..
-
-                // TO DO оптимизировать. Обновлять на дереве только те данные, которые на самом деле изменились
-
-                //if (obj is TaskPage taskPage)
-                //PresentCondDataOnTree();
-
             }
             catch (Exception ex)
             {
