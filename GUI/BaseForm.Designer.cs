@@ -340,7 +340,8 @@ namespace BazisGUI
             this.navigator.SelectTaskEvent += new System.Action(this.navigator_SelectTaskEvent);
             this.navigator.SelectGeoEvent += new System.Action(this.navigator_SelectGeoEvent);
             this.navigator.SelectResultsEvent += new System.Action(this.navigator_SelectResultsEvent);
-            this.navigator.SelectInstrEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectTaskEvent);
+            this.navigator.SelectInstrEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.Navigator_SelectInstructionEvent);
+            this.navigator.SelectAllInstrEvent += () => Navigator_SelectAllInstructionsEvent();
             this.navigator.SelectGeneralInfoEvent += new System.Action(this.navigator_SelectGeneralInfoEvent);
             this.navigator.SelectTimeEvent += new System.Action<string, double>(this.navigator_SelectTimeEvent);
             this.navigator.SelectResultEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectResultEvent);

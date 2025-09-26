@@ -3,6 +3,7 @@ using BaseModule.PinnedControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -138,6 +139,7 @@ namespace BaseModule.Navigator
         public event Action SelectResultsEvent;
  
         public event Action<NodeName, string> SelectInstrEvent;
+        public event Action SelectAllInstrEvent;
         public event Action SelectGeneralInfoEvent;
         public event Action<string, double> SelectTimeEvent;
         public event Action<NodeName, string> SelectResultEvent;
@@ -558,6 +560,8 @@ namespace BaseModule.Navigator
                     SelectTaskEvent?.Invoke();
                 else if (node.Name == NodeName.результаты.ToString())
                     SelectResultsEvent?.Invoke();
+                else if (node.Name == NodeName.расчет.ToString()) 
+                    SelectAllInstrEvent?.Invoke();
             }
 
             else if (e.Node.Level == 2)

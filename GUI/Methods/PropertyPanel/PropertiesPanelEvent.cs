@@ -146,6 +146,8 @@ namespace BazisGUI
                         ChangeTaskProperties(obj);
                     else if (nodeName == NodeName.геометрия)
                         ChangeGeoProperties(obj);
+                    else if (nodeName == NodeName.расчет)
+                        ChangeInstructionsProperties(obj);
                 }
 
                 // Вынести обновление свойств объктов сюда!!! Важно..

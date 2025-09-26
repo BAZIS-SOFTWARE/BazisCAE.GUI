@@ -4,7 +4,10 @@ using BaseModule.PropertiesPanel;
 using Newtonsoft.Json;
 using Project.TaskParameters;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -68,7 +71,29 @@ namespace BazisGUI
 
             //перерисовывает панель свойств если был нажат какой либо чек бокс
             if(bool.TryParse(obj.NewValue, out bool res))
-                    navigator_SelectTaskEvent(nodeName, nodeText);
+                    Navigator_SelectInstructionEvent(nodeName, nodeText);
+        }
+
+        private void ChangeInstructionsProperties(PropertyChangedEventArgs obj)
+        {
+            if (obj.Header == "Тип")
+                selectInstruction = obj.NewValue;
+            else if (obj.Header.Contains("Выполнять"))
+            {
+                var name = obj.Header.Split(' ')[1];
+
+                navigator.TrySearchNodes(NodeName.расчет, out List<TreeNode> task);
+
+
+                var selectedInstruction = task[0].Nodes.Cast<TreeNode>().FirstOrDefault(inst => inst.Text.Contains(name));
+
+                var isExe =  bool.Parse(obj.NewValue);
+                if (isExe)
+                    selectedInstruction.Text = selectedInstruction.Text.Replace("пропустить", "выполнить");
+                else
+                    selectedInstruction.Text = selectedInstruction.Text.Replace("выполнить", "пропустить");
+            }
+            Navigator_SelectAllInstructionsEvent();
         }
 
         [Obsolete ("Отсутствует химические задачи, не протестировано")]

@@ -3,15 +3,19 @@ using BaseModule.PropertiesPanel;
 using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectTaskEvent(NodeName arg1, string arg2)
+        private void Navigator_SelectInstructionEvent(NodeName arg1, string arg2)
         {
-            //EditTSFFile(arg2.Split(' ')[1]); на время разработки храню
             try
             {
                 var parameters = ReadTaskParametersFromFile(arg2.Split(' ')[1]);
@@ -26,6 +30,65 @@ namespace BazisGUI
                 rows.AddRange(GetPropertySolverSettings(parameters));
                 rows.AddRange(GetPropertyBasic(parameters));
                 rows.AddRange(GetPropertyTimeSettings(parameters));
+                propertiesPanel.DrawTable(rows);
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        private string selectInstruction = string.Empty;
+        private void Navigator_SelectAllInstructionsEvent()
+        {
+            try
+            {
+                var tasks = new List<string>();
+                navigator.TrySearchNodes(NodeName.расчет, out List<TreeNode> task);
+                foreach (TreeNode item in task[0].Nodes)
+                    tasks.Add(item.Text);
+                
+                var taskType = new List<string> { "все", "термическая", "механическая", "химическая" };
+
+                if (selectInstruction == string.Empty)
+                    selectInstruction = taskType[0];
+
+                List<RowProperty> rows = new List<RowProperty>();
+                rows.Add(new RowProperty("Тип", selectInstruction, taskType));
+
+                foreach (var taskName in tasks)
+                {
+                    bool isExe;
+                    if (taskName.Split(' ')[2] == "выполнить")
+                        isExe = true;
+                    else
+                        isExe = false;
+                    if (selectInstruction == "все")
+                    {
+                        var name = Path.GetFileName(taskName.Split(' ')[1]);
+                        rows.Add(new RowProperty($"Выполнять {name}", isExe));
+                    }
+                    else 
+                    {
+                        if (taskName.Contains(selectInstruction))
+                        {
+                            var name = Path.GetFileName(taskName.Split(' ')[1]);
+                            rows.Add(new RowProperty($"Выполнять {name}", isExe));
+                        }
+                    }    
+                }
+
+                    
+                //var parameters = ReadTaskParametersFromFile(arg2.Split(' ')[1]);
+                //if (parameters is ChemicalParameters cmp)
+                //    rows = GetPropertyChemicalTask(cmp);
+                //else if (parameters is MechanicalParameters mhp)
+                //    rows = GetPropertyMechanicalTask(mhp);
+                //else if (parameters is TermalParameters tmp)
+                //    rows = GetPropertyTermalTask(tmp);
+
+
+
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
