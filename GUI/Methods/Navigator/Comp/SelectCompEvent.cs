@@ -18,6 +18,11 @@ namespace BazisGUI
         {
             try
             {
+                /* TO DO
+ * При нажатии добавить следующие строки
+    Выполнить - checkBox
+    Применить ко всем - button (OK)
+ */
                 var parameters = ReadTaskParametersFromFile(arg2.Split(' ')[1]);
                 List<RowProperty> rows = new List<RowProperty>();
                 if (parameters is ChemicalParameters cmp)

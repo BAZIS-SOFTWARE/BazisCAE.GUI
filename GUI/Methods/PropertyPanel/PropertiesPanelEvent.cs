@@ -3,8 +3,10 @@ using BaseModule.Mesh;
 using BaseModule.Mesh.SettingsControls;
 using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
+using BaseModule.PropertiesPanel.DataGridViewNumericUpDown;
 using BazisGUI.Utilities;
 using GmshApi;
+using Project.Interfaces.Tasks;
 using Project.Tasks;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
@@ -28,7 +30,7 @@ namespace BazisGUI
                 // вызывать нужный метод в controller
                 var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
 
-                if (navigator.SelectedNode.Level == 4)
+                if (navigator.SelectedNode.Level == 3)
                 {
                     var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
                     if (nodeName == NodeName.Элемент3D |
@@ -75,26 +77,16 @@ namespace BazisGUI
                         //SetMeshGradientSettings(MeshGradientSettingsEventArgs arg2)
                     }
                 }
-                if (navigator.SelectedNode.Level == 3)
-                {
-                    if (nodeName == NodeName.Элементы3D)
-                        ChangeMeshSetProperties(obj, 3);
-                    else if (nodeName == NodeName.Элементы2D)
-                        ChangeMeshSetProperties(obj, 2);
-                    else
-                        ChangeMeshSetProperties(obj, 1);
-                }
-
-                else if (navigator.SelectedNode.Level == 2)
+                if (navigator.SelectedNode.Level == 2)
                 {
                     var index = navigator.SelectedNode.Index;
                     var parentName = navigator.SelectedNode.Parent.Name.ToEnum<NodeName>();
                     if (parentName == NodeName.группы)
                     {
-                        if (nodeName == NodeName.Элемент3D |
-        nodeName == NodeName.Элемент2D |
-        nodeName == NodeName.Элемент1D |
-        nodeName == NodeName.Узел
+                        if (nodeName == NodeName.Элементы3D |
+        nodeName == NodeName.Элементы2D |
+        nodeName == NodeName.Элементы1D |
+        nodeName == NodeName.Узлы
         )
                         {
                             ChangeMeshGroupProperties(obj, index);
@@ -102,6 +94,15 @@ namespace BazisGUI
                             PresentCondDataOnTree();
                         }
                     }
+                    else if (parentName == NodeName.сетка)
+                    {
+                        if (nodeName == NodeName.Элементы3D)
+                            ChangeMeshSetProperties(obj, 3);
+                        else if (nodeName == NodeName.Элементы2D)
+                            ChangeMeshSetProperties(obj, 2);
+                        else
+                            ChangeMeshSetProperties(obj, 1);
+                    }    
                     else if (parentName == NodeName.задача)
                     {
                         var _funcs = project.FunctionsDB.Keys.ToList();
@@ -149,13 +150,62 @@ namespace BazisGUI
                     else if (nodeName == NodeName.расчет)
                         ChangeInstructionsProperties(obj);
                 }
+                    else if (nodeName == NodeName.результаты)
+                    {         
+                        if (obj.Header == "Масштаб")
+                            settingsConfig.Scale_scale = int.Parse(obj.NewValue);
+                        else if (obj.Header == "Показывать шкалу")
+                        {
+                            /* TO DO
+                             
+                             * При активации создать и показать дополнительные строки с настройками
+                             * При деактивации - убрать строки
+                            
+                            - Точность (взять из settingsConfig.Scale_Precision)
+                            - Положение шкалы по Х (взять из settingsConfig.Scale_X_Coord)
+                            - Положение шкалы по Y (взять из settingsConfig.Scale_Y_Coord)
+                            
+                            */
+                            settingsConfig.ShowResultsScale = bool.Parse(obj.NewValue);
 
-                // Вынести обновление свойств объктов сюда!!! Важно..
+                            if(!settingsConfig.ShowResultsScale)
+                                HideGeometryObj("DisplaySceneScale");
+                        }
+                        else if (obj.Header == "Уточнить значения")
+                        {
 
-                // TO DO оптимизировать. Обновлять на дереве только те данные, которые на самом деле изменились
+                            //resultsController.FillRange(ar2.Min, ar2.Max, ar2.Range, ar2.Precision);
+                            settingsConfig.IsScaleMaxMinManual = bool.Parse(obj.NewValue);
 
-                //if (obj is TaskPage taskPage)
-                //PresentCondDataOnTree();
+                            // TO DO
+                            //
+                            // При активации создать и показать еще две строки
+                            // При деактивации -убрать строки
+                            /*
+                            - Макс. значение; (settingsConfig.Scale_MaxValue)
+                            - Мин. значение; (settingsConfig.Scale_MinValue)
+                             */
+
+                        }
+
+                        else if (obj.Header == "Показывать поле")
+                            settingsConfig.ShowResultsField = bool.Parse(obj.NewValue);
+                        else if (obj.Header == "Показать значения в узлах")
+                            settingsConfig.ShowNodeResultsValue = bool.Parse(obj.NewValue);
+                        else if (obj.Header == "Показать значения в элементах")
+                            settingsConfig.ShowElementsResultsValue = bool.Parse(obj.NewValue);
+                        else if (obj.Header == "Усреднять результаты")
+                            settingsConfig.MergeResultsValue = bool.Parse(obj.NewValue);
+                        else if (obj.Header == "Точность")
+                            settingsConfig.Scale_Precision = int.Parse(obj.NewValue);
+                        else if (obj.Header == "Интервалы")
+                            settingsConfig.Scale_Intervals = int.Parse(obj.NewValue);
+                        else if (obj.Header == "Положение шкалы по Х")
+                            settingsConfig.Scale_X_Coord = int.Parse(obj.NewValue);
+                        else if (obj.Header == "Положение шкалы по Y")
+                            settingsConfig.Scale_Y_Coord = int.Parse(obj.NewValue);
+                    }
+                }
 
             }
             catch (Exception ex)

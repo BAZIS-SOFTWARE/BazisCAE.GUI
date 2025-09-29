@@ -26,7 +26,7 @@ namespace BazisGUI
     {
         [HandleProcessCorruptedStateExceptions]
         [SecurityCritical]
-        private void создать3DСеткуToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void создать3DСеткуToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {

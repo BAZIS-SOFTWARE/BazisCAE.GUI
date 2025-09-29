@@ -47,7 +47,7 @@ namespace BazisGUI
                     ClearAllMeshDataOnScene();
                     var scaleItems = resultsController.GetItems();
 
-                    if (показатьШкалуToolStripMenuItem.Checked)
+                    if (settingsConfig.ShowResultsScale)
                     {
                         HideGeometryObj("DisplaySceneScale");
                         var title = result.Name;

@@ -31,7 +31,8 @@ namespace BaseModule.Console
         ChangeMeshCoordinates,
         ChangeObjCoordinates,
         FindCoincident,
-        FindObject
+        FindObject,
+        FindVolElems
     }
 
     public enum GeomCmd
@@ -81,6 +82,7 @@ namespace BaseModule.Console
             { "Изменить вид",GenCmd.ChangeView},
             { "Найти свободные узлы",GenCmd.FindFreeNodes},
             { "Найти совпадающие",GenCmd.FindCoincident},
+            { "Найти объемные элементы",GenCmd.FindVolElems},
             { "Найти объект",GenCmd.FindObject},
             { "Выход",GenCmd.Exit }
         };
@@ -267,6 +269,9 @@ namespace BaseModule.Console
                         break;
                     case GenCmd.FindFreeNodes:
                         FindFreeNodesEvent?.Invoke();
+                        break;
+                    case GenCmd.FindVolElems:
+                        InEvent(this, new FindVolElemsEventArgs(cmds[1]));
                         break;
                     case GenCmd.FindCoincident:
                         if (cmds[1] == "Узлы")

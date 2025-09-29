@@ -12,7 +12,7 @@ namespace BazisGUI
     {
         private void ChangeMeshSetProperties(PropertyChangedEventArgs obj, int dimm)
         {
-            var setName = navigator.SelectedNode.Text.Split(' ')[0];
+            var setName = navigator.SelectedNode.Text.Split(' ')[1];
             ISetInfo _objectsSet;
             if (dimm == 3)
                 _objectsSet = project.GetModelSetInfo(ObjType.Элемент3D, setName);
