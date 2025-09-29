@@ -3,12 +3,10 @@ using BaseModule.PropertiesPanel;
 using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace BazisGUI
 {
@@ -18,24 +16,32 @@ namespace BazisGUI
         {
             try
             {
-                /* TO DO
- * При нажатии добавить следующие строки
-    Выполнить - checkBox
-    Применить ко всем - button (OK)
- */
                 var parameters = ReadTaskParametersFromFile(arg2.Split(' ')[1]);
+                bool isExe;
+                 if (arg2.Split(' ')[2] == "выполнить")
+                    isExe = true;
+                else
+                    isExe = false;
                 List<RowProperty> rows = new List<RowProperty>();
+                rows.Add(new RowProperty("Выполнить", isExe));
                 if (parameters is ChemicalParameters cmp)
-                    rows = GetPropertyChemicalTask(cmp);
+                    rows.AddRange(GetPropertyChemicalTask(cmp));
                 else if (parameters is MechanicalParameters mhp)
-                    rows = GetPropertyMechanicalTask(mhp);
+                    rows.AddRange(GetPropertyMechanicalTask(mhp));
                 else if (parameters is TermalParameters tmp)
-                    rows = GetPropertyTermalTask(tmp);
+                    rows.AddRange(GetPropertyTermalTask(tmp));
 
                 rows.AddRange(GetPropertySolverSettings(parameters));
                 rows.AddRange(GetPropertyBasic(parameters));
                 rows.AddRange(GetPropertyTimeSettings(parameters));
+                //rows.Add(new RowProperty("Применить ко всем?", new DataGridViewButtonCellSet("Да", ))
                 propertiesPanel.DrawTable(rows);
+
+/* TO DO
+* При нажатии добавить следующие строки
+Выполнить - checkBox
+Применить ко всем - button (OK)
+*/
             }
             catch (Exception ex)
             {
@@ -82,17 +88,6 @@ namespace BazisGUI
                         }
                     }    
                 }
-
-                    
-                //var parameters = ReadTaskParametersFromFile(arg2.Split(' ')[1]);
-                //if (parameters is ChemicalParameters cmp)
-                //    rows = GetPropertyChemicalTask(cmp);
-                //else if (parameters is MechanicalParameters mhp)
-                //    rows = GetPropertyMechanicalTask(mhp);
-                //else if (parameters is TermalParameters tmp)
-                //    rows = GetPropertyTermalTask(tmp);
-
-
 
                 propertiesPanel.DrawTable(rows);
             }

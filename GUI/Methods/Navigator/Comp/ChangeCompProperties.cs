@@ -24,9 +24,14 @@ namespace BazisGUI
             else if (parameters is TermalParameters tmp)
                 ChangeTermalTask(obj, tmp);
 
-
-            switch(obj.Header)
+            switch (obj.Header)
             {
+                case "Выполнить":
+                    var isExe = bool.Parse(obj.NewValue);
+                    var selectedInstruction = navigator.SelectedNode;
+                    selectedInstruction.Text = selectedInstruction.Text.Replace(isExe ? "пропустить" : "выполнить", isExe ? "выполнить" : "пропустить");
+                    nodeText = selectedInstruction.Text;
+                    break;
                 case "Алгоритм решения":
                     parameters.SolverSettings.Solver = obj.NewValue;
                     break;

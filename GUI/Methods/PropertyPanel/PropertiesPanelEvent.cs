@@ -205,7 +205,7 @@ namespace BazisGUI
                         else if (obj.Header == "Положение шкалы по Y")
                             settingsConfig.Scale_Y_Coord = int.Parse(obj.NewValue);
                     }
-                }
+                
 
             }
             catch (Exception ex)
