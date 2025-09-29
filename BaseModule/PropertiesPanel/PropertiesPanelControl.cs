@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BaseModule.PropertiesPanel
 {
@@ -103,7 +104,14 @@ namespace BaseModule.PropertiesPanel
                     numericUpDownCell.Value = Convert.ToDecimal(setting.Value);
                     cell = numericUpDownCell;
                 }
-
+                else if (prop.Value is DataGridViewButtonCellSet buttonSet)
+                {
+                    var btnCell = new DataGridViewButtonCell();
+                    btnCell.Tag = buttonSet;
+                    var setting = prop.Value as DataGridViewButtonCellSet;
+                    btnCell.Value = setting.Text;
+                    cell = btnCell;
+                }
                 else
                 {
                     cell = new DataGridViewTextBoxCell();
@@ -114,13 +122,12 @@ namespace BaseModule.PropertiesPanel
                 if (prop.Header == "Цвет")
                     cell.Style.BackColor = (Color)prop.Value;
 
-                cell.Tag = prop.ValidationType.ToString();
+                //cell.Tag = prop.ValidationType.ToString();
 
                 row.Cells.Add(cell);
                 cell.ReadOnly = prop.IsReadOnly;
 
                 row.Cells[1].ReadOnly = false;
-
                 dataGridView1.Rows.Add(row);
             }
         }
@@ -166,6 +173,17 @@ namespace BaseModule.PropertiesPanel
                     dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[0];
                 }
             }
+
+
+            var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+            if (cell is DataGridViewButtonCell bt)
+            {
+                var buttonSet = cell.Tag as DataGridViewButtonCellSet;
+               
+                buttonSet.OnClick?.Invoke(bt);
+            }
+
         }
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
