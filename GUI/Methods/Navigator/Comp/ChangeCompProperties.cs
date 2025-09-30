@@ -4,7 +4,12 @@ using BaseModule.PropertiesPanel;
 using Newtonsoft.Json;
 using Project.TaskParameters;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+
 
 namespace BazisGUI
 {
@@ -21,9 +26,14 @@ namespace BazisGUI
             else if (parameters is TermalParameters tmp)
                 ChangeTermalTask(obj, tmp);
 
-
-            switch(obj.Header)
+            switch (obj.Header)
             {
+                case "Выполнить":
+                    var isExe = bool.Parse(obj.NewValue);
+                    var selectedInstruction = navigator.SelectedNode;
+                    selectedInstruction.Text = selectedInstruction.Text.Replace(isExe ? "пропустить" : "выполнить", isExe ? "выполнить" : "пропустить");
+                    nodeText = selectedInstruction.Text;
+                    break;
                 case "Алгоритм решения":
                     parameters.SolverSettings.Solver = obj.NewValue;
                     break;
@@ -68,7 +78,29 @@ namespace BazisGUI
 
             //перерисовывает панель свойств если был нажат какой либо чек бокс
             if(bool.TryParse(obj.NewValue, out bool res))
-                    navigator_SelectCompEvent(nodeName, nodeText);
+                    Navigator_SelectInstructionEvent(nodeName, nodeText);
+        }
+
+        private void ChangeInstructionsProperties(PropertyChangedEventArgs obj)
+        {
+            if (obj.Header == "Тип")
+                selectInstruction = obj.NewValue;
+            else if (obj.Header.Contains("Выполнять"))
+            {
+                var name = obj.Header.Split(' ')[1];
+
+                navigator.TrySearchNodes(NodeName.расчет, out List<TreeNode> task);
+
+
+                var selectedInstruction = task[0].Nodes.Cast<TreeNode>().FirstOrDefault(inst => inst.Text.Contains(name));
+
+                var isExe =  bool.Parse(obj.NewValue);
+                if (isExe)
+                    selectedInstruction.Text = selectedInstruction.Text.Replace("пропустить", "выполнить");
+                else
+                    selectedInstruction.Text = selectedInstruction.Text.Replace("выполнить", "пропустить");
+            }
+            Navigator_SelectAllInstructionsEvent();
         }
 
         [Obsolete ("Отсутствует химические задачи, не протестировано")]
@@ -102,6 +134,29 @@ namespace BazisGUI
                 mhp.MechanicalConvergence.Is_Physically_NonLinear = bool.Parse(obj.NewValue);
             else if (obj.Header == "Значение пласт. деформации Si/St")
                 mhp.MechanicalConvergence.PlasticityCriterion = ParseFloatValue(obj.NewValue);
+        }
+
+        private void ApplySettingsToAllInstructions()
+        {
+            try
+            {
+                var selectedNode = navigator.SelectedNode;
+                var compType = navigator.SelectedNode.Name.ToEnum<NodeName>();
+                var parameters = ReadTaskParametersFromFile(selectedNode.Text.Split(' ')[1]);
+
+                var tasks = new List<string>();
+                navigator.TrySearchNodes(NodeName.расчет, out List<TreeNode> task);
+                foreach (TreeNode item in task[0].Nodes)
+                    tasks.Add(item.Text);
+
+                foreach (var taskName in tasks)
+                    if (taskName.Contains(compType.ToString()))
+                        SaveGeneralParametersToFile(parameters, taskName);
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         private void SaveGeneralParametersToFile(GeneralParameters parameters, string nodeText)

@@ -147,6 +147,9 @@ namespace BazisGUI
                         ChangeTaskProperties(obj);
                     else if (nodeName == NodeName.геометрия)
                         ChangeGeoProperties(obj);
+                    else if (nodeName == NodeName.расчет)
+                        ChangeInstructionsProperties(obj);
+                }
                     else if (nodeName == NodeName.результаты)
                     {         
                         if (obj.Header == "Масштаб")
@@ -202,7 +205,7 @@ namespace BazisGUI
                         else if (obj.Header == "Положение шкалы по Y")
                             settingsConfig.Scale_Y_Coord = int.Parse(obj.NewValue);
                     }
-                }
+                
 
             }
             catch (Exception ex)

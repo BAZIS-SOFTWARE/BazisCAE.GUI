@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BaseModule.PropertiesPanel
 {
@@ -51,11 +52,13 @@ namespace BaseModule.PropertiesPanel
 
             if (dataGridView1.CurrentCell is DataGridViewCheckBoxCell)
                 dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            else if (dataGridView1.CurrentCell is DataGridViewComboBoxCell)
+                dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
 
         private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            // Pfukeirf
+            // Заглушка
         }
 
         public void ClearTable()
@@ -103,7 +106,14 @@ namespace BaseModule.PropertiesPanel
                     numericUpDownCell.Value = Convert.ToDecimal(setting.Value);
                     cell = numericUpDownCell;
                 }
-
+                else if (prop.Value is DataGridViewButtonCellSet buttonSet)
+                {
+                    var btnCell = new DataGridViewButtonCell();
+                    btnCell.Style.Tag = buttonSet;
+                    var setting = prop.Value as DataGridViewButtonCellSet;
+                    btnCell.Value = setting.Text;
+                    cell = btnCell;
+                }
                 else
                 {
                     cell = new DataGridViewTextBoxCell();
@@ -120,7 +130,6 @@ namespace BaseModule.PropertiesPanel
                 cell.ReadOnly = prop.IsReadOnly;
 
                 row.Cells[1].ReadOnly = false;
-
                 dataGridView1.Rows.Add(row);
             }
         }
@@ -166,6 +175,17 @@ namespace BaseModule.PropertiesPanel
                     dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[0];
                 }
             }
+
+
+            var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+            if (cell is DataGridViewButtonCell bt)
+            {
+                var buttonSet = cell.Style.Tag as DataGridViewButtonCellSet;
+               
+                buttonSet.OnClick?.Invoke();
+            }
+
         }
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {

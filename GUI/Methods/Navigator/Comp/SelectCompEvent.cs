@@ -4,33 +4,84 @@ using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectCompEvent(NodeName arg1, string arg2)
+        private void Navigator_SelectInstructionEvent(NodeName arg1, string arg2)
         {
-            //EditTSFFile(arg2.Split(' ')[1]); на время разработки храню
             try
             {
-                /* TO DO
- * При нажатии добавить следующие строки
-    Выполнить - checkBox
-    Применить ко всем - button (OK)
- */
                 var parameters = ReadTaskParametersFromFile(arg2.Split(' ')[1]);
+                bool isExe;
+                 if (arg2.Split(' ')[2] == "выполнить")
+                    isExe = true;
+                else
+                    isExe = false;
                 List<RowProperty> rows = new List<RowProperty>();
+                rows.Add(new RowProperty("Выполнить", isExe));
                 if (parameters is ChemicalParameters cmp)
-                    rows = GetPropertyChemicalTask(cmp);
+                    rows.AddRange(GetPropertyChemicalTask(cmp));
                 else if (parameters is MechanicalParameters mhp)
-                    rows = GetPropertyMechanicalTask(mhp);
+                    rows.AddRange(GetPropertyMechanicalTask(mhp));
                 else if (parameters is TermalParameters tmp)
-                    rows = GetPropertyTermalTask(tmp);
+                    rows.AddRange(GetPropertyTermalTask(tmp));
 
                 rows.AddRange(GetPropertySolverSettings(parameters));
                 rows.AddRange(GetPropertyBasic(parameters));
                 rows.AddRange(GetPropertyTimeSettings(parameters));
+                rows.Add(new RowProperty("Применить ко всем", new DataGridViewButtonCellSet("OK", () => ApplySettingsToAllInstructions())));
+                propertiesPanel.DrawTable(rows);
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        private string selectInstruction = string.Empty;
+        private void Navigator_SelectAllInstructionsEvent()
+        {
+            try
+            {
+                var tasks = new List<string>();
+                navigator.TrySearchNodes(NodeName.расчет, out List<TreeNode> task);
+                foreach (TreeNode item in task[0].Nodes)
+                    tasks.Add(item.Text);
+                
+                var taskType = new List<string> { "все", "термическая", "механическая", "химическая" };
+
+                if (selectInstruction == string.Empty)
+                    selectInstruction = taskType[0];
+
+                List<RowProperty> rows = new List<RowProperty>();
+                rows.Add(new RowProperty("Тип", selectInstruction, taskType));
+
+                foreach (var taskName in tasks)
+                {
+                    bool isExe;
+                    if (taskName.Split(' ')[2] == "выполнить")
+                        isExe = true;
+                    else
+                        isExe = false;
+                    if (selectInstruction == "все")
+                    {
+                        var name = Path.GetFileName(taskName.Split(' ')[1]);
+                        rows.Add(new RowProperty($"Выполнять {name}", isExe));
+                    }
+                    else 
+                    {
+                        if (taskName.Contains(selectInstruction))
+                        {
+                            var name = Path.GetFileName(taskName.Split(' ')[1]);
+                            rows.Add(new RowProperty($"Выполнять {name}", isExe));
+                        }
+                    }    
+                }
+
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
