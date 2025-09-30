@@ -52,6 +52,8 @@ namespace BaseModule.PropertiesPanel
 
             if (dataGridView1.CurrentCell is DataGridViewCheckBoxCell)
                 dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            else if (dataGridView1.CurrentCell is DataGridViewComboBoxCell)
+                dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
 
         private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)

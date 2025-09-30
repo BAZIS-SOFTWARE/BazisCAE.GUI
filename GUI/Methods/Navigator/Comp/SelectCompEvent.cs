@@ -33,7 +33,7 @@ namespace BazisGUI
                 rows.AddRange(GetPropertySolverSettings(parameters));
                 rows.AddRange(GetPropertyBasic(parameters));
                 rows.AddRange(GetPropertyTimeSettings(parameters));
-                rows.Add(new RowProperty("Применить ко всем?", new DataGridViewButtonCellSet("Да", () => ApplySettingsToAllInstructions())));
+                rows.Add(new RowProperty("Применить ко всем", new DataGridViewButtonCellSet("OK", () => ApplySettingsToAllInstructions())));
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
