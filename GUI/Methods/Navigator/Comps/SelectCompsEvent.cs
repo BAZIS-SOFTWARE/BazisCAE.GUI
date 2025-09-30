@@ -1,8 +1,5 @@
 ﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
-using Project.TaskParameters;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 
 namespace BazisGUI

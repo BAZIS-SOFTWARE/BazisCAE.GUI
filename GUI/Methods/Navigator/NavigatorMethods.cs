@@ -1,20 +1,19 @@
-﻿using BaseModule.Navigator;
+﻿using BaseModule.GanttChart;
+using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+using BazisGUI.TasksControls;
+using Geometry;
 using Model.Interfaces;
+using Newtonsoft.Json;
 using Project.Interfaces.Tasks;
+using Project.TaskParameters;
+using Project.Tasks.FrameCreators;
+using Project.Tasks.Functions.Welding;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Project.Tasks.FrameCreators;
-using Project.Tasks.Functions.Welding;
-using Geometry;
-using BaseModule.GanttChart;
-using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
-using BazisGUI.TasksControls;
-using Newtonsoft.Json;
-using Project.TaskParameters;
-using System.IO;
 
 namespace BazisGUI
 {
