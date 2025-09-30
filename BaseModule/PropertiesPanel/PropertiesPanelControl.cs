@@ -107,7 +107,7 @@ namespace BaseModule.PropertiesPanel
                 else if (prop.Value is DataGridViewButtonCellSet buttonSet)
                 {
                     var btnCell = new DataGridViewButtonCell();
-                    btnCell.Tag = buttonSet;
+                    btnCell.Style.Tag = buttonSet;
                     var setting = prop.Value as DataGridViewButtonCellSet;
                     btnCell.Value = setting.Text;
                     cell = btnCell;
@@ -122,7 +122,7 @@ namespace BaseModule.PropertiesPanel
                 if (prop.Header == "Цвет")
                     cell.Style.BackColor = (Color)prop.Value;
 
-                //cell.Tag = prop.ValidationType.ToString();
+                cell.Tag = prop.ValidationType.ToString();
 
                 row.Cells.Add(cell);
                 cell.ReadOnly = prop.IsReadOnly;
@@ -179,9 +179,9 @@ namespace BaseModule.PropertiesPanel
 
             if (cell is DataGridViewButtonCell bt)
             {
-                var buttonSet = cell.Tag as DataGridViewButtonCellSet;
+                var buttonSet = cell.Style.Tag as DataGridViewButtonCellSet;
                
-                buttonSet.OnClick?.Invoke(bt);
+                buttonSet.OnClick?.Invoke();
             }
 
         }
