@@ -56,7 +56,7 @@ namespace BaseModule.PropertiesPanel
 
         private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            // Pfukeirf
+            // Заглушка
         }
 
         public void ClearTable()

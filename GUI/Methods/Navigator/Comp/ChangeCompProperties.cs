@@ -5,9 +5,12 @@ using Newtonsoft.Json;
 using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+
 
 namespace BazisGUI
 {
@@ -132,6 +135,29 @@ namespace BazisGUI
                 mhp.MechanicalConvergence.Is_Physically_NonLinear = bool.Parse(obj.NewValue);
             else if (obj.Header == "Значение пласт. деформации Si/St")
                 mhp.MechanicalConvergence.PlasticityCriterion = ParseFloatValue(obj.NewValue);
+        }
+
+        private void ApplySettingsToAllInstructions()
+        {
+            try
+            {
+                var selectedNode = navigator.SelectedNode;
+                var compType = navigator.SelectedNode.Name.ToEnum<NodeName>();
+                var parameters = ReadTaskParametersFromFile(selectedNode.Text.Split(' ')[1]);
+
+                var tasks = new List<string>();
+                navigator.TrySearchNodes(NodeName.расчет, out List<TreeNode> task);
+                foreach (TreeNode item in task[0].Nodes)
+                    tasks.Add(item.Text);
+
+                foreach (var taskName in tasks)
+                    if (taskName.Contains(compType.ToString()))
+                        SaveGeneralParametersToFile(parameters, taskName);
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         private void SaveGeneralParametersToFile(GeneralParameters parameters, string nodeText)

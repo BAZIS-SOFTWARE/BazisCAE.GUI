@@ -34,14 +34,8 @@ namespace BazisGUI
                 rows.AddRange(GetPropertySolverSettings(parameters));
                 rows.AddRange(GetPropertyBasic(parameters));
                 rows.AddRange(GetPropertyTimeSettings(parameters));
-                rows.Add(new RowProperty("Применить ко всем?", new DataGridViewButtonCellSet("Да", () => { MessageBox.Show("okey"); })));
+                rows.Add(new RowProperty("Применить ко всем?", new DataGridViewButtonCellSet("Да", () => ApplySettingsToAllInstructions())));
                 propertiesPanel.DrawTable(rows);
-
-/* TO DO
-* При нажатии добавить следующие строки
-Выполнить - checkBox
-Применить ко всем - button (OK)
-*/
             }
             catch (Exception ex)
             {
