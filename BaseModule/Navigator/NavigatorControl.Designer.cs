@@ -267,35 +267,35 @@
             this.материалToolStripMenuItem.Name = "материалToolStripMenuItem";
             this.материалToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.материалToolStripMenuItem.Text = "Материал";
-            this.материалToolStripMenuItem.Click += new System.EventHandler(this.материалToolStripMenuItem_Click);
+            //this.материалToolStripMenuItem.Click += new System.EventHandler(this.материалToolStripMenuItem_Click);
             // 
             // закреплениеToolStripMenuItem
             // 
             this.закреплениеToolStripMenuItem.Name = "закреплениеToolStripMenuItem";
             this.закреплениеToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.закреплениеToolStripMenuItem.Text = "Закрепление";
-            this.закреплениеToolStripMenuItem.Click += new System.EventHandler(this.закреплениеToolStripMenuItem_Click);
+            //this.закреплениеToolStripMenuItem.Click += new System.EventHandler(this.закреплениеToolStripMenuItem_Click);
             // 
             // нагрузкаToolStripMenuItem
             // 
             this.нагрузкаToolStripMenuItem.Name = "нагрузкаToolStripMenuItem";
             this.нагрузкаToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.нагрузкаToolStripMenuItem.Text = "Нагрузка";
-            this.нагрузкаToolStripMenuItem.Click += new System.EventHandler(this.нагрузкаToolStripMenuItem_Click);
+            //this.нагрузкаToolStripMenuItem.Click += new System.EventHandler(this.нагрузкаToolStripMenuItem_Click);
             // 
             // нагревToolStripMenuItem
             // 
             this.нагревToolStripMenuItem.Name = "нагревToolStripMenuItem";
             this.нагревToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.нагревToolStripMenuItem.Text = "Нагрев";
-            this.нагревToolStripMenuItem.Click += new System.EventHandler(this.нагревToolStripMenuItem_Click);
+            //this.нагревToolStripMenuItem.Click += new System.EventHandler(this.нагревToolStripMenuItem_Click);
             // 
             // средаToolStripMenuItem
             // 
             this.средаToolStripMenuItem.Name = "средаToolStripMenuItem";
             this.средаToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.средаToolStripMenuItem.Text = "Среда";
-            this.средаToolStripMenuItem.Click += new System.EventHandler(this.средаToolStripMenuItem_Click);
+            //this.средаToolStripMenuItem.Click += new System.EventHandler(this.средаToolStripMenuItem_Click);
             // 
             // resultsMenuStrip
             // 

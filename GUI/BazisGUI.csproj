@@ -302,7 +302,7 @@
     <Compile Include="Methods\Navigator\Objects\ShowHideEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Comp\PresentCompData.cs">
+    <Compile Include="Methods\Comp\PresentCompData.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Groups\PresentGroupData.cs">
@@ -362,7 +362,7 @@
     <Compile Include="Methods\Navigator\Groups\ChangeGroupViewState.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Cond\AddCondition.cs">
+    <Compile Include="Methods\Tasks\AddCondition.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Objects\PresentObjsData.cs">

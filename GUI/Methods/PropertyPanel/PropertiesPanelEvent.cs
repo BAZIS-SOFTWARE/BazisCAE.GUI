@@ -133,7 +133,7 @@ namespace BazisGUI
                         navigator.SelectedNode.Text = cond.ToString();
 
                     }
-                    else if(parentName == NodeName.расчет)
+                    else if(parentName == NodeName.расчеты)
                     {
                         var s = navigator.SelectedNode.Text;
                         ChangeCompProperties(obj, s);

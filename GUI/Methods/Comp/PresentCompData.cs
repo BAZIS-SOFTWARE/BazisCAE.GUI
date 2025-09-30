@@ -21,7 +21,7 @@ namespace BazisGUI
             try
             {
                 List<TreeNode> comp;
-                var search = navigator.TrySearchNodes(NodeName.расчет, out comp);
+                var search = navigator.TrySearchNodes(NodeName.расчеты, out comp);
 
                 if (compData.Count() != 0)
                     if(search)
@@ -30,7 +30,7 @@ namespace BazisGUI
                     }
                     else
                     {
-                        var rn = navigator.CreateRealNode(NodeName.расчет, "Расчет");
+                        var rn = navigator.CreateRealNode(NodeName.расчеты, "Расчеты");
                         navigator.SetContextMenu(rn);
                         NewMethod(compData, rn);
                         navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
@@ -54,8 +54,8 @@ namespace BazisGUI
             compNode.Nodes.Clear();
             foreach (var item in compData)
             {
-                var nodeName = item.Split(' ')[0].ToEnum<NodeName>();
-                var r = navigator.CreateRealNode(nodeName, item);
+                //var nodeName = item.Split(' ')[0].ToEnum<NodeName>();
+                var r = navigator.CreateRealNode(NodeName.Расчет, item);
 
                 compNode.Nodes.Add(r);
             }

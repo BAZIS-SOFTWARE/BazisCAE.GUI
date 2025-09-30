@@ -68,6 +68,10 @@ namespace BazisGUI
             {
                 var mrf = cond.FrameFunction.LocalFrame as MovedFrame;
                 mrf.Velocity = float.Parse(obj.NewValue);
+                
+                // добавим корректировку времени остановки, если изменена скорость
+                var time = mrf.CalcMotionTime();
+                cond.StopTime = time;
             }
 
             else if (obj.Header == "Смещение x")

@@ -50,10 +50,8 @@ namespace BaseModule.Navigator
         Закрепление,
         Нагрузка,
 
-        расчет,
-        термическая,
-        механическая,
-        химическая,
+        расчеты,
+        Расчет,
 
         результаты,
         Результат,
@@ -138,15 +136,14 @@ namespace BaseModule.Navigator
         public event Action SelectGeoEvent;
         public event Action SelectResultsEvent;
  
-        public event Action<NodeName, string> SelectInstrEvent;
-        public event Action SelectAllInstrEvent;
+        public event Action<NodeName, string> SelectCompEvent;
         public event Action SelectGeneralInfoEvent;
         public event Action<string, double> SelectTimeEvent;
         public event Action<NodeName, string> SelectResultEvent;
 
         public event Action<TreeNode> GetResultInfoEvent;
 
-        public event Action<object,NodeName> AddConditionEvent;
+        //public event Action<object,NodeName> AddConditionEvent;
         public event Action DelCondEvent;
         //public event Action GenerateTSFEvent;
         public event Action GenerateTCFEvent;
@@ -284,7 +281,7 @@ namespace BaseModule.Navigator
                 node.ContextMenuStrip = objectsMenuStrip;
             else if (node.Name == NodeName.группы.ToString())
                 node.ContextMenuStrip = groups_MenuStrip;
-            else if (node.Name == NodeName.расчет.ToString())
+            else if (node.Name == NodeName.расчеты.ToString())
                 node.ContextMenuStrip = compMenuStrip;
 
    
@@ -573,12 +570,9 @@ e.Node.Name == NodeName.Нагрузка.ToString() |
 e.Node.Name == NodeName.Закрепление.ToString()
 )
                     SelectCondEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
-                else if (e.Node.Name == NodeName.термическая.ToString() |
-e.Node.Name == NodeName.механическая.ToString() |
-e.Node.Name == NodeName.химическая.ToString()
-)
+                else if (e.Node.Name == NodeName.Расчет.ToString())
                 {
-                    SelectInstrEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
+                    SelectCompEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
                 }
                 else if (e.Node.Name == NodeName.Узлы.ToString() |
 e.Node.Name == NodeName.Элементы1D.ToString() |
@@ -739,30 +733,30 @@ e.Node.Name == NodeName.Объем.ToString()
             ShowGantChartEvent?.Invoke();
         }
 
-        private void материалToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddConditionEvent?.Invoke(this, NodeName.Материал);
-        }
+        //private void материалToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    AddConditionEvent?.Invoke(this, NodeName.Материал);
+        //}
 
-        private void закреплениеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddConditionEvent?.Invoke(this, NodeName.Закрепление);
-        }
+        //private void закреплениеToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    AddConditionEvent?.Invoke(this, NodeName.Закрепление);
+        //}
 
-        private void нагрузкаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddConditionEvent?.Invoke(this, NodeName.Нагрузка);
-        }
+        //private void нагрузкаToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    AddConditionEvent?.Invoke(this, NodeName.Нагрузка);
+        //}
 
-        private void нагревToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddConditionEvent?.Invoke(this, NodeName.Нагрев);
-        }
+        //private void нагревToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    AddConditionEvent?.Invoke(this, NodeName.Нагрев);
+        //}
 
-        private void средаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddConditionEvent?.Invoke(this, NodeName.Среда);
-        }
+        //private void средаToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    AddConditionEvent?.Invoke(this, NodeName.Среда);
+        //}
 
         private void удалитьВсеУсловияToolStripMenuItem_Click(object sender, EventArgs e)
         {

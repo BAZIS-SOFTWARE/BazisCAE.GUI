@@ -111,10 +111,10 @@ namespace BazisGUI
             splitContainer2.SplitterWidth = 8;
             splitContainer3.SplitterWidth = 8;
             resultsMenuItem.DropDown.Closing += DropDown_Closing;
-            selectToolStrip.Location = new Point(3, 24);
-            displayToolStrip.Location = new Point(303, 24);
-            instrumentalToolStrip.Location = new Point(595, 24);
-            viewToolStrip.Location = new Point(783, 24);
+            selectToolStrip.Location = new Point(10, 24);
+            displayToolStrip.Location = new Point(310, 48);
+            instrumentalToolStrip.Location = new Point(597, 48);
+            viewToolStrip.Location = new Point(785, 48);
 
 
             //var objs = project.ModelData.ObjectData.GetAllObjects();
