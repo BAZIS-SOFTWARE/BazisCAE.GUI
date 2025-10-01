@@ -65,19 +65,22 @@ spbSelectObject.ToolTipText == "Элементы")
 
                         console.PrintInfo(string.Format("Создана новая группа {0}", group.Name), Color.Black);
 
-                        var text = $"{group.Name} {selObjs.Count()}";
+                        PresentGroupDataOnTree();
+                        
+                        
+                        //var text = $"{group.Name} {selObjs.Count()}";
 
-                        var nodeName = Converters.ConvertToNavigatorNodeType(objType);
+                        //var nodeName = Converters.ConvertToNavigatorNodeType(objType);
 
-                        var node = navigator.CreateRealNode(nodeName, text);
+                        //var node = navigator.CreateRealNode(nodeName, text);
 
-                        var ind = navigator.GetObjectImageIndex(nodeName);
-                        node.ImageIndex = ind;
-                        node.SelectedImageIndex = ind;
+                        //var ind = navigator.GetObjectImageIndex(nodeName);
+                        //node.ImageIndex = ind;
+                        //node.SelectedImageIndex = ind;
 
-                        navigator.TrySearchNodes(NodeName.группы, out List<TreeNode> nodes);
-                        nodes.First().Nodes.Add(node);
-                        navigator.SetContextMenu(node);
+                        //navigator.TrySearchNodes(NodeName.группы, out List<TreeNode> nodes);
+                        //nodes.First().Nodes.Add(node);
+                        //navigator.SetContextMenu(node);
                     }
                 }
             }

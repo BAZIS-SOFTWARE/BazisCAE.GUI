@@ -19,8 +19,10 @@ namespace BazisGUI
 			{
                 var node = navigator.SelectedNode;
 
-                if (project.DeleteCond(node.Level))
+                if (project.DeleteCond(node.Index))
                     navigator.SelectedNode.Remove();
+
+                PresentCondDataOnTree();
             }
 			catch (Exception ex)
 			{

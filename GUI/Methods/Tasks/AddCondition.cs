@@ -22,86 +22,130 @@ namespace BazisGUI
     {
         private void материалToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            IEnumerable<IGroup> groups;
-            if (project.ProjectType == TaskType.Volume)
-                groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент3D);
-            else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
-                groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент2D);
-            else
-                groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент1D);
+            try
+            {
+                IEnumerable<IGroup> groups;
+                if (project.ProjectType == TaskType.Volume)
+                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент3D);
+                else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
+                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент2D);
+                else
+                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент1D);
 
-            if (groups.Count() == 0)
-                return;
+                if (groups.Count() == 0)
+                    throw new Exception("Отсутствуют группы элементов");
 
-            var matDB = project.MaterialsDB;
-            if (matDB == null)
-                return;
-            if (matDB.Count == 0)
-                return;
+                var matDB = project.MaterialsDB;
+                if (matDB == null)
+                    throw new Exception("Не загружена база физических свойств");
+                if (matDB.Count == 0)
+                    throw new Exception("База физических свойств пустая");
 
-            var matData = new MatData(matDB.First().Value, groups.First(), 0, 1);
-            project.TaskData.Add(matData);
-            PresentCondDataOnTree();
+                var funDB = project.FunctionsDB;
+                if (funDB == null)
+                    throw new Exception("Не загружена база функций");
+                if (funDB.Count == 0)
+                    throw new Exception("База функций пустая");
+
+                var matData = new MatData(matDB.First().Value, groups.First(), 0, 1);
+                project.TaskData.Add(matData);
+                PresentCondDataOnTree();
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+
         }
 
         private void средаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            IEnumerable<IGroup> groups;
-            if (project.ProjectType == TaskType.Volume)
-                groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент2D);
-            else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
-                groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент1D);
-            else
-                return;
+            try
+            {
+                IEnumerable<IGroup> groups;
+                if (project.ProjectType == TaskType.Volume)
+                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент2D);
+                else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
+                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент1D);
+                else
+                    return;
 
-            if (groups.Count() == 0)
-                return;
+                if (groups.Count() == 0)
+                    throw new Exception("Отсутствуют группы элементов");
 
-            var medData = new MediaData(groups.First(), 0, 1);
-            project.TaskData.Add(medData);
-            PresentCondDataOnTree();
+                var medData = new MediaData(groups.First(), 0, 1);
+                project.TaskData.Add(medData);
+                PresentCondDataOnTree();
+
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         private void нагревToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            IEnumerable<IGroup> groups;
-            if (project.ProjectType == TaskType.Volume)
-                groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент3D);
-            else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
-                groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент2D);
-            else
-                groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент1D);
+            try
+            {
+                IEnumerable<IGroup> groups;
+                if (project.ProjectType == TaskType.Volume)
+                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент3D);
+                else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
+                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент2D);
+                else
+                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент1D);
 
-            if (groups.Count() == 0)
-                return;
+                if (groups.Count() == 0)
+                    throw new Exception("Отсутствуют группы элементов");
 
-            var heatData = new HeatData(groups.First(), 0, 1);
-            project.TaskData.Add(heatData);
-            PresentCondDataOnTree();
+                var heatData = new HeatData(groups.First(), 0, 1);
+                project.TaskData.Add(heatData);
+                PresentCondDataOnTree();
+
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void закреплениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Узел);
+            try
+            {
+                var groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Узел);
 
-            if (groups.Count() == 0)
-                return;
+                if (groups.Count() == 0)
+                    throw new Exception("Отсутствуют группы элементов");
 
-            var clampData = new ClampData(groups.First(), 0, 1);
-            project.TaskData.Add(clampData);
-            PresentCondDataOnTree();
+                var clampData = new ClampData(groups.First(), 0, 1);
+                project.TaskData.Add(clampData);
+                PresentCondDataOnTree();
+
+            }
+            catch (Exception)
+            {
+
+
+            }
         }
 
         private void нагрузкаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Узел);
+            try
+            {
+                var groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Узел);
 
-            if (groups.Count() == 0)
-                return;
+                if (groups.Count() == 0)
+                    return;
 
-            var clampData = new ClampData(groups.First(), 0, 1);
-            project.TaskData.Add(clampData);
-            PresentCondDataOnTree();
+                var clampData = new ClampData(groups.First(), 0, 1);
+                project.TaskData.Add(clampData);
+                PresentCondDataOnTree();
+            }
+            catch (Exception)
+            {
+            }
         }
        
         public async void AddConditions(AddDataEventArgs arg2)

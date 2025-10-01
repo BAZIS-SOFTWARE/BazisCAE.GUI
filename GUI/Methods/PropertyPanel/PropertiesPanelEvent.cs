@@ -147,8 +147,8 @@ namespace BazisGUI
                         ChangeTaskProperties(obj);
                     else if (nodeName == NodeName.геометрия)
                         ChangeGeoProperties(obj);
-                    else if (nodeName == NodeName.расчет)
-                        ChangeInstructionsProperties(obj);
+                    else if (nodeName == NodeName.расчеты)
+                        ChangeCompProperties(obj);
                 }
                     else if (nodeName == NodeName.результаты)
                     {         

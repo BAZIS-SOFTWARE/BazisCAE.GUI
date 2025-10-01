@@ -66,11 +66,6 @@ namespace BazisGUI
                 process.Start();
             }
         }
-
-        private void navigator_SetCompPriority(object arg1, Priority arg2)
-        {
-            
-        }
         private void navigator_RemoveAllConditionsEvent()
         {
             try
@@ -304,16 +299,44 @@ namespace BazisGUI
 
         }
 
-        private void navigator_HideAllObjectsEvent()
+        private void navigator_ChangeObjectsViewStateEvent(bool state)
         {
             try
             {
-                foreach (var obj in project.GetAllModelObjects())
-                    obj.ViewState = false;
+                var node = navigator.SelectedNode.Name.ToEnum<NodeName>();
+                var types = new List<ObjType>() ;
+                if (node == NodeName.геометрия)
+                {
+                    types = new List<ObjType>()
+                    {
+                        ObjType.Точка,
+                        ObjType.Кривая,
+                        ObjType.Поверхность
+                    };
+                }
 
-                VBOController.DeleteAllVBObjects();
-                CreateVBObjects("Объекты");
+                else if (node == NodeName.сетка)
+                {
+                    types = new List<ObjType>()
+                    {
+                        ObjType.Узел,
+                        ObjType.Элемент1D,
+                        ObjType.Элемент2D,
+                        ObjType.Элемент3D
+                    };
+                }
+
+                foreach (var type in types)
+                {
+                    foreach (var set in project.GetModelSetsInfo(type))
+                    {
+                        set.SetViewState(state);
+                        VBOController.DeleteVBObjects(set.Name);
+                    }
+                }
+
                 DisplayObjects();
+
             }
             catch (Exception ex)
             {
@@ -352,27 +375,9 @@ namespace BazisGUI
             }
         }    
 
-        private void navigator_ShowAllObjectsEvent()
-        {
-            try
-            {
-                foreach (var obj in project.ModelData.ObjectData.GetAllObjects())
-                    obj.ViewState = true;
-
-                VBOController.DeleteAllVBObjects();
-                CreateVBObjects("Объекты");
-                DisplayObjects();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
-        }
-
         private void navigator_InfoGroupEvent(int obj)
         {
-            var group = project.ModelData.GroupData[obj];
+            var group = project.GetModelGroup(obj);
             console.PrintInfo(group.ToString(), Color.Black);
         }
 
@@ -380,7 +385,7 @@ namespace BazisGUI
         {
             try
             {
-                foreach (var group in project.ModelData.GroupData)
+                foreach (var group in project.GetAllModelGroups())
                 {
                     foreach (var iobj in group)
                     {
@@ -420,7 +425,7 @@ namespace BazisGUI
         
         private void navigator_ShowGroupWithNodesEvent(int obj)
         {
-            var group = project.ModelData.GroupData[obj];
+            var group = project.GetModelGroup(obj);
             foreach (var iobj in group)
             {
                 var elem = (IElement)iobj;
@@ -452,7 +457,7 @@ namespace BazisGUI
             {
                 var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
 
-                // TODO Подумать над очисткой данных
+                // TODO Подумать над очисткой данных геометрии
                 if(nodeName == NodeName.сетка)
                 {
                     project.ClearAllData();
@@ -573,24 +578,6 @@ namespace BazisGUI
 
             var childs = navigator.CreateRealNodes(NodeName.Время.ToString(), times);
             node.Nodes.AddRange(childs);
-        }
-
-        private void navigator_SetElementsOrderEvent(int obj)
-        {
-            var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
-
-            if (nodeName == NodeName.Элементы1D)
-                project.ChangeMeshSetOrder(1, navigator.SelectedNode.Text.Split(' ')[1], obj);
-            else if (nodeName == NodeName.Элементы2D)
-                project.ChangeMeshSetOrder(2, navigator.SelectedNode.Text.Split(' ')[1], obj);
-            else if (nodeName == NodeName.Элементы3D)
-                project.ChangeMeshSetOrder(3, navigator.SelectedNode.Text.Split(' ')[1], obj);
-
-            PresentMeshData();
-            navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> mesh);
-            
-            mesh.First().Collapse();
-            mesh.First().Expand();
         }
     }
 }

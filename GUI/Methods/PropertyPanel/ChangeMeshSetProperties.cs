@@ -4,7 +4,10 @@ using BaseModule.PropertiesPanel;
 using BazisGUI.Scene.Interfaces;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -26,7 +29,7 @@ namespace BazisGUI
                 project.ChangeMeshSetName(dimm,
                     obj.OldValue.ToString(),
                     obj.NewValue.ToString());
-                PresentGeoData();
+                PresentMeshData();
             }
             else if (obj.Header == "Цвет")
             {
@@ -83,7 +86,36 @@ namespace BazisGUI
 
                 DisplayObjects();
             }
-               
+            else if(obj.Header == "Порядок точности")
+            {
+                SetElementsOrderEvent(int.Parse(obj.NewValue));
+            }    
+        }
+
+        private void SetElementsOrderEvent(int obj)
+        {
+            var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
+            var setName = navigator.SelectedNode.Text.Split(' ')[1];
+            var isExpand = navigator.SelectedNode.IsExpanded;
+            if (nodeName == NodeName.Элементы1D)
+                project.ChangeMeshSetOrder(1, setName, obj);
+            else if (nodeName == NodeName.Элементы2D)
+                project.ChangeMeshSetOrder(2, setName, obj);
+            else if (nodeName == NodeName.Элементы3D)
+                project.ChangeMeshSetOrder(3, setName, obj);
+
+            PresentMeshData();
+            navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> mesh);
+
+            mesh.First().Collapse();
+            mesh.First().Expand();
+
+
+            if (isExpand)
+            {
+                var nodes = mesh.First().Nodes.Find(nodeName.ToString(), false);
+                nodes.FirstOrDefault(x => x.Text.Contains(setName))?.Expand();
+            }
 
         }
     }

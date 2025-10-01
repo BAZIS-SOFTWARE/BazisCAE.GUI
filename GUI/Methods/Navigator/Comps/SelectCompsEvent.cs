@@ -1,27 +1,60 @@
 ﻿using BaseModule.Navigator;
+using BaseModule.PropertiesPanel;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectCompsEvent(NodeName arg1, string arg2)
+        private void Navigator_SelectCompsEvent()
         {
-            //EditTSFFile(arg2.Split(' ')[1]); на время разработки храню
             try
             {
-                /* TO DO
-                 * При нажатии сформировать следующие строки
-                    Расчеты - Список типов расчетов из тех что сформированы (comboBox)
-                    Выполнить - checkBox
-                 */
+                var tasks = new List<string>();
+                navigator.TrySearchNodes(NodeName.расчеты, out List<TreeNode> task);
+                foreach (TreeNode item in task[0].Nodes)
+                    tasks.Add(item.Text);
 
+                var taskType = new List<string> { "все", "термическая", "механическая", "химическая" };
+
+                if (selectInstruction == string.Empty)
+                    selectInstruction = taskType[0];
+
+                List<RowProperty> rows = new List<RowProperty>();
+                rows.Add(new RowProperty("Тип", selectInstruction, taskType));
+
+                foreach (var taskName in tasks)
+                {
+                    bool isExe;
+                    if (taskName.Split(' ')[2] == "выполнить")
+                        isExe = true;
+                    else
+                        isExe = false;
+                    if (selectInstruction == "все")
+                    {
+                        var name = Path.GetFileName(taskName.Split(' ')[1]);
+                        rows.Add(new RowProperty($"Выполнять {name}", isExe));
+                    }
+                    else
+                    {
+                        if (taskName.Contains(selectInstruction))
+                        {
+                            var name = Path.GetFileName(taskName.Split(' ')[1]);
+                            rows.Add(new RowProperty($"Выполнять {name}", isExe));
+                        }
+                    }
+                }
+
+                propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
-        }      
+        }
     }
 }

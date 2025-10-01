@@ -77,11 +77,12 @@ namespace BazisGUI
             SaveGeneralParametersToFile(parameters, nodeText);
 
             //перерисовывает панель свойств если был нажат какой либо чек бокс
-            if(bool.TryParse(obj.NewValue, out bool res))
-                    Navigator_SelectInstructionEvent(nodeName, nodeText);
+            
+            //if(bool.TryParse(obj.NewValue, out bool res))
+                    //Navigator_SelectCompEvent(nodeName, nodeText);
         }
 
-        private void ChangeInstructionsProperties(PropertyChangedEventArgs obj)
+        private void ChangeCompProperties(PropertyChangedEventArgs obj)
         {
             if (obj.Header == "Тип")
                 selectInstruction = obj.NewValue;
@@ -89,7 +90,7 @@ namespace BazisGUI
             {
                 var name = obj.Header.Split(' ')[1];
 
-                navigator.TrySearchNodes(NodeName.расчет, out List<TreeNode> task);
+                navigator.TrySearchNodes(NodeName.расчеты, out List<TreeNode> task);
 
 
                 var selectedInstruction = task[0].Nodes.Cast<TreeNode>().FirstOrDefault(inst => inst.Text.Contains(name));
@@ -100,7 +101,7 @@ namespace BazisGUI
                 else
                     selectedInstruction.Text = selectedInstruction.Text.Replace("выполнить", "пропустить");
             }
-            Navigator_SelectAllInstructionsEvent();
+            Navigator_SelectCompsEvent();
         }
 
         [Obsolete ("Отсутствует химические задачи, не протестировано")]
@@ -145,7 +146,7 @@ namespace BazisGUI
                 var parameters = ReadTaskParametersFromFile(selectedNode.Text.Split(' ')[1]);
 
                 var tasks = new List<string>();
-                navigator.TrySearchNodes(NodeName.расчет, out List<TreeNode> task);
+                navigator.TrySearchNodes(NodeName.расчеты, out List<TreeNode> task);
                 foreach (TreeNode item in task[0].Nodes)
                     tasks.Add(item.Text);
 

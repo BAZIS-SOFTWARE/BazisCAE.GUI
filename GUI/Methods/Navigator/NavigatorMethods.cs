@@ -91,7 +91,7 @@ namespace BazisGUI
             ganttDiagramForm.Controls.Add(ganttContol);
             ganttDiagramForm.Show(this);
         }
-
+        [Obsolete("Не используем, так как свойства редактируются через панель \"свойств\"")]
         public void EditTSFFile(string fileName)
         {
             try

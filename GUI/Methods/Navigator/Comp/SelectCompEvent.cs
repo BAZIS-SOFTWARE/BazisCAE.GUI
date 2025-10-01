@@ -11,7 +11,8 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void Navigator_SelectInstructionEvent(NodeName arg1, string arg2)
+
+        private void Navigator_SelectCompEvent(NodeName arg1, string arg2)
         {
             try
             {
@@ -23,6 +24,7 @@ namespace BazisGUI
                     isExe = false;
                 List<RowProperty> rows = new List<RowProperty>();
                 rows.Add(new RowProperty("Выполнить", isExe));
+                
                 if (parameters is ChemicalParameters cmp)
                     rows.AddRange(GetPropertyChemicalTask(cmp));
                 else if (parameters is MechanicalParameters mhp)
@@ -43,52 +45,7 @@ namespace BazisGUI
         }
 
         private string selectInstruction = string.Empty;
-        private void Navigator_SelectAllInstructionsEvent()
-        {
-            try
-            {
-                var tasks = new List<string>();
-                navigator.TrySearchNodes(NodeName.расчет, out List<TreeNode> task);
-                foreach (TreeNode item in task[0].Nodes)
-                    tasks.Add(item.Text);
-                
-                var taskType = new List<string> { "все", "термическая", "механическая", "химическая" };
-
-                if (selectInstruction == string.Empty)
-                    selectInstruction = taskType[0];
-
-                List<RowProperty> rows = new List<RowProperty>();
-                rows.Add(new RowProperty("Тип", selectInstruction, taskType));
-
-                foreach (var taskName in tasks)
-                {
-                    bool isExe;
-                    if (taskName.Split(' ')[2] == "выполнить")
-                        isExe = true;
-                    else
-                        isExe = false;
-                    if (selectInstruction == "все")
-                    {
-                        var name = Path.GetFileName(taskName.Split(' ')[1]);
-                        rows.Add(new RowProperty($"Выполнять {name}", isExe));
-                    }
-                    else 
-                    {
-                        if (taskName.Contains(selectInstruction))
-                        {
-                            var name = Path.GetFileName(taskName.Split(' ')[1]);
-                            rows.Add(new RowProperty($"Выполнять {name}", isExe));
-                        }
-                    }    
-                }
-
-                propertiesPanel.DrawTable(rows);
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
+        
 
         private List<RowProperty> GetPropertySolverSettings(GeneralParameters parameters) 
         {

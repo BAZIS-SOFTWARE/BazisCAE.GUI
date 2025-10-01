@@ -138,6 +138,7 @@ namespace BazisGUI
             this.menuItem_InfoSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_SetRotPoint = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_DeleteSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
+            this.создатьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -310,15 +311,13 @@ namespace BazisGUI
             this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
             this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
             this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
-            this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
-            this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
+            this.navigator.ChangeAllObjectsViewStateEvent += new System.Action<bool>(this.navigator_ChangeObjectsViewStateEvent);
             this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
             this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_ShowSetEvent);
             this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_HideSetEvent);
             this.navigator.DelSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_DelSetEvent);
             this.navigator.SelectSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectSetEvent);
             this.navigator.GetSetsInfoEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_GetSetsInfoEvent);
-            this.navigator.SetElementsOrderEvent += new System.Action<int>(this.navigator_SetElementsOrderEvent);
             this.navigator.SelectGroupEvent += new System.Action<int>(this.navigator_SelectGroupEvent);
             this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
             this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
@@ -335,7 +334,8 @@ namespace BazisGUI
             this.navigator.SelectTaskEvent += new System.Action(this.navigator_SelectTaskEvent);
             this.navigator.SelectGeoEvent += new System.Action(this.navigator_SelectGeoEvent);
             this.navigator.SelectResultsEvent += new System.Action(this.navigator_SelectResultsEvent);
-            this.navigator.SelectCompEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectCompEvent);
+            this.navigator.SelectCompEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.Navigator_SelectCompEvent);
+            this.navigator.SelectCompsEvent += new System.Action(this.Navigator_SelectCompsEvent);
             this.navigator.SelectGeneralInfoEvent += new System.Action(this.navigator_SelectGeneralInfoEvent);
             this.navigator.SelectTimeEvent += new System.Action<string, double>(this.navigator_SelectTimeEvent);
             this.navigator.SelectResultEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectResultEvent);
@@ -343,7 +343,7 @@ namespace BazisGUI
             this.navigator.DelCondEvent += new System.Action(this.navigator_DelCondEvent);
             this.navigator.GenerateTCFEvent += new System.Action(this.navigator_GenerateTCFEvent);
             this.navigator.StopComputationEvent += new System.Action(this.navigator_StopComputationEvent);
-            this.navigator.SetCompPriority += new System.Action<object, BaseModule.Navigator.Priority>(this.navigator_SetCompPriority);
+            //this.navigator.SetCompPriority += new System.Action<object, BaseModule.Navigator.Priority>(this.navigator_SetCompPriority);
             this.navigator.CreateAnimationEvent += new System.Action<object, string, System.Collections.Generic.List<double>>(this.navigator_CreateAnimationEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_ControlCollapseEvent);
             // 
@@ -706,6 +706,7 @@ namespace BazisGUI
             // tasksMenuItem
             // 
             this.tasksMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.создатьToolStripMenuItem1,
             this.добавитьУсловиеToolStripMenuItem,
             this.мастерToolStripMenuItem});
             this.tasksMenuItem.Name = "tasksMenuItem";
@@ -721,7 +722,7 @@ namespace BazisGUI
             this.закреплениеToolStripMenuItem,
             this.нагрузкаToolStripMenuItem});
             this.добавитьУсловиеToolStripMenuItem.Name = "добавитьУсловиеToolStripMenuItem";
-            this.добавитьУсловиеToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.добавитьУсловиеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.добавитьУсловиеToolStripMenuItem.Text = "Добавить условие";
             // 
             // материалToolStripMenuItem
@@ -767,7 +768,7 @@ namespace BazisGUI
             this.термообработкаToolStripMenuItem});
             this.мастерToolStripMenuItem.Enabled = false;
             this.мастерToolStripMenuItem.Name = "мастерToolStripMenuItem";
-            this.мастерToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.мастерToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.мастерToolStripMenuItem.Text = "Мастер";
             // 
             // toolStripMenuItem1
@@ -1493,6 +1494,13 @@ namespace BazisGUI
             this.menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             this.menuItem_DeleteSelectedObjects.Click += new System.EventHandler(this.menuItem_DeleteSelectedObjects_Click);
             // 
+            // создатьToolStripMenuItem1
+            // 
+            this.создатьToolStripMenuItem1.Name = "создатьToolStripMenuItem1";
+            this.создатьToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.создатьToolStripMenuItem1.Text = "Создать";
+            this.создатьToolStripMenuItem1.Click += new System.EventHandler(this.создатьЗадачуToolStripMenuItem_Click);
+            // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1657,6 +1665,7 @@ namespace BazisGUI
         private ToolStripMenuItem добавитьToolStripMenuItem;
         private ToolStripMenuItem открытьИнструкцииToolStripMenuItem;
         private ToolStripMenuItem объединитьToolStripMenuItem;
+        private ToolStripMenuItem создатьToolStripMenuItem1;
     }
 }
 

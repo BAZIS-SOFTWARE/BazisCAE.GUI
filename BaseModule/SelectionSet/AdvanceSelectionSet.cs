@@ -25,16 +25,25 @@ namespace BaseModule
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            if (rbtInDirection.Checked)
-                if (rbtNodes.Checked)
-                    SelectInDirection(this, new SelectInDirectionEventArgs(Objects.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
-                else
-                    MessageBox.Show("Измените объект выбора на \"Узлы\"");
-            else if (rbtInPlain.Checked)
-                if (rbtNodes.Checked)
-                    SelectInPlain(this, new SelectInPlainEventArgs(Objects.Узел, float.Parse(txbAngle.Text)));
-                else
-                    SelectInPlain(this, new SelectInPlainEventArgs(Objects.Элемент2D, float.Parse(txbAngle.Text)));
+            try
+            {
+                if (rbtInDirection.Checked)
+                    if (rbtNodes.Checked)
+                        SelectInDirection(this, new SelectInDirectionEventArgs(Objects.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
+                    else
+                        MessageBox.Show("Измените объект выбора на \"Узлы\"");
+                else if (rbtInPlain.Checked)
+                    if (rbtNodes.Checked)
+                        SelectInPlain(this, new SelectInPlainEventArgs(Objects.Узел, float.Parse(txbAngle.Text)));
+                    else
+                        SelectInPlain(this, new SelectInPlainEventArgs(Objects.Элемент2D, float.Parse(txbAngle.Text)));
+            }
+            catch (Exception ex)
+            {
+                //console
+                //throw;
+            }
+  
         }
 
         private void rbtNodes_Click(object sender, EventArgs e)

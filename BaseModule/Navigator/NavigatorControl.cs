@@ -101,8 +101,7 @@ namespace BaseModule.Navigator
         public event Action ShowAllGroupsEvent;
         public event Action HideAllGroupsEvent;
 
-        public event Action ShowAllObjectsEvent;
-        public event Action HideAllObjectsEvent;
+        public event Action<bool> ChangeAllObjectsViewStateEvent;
         public event Action DelAllObjectsEvent;
 
         public event Action LoadMaterialsEvent;
@@ -113,7 +112,6 @@ namespace BaseModule.Navigator
         public event Action<NodeName, string> DelSetEvent;
         public event Action<NodeName, string> SelectSetEvent;
         public event Action<TreeNode> GetSetsInfoEvent;
-        public event Action<int> SetElementsOrderEvent;
 
         public event Action<int> SelectGroupEvent;
         public event Action<int> DelGroupEvent;
@@ -137,6 +135,7 @@ namespace BaseModule.Navigator
         public event Action SelectResultsEvent;
  
         public event Action<NodeName, string> SelectCompEvent;
+        public event Action SelectCompsEvent;
         public event Action SelectGeneralInfoEvent;
         public event Action<string, double> SelectTimeEvent;
         public event Action<NodeName, string> SelectResultEvent;
@@ -149,7 +148,7 @@ namespace BaseModule.Navigator
         public event Action GenerateTCFEvent;
 
         public event Action StopComputationEvent;
-        public event Action<object, Priority> SetCompPriority;
+        //public event Action<object, Priority> SetCompPriority;
 
         public event Action<object, string, List<double>> CreateAnimationEvent;
 
@@ -276,7 +275,7 @@ namespace BaseModule.Navigator
             else if (node.Name == NodeName.задача.ToString())
                 node.ContextMenuStrip = taskMenuStrip;
             else if (node.Name == NodeName.геометрия.ToString())
-            { }//TO DO определить какие действия
+                node.ContextMenuStrip = objectsMenuStrip;
             else if (node.Name == NodeName.сетка.ToString())
                 node.ContextMenuStrip = objectsMenuStrip;
             else if (node.Name == NodeName.группы.ToString())
@@ -295,6 +294,8 @@ namespace BaseModule.Navigator
                 node.Name == NodeName.Элементы3D.ToString())
             {
                 if(node.Parent.Name == NodeName.сетка.ToString())
+                    node.ContextMenuStrip = set_MenuStrip;
+                else if (node.Parent.Name == NodeName.геометрия.ToString())
                     node.ContextMenuStrip = set_MenuStrip;
                 else if (node.Parent.Name == NodeName.группы.ToString())
                 {
@@ -557,8 +558,8 @@ namespace BaseModule.Navigator
                     SelectTaskEvent?.Invoke();
                 else if (node.Name == NodeName.результаты.ToString())
                     SelectResultsEvent?.Invoke();
-                else if (node.Name == NodeName.расчет.ToString()) 
-                    SelectAllInstrEvent?.Invoke();
+                else if (node.Name == NodeName.расчеты.ToString()) 
+                    SelectCompsEvent?.Invoke();
             }
 
             else if (e.Node.Level == 2)
@@ -693,21 +694,6 @@ e.Node.Name == NodeName.Объем.ToString()
             treeView.EndUpdate();
         }
 
-        private void низкийПриорToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetCompPriority?.Invoke(this, Priority.Низкий);
-        }
-
-        private void среднийПриорToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetCompPriority?.Invoke(this, Priority.Средний);
-        }
-
-        private void высокийПриорToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetCompPriority?.Invoke(this, Priority.Высокий);
-        }
-
         private void запуститьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GenerateTCFEvent?.Invoke();
@@ -732,31 +718,6 @@ e.Node.Name == NodeName.Объем.ToString()
         {
             ShowGantChartEvent?.Invoke();
         }
-
-        //private void материалToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    AddConditionEvent?.Invoke(this, NodeName.Материал);
-        //}
-
-        //private void закреплениеToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    AddConditionEvent?.Invoke(this, NodeName.Закрепление);
-        //}
-
-        //private void нагрузкаToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    AddConditionEvent?.Invoke(this, NodeName.Нагрузка);
-        //}
-
-        //private void нагревToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    AddConditionEvent?.Invoke(this, NodeName.Нагрев);
-        //}
-
-        //private void средаToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    AddConditionEvent?.Invoke(this, NodeName.Среда);
-        //}
 
         private void удалитьВсеУсловияToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -853,16 +814,6 @@ e.Node.Name == NodeName.Объем.ToString()
             return bounds;
         }
 
-        private void SetFirstOrder_Click(object sender, EventArgs e)
-        {
-            SetElementsOrderEvent?.Invoke(1);
-        }
-
-        private void SetSecondOrder_Click(object sender, EventArgs e)
-        {
-            SetElementsOrderEvent?.Invoke(2);
-        }
-
         private void удалитьУсловиеMenuItem_Click(object sender, EventArgs e)
         {
             DelCondEvent?.Invoke();
@@ -870,7 +821,7 @@ e.Node.Name == NodeName.Объем.ToString()
 
         private void скрытьОбъектыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HideAllObjectsEvent?.Invoke();
+            ChangeAllObjectsViewStateEvent?.Invoke(false);
         }
 
 
@@ -881,7 +832,7 @@ e.Node.Name == NodeName.Объем.ToString()
 
         private void показатьОбъектыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowAllObjectsEvent?.Invoke();
+            ChangeAllObjectsViewStateEvent?.Invoke(true);
         }
     }
 }
