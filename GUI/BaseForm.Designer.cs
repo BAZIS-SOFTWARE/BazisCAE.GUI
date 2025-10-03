@@ -77,6 +77,7 @@ namespace BazisGUI
             this.материалыMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.функцииMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tasksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.создатьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьУсловиеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.материалToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.средаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -138,7 +139,6 @@ namespace BazisGUI
             this.menuItem_InfoSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_SetRotPoint = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_DeleteSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
-            this.создатьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -343,7 +343,6 @@ namespace BazisGUI
             this.navigator.DelCondEvent += new System.Action(this.navigator_DelCondEvent);
             this.navigator.GenerateTCFEvent += new System.Action(this.navigator_GenerateTCFEvent);
             this.navigator.StopComputationEvent += new System.Action(this.navigator_StopComputationEvent);
-            //this.navigator.SetCompPriority += new System.Action<object, BaseModule.Navigator.Priority>(this.navigator_SetCompPriority);
             this.navigator.CreateAnimationEvent += new System.Action<object, string, System.Collections.Generic.List<double>>(this.navigator_CreateAnimationEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_ControlCollapseEvent);
             // 
@@ -713,6 +712,13 @@ namespace BazisGUI
             this.tasksMenuItem.Size = new System.Drawing.Size(56, 20);
             this.tasksMenuItem.Text = "Задача";
             // 
+            // создатьToolStripMenuItem1
+            // 
+            this.создатьToolStripMenuItem1.Name = "создатьToolStripMenuItem1";
+            this.создатьToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
+            this.создатьToolStripMenuItem1.Text = "Создать";
+            this.создатьToolStripMenuItem1.Click += new System.EventHandler(this.создатьЗадачуToolStripMenuItem_Click);
+            // 
             // добавитьУсловиеToolStripMenuItem
             // 
             this.добавитьУсловиеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -722,7 +728,7 @@ namespace BazisGUI
             this.закреплениеToolStripMenuItem,
             this.нагрузкаToolStripMenuItem});
             this.добавитьУсловиеToolStripMenuItem.Name = "добавитьУсловиеToolStripMenuItem";
-            this.добавитьУсловиеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.добавитьУсловиеToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.добавитьУсловиеToolStripMenuItem.Text = "Добавить условие";
             // 
             // материалToolStripMenuItem
@@ -768,7 +774,7 @@ namespace BazisGUI
             this.термообработкаToolStripMenuItem});
             this.мастерToolStripMenuItem.Enabled = false;
             this.мастерToolStripMenuItem.Name = "мастерToolStripMenuItem";
-            this.мастерToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.мастерToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.мастерToolStripMenuItem.Text = "Мастер";
             // 
             // toolStripMenuItem1
@@ -1493,13 +1499,6 @@ namespace BazisGUI
             this.menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(203, 22);
             this.menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             this.menuItem_DeleteSelectedObjects.Click += new System.EventHandler(this.menuItem_DeleteSelectedObjects_Click);
-            // 
-            // создатьToolStripMenuItem1
-            // 
-            this.создатьToolStripMenuItem1.Name = "создатьToolStripMenuItem1";
-            this.создатьToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.создатьToolStripMenuItem1.Text = "Создать";
-            this.создатьToolStripMenuItem1.Click += new System.EventHandler(this.создатьЗадачуToolStripMenuItem_Click);
             // 
             // BaseForm
             // 

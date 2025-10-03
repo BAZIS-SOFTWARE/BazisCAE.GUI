@@ -1,5 +1,6 @@
 ﻿using BaseModule.PropertiesPanel;
 using Model.Interfaces;
+using Model.Interfaces.MeshObjects;
 using Model.MeshObjects;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
@@ -17,10 +18,8 @@ namespace BazisGUI
             return new RowProperty("Размер элементов", meshSize[0]);
         }
 
-        private List<RowProperty> GetElementProperty(ObjType objType, int number)
+        private List<RowProperty> GetElementProperty(IElement element)
         {
-            var modelObj = project.GetModelObject(objType, number);
-            var element = modelObj as Element;
             var nodes = string.Join(";", element.GetVertexes().Select(node => node.Number).ToList());
             var levels = new List<string>() { "1", "2" };
             var rows = new List<RowProperty>
@@ -33,9 +32,8 @@ namespace BazisGUI
             return rows;
         }
 
-        private List<RowProperty> GetNodeProperty(ObjType objType, int number)
+        private List<RowProperty> GetNodeProperty(Node node)
         {
-            var node = (Node)project.GetModelObject(objType, number);
             var coord = node.GetCoordinates();
             var listNumbers = string.Join(";", node.GetElements().Select(element => element.Number).ToList());
 

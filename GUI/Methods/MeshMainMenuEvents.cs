@@ -211,53 +211,53 @@ namespace BazisGUI
             gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeExtendFromBoundary", 1);
         }
 
-        private void DeleteElementsByNumber(object sender, DeleteElementEventArgs args)
-        {
-            var cntr = (GMSHGeneralMeshControl)sender;
-            var intType = cntr.GetElementTypeByString(ref args.keyData[0]);
+        //private void DeleteElementsByNumber(object sender, DeleteElementEventArgs args)
+        //{
+        //    var cntr = (GMSHGeneralMeshControl)sender;
+        //    var intType = cntr.GetElementTypeByString(ref args.keyData[0]);
 
-            var dimTags = args.isNumeric ? new int[] { args.dim, Int32.Parse(args.keyData[1]) }
-                         : GetElementsByType(intType, args.dim, args.tag);
+        //    var dimTags = args.isNumeric ? new int[] { args.dim, Int32.Parse(args.keyData[1]) }
+        //                 : GetElementsByType(intType, args.dim, args.tag);
 
 
-            DeleteElementsByNumbers(dimTags, args.keyData[0], cntr.ElementsType);
-        }
+        //    DeleteElementsByNumbers(dimTags, args.keyData[0], cntr.ElementsType);
+        //}
 
-        private int[] GetElementsByType(int intType, int dim, int tag)
-        {
-            var data = gmshController.Gmsh.Model.Mesh.GetElements(dim, tag);
-            var elTypes = data.Item1;
-            var elTags = data.Item2;
-            var nodeTags = data.Item3;
-            int[] dimTags = null;
-            for (var i = 0; i < elTypes.Length; ++i)
-                if (elTypes[i] == intType)
-                {
-                    var tags = elTags[i];
-                    dimTags = new int[tags.Length * 2];
-                    for (var j = 0; j < tags.Length; ++j)
-                    {
-                        dimTags[j * 2] = dim;
-                        dimTags[j * 2 + 1] = Convert.ToInt32(tags[j]);
-                    }
-                    break;
-                }
-            return dimTags;
-        }
+        //private int[] GetElementsByType(int intType, int dim, int tag)
+        //{
+        //    var data = gmshController.Gmsh.Model.Mesh.GetElements(dim, tag);
+        //    var elTypes = data.Item1;
+        //    var elTags = data.Item2;
+        //    var nodeTags = data.Item3;
+        //    int[] dimTags = null;
+        //    for (var i = 0; i < elTypes.Length; ++i)
+        //        if (elTypes[i] == intType)
+        //        {
+        //            var tags = elTags[i];
+        //            dimTags = new int[tags.Length * 2];
+        //            for (var j = 0; j < tags.Length; ++j)
+        //            {
+        //                dimTags[j * 2] = dim;
+        //                dimTags[j * 2 + 1] = Convert.ToInt32(tags[j]);
+        //            }
+        //            break;
+        //        }
+        //    return dimTags;
+        //}
 
-        private void DeleteElementsByNumbers(int[] dimTags, string keyData, IEnumerable<string> elementType)
-        {
-            foreach (var element in elementType)
-                if (element.Contains(keyData))
-                {
-                    var idElems = dimTags.Where((i, v) => (v & 1) == 1)
-                                            .Select(v => (IntPtr)v)
-                                            .ToArray();
-                    gmshController.DeleteMeshElements(idElems);
-                    return;
-                }
-            gmshController.Gmsh.Model.Mesh.Clear(dimTags);
-        }
+        //private void DeleteElementsByNumbers(int[] dimTags, string keyData, IEnumerable<string> elementType)
+        //{
+        //    foreach (var element in elementType)
+        //        if (element.Contains(keyData))
+        //        {
+        //            var idElems = dimTags.Where((i, v) => (v & 1) == 1)
+        //                                    .Select(v => (IntPtr)v)
+        //                                    .ToArray();
+        //            gmshController.DeleteMeshElements(idElems);
+        //            return;
+        //        }
+        //    gmshController.Gmsh.Model.Mesh.Clear(dimTags);
+        //}
 
 
         private void MeshGenerator_showSurfaceNumbers(object sender, bool flag)
