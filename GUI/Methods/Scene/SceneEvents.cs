@@ -266,6 +266,8 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
         {
             foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
             {
+                // Управляем возвратом цвета через контроллер
+                //project?.SetModelObjectsBackColor(type);
                 foreach (var set in project?.GetModelSetsInfo(type))
                 {
                     set.SetBackColor();

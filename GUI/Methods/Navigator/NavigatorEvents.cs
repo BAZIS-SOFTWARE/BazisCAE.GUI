@@ -275,36 +275,12 @@ namespace BazisGUI
 
         }
 
-       
-
-        private void navigator_HideAllGroupsEvent()
-        {
-            try
-            {
-                foreach (var group in project.ModelData.GroupData)
-                {
-                    foreach (var iobj in group)
-                    {
-                        iobj.ViewState = false;
-                    }
-                }
-                VBOController.DeleteAllVBObjects();
-                CreateVBObjects("Объекты");
-                DisplayObjects();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
-        }
-
         private void navigator_ChangeObjectsViewStateEvent(bool state)
         {
             try
             {
                 var node = navigator.SelectedNode.Name.ToEnum<NodeName>();
-                var types = new List<ObjType>() ;
+                var types = new List<ObjType>();
                 if (node == NodeName.геометрия)
                 {
                     types = new List<ObjType>()
@@ -343,84 +319,7 @@ namespace BazisGUI
                 console.PrintInfo(ex.Message, Color.Red);
             }
 
-        }
-
-        private void navigator_ShowGroupEvent(int obj)
-        {
-            try
-            {
-                var group = project.GetModelGroup(obj);
-                ChangeGroupViewState(group,true);
-
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
-
-
-        private void navigator_HideGroupEvent(int obj)
-        {
-            try
-            {
-                var group = project.GetModelGroup(obj);
-                ChangeGroupViewState(group, false);
-
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }    
-
-        private void navigator_InfoGroupEvent(int obj)
-        {
-            var group = project.GetModelGroup(obj);
-            console.PrintInfo(group.ToString(), Color.Black);
-        }
-
-        private void navigator_ShowAllGroupsEvent()
-        {
-            try
-            {
-                foreach (var group in project.GetAllModelGroups())
-                {
-                    foreach (var iobj in group)
-                    {
-                        iobj.ViewState = true;
-                    }
-                }
-                VBOController.DeleteAllVBObjects();
-                CreateVBObjects("Объекты");
-                DisplayObjects();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
-
-        private void navigator_DelAllGroupsEvent()
-        {
-            try
-            {               
-                project.ModelData.GroupData.Clear();
-                project.TaskData.Clear();
-
-                PresentGroupDataOnTree();
-
-                //if (arg1 is TaskPage taskPage)
-                PresentCondDataOnTree();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
-        }
+        }  
 
         
         private void navigator_ShowGroupWithNodesEvent(int obj)
