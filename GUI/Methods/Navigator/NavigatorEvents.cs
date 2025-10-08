@@ -1,9 +1,11 @@
 ﻿using BaseModule.Extensions;
 using BaseModule.Navigator;
 using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BazisGUI.Scene.VBO;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
+using Model.Utilities;
 using PreProc;
 using PreProc.Interfaces;
 using Project.Interfaces.Tasks;
@@ -275,108 +277,12 @@ namespace BazisGUI
 
         }
 
-        private void navigator_ChangeObjectsViewStateEvent(bool state)
-        {
-            try
-            {
-                var node = navigator.SelectedNode.Name.ToEnum<NodeName>();
-                var types = new List<ObjType>();
-                if (node == NodeName.геометрия)
-                {
-                    types = new List<ObjType>()
-                    {
-                        ObjType.Точка,
-                        ObjType.Кривая,
-                        ObjType.Поверхность
-                    };
-                }
-
-                else if (node == NodeName.сетка)
-                {
-                    types = new List<ObjType>()
-                    {
-                        ObjType.Узел,
-                        ObjType.Элемент1D,
-                        ObjType.Элемент2D,
-                        ObjType.Элемент3D
-                    };
-                }
-
-                foreach (var type in types)
-                {
-                    foreach (var set in project.GetModelSetsInfo(type))
-                    {
-                        set.SetViewState(state);
-                        VBOController.DeleteVBObjects(set.Name);
-                    }
-                }
-
-                DisplayObjects();
-
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
-        }  
-
-        
-        private void navigator_ShowGroupWithNodesEvent(int obj)
-        {
-            var group = project.GetModelGroup(obj);
-            foreach (var iobj in group)
-            {
-                var elem = (IElement)iobj;
-                elem.ViewState = true;
-
-                foreach (var node in elem.GetVertexes())
-                    node.ViewState = true;
-
-            }
-
-            VBOController.DeleteVBObjects(ObjType.Узел.ToString());
-            var ndPres = project.CreateModelObjectsPresentor(ObjType.Узел);
-            CreateVBObject(ndPres);
-
-            var strObjType = group.ObjType.ToString();
-            VBOController.DeleteVBObjects(strObjType);
-            var objPres = project.CreateModelObjectsPresentor(group.ObjType);
-            CreateVBObject(objPres);
-
-            DisplayObjects();
-        }
         private void navigator_NavigatorPanelCollapseEvent()
         {
             splitContainer1.Panel1Collapsed = true;
         }
-        private void navigator_DelAllObjectsEvent()
-        {
-            try
-            {
-                var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
 
-                // TODO Подумать над очисткой данных геометрии
-                if(nodeName == NodeName.сетка)
-                {
-                    project.ClearAllData();
-
-                    PresentGeoData();
-                    PresentMeshData();
-                    PresentGroupDataOnTree();
-                    PresentCondDataOnTree();
-
-                    ClearAllDataOnScene();
-                }
-
-                DisplayObjects();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
-        }
+          
         private void navigator_GetObjectsInfoEvent(TreeNode node)
         {
             var nodeName = node.Name.ToEnum<NodeName>();

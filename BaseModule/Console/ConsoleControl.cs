@@ -32,7 +32,8 @@ namespace BaseModule.Console
         ChangeObjCoordinates,
         FindCoincident,
         FindObject,
-        FindVolElems
+        FindVolElems,
+        BeamConnection
     }
 
     public enum GeomCmd
@@ -84,6 +85,7 @@ namespace BaseModule.Console
             { "Найти совпадающие",GenCmd.FindCoincident},
             { "Найти объемные элементы",GenCmd.FindVolElems},
             { "Найти объект",GenCmd.FindObject},
+            { "Соединить стержнями",GenCmd.BeamConnection},
             { "Выход",GenCmd.Exit }
         };
 
@@ -276,6 +278,9 @@ namespace BaseModule.Console
                     case GenCmd.FindCoincident:
                         if (cmds[1] == "Узлы")
                             InEvent(this, new ModelFindCoincidentsNodesEventArgs());
+                        break;
+                    case GenCmd.BeamConnection:
+                        InEvent(this, new BeamConnectionEventArgs(cmds[1], cmds[2],cmds[3], cmds[4]));
                         break;
                     case GenCmd.SolveProject:
                         InEvent(this, new SolveProjectEventArgs());

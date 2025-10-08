@@ -35,43 +35,49 @@ namespace BazisGUI
                     DisplayObjects();
                 }
 
-                var rows = new List<RowProperty>();
-                if (nodeName == NodeName.Точка)
-                    rows.Add(GetPointProperty(number));
-
-                else if (nodeName == NodeName.Узел)
-                {
-                    var node = (Node)project.GetModelObject(ObjType.Узел, number);
-                    rows.AddRange(GetNodeProperty(node));
-                }
-
-
-                else if (nodeName == NodeName.Элемент1D |
-                    nodeName == NodeName.Элемент2D |
-                    nodeName == NodeName.Элемент3D)
-                {
-                    var element = project.GetModelElements().First(x => x.Number == number);
-                    rows.AddRange(GetElementProperty(element));
-                }
-
-
-                else if (nodeName == NodeName.Кривая)
-                    rows.AddRange(GetCurveProperties(number));
-
-                else if (nodeName == NodeName.Объем)
-                {
-                    var vol = project.GetModelVolumes().First(x => x.Number == number);
-                    rows.AddRange(GetVolProperties(vol));
-                }
-
-
-                propertiesPanel.DrawTable(rows);
+                CreateObjectProperties(nodeName, number);
 
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        private void CreateObjectProperties(NodeName nodeName, int number)
+        {
+
+            var rows = new List<RowProperty>();
+            if (nodeName == NodeName.Точка)
+                rows.Add(GetPointProperty(number));
+
+            else if (nodeName == NodeName.Узел)
+            {
+                var node = (Node)project.GetModelObject(ObjType.Узел, number);
+                rows.AddRange(GetNodeProperty(node));
+            }
+
+
+            else if (nodeName == NodeName.Элемент1D |
+                nodeName == NodeName.Элемент2D |
+                nodeName == NodeName.Элемент3D)
+            {
+                var element = project.GetModelElements().First(x => x.Number == number);
+                rows.AddRange(GetElementProperty(element));
+            }
+
+
+            else if (nodeName == NodeName.Кривая)
+                rows.AddRange(GetCurveProperties(number));
+
+            else if (nodeName == NodeName.Объем)
+            {
+                var vol = project.GetModelVolumes().First(x => x.Number == number);
+                rows.AddRange(GetVolProperties(vol));
+            }
+
+
+            propertiesPanel.DrawTable(rows);
         }
     }
 }

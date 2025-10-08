@@ -1,5 +1,9 @@
-﻿using Geometry;
+﻿using BaseModule.Navigator;
+using BaseModule.PropertiesPanel;
+using Geometry;
+using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
+using Model.MeshObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +31,6 @@ namespace BazisGUI
                         var scrPoints = new List<Point2D>();//[coords.Count()];
                         var scnPoints = new List<Point3D>();//[coords.Count()];
 
-                        //var pointCounter = 0;
                         foreach (var point in coords)
                         {
                             var scnPoint = GetSceenCoord(point);
@@ -35,13 +38,7 @@ namespace BazisGUI
 
                             var scrPoint = GetScreenCoord(scnPoint);
                             scrPoints.Add(scrPoint);
-
-                            //pointCounter++;
                         }
-                        // Магия выбора
-                        // Если объект точка 
-                        // TO DO сделать выбор для остальных объектов через
-                        // барицентрические координаты
 
 
                         if (IsObjectSelected(selectionPoint, scrPoints))
@@ -81,34 +78,41 @@ namespace BazisGUI
 
             }
 
+            if (selFlag)
+                CreateObjectProperties(tempSetInfo, tempNumb);
+
             return selFlag;
         }
 
-        private void SwapInfo(ref int tempNumb, ref ISetInfo tempSetInfo, ISetInfo set, int numb)
+        private void CreateObjectProperties(ISetInfo setName, int number)
         {
-            tempSetInfo = set;
-            tempNumb = numb;
+
+            var rows = new List<RowProperty>();
+            if (setName.ObjType == ObjType.Точка)
+                rows.Add(GetPointProperty(number));
+
+            else if (setName.ObjType == ObjType.Узел)
+            {
+                var node = (Node)project.GetModelObject(ObjType.Узел, number);
+                rows.AddRange(GetNodeProperty(node));
+            }
+
+
+            else if (setName.ObjType == ObjType.Элемент1D |
+                setName.ObjType == ObjType.Элемент2D |
+                setName.ObjType == ObjType.Элемент3D)
+            {
+                var element = project.GetModelElements().First(x => x.Number == number);
+                rows.AddRange(GetElementProperty(element));
+            }
+
+
+            else if (setName.ObjType == ObjType.Кривая)
+                rows.AddRange(GetCurveProperties(number));
+
+
+            propertiesPanel.DrawTable(rows);
         }
-
-        //private Tuple<Point2D[], Point3D[]> ConvertObjectCoords(IEnumerable<Point3D> coords)
-        //{
-        //    var scrPoints = new Point2D[coords.Count()];
-        //    var scnPoints = new Point3D[coords.Count()];
-
-        //    var pointCounter = 0;
-        //    foreach (var point in coords)
-        //    {
-        //        var scnPoint = GetSceenCoord(point);
-        //        scnPoints[pointCounter] = scnPoint;
-
-        //        var scrPoint = GetScreenCoord(scnPoint);
-        //        scrPoints[pointCounter] = scrPoint;
-
-        //        pointCounter++;
-        //    }
-
-        //    return new Tuple<Point2D[], Point3D[]>(scrPoints, scnPoints);
-        //}
 
         private bool IsObjectCloser(ref ISetInfo tempSetInfo, ref Point3D tempScnPoint, List<Point3D> scnPoints)
         {

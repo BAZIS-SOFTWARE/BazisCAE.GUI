@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Console\BeamConnectionEventArgs.cs" />
     <Compile Include="Console\ConsoleToolStrRender.cs" />
     <Compile Include="Console\Events\ExitAppEventArgs.cs" />
     <Compile Include="Console\Events\LoadProjectEventArgs.cs" />

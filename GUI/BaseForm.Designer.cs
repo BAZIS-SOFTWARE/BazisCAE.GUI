@@ -311,7 +311,7 @@ namespace BazisGUI
             this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
             this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
             this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
-            this.navigator.ChangeAllObjectsViewStateEvent += new System.Action<bool>(this.navigator_ChangeObjectsViewStateEvent);
+            this.navigator.ChangeAllObjectsViewStateEvent += new System.Action<bool>(this.navigator_ChangeAllObjectsViewStateEvent);
             this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
             this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_ShowSetEvent);
             this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_HideSetEvent);
