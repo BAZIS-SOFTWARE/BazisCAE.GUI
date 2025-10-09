@@ -41,7 +41,12 @@ namespace BazisGUI
                     else if (nodeName == NodeName.расчеты)
                         ChangeCompProperties(obj);
                     else if (nodeName == NodeName.результаты)
+                    {
                         ChangeResultsProperty(obj);
+                        var rows = GetResultsProperties();
+                        propertiesPanel.DrawTable(rows);
+                    }
+                        
                 }
 
                 if (navigator.SelectedNode.Level == 2)
@@ -144,6 +149,20 @@ namespace BazisGUI
         {
             if (obj.Header == "Масштаб")
                 settingsConfig.Scale_scale = int.Parse(obj.NewValue);
+
+            else if(obj.Header == "Макс. значение" | obj.Header == "Мин. значение")
+            {
+                if (obj.Header == "Макс. значение")
+                    settingsConfig.Scale_MaxValue = float.Parse(obj.NewValue);
+                else
+                    settingsConfig.Scale_MinValue = float.Parse(obj.NewValue);
+
+                var intervals = settingsConfig.Scale_Intervals;
+                var pre = settingsConfig.Scale_Precision;
+                resultsController.FillRange(
+                    settingsConfig.Scale_MinValue,settingsConfig.Scale_MaxValue, intervals, pre);
+            }
+
             else if (obj.Header == "Показывать шкалу")
             {
                 /* TO DO

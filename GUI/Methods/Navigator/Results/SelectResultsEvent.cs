@@ -32,6 +32,17 @@ namespace BazisGUI
              * Положение шкалы по Y (NumericUpDown) как создать смотри выше
              */
 
+            var rows = GetResultsProperties();
+
+
+
+            //var _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, allGroup);
+
+            propertiesPanel.DrawTable(rows);
+        }
+
+        public List<RowProperty> GetResultsProperties()
+        {
             List<RowProperty> rows = new List<RowProperty>();
 
 
@@ -40,19 +51,28 @@ namespace BazisGUI
             rows.Add(new RowProperty("Показать значения в элементах", settingsConfig.ShowElementsResultsValue));
             rows.Add(new RowProperty("Усреднять результаты", settingsConfig.MergeResultsValue));
             rows.Add(new RowProperty("Показывать шкалу", settingsConfig.ShowResultsScale));
-            rows.Add(new RowProperty("Масштаб", settingsConfig.Scale_scale));
-            rows.Add(new RowProperty("Уточнить значения", false));
-            rows.Add(new RowProperty("Макс. значение", 1));
-            rows.Add(new RowProperty("Мин. значение", 0));
-            rows.Add(new RowProperty("Точность", new NumericUpDownValue(4, 0, 15, 0, 1)));
-            rows.Add(new RowProperty("Интервалы", new NumericUpDownValue(10, 2, 10, 0, 1)));
 
-            rows.Add(new RowProperty("Положение шкалы по Х", new NumericUpDownValue(70, 0, 2000, 0, 1)));
-            rows.Add(new RowProperty("Положение шкалы по Y", new NumericUpDownValue(170, 0, 2000, 0, 1)));
+            if (settingsConfig.ShowResultsScale)
+            {
+                rows.Add(new RowProperty("Масштаб", settingsConfig.Scale_scale));
+                rows.Add(new RowProperty("Уточнить значения", settingsConfig.IsScaleMaxMinManual));
 
-            //var _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, allGroup);
+                if (settingsConfig.IsScaleMaxMinManual)
+                {
+                    rows.Add(new RowProperty("Макс. значение", settingsConfig.Scale_MaxValue));
+                    rows.Add(new RowProperty("Мин. значение", settingsConfig.Scale_MinValue));
+                }
 
-            propertiesPanel.DrawTable(rows);
+                rows.Add(new RowProperty("Точность", new NumericUpDownValue(settingsConfig.Scale_Precision, 0, 15, 0, 1)));
+                rows.Add(new RowProperty("Интервалы", new NumericUpDownValue(settingsConfig.Scale_Intervals, 2, 10, 0, 1)));
+
+                rows.Add(new RowProperty("Положение шкалы по Х",
+                    new NumericUpDownValue(settingsConfig.Scale_X_Coord, 0, 2000, 0, 1)));
+                rows.Add(new RowProperty("Положение шкалы по Y",
+                    new NumericUpDownValue(settingsConfig.Scale_Y_Coord, 0, 2000, 0, 1)));
+            }
+
+            return rows;
         }
     }
 }
