@@ -401,6 +401,12 @@
     <Compile Include="Methods\PropertyPanel\ChangePointProperties.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Results\CreateDiagramm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Results\CreatePlot.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Tasks\Create.cs">
       <SubType>Form</SubType>
     </Compile>

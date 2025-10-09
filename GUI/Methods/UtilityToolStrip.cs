@@ -138,7 +138,11 @@ namespace BazisGUI
                 if (res.Result is IPoint node)
                 {
                     nodes.Add(node);
-                    //node.SetBackColor();
+                    var set = project?.GetModelSetsInfo(ObjType.Узел).First();
+                    set.SetBackColor();
+                    var pres = project.CreateModelObjectsPresentor(set);
+                    if (pres != null)
+                        SetVBObjectAttribute(pres, "цвет");
                 }
                 else break;
 

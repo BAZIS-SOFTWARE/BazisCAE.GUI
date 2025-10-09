@@ -758,49 +758,6 @@ namespace BazisGUI
             }
         }
 
-        private async void импортСеткиToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string meshFilter =
-"All files(*.*)|*.*|" +
-"Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
-"GMSH(*.inp)|*.inp|" +
-"GMSH(*.inp_v2)|*.inp_v2|" +
-"ANSYS(*.cdb*)|*.cdb|" +
-"STL(*.stl*)|*.stl|" +
-"SOLOMIA(*.dat*)|*.dat";
-
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = meshFilter;
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
-
-                var res = await dataController.ImportMesh(dialog.FileName);
-
-                if (res == null)
-                    return;
-
-                project = res;
-                var path = Path.GetDirectoryName(dialog.FileName);
-                lblStatus.Text = $"{path}\\{project.Name}";
-
-                gmshController?.Gmsh?.Clear();
-
-                ClearAllDataOnScene();
-                PresentProject();
-
-                FitObjectsToScreen();
-                DisplayObjects();
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
-            }
-
-        }
-
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -860,50 +817,6 @@ namespace BazisGUI
             //Path.GetDirectoryName
             project?.Save(lblStatus.Text);
             console.PrintInfo("Проект сохранен", Color.Black);
-        }
-
-        private async void импортГеометрииToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var dialog = new OpenFileDialog();
-
-                var filter =
-    "(*.brep*)|*.brep|" +
-    "(*.geo*)|*.geo|" +
-    "*.stp*)|*.stp|" +
-    "(*.step*)|*.step|" +
-    "(*.iges*)|*.iges|" +
-    "(*.igs*)|*.igs";
-
-                dialog.Filter = filter;
-
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
-
-
-                if (gmshController.Gmsh == null)
-                    gmshController = dataController.LoadGMSH();
-
-                if (project == null)
-                    project = new Controller();
-                project.ImportCAD(dialog.FileName, gmshController);
-
-                if (project != null)
-                {
-                    lblStatus.Text = $"{project.Name}";
-
-                    ClearAllDataOnScene();
-                    PresentProject();
-
-                    FitObjectsToScreen();
-                    DisplayObjects();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         private void PresentProject()
@@ -1065,7 +978,7 @@ namespace BazisGUI
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
 
-        }  
+        }
     }
 
 }
