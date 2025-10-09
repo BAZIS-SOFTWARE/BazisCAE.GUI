@@ -15,15 +15,15 @@ namespace BazisGUI
         {
             var rows = new List<RowProperty>()
             {
-            new RowProperty("Группа элементов", obj.Group.Name, groups.Select(x => x.Name).ToList()),
+            new RowProperty("Группа элементов", new DropDownPropertyValue(obj.Group.Name, groups.Select(x => x.Name).ToList())),
             new RowProperty("Коэф. теплоотдачи", obj.HeatExchangeValue),
-            new RowProperty("Функция, F(t), F - Дж./мм.^2", 
-            obj.HeatExchangeFunc == null ? "*" : obj.HeatExchangeFunc.Name, func),
+            new RowProperty("Функция, F(t), F - Дж./мм.^2", new DropDownPropertyValue(
+            obj.HeatExchangeFunc == null ? "*" : obj.HeatExchangeFunc.Name, func)),
             new RowProperty("Температура среды", obj.TemperatureValue),
             new RowProperty("Старт, сек.", obj.StartTime),
             new RowProperty("Стоп, сек.", obj.StopTime),
-            new RowProperty("Функция, F(t), F - Град.",
-            obj.TemperatureFunc == null ? "*" : obj.TemperatureFunc.Name, func)
+            new RowProperty("Функция, F(t), F - Град.",new DropDownPropertyValue(
+            obj.TemperatureFunc == null ? "*" : obj.TemperatureFunc.Name, func))
             };
 
             var funcNames = new List<string>() { "*", "Custom" };
@@ -32,8 +32,8 @@ namespace BazisGUI
             {
                 rows.Add(new RowProperty
 (
-"Функция, F(v(x,y,z)), F - Град.| Дж./мм.^2", obj.FrameFunction.Name, funcNames
-));
+"Функция, F(v(x,y,z)), F - Град.| Дж./мм.^2", new DropDownPropertyValue(obj.FrameFunction.Name, funcNames
+)));
                 rows.AddRange(GetFrameFunctionProperties(obj.FrameFunction));
                 rows.AddRange(GetLocalFrameProperties(obj.FrameFunction.LocalFrame, groups));
             }
@@ -41,8 +41,8 @@ namespace BazisGUI
             {
                 rows.Add(new RowProperty
 (
-"Функция, F(v(x,y,z)), F - Град.| Дж./мм.^2", "*", funcNames
-));
+"Функция, F(v(x,y,z)), F - Град.| Дж./мм.^2", new DropDownPropertyValue("*", funcNames
+)));
             }
                 return rows;
 

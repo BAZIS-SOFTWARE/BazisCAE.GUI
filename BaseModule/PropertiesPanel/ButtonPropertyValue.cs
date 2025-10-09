@@ -3,12 +3,12 @@ using System.Windows.Forms;
 
 namespace BaseModule.PropertiesPanel
 {
-    public class DataGridViewButtonCellSet
+    public class ButtonPropertyValue
     {
         public string Text { get; set; }
         public Action OnClick { get; set; }
 
-        public DataGridViewButtonCellSet(string text, Action onClick)
+        public ButtonPropertyValue(string text, Action onClick)
         {
             Text = text;
             OnClick = onClick;

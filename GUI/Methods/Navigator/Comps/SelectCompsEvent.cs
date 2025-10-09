@@ -25,7 +25,7 @@ namespace BazisGUI
                     selectInstruction = taskType[0];
 
                 List<RowProperty> rows = new List<RowProperty>();
-                rows.Add(new RowProperty("Тип", selectInstruction, taskType));
+                rows.Add(new RowProperty("Тип", new DropDownPropertyValue(selectInstruction, taskType)));
 
                 foreach (var taskName in tasks)
                 {

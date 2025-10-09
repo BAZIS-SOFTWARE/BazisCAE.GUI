@@ -25,7 +25,7 @@ namespace BazisGUI
             var rows = new List<RowProperty>
             {
                 new RowProperty("Номер", element.Number, true),
-                new RowProperty("Порядок элемента", element.Level, levels),
+                new RowProperty("Порядок элемента", new DropDownPropertyValue(element.Level, levels)),
                 new RowProperty("Входящие узлы", nodes, true)
             };
 

@@ -154,7 +154,7 @@
     <Compile Include="Player\PlayerControl.Designer.cs">
       <DependentUpon>PlayerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="PropertiesPanel\DataGridViewButtonCellSet.cs" />
+    <Compile Include="PropertiesPanel\ButtonPropertyValue.cs" />
     <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\DataGridViewNumericUpDownCell.cs" />
     <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\DataGridViewNumericUpDownEditingControl.cs">
       <SubType>Component</SubType>
@@ -163,6 +163,7 @@
       <DependentUpon>DataGridViewNumericUpDownEditingControl.cs</DependentUpon>
     </Compile>
     <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\NumericUpDownValue.cs" />
+    <Compile Include="PropertiesPanel\DropDownPropertyValue.cs" />
     <Compile Include="SceenControls\ClipControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -181,7 +182,6 @@
     <Compile Include="PropertiesPanel\Enum\SequenceType.cs" />
     <Compile Include="PropertiesPanel\Events\CellValidatorEventArgs.cs" />
     <Compile Include="PropertiesPanel\Events\DrowPropertyOnPanelEventArgs.cs" />
-    <Compile Include="PropertiesPanel\PanelConverter.cs" />
     <Compile Include="PropertiesPanel\PropertiesPanelControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

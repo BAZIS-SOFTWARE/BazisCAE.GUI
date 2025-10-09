@@ -78,40 +78,39 @@ namespace BaseModule.PropertiesPanel
 
                 DataGridViewCell cell; // Значение свойства
 
-                if(prop.IsCheckable)
+                if(prop.Value is bool chbv)
                 {
                     cell = new DataGridViewCheckBoxCell();
                     cell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                    cell.Value = Convert.ToBoolean(prop.Value);
+                    cell.Value = chbv;
                 }
 
-                else if (prop.IsDropDown)
+                else if (prop.Value is DropDownPropertyValue ddpv)
                 {
                     var comboCell = new DataGridViewComboBoxCell();
-                    comboCell.Items.AddRange(prop.AvailableValues.ToArray());
-                    comboCell.Value= prop.Value.ToString();
+                    comboCell.Items.AddRange(ddpv.AvailableValues.ToArray());
+                    comboCell.Value= ddpv.Value.ToString();
                     cell = comboCell;
                 }
 
-                else if (prop.IsNumericUpDown)
-                {
-                    var setting = prop.Value as NumericUpDownValue;
+                else if (prop.Value is NumericUpDownValue nudpv)
+                { 
                     var numericUpDownCell = new DataGridViewNumericUpDownCell()
                     {
-                        Minimum = setting.Minimum,
-                        Maximum = setting.Maximum,
-                        Increment = setting.Increment,
-                        DecimalPlaces = setting.DecimalPlaces,
+                        Minimum = nudpv.Minimum,
+                        Maximum = nudpv.Maximum,
+                        Increment = nudpv.Increment,
+                        DecimalPlaces = nudpv.DecimalPlaces,
                     };
-                    numericUpDownCell.Value = Convert.ToDecimal(setting.Value);
+                    numericUpDownCell.Value = Convert.ToDecimal(nudpv.Value);
                     cell = numericUpDownCell;
                 }
-                else if (prop.Value is DataGridViewButtonCellSet buttonSet)
+                else if (prop.Value is ButtonPropertyValue bv)
                 {
                     var btnCell = new DataGridViewButtonCell();
-                    btnCell.Style.Tag = buttonSet;
-                    var setting = prop.Value as DataGridViewButtonCellSet;
-                    btnCell.Value = setting.Text;
+                    //btnCell
+                    btnCell.Style.Tag = bv;
+                    btnCell.Value = bv.Text;
                     cell = btnCell;
                 }
                 else
@@ -181,7 +180,7 @@ namespace BaseModule.PropertiesPanel
 
             if (cell is DataGridViewButtonCell bt)
             {
-                var buttonSet = cell.Style.Tag as DataGridViewButtonCellSet;
+                var buttonSet = cell.Style.Tag as ButtonPropertyValue;
                
                 buttonSet.OnClick?.Invoke();
             }

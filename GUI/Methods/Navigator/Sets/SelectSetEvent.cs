@@ -31,8 +31,9 @@ namespace BazisGUI
 
 
                     if (arg1 != NodeName.Узлы)
-                        rows.Add(new RowProperty("Порядок точности", "", 
-                            new List<string>() { "1", "2" }));
+                        rows.Add(new RowProperty("Порядок точности", 
+                            new DropDownPropertyValue("", 
+                            new List<string>() { "1", "2" })));
 
                     propertiesPanel.DrawTable(rows);
                 }

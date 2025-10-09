@@ -15,28 +15,28 @@ namespace BazisGUI
 
             rows.Add(new RowProperty
  (
-     "Система координат",
+     "Система координат", new DropDownPropertyValue(
      frame is MovedFrame == true ? "MRF" : "SRF",
      new List<string>() { "MRF" , "SRF" }
- ));
+ )));
 
             if (frame is MovedFrame mf)
             {
-                rows.Add(new RowProperty("Траектория", mf.BaseLine?.Name == null ? "*" : mf.BaseLine.Name, 
+                rows.Add(new RowProperty("Траектория",  new DropDownPropertyValue(mf.BaseLine?.Name == null ? "*" : mf.BaseLine.Name, 
                     groups.
                     Where(x=> x.ObjType == ObjType.Узел).
-                    Select(x => x.Name).ToList()));
-                rows.Add(new RowProperty("Опорная линия", mf.RefLine?.Name == null ? "*" : mf.RefLine.Name,
+                    Select(x => x.Name).ToList())));
+                rows.Add(new RowProperty("Опорная линия", new DropDownPropertyValue(mf.RefLine?.Name == null ? "*" : mf.RefLine.Name,
                     groups.
                     Where(x => x.ObjType == ObjType.Узел).
-                    Select(x => x.Name).ToList()));
+                    Select(x => x.Name).ToList())));
                 rows.Add(new RowProperty("Скорость, мм./сек.", mf.Velocity));
             }
             else
             {
                 var sf = frame as StaticFrame;
-                rows.Add(new RowProperty("Плоскость", 
-                    sf.BaseGroup?.Name == null ? "*" : sf.BaseGroup?.Name, groups.Select(x => x.Name).ToList()));
+                rows.Add(new RowProperty("Плоскость", new DropDownPropertyValue
+                    (sf.BaseGroup?.Name == null ? "*" : sf.BaseGroup?.Name, groups.Select(x => x.Name).ToList())));
             }
             rows.Add(new RowProperty("Смещение x", frame.Shifting._x));
             rows.Add(new RowProperty("Смещение y", frame.Shifting._y));

@@ -196,58 +196,8 @@ namespace BazisGUI
                 settingsConfig.Scale_Y_Coord = int.Parse(obj.NewValue);
         }
 
-        private void ChangeVolProperty(PropertyChangedEventArgs obj, int number)
-        {
-            // Тут задаем настройки сетки в объемах геометрии
-            var vol = project.GetModelVolumes().First(x => x.Number == number);
+       
 
-            if (obj.Header == "Степень градиента перехода")
-                vol.GradientMeshPower = double.Parse(obj.NewValue);
-            else if (obj.Header == "Толщина слоя")
-                vol.LayerThickness = double.Parse(obj.NewValue);
-            else if (obj.Header == "Размер элементов на поверхности")
-                vol.SurfaceMeshSize = double.Parse(obj.NewValue);
-            else if (obj.Header == "Размер элементов в центре")
-                vol.CoreMeshSize = double.Parse(obj.NewValue);
-
-            SetMeshGradientSettings(vol);
-        }
-
-        private void ChangeCurveProperty(PropertyChangedEventArgs obj, int number)
-        {
-            var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite curve {number}");
-
-            if (obj.Header == "Алгоритм")
-                attributes[1] = obj.NewValue;
-            else if (obj.Header == "Колличество точек")
-                attributes[0] = obj.NewValue;
-            else
-                attributes[2] = obj.NewValue;
-
-            gmshController.Gmsh.Model.SetAttribute($"transfinite curve {number}", attributes);
-            //if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
-            //{
-            if (attributes[0] != "0")
-            {
-                var points = int.Parse(attributes[0]);
-                var meshType = attributes[1].ToEnum<MeshType>();
-                var coeff = double.Parse(attributes[2]);
-                gmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(number, points, meshType, coeff);
-            }
-        }
-
-        private void ChangePointProperty(PropertyChangedEventArgs obj,int number)
-        {
-            // Тут задаем настройки сетки в контрольных узлах геометрии
-            var dimTags = new int[] { 0, number };
-            var meshSize = gmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
-
-            if (obj.Header == "Размер элементов")
-                meshSize[0] = double.Parse(obj.NewValue);
-
-            gmshController.Gmsh.Model.Mesh.SetSize(dimTags, meshSize[0]);
-            //SetMinMaxSizes()
-        }
 
         //public void SetCurveAttributes(string[] attributes)
         //{
@@ -282,31 +232,7 @@ namespace BazisGUI
             gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", sizes[1]);
         }
 
-        private void SetMeshGradientSettings(VolumeFigure arg2)
-        {
-            gmshController.Gmsh.Model.Mesh.Field.Add(FieldType.Extend);
 
-            var list = gmshController.Gmsh.Model.Mesh.Field.List();
-            if (list.Length != 0)
-            {
-                var field = list.First();
-                var points = gmshController.Gmsh.Model.GetEntities(0);
-                var curves = gmshController.Gmsh.Model.GetEntities(1);
-                var surfaces = gmshController.Gmsh.Model.GetEntities(2);
-                var curveTags = curves.Where((v, i) => (i & 1) != 0)
-                                      .Select(v => (double)v).ToArray();
-                var surfTags = surfaces.Where((v, i) => (i & 1) != 0)
-                                       .Select(v => (double)v).ToArray();
-                gmshController.Gmsh.Model.Mesh.SetSize(points, arg2.SurfaceMeshSize);
-                gmshController.Gmsh.Model.Mesh.Field.SetNumbers(field, ExtendOptions.CurvesList.ToString(), curveTags);
-                gmshController.Gmsh.Model.Mesh.Field.SetNumbers(field, ExtendOptions.SurfacesList.ToString(), surfTags);
-                gmshController.Gmsh.Model.Mesh.Field.SetNumber(field, ExtendOptions.Power.ToString(), arg2.GradientMeshPower);
-                gmshController.Gmsh.Model.Mesh.Field.SetNumber(field, ExtendOptions.DistMax.ToString(), arg2.LayerThickness);
-                gmshController.Gmsh.Model.Mesh.Field.SetNumber(field, ExtendOptions.SizeMax.ToString(), arg2.CoreMeshSize);
-                gmshController.Gmsh.Model.Mesh.Field.SetAsBackgroundMesh(field);
-                gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeExtendFromBoundary", -2);
-            }
-        }
 
         private void CurveAttribDelete(int obj)
         {
@@ -334,15 +260,6 @@ namespace BazisGUI
         {
             var dimTags = new int[] { 0, obj };
             gmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
-        }
-
-        private void DelMeshGradient(object arg1)
-        {
-            var list = gmshController.Gmsh.Model.Mesh.Field.List();
-            gmshController.Gmsh.Model.Mesh.Field.Remove(list.First());
-            var points = gmshController.Gmsh.Model.GetEntities(0);
-            gmshController.Gmsh.Model.Mesh.RemoveConstraints(points);
-            gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeExtendFromBoundary", 1);
         }
     }
 }

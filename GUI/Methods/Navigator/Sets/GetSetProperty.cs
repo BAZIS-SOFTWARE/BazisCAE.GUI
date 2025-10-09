@@ -13,8 +13,8 @@ namespace BazisGUI
             {
                new RowProperty("Имя", _objectsSet.Name),
                new RowProperty("Цвет", _objectsSet.Color),
-               new RowProperty("Представление",_objectsSet.ViewMode,
-               Converters.GetEnumNames<ViewMode>())
+               new RowProperty("Представление",new DropDownPropertyValue(_objectsSet.ViewMode,
+               Converters.GetEnumNames<ViewMode>()))
             };
         }
     }

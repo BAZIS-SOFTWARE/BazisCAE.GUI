@@ -35,7 +35,7 @@ namespace BazisGUI
                 rows.AddRange(GetPropertySolverSettings(parameters));
                 rows.AddRange(GetPropertyBasic(parameters));
                 rows.AddRange(GetPropertyTimeSettings(parameters));
-                rows.Add(new RowProperty("Применить ко всем", new DataGridViewButtonCellSet("OK", () => ApplySettingsToAllInstructions())));
+                rows.Add(new RowProperty("Применить ко всем", new ButtonPropertyValue("OK", () => ApplySettingsToAllInstructions())));
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
@@ -51,11 +51,15 @@ namespace BazisGUI
         {
             return new List<RowProperty>
             {
-                new RowProperty("Алгоритм решения", parameters.SolverSettings.Solver, new List<string>() { "Gauss_direct", "SOR_iterative", "CG_iterative" }),
+                new RowProperty("Алгоритм решения", 
+                new DropDownPropertyValue(parameters.SolverSettings.Solver, 
+                new List<string>() { "Gauss_direct", "SOR_iterative", "CG_iterative" })),
                 new RowProperty("Кол-во итераций решения", parameters.SolverSettings.MaxIter),
                 new RowProperty("Точность решения, у.ед.", parameters.SolverSettings.Precision),
                 new RowProperty("Коэф. релаксации (w)", parameters.SolverSettings.Relaxation),
-                new RowProperty("Приоритет", parameters.SolverSettings.Priority, new List<string>() {"Низкий","НижеСреднего","Средний","ВышеСреднего","Высокий","Наивысший"})            
+                new RowProperty("Приоритет", 
+                new DropDownPropertyValue(parameters.SolverSettings.Priority, 
+                new List<string>() {"Низкий","НижеСреднего","Средний","ВышеСреднего","Высокий","Наивысший"}))            
             };
         }
 

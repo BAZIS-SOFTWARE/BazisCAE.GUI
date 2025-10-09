@@ -14,8 +14,8 @@ namespace BazisGUI
             var rows = new List<RowProperty>
             {
                 //RowProperty.CreateTextBox("Имя", NodeType.Материал.ToString(), ValidationType.None, true),
-                new RowProperty("Группа элементов", obj.Group.Name, groups.Select(x => x.Name).ToList()),
-                new RowProperty("Материал", obj.Material.Name,  mat),
+                new RowProperty("Группа элементов", new DropDownPropertyValue(obj.Group.Name, groups.Select(x => x.Name).ToList())),
+                new RowProperty("Материал", new DropDownPropertyValue(obj.Material.Name,  mat)),
                 new RowProperty("Старт, сек.", obj.StartTime),
                 new RowProperty("Стоп, сек.", obj.StopTime),
             };
@@ -26,8 +26,8 @@ namespace BazisGUI
             {
                 rows.Add(new RowProperty
 (
-"Функция, F(v(x,y,z)), F - у.ед.", obj.FrameFunction.Name, funcNames
-));
+"Функция, F(v(x,y,z)), F - у.ед.", new DropDownPropertyValue(obj.FrameFunction.Name, funcNames
+)));
                 rows.AddRange(GetFrameFunctionProperties(obj.FrameFunction));
                 rows.AddRange(GetLocalFrameProperties(obj.FrameFunction.LocalFrame, groups));
             }
@@ -35,8 +35,8 @@ namespace BazisGUI
             {
                 rows.Add(new RowProperty
 (
-"Функция, F(v(x,y,z)), F - у.ед.", "*", funcNames
-));
+"Функция, F(v(x,y,z)), F - у.ед.", new DropDownPropertyValue("*", funcNames
+)));
             }
 
             return rows;

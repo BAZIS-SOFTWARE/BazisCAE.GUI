@@ -18,11 +18,13 @@ namespace BazisGUI
             var rows = new List<RowProperty>
             {
                 new RowProperty("Мощность, Дж", obj.Heat),
-                new RowProperty("Функция, F(t), F - Дж.", obj.TimeFunction == null ? "*" : obj.TimeFunction.Name,_func),
-                new RowProperty("Группа элементов", obj.Group.Name, 
+                new RowProperty("Функция, F(t), F - Дж.",
+                new DropDownPropertyValue(obj.TimeFunction == null ? "*" : obj.TimeFunction.Name,_func)),
+                new RowProperty("Группа элементов", 
+                new DropDownPropertyValue(obj.Group.Name, 
                 groups.
                 Where(x => x.ObjType == obj.Group.ObjType).
-                Select(x => x.Name).ToList()),
+                Select(x => x.Name).ToList())),
                 new RowProperty("Старт, сек.", obj.StartTime),
                 new RowProperty("Стоп, сек.", obj.StopTime),
             };
@@ -31,18 +33,20 @@ namespace BazisGUI
             if (obj.FrameFunction != null)
             {
                 rows.Add(new RowProperty
-(
-"Функция, F(v(x,y,z)), F - Дж.", obj.FrameFunction.Name, funcNames
-));
+                (
+                "Функция, F(v(x,y,z)), F - Дж.", 
+                new DropDownPropertyValue(obj.FrameFunction.Name, funcNames
+                )));
                 rows.AddRange(GetFrameFunctionProperties(obj.FrameFunction));
                 rows.AddRange(GetLocalFrameProperties(obj.FrameFunction.LocalFrame, groups));
             }
             else
             {
                 rows.Add(new RowProperty
-(
-"Функция, F(v(x,y,z)), F - Дж.","*",funcNames
-));
+                (
+                "Функция, F(v(x,y,z)), F - Дж.",
+                new DropDownPropertyValue("*",funcNames
+                )));
             }
 
 

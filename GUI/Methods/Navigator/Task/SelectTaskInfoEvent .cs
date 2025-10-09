@@ -22,10 +22,10 @@ namespace BazisGUI
 
                 List<RowProperty> rows = new List<RowProperty>();
 
-                rows.Add(new RowProperty("Вид", project.ProjectType,
-           Converters.GetEnumNames<TaskType>()));
-                rows.Add(new RowProperty("Тип", project.ProjectKind,
-Converters.GetEnumNames<TaskKind>()));
+                rows.Add(new RowProperty("Вид",new DropDownPropertyValue(project.ProjectType,
+           Converters.GetEnumNames<TaskType>())));
+                rows.Add(new RowProperty("Тип", new DropDownPropertyValue(project.ProjectKind,
+Converters.GetEnumNames<TaskKind>())));
 
                 if(project.MaterialsDB != null)
                     rows.Add(new RowProperty("Материалы", project.MaterialsDB.Name,true));

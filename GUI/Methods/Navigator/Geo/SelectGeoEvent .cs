@@ -38,8 +38,8 @@ namespace BazisGUI
 
                 rows.Add(new RowProperty("Мин.размер", actMinSize));
                 rows.Add(new RowProperty("Макс.размер", actMaxSize));
-                rows.Add(new RowProperty("Алгоритм 2D", alg2D, algs2D.ToList()));
-                rows.Add(new RowProperty("Алгоритм 3D", alg3D, algs3D.ToList()));
+                rows.Add(new RowProperty("Алгоритм 2D",new DropDownPropertyValue(alg2D, algs2D.ToList())));
+                rows.Add(new RowProperty("Алгоритм 3D",new DropDownPropertyValue(alg3D, algs3D.ToList())));
                 rows.Add(new RowProperty("Масштаб. коэфициент", actSizeFactor));
                 rows.Add(new RowProperty("Показать узлы на кривых", false));
                 rows.Add(new RowProperty("Показать кол-во узлов на кривых", false));
