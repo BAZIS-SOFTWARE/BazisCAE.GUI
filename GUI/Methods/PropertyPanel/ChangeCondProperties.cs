@@ -84,13 +84,36 @@ namespace BazisGUI
                 cond.FrameFunction.LocalFrame.Rotation = float.Parse(obj.NewValue);
         }
 
+        private void ChangeClampProperties(PropertyChangedEventArgs obj, ClampData clampCond)
+        {
+            ChangeGeneralProperties(obj, clampCond);
+
+            // TO DO дописать метод, так чтобы изменялись все свойства
+        }
+
+        private void ChangeLoadProperties(PropertyChangedEventArgs obj, LoadData loadCond)
+        {
+            ChangeGeneralProperties(obj, loadCond);
+
+            // TO DO дописать метод, так чтобы изменялись все свойства
+        }
+
+        private void ChangeMediaProperties(PropertyChangedEventArgs obj, MediaData mediaCond)
+        {
+            ChangeGeneralProperties(obj, mediaCond);
+
+            // TO DO дописать метод, так чтобы изменялись все свойства
+        }
+
         private void ChangeMatProperties(PropertyChangedEventArgs obj, MatData matCond)
         {
             ChangeGeneralProperties(obj, matCond);
             if (obj.Header == "Материал")
             {
                 matCond.Material = project.MaterialsDB[obj.NewValue.ToString()];
-            }  
+            }
+
+            // TO DO дописать метод, так чтобы изменялись все свойства
         }
 
         private void ChangeHeatProperties(PropertyChangedEventArgs obj, HeatData heatCond)
@@ -101,6 +124,8 @@ namespace BazisGUI
             {
                 heatCond.Heat = float.Parse(obj.NewValue);
             }
+
+            // TO DO дописать метод, так чтобы изменялись все свойства
         }
     }
 }
