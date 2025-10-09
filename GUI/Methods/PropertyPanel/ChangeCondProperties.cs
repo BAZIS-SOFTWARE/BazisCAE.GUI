@@ -1,4 +1,6 @@
-﻿using BaseModule.PropertiesPanel;
+﻿using BaseModule.Extensions;
+using BaseModule.PropertiesPanel;
+using BazisGUI.Utilities;
 using Geometry;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
@@ -109,7 +111,6 @@ namespace BazisGUI
         {
             ChangeGeneralProperties(obj, matCond);
             if (obj.Header == "Материал")
-            {
                 matCond.Material = project.MaterialsDB[obj.NewValue.ToString()];
             }
 
@@ -121,8 +122,39 @@ namespace BazisGUI
             //Мощность, Дж
             ChangeGeneralProperties(obj, heatCond);
             if (obj.Header == "Мощность, Дж")
-            {
                 heatCond.Heat = float.Parse(obj.NewValue);
+        }
+
+        private void ChangeLoadProperties(PropertyChangedEventArgs obj, LoadData loadData)
+        {
+            ChangeGeneralProperties(obj, loadData);
+            if (obj.Header == "Направление")
+                loadData.Direction = obj.NewValue.ToEnum<Direction>();
+            else if (obj.Header == "Величина, Н")
+                loadData.Value = float.Parse(obj.NewValue);
+            else if (obj.Header == "Функция, F(t), F - Н.")
+                loadData.TimeFunction.Name = obj.NewValue.ToString();
+            else if (obj.Header == "Вид")
+                loadData.LoadKind = obj.NewValue.ToEnum<LoadKind>();
+        }
+
+        private void ChangeMediaProperties(PropertyChangedEventArgs obj, MediaData mediaData)
+        {
+            ChangeGeneralProperties(obj, mediaData);
+            if (obj.Header == "Функция, F(t), F - Дж./мм.^2") 
+            {
+                if (mediaData.HeatExchangeFunc == null)
+                    mediaData.HeatExchangeFunc = new Property();
+                mediaData.HeatExchangeFunc.Name = obj.NewValue.ToString();
+                mediaData.TemperatureValue = 1;
+            }
+                
+            else if (obj.Header == "Температура среды") 
+            {
+                if (mediaData.HeatExchangeFunc == null)
+                    mediaData.HeatExchangeFunc = new Property();
+                mediaData.HeatExchangeFunc.Name = "*";
+                mediaData.TemperatureValue = float.Parse(obj.NewValue);
             }
 
             // TO DO дописать метод, так чтобы изменялись все свойства

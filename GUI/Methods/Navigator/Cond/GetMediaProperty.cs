@@ -1,9 +1,6 @@
 ﻿using BaseModule.PropertiesPanel;
-using BazisGUI.Utilities;
 using Model.Interfaces;
-using Project.Interfaces.Tasks;
 using Project.Tasks;
-using Project.Tasks.FrameCreators;
 using System.Collections.Generic;
 using System.Linq;
 
