@@ -123,6 +123,27 @@ namespace BazisGUI
             ChangeGeneralProperties(obj, heatCond);
             if (obj.Header == "Мощность, Дж")
                 heatCond.Heat = float.Parse(obj.NewValue);
+            else if (obj.Header == "Функция, F(t), F - Дж.")
+            {
+                heatCond.TimeFunction = new Property();
+                heatCond.TimeFunction.Name = obj.NewValue.ToString();
+            }
+                
+            else if (obj.Header == "Ширина, мм.")
+            {
+                var func = heatCond.FrameFunction as SphereFunction;
+                func.Width = float.Parse(obj.NewValue);
+            }
+            else if (obj.Header == "Длина, мм." | obj.Header == "Верхний диам., мм." | obj.Header == "Нижний диам., мм.")
+            {
+                var func = heatCond.FrameFunction as CillindricalFunction;
+                if(obj.Header == "Длина, мм.")
+                    func.Length = float.Parse(obj.NewValue);
+                else if (obj.Header == "Верхний диам., мм.")
+                    func.UpperDiam = float.Parse(obj.NewValue);
+                else if (obj.Header == "Нижний диам., мм.")
+                    func.BottomDiam = float.Parse(obj.NewValue);
+            }
         }
 
         private void ChangeLoadProperties(PropertyChangedEventArgs obj, LoadData loadData)
@@ -132,28 +153,33 @@ namespace BazisGUI
                 loadData.Direction = obj.NewValue.ToEnum<Direction>();
             else if (obj.Header == "Величина, Н")
                 loadData.Value = float.Parse(obj.NewValue);
-            else if (obj.Header == "Функция, F(t), F - Н.")
+            else if (obj.Header == "Функция, F(t), F - Н.") 
                 loadData.TimeFunction.Name = obj.NewValue.ToString();
             else if (obj.Header == "Вид")
                 loadData.LoadKind = obj.NewValue.ToEnum<LoadKind>();
         }
 
+        private void ChangeClampProperties(PropertyChangedEventArgs obj, ClampData clampData) 
+        {
+            if (obj.Header == "Вид")
+                clampData.TrySetKind(obj.NewValue.ToString());
+            else if ( obj.Header == "Направление")
+                clampData.Direction = obj.NewValue.ToEnum<Direction>();
+        }
         private void ChangeMediaProperties(PropertyChangedEventArgs obj, MediaData mediaData)
         {
             ChangeGeneralProperties(obj, mediaData);
+            
             if (obj.Header == "Функция, F(t), F - Дж./мм.^2") 
             {
-                if (mediaData.HeatExchangeFunc == null)
-                    mediaData.HeatExchangeFunc = new Property();
-                mediaData.HeatExchangeFunc.Name = obj.NewValue.ToString();
+                if (mediaData.TemperatureFunc == null)
+                    mediaData.TemperatureFunc = new Property();
+                mediaData.TemperatureFunc.Name = obj.NewValue.ToString();
                 mediaData.TemperatureValue = 1;
-            }
-                
+            }   
             else if (obj.Header == "Температура среды") 
             {
-                if (mediaData.HeatExchangeFunc == null)
-                    mediaData.HeatExchangeFunc = new Property();
-                mediaData.HeatExchangeFunc.Name = "*";
+                mediaData.TemperatureFunc = null;
                 mediaData.TemperatureValue = float.Parse(obj.NewValue);
             }
 

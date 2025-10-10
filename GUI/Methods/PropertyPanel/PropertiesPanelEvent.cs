@@ -95,14 +95,14 @@ namespace BazisGUI
                         else if (nodeName == NodeName.Среда)
                         {
                             ChangeMediaProperties(obj, (MediaData)cond);
+                            var rows = GetMediaProperty((MediaData)cond, groups, _funcs);
+                            propertiesPanel.DrawTable(rows);
                         }
-                        else if (nodeName == NodeName.Закрепление |
-                            nodeName == NodeName.Нагрев | nodeName == NodeName.Среда)
+                        else if(nodeName == NodeName.Закрепление) 
                         {
-                            ChangeGeneralProperties(obj, cond);
+                            ChangeClampProperties(obj, (ClampData)cond);
                         }
-                            navigator.SelectedNode.Text = cond.ToString();
-
+                        navigator.SelectedNode.Text = cond.ToString();
                     }
                     else if (parentName == NodeName.расчеты)
                     {
