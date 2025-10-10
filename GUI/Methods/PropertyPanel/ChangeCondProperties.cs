@@ -48,7 +48,25 @@ namespace BazisGUI
                     cond.FrameFunction.LocalFrame = new StaticFrame();
                 else
                     cond.FrameFunction.LocalFrame = new MovedFrame();
-            }       
+            }
+
+            else if (obj.Header == "Ширина, мм.")
+            {
+                var func = cond.FrameFunction as SphereFunction;
+                func.Width = float.Parse(obj.NewValue);
+            }
+            else if (obj.Header == "Длина, мм." |
+                obj.Header == "Верхний диам., мм." | 
+                obj.Header == "Нижний диам., мм.")
+            {
+                var func = cond.FrameFunction as CillindricalFunction;
+                if (obj.Header == "Длина, мм.")
+                    func.Length = float.Parse(obj.NewValue);
+                else if (obj.Header == "Верхний диам., мм.")
+                    func.UpperDiam = float.Parse(obj.NewValue);
+                else if (obj.Header == "Нижний диам., мм.")
+                    func.BottomDiam = float.Parse(obj.NewValue);
+            }
 
             else if (obj.Header == "Плоскость" && cond.FrameFunction.LocalFrame is StaticFrame srf)
             {
@@ -114,26 +132,7 @@ namespace BazisGUI
             if (obj.Header == "Мощность, Дж")
                 heatCond.Heat = float.Parse(obj.NewValue);
             else if (obj.Header == "Функция, F(t), F - Дж.")
-            {
-                heatCond.TimeFunction = new Property();
-                heatCond.TimeFunction.Name = obj.NewValue.ToString();
-            }
-                
-            else if (obj.Header == "Ширина, мм.")
-            {
-                var func = heatCond.FrameFunction as SphereFunction;
-                func.Width = float.Parse(obj.NewValue);
-            }
-            else if (obj.Header == "Длина, мм." | obj.Header == "Верхний диам., мм." | obj.Header == "Нижний диам., мм.")
-            {
-                var func = heatCond.FrameFunction as CillindricalFunction;
-                if(obj.Header == "Длина, мм.")
-                    func.Length = float.Parse(obj.NewValue);
-                else if (obj.Header == "Верхний диам., мм.")
-                    func.UpperDiam = float.Parse(obj.NewValue);
-                else if (obj.Header == "Нижний диам., мм.")
-                    func.BottomDiam = float.Parse(obj.NewValue);
-            }
+                heatCond.TimeFunction = project.FunctionsDB[obj.NewValue];
         }
 
         private void ChangeLoadProperties(PropertyChangedEventArgs obj, LoadData loadData)
@@ -144,10 +143,7 @@ namespace BazisGUI
             else if (obj.Header == "Величина, Н")
                 loadData.Value = float.Parse(obj.NewValue);
             else if (obj.Header == "Функция, F(t), F - Н.")
-            {
-                loadData.TimeFunction = new Property();
-                loadData.TimeFunction.Name = obj.NewValue.ToString();
-            }
+                loadData.TimeFunction = project.FunctionsDB[obj.NewValue];
 
             else if (obj.Header == "Вид")
                 loadData.LoadKind = obj.NewValue.ToEnum<LoadKind>();
@@ -157,22 +153,14 @@ namespace BazisGUI
         {
             ChangeGeneralProperties(obj, mediaData);
             
-            if (obj.Header == "Функция, F(t), F - Дж./мм.^2") 
-            {
-                if (mediaData.HeatExchangeFunc == null)
-                    mediaData.HeatExchangeFunc = new Property();
-                mediaData.HeatExchangeFunc.Name = obj.NewValue.ToString();
-            }
+            if (obj.Header == "Функция, F(t), F - Дж./мм.^2")
+                mediaData.HeatExchangeFunc = project.FunctionsDB[obj.NewValue];
             else if (obj.Header == "Коэф. теплоотдачи")
                 mediaData.HeatExchangeValue = float.Parse(obj.NewValue);
             else if (obj.Header == "Температура среды")
                 mediaData.TemperatureValue = float.Parse(obj.NewValue);
             else if (obj.Header == "Функция, F(t), F - Град.")
-            {
-                if (mediaData.TemperatureFunc == null)
-                    mediaData.TemperatureFunc = new Property();
-                mediaData.TemperatureFunc.Name = obj.NewValue.ToString();
-            }
+                mediaData.TemperatureFunc = project.FunctionsDB[obj.NewValue];
         }
     }
 }

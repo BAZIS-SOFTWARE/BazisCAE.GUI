@@ -350,7 +350,12 @@ namespace BaseModule.Console
 
         private void btnDictionary_Click(object sender, EventArgs e)
         {
-            spbDictionary.ShowDropDown();
+            PrintInfo("Доступные команды:", Color.Black);
+            PrintInfo("- \"Изменить координаты сетки\" \"Переместить\" \"номер : вектор(x,y,z)\"", Color.Black);
+            PrintInfo("- \"Изменить координаты сетки\" \"Повернуть\" \"ось(x,y,z) : угол\"", Color.Black);
+            PrintInfo("- \"Найти свободные узлы\"", Color.Black);
+            PrintInfo("- \"Найти совпадающие\" \"Узлы\"", Color.Black);
+            PrintInfo("- \"Соединить стержнями\" \"Радиус поиска\" \"Макс.кол-во\" \"Группа узлов #1\" \"Группа узлов #2\"", Color.Black); 
         }
 
         private void btnBackGroundInfo_Click(object sender, EventArgs e)
