@@ -142,8 +142,12 @@ namespace BazisGUI
                 loadData.Direction = obj.NewValue.ToEnum<Direction>();
             else if (obj.Header == "Величина, Н")
                 loadData.Value = float.Parse(obj.NewValue);
-            else if (obj.Header == "Функция, F(t), F - Н.") 
+            else if (obj.Header == "Функция, F(t), F - Н.")
+            {
+                loadData.TimeFunction = new Property();
                 loadData.TimeFunction.Name = obj.NewValue.ToString();
+            }
+
             else if (obj.Header == "Вид")
                 loadData.LoadKind = obj.NewValue.ToEnum<LoadKind>();
         }
