@@ -53,8 +53,12 @@ namespace BazisGUI
                 
                 var result = loader.GetResult(ResultDbPath, tables, time);
                 if (result != null)
+                {
+                    if (settingsConfig.MergeResultsValue)
+                        MergeResults(result);
+
                     foreach (var obj in objs)
-                    {       
+                    {
                         var point = obj.CalcCentr();
 
                         var delta = new Point3D();
@@ -68,6 +72,8 @@ namespace BazisGUI
                         var grPoint = new GraphPoint(path, res);
                         grPoints.Add(grPoint);
                     }
+                }
+                    
 
                 if (grPoints.Count != 0)
                 {

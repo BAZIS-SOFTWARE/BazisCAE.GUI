@@ -30,6 +30,9 @@ namespace BazisGUI
         {
             try
             {
+                // заглушка
+                if (gmshController.Gmsh == null)
+                    throw new Exception("Ошибка построения сетки. Вероятно геометрия не загружена");
                 DeleteGMSHMeshObjects(ObjType.Узел);
                 project.ClearModelCollection(ObjType.Узел);
                 project.GenerateMesh(3, gmshController);

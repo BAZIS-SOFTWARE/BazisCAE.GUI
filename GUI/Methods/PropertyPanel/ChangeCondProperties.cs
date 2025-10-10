@@ -75,7 +75,8 @@ namespace BazisGUI
                 
                 // добавим корректировку времени остановки, если изменена скорость
                 var time = mrf.CalcMotionTime();
-                cond.StopTime = time;
+
+                cond.StopTime = (float)Math.Round(time,2);
             }
 
             else if (obj.Header == "Смещение x")

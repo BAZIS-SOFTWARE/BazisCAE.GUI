@@ -88,7 +88,8 @@ namespace BazisGUI
                     {
          
                         var result = loader.GetResult(ResultDbPath, tables, time);
-
+                        if (settingsConfig.MergeResultsValue)
+                            MergeResults(result);
                         var res = result.GetValue(ResultType.nodes.ToString(), obj.Number, resDes);
 
                         var grPoint = new GraphPoint(result.Time, res);

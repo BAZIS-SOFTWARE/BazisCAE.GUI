@@ -139,8 +139,8 @@ namespace BazisGUI
                 if (groups.Count() == 0)
                     return;
 
-                var clampData = new ClampData(groups.First(), 0, 1);
-                project.TaskData.Add(clampData);
+                var loadData = new LoadData(groups.First(), 0, 1);
+                project.TaskData.Add(loadData);
                 PresentCondDataOnTree();
             }
             catch (Exception)

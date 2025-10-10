@@ -18,10 +18,9 @@ namespace BazisGUI
             var rows = new List<RowProperty>
             {
                 new RowProperty("Мощность, Дж", obj.Heat),
-                new RowProperty("Функция, F(t), F - Дж.",
+                new RowProperty("Функция, F(t), F - Дж.", 
                 new DropDownPropertyValue(obj.TimeFunction == null ? "*" : obj.TimeFunction.Name,_func)),
-                new RowProperty("Группа элементов", 
-                new DropDownPropertyValue(obj.Group.Name, 
+                new RowProperty("Группа элементов", new DropDownPropertyValue(obj.Group.Name, 
                 groups.
                 Where(x => x.ObjType == obj.Group.ObjType).
                 Select(x => x.Name).ToList())),

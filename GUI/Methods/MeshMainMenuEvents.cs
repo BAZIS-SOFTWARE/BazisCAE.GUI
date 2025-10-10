@@ -164,52 +164,12 @@ namespace BazisGUI
 
         }
 
-        private void MeshGenerator_setMeshGradientSettingsEvent(object arg1, MeshGradientSettingsEventArgs arg2)
-        {
-            gmshController.Gmsh.Model.Mesh.Field.Add(FieldType.Extend);
-
-            var list = gmshController.Gmsh.Model.Mesh.Field.List();
-            if (list.Length != 0)
-            {
-                var field = list.First();
-                var points = gmshController.Gmsh.Model.GetEntities(0);
-                var curves = gmshController.Gmsh.Model.GetEntities(1);
-                var surfaces = gmshController.Gmsh.Model.GetEntities(2);
-                var curveTags = curves.Where((v, i) => (i & 1) != 0)
-                                      .Select(v => (double)v).ToArray();
-                var surfTags = surfaces.Where((v, i) => (i & 1) != 0)
-                                       .Select(v => (double)v).ToArray();
-                gmshController.Gmsh.Model.Mesh.SetSize(points, arg2.surfaceMeshSize);
-                gmshController.Gmsh.Model.Mesh.Field.SetNumbers(field, ExtendOptions.CurvesList.ToString(), curveTags);
-                gmshController.Gmsh.Model.Mesh.Field.SetNumbers(field, ExtendOptions.SurfacesList.ToString(), surfTags);
-                gmshController.Gmsh.Model.Mesh.Field.SetNumber(field, ExtendOptions.Power.ToString(), arg2.gradientMeshPower);
-                gmshController.Gmsh.Model.Mesh.Field.SetNumber(field, ExtendOptions.DistMax.ToString(), arg2.layerThickness);
-                gmshController.Gmsh.Model.Mesh.Field.SetNumber(field, ExtendOptions.SizeMax.ToString(), arg2.coreMeshSize);
-                gmshController.Gmsh.Model.Mesh.Field.SetAsBackgroundMesh(field);
-                gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeExtendFromBoundary", -2);
-            }
-        }
-
         private void SetPointSizesEventHandler(object sender, int pointNumber, double[] pointSize)
         {
             var dimTags = new int[] { 0, pointNumber };
             gmshController.Gmsh.Model.Mesh.SetSize(dimTags, pointSize[0]);
         }
 
-        private void SetMinMaxSizesEvent(object sender, double[] sizes)
-        {
-            gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", sizes[0]);
-            gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", sizes[1]);
-        }
-
-        private void MeshGenerator_delMeshGradientEvent(object arg1)
-        {
-            var list = gmshController.Gmsh.Model.Mesh.Field.List();
-            gmshController.Gmsh.Model.Mesh.Field.Remove(list.First());
-            var points = gmshController.Gmsh.Model.GetEntities(0);
-            gmshController.Gmsh.Model.Mesh.RemoveConstraints(points);
-            gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeExtendFromBoundary", 1);
-        }
 
         //private void DeleteElementsByNumber(object sender, DeleteElementEventArgs args)
         //{
@@ -375,7 +335,7 @@ namespace BazisGUI
                 cntr.ClearTreeView(3);
                 var objs = gmshController.GetMeshObjects();
 
-                project.ModelData.ObjectData.Clear(ObjType.Узел);
+                project.ClearModelCollection(ObjType.Узел);
             }
         }
 
@@ -383,7 +343,7 @@ namespace BazisGUI
         {
             gmshController.Gmsh.Model.Mesh.Refine();
 
-            project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
+            project.ClearModelCollection(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
 
             FitObjectsToScreen();
             DisplayObjects();
@@ -410,25 +370,6 @@ namespace BazisGUI
             var error = gmshController.Gmsh.Logger.GetLastError();
             if (!string.IsNullOrEmpty(error))
                 console.PrintInfo(error, Color.Red);
-
-            project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
-
-            FitObjectsToScreen();
-            DisplayObjects();
-        }
-
-        private void MeshGenerator_deleteMeshEvent(Objects objects)
-        {
-            var objType = Converters.ConvertToObjsType(objects);
-
-            if (objType == ObjType.Элемент2D)
-            {
-                DeleteGMSHMeshObjects(ObjType.Узел);
-            }
-            else if (objType == ObjType.Элемент3D)
-            {
-                DeleteGMSHMeshObjects(ObjType.Элемент3D);
-            }
 
             project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
 
