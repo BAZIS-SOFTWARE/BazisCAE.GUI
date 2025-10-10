@@ -93,17 +93,21 @@ namespace BazisGUI
                             var rows = GetHeatProperty((HeatData)cond, groups, _funcs);
                             propertiesPanel.DrawTable(rows);
                         }
-                        else if (nodeName == NodeName.Закрепление |
-                            nodeName == NodeName.Нагрев |
-                            nodeName == NodeName.Нагрузка |
-                            nodeName == NodeName.Среда
-                            )
+                        else if (nodeName == NodeName.Нагрузка)
                         {
-                            ChangeGeneralProperties(obj, cond);
-                            //PresentCondDataOnTree();
+                            ChangeLoadProperties(obj, (LoadData)cond);
+                        }
+                        else if (nodeName == NodeName.Среда)
+                        {
+                            ChangeMediaProperties(obj, (MediaData)cond);
+                            var rows = GetMediaProperty((MediaData)cond, groups, _funcs);
+                            propertiesPanel.DrawTable(rows);
+                        }
+                        else if(nodeName == NodeName.Закрепление) 
+                        {
+                            ChangeClampProperties(obj, (ClampData)cond);
                         }
                         navigator.SelectedNode.Text = cond.ToString();
-
                     }
                     else if (parentName == NodeName.расчеты)
                     {
