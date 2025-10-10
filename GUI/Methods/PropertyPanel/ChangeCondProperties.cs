@@ -157,16 +157,14 @@ namespace BazisGUI
                 if (mediaData.HeatExchangeFunc == null)
                     mediaData.HeatExchangeFunc = new Property();
                 mediaData.HeatExchangeFunc.Name = obj.NewValue.ToString();
-                mediaData.HeatExchangeValue = 1;
-            }   
-            else if (obj.Header == "Температура среды") 
-            {
-                mediaData.HeatExchangeFunc = null;
-                mediaData.HeatExchangeValue = float.Parse(obj.NewValue);
             }
+            else if (obj.Header == "Коэф. теплоотдачи")
+                mediaData.HeatExchangeValue = float.Parse(obj.NewValue);
+            else if (obj.Header == "Температура среды")
+                mediaData.TemperatureValue = float.Parse(obj.NewValue);
             else if (obj.Header == "Функция, F(t), F - Град.")
             {
-                if(mediaData.TemperatureFunc == null)
+                if (mediaData.TemperatureFunc == null)
                     mediaData.TemperatureFunc = new Property();
                 mediaData.TemperatureFunc.Name = obj.NewValue.ToString();
             }
