@@ -20,7 +20,7 @@ namespace BazisGUI
                 new RowProperty("Направление", new DropDownPropertyValue(obj.Direction,Converters.GetEnumNames<Direction>())),
                 new RowProperty("Группа объектов", new DropDownPropertyValue(obj.Group.Name,groups.Select(x => x.Name).ToList())),
                 new RowProperty("Величина, Н", obj.Value),
-                new RowProperty("Функция, F(t), F - Н.", new DropDownPropertyValue(obj.TimeFunction,func)),
+                new RowProperty("Функция, F(t), F - Н.", new DropDownPropertyValue(obj.TimeFunction.Name,func)),
                 new RowProperty("Старт, сек.", obj.StartTime),
                 new RowProperty("Стоп, сек.", obj.StopTime)
             };

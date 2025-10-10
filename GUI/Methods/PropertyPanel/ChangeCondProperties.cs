@@ -2,6 +2,7 @@
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using Geometry;
+using MathNet.Numerics.RootFinding;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
@@ -9,6 +10,7 @@ using Project.Tasks.FrameCreators;
 using Project.Tasks.Functions.Welding;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
+using System;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
@@ -90,21 +92,10 @@ namespace BazisGUI
         {
             ChangeGeneralProperties(obj, clampCond);
 
-            // TO DO дописать метод, так чтобы изменялись все свойства
-        }
-
-        private void ChangeLoadProperties(PropertyChangedEventArgs obj, LoadData loadCond)
-        {
-            ChangeGeneralProperties(obj, loadCond);
-
-            // TO DO дописать метод, так чтобы изменялись все свойства
-        }
-
-        private void ChangeMediaProperties(PropertyChangedEventArgs obj, MediaData mediaCond)
-        {
-            ChangeGeneralProperties(obj, mediaCond);
-
-            // TO DO дописать метод, так чтобы изменялись все свойства
+            if (obj.Header == "Вид")
+                clampCond.TrySetKind(obj.NewValue.ToString());
+            else if (obj.Header == "Направление")
+                clampCond.Direction = obj.NewValue.ToEnum<Direction>();
         }
 
         private void ChangeMatProperties(PropertyChangedEventArgs obj, MatData matCond)
@@ -112,8 +103,6 @@ namespace BazisGUI
             ChangeGeneralProperties(obj, matCond);
             if (obj.Header == "Материал")
                 matCond.Material = project.MaterialsDB[obj.NewValue.ToString()];
-            }
-
             // TO DO дописать метод, так чтобы изменялись все свойства
         }
 
@@ -159,31 +148,28 @@ namespace BazisGUI
                 loadData.LoadKind = obj.NewValue.ToEnum<LoadKind>();
         }
 
-        private void ChangeClampProperties(PropertyChangedEventArgs obj, ClampData clampData) 
-        {
-            if (obj.Header == "Вид")
-                clampData.TrySetKind(obj.NewValue.ToString());
-            else if ( obj.Header == "Направление")
-                clampData.Direction = obj.NewValue.ToEnum<Direction>();
-        }
         private void ChangeMediaProperties(PropertyChangedEventArgs obj, MediaData mediaData)
         {
             ChangeGeneralProperties(obj, mediaData);
             
             if (obj.Header == "Функция, F(t), F - Дж./мм.^2") 
             {
-                if (mediaData.TemperatureFunc == null)
-                    mediaData.TemperatureFunc = new Property();
-                mediaData.TemperatureFunc.Name = obj.NewValue.ToString();
-                mediaData.TemperatureValue = 1;
+                if (mediaData.HeatExchangeFunc == null)
+                    mediaData.HeatExchangeFunc = new Property();
+                mediaData.HeatExchangeFunc.Name = obj.NewValue.ToString();
+                mediaData.HeatExchangeValue = 1;
             }   
             else if (obj.Header == "Температура среды") 
             {
-                mediaData.TemperatureFunc = null;
-                mediaData.TemperatureValue = float.Parse(obj.NewValue);
+                mediaData.HeatExchangeFunc = null;
+                mediaData.HeatExchangeValue = float.Parse(obj.NewValue);
             }
-
-            // TO DO дописать метод, так чтобы изменялись все свойства
+            else if (obj.Header == "Функция, F(t), F - Град.")
+            {
+                if(mediaData.TemperatureFunc == null)
+                    mediaData.TemperatureFunc = new Property();
+                mediaData.TemperatureFunc.Name = obj.NewValue.ToString();
+            }
         }
     }
 }

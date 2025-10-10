@@ -14,13 +14,13 @@ namespace BazisGUI
             {
             new RowProperty("Группа элементов", new DropDownPropertyValue(obj.Group.Name, groups.Select(x => x.Name).ToList())),
             new RowProperty("Коэф. теплоотдачи", obj.HeatExchangeValue),
-            new RowProperty("Функция, F(t), F - Дж./мм.^2", new DropDownPropertyValue(
-            obj.HeatExchangeFunc == null ? "*" : obj.HeatExchangeFunc.Name, func)),
+            new RowProperty("Функция, F(t), F - Дж./мм.^2", 
+                new DropDownPropertyValue(obj.HeatExchangeFunc == null ? "*" : obj.HeatExchangeFunc.Name, func)),
             new RowProperty("Температура среды", obj.TemperatureValue),
             new RowProperty("Старт, сек.", obj.StartTime),
             new RowProperty("Стоп, сек.", obj.StopTime),
-            new RowProperty("Функция, F(t), F - Град.",new DropDownPropertyValue(
-            obj.TemperatureFunc == null ? "*" : obj.TemperatureFunc.Name, func))
+            new RowProperty("Функция, F(t), F - Град.",
+                new DropDownPropertyValue(obj.TemperatureFunc == null ? "*" : obj.TemperatureFunc.Name, func))
             };
 
             var funcNames = new List<string>() { "*", "Custom" };
