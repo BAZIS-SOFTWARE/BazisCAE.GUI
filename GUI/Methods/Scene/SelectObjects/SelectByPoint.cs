@@ -89,7 +89,7 @@ namespace BazisGUI
 
             var rows = new List<RowProperty>();
             if (setName.ObjType == ObjType.Точка)
-                rows.Add(GetPointProperty(number));
+                rows.AddRange(GetPointProperty(number));
 
             else if (setName.ObjType == ObjType.Узел)
             {
@@ -140,20 +140,26 @@ namespace BazisGUI
                 else
                     return false;
             }
-            else if (scrPoints.Count == 2)
-            {
-                var curve = new Curve2D(scrPoints);
-                return curve.IsPointBelongCurve(selectionPoint) ? true : false;
-            }
             else
             {
-                var creator = new Hull2DCreator();
-                if(creator.TryCreateHullGraham(scrPoints, out Polygon polygon))
-                    return polygon.IsPointInsidePolygon(selectionPoint) ? true : false;
-
+                var rect = new RectangleBox(scrPoints);
+                //if(rect.IsPointInside(selectionPoint))
+                //{
+                    if (scrPoints.Count == 2)
+                    {
+                        var seg = new Segment2D(scrPoints[0], scrPoints[1]);
+ 
+                        return seg.IsPointBelongSegment(selectionPoint,5) ? true : false;
+                    }
+                    else
+                    {
+                        var creator = new Hull2DCreator();
+                        if (creator.TryCreateHullGraham(scrPoints, out Polygon polygon))
+                            return polygon.IsPointInsidePolygon(selectionPoint) ? true : false;
+                    }
+                //}
                 return false;
             }
-
         }
     }
 }

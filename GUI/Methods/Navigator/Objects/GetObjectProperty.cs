@@ -5,17 +5,24 @@ using Model.MeshObjects;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private RowProperty GetPointProperty(int number) 
+        private List<RowProperty> GetPointProperty(int number) 
         {
             var dimTags = new int[] { 0, number };
             var meshSize = gmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
 
-            return new RowProperty("Размер элементов", meshSize[0]);
+            var rows = new List<RowProperty>
+            {
+                new RowProperty("Номер", number),
+                new RowProperty("Размер элементов", meshSize[0])
+            };
+
+            return rows;
         }
 
         private List<RowProperty> GetElementProperty(IElement element)

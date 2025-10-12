@@ -51,7 +51,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1FC4B0D0D2774F2E9EE98444207F3BE3"
+        "MsmKey" = "8:_1EEF0FDF732B4799B885C88133CC3003"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -172,12 +172,6 @@
         "Entry"
         {
         "MsmKey" = "8:_9483ABD453D64A08B814B638E67900D0"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_967D2BDFEF304F91B5EF347689C502D3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -483,7 +477,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1FC4B0D0D2774F2E9EE98444207F3BE3"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1EEF0FDF732B4799B885C88133CC3003"
             {
             "SourcePath" = "8:..\\PropertiesDataBases\\DataBases\\Materials\\Materials_v6.jsf"
             "TargetName" = "8:Materials_v6.jsf"
@@ -869,26 +863,6 @@
             "TargetName" = "8:Tutorial_03.pdf"
             "Tag" = "8:"
             "Folder" = "8:_4C63950A38B540BDB1A50D4F19B6BD2B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_967D2BDFEF304F91B5EF347689C502D3"
-            {
-            "SourcePath" = "8:C:\\BazisSolver\\GUI\\bin\\Release\\net8.0-windows\\runtimes\\win-x64\\native\\SQLite.Interop.dll"
-            "TargetName" = "8:SQLite.Interop.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1354,16 +1328,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost5.1.16"
-        "ProductCode" = "8:{114C07A2-436D-4E45-9135-D64A7E606BF9}"
-        "PackageCode" = "8:{1229F57A-63CB-4497-A360-E5FED64A3B18}"
+        "ProductName" = "8:BazisPrePost5.1.17"
+        "ProductCode" = "8:{16E2D2A9-5399-46C6-9097-71F1627EC3CF}"
+        "PackageCode" = "8:{6D7A2940-2E79-48C2-88D3-725DEF764C0F}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:5.1.16"
+        "ProductVersion" = "8:5.1.17"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
@@ -1476,15 +1450,15 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7D7B570C7F3649EF8EF86AB0586B6460"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E72F05F569A54B1687A7B4993360EEF5"
             {
-            "Name" = "8:Bazis_5.0"
+            "Name" = "8:Bazis_5.17_beta"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:"
+            "Target" = "8:_8BC9F77BF20A47E78FE9281C2E34FB34"
             "Folder" = "8:_79C2669022E649E4972582DACECCA7EE"
             "WorkingFolder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
             "Icon" = "8:_A0B8C9C4A3044C28B0EE98B3B43F8A15"

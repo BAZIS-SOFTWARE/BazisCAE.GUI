@@ -10,13 +10,14 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public Matrix<float> ViewMatrix
+
+        public Matrix<float> ProjectionMatrix
         {
             get
             {
                 float[] vector = new float[16];
-                
-                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, vector);
+
+                Gl.glGetFloatv(Gl.GL_PROJECTION_MATRIX, vector);
                 //float[,] multiMassView = new float[4, 4];
 
                 var matrix = Matrix<float>.Build.Dense(4, 4);

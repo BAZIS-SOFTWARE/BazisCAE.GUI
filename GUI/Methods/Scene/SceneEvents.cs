@@ -283,6 +283,9 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
             if (e.KeyCode == Keys.Escape)
             {
                 DisplayGeometryObjectEvent = null;
+                // все таки может выключать весь текст по эскайп?
+                DisplayText2DEvent = null;
+                DisplayText3DEvent = null;
                 SetBackColorToAllObjects();
                 DisplayObjects();
             }

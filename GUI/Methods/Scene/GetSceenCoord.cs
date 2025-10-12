@@ -1,4 +1,5 @@
-﻿using Geometry;
+﻿using BazisGUI.Scene.Interfaces;
+using Geometry;
 using MathNet.Numerics.LinearAlgebra;
 using System;
 
@@ -54,15 +55,32 @@ namespace BazisGUI
         /// <inheritdoc/>
         public Point2D GetScreenCoord(Point3D coord)
         {
-            var zn = coord._z;
-            var xn = -(coord._x / coord._z);
-            var yn = -(coord._y / coord._z);
-            var view_port_koeff = ((float)scene.Height / scene.Width);
-            var tan = (float)Math.Tan(settingsConfig.AngleOfProjection * 3.14f / 180);
-            var x_scr = xn * view_port_koeff * (scene.Width / tan); //вычисление экранной Хэ координат искомой точки узлов (2, 4)
-            var y_scr = yn * (scene.Height / tan); //вычисление экранной Уэ координат искомой точки
+            if (settingsConfig.Projection == ViewProjection.Perspective)
+            {
+                var zn = coord._z;
+                var xn = -(coord._x / coord._z);
+                var yn = -(coord._y / coord._z);
+                var view_port_koeff = ((float)scene.Height / scene.Width);
+                var tan = (float)Math.Tan(settingsConfig.AngleOfProjection * 3.14f / 180);
+                var x_scr = xn * view_port_koeff * (scene.Width / tan); //вычисление экранной Хэ координат искомой точки узлов (2, 4)
+                var y_scr = yn * (scene.Height / tan); //вычисление экранной Уэ координат искомой точки
 
-            return new Point2D(x_scr, y_scr);
+                return new Point2D(x_scr, y_scr);
+            }
+            else
+            {
+                var v = new float[4] { coord._x, coord._y, coord._z, 1 }; // первоначальные видовые координаты искомой точки точки
+                var vector = Vector<float>.Build.DenseOfArray(v); // видовые координаты искомой точки точки после преобразования
+
+                ProjectionMatrix.Multiply(vector, vector);
+
+                // Преобразование в пиксельные координаты экрана
+                var screenX = vector[0] * 0.5f * scene.Width;
+                var screenY = vector[1] * 0.5f * scene.Height;
+
+                return new Point2D(screenX, screenY);
+            }
+
         }
     }
 }

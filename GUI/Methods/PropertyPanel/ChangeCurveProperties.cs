@@ -28,6 +28,10 @@ namespace BazisGUI
                 var coeff = double.Parse(attributes[2]);
                 gmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(number, points, meshType, coeff);
             }
+
+            // динамически обновляем картину разбиения
+            if(settingsConfig.ShowNodesOnCurves)
+                ShowNodesOnCurves(true);
         }
     }
 }

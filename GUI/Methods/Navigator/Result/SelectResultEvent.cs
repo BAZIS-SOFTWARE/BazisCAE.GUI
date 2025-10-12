@@ -1,5 +1,7 @@
-﻿using ResultDB.IO;
+﻿using BaseModule.PropertiesPanel;
+using ResultDB.IO;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
@@ -12,6 +14,9 @@ namespace BazisGUI
         {
             try
             {
+                var row = new RowProperty("Результат", arg2);
+                propertiesPanel.DrawTable(new List<RowProperty>() { row });
+
                 var loader = new LoadResultsFileDB();
                 var times = loader.GetValues($@"{ResultDbPath}", "nodes", "Time");
                 checkPlayerControl.StartValue = 0;

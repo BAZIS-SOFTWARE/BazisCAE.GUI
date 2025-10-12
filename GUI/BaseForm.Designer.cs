@@ -95,6 +95,7 @@ namespace BazisGUI
             this.открытьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.объединитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.построитьГрафикToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.построитьДиаграммуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.содержаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -140,7 +141,6 @@ namespace BazisGUI
             this.menuItem_InfoSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_SetRotPoint = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_DeleteSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
-            this.построитьДиаграммуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -852,6 +852,13 @@ namespace BazisGUI
             this.построитьГрафикToolStripMenuItem.Text = "Построить график";
             this.построитьГрафикToolStripMenuItem.Click += new System.EventHandler(this.построитьГрафикToolStripMenuItem_Click);
             // 
+            // построитьДиаграммуToolStripMenuItem
+            // 
+            this.построитьДиаграммуToolStripMenuItem.Name = "построитьДиаграммуToolStripMenuItem";
+            this.построитьДиаграммуToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.построитьДиаграммуToolStripMenuItem.Text = "Построить диаграмму";
+            this.построитьДиаграммуToolStripMenuItem.Click += new System.EventHandler(this.построитьДиаграммуToolStripMenuItem_Click);
+            // 
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
@@ -894,6 +901,7 @@ namespace BazisGUI
             // 
             this.лицензияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.сведенияMenuItem});
+            this.лицензияToolStripMenuItem.Enabled = false;
             this.лицензияToolStripMenuItem.Name = "лицензияToolStripMenuItem";
             this.лицензияToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.лицензияToolStripMenuItem.Text = "Лицензия";
@@ -901,7 +909,7 @@ namespace BazisGUI
             // сведенияMenuItem
             // 
             this.сведенияMenuItem.Name = "сведенияMenuItem";
-            this.сведенияMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.сведенияMenuItem.Size = new System.Drawing.Size(180, 22);
             this.сведенияMenuItem.Text = "Сведения";
             this.сведенияMenuItem.Click += new System.EventHandler(this.сведенияMenuItem_Click);
             // 
@@ -929,7 +937,7 @@ namespace BazisGUI
             this.selectToolStrip.Location = new System.Drawing.Point(3, 24);
             this.selectToolStrip.Name = "selectToolStrip";
             this.selectToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.selectToolStrip.Size = new System.Drawing.Size(298, 56);
+            this.selectToolStrip.Size = new System.Drawing.Size(329, 56);
             this.selectToolStrip.SplitButtonClickWidth = 16;
             this.selectToolStrip.SplitButtonHeight = 36;
             this.selectToolStrip.SplitButtonTriangleSize = 7;
@@ -963,11 +971,13 @@ namespace BazisGUI
             this.btnSelectNodes.Tag = "1";
             this.btnSelectNodes.Text = "toolStripButton2";
             this.btnSelectNodes.ToolTipText = "Выбор узлов";
+            this.btnSelectNodes.Click += new System.EventHandler(this.btnSelectNodes_Click);
             // 
             // btnSelectElements
             // 
             this.btnSelectElements.AutoSize = false;
             this.btnSelectElements.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSelectElements.Enabled = false;
             this.btnSelectElements.Image = ((System.Drawing.Image)(resources.GetObject("btnSelectElements.Image")));
             this.btnSelectElements.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSelectElements.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -982,6 +992,7 @@ namespace BazisGUI
             // 
             this.btnSelectObjects.AutoSize = false;
             this.btnSelectObjects.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSelectObjects.Enabled = false;
             this.btnSelectObjects.Image = ((System.Drawing.Image)(resources.GetObject("btnSelectObjects.Image")));
             this.btnSelectObjects.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSelectObjects.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -1510,13 +1521,6 @@ namespace BazisGUI
             this.menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(203, 22);
             this.menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             this.menuItem_DeleteSelectedObjects.Click += new System.EventHandler(this.menuItem_DeleteSelectedObjects_Click);
-            // 
-            // построитьДиаграммуToolStripMenuItem
-            // 
-            this.построитьДиаграммуToolStripMenuItem.Name = "построитьДиаграммуToolStripMenuItem";
-            this.построитьДиаграммуToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.построитьДиаграммуToolStripMenuItem.Text = "Построить диаграмму";
-            this.построитьДиаграммуToolStripMenuItem.Click += new System.EventHandler(this.построитьДиаграммуToolStripMenuItem_Click);
             // 
             // BaseForm
             // 

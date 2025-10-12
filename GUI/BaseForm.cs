@@ -979,6 +979,16 @@ namespace BazisGUI
             }
 
         }
+
+        private void btnSelectNodes_Click(object sender, EventArgs e)
+        {
+            if(project != null)
+            {
+                SelectedObjects = ObjType.Узел.ToString();
+                spbSelectObject.Invalidate();
+            }
+
+        }
     }
 
 }

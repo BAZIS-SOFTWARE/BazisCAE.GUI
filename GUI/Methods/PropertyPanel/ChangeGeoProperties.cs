@@ -19,6 +19,13 @@ namespace BazisGUI
                 gmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)obj.NewValue.ToEnum<MeshAlgorithm2D>());
             else if (obj.Header == "Алгоритм 3D")
                 gmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)obj.NewValue.ToEnum<MeshAlgorithm3D>());
+
+            else if(obj.Header == "Показать узлы на кривых")
+            {
+                settingsConfig.ShowNodesOnCurves = bool.Parse(obj.NewValue);
+                ShowNodesOnCurves(settingsConfig.ShowNodesOnCurves);
+            }
+                
             /*
              * TO DO
              * Реализовать изменение свойств в ядре gmsh для построения сетки

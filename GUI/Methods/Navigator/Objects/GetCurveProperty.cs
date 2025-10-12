@@ -21,6 +21,8 @@ namespace BazisGUI
             //if (txbAlgoNPoints.IsValueValid())
             //    attributes[0] = txbAlgoNPoints.Text;
 
+            rows.Add(new RowProperty("Номер", arg3));
+
             var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite curve {arg3}");
                 
             if (attributes.Length == 0)
