@@ -4,6 +4,7 @@ using BaseModule.Extensions;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.MeshObjects;
+using Model.Utilities;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
@@ -164,12 +165,13 @@ namespace BazisGUI
             if (selObjs?.Count() > 0)
             {
                 var element = selObjs.Last();
-                project.SelectE2DInPlane(
+                var objs = project.SelectE2DInPlane(
                     angle, element.Number, settingsConfig.SelectObjectColor);
 
                 // TO DO исправить метод
-
-                foreach (var set in GetModelSetsInfo(SelectedObjects))
+                foreach (var set in objs.Select(x => project.
+GetModelSetInfo(ObjType.Элемент2D, x)).
+Distinct(new DefaultSetInfoComparer()))
                 {
                     var pres = project.CreateModelObjectsPresentor(set);
                     SetVBObjectAttribute(pres, "цвет");

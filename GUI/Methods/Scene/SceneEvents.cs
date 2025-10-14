@@ -101,7 +101,8 @@ spbSelectObject.ToolTipText == "Элементы")
                 //& x.ViewState == true);
                 
                 foreach (var selObj in selObjs)
-                    selObj.ViewState = false;
+                    selObj.ViewState = false;  
+
 
                 var sets = selObjs.Select(x => project.GetModelSetInfo(x.ObjType,x.Number)).
         Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
@@ -109,6 +110,7 @@ spbSelectObject.ToolTipText == "Элементы")
                 foreach (var set in sets)
                 {
                     VBOController.DeleteVBObjects(set.Name);
+                    set.SetBackColor();
                     if (set.ViewState)
                     {
                         var pre = project.CreateModelObjectsPresentor(set);

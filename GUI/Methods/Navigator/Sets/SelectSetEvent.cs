@@ -22,7 +22,7 @@ namespace BazisGUI
                 }
 
                 if(arg1 == NodeName.Узлы | arg1 == NodeName.Элементы1D
-                    & arg1 == NodeName.Элементы2D | arg1 == NodeName.Элементы3D)
+                    | arg1 == NodeName.Элементы2D | arg1 == NodeName.Элементы3D)
                 {
                     var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
 
