@@ -27,6 +27,10 @@ namespace BazisGUI
             DisplayObjects();
 
             await EditGroupAsync(group);
+
+            // не очень безопасно, так как пользователь может поменять узел дерева
+            // в процессе редактирования группы
+            navigator.SelectedNode.Text = $"{group.Name} {group.Count}";
         }
 
         public async Task EditGroupAsync(IGroup group)

@@ -19,6 +19,9 @@ namespace BazisGUI
             rows.Add(new RowProperty("Размер элементов в центре", vol.CoreMeshSize));
             rows.Add(new RowProperty("Применить", vol.IsFieldUsed));
 
+
+            // добавить - IsTransfinite (кнопка)
+            // - снять все ограничения (кнопка)
             return rows;
         }      
     }

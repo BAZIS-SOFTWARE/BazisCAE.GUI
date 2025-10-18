@@ -1,7 +1,9 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
+using GmshApi;
 using Model.Interfaces;
+using Model.Interfaces.ObjectsCollections;
 using Model.MeshObjects;
 using System;
 using System.Collections.Generic;
@@ -32,6 +34,25 @@ namespace BazisGUI
                     //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
                     SetVBObjectAttribute(pres, "цвет");
 
+                    DisplayObjects();
+                }
+                else
+                {
+                    var set = project.GetModelSetsInfo(ObjType.Поверхность).First();
+
+                        set.SetBackColor();
+                        var pres = project.CreateModelObjectsPresentor(set);
+                        SetVBObjectAttribute(pres, "цвет");
+                    
+                    var vol = project.GetModelVolumes().First(x => x.Number == number);
+
+                    foreach (var item in vol.GetSurfaceFigures())
+                    {
+                        item.Color = settingsConfig.SelectGroupColor;
+                    }
+
+   
+                    SetVBObjectAttribute(pres, "цвет");
                     DisplayObjects();
                 }
 
@@ -69,6 +90,9 @@ namespace BazisGUI
 
             else if (nodeName == NodeName.Кривая)
                 rows.AddRange(GetCurveProperties(number));
+
+            else if (nodeName == NodeName.Кривая)
+                rows.AddRange(GetSurfaceProperties(number));
 
             else if (nodeName == NodeName.Объем)
             {

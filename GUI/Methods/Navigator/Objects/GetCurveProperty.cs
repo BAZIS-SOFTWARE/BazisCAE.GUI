@@ -42,6 +42,8 @@ namespace BazisGUI
                 rows.Add(new RowProperty("Коэффициент", attributes[2]));    
             }
 
+            // - TO DO снять все ограничения (кнопка)
+
             return rows;
         }
     }

@@ -20,6 +20,7 @@ namespace BazisGUI
             {
                 new RowProperty("Номер", number),
                 new RowProperty("Размер элементов", meshSize[0])
+                // - TO DO снять все ограничения (кнопка)
             };
 
             return rows;
