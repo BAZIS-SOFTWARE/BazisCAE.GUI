@@ -18,6 +18,10 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        /// <summary>
+        /// Временный выбранный объект для работы со свойствами через сцену
+        /// </summary>
+        public object SelectedObject { get; set; }
         public string SelectedObjects
         {
             get { return spbSelectObject.ToolTipText; }

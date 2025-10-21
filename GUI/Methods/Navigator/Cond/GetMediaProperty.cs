@@ -12,26 +12,23 @@ namespace BazisGUI
     {
         public List<RowProperty> GetMediaProperty(MediaData obj, IEnumerable<IGroup> groups, List<string> func)
         {
-            var mediaTypes = Enum.GetValues(typeof(MediaType)).
-                Cast<MediaType>().Select(x => x.ToString());
             var rows = new List<RowProperty>()
             {
-                new RowProperty("Вид условия",new DropDownPropertyValue(obj.MediaType, mediaTypes.ToList())),
+                new RowProperty("Вид условия",obj.MediaType),
                 new RowProperty("Группа элементов", new DropDownPropertyValue(obj.Group.Name, groups.Select(x => x.Name).ToList()))
             };
 
             rows.Add(new RowProperty("Функция, F(t), F - Град.",
-            new DropDownPropertyValue(obj.TemperatureFunc == null ? 
+            new DropDownPropertyValue(obj.TemperatureFunc == null ?
             "*" : obj.TemperatureFunc.Name, func)));
             rows.Add(new RowProperty("Температура среды", obj.TemperatureValue));
 
-            if (obj.MediaType == MediaType.HeatFlux)
-            {
-                rows.Add(new RowProperty("Функция, F(t), F - Дж./мм.^2",
-new DropDownPropertyValue(obj.HeatExchangeFunc == null ? 
+
+            rows.Add(new RowProperty("Функция, F(t), F - Дж./мм.^2",
+new DropDownPropertyValue(obj.HeatExchangeFunc == null ?
 "*" : obj.HeatExchangeFunc.Name, func)));
-                rows.Add(new RowProperty("Коэф. теплоотдачи", obj.HeatExchangeValue));
-            }
+            rows.Add(new RowProperty("Коэф. теплоотдачи", obj.HeatExchangeValue));
+
 
 
             rows.Add(new RowProperty("Старт, сек.", obj.StartTime));

@@ -79,6 +79,7 @@ namespace BazisGUI
                     {
                         var flag = false;
                         var _funcs = project.FunctionsDB.Keys.ToList();
+                        _funcs.Add("*");
                         var _mats = project.MaterialsDB.Keys.ToList();
                         var groups = project.GetAllModelGroups();
                         var cond = project.TaskData[index];

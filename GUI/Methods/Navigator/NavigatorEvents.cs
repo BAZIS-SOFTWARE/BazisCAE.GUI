@@ -22,39 +22,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-
-        private void navigator_ShowGantChartEvent()
-        {
-            try
-            {
-                ShowGantChart(project.GetAllCondData());
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
-        }
-
-        private void navigator_StopComputationEvent()
-        {
-            var runProc = Process.GetProcessesByName("BazisSolverCP");
-
-            if (runProc.Length != 0)
-            {
-                var process = new Process();
-                var startInfo = new ProcessStartInfo
-                {
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    FileName = "cmd.exe",
-                    //Arguments = $"/C sc stop BazisSolver",
-                    Arguments = $"/C taskkill /pid {runProc[0].Id} /f",
-                    Verb = "runas"
-                };
-                process.StartInfo = startInfo;
-                process.Start();
-            }
-        }
+        
         private void navigator_RemoveAllConditionsEvent()
         {
             try
@@ -115,77 +83,7 @@ namespace BazisGUI
 
         }    
 
-        private void navigator_GenerateTCFEvent()
-        {
-            try
-            {
-                project.Save(lblStatus.Text);
-                console.PrintInfo("Проект сохранен в " + WorkingDir, Color.Black);
 
-                CheckProjectDataBeforeCreationTCF();
-
-                var compDir = $@"{WorkingDir}\ComputationData";
-
-                if (!Directory.Exists(compDir))
-                    Directory.CreateDirectory(compDir);
-
-                var result = new List<string>
-            {
-                $@"\\загрузка сетки и данных",
-                $@"загрузить проект {lblStatus.Text}",
-                /*
-                $@"\\загрузка материалов",
-                $@"загрузить материалы {project.Path}\{project.MaterialsDB}",
-                $@"\\загрузка функций",
-                $@"загрузить функции {project.Path}\{project.FunctionsDB}",
-                */
-                $@"\\расчет"
-            };
-
-                var tasks = new List<string>();
-                navigator.TrySearchNodes(NodeName.расчеты, out List<TreeNode> task);
-                foreach (TreeNode item in task[0].Nodes)
-                    tasks.Add("расчет " + item.Text);
-
-                result.AddRange(tasks);
-
-                var cmdFile = $@"{compDir}\computation.tcf";
-
-                File.WriteAllLines(cmdFile, result);
-
-                console.PrintInfo($"Сформирован командный файл {cmdFile}", Color.Green);
-
-                StartComputation();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-  
-        }
-
-        private void CheckProjectDataBeforeCreationTCF()
-        {
-            try
-            {
-                if (!File.Exists($@"{lblStatus.Text}"))
-                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл проекта {project.Name}. " +
-                        $"Верните файл проекта в папку проекта или выберете другой проект");
-
-                if (!File.Exists($@"{WorkingDir}\{project.MaterialsDB.Name}"))
-                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл материалов {project.MaterialsDB}. " +
-                        $"Верните файл материалов в папку проекта или выберете другой файл материалов");
-
-                if (!File.Exists($@"{WorkingDir}\{project.FunctionsDB.Name}"))
-                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл функций {project.FunctionsDB}. " +
-                        $"Верните файл функций в папку проекта или выберете другой файл функций");
-
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
 
         private List<string> GetLoadGroupsNames(TaskType taskType, IModelData modelData)
         {
@@ -209,30 +107,7 @@ namespace BazisGUI
                 return modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList();
             else
                 return modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList();
-        }
-
-        public void StartComputation()
-        {
-            try
-            {
-                var myProcess = new Process();
-
-                myProcess.StartInfo.FileName = $@"{settingsConfig.SolverPath}\{settingsConfig.SolverFile}";
-
-                var compDir = $@"{WorkingDir}\ComputationData";
-                var cmdFile = $@"{compDir}\computation.tcf";
-
-                var argStr = string.Join(" ", new string[] { cmdFile });
-
-                myProcess.StartInfo.Arguments = argStr;
-                myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-                myProcess.Start();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
+        }      
 
         public void navigator_HideConditionsEvent(object arg1, IModelData modelData, HideDataEventArgs arg2)
         {

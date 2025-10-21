@@ -94,7 +94,7 @@ namespace BaseModule.Navigator
 
         public event Action HideResultsEvent;
         public event Action RemoveResultsEvent;
-        public event Action ShowGantChartEvent;
+        
         public event Action RemoveAllConditionsEvent;
 
         public event Action DelAllGroupsEvent;
@@ -124,6 +124,7 @@ namespace BaseModule.Navigator
         public event Action<TreeNode> GetObjectsInfoEvent;
 
         public event Action<NodeName, int> SelectObjectEvent;
+        public event Action ShowAdjacenciesEvent;
         public event Action<NodeName, int> DelObjectEvent;
         public event Action<NodeName, string, int> GetObjectInfoEvent;
         public event Action<NodeName, int> ShowObjectEvent;
@@ -141,14 +142,7 @@ namespace BaseModule.Navigator
         public event Action<NodeName, string> SelectResultEvent;
 
         public event Action<TreeNode> GetResultInfoEvent;
-
-        //public event Action<object,NodeName> AddConditionEvent;
         public event Action DelCondEvent;
-        //public event Action GenerateTSFEvent;
-        public event Action GenerateTCFEvent;
-
-        public event Action StopComputationEvent;
-        //public event Action<object, Priority> SetCompPriority;
 
         public event Action<object, string, List<double>> CreateAnimationEvent;
 
@@ -706,16 +700,6 @@ e.Node.Name == NodeName.Объем.ToString()
             treeView.EndUpdate();
         }
 
-        private void запуститьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GenerateTCFEvent?.Invoke();
-        }
-
-        private void остановитьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            StopComputationEvent?.Invoke();
-        }
-
         private void скрытьРезToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HideResultsEvent?.Invoke();
@@ -724,11 +708,6 @@ e.Node.Name == NodeName.Объем.ToString()
         private void удалитьРезToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RemoveResultsEvent?.Invoke();
-        }
-
-        private void diagram_gantt_toolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowGantChartEvent?.Invoke();
         }
 
         private void удалитьВсеУсловияToolStripMenuItem_Click(object sender, EventArgs e)
@@ -845,6 +824,11 @@ e.Node.Name == NodeName.Объем.ToString()
         private void показатьОбъектыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeAllObjectsViewStateEvent?.Invoke(true);
+        }
+
+        private void показатьСмежныеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowAdjacenciesEvent?.Invoke();
         }
     }
 }

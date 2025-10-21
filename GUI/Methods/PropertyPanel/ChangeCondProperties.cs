@@ -172,20 +172,26 @@ namespace BazisGUI
             ChangeGeneralProperties(obj, mediaData, ref flag);
 
             if (obj.Header == "Функция, F(t), F - Дж./мм.^2")
-                mediaData.HeatExchangeFunc = project.FunctionsDB[obj.NewValue];
-            else if (obj.Header == "Коэф. теплоотдачи")
-                mediaData.HeatExchangeValue = float.Parse(obj.NewValue);
-            else if (obj.Header == "Температура среды")
-                mediaData.TemperatureValue = float.Parse(obj.NewValue);
-            else if (obj.Header == "Функция, F(t), F - Град.")
-                mediaData.TemperatureFunc = project.FunctionsDB[obj.NewValue];
-
-            else if (obj.Header == "Вид условия")
             {
-                mediaData.MediaType = obj.NewValue.ToEnum<MediaType>();
+                mediaData.HeatExchangeFunc = 
+                    obj.NewValue == "*" ?  null : project.FunctionsDB[obj.NewValue];
                 flag = true;
             }
 
+            else if (obj.Header == "Коэф. теплоотдачи")
+            {
+                mediaData.HeatExchangeValue = float.Parse(obj.NewValue);
+                flag = true;
+            }
+                
+            else if (obj.Header == "Температура среды")
+                mediaData.TemperatureValue = float.Parse(obj.NewValue);
+            else if (obj.Header == "Функция, F(t), F - Град.")
+            {
+                mediaData.TemperatureFunc =
+                    obj.NewValue == "*" ? null : project.FunctionsDB[obj.NewValue];
+                flag = true;
+            }
         }
     }
 }
