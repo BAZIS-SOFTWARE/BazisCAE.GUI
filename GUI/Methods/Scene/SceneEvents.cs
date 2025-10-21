@@ -270,13 +270,14 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
             {
                 // Управляем возвратом цвета через контроллер
                 //project?.SetModelObjectsBackColor(type);
-                foreach (var set in project?.GetModelSetsInfo(type))
-                {
-                    set.SetBackColor();
-                    var pres = project.CreateModelObjectsPresentor(set);
-                    if (pres != null)
-                        SetVBObjectAttribute(pres, "цвет");
-                }
+                if(project != null)
+                    foreach (var set in project.GetModelSetsInfo(type))
+                    {
+                        set.SetBackColor();
+                        var pres = project.CreateModelObjectsPresentor(set);
+                        if (pres != null)
+                            SetVBObjectAttribute(pres, "цвет");
+                    }
             }
         }
 

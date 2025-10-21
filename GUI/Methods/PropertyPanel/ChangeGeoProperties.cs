@@ -14,11 +14,11 @@ namespace BazisGUI
             if (obj.Header == "Мин.размер")
                 gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(obj.NewValue));
             else if (obj.Header == "Макс.размер")
-                gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(obj.NewValue));
+                gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", double.Parse(obj.NewValue));
             else if (obj.Header == "Алгоритм 2D")
                 gmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)obj.NewValue.ToEnum<MeshAlgorithm2D>());
             else if (obj.Header == "Алгоритм 3D")
-                gmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)obj.NewValue.ToEnum<MeshAlgorithm3D>());
+                gmshController.Gmsh.Option.SetNumber("Mesh.Algorithm3D", (double)obj.NewValue.ToEnum<MeshAlgorithm3D>());
 
             else if(obj.Header == "Показать узлы на кривых")
             {

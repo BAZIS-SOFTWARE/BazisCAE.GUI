@@ -217,18 +217,6 @@ namespace BazisGUI
             }
         }
 
-
-        private void сварка_Click(object sender, EventArgs e)
-        {
-            SetModule("Weld");
-            DisplayObjects();
-        }
-        private void термообработка_Click(object sender, EventArgs e)
-        {
-            SetModule("HeatTreatment");
-            DisplayObjects();
-        }
-
         private void DisconnectWithServer(string moduleName)
         {
             //if (module != null)
@@ -236,23 +224,6 @@ namespace BazisGUI
                 StopServerPing();
                 serverConnection?.RequestServer(moduleName + " Отдать");
             //}
-        }
-
-        private void SetModule(string moduleName)
-        {
-            DisconnectWithServer(moduleName);
-
-            CloseActivePageChildControls(moduleName);
-
-            //var newModule = CreateModule(moduleName);
-            //Important to see in future
-
-            //modelController = new ModelController.ModelController(project.ModelData);
-
-            //SetGeneralSettings(moduleName);
-            LicenseModule(moduleName);
-            PresentProject();
-            DisplayObjects();
         }
 
         private void LicenseModule(string moduleName)
@@ -827,7 +798,7 @@ namespace BazisGUI
             PresentMeshData();
             PresentGroupDataOnTree();
             PresentCondDataOnTree();
-            PresentModelOnSelectToolStrip(project.ModelData.ObjectData);
+            PresentModelOnSelectToolStrip();
         }
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)

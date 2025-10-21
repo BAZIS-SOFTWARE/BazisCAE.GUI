@@ -18,7 +18,8 @@ namespace BaseModule.PropertiesPanel
 
         private string _oldValue;
         private bool _isValid;
-
+        private string objInfo; // возможно костыль, хранит инфо об объекте сво-ва которого представлены
+        private int tag; // возможно костыль, хранит инфо об источнике, где были получены сво-ва объекта
         public PropertiesPanelControl()
         {
             InitializeComponent();
@@ -65,9 +66,16 @@ namespace BaseModule.PropertiesPanel
         {
             dataGridView1.Rows.Clear();
         }
-
-        public void DrawTable(List<RowProperty> rows)
+        /// <summary>
+        /// DrawTable
+        /// </summary>
+        /// <param name="rows"></param>
+        /// <param name="_objInfo">дополнительная информация об объекте</param>
+        /// <param name="_tag">дополнительная информация</param>
+        public void DrawTable(List<RowProperty> rows, string _objInfo = null, int _tag = 0)
         {
+            objInfo = _objInfo;
+            tag = _tag;
             dataGridView1.Rows.Clear();
             // Тут при создании строки таблицы должно происходить автоопределение типа элемента ячейки
             // comboBox,TextBox, CheckBox etc.
@@ -154,9 +162,14 @@ namespace BaseModule.PropertiesPanel
                     var color = ChangeColorCell(newValue);
                     dataGridView1.Rows[e.RowIndex].Cells[1].Style.BackColor = color;
                 }
+                var eventArgs = new PropertyChangedEventArgs(header, newValue, _oldValue);
+                
+                if (objInfo != null)
+                    eventArgs.ObjInfo = objInfo;
 
+                eventArgs.Tag = tag;
 
-                PropertyUpdateEvent?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
+                PropertyUpdateEvent?.Invoke(eventArgs);
             }
         }
 

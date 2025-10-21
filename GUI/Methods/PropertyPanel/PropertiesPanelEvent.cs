@@ -28,146 +28,167 @@ namespace BazisGUI
         {
             try
             {
-                // В зависимости от свойства данных проекта (modelData, TaskData etc
-                // вызывать нужный метод в controller
-                var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
-
-                if (navigator.SelectedNode.Level == 1)
+                if (obj.Tag == 1) // выбор со сцены
                 {
-                    if (nodeName == NodeName.задача)
-                        ChangeTaskProperties(obj);
-                    else if (nodeName == NodeName.геометрия)
-                        ChangeGeoProperties(obj);
-                    else if (nodeName == NodeName.расчеты)
-                        ChangeCompProperties(obj);
-                    else if (nodeName == NodeName.результаты)
-                    {
-                        ChangeResultsProperty(obj);
-                        var rows = GetResultsProperties();
-                        propertiesPanel.DrawTable(rows);
-                    }
-                        
-                }
-
-                if (navigator.SelectedNode.Level == 2)
-                {
-                    var index = navigator.SelectedNode.Index;
-                    var parentName = navigator.SelectedNode.Parent.Name.ToEnum<NodeName>();
-                    if (parentName == NodeName.группы)
-                    {
-                        if (nodeName == NodeName.Элементы3D |
-        nodeName == NodeName.Элементы2D |
-        nodeName == NodeName.Элементы1D |
-        nodeName == NodeName.Узлы
-        )
-                        {
-                            ChangeMeshGroupProperties(obj, index);
-                            PresentGroupDataOnTree();
-                            PresentCondDataOnTree();
-                        }
-                    }
-                    else if (parentName == NodeName.сетка)
-                    {
-                        if (nodeName == NodeName.Элементы3D)
-                            ChangeMeshSetProperties(obj, 3);
-                        else if (nodeName == NodeName.Элементы2D)
-                            ChangeMeshSetProperties(obj, 2);
-                        else
-                            ChangeMeshSetProperties(obj, 1);
-                    }
-                    else if (parentName == NodeName.задача)
-                    {
-                        var flag = false;
-                        var _funcs = project.FunctionsDB.Keys.ToList();
-                        _funcs.Add("*");
-                        var _mats = project.MaterialsDB.Keys.ToList();
-                        var groups = project.GetAllModelGroups();
-                        var cond = project.TaskData[index];
-                        if (nodeName == NodeName.Материал)
-                        {
-                            ChangeMatProperties(obj, (MatData)cond, ref flag);
-
-                            if (flag)
-                            {
-                                var rows = GetMatProperty((MatData)cond, _mats, groups);
-                                propertiesPanel.DrawTable(rows);
-                            }
-                        }
-                        else if (nodeName == NodeName.Нагрев)
-                        {
-                            ChangeHeatProperties(obj, (HeatData)cond, ref flag);
-
-                            if (flag)
-                            {
-                                var rows = GetHeatProperty((HeatData)cond, groups, _funcs);
-                                propertiesPanel.DrawTable(rows);
-                            }
-                        }
-                        else if (nodeName == NodeName.Нагрузка)
-                        {
-                            ChangeLoadProperties(obj, (LoadData)cond, ref flag);
-
-                            if (flag)
-                            {
-                                var rows = GetLoadProperty((LoadData)cond, _funcs,groups);
-                                propertiesPanel.DrawTable(rows);
-                            }
-                        }
-                        else if (nodeName == NodeName.Среда)
-                        {
-                            ChangeMediaProperties(obj, (MediaData)cond, ref flag);
-
-                            if (flag)
-                            {
-                                var rows = GetMediaProperty((MediaData)cond, groups, _funcs);
-                                propertiesPanel.DrawTable(rows);
-                            }
-   
-                        }
-                        else if(nodeName == NodeName.Закрепление) 
-                        {             
-                            ChangeClampProperties(obj, (ClampData)cond,ref flag);
-                            
-                            if(flag)
-                            {
-                                var rows = GetClampProperty((ClampData)cond, groups);
-                                propertiesPanel.DrawTable(rows);
-                            }
-                        }
-                        navigator.SelectedNode.Text = cond.ToString();
-                    }
-                    else if (parentName == NodeName.расчеты)
-                    {
-                        var s = navigator.SelectedNode.Text;
-                        ChangeCompProperties(obj, s);
-                    }
-
-                }
-
-                if (navigator.SelectedNode.Level == 3)
-                {
-                    var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
-                    if (nodeName == NodeName.Узел)
+                    var number = int.Parse(obj.ObjInfo.Split(' ')[0]);
+                    var name = obj.ObjInfo.Split(' ')[1].ToEnum<NodeName>();
+                    if (name == NodeName.Узел)
                         ChangeNodeProperty(obj, number);
-                    else if (nodeName == NodeName.Элемент1D)
+                    else if (name == NodeName.Элемент1D)
                         ChangeElementProperty(obj, ObjType.Элемент1D, number);
-                    else if (nodeName == NodeName.Элемент2D)
+                    else if (name == NodeName.Элемент2D)
                         ChangeElementProperty(obj, ObjType.Элемент2D, number);
-                    else if (nodeName == NodeName.Элемент3D)
+                    else if (name == NodeName.Элемент3D)
                         ChangeElementProperty(obj, ObjType.Элемент3D, number);
-                    else if (nodeName == NodeName.Точка)
-                    {
+                    else if (name == NodeName.Точка)
                         ChangePointProperty(obj, number);
-                    }
-                    else if (nodeName == NodeName.Кривая)
-                    {
+                    else if (name == NodeName.Кривая)
                         ChangeCurveProperty(obj, number);
-                    }
-                    else if (nodeName == NodeName.Объем)
+                }
+                else // через навигатор
+                {
+                    // В зависимости от свойства данных проекта (modelData, TaskData etc
+                    // вызывать нужный метод в controller
+                    var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
+
+                    if (navigator.SelectedNode.Level == 1)
                     {
-                        ChangeVolProperty(obj, number);
+                        if (nodeName == NodeName.задача)
+                            ChangeTaskProperties(obj);
+                        else if (nodeName == NodeName.геометрия)
+                            ChangeGeoProperties(obj);
+                        else if (nodeName == NodeName.расчеты)
+                            ChangeCompProperties(obj);
+                        else if (nodeName == NodeName.результаты)
+                        {
+                            ChangeResultsProperty(obj);
+                            var rows = GetResultsProperties();
+                            propertiesPanel.DrawTable(rows);
+                        }
+
+                    }
+
+                    if (navigator.SelectedNode.Level == 2)
+                    {
+                        var index = navigator.SelectedNode.Index;
+                        var parentName = navigator.SelectedNode.Parent.Name.ToEnum<NodeName>();
+                        if (parentName == NodeName.группы)
+                        {
+                            if (nodeName == NodeName.Элементы3D |
+            nodeName == NodeName.Элементы2D |
+            nodeName == NodeName.Элементы1D |
+            nodeName == NodeName.Узлы
+            )
+                            {
+                                ChangeMeshGroupProperties(obj, index);
+                                PresentGroupDataOnTree();
+                                PresentCondDataOnTree();
+                            }
+                        }
+                        else if (parentName == NodeName.сетка)
+                        {
+                            if (nodeName == NodeName.Элементы3D)
+                                ChangeMeshSetProperties(obj, 3);
+                            else if (nodeName == NodeName.Элементы2D)
+                                ChangeMeshSetProperties(obj, 2);
+                            else
+                                ChangeMeshSetProperties(obj, 1);
+                        }
+                        else if (parentName == NodeName.задача)
+                        {
+                            var flag = false;
+                            var _funcs = project.FunctionsDB.Keys.ToList();
+                            _funcs.Add("*");
+                            var _mats = project.MaterialsDB.Keys.ToList();
+                            var groups = project.GetAllModelGroups();
+                            var cond = project.TaskData[index];
+                            if (nodeName == NodeName.Материал)
+                            {
+                                ChangeMatProperties(obj, (MatData)cond, ref flag);
+
+                                if (flag)
+                                {
+                                    var rows = GetMatProperty((MatData)cond, _mats, groups);
+                                    propertiesPanel.DrawTable(rows);
+                                }
+                            }
+                            else if (nodeName == NodeName.Нагрев)
+                            {
+                                ChangeHeatProperties(obj, (HeatData)cond, ref flag);
+
+                                if (flag)
+                                {
+                                    var rows = GetHeatProperty((HeatData)cond, groups, _funcs);
+                                    propertiesPanel.DrawTable(rows);
+                                }
+                            }
+                            else if (nodeName == NodeName.Нагрузка)
+                            {
+                                ChangeLoadProperties(obj, (LoadData)cond, ref flag);
+
+                                if (flag)
+                                {
+                                    var rows = GetLoadProperty((LoadData)cond, _funcs, groups);
+                                    propertiesPanel.DrawTable(rows);
+                                }
+                            }
+                            else if (nodeName == NodeName.Среда)
+                            {
+                                ChangeMediaProperties(obj, (MediaData)cond, ref flag);
+
+                                if (flag)
+                                {
+                                    var rows = GetMediaProperty((MediaData)cond, groups, _funcs);
+                                    propertiesPanel.DrawTable(rows);
+                                }
+
+                            }
+                            else if (nodeName == NodeName.Закрепление)
+                            {
+                                ChangeClampProperties(obj, (ClampData)cond, ref flag);
+
+                                if (flag)
+                                {
+                                    var rows = GetClampProperty((ClampData)cond, groups);
+                                    propertiesPanel.DrawTable(rows);
+                                }
+                            }
+                            navigator.SelectedNode.Text = cond.ToString();
+                        }
+                        else if (parentName == NodeName.расчеты)
+                        {
+                            var s = navigator.SelectedNode.Text;
+                            ChangeCompProperties(obj, s);
+                        }
+
+                    }
+
+                    if (navigator.SelectedNode.Level == 3)
+                    {
+                        var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
+                        if (nodeName == NodeName.Узел)
+                            ChangeNodeProperty(obj, number);
+                        else if (nodeName == NodeName.Элемент1D)
+                            ChangeElementProperty(obj, ObjType.Элемент1D, number);
+                        else if (nodeName == NodeName.Элемент2D)
+                            ChangeElementProperty(obj, ObjType.Элемент2D, number);
+                        else if (nodeName == NodeName.Элемент3D)
+                            ChangeElementProperty(obj, ObjType.Элемент3D, number);
+                        else if (nodeName == NodeName.Точка)
+                        {
+                            ChangePointProperty(obj, number);
+                        }
+                        else if (nodeName == NodeName.Кривая)
+                        {
+                            ChangeCurveProperty(obj, number);
+                        }
+                        else if (nodeName == NodeName.Объем)
+                        {
+                            ChangeVolProperty(obj, number);
+                        }
                     }
                 }
+    
 
             }
             catch (Exception ex)

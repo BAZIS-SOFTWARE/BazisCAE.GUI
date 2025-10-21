@@ -110,8 +110,8 @@ namespace BazisGUI
             else if (setName.ObjType == ObjType.Кривая)
                 rows.AddRange(GetCurveProperties(number));
 
-
-            propertiesPanel.DrawTable(rows);
+            var objInfo = $"{number} {setName.ObjType}";
+            propertiesPanel.DrawTable(rows, objInfo, 1);
         }
 
         private bool IsObjectCloser(ref ISetInfo tempSetInfo, ref Point3D tempScnPoint, List<Point3D> scnPoints)

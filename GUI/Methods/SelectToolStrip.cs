@@ -54,16 +54,20 @@ namespace BazisGUI
             DisplayObjects();
         }
 
-        public void PresentModelOnSelectToolStrip(IObjectsData objectsData)
+        public void PresentModelOnSelectToolStrip()
         {
-            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+            spbSelectObject.DropDownItems.Clear();
+            var objTypes = project.GetAllModelObjects().Select(x => x.ObjType).Distinct();
+
+            foreach (ObjType item in objTypes)
                 AddObjectsType(item.ToString());
 
-            AddObjectsType("Объекты");
-            AddObjectsType("Фигуры");
-            AddObjectsType("Элементы");
-
-            spbSelectObject.ToolTipText = "Объекты";
+            if(objTypes.Count() != 0)
+            {
+                AddObjectsType("Объекты");
+                spbSelectObject.ToolTipText = "Объекты";
+            }
+ 
             spbSelectObject.Invalidate();
         }
 

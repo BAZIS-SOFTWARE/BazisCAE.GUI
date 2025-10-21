@@ -148,6 +148,7 @@ namespace BazisGUI
             this.menuItem_InfoSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_SetRotPoint = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_DeleteSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
+            this.инструментыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -498,6 +499,7 @@ namespace BazisGUI
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
             this.viewMenuItem,
+            this.инструментыToolStripMenuItem,
             this.геометрияToolStripMenuItem,
             this.сеткаToolStripMenuItem,
             this.dataBasesMenuItem,
@@ -841,28 +843,28 @@ namespace BazisGUI
             // открытьИнструкцииToolStripMenuItem
             // 
             this.открытьИнструкцииToolStripMenuItem.Name = "открытьИнструкцииToolStripMenuItem";
-            this.открытьИнструкцииToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьИнструкцииToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.открытьИнструкцииToolStripMenuItem.Text = "Открыть";
             this.открытьИнструкцииToolStripMenuItem.Click += new System.EventHandler(this.открытьИнструкцииToolStripMenuItem_Click);
             // 
             // сформироватьИнструкцииToolStripMenuItem
             // 
             this.сформироватьИнструкцииToolStripMenuItem.Name = "сформироватьИнструкцииToolStripMenuItem";
-            this.сформироватьИнструкцииToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сформироватьИнструкцииToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.сформироватьИнструкцииToolStripMenuItem.Text = "Сформировать";
             this.сформироватьИнструкцииToolStripMenuItem.Click += new System.EventHandler(this.сформироватьИнструкцииToolStripMenuItem_Click);
             // 
             // запуститьToolStripMenuItem
             // 
             this.запуститьToolStripMenuItem.Name = "запуститьToolStripMenuItem";
-            this.запуститьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.запуститьToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.запуститьToolStripMenuItem.Text = "Запустить";
             this.запуститьToolStripMenuItem.Click += new System.EventHandler(this.запуститьToolStripMenuItem_Click);
             // 
             // остановитьToolStripMenuItem
             // 
             this.остановитьToolStripMenuItem.Name = "остановитьToolStripMenuItem";
-            this.остановитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.остановитьToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.остановитьToolStripMenuItem.Text = "Остановить";
             this.остановитьToolStripMenuItem.Click += new System.EventHandler(this.остановитьToolStripMenuItem_Click);
             // 
@@ -1584,6 +1586,12 @@ namespace BazisGUI
             this.menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             this.menuItem_DeleteSelectedObjects.Click += new System.EventHandler(this.menuItem_DeleteSelectedObjects_Click);
             // 
+            // инструментыToolStripMenuItem
+            // 
+            this.инструментыToolStripMenuItem.Name = "инструментыToolStripMenuItem";
+            this.инструментыToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.инструментыToolStripMenuItem.Text = "Инструменты";
+            // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1758,6 +1766,7 @@ namespace BazisGUI
         private ToolStripMenuItem остановитьToolStripMenuItem;
         private ToolStripMenuItem создатьАнимациюToolStripMenuItem;
         private ToolStripMenuItem экспортироватьРезультатыToolStripMenuItem;
+        private ToolStripMenuItem инструментыToolStripMenuItem;
     }
 }
 
