@@ -77,35 +77,61 @@ namespace BazisGUI
                     }
                     else if (parentName == NodeName.задача)
                     {
+                        var flag = false;
                         var _funcs = project.FunctionsDB.Keys.ToList();
                         var _mats = project.MaterialsDB.Keys.ToList();
                         var groups = project.GetAllModelGroups();
                         var cond = project.TaskData[index];
                         if (nodeName == NodeName.Материал)
                         {
-                            ChangeMatProperties(obj, (MatData)cond);
-                            var rows = GetMatProperty((MatData)cond, _mats, groups);
-                            propertiesPanel.DrawTable(rows);
+                            ChangeMatProperties(obj, (MatData)cond, ref flag);
+
+                            if (flag)
+                            {
+                                var rows = GetMatProperty((MatData)cond, _mats, groups);
+                                propertiesPanel.DrawTable(rows);
+                            }
                         }
                         else if (nodeName == NodeName.Нагрев)
                         {
-                            ChangeHeatProperties(obj, (HeatData)cond);
-                            var rows = GetHeatProperty((HeatData)cond, groups, _funcs);
-                            propertiesPanel.DrawTable(rows);
+                            ChangeHeatProperties(obj, (HeatData)cond, ref flag);
+
+                            if (flag)
+                            {
+                                var rows = GetHeatProperty((HeatData)cond, groups, _funcs);
+                                propertiesPanel.DrawTable(rows);
+                            }
                         }
                         else if (nodeName == NodeName.Нагрузка)
                         {
-                            ChangeLoadProperties(obj, (LoadData)cond);
+                            ChangeLoadProperties(obj, (LoadData)cond, ref flag);
+
+                            if (flag)
+                            {
+                                var rows = GetLoadProperty((LoadData)cond, _funcs,groups);
+                                propertiesPanel.DrawTable(rows);
+                            }
                         }
                         else if (nodeName == NodeName.Среда)
                         {
-                            ChangeMediaProperties(obj, (MediaData)cond);
-                            var rows = GetMediaProperty((MediaData)cond, groups, _funcs);
-                            propertiesPanel.DrawTable(rows);
+                            ChangeMediaProperties(obj, (MediaData)cond, ref flag);
+
+                            if (flag)
+                            {
+                                var rows = GetMediaProperty((MediaData)cond, groups, _funcs);
+                                propertiesPanel.DrawTable(rows);
+                            }
+   
                         }
                         else if(nodeName == NodeName.Закрепление) 
-                        {
-                            ChangeClampProperties(obj, (ClampData)cond);
+                        {             
+                            ChangeClampProperties(obj, (ClampData)cond,ref flag);
+                            
+                            if(flag)
+                            {
+                                var rows = GetClampProperty((ClampData)cond, groups);
+                                propertiesPanel.DrawTable(rows);
+                            }
                         }
                         navigator.SelectedNode.Text = cond.ToString();
                     }

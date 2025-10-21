@@ -14,7 +14,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectObjectEvent(NodeName nodeName, string setName, int number)
+        private void navigator_SelectObjectEvent(NodeName nodeName, int number)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace BazisGUI
                 if (nodeName != NodeName.Объем)
                 {
                     var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
-                    var setIndo = project.GetModelSetInfo(objType, setName);
+                    var setIndo = project.GetModelSetInfo(objType, number);
                     setIndo.SetBackColor();
 
                     var pres = project.CreateModelObjectsPresentor(setIndo);

@@ -22,25 +22,12 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_ShowObjectEvent(NodeName arg1, string arg2, int arg3)
-        {
 
-        }
-
-     
-        private void navigator_HideObjectEvent(NodeName arg1, string arg2, int arg3)
-        {
-
-        }
-        private void navigator_DelObjectEvent(NodeName arg1, string arg2,int arg3)
-        {
-
-        }
         private void navigator_ShowGantChartEvent()
         {
             try
             {
-                ShowGantChart(project.TaskData.Select(x => x));
+                ShowGantChart(project.GetAllCondData());
             }
             catch (Exception ex)
             {
@@ -126,14 +113,7 @@ namespace BazisGUI
                 console.PrintInfo(ex.Message, Color.Red);
             }
 
-        }
-
-        private void navigator_CreateAnimationEvent(object arg1, string arg2, List<double> list)
-        {
-            //вызов контрола анимации результатов
-            // при создании анимации в нем обработать событие методом
-            // CreateGIFAnimation()
-        }      
+        }    
 
         private void navigator_GenerateTCFEvent()
         {
@@ -291,10 +271,13 @@ namespace BazisGUI
             {
                 foreach (var item in project.GetModelVolumes())
                 {
-                    var text = $"{item.Number} {item.Name} {item.NumberOfSides}";
-                    var r_node = navigator.CreateRealNode(NodeName.Объем, text);
+                    //var text = $"{item.Number} {item.Name} {item.NumberOfSides}";
+                    var r_node = navigator.CreateRealNode(NodeName.Объем, item.ToString());
                     //r_node.ImageIndex = 14;
                     //r_node.SelectedImageIndex = 14;
+
+                    navigator.SetContextMenu(r_node);
+
                     node.Nodes.Add(r_node);
                 }
             }
@@ -311,6 +294,10 @@ namespace BazisGUI
 
                 var setInfo = project.GetModelSetInfo(objType, setName);
                 var childs = navigator.CreateRealNodes(objType.ToString(), setInfo.GetObjectsInfo());
+
+                foreach (var item in childs)
+                    navigator.SetContextMenu(item);
+
                 node.Nodes.AddRange(childs);
             }
 

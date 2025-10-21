@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -73,6 +74,8 @@ namespace BazisGUI
 
                 if(flag)
                 {
+                    // генерисуем 1д элементы для сбора информации об узлах
+                    gmshController.Gmsh.Model.Mesh.Generate(1);
                     var dic = GetCurvesNumbersAndNodes();
 
                     var points = new List<GeometryPoint>();
@@ -97,7 +100,6 @@ namespace BazisGUI
 
         private List<GeometryPoint> GetTransPointsCoords(int curveTag)
         {
-            gmshController.Gmsh.Model.Mesh.Generate(1);
             var data = gmshController.Gmsh.Model.Mesh.GetNodes(1, curveTag, false, false);
             var nodeTags = data.Item1;
             var coords = data.Item2;
@@ -122,15 +124,23 @@ namespace BazisGUI
             foreach (var item in attribList)
             {
                 var tag = Int32.Parse(item.Split(' ')[2]);
-                var attributes = GetCurrentCurveAttributes(tag);
-                var points = attributes.Length == 3 && !string.IsNullOrEmpty(attributes[0]) ? Int32.Parse(attributes[0]) : 0;
-                curveDict.Add(tag, points);
+
+                // тут будем учитывать видна кривая илиь нет
+                if(project.GetModelObject(ObjType.Кривая,tag).ViewState)
+                {
+                    var attributes = GetCurrentCurveAttributes(tag);
+                    var points = attributes.Length == 3 && !string.IsNullOrEmpty(attributes[0]) ? Int32.Parse(attributes[0]) : 0;
+                    curveDict.Add(tag, points);
+                }
             }
             //2)Добавляем в словарь неразмеченные кривые, которых нет в словаре (со значением ноль)
+            
+            // TODO Это место нужно переписать. Все можно хранить в классе SurfaceFigure
             var dimTags = gmshController.Gmsh.Model.GetEntities(1);
             for (var i = 1; i < dimTags.Length; i += 2)
-                if (!curveDict.ContainsKey(dimTags[i]))
-                    curveDict.Add(dimTags[i], 0);
+                if (project.GetModelObject(ObjType.Кривая, dimTags[i]).ViewState)
+                    if (!curveDict.ContainsKey(dimTags[i]))
+                        curveDict.Add(dimTags[i], 0);
             return curveDict;
         }
 
@@ -142,15 +152,16 @@ namespace BazisGUI
 
         private void ShowSurfaceNumbers()
         {
-            var dimTags = gmshController.Gmsh.Model.GetEntities(2);
-
-            for (var i = 1; i < dimTags.Length; i += 2)
+            foreach (var item in project.GetModelObjects(ObjType.Поверхность))
             {
-                var point = GetCenterOfGeometryEntity(2, dimTags[i]);
-                //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
-                var text = $"Поверхность {dimTags[i]}";
+                if(item.ViewState)
+                {
+                    var point = GetCenterOfGeometryEntity(2, item.Number);
+                    //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
+                    var text = $"Поверхность {item.Number}";
 
-                DisplaySurfaceNumbers(text, Color.Black, point);
+                    DisplaySurfaceNumbers(text, Color.Black, point);
+                }
             }
         }
 
@@ -176,16 +187,20 @@ namespace BazisGUI
             foreach (var item in attribList)
             {
                 var tag = Int32.Parse(item.Split(' ')[2]);
-                var attributes = GetCurrentCurveAttributes(tag);
-
-                if (attributes.Length == 3)
+                if (project.GetModelObject(ObjType.Кривая, tag).ViewState)
                 {
-                    // var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
-                    var text = $"{attributes[0]}";
-                    var point = GetCenterOfGeometryEntity(1, tag);
+                    var attributes = GetCurrentCurveAttributes(tag);
 
-                    DisplayText3D(text, Color.Black, point);
+                    if (attributes.Length == 3)
+                    {
+                        // var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
+                        var text = $"{attributes[0]}";
+                        var point = GetCenterOfGeometryEntity(1, tag);
+
+                        DisplayText3D(text, Color.Black, point);
+                    }
                 }
+
             }
         }
 

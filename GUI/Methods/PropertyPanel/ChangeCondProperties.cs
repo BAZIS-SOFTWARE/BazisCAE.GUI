@@ -14,21 +14,34 @@ using System;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void ChangeGeneralProperties(PropertyChangedEventArgs obj, ICondData cond)
+        private void ChangeGeneralProperties(PropertyChangedEventArgs obj, ICondData cond, ref bool refresh)
         {
             if (obj.Header.Contains("Группа"))
             {
                 var group = project.GetAllModelGroups().First(x => x.Name == obj.NewValue);
                 cond.Group = group;
             }
-            else if (obj.Header == "Старт, сек.") 
-                cond.StartTime = float.Parse(obj.NewValue);
-            else if (obj.Header == "Стоп, сек.") 
+            else if (obj.Header == "Старт, сек.")
+            {
+                var newTime = float.Parse(obj.NewValue);
+                newTime = (float)Math.Round(newTime, 2);
+
+                var oldTime = float.Parse(obj.OldValue);
+                oldTime = (float)Math.Round(oldTime, 2);
+
+                var delta = newTime - oldTime;
+                cond.StartTime = newTime;
+                cond.StopTime += delta;
+                refresh = true;
+            }
+
+            else if (obj.Header == "Стоп, сек.")
                 cond.StopTime = float.Parse(obj.NewValue);
 
             else if (obj.Header.Contains("Функция, F(v(x,y,z))"))
@@ -40,14 +53,17 @@ namespace BazisGUI
                 else if (obj.NewValue == "CIL")
                     cond.FrameFunction = new CillindricalFunction();
                 // TO DO добавить custom function
+                refresh = true;
             }
 
-            else if(obj.Header == "Система координат")
+            else if (obj.Header == "Система координат")
             {
                 if (obj.NewValue == "SRF")
                     cond.FrameFunction.LocalFrame = new StaticFrame();
                 else
                     cond.FrameFunction.LocalFrame = new MovedFrame();
+
+                refresh = true;
             }
 
             else if (obj.Header == "Ширина, мм.")
@@ -56,7 +72,7 @@ namespace BazisGUI
                 func.Width = float.Parse(obj.NewValue);
             }
             else if (obj.Header == "Длина, мм." |
-                obj.Header == "Верхний диам., мм." | 
+                obj.Header == "Верхний диам., мм." |
                 obj.Header == "Нижний диам., мм.")
             {
                 var func = cond.FrameFunction as CillindricalFunction;
@@ -74,7 +90,7 @@ namespace BazisGUI
                 srf.BaseGroup = group;
             }
 
-            else if(obj.Header == "Траектория")
+            else if (obj.Header == "Траектория")
             {
                 var mrf = cond.FrameFunction.LocalFrame as MovedFrame;
                 var group = project.GetAllModelGroups().First(x => x.Name == obj.NewValue);
@@ -90,11 +106,12 @@ namespace BazisGUI
             {
                 var mrf = cond.FrameFunction.LocalFrame as MovedFrame;
                 mrf.Velocity = float.Parse(obj.NewValue);
-                
+
                 // добавим корректировку времени остановки, если изменена скорость
                 var time = mrf.CalcMotionTime();
-
-                cond.StopTime = (float)Math.Round(time,2);
+                
+                cond.StopTime = cond.StartTime + (float)Math.Round(time, 2);
+                refresh = true;
             }
 
             else if (obj.Header == "Смещение x")
@@ -107,9 +124,10 @@ namespace BazisGUI
                 cond.FrameFunction.LocalFrame.Rotation = float.Parse(obj.NewValue);
         }
 
-        private void ChangeClampProperties(PropertyChangedEventArgs obj, ClampData clampCond)
+        private void ChangeClampProperties(PropertyChangedEventArgs obj, ClampData clampCond, ref bool flag)
         {
-            ChangeGeneralProperties(obj, clampCond);
+
+            ChangeGeneralProperties(obj, clampCond, ref flag);
 
             if (obj.Header == "Вид")
                 clampCond.TrySetKind(obj.NewValue.ToString());
@@ -117,27 +135,27 @@ namespace BazisGUI
                 clampCond.Direction = obj.NewValue.ToEnum<Direction>();
         }
 
-        private void ChangeMatProperties(PropertyChangedEventArgs obj, MatData matCond)
+        private void ChangeMatProperties(PropertyChangedEventArgs obj, MatData matCond, ref bool flag)
         {
-            ChangeGeneralProperties(obj, matCond);
+            ChangeGeneralProperties(obj, matCond, ref flag);
             if (obj.Header == "Материал")
                 matCond.Material = project.MaterialsDB[obj.NewValue.ToString()];
             // TO DO дописать метод, так чтобы изменялись все свойства
         }
 
-        private void ChangeHeatProperties(PropertyChangedEventArgs obj, HeatData heatCond)
+        private void ChangeHeatProperties(PropertyChangedEventArgs obj, HeatData heatCond, ref bool flag)
         {
             //Мощность, Дж
-            ChangeGeneralProperties(obj, heatCond);
+            ChangeGeneralProperties(obj, heatCond, ref flag);
             if (obj.Header == "Мощность, Дж")
                 heatCond.Heat = float.Parse(obj.NewValue);
             else if (obj.Header == "Функция, F(t), F - Дж.")
                 heatCond.TimeFunction = project.FunctionsDB[obj.NewValue];
         }
 
-        private void ChangeLoadProperties(PropertyChangedEventArgs obj, LoadData loadData)
+        private void ChangeLoadProperties(PropertyChangedEventArgs obj, LoadData loadData, ref bool flag)
         {
-            ChangeGeneralProperties(obj, loadData);
+            ChangeGeneralProperties(obj, loadData, ref flag);
             if (obj.Header == "Направление")
                 loadData.Direction = obj.NewValue.ToEnum<Direction>();
             else if (obj.Header == "Величина, Н")
@@ -149,10 +167,10 @@ namespace BazisGUI
                 loadData.LoadKind = obj.NewValue.ToEnum<LoadKind>();
         }
 
-        private void ChangeMediaProperties(PropertyChangedEventArgs obj, MediaData mediaData)
+        private void ChangeMediaProperties(PropertyChangedEventArgs obj, MediaData mediaData, ref bool flag)
         {
-            ChangeGeneralProperties(obj, mediaData);
-            
+            ChangeGeneralProperties(obj, mediaData, ref flag);
+
             if (obj.Header == "Функция, F(t), F - Дж./мм.^2")
                 mediaData.HeatExchangeFunc = project.FunctionsDB[obj.NewValue];
             else if (obj.Header == "Коэф. теплоотдачи")
@@ -161,6 +179,13 @@ namespace BazisGUI
                 mediaData.TemperatureValue = float.Parse(obj.NewValue);
             else if (obj.Header == "Функция, F(t), F - Град.")
                 mediaData.TemperatureFunc = project.FunctionsDB[obj.NewValue];
+
+            else if (obj.Header == "Вид условия")
+            {
+                mediaData.MediaType = obj.NewValue.ToEnum<MediaType>();
+                flag = true;
+            }
+
         }
     }
 }

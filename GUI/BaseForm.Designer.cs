@@ -64,12 +64,16 @@ namespace BazisGUI
             this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.геометрияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьgeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сформироватьgeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сеткаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.наToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.уплотнитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.наПоверхности3DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.наПоверхностиГеометрииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.dataBasesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.материалыMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,10 +143,11 @@ namespace BazisGUI
             this.menuItem_InfoSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_SetRotPoint = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_DeleteSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
-            this.геометрияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.загрузитьgeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сформироватьgeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.наПоверхностиГеометрииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.создатьАнимациюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.экспортироватьРезультатыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.запуститьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.остановитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.показатьНаДиаграммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -330,10 +335,10 @@ namespace BazisGUI
             this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
             this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
             this.navigator.GetObjectsInfoEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_GetObjectsInfoEvent);
-            this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeName, string, int>(this.navigator_SelectObjectEvent);
-            this.navigator.DelObjectEvent += new System.Action<BaseModule.Navigator.NodeName, string, int>(this.navigator_DelObjectEvent);
-            this.navigator.ShowObjectEvent += new System.Action<BaseModule.Navigator.NodeName, string, int>(this.navigator_ShowObjectEvent);
-            this.navigator.HideObjectEvent += new System.Action<BaseModule.Navigator.NodeName, string, int>(this.navigator_HideObjectEvent);
+            this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_SelectObjectEvent);
+            this.navigator.DelObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_DelObjectEvent);
+            this.navigator.ShowObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_ShowObjectEvent);
+            this.navigator.HideObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_HideObjectEvent);
             this.navigator.SelectCondEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectCondEvent);
             this.navigator.SelectTaskEvent += new System.Action(this.navigator_SelectTaskEvent);
             this.navigator.SelectGeoEvent += new System.Action(this.navigator_SelectGeoEvent);
@@ -605,16 +610,39 @@ namespace BazisGUI
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem2.Text = "Навигатор";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(131, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem3.Text = "Консоль";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // геометрияToolStripMenuItem
+            // 
+            this.геометрияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.загрузитьgeoToolStripMenuItem,
+            this.сформироватьgeoToolStripMenuItem});
+            this.геометрияToolStripMenuItem.Name = "геометрияToolStripMenuItem";
+            this.геометрияToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.геометрияToolStripMenuItem.Text = "Геометрия";
+            // 
+            // загрузитьgeoToolStripMenuItem
+            // 
+            this.загрузитьgeoToolStripMenuItem.Enabled = false;
+            this.загрузитьgeoToolStripMenuItem.Name = "загрузитьgeoToolStripMenuItem";
+            this.загрузитьgeoToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.загрузитьgeoToolStripMenuItem.Text = "Загрузить *.geo";
+            // 
+            // сформироватьgeoToolStripMenuItem
+            // 
+            this.сформироватьgeoToolStripMenuItem.Enabled = false;
+            this.сформироватьgeoToolStripMenuItem.Name = "сформироватьgeoToolStripMenuItem";
+            this.сформироватьgeoToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.сформироватьgeoToolStripMenuItem.Text = "Сформировать *.geo";
             // 
             // сеткаToolStripMenuItem
             // 
@@ -654,7 +682,7 @@ namespace BazisGUI
             // уплотнитьToolStripMenuItem
             // 
             this.уплотнитьToolStripMenuItem.Name = "уплотнитьToolStripMenuItem";
-            this.уплотнитьToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.уплотнитьToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.уплотнитьToolStripMenuItem.Text = "Уплотнить существующую";
             // 
             // наПоверхности3DToolStripMenuItem
@@ -663,6 +691,12 @@ namespace BazisGUI
             this.наПоверхности3DToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.наПоверхности3DToolStripMenuItem.Text = "На открытых 3D элементах";
             this.наПоверхности3DToolStripMenuItem.Click += new System.EventHandler(this.наПоверхности3DToolStripMenuItem_Click);
+            // 
+            // наПоверхностиГеометрииToolStripMenuItem
+            // 
+            this.наПоверхностиГеометрииToolStripMenuItem.Name = "наПоверхностиГеометрииToolStripMenuItem";
+            this.наПоверхностиГеометрииToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.наПоверхностиГеометрииToolStripMenuItem.Text = "На поверхности геометрии";
             // 
             // dToolStripMenuItem2
             // 
@@ -683,14 +717,14 @@ namespace BazisGUI
             // материалыMenuItem
             // 
             this.материалыMenuItem.Name = "материалыMenuItem";
-            this.материалыMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.материалыMenuItem.Size = new System.Drawing.Size(180, 22);
             this.материалыMenuItem.Text = "Материалы";
             this.материалыMenuItem.Click += new System.EventHandler(this.материалыMenuItem_Click);
             // 
             // функцииMenuItem
             // 
             this.функцииMenuItem.Name = "функцииMenuItem";
-            this.функцииMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.функцииMenuItem.Size = new System.Drawing.Size(180, 22);
             this.функцииMenuItem.Text = "Функции";
             this.функцииMenuItem.Click += new System.EventHandler(this.функцииMenuItem_Click);
             // 
@@ -699,7 +733,8 @@ namespace BazisGUI
             this.tasksMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.создатьToolStripMenuItem1,
             this.добавитьУсловиеToolStripMenuItem,
-            this.мастерToolStripMenuItem});
+            this.мастерToolStripMenuItem,
+            this.показатьНаДиаграммеToolStripMenuItem});
             this.tasksMenuItem.Name = "tasksMenuItem";
             this.tasksMenuItem.Size = new System.Drawing.Size(56, 20);
             this.tasksMenuItem.Text = "Задача";
@@ -707,7 +742,7 @@ namespace BazisGUI
             // создатьToolStripMenuItem1
             // 
             this.создатьToolStripMenuItem1.Name = "создатьToolStripMenuItem1";
-            this.создатьToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
+            this.создатьToolStripMenuItem1.Size = new System.Drawing.Size(201, 22);
             this.создатьToolStripMenuItem1.Text = "Создать";
             this.создатьToolStripMenuItem1.Click += new System.EventHandler(this.создатьЗадачуToolStripMenuItem_Click);
             // 
@@ -720,7 +755,7 @@ namespace BazisGUI
             this.закреплениеToolStripMenuItem,
             this.нагрузкаToolStripMenuItem});
             this.добавитьУсловиеToolStripMenuItem.Name = "добавитьУсловиеToolStripMenuItem";
-            this.добавитьУсловиеToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.добавитьУсловиеToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.добавитьУсловиеToolStripMenuItem.Text = "Добавить условие";
             // 
             // материалToolStripMenuItem
@@ -766,7 +801,7 @@ namespace BazisGUI
             this.термообработкаToolStripMenuItem});
             this.мастерToolStripMenuItem.Enabled = false;
             this.мастерToolStripMenuItem.Name = "мастерToolStripMenuItem";
-            this.мастерToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.мастерToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.мастерToolStripMenuItem.Text = "Мастер";
             // 
             // toolStripMenuItem1
@@ -790,8 +825,10 @@ namespace BazisGUI
             // расчетToolStripMenuItem
             // 
             this.расчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьИнструкцииToolStripMenuItem,
             this.сформироватьИнструкцииToolStripMenuItem,
-            this.открытьИнструкцииToolStripMenuItem});
+            this.запуститьToolStripMenuItem,
+            this.остановитьToolStripMenuItem});
             this.расчетToolStripMenuItem.Name = "расчетToolStripMenuItem";
             this.расчетToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.расчетToolStripMenuItem.Text = "Расчеты";
@@ -799,14 +836,14 @@ namespace BazisGUI
             // сформироватьИнструкцииToolStripMenuItem
             // 
             this.сформироватьИнструкцииToolStripMenuItem.Name = "сформироватьИнструкцииToolStripMenuItem";
-            this.сформироватьИнструкцииToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.сформироватьИнструкцииToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.сформироватьИнструкцииToolStripMenuItem.Text = "Сформировать";
             this.сформироватьИнструкцииToolStripMenuItem.Click += new System.EventHandler(this.сформироватьИнструкцииToolStripMenuItem_Click);
             // 
             // открытьИнструкцииToolStripMenuItem
             // 
             this.открытьИнструкцииToolStripMenuItem.Name = "открытьИнструкцииToolStripMenuItem";
-            this.открытьИнструкцииToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.открытьИнструкцииToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.открытьИнструкцииToolStripMenuItem.Text = "Открыть";
             this.открытьИнструкцииToolStripMenuItem.Click += new System.EventHandler(this.открытьИнструкцииToolStripMenuItem_Click);
             // 
@@ -816,7 +853,9 @@ namespace BazisGUI
             this.открытьToolStripMenuItem1,
             this.объединитьToolStripMenuItem,
             this.построитьГрафикToolStripMenuItem,
-            this.построитьДиаграммуToolStripMenuItem});
+            this.построитьДиаграммуToolStripMenuItem,
+            this.создатьАнимациюToolStripMenuItem,
+            this.экспортироватьРезультатыToolStripMenuItem});
             this.resultsMenuItem.Name = "resultsMenuItem";
             this.resultsMenuItem.Size = new System.Drawing.Size(77, 20);
             this.resultsMenuItem.Text = "Результаты";
@@ -824,7 +863,7 @@ namespace BazisGUI
             // открытьToolStripMenuItem1
             // 
             this.открытьToolStripMenuItem1.Name = "открытьToolStripMenuItem1";
-            this.открытьToolStripMenuItem1.Size = new System.Drawing.Size(192, 22);
+            this.открытьToolStripMenuItem1.Size = new System.Drawing.Size(224, 22);
             this.открытьToolStripMenuItem1.Text = "Открыть";
             this.открытьToolStripMenuItem1.Click += new System.EventHandler(this.открытьToolStripMenuItem1_Click);
             // 
@@ -832,20 +871,20 @@ namespace BazisGUI
             // 
             this.объединитьToolStripMenuItem.Enabled = false;
             this.объединитьToolStripMenuItem.Name = "объединитьToolStripMenuItem";
-            this.объединитьToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.объединитьToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.объединитьToolStripMenuItem.Text = "Объединить";
             // 
             // построитьГрафикToolStripMenuItem
             // 
             this.построитьГрафикToolStripMenuItem.Name = "построитьГрафикToolStripMenuItem";
-            this.построитьГрафикToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.построитьГрафикToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.построитьГрафикToolStripMenuItem.Text = "Построить график";
             this.построитьГрафикToolStripMenuItem.Click += new System.EventHandler(this.построитьГрафикToolStripMenuItem_Click);
             // 
             // построитьДиаграммуToolStripMenuItem
             // 
             this.построитьДиаграммуToolStripMenuItem.Name = "построитьДиаграммуToolStripMenuItem";
-            this.построитьДиаграммуToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.построитьДиаграммуToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.построитьДиаграммуToolStripMenuItem.Text = "Построить диаграмму";
             this.построитьДиаграммуToolStripMenuItem.Click += new System.EventHandler(this.построитьДиаграммуToolStripMenuItem_Click);
             // 
@@ -1512,34 +1551,37 @@ namespace BazisGUI
             this.menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             this.menuItem_DeleteSelectedObjects.Click += new System.EventHandler(this.menuItem_DeleteSelectedObjects_Click);
             // 
-            // геометрияToolStripMenuItem
+            // создатьАнимациюToolStripMenuItem
             // 
-            this.геометрияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.загрузитьgeoToolStripMenuItem,
-            this.сформироватьgeoToolStripMenuItem});
-            this.геометрияToolStripMenuItem.Name = "геометрияToolStripMenuItem";
-            this.геометрияToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
-            this.геометрияToolStripMenuItem.Text = "Геометрия";
+            this.создатьАнимациюToolStripMenuItem.Enabled = false;
+            this.создатьАнимациюToolStripMenuItem.Name = "создатьАнимациюToolStripMenuItem";
+            this.создатьАнимациюToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.создатьАнимациюToolStripMenuItem.Text = "Создать анимацию";
             // 
-            // загрузитьgeoToolStripMenuItem
+            // экспортироватьРезультатыToolStripMenuItem
             // 
-            this.загрузитьgeoToolStripMenuItem.Enabled = false;
-            this.загрузитьgeoToolStripMenuItem.Name = "загрузитьgeoToolStripMenuItem";
-            this.загрузитьgeoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.загрузитьgeoToolStripMenuItem.Text = "Загрузить *.geo";
+            this.экспортироватьРезультатыToolStripMenuItem.Enabled = false;
+            this.экспортироватьРезультатыToolStripMenuItem.Name = "экспортироватьРезультатыToolStripMenuItem";
+            this.экспортироватьРезультатыToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.экспортироватьРезультатыToolStripMenuItem.Text = "Экспортировать результаты";
             // 
-            // сформироватьgeoToolStripMenuItem
+            // запуститьToolStripMenuItem
             // 
-            this.сформироватьgeoToolStripMenuItem.Enabled = false;
-            this.сформироватьgeoToolStripMenuItem.Name = "сформироватьgeoToolStripMenuItem";
-            this.сформироватьgeoToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.сформироватьgeoToolStripMenuItem.Text = "Сформировать *.geo";
+            this.запуститьToolStripMenuItem.Name = "запуститьToolStripMenuItem";
+            this.запуститьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.запуститьToolStripMenuItem.Text = "Запустить";
             // 
-            // наПоверхностиГеометрииToolStripMenuItem
+            // остановитьToolStripMenuItem
             // 
-            this.наПоверхностиГеометрииToolStripMenuItem.Name = "наПоверхностиГеометрииToolStripMenuItem";
-            this.наПоверхностиГеометрииToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.наПоверхностиГеометрииToolStripMenuItem.Text = "На поверхности геометрии";
+            this.остановитьToolStripMenuItem.Name = "остановитьToolStripMenuItem";
+            this.остановитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.остановитьToolStripMenuItem.Text = "Остановить";
+            // 
+            // показатьНаДиаграммеToolStripMenuItem
+            // 
+            this.показатьНаДиаграммеToolStripMenuItem.Name = "показатьНаДиаграммеToolStripMenuItem";
+            this.показатьНаДиаграммеToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.показатьНаДиаграммеToolStripMenuItem.Text = "Показать на диаграмме";
             // 
             // BaseForm
             // 
@@ -1710,6 +1752,11 @@ namespace BazisGUI
         private ToolStripMenuItem загрузитьgeoToolStripMenuItem;
         private ToolStripMenuItem сформироватьgeoToolStripMenuItem;
         private ToolStripMenuItem наПоверхностиГеометрииToolStripMenuItem;
+        private ToolStripMenuItem показатьНаДиаграммеToolStripMenuItem;
+        private ToolStripMenuItem запуститьToolStripMenuItem;
+        private ToolStripMenuItem остановитьToolStripMenuItem;
+        private ToolStripMenuItem создатьАнимациюToolStripMenuItem;
+        private ToolStripMenuItem экспортироватьРезультатыToolStripMenuItem;
     }
 }
 

@@ -123,11 +123,11 @@ namespace BaseModule.Navigator
 
         public event Action<TreeNode> GetObjectsInfoEvent;
 
-        public event Action<NodeName, string, int> SelectObjectEvent;
-        public event Action<NodeName, string, int> DelObjectEvent;
+        public event Action<NodeName, int> SelectObjectEvent;
+        public event Action<NodeName, int> DelObjectEvent;
         public event Action<NodeName, string, int> GetObjectInfoEvent;
-        public event Action<NodeName, string, int> ShowObjectEvent;
-        public event Action<NodeName, string, int> HideObjectEvent;
+        public event Action<NodeName, int> ShowObjectEvent;
+        public event Action<NodeName, int> HideObjectEvent;
 
         public event Action<NodeName, string> SelectCondEvent;
         public event Action SelectTaskEvent;
@@ -283,7 +283,7 @@ namespace BaseModule.Navigator
             else if (node.Name == NodeName.расчеты.ToString())
                 node.ContextMenuStrip = compMenuStrip;
 
-   
+
             else if (node.Name == NodeName.Точки.ToString() |
                 node.Name == NodeName.Кривые.ToString() |
                 node.Name == NodeName.Поверхности.ToString() |
@@ -293,7 +293,7 @@ namespace BaseModule.Navigator
                 node.Name == NodeName.Элементы2D.ToString() |
                 node.Name == NodeName.Элементы3D.ToString())
             {
-                if(node.Parent.Name == NodeName.сетка.ToString())
+                if (node.Parent.Name == NodeName.сетка.ToString())
                     node.ContextMenuStrip = set_MenuStrip;
                 else if (node.Parent.Name == NodeName.геометрия.ToString())
                     node.ContextMenuStrip = set_MenuStrip;
@@ -307,8 +307,21 @@ namespace BaseModule.Navigator
                         node.ContextMenuStrip = elGroup_MenuStrip;
                 }
 
-            }    
-                
+            }
+
+            else if (node.Name == NodeName.Точка.ToString() |
+    node.Name == NodeName.Кривая.ToString() |
+    node.Name == NodeName.Поверхность.ToString() |
+    node.Name == NodeName.Объем.ToString() |
+    node.Name == NodeName.Узел.ToString() |
+    node.Name == NodeName.Элемент1D.ToString() |
+    node.Name == NodeName.Элемент2D.ToString() |
+    node.Name == NodeName.Элемент3D.ToString())
+            {
+                node.ContextMenuStrip = objectMenuStrip;
+            }
+
+
             else if (node.Parent.Name == NodeName.задача.ToString())
                 node.ContextMenuStrip = condMenuStrip;
         }
@@ -623,9 +636,8 @@ e.Node.Name == NodeName.Поверхность.ToString() |
 e.Node.Name == NodeName.Объем.ToString()
 )
                 {
-                    var set = node.Parent.Text.Split(' ')[1];
                     var number = int.Parse(node.Text.Split(' ')[0]);
-                    SelectObjectEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), set, number);
+                    SelectObjectEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), number);
                 }
                 else if (e.Node.Name == NodeName.Время.ToString())
                     SelectTimeEvent?.Invoke(e.Node.Parent.Text, double.Parse(e.Node.Text));
@@ -741,28 +753,28 @@ e.Node.Name == NodeName.Объем.ToString()
         private void удалитьОбъектMenuItem_Click(object sender, EventArgs e)
         {
             var node = treeView.SelectedNode;
-            var nodeType = node.Parent.Name.ToEnum<NodeName>();
-            var set = node.Parent.Nodes[0].Text.Split(' ')[0];
+            var nodeType = node.Name.ToEnum<NodeName>();
+            //var set = node.Parent.Nodes[0].Text.Split(' ')[0];
             var number = int.Parse(node.Text.Split(' ')[0]);
-            DelObjectEvent?.Invoke(nodeType, set, number);
+            DelObjectEvent?.Invoke(nodeType, number);
         }
 
         private void скрытьОбъектMenuItem_Click(object sender, EventArgs e)
         {
             var node = treeView.SelectedNode;
-            var nodeType = node.Parent.Name.ToEnum<NodeName>();
-            var set = node.Parent.Nodes[0].Text.Split(' ')[0];
+            var nodeType = node.Name.ToEnum<NodeName>();
+            //var set = node.Parent.Nodes[0].Text.Split(' ')[0];
             var number = int.Parse(node.Text.Split(' ')[0]);
-            HideObjectEvent?.Invoke(nodeType, set, number);
+            HideObjectEvent?.Invoke(nodeType, number);
         }
 
         private void показатьОбъектMenuItem_Click(object sender, EventArgs e)
         {
             var node = treeView.SelectedNode;
-            var nodeType = node.Parent.Name.ToEnum<NodeName>();
-            var set = node.Parent.Nodes[0].Text.Split(' ')[0];
+            var nodeType = node.Name.ToEnum<NodeName>();
+            //var set = node.Parent.Nodes[0].Text.Split(' ')[0];
             var number = int.Parse(node.Text.Split(' ')[0]);
-            ShowObjectEvent?.Invoke(nodeType, set, number);
+            ShowObjectEvent?.Invoke(nodeType, number);
         }
 
         private void treeView_DrawNode(object sender, DrawTreeNodeEventArgs e)
