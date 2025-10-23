@@ -26,7 +26,7 @@ namespace BazisGUI
     {
         [HandleProcessCorruptedStateExceptions]
         [SecurityCritical]
-        private void navigator_GenerateMesh2DEvent()
+        private void наПоверхностиГеометрииToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -37,17 +37,18 @@ namespace BazisGUI
                 //gmshController.Gmsh.Model.Mesh.Generate(3);
                 //var nds = gmshController.GetNodes();
 
-            var error = gmshController.Gmsh.Logger.GetLastError();
-            if (!string.IsNullOrEmpty(error))
-                console.PrintInfo(error, Color.Red);
+                var error = gmshController.Gmsh.Logger.GetLastError();
+                if (!string.IsNullOrEmpty(error))
+                    console.PrintInfo(error, Color.Red);
 
-            DeleteVBObjsByObjsType(ObjType.Узел);
-            CreateVBObjsByObjsType(ObjType.Узел);
-            DeleteVBObjects("Элементы");
-            CreateVBObjects("Элементы");
-            PresentGeoData();
-            FitObjectsToScreen();
-            DisplayObjects();
+                DeleteVBObjsByObjsType(ObjType.Узел);
+                CreateVBObjsByObjsType(ObjType.Узел);
+                DeleteVBObjects("Элементы");
+                CreateVBObjects("Элементы");
+                PresentMeshData();
+                PresentModelOnSelectToolStrip();
+                FitObjectsToScreen();
+                DisplayObjects();
             }
             catch (Exception ex)
             {

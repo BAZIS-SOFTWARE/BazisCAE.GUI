@@ -11,6 +11,9 @@ namespace BazisGUI
         {
             var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite curve {number}");
 
+            if (attributes.Length == 0)
+                attributes = new string[] { "0", MeshType.Progression.ToString(), "1" };
+
             if (obj.Header == "Алгоритм")
                 attributes[1] = obj.NewValue;
             else if (obj.Header == "Колличество точек")
@@ -18,19 +21,21 @@ namespace BazisGUI
             else
                 attributes[2] = obj.NewValue;
 
+
+            //gmshController.Gmsh.Model.SetAttribute($"transfinite curve {arg3}", attributes);
             gmshController.Gmsh.Model.SetAttribute($"transfinite curve {number}", attributes);
             //if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
             //{
-            if (attributes[0] != "0")
-            {
-                var points = int.Parse(attributes[0]);
-                var meshType = attributes[1].ToEnum<MeshType>();
-                var coeff = double.Parse(attributes[2]);
-                gmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(number, points, meshType, coeff);
-            }
+
+            // записываем трансфиницию кривой
+            var points = int.Parse(attributes[0]);
+            var meshType = attributes[1].ToEnum<MeshType>();
+            var coeff = double.Parse(attributes[2]);
+            gmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(number, points, meshType, coeff);
+
 
             // динамически обновляем картину разбиения
-            if(settingsConfig.ShowNodesOnCurves)
+            if (settingsConfig.ShowNodesOnCurves)
                 ShowNodesOnCurves(true);
         }
     }

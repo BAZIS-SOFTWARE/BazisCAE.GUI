@@ -120,17 +120,17 @@ namespace BazisGUI
         {
             var curveDict = new Dictionary<int, int>();
             //1)Добавляем в словарь сначала размеченные кривые
-            var attribList = gmshController.Gmsh.Model.GetAttributeNames();
-            foreach (var item in attribList)
+            var attribList = gmshController.Gmsh.Model.GetAttributeNames().Where(x => x.Contains("curve"));
+            foreach (var item in project.GetModelObjects(ObjType.Кривая))
             {
-                var tag = Int32.Parse(item.Split(' ')[2]);
+                //var tag = Int32.Parse(item.Split(' ')[2]);
 
                 // тут будем учитывать видна кривая илиь нет
-                if(project.GetModelObject(ObjType.Кривая,tag).ViewState)
+                if(item.ViewState)
                 {
-                    var attributes = GetCurrentCurveAttributes(tag);
+                    var attributes = GetCurrentCurveAttributes(item.Number);
                     var points = attributes.Length == 3 && !string.IsNullOrEmpty(attributes[0]) ? Int32.Parse(attributes[0]) : 0;
-                    curveDict.Add(tag, points);
+                    curveDict.Add(item.Number, points);
                 }
             }
             //2)Добавляем в словарь неразмеченные кривые, которых нет в словаре (со значением ноль)

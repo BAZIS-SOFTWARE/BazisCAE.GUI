@@ -184,7 +184,14 @@ namespace BazisGUI
                         }
                         else if (nodeName == NodeName.Объем)
                         {
-                            ChangeVolProperty(obj, number);
+                            var flag = false;
+                            ChangeVolProperty(obj, number,ref flag);
+                            if(flag)
+                            {
+                                var rows = GetVolProperties(number);
+                                propertiesPanel.DrawTable(rows);
+                            }
+ 
                         }
                     }
                 }

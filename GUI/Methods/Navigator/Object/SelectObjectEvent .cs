@@ -96,8 +96,7 @@ namespace BazisGUI
 
             else if (nodeName == NodeName.Объем)
             {
-                var vol = project.GetModelVolumes().First(x => x.Number == number);
-                rows.AddRange(GetVolProperties(vol));
+                rows.AddRange(GetVolProperties(number));
             }
 
 

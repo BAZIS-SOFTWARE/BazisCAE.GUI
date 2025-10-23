@@ -404,6 +404,9 @@
     <Compile Include="Methods\Navigator\Groups\ChangeGroupViewState.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\PropertyPanel\ChangeSurfProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\PropertyPanel\ChangeVolProperties.cs">
       <SubType>Form</SubType>
     </Compile>
