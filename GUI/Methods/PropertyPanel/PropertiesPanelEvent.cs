@@ -44,6 +44,16 @@ namespace BazisGUI
                         ChangePointProperty(obj, number);
                     else if (name == NodeName.Кривая)
                         ChangeCurveProperty(obj, number);
+                    else if (name == NodeName.Поверхность)
+                    {
+                        var flag = false;
+                        ChangeSurfaceProperty(obj, number, ref flag);
+                        if (flag)
+                        {
+                            var rows = GetSurfaceProperties(number);
+                            propertiesPanel.DrawTable(rows);
+                        }
+                    }
                 }
                 else // через навигатор
                 {
@@ -192,6 +202,17 @@ namespace BazisGUI
                                 propertiesPanel.DrawTable(rows);
                             }
  
+                        }
+                        else if (nodeName == NodeName.Поверхность)
+                        {
+                            var flag = false;
+                            ChangeSurfaceProperty(obj, number, ref flag);
+                            if (flag)
+                            {
+                                var rows = GetSurfaceProperties(number);
+                                propertiesPanel.DrawTable(rows);
+                            }
+
                         }
                     }
                 }

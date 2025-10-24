@@ -91,7 +91,7 @@ namespace BazisGUI
             else if (nodeName == NodeName.Кривая)
                 rows.AddRange(GetCurveProperties(number));
 
-            else if (nodeName == NodeName.Кривая)
+            else if (nodeName == NodeName.Поверхность)
                 rows.AddRange(GetSurfaceProperties(number));
 
             else if (nodeName == NodeName.Объем)

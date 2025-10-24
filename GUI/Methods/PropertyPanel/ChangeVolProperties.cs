@@ -16,13 +16,6 @@ namespace BazisGUI
         private void ChangeVolProperty(PropertyChangedEventArgs obj, int number, ref bool flag)
         {
             // Тут задаем настройки сетки в объемах геометрии
-            //var vol = project.GetModelVolumes().First(x => x.Number == number);
-            
-
-            var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite vol {number}");
-
-            //if(attributes.Length == 0)
-            //    attributes = new string[] { "1", "1", "1", "10" };
 
             if (obj.Header == "Вид сетки")
             {
@@ -38,7 +31,7 @@ namespace BazisGUI
 
                 else if (obj.NewValue == "градиентная")
                 {
-                    attributes = new string[] { obj.NewValue, "1", "1", "1", "10" };
+                    var attributes = new string[] { obj.NewValue, "1", "1", "1", "10" };
                     gmshController.Gmsh.Model.
                         SetAttribute($"transfinite vol {number}", attributes);
                     SetMeshGradientSettings(attributes, number);
@@ -55,6 +48,8 @@ namespace BazisGUI
             }
             else
             {
+                var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite vol {number}");
+
                 if (obj.Header == "Степень градиента перехода")
                     attributes[1] = obj.NewValue;
 
@@ -79,6 +74,8 @@ namespace BazisGUI
             //var list = gmshController.Gmsh.Model.Mesh.Field.List();
             //var index = Array.IndexOf(list, number);
             gmshController.Gmsh.Model.Mesh.Field.Remove(number);
+
+            // TODO переписать так чтобы снимались ограничения только с узлов объема
             var points = gmshController.Gmsh.Model.GetEntities(0);
             gmshController.Gmsh.Model.Mesh.RemoveConstraints(points);
             gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeExtendFromBoundary", 1);
@@ -115,9 +112,6 @@ namespace BazisGUI
             //                      .Select(v => (double)v).ToArray();
             //var surfTags = surfaces.Where((v, i) => (i & 1) != 0)
             //                       .Select(v => (double)v).ToArray();
-
-
-
 
             gmshController.Gmsh.Model.Mesh.Field.SetNumbers(number, ExtendOptions.CurvesList.ToString(), distCurveTags.ToArray());
             gmshController.Gmsh.Model.Mesh.Field.SetNumbers(number, ExtendOptions.SurfacesList.ToString(), surfTags.ToArray());

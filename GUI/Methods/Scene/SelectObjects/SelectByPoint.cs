@@ -105,10 +105,10 @@ namespace BazisGUI
                 var element = project.GetModelElements().First(x => x.Number == number);
                 rows.AddRange(GetElementProperty(element));
             }
-
-
             else if (setName.ObjType == ObjType.Кривая)
                 rows.AddRange(GetCurveProperties(number));
+            else if (setName.ObjType == ObjType.Поверхность)
+                rows.AddRange(GetSurfaceProperties(number));
 
             var objInfo = $"{number} {setName.ObjType}";
             propertiesPanel.DrawTable(rows, objInfo, 1);
