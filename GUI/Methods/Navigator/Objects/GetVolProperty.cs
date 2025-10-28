@@ -16,8 +16,9 @@ namespace BazisGUI
 
             rows.Add(new RowProperty("Номер", number));
 
-            var list = gmshController.Gmsh.Model.Mesh.Field.List();
-            var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite vol {number}");
+            var list = GmshController.Gmsh.Model.Mesh.Field.List();
+            var attributes = GmshController.GetTransfiniteVolume(number);
+            //var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite vol {number}");
             var meshTypes = new List<string>() { "*", "градиентная", "регулярная" };
 
 

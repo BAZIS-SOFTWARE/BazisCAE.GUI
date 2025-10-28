@@ -48,7 +48,7 @@ namespace BazisGUI
                 }
                 else if(arg2 is FindVolElemsEventArgs findVolElemsArgs)
                 {
-                    var e3ds = project.GetModelElements().Select(x => (IElement3D)x);
+                    var e3ds = project.GetAllModelElements().Select(x => (IElement3D)x);
                     var findElmems = e3ds.Where(
                         e3d => e3d.CalcVolume() < findVolElemsArgs.Volume);
 

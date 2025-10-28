@@ -14,12 +14,12 @@ namespace BazisGUI
         private List<RowProperty> GetPointProperty(int number) 
         {
             var dimTags = new int[] { 0, number };
-            var meshSize = gmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
+            var meshSize = GmshController.GetSize(number);  //GmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
 
             var rows = new List<RowProperty>
             {
                 new RowProperty("Номер", number),
-                new RowProperty("Размер элементов", meshSize[0])
+                new RowProperty("Размер элементов", meshSize)
                 // - TO DO снять все ограничения (кнопка)
             };
 

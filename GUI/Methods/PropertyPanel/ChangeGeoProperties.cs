@@ -12,13 +12,15 @@ namespace BazisGUI
         private void ChangeGeoProperties(PropertyChangedEventArgs obj)
         {
             if (obj.Header == "Мин.размер")
-                gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(obj.NewValue));
+                GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(obj.NewValue));
             else if (obj.Header == "Макс.размер")
-                gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", double.Parse(obj.NewValue));
+                GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", double.Parse(obj.NewValue));
             else if (obj.Header == "Алгоритм 2D")
-                gmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)obj.NewValue.ToEnum<MeshAlgorithm2D>());
+                GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)obj.NewValue.ToEnum<MeshAlgorithm2D>());
             else if (obj.Header == "Алгоритм 3D")
-                gmshController.Gmsh.Option.SetNumber("Mesh.Algorithm3D", (double)obj.NewValue.ToEnum<MeshAlgorithm3D>());
+                GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm3D", (double)obj.NewValue.ToEnum<MeshAlgorithm3D>());
+            else if (obj.Header == "Масштаб. коэфициент")
+                GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", double.Parse(obj.NewValue));
 
             else if(obj.Header == "Показать узлы на кривых")
             {

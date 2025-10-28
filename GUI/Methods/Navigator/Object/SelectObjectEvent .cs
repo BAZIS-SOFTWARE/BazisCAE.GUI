@@ -83,7 +83,7 @@ namespace BazisGUI
                 nodeName == NodeName.Элемент2D |
                 nodeName == NodeName.Элемент3D)
             {
-                var element = project.GetModelElements().First(x => x.Number == number);
+                var element = project.GetAllModelElements().First(x => x.Number == number);
                 rows.AddRange(GetElementProperty(element));
             }
 

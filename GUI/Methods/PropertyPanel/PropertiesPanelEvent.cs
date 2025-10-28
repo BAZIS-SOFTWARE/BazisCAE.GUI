@@ -322,13 +322,13 @@ namespace BazisGUI
         {
             // задаем значения парами размерность - номер
             var dimTags = new int[] { 0, pointNumber };
-            gmshController.Gmsh.Model.Mesh.SetSize(dimTags, pointSize[0]);
+            GmshController.Gmsh.Model.Mesh.SetSize(dimTags, pointSize[0]);
         }
         //задаем во всех контр. узлах диапазон
         private void SetMinMaxSizes(double[] sizes)
         {
-            gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", sizes[0]);
-            gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", sizes[1]);
+            GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", sizes[0]);
+            GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", sizes[1]);
         }
 
 
@@ -336,15 +336,15 @@ namespace BazisGUI
         private void CurveAttribDelete(int obj)
         {
             var dimTags = new int[] { 1, obj };
-            gmshController.Gmsh.Model.RemoveAttribute($"transfinite {obj}");
-            gmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
+            GmshController.Gmsh.Model.RemoveAttribute($"transfinite {obj}");
+            GmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
         }
 
         private void GetCurveAttrib(object arg1, int arg2)
         {
             try
             {
-                var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite {arg2}");
+                var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite {arg2}");
                 var curveControl = arg1 as GMSHCurveSettingsControl;
                 curveControl.SetCurveAttributes(attributes);
             }
@@ -358,7 +358,7 @@ namespace BazisGUI
         private void PointAttribDelete(int obj)
         {
             var dimTags = new int[] { 0, obj };
-            gmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
+            GmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
         }
     }
 }

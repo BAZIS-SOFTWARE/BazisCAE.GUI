@@ -14,7 +14,7 @@ namespace BazisGUI
 
             rows.Add(new RowProperty("Номер", arg3));
 
-            var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite curve {arg3}");
+            var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite curve {arg3}");
                 
             if (attributes.Length == 0)
             {

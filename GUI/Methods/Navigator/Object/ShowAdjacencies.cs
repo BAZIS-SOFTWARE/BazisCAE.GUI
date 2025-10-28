@@ -2,6 +2,7 @@
 using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
+using GmshApi;
 using Model.GeometryObjects;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
@@ -13,6 +14,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -71,23 +73,29 @@ namespace BazisGUI
 
         private void ShowSurfAdg(int number)
         {
-            var surfaceFigure = (SurfaceFigure)project.GetModelObject(ObjType.Поверхность, number);
+            var surfaceFigure = project.GetModelSurface(number);
             surfaceFigure.ViewState = true;
-            foreach (var cNumber in surfaceFigure.CurveNumbers)
+
+            var curvTags = GmshController.Gmsh.Model.GetAdjacencies(2, number).Item2;
+
+            foreach (var cNumber in curvTags)
                 ShowCurvAdg(cNumber);
         }
 
         private void ShowCurvAdg(int number)
         {
-            var curve = (Curve)project.GetModelObject(ObjType.Кривая, number);
+            var curve = project.GetModelCurve(number);
             curve.ViewState = true;
-            foreach (var pNumber in curve.PointsNumbers)
+
+            var pointsTags = GmshController.Gmsh.Model.GetAdjacencies(1, number).Item2;
+
+            foreach (var pNumber in pointsTags)
                 ShowPointAdg(pNumber);
         }
 
         private void ShowPointAdg(int number)
         {
-            var point = (GeometryPoint)project.GetModelObject(ObjType.Точка, number);
+            var point = project.GetModelPoint(number);
             point.ViewState = true;
         }
 

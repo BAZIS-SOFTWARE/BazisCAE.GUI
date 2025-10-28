@@ -57,9 +57,9 @@ namespace BazisGUI
             return gmshController;
         }
 
-        public async Task<Controller> ImportMesh(string fullPath)
+        public async Task<ProjectController> ImportMesh(string fullPath)
         {
-            var controller = new Controller();
+            var controller = new ProjectController();
 
             MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
             { Dock = DockStyle.Fill };
@@ -86,7 +86,7 @@ namespace BazisGUI
             return controller;
         }
 
-        public async Task<string> ExportMesh(Controller project)
+        public async Task<string> ExportMesh(ProjectController project)
         {
 
             var filter =
@@ -156,9 +156,9 @@ namespace BazisGUI
             return mbf;
         }
 
-        public async Task<Controller> OpenProject(string fullPath)
+        public async Task<ProjectController> OpenProject(string fullPath)
         {
-            var controller = new Controller();
+            var controller = new ProjectController();
             MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
             { Dock = DockStyle.Fill };
 

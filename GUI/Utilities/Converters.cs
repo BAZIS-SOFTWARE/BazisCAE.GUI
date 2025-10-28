@@ -48,13 +48,6 @@ namespace BazisGUI.Utilities
             }
         }
 
-        public static ObjType ConvertToObjsType(string objects)
-        {
-            ObjType objType;
-            return Enum.TryParse(objects, out objType) ? objType :
-                throw new Exception($"Ошибка конвертации объектов {objects}");
-        }
-
         public static NodeName ConvertToNavigatorNodeType(ObjType objType)
         {
             switch (objType)

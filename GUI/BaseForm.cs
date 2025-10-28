@@ -29,6 +29,10 @@ using System.Xml.Linq;
 using PreProc.Interfaces;
 using PreProc;
 using System.Threading.Tasks;
+using BazisGUI.Utilities;
+using BaseModule.Extensions;
+using BaseModule.Navigator;
+using BaseModule.Mesh;
 
 namespace BazisGUI
 {
@@ -55,8 +59,11 @@ namespace BazisGUI
         AverageColorRenderer averageColorRenderer;
 
         //BasePage module;
-        Controller project;
-        GmshController gmshController = new GmshController();
+        ProjectController project;
+        IGmshController GmshController 
+        { 
+            get { return project?.GmshController; }
+        }
         IODataController dataController = new IODataController();
         PreProc.PreProc preProc = new PreProc.PreProc();
         PostProcController resultsController = new PostProcController();
@@ -139,7 +146,7 @@ namespace BazisGUI
                     path = Path.GetDirectoryName(args[projInd + 1]);
                     var name = Path.GetFileName(args[projInd + 1]);
 
-                    project = new Controller();
+                    project = new ProjectController();
                     project.Load(path);
                 }
                 if (args.Contains("-res"))
@@ -167,12 +174,12 @@ namespace BazisGUI
 
                     var fullPath = Path.GetFullPath(args[resInd + 1]);
 
-                    if (gmshController == null)
-                        gmshController = dataController.LoadGMSH();
+                    //if (GmshController == null)         
+                    project.GmshController = dataController.LoadGMSH();
 
                     if (project == null)
-                        project = new Controller();
-                    project.ImportCAD(fullPath, gmshController);
+                        project = new ProjectController();
+                    project.ImportCAD(fullPath);
                     path = Path.GetDirectoryName(fullPath);
                 }
    
@@ -646,7 +653,7 @@ namespace BazisGUI
 
                 var folderName = dialog.SelectedPath;
 
-                project = new Controller();
+                project = new ProjectController();
                 project.CreateProject("newProject.bpf2");
 
                 lblStatus.Text = $"{folderName}\\{project.Name}";
@@ -694,22 +701,22 @@ namespace BazisGUI
                 if (projFilters.Contains(ext))
                 {
                     project = await dataController.OpenProject(dialog.FileName);
-                    gmshController?.Gmsh?.Clear();
+                    GmshController?.Gmsh?.Clear();
                 }
                     
                 else if (geomFilter.Contains(ext))
                 {
-                    if (gmshController.Gmsh == null)
-                        gmshController = dataController.LoadGMSH();
-
                     if (project == null)
-                        project = new Controller();
-                    project.ImportCAD(dialog.FileName, gmshController);
+                        project = new ProjectController();
+
+                    if (GmshController.Gmsh == null)
+                        project.GmshController = dataController.LoadGMSH();
+                    project.ImportCAD(dialog.FileName);
                 }
                 else
                 {
                     project = await dataController.ImportMesh(dialog.FileName);
-                    gmshController?.Gmsh?.Clear();
+                    GmshController?.Gmsh?.Clear();
                 }
 
                 var path = Path.GetDirectoryName(dialog.FileName);
@@ -803,7 +810,7 @@ namespace BazisGUI
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)
         {
-                gmshController?.Gmsh?.finalize();
+                GmshController?.Gmsh?.finalize();
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -960,6 +967,40 @@ namespace BazisGUI
             }
 
         }
+
+        private void navigator_ShowAdjacenciesSetEvent()
+        {
+            var setName = navigator.SelectedNode.Text.Split()[1];
+            var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
+            //var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
+
+            if (nodeName == NodeName.Элементы1D |
+                nodeName == NodeName.Элементы2D | 
+                nodeName == NodeName.Элементы3D)
+            {
+                var dim = 1;
+                if (nodeName == NodeName.Элементы2D)
+                    dim = 2;
+                else if (nodeName == NodeName.Элементы3D)
+                    dim = 3;
+                var elements = project.GetModelElements(dim, setName);
+
+                foreach (var element in elements)
+                {
+                    foreach (var node in element.GetVertexes())
+                        node.ViewState = true;
+                }
+
+                VBOController.DeleteVBObjects(NodeName.Узел.ToString());
+                var set = project.GetModelSetInfo(ObjType.Узел, setName);
+                var pre = project.CreateModelObjectsPresentor(set);
+                var vbo = CreateVBObject(pre);
+                VBOController.AddVbo(vbo);
+                DisplayObjects();
+            }
+        }
+
+
     }
 
 }

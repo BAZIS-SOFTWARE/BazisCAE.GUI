@@ -9,7 +9,7 @@ namespace BazisGUI
     {
         private void ChangeCurveProperty(PropertyChangedEventArgs obj, int number)
         {
-            var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite curve {number}");
+            var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite curve {number}");
 
             if (attributes.Length == 0)
                 attributes = new string[] { "0", MeshType.Progression.ToString(), "1" };
@@ -23,7 +23,7 @@ namespace BazisGUI
 
 
             //gmshController.Gmsh.Model.SetAttribute($"transfinite curve {arg3}", attributes);
-            gmshController.Gmsh.Model.SetAttribute($"transfinite curve {number}", attributes);
+            GmshController.Gmsh.Model.SetAttribute($"transfinite curve {number}", attributes);
             //if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
             //{
 
@@ -31,7 +31,7 @@ namespace BazisGUI
             var points = int.Parse(attributes[0]);
             var meshType = attributes[1].ToEnum<MeshType>();
             var coeff = double.Parse(attributes[2]);
-            gmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(number, points, meshType, coeff);
+            GmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(number, points, meshType, coeff);
 
 
             // динамически обновляем картину разбиения

@@ -14,7 +14,7 @@ namespace BazisGUI
 
             rows.Add(new RowProperty("Номер", number));
 
-            var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite surface {number}");
+            var attributes = GmshController.GetTransfiniteSurface(number);//GmshController.Gmsh.Model.GetAttribute($"transfinite surface {number}");
             var meshTypes = new List<string>() { "*", "регулярная" };
 
             if (attributes.Length == 0)
@@ -25,10 +25,10 @@ namespace BazisGUI
                 //gmshController.Gmsh.Model.SetAttribute($"transfinite vol {number}", 
                 //new string[] { "регулярная" });
                 rows.Add(new RowProperty("Вид сетки",
-                    new DropDownPropertyValue(attributes[0], meshTypes)));
+                    new DropDownPropertyValue("регулярная", meshTypes)));
 
-                rows.Add(new RowProperty("Угловые точки", attributes[1]));
-                rows.Add(new RowProperty("Ориентация ребер", attributes[2]));
+                rows.Add(new RowProperty("Угловые точки", attributes[0]));
+                rows.Add(new RowProperty("Ориентация ребер", attributes[1]));
             }
             //controller.Gmsh.Model.Mesh.SetTransfiniteSurface(1);
 

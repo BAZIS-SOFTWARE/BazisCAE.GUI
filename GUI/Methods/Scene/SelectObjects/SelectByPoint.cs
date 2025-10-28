@@ -102,7 +102,7 @@ namespace BazisGUI
                 setName.ObjType == ObjType.Элемент2D |
                 setName.ObjType == ObjType.Элемент3D)
             {
-                var element = project.GetModelElements().First(x => x.Number == number);
+                var element = project.GetAllModelElements().First(x => x.Number == number);
                 rows.AddRange(GetElementProperty(element));
             }
             else if (setName.ObjType == ObjType.Кривая)

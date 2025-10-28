@@ -112,26 +112,26 @@ namespace BazisGUI
 
         private void MeshGenerator_SetCurveAttributeEvent(object arg1, CurveAttribsEventArgs arg2)
         {
-            gmshController.Gmsh.Model.SetAttribute($"transfinite {arg2.Tag}", arg2.Attributes);
+            GmshController.Gmsh.Model.SetAttribute($"transfinite {arg2.Tag}", arg2.Attributes);
             if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
             {
                 MeshType meshtType = (MeshType)Enum.Parse(typeof(MeshType), arg2.Attributes[1], true);
-                gmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(arg2.Tag, arg2.Points, meshtType, arg2.Coef);
+                GmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(arg2.Tag, arg2.Points, meshtType, arg2.Coef);
             }
         }
 
         private void MeshGenerator_CurveAttribDeleteEvent(int obj)
         {
             var dimTags = new int[] { 1, obj };
-            gmshController.Gmsh.Model.RemoveAttribute($"transfinite {obj}");
-            gmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
+            GmshController.Gmsh.Model.RemoveAttribute($"transfinite {obj}");
+            GmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
         }
 
         private void MeshGenerator_GetCurveAttribEvent(object arg1, int arg2)
         {
             try
             {
-                var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite {arg2}");
+                var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite {arg2}");
                 var curveControl = arg1 as GMSHCurveSettingsControl;
                 curveControl.SetCurveAttributes(attributes);
             }
@@ -145,7 +145,7 @@ namespace BazisGUI
         private void MeshGenerator_PointAttribDeleteEvent(int obj)
         {
             var dimTags = new int[] { 0, obj };
-            gmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
+            GmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
         }
 
         private void MeshGenerator_GetPointSizeEvent(object arg1, int arg2)
@@ -153,7 +153,7 @@ namespace BazisGUI
             try
             {
                 var dimTags = new int[] { 0, arg2 };
-                var meshSize = gmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
+                var meshSize = GmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
                 var pointControl = arg1 as GMSHPointSettingsControl;
                 pointControl.SetPointSize(meshSize[0]);
             }
@@ -167,7 +167,7 @@ namespace BazisGUI
         private void SetPointSizesEventHandler(object sender, int pointNumber, double[] pointSize)
         {
             var dimTags = new int[] { 0, pointNumber };
-            gmshController.Gmsh.Model.Mesh.SetSize(dimTags, pointSize[0]);
+            GmshController.Gmsh.Model.Mesh.SetSize(dimTags, pointSize[0]);
         }
 
 
@@ -221,62 +221,33 @@ namespace BazisGUI
 
 
 
-        private void MeshGenerator_generate2DQuadMesh(object obj)
-        {
-            var cntr = (GMSHGeneralMeshControl)obj;
-            var filename = gmshController.Gmsh.Model.GetFileName();
-            var ext = Path.GetExtension(filename);
-            if (ext.Contains("igs") || ext.Contains("iges"))
-            {
-                gmshController.Gmsh.Model.Mesh.Recombine();
-                var error = gmshController.Gmsh.Logger.GetLastError();
-                if (!string.IsNullOrEmpty(error))
-                    console.PrintInfo(error, Color.Red);
-                cntr.ShowHideTabControls(3, false);
-                cntr.ClearTreeView(3);
-                var objs = gmshController.GetMeshObjects();
+        //[HandleProcessCorruptedStateExceptions]
+        //[SecurityCritical]
+        //private void MeshGenerator_generate2DMeshEvent(object sender, double meshDencity)
+        //{
+        //    try
+        //    {
+        //        var cntr = (GMSHGeneralMeshControl)sender;
+        //        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", meshDencity);
 
-                project.ClearModelCollection(ObjType.Узел);
-            }
-        }
+        //        DeleteGMSHMeshObjects(ObjType.Узел);
+        //        GmshController.Gmsh.Model.Mesh.Generate(1);
+        //        GmshController.Gmsh.Model.Mesh.Generate(2);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        console.PrintInfo(ex.Message, Color.Red);
+        //        return;
+        //    }
+        //    var error = GmshController.Gmsh.Logger.GetLastError();
+        //    if (!string.IsNullOrEmpty(error))
+        //        console.PrintInfo(error, Color.Red);
 
-        private void MeshGenerator_refineMesh(object sender)
-        {
-            gmshController.Gmsh.Model.Mesh.Refine();
+        //    project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
 
-            project.ClearModelCollection(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
-
-            FitObjectsToScreen();
-            DisplayObjects();
-        }
-
-        [HandleProcessCorruptedStateExceptions]
-        [SecurityCritical]
-        private void MeshGenerator_generate2DMeshEvent(object sender, double meshDencity)
-        {
-            try
-            {
-                var cntr = (GMSHGeneralMeshControl)sender;
-                gmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", meshDencity);
-
-                DeleteGMSHMeshObjects(ObjType.Узел);
-                gmshController.Gmsh.Model.Mesh.Generate(1);
-                gmshController.Gmsh.Model.Mesh.Generate(2);
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-                return;
-            }
-            var error = gmshController.Gmsh.Logger.GetLastError();
-            if (!string.IsNullOrEmpty(error))
-                console.PrintInfo(error, Color.Red);
-
-            project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
-
-            FitObjectsToScreen();
-            DisplayObjects();
-        }
+        //    FitObjectsToScreen();
+        //    DisplayObjects();
+        //}
 
         private void DeleteGMSHMeshObjects(ObjType type)
         {
@@ -289,19 +260,19 @@ namespace BazisGUI
             if (type == ObjType.Элемент1D)//удаляем все 1d элементы
             {
                 dim = 1;
-                dimTags = gmshController.Gmsh.Model.GetEntities(dim);
+                dimTags = GmshController.Gmsh.Model.GetEntities(dim);
             }
             else if (type == ObjType.Элемент2D)//удаляем все 2d элементы
             {
                 dim = 2;
-                dimTags = gmshController.Gmsh.Model.GetEntities(dim);
+                dimTags = GmshController.Gmsh.Model.GetEntities(dim);
             }
             else if (type == ObjType.Элемент3D)//удаляем все 3d элементы
             {
                 dim = 3;
-                gmshController.Gmsh.Model.GetEntities(dim);
+                GmshController.Gmsh.Model.GetEntities(dim);
             }
-            gmshController.Gmsh.Model.Mesh.Clear(dimTags);
+            GmshController.Gmsh.Model.Mesh.Clear(dimTags);
         }    
     }
 }

@@ -125,6 +125,7 @@ namespace BaseModule.Navigator
 
         public event Action<NodeName, int> SelectObjectEvent;
         public event Action ShowAdjacenciesEvent;
+        public event Action ShowAdjacenciesSetEvent;
         public event Action<NodeName, int> DelObjectEvent;
         public event Action<NodeName, string, int> GetObjectInfoEvent;
         public event Action<NodeName, int> ShowObjectEvent;
@@ -269,9 +270,9 @@ namespace BaseModule.Navigator
             else if (node.Name == NodeName.задача.ToString())
                 node.ContextMenuStrip = taskMenuStrip;
             else if (node.Name == NodeName.геометрия.ToString())
-                node.ContextMenuStrip = objectsMenuStrip;
+                node.ContextMenuStrip = geoMenuStrip;
             else if (node.Name == NodeName.сетка.ToString())
-                node.ContextMenuStrip = objectsMenuStrip;
+                node.ContextMenuStrip = geoMenuStrip;
             else if (node.Name == NodeName.группы.ToString())
                 node.ContextMenuStrip = groups_MenuStrip;
             else if (node.Name == NodeName.расчеты.ToString())
@@ -829,6 +830,11 @@ e.Node.Name == NodeName.Объем.ToString()
         private void показатьСмежныеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowAdjacenciesEvent?.Invoke();
+        }
+
+        private void показатьСмежныеНаборыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowAdjacenciesSetEvent?.Invoke();
         }
     }
 }

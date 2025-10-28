@@ -23,17 +23,17 @@ namespace BazisGUI
         {
             try
             {
-                if (gmshController.Gmsh == null)
+                if (GmshController.Gmsh == null)
                     return;
                 List<RowProperty> rows = new List<RowProperty>();
 
-                var actMinSize = gmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeMin");
-                var actMaxSize = gmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeMax");
-                var actAlgo2d = gmshController.Gmsh.Option.GetNumber("Mesh.Algorithm");
+                var actMinSize = GmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeMin");
+                var actMaxSize = GmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeMax");
+                var actAlgo2d = GmshController.Gmsh.Option.GetNumber("Mesh.Algorithm");
                 var alg2D = actAlgo2d.ToString().ToEnum<MeshAlgorithm2D>();
-                var actAlgo3d = gmshController.Gmsh.Option.GetNumber("Mesh.Algorithm3D");
+                var actAlgo3d = GmshController.Gmsh.Option.GetNumber("Mesh.Algorithm3D");
                 var alg3D = actAlgo2d.ToString().ToEnum<MeshAlgorithm3D>();
-                var actSizeFactor = gmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeFactor");
+                var actSizeFactor = GmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeFactor");
 
                 var algs2D = Enum.GetValues(typeof(MeshAlgorithm2D)).
                     Cast<MeshAlgorithm2D>().Select(x => x.ToString());
@@ -75,7 +75,7 @@ namespace BazisGUI
                 if(flag)
                 {
                     // генерисуем 1д элементы для сбора информации об узлах
-                    gmshController.Gmsh.Model.Mesh.Generate(1);
+                    GmshController.Gmsh.Model.Mesh.Generate(1);
                     var dic = GetCurvesNumbersAndNodes();
 
                     var points = new List<GeometryPoint>();
@@ -100,7 +100,7 @@ namespace BazisGUI
 
         private List<GeometryPoint> GetTransPointsCoords(int curveTag)
         {
-            var data = gmshController.Gmsh.Model.Mesh.GetNodes(1, curveTag, false, false);
+            var data = GmshController.Gmsh.Model.Mesh.GetNodes(1, curveTag, false, false);
             var nodeTags = data.Item1;
             var coords = data.Item2;
             var parametric = data.Item3;
@@ -120,7 +120,7 @@ namespace BazisGUI
         {
             var curveDict = new Dictionary<int, int>();
             //1)Добавляем в словарь сначала размеченные кривые
-            var attribList = gmshController.Gmsh.Model.GetAttributeNames().Where(x => x.Contains("curve"));
+            var attribList = GmshController.Gmsh.Model.GetAttributeNames().Where(x => x.Contains("curve"));
             foreach (var item in project.GetModelObjects(ObjType.Кривая))
             {
                 //var tag = Int32.Parse(item.Split(' ')[2]);
@@ -136,7 +136,7 @@ namespace BazisGUI
             //2)Добавляем в словарь неразмеченные кривые, которых нет в словаре (со значением ноль)
             
             // TODO Это место нужно переписать. Все можно хранить в классе SurfaceFigure
-            var dimTags = gmshController.Gmsh.Model.GetEntities(1);
+            var dimTags = GmshController.Gmsh.Model.GetEntities(1);
             for (var i = 1; i < dimTags.Length; i += 2)
                 if (project.GetModelObject(ObjType.Кривая, dimTags[i]).ViewState)
                     if (!curveDict.ContainsKey(dimTags[i]))
@@ -146,7 +146,7 @@ namespace BazisGUI
 
         private string[] GetCurrentCurveAttributes(int tag)
         {
-            var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite curve {tag}");
+            var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite curve {tag}");
             return attributes;
         }
 
@@ -182,7 +182,7 @@ namespace BazisGUI
 
         private void ShowNumberOfCurveNodes()
         {
-            var attribList = gmshController.Gmsh.Model.GetAttributeNames();
+            var attribList = GmshController.Gmsh.Model.GetAttributeNames();
 
             foreach (var item in attribList)
             {
@@ -212,7 +212,7 @@ namespace BazisGUI
         /// <returns>Центр масс</returns>
         private Point3D GetCenterOfGeometryEntity(int dim, int tag)
         {
-            var data = gmshController.Gmsh.Model.Occ.GetCenterOfMass(dim, tag);
+            var data = GmshController.Gmsh.Model.Occ.GetCenterOfMass(dim, tag);
             var point = new Point3D((float)data.Item1, (float)data.Item2, (float)data.Item3);
             return point;
         }

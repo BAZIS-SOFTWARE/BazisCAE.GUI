@@ -11,9 +11,7 @@ namespace BazisGUI
             if (objects == "Объекты")
                 return project.GetAllModelObjects();
             else if (objects == "Элементы")
-                return project.GetModelElements();
-            else if (objects == "Фигуры")
-                return project.GetModelElements();
+                return project.GetAllModelElements();
             else
             {
                 var objType = objects.ToEnum<ObjType>();

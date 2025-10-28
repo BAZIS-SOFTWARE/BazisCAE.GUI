@@ -32,12 +32,12 @@ namespace BazisGUI
             {
                 DeleteGMSHMeshObjects(ObjType.Узел);
                 project.ClearModelCollection(ObjType.Узел);
-                project.GenerateMesh(2, gmshController);
+                project.GenerateMesh(2, GmshController);
 
                 //gmshController.Gmsh.Model.Mesh.Generate(3);
                 //var nds = gmshController.GetNodes();
 
-                var error = gmshController.Gmsh.Logger.GetLastError();
+                var error = GmshController.Gmsh.Logger.GetLastError();
                 if (!string.IsNullOrEmpty(error))
                     console.PrintInfo(error, Color.Red);
 
