@@ -25,7 +25,7 @@ namespace BazisGUI
             {
                 if (GmshController.Gmsh == null)
                     return;
-                List<RowProperty> rows = new List<RowProperty>();
+                var rows = new List<RowProperty>();
 
                 var actMinSize = GmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeMin");
                 var actMaxSize = GmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeMax");
@@ -53,10 +53,20 @@ namespace BazisGUI
                         DisplayObjects();
                     })));
                 rows.Add(new RowProperty("Показать номера поверхностей", new ButtonPropertyValue("Показать",
-                    () => { 
-                        ShowSurfaceNumbers();
+                    () => {
+                        ShowObjectsNumbers(ObjType.Поверхность);
                         DisplayObjects();
                     })));
+                rows.Add(new RowProperty("Показать номера точек", new ButtonPropertyValue("Показать",
+    () => {
+        ShowObjectsNumbers(ObjType.Точка);
+        DisplayObjects();
+    })));
+                rows.Add(new RowProperty("Показать номера объемов", new ButtonPropertyValue("Показать",
+() => {
+ShowVolNumbers();
+DisplayObjects();
+})));
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
@@ -150,22 +160,67 @@ namespace BazisGUI
             return attributes;
         }
 
-        private void ShowSurfaceNumbers()
+        private void ShowObjectsNumbers(ObjType objType)
         {
-            foreach (var item in project.GetModelObjects(ObjType.Поверхность))
+            var dim = 0;
+
+            if (objType == ObjType.Поверхность)
+                dim = 2;
+
+            foreach (var item in project.GetModelObjects(objType))
             {
                 if(item.ViewState)
                 {
-                    var point = GetCenterOfGeometryEntity(2, item.Number);
+                    var point = objType == ObjType.Точка ? item.CalcCentr() : 
+                        GetCenterOfGeometryEntity(dim, item.Number);
                     //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
-                    var text = $"Поверхность {item.Number}";
+                    var text = $"{objType} {item.Number}";
 
-                    DisplaySurfaceNumbers(text, Color.Black, point);
+                    DisplayObjectNumber(text, Color.Black, point);
                 }
             }
         }
 
-        public void DisplaySurfaceNumbers(string str, Color color, Point3D coord)
+        private void ShowObjectsNumbers(ObjType objType,int[] numbers)
+        {
+            var dim = 0;
+
+            if (objType == ObjType.Поверхность)
+                dim = 2;
+
+            foreach (var item in numbers)
+            {
+                var obj = project.GetModelObject(objType, item);
+
+                if (obj.ViewState)
+                {
+                    var point = objType == ObjType.Точка ? obj.CalcCentr() :
+                        GetCenterOfGeometryEntity(dim, obj.Number);
+                    //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
+                    var text = $"{objType} {obj.Number}";
+
+                    DisplayObjectNumber(text, Color.Black, point);
+                }
+            }
+            
+        }
+
+        private void ShowVolNumbers()
+        {
+            foreach (var item in project.GetModelVolumes())
+            {
+                if (item.GetSurfaceFigures().Any(x => x.ViewState))
+                {
+                    var point = GetCenterOfGeometryEntity(3, item.Number);
+                    //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
+                    var text = $"Объем {item.Number}";
+
+                    DisplayObjectNumber(text, Color.Black, point);
+                }
+            }
+        }
+
+        public void DisplayObjectNumber(string str, Color color, Point3D coord)
         {
             var met = new Action(() =>
             {

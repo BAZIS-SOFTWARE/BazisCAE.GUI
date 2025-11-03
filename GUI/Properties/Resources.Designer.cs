@@ -93,6 +93,16 @@ namespace BazisGUI.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap вп_12 {
+            get {
+                object obj = ResourceManager.GetObject("вп_12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap м_34 {
             get {
                 object obj = ResourceManager.GetObject("м_34", resourceCulture);

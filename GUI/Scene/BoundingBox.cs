@@ -12,6 +12,7 @@ namespace BazisGUI.Scene
     /// </summary>
     public class BoundingBox : IComparable<BoundingBox>
     {
+        Point3D[] corners = new Point3D[8]; 
         /// <summary>
         /// Левая верхняя ближняя точка ограничивающего параллелепипеда
         /// </summary>
@@ -30,6 +31,51 @@ namespace BazisGUI.Scene
             LeftUpNear = leftUpNear;
             RightDownFar = rightDownNear;
         }
+        public BoundingBox(float[] coords)
+        {
+            if (coords.Length != 0)
+            {
+                var xMin = coords[0];
+                var xMax = coords[0];
+                var yMin = coords[1];
+                var yMax = coords[1];
+                var zMin = coords[2];
+                var zMax = coords[2];
+                for (var i = 0; i < coords.Length; i += 3)
+                {
+                    xMin = Math.Min(xMin, coords[i]);
+                    xMax = Math.Max(xMax, coords[i]);
+                    yMin = Math.Min(yMin, coords[i + 1]);
+                    yMax = Math.Max(yMax, coords[i + 1]);
+                    zMin = Math.Min(zMin, coords[i + 2]);
+                    zMax = Math.Max(zMax, coords[i + 2]);
+                }
+                LeftUpNear = new Point3D(xMin, yMax, zMax);
+                corners[0] = LeftUpNear;
+                corners[1] = new Point3D(xMin, yMax, zMin);
+                corners[2] = new Point3D(xMin, yMin, zMin);
+                corners[3] = new Point3D(xMin, yMin, zMax);
+                RightDownFar = new Point3D(xMax, yMin, zMin);
+                corners[4] = RightDownFar;
+                corners[5] = new Point3D(xMax, yMin, zMax);
+                corners[6] = new Point3D(xMax, yMax, zMax);
+                corners[7] = new Point3D(xMax, yMax, zMin);
+
+                //BoundingBox = new BoundingBox(leftUpNear, rightDownFar);
+            }
+        }
+        /// <summary>
+        /// GetCornerPoints
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Point3D> GetCornerPoints()
+        {
+            foreach (var item in corners)
+            {
+                yield return item;
+            }
+        }
+
         /// <summary>
         /// GetVolume
         /// </summary>

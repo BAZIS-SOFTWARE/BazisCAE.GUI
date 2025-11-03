@@ -48,6 +48,18 @@ namespace BazisGUI
             this.checkPlayerControl = new BaseModule.Player.PlayerControl();
             this.propertiesPanel = new BaseModule.PropertiesPanel.PropertiesPanelControl();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.scene = new Tao.Platform.Windows.SimpleOpenGlControl();
             this.console = new BaseModule.Console.ConsoleControl();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
@@ -65,6 +77,9 @@ namespace BazisGUI
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.инструментыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.измеритьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.зеркалированиеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.скрытьПлоскостьюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.геометрияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьgeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сформироватьgeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -168,6 +183,7 @@ namespace BazisGUI
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.selectToolStrip.SuspendLayout();
             this.displayToolStrip.SuspendLayout();
@@ -189,7 +205,7 @@ namespace BazisGUI
             this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainer3);
             this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1097, 368);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1097, 424);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Margin = new System.Windows.Forms.Padding(2);
@@ -268,7 +284,7 @@ namespace BazisGUI
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer3.Size = new System.Drawing.Size(1087, 358);
+            this.splitContainer3.Size = new System.Drawing.Size(1087, 414);
             this.splitContainer3.SplitterDistance = 374;
             this.splitContainer3.SplitterWidth = 8;
             this.splitContainer3.SwitchShifting = false;
@@ -290,8 +306,8 @@ namespace BazisGUI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer1.Size = new System.Drawing.Size(374, 358);
-            this.splitContainer1.SplitterDistance = 196;
+            this.splitContainer1.Size = new System.Drawing.Size(374, 414);
+            this.splitContainer1.SplitterDistance = 226;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.SwitchShifting = false;
             this.splitContainer1.TabIndex = 0;
@@ -312,7 +328,7 @@ namespace BazisGUI
             this.navigator.Name = "navigator";
             this.navigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(374, 196);
+            this.navigator.Size = new System.Drawing.Size(374, 226);
             this.navigator.TabIndex = 0;
             this.navigator.UpColor = System.Drawing.Color.Gainsboro;
             this.navigator.HideResultsEvent += new System.Action(this.navigator_HideResultsEvent);
@@ -323,6 +339,8 @@ namespace BazisGUI
             this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
             this.navigator.ChangeAllObjectsViewStateEvent += new System.Action<bool>(this.navigator_ChangeAllObjectsViewStateEvent);
             this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
+            this.navigator.ShowMeshEvent += new System.Action<int, bool>(this.navigator_ShowElementsEvent);
+            this.navigator.DelMeshEvent += new System.Action<int>(this.navigator_DelElementsEvent);
             this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_ShowSetEvent);
             this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_HideSetEvent);
             this.navigator.DelSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_DelSetEvent);
@@ -369,7 +387,7 @@ namespace BazisGUI
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(374, 154);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(374, 180);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // checkPlayerControl
@@ -381,7 +399,7 @@ namespace BazisGUI
             this.checkPlayerControl.CheckState = BaseModule.Player.CheckState.start;
             this.checkPlayerControl.CurrentValue = 50;
             this.checkPlayerControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkPlayerControl.Location = new System.Drawing.Point(0, 119);
+            this.checkPlayerControl.Location = new System.Drawing.Point(0, 145);
             this.checkPlayerControl.Margin = new System.Windows.Forms.Padding(0);
             this.checkPlayerControl.MinimumSize = new System.Drawing.Size(215, 35);
             this.checkPlayerControl.Name = "checkPlayerControl";
@@ -414,7 +432,7 @@ namespace BazisGUI
             this.propertiesPanel.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
             this.propertiesPanel.Name = "propertiesPanel";
             this.propertiesPanel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.propertiesPanel.Size = new System.Drawing.Size(374, 111);
+            this.propertiesPanel.Size = new System.Drawing.Size(374, 137);
             this.propertiesPanel.TabIndex = 0;
             this.propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
             this.propertiesPanel.PropertyUpdateEvent += new System.Action<BaseModule.PropertiesPanel.PropertyChangedEventArgs>(this.propertiesPanel_OnPropertyUpdate);
@@ -430,16 +448,158 @@ namespace BazisGUI
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel2);
+            this.splitContainer2.Panel1.Controls.Add(this.button1);
             this.splitContainer2.Panel1.Controls.Add(this.scene);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.console);
-            this.splitContainer2.Size = new System.Drawing.Size(705, 358);
-            this.splitContainer2.SplitterDistance = 283;
+            this.splitContainer2.Size = new System.Drawing.Size(705, 414);
+            this.splitContainer2.SplitterDistance = 304;
             this.splitContainer2.SplitterWidth = 8;
             this.splitContainer2.SwitchShifting = false;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label5, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.label6, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.label7, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 7);
+            this.tableLayoutPanel2.Controls.Add(this.label9, 0, 8);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(8, 8);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(8, 8, 4, 8);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 9;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(116, 246);
+            this.tableLayoutPanel2.TabIndex = 0;
+            this.tableLayoutPanel2.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel2_CellPaint);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Выбрать";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 34);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Объект";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Точка";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(4, 88);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Кривая";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(4, 115);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(73, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Поверхность";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(4, 142);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(33, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Узел";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(4, 169);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(21, 13);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "1D";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(4, 196);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(21, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "2D";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(4, 224);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(21, 13);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "3D";
+            // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ImageIndex = 0;
+            this.button1.ImageList = this.imageList1;
+            this.button1.Location = new System.Drawing.Point(132, 8);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(27, 27);
+            this.button1.TabIndex = 3;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "вп 12.png");
             // 
             // scene
             // 
@@ -457,7 +617,7 @@ namespace BazisGUI
             this.scene.Location = new System.Drawing.Point(0, 0);
             this.scene.Margin = new System.Windows.Forms.Padding(5);
             this.scene.Name = "scene";
-            this.scene.Size = new System.Drawing.Size(705, 283);
+            this.scene.Size = new System.Drawing.Size(705, 304);
             this.scene.StencilBits = ((byte)(0));
             this.scene.TabIndex = 1;
             this.scene.SizeChanged += new System.EventHandler(this.GlControl_Resize);
@@ -483,7 +643,7 @@ namespace BazisGUI
             this.console.Margin = new System.Windows.Forms.Padding(0);
             this.console.Name = "console";
             this.console.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.console.Size = new System.Drawing.Size(705, 67);
+            this.console.Size = new System.Drawing.Size(705, 102);
             this.console.TabIndex = 0;
             this.console.UpColor = System.Drawing.Color.Gainsboro;
             this.console.InEvent += new System.Action<object, System.EventArgs>(this.console_InEvent);
@@ -625,9 +785,32 @@ namespace BazisGUI
             // 
             // инструментыToolStripMenuItem
             // 
+            this.инструментыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.измеритьToolStripMenuItem,
+            this.зеркалированиеToolStripMenuItem,
+            this.скрытьПлоскостьюToolStripMenuItem});
+            this.инструментыToolStripMenuItem.Enabled = false;
             this.инструментыToolStripMenuItem.Name = "инструментыToolStripMenuItem";
             this.инструментыToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
             this.инструментыToolStripMenuItem.Text = "Инструменты";
+            // 
+            // измеритьToolStripMenuItem
+            // 
+            this.измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
+            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.измеритьToolStripMenuItem.Text = "Измерить";
+            // 
+            // зеркалированиеToolStripMenuItem
+            // 
+            this.зеркалированиеToolStripMenuItem.Name = "зеркалированиеToolStripMenuItem";
+            this.зеркалированиеToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.зеркалированиеToolStripMenuItem.Text = "Отзеркаливание";
+            // 
+            // скрытьПлоскостьюToolStripMenuItem
+            // 
+            this.скрытьПлоскостьюToolStripMenuItem.Name = "скрытьПлоскостьюToolStripMenuItem";
+            this.скрытьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.скрытьПлоскостьюToolStripMenuItem.Text = "Скрыть плоскостью";
             // 
             // геометрияToolStripMenuItem
             // 
@@ -640,17 +823,17 @@ namespace BazisGUI
             // 
             // загрузитьgeoToolStripMenuItem
             // 
-            this.загрузитьgeoToolStripMenuItem.Enabled = false;
             this.загрузитьgeoToolStripMenuItem.Name = "загрузитьgeoToolStripMenuItem";
-            this.загрузитьgeoToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.загрузитьgeoToolStripMenuItem.Text = "Загрузить *.geo";
+            this.загрузитьgeoToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.загрузитьgeoToolStripMenuItem.Text = "Загрузить *.gscript";
+            this.загрузитьgeoToolStripMenuItem.Click += new System.EventHandler(this.загрузитьgeoToolStripMenuItem_Click);
             // 
             // сформироватьgeoToolStripMenuItem
             // 
-            this.сформироватьgeoToolStripMenuItem.Enabled = false;
             this.сформироватьgeoToolStripMenuItem.Name = "сформироватьgeoToolStripMenuItem";
-            this.сформироватьgeoToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.сформироватьgeoToolStripMenuItem.Text = "Сформировать *.geo";
+            this.сформироватьgeoToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.сформироватьgeoToolStripMenuItem.Text = "Сформировать *.gscript";
+            this.сформироватьgeoToolStripMenuItem.Click += new System.EventHandler(this.сформироватьgeoToolStripMenuItem_Click);
             // 
             // сеткаToolStripMenuItem
             // 
@@ -667,7 +850,7 @@ namespace BazisGUI
             this.dToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.наToolStripMenuItem});
             this.dToolStripMenuItem.Name = "dToolStripMenuItem";
-            this.dToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dToolStripMenuItem.Size = new System.Drawing.Size(88, 22);
             this.dToolStripMenuItem.Text = "1D";
             // 
             // наToolStripMenuItem
@@ -685,11 +868,12 @@ namespace BazisGUI
             this.наПоверхностиГеометрииToolStripMenuItem,
             this.квадратизацияСуществующейToolStripMenuItem});
             this.dToolStripMenuItem1.Name = "dToolStripMenuItem1";
-            this.dToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.dToolStripMenuItem1.Size = new System.Drawing.Size(88, 22);
             this.dToolStripMenuItem1.Text = "2D";
             // 
             // уплотнитьToolStripMenuItem
             // 
+            this.уплотнитьToolStripMenuItem.Enabled = false;
             this.уплотнитьToolStripMenuItem.Name = "уплотнитьToolStripMenuItem";
             this.уплотнитьToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.уплотнитьToolStripMenuItem.Text = "Уплотнить существующую";
@@ -706,11 +890,12 @@ namespace BazisGUI
             // 
             this.наПоверхностиГеометрииToolStripMenuItem.Name = "наПоверхностиГеометрииToolStripMenuItem";
             this.наПоверхностиГеометрииToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
-            this.наПоверхностиГеометрииToolStripMenuItem.Text = "На поверхности геометрии";
+            this.наПоверхностиГеометрииToolStripMenuItem.Text = "На поверхностях геометрии";
             this.наПоверхностиГеометрииToolStripMenuItem.Click += new System.EventHandler(this.наПоверхностиГеометрииToolStripMenuItem_Click);
             // 
             // квадратизацияСуществующейToolStripMenuItem
             // 
+            this.квадратизацияСуществующейToolStripMenuItem.Enabled = false;
             this.квадратизацияСуществующейToolStripMenuItem.Name = "квадратизацияСуществующейToolStripMenuItem";
             this.квадратизацияСуществующейToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.квадратизацияСуществующейToolStripMenuItem.Text = "Квадратизация существующей";
@@ -719,7 +904,7 @@ namespace BazisGUI
             // dToolStripMenuItem2
             // 
             this.dToolStripMenuItem2.Name = "dToolStripMenuItem2";
-            this.dToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.dToolStripMenuItem2.Size = new System.Drawing.Size(88, 22);
             this.dToolStripMenuItem2.Text = "3D";
             this.dToolStripMenuItem2.Click += new System.EventHandler(this.создать3DСеткуToolStripMenuItem_Click);
             // 
@@ -1394,7 +1579,7 @@ namespace BazisGUI
             this.btnSetRotVer90,
             this.btnFitObjs});
             this.viewToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.viewToolStrip.Location = new System.Drawing.Point(3, 192);
+            this.viewToolStrip.Location = new System.Drawing.Point(352, 24);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.viewToolStrip.Size = new System.Drawing.Size(328, 56);
@@ -1647,6 +1832,8 @@ namespace BazisGUI
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.selectToolStrip.ResumeLayout(false);
@@ -1780,6 +1967,21 @@ namespace BazisGUI
         private ToolStripMenuItem экспортироватьРезультатыToolStripMenuItem;
         private ToolStripMenuItem инструментыToolStripMenuItem;
         private ToolStripMenuItem квадратизацияСуществующейToolStripMenuItem;
+        private ToolStripMenuItem измеритьToolStripMenuItem;
+        private ToolStripMenuItem зеркалированиеToolStripMenuItem;
+        private ToolStripMenuItem скрытьПлоскостьюToolStripMenuItem;
+        private Button button1;
+        private ImageList imageList1;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private Label label7;
+        private Label label8;
+        private Label label9;
     }
 }
 

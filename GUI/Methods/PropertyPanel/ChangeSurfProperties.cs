@@ -14,7 +14,7 @@ namespace BazisGUI
     {
         private void ChangeSurfaceProperty(PropertyChangedEventArgs obj, int number,ref bool flag)
         {
-            //var attributes = gmshController.Gmsh.Model.GetAttribute($"transfinite surface {number}");
+            //var attribut = GmshController.Gmsh.Model.GetAttribute($"transfinite surface {number}");
 
             //if (attributes.Length == 0)
             //attributes = new string[] { Arrangement.Left.ToString(), "" }; // тут записать угловые точки
@@ -24,7 +24,8 @@ namespace BazisGUI
                 flag = true;
                 if (obj.NewValue == "регулярная")
                 {
-                    project.GmshController.SetTransfiniteSurface(number);
+                    var surfPoints = project.GmshController.GetSurfaceNodes(number);
+                    project.GmshController.SetTransfiniteSurface(number, Arrangement.Left, surfPoints);
 
                     //var surface = (SurfaceFigure)project.GetModelObject(ObjType.Поверхность, number);
 

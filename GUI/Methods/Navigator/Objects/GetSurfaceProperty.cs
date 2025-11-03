@@ -1,8 +1,10 @@
 ﻿using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using GmshApi;
+using Model.Interfaces;
 using OperationalController;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BazisGUI
 {
@@ -30,6 +32,17 @@ namespace BazisGUI
                 rows.Add(new RowProperty("Угловые точки", attributes[0]));
                 rows.Add(new RowProperty("Ориентация ребер", attributes[1]));
             }
+
+            rows.Add(new RowProperty("Показать номера точек", new ButtonPropertyValue("Показать",
+    () => {
+        var all = GmshController.Gmsh.Model.GetAdjacencies(2, number).Item2
+        .Select(x => GmshController.Gmsh.Model.GetAdjacencies(1, x).Item2);
+
+        var distComb =  all.SelectMany(x => x).Distinct().ToArray();
+
+        ShowObjectsNumbers(ObjType.Точка, distComb);
+        DisplayObjects();
+    })));
             //controller.Gmsh.Model.Mesh.SetTransfiniteSurface(1);
 
             // TO DO добавть два свойства классу SurfaceFigure

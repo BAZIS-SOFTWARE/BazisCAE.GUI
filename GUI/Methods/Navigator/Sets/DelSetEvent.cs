@@ -35,7 +35,20 @@ namespace BazisGUI
  
                 var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
 
-                project.DeleteModelSet(objType, setName);
+                if (objType == ObjType.Узел)
+                {
+                    DeleteVBObjects("Элементы");
+                    project.ClearModelCollection(objType);
+                }
+
+                else
+                {
+                    project.DeleteModelSet(objType, setName);
+                }
+
+                VBOController.DeleteVBObjects(setName);
+
+                
 
                 PresentGroupDataOnTree();
                 PresentCondDataOnTree();
@@ -46,12 +59,7 @@ namespace BazisGUI
                     nodes.First().Collapse();
                     nodes.First().Expand();
                 }              
-
-                //var set = project.GetModelSetInfo(objType, setName);
-                VBOController.DeleteVBObjects(setName);
-
-                if (objType == ObjType.Узел)
-                    DeleteVBObjects("Элементы");
+                    
 
                 DisplayObjects();
             }

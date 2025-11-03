@@ -13,7 +13,6 @@ namespace BazisGUI
         private List<RowProperty> GetVolProperties(int number)
         {
             var rows = new List<RowProperty>();
-
             rows.Add(new RowProperty("Номер", number));
 
             var list = GmshController.Gmsh.Model.Mesh.Field.List();

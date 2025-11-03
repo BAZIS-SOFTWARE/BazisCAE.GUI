@@ -93,8 +93,9 @@ namespace BazisGUI.Scene.VBO
 
             PointersBuffer = ptrBuff;
             CoordsBuffer = coordBuff;
-
-            CalculateBoundingBox(glCoords);
+            
+            BoundingBox = new BoundingBox(glCoords);
+            
             ModelMatrix = new float[16];
             SetIdentityModelMatrix();
         }
@@ -347,31 +348,6 @@ namespace BazisGUI.Scene.VBO
             set
             {
                 VBO.SetSubData(NormalsBuffer, 0, value.Length * sizeof(float), value);
-            }
-        }
-
-        private void CalculateBoundingBox(float[] coords)
-        {
-            if (coords.Length != 0)
-            {
-                var xMin = coords[0];
-                var xMax = coords[0];
-                var yMin = coords[1];
-                var yMax = coords[1];
-                var zMin = coords[2];
-                var zMax = coords[2];
-                for (var i = 0; i < coords.Length; i += 3)
-                {
-                    xMin = Math.Min(xMin, coords[i]);
-                    xMax = Math.Max(xMax, coords[i]);
-                    yMin = Math.Min(yMin, coords[i + 1]);
-                    yMax = Math.Max(yMax, coords[i + 1]);
-                    zMin = Math.Min(zMin, coords[i + 2]);
-                    zMax = Math.Max(zMax, coords[i + 2]);
-                }
-                var leftUpNear = new Point3D(xMin, yMax, zMax);
-                var rightDownFar = new Point3D(xMax, yMin, zMin);
-                BoundingBox = new BoundingBox(leftUpNear, rightDownFar);
             }
         }
         /// <summary>

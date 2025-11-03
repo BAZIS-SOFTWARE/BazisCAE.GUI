@@ -100,12 +100,17 @@ namespace BaseModule.Navigator
         public event Action DelAllGroupsEvent;
         public event Action ShowAllGroupsEvent;
         public event Action HideAllGroupsEvent;
+        //public event Action SortGroupEvent;
 
         public event Action<bool> ChangeAllObjectsViewStateEvent;
         public event Action DelAllObjectsEvent;
 
-        public event Action LoadMaterialsEvent;
-        public event Action LoadFunctionsEvent;
+        public event Action<int,bool> ShowMeshEvent;
+        //public event Action<int> HideElementsEvent;
+        public event Action<int> DelMeshEvent;
+
+        //public event Action LoadMaterialsEvent;
+        //public event Action LoadFunctionsEvent;
 
         public event Action<NodeName, string> ShowSetEvent;
         public event Action<NodeName, string> HideSetEvent;
@@ -155,6 +160,9 @@ namespace BaseModule.Navigator
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
                 SetValue(treeView, true, null);
 
+            showMeshMenuItem.DropDown.Closing += SplitButton_Closing;
+            hideMeshMenuItem.DropDown.Closing += SplitButton_Closing;
+            delMeshMenuItem.DropDown.Closing += SplitButton_Closing;
 
             //SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
 
@@ -272,11 +280,11 @@ namespace BaseModule.Navigator
             else if (node.Name == NodeName.геометрия.ToString())
                 node.ContextMenuStrip = geoMenuStrip;
             else if (node.Name == NodeName.сетка.ToString())
-                node.ContextMenuStrip = geoMenuStrip;
+                node.ContextMenuStrip = meshMenuStrip;
             else if (node.Name == NodeName.группы.ToString())
                 node.ContextMenuStrip = groups_MenuStrip;
-            else if (node.Name == NodeName.расчеты.ToString())
-                node.ContextMenuStrip = compMenuStrip;
+            //else if (node.Name == NodeName.расчеты.ToString())
+            //    node.ContextMenuStrip = compMenuStrip;
 
 
             else if (node.Name == NodeName.Точки.ToString() |
@@ -835,6 +843,74 @@ e.Node.Name == NodeName.Объем.ToString()
         private void показатьСмежныеНаборыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowAdjacenciesSetEvent?.Invoke();
+        }
+
+        private void show1DMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowMeshEvent?.Invoke(1,true);
+        }
+
+        private void show2DMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowMeshEvent?.Invoke(2, true);
+        }
+
+        private void show3DMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowMeshEvent?.Invoke(3, true);
+        }
+
+        private void hide1DMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowMeshEvent?.Invoke(1, false);
+        }
+
+        private void hide2DMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowMeshEvent?.Invoke(2, false);
+        }
+
+        private void hide3DMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowMeshEvent?.Invoke(3, false);
+        }
+
+        private void del1DMenuItem_Click(object sender, EventArgs e)
+        {
+            DelMeshEvent?.Invoke(1);
+        }
+
+        private void del2DMenuItem_Click(object sender, EventArgs e)
+        {
+            DelMeshEvent?.Invoke(2);
+        }
+
+        private void del3DMenuItem_Click(object sender, EventArgs e)
+        {
+            DelMeshEvent?.Invoke(3);
+        }
+
+        private void nodeDelMenuItem_Click(object sender, EventArgs e)
+        {
+            DelMeshEvent?.Invoke(4);
+        }
+
+        private void nodeHideMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowMeshEvent?.Invoke(4, false);
+        }
+
+        private void nodeShowMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowMeshEvent?.Invoke(4, true);
+        }
+
+        private void SplitButton_Closing(object sender, ToolStripDropDownClosingEventArgs e)
+        {
+            if (e.CloseReason == ToolStripDropDownCloseReason.ItemClicked)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

@@ -88,6 +88,8 @@ namespace BazisGUI
         {
 
             var rows = new List<RowProperty>();
+            rows.Add(new RowProperty("Объект", setName.ObjType, true));
+
             if (setName.ObjType == ObjType.Точка)
                 rows.AddRange(GetPointProperty(number));
 

@@ -23,18 +23,9 @@ namespace BazisGUI
 
                 foreach (var glObj in VBOController.GetVBObjs())
                 {
-                    var coords = glObj.PointsCoords;
-
-                    if (coords.Length == 0)
-                        continue;
-
-                    var length = coords.Length / 3;
-                    for (int j = 0; j < length; j++)
+                    foreach (var item in glObj.BoundingBox.GetCornerPoints())
                     {
-                        var x = coords[3 * j + 0];
-                        var y = coords[3 * j + 1];
-                        var z = coords[3 * j + 2];
-                        var scnCoord = GetSceenCoord(x, y, z);
+                        var scnCoord = GetSceenCoord(item);
                         var scrCoord = GetScreenCoord(scnCoord);
 
                         var pRad = (float)Math.Sqrt((scrCoord._x * scrCoord._x) + (scrCoord._y * scrCoord._y));
@@ -46,8 +37,8 @@ namespace BazisGUI
                         break;
                 }
                 if (Width > Height)
-                    factor = 1 / (maxRad / (float)(Height / 2));
-                else { factor = 1 / (maxRad / (float)(Width / 2)); }
+                    factor = 1 / (maxRad / (float)(Height / 3));
+                else { factor = 1 / (maxRad / (float)(Width / 3)); }
 
                 if (factor == 0) factor = 1;
 
