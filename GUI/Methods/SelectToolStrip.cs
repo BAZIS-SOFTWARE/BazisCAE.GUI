@@ -18,24 +18,40 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        Dictionary<string, Button> objButtons = new Dictionary<string, Button>();
+
+
         /// <summary>
         /// Временный выбранный объект для работы со свойствами через сцену
         /// </summary>
-        public object SelectedObject { get; set; }
+   
         public string SelectedObjects
         {
-            get { return spbSelectObject.ToolTipText; }
-            set { spbSelectObject.ToolTipText = value; }
+            get { return btnSelect.Text; }
+            //set { tblSelectObject.Controls[0].Text = value; }
         }
 
         public void AddObjectsType(string objsType)
         {
-            if (!spbSelectObject.DropDownItems.ContainsKey(objsType))
+            var btn = CreateButton(objsType);
+            btn.Visible = false;
+            if(objButtons.Count != 0)
             {
-                var newItem = new ToolStripMenuItem(objsType) { Name = objsType };
-                spbSelectObject.DropDownItems.Add(newItem);
+                var last = objButtons.Last().Value;
+                btn.Location = 
+                    new Point(
+                        last.Location.X, 
+                        last.Location.Y + last.Height - 1);
+            }   
+            else
+            {
+                btn.Location =
+                new Point(
+                    btnSelect.Location.X - 1,
+                    btnSelect.Location.Y + btnSelect.Height - 2);
             }
-
+            scene.Controls.Add(btn);
+            objButtons.Add(objsType, btn);
         }
 
         private void spbSelectObject_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -54,21 +70,78 @@ namespace BazisGUI
             DisplayObjects();
         }
 
+        //public void PresentModelOnSelectToolStrip()
+        //{
+        //    spbSelectObject.DropDownItems.Clear();
+        //    var objTypes = project.GetAllModelObjects().Select(x => x.ObjType).Distinct();
+
+        //    foreach (ObjType item in objTypes)
+        //        AddObjectsType(item.ToString());
+
+        //    if(objTypes.Count() != 0)
+        //    {
+        //        AddObjectsType("Объекты");
+        //        spbSelectObject.ToolTipText = "Объекты";
+        //    }
+
+        //    spbSelectObject.Invalidate();
+        //}
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            var btn = sender as Button;
+            var flag = bool.Parse(btn.Tag.ToString());
+            if (!flag)
+            {
+                btn.Tag = true;
+                foreach (var item in objButtons)
+                {
+                    item.Value.Visible = true;
+                }
+            }
+            else
+            {
+                btn.Tag = false;
+                foreach (var item in objButtons)
+                {
+                    item.Value.Visible = false;
+                }
+            }
+
+        }
+
         public void PresentModelOnSelectToolStrip()
         {
-            spbSelectObject.DropDownItems.Clear();
+            objButtons.Clear();
+
             var objTypes = project.GetAllModelObjects().Select(x => x.ObjType).Distinct();
 
-            foreach (ObjType item in objTypes)
-                AddObjectsType(item.ToString());
-
-            if(objTypes.Count() != 0)
+            if (objTypes.Count() != 0)
             {
                 AddObjectsType("Объекты");
-                spbSelectObject.ToolTipText = "Объекты";
+
+                foreach (ObjType item in objTypes)
+                    AddObjectsType(item.ToString());              
             }
- 
-            spbSelectObject.Invalidate();
+        }
+
+
+        public Button CreateButton(string name)
+        {
+            
+            var btn = new Button();
+            btn.Anchor = btnSelect.Anchor;
+            btn.AutoSize = btnSelect.AutoSize;
+            //lbl.Location = new System.Drawing.Point(4, 7);
+            btn.Name = name;
+            btn.Size = btnSelect.Size;
+
+            btn.Text = name;
+            btn.AutoSize = btnSelect.AutoSize;
+            btn.FlatStyle = btnSelect.FlatStyle;
+            btn.Margin = btnSelect.Margin;
+
+            return btn;
         }
 
         //private void btnSelectObjects_Click(object sender, EventArgs e)
@@ -88,54 +161,7 @@ namespace BazisGUI
 
         //}
 
-        private void btnAdvanceSelection_Click(object sender, EventArgs e)
-        {
-            var btn = sender as ToolStripButton;
-            if (btn.Checked)
-            {
-                var form = new Form()
-                {
-                    Name = "selectForm",
-                    Text = "Дополненный выбор",
-                    AutoSize = false,
-                    ShowIcon = false,
-                    TopMost = true,
-                    Owner = Application.OpenForms[0]
-                };
-
-                form.FormClosing += (s1, s2) => { btn.Checked = false; };
-                var selectionControl = new AdvanceSelectionSet() { Dock = DockStyle.Fill };
-                selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
-                selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
-                selectionControl.SelectNodes += (s1, s2) =>
-                {
-                    spbSelectObject.ToolTipText = ObjType.Узел.ToString();
-                    spbSelectObject.Invalidate();
-                };
-
-                selectionControl.SelectElements += (s1, s2) =>
-                {
-                    spbSelectObject.ToolTipText = ObjType.Элемент2D.ToString();
-                    spbSelectObject.Invalidate();
-                };
-
-                form.ClientSize = selectionControl.Size;
-                form.Controls.Add(selectionControl);
-                form.Show();
-                var location = PointToScreen(Point.Empty);
-                form.Location = location;
-            }
-            else
-            {
-                var forms = Application.OpenForms.Cast<Form>().ToList();
-                var form = forms.Find(x => x.Name == "selectForm");
-                if (form != null)
-                {
-                    form.Close();
-                    btn.Checked = false;
-                }
-            }
-        }
+        
 
         private void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
         {

@@ -162,7 +162,7 @@ namespace BazisGUI
                     }
 
                     DisplayObjects();
-                    SelectedObjects = ObjType.Узел.ToString();
+                    //SelectedObjects = ObjType.Узел.ToString();
 
                     var taskStrLRF = CreateSurfaceAsync(project.ModelData, ObjType.Узел);
                     await taskStrLRF;

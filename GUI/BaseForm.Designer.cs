@@ -48,18 +48,27 @@ namespace BazisGUI
             this.checkPlayerControl = new BaseModule.Player.PlayerControl();
             this.propertiesPanel = new BaseModule.PropertiesPanel.PropertiesPanelControl();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.btnSelect = new System.Windows.Forms.Button();
+            this.btnDisplayArrow = new System.Windows.Forms.Button();
+            this.btnRotVert90 = new System.Windows.Forms.Button();
+            this.sceneImageList = new System.Windows.Forms.ImageList(this.components);
+            this.btnRotHor90 = new System.Windows.Forms.Button();
+            this.btnRotZ = new System.Windows.Forms.Button();
+            this.btnRotY = new System.Windows.Forms.Button();
+            this.btnRotX = new System.Windows.Forms.Button();
+            this.btnZY = new System.Windows.Forms.Button();
+            this.btnZX = new System.Windows.Forms.Button();
+            this.btnXY = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.btnShowInsideObjects = new System.Windows.Forms.Button();
+            this.btnFitToScreen = new System.Windows.Forms.Button();
+            this.btnShowSidesRibs = new System.Windows.Forms.Button();
+            this.btnShowRibs = new System.Windows.Forms.Button();
+            this.btnShowSides = new System.Windows.Forms.Button();
+            this.btnBazis = new System.Windows.Forms.Button();
+            this.btnBorder = new System.Windows.Forms.Button();
+            this.btnMakeScreenShot = new System.Windows.Forms.Button();
+            this.btnAdvSelection = new System.Windows.Forms.Button();
             this.scene = new Tao.Platform.Windows.SimpleOpenGlControl();
             this.console = new BaseModule.Console.ConsoleControl();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
@@ -78,7 +87,7 @@ namespace BazisGUI
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.инструментыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.измеритьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.зеркалированиеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отзеркаливаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.скрытьПлоскостьюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.геометрияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьgeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -133,31 +142,6 @@ namespace BazisGUI
             this.btnSelectElements = new System.Windows.Forms.ToolStripButton();
             this.btnSelectObjects = new System.Windows.Forms.ToolStripButton();
             this.btnAdvanceSelection = new System.Windows.Forms.ToolStripButton();
-            this.displayToolStrip = new UserControlsEx.ToolStripEx();
-            this.btnShowAll = new System.Windows.Forms.ToolStripButton();
-            this.btnShowOpenSurfaces = new System.Windows.Forms.ToolStripButton();
-            this.btnShowSurfaceAndRibbers = new System.Windows.Forms.ToolStripButton();
-            this.btnShowRibbers = new System.Windows.Forms.ToolStripButton();
-            this.btnShowSurfaces = new System.Windows.Forms.ToolStripButton();
-            this.btnShowBasis = new System.Windows.Forms.ToolStripButton();
-            this.btnShowNormals = new System.Windows.Forms.ToolStripButton();
-            this.btnShowCountours = new System.Windows.Forms.ToolStripButton();
-            this.instrumentalToolStrip = new UserControlsEx.ToolStripEx();
-            this.btnMeasuring = new System.Windows.Forms.ToolStripButton();
-            this.btnCrossSection = new System.Windows.Forms.ToolStripButton();
-            this.btnScreenShot = new System.Windows.Forms.ToolStripButton();
-            this.btnReflect = new System.Windows.Forms.ToolStripButton();
-            this.btnClipPlane = new System.Windows.Forms.ToolStripButton();
-            this.viewToolStrip = new UserControlsEx.ToolStripEx();
-            this.btnSetXY = new System.Windows.Forms.ToolStripButton();
-            this.btnSetZX = new System.Windows.Forms.ToolStripButton();
-            this.btnSetZY = new System.Windows.Forms.ToolStripButton();
-            this.btnSetRotX = new System.Windows.Forms.ToolStripButton();
-            this.btnSetRotY = new System.Windows.Forms.ToolStripButton();
-            this.btnSetRotZ = new System.Windows.Forms.ToolStripButton();
-            this.btnSetRotHor90 = new System.Windows.Forms.ToolStripButton();
-            this.btnSetRotVer90 = new System.Windows.Forms.ToolStripButton();
-            this.btnFitObjs = new System.Windows.Forms.ToolStripButton();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.создатьГруппуItem = new System.Windows.Forms.ToolStripMenuItem();
             this.скрытьВыбранноеItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -183,12 +167,8 @@ namespace BazisGUI
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.selectToolStrip.SuspendLayout();
-            this.displayToolStrip.SuspendLayout();
-            this.instrumentalToolStrip.SuspendLayout();
-            this.viewToolStrip.SuspendLayout();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -205,7 +185,7 @@ namespace BazisGUI
             this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainer3);
             this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1097, 424);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1097, 536);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Margin = new System.Windows.Forms.Padding(2);
@@ -219,9 +199,6 @@ namespace BazisGUI
             this.toolStripContainer.TopToolStripPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.menuStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.instrumentalToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
             this.toolStripContainer.TopToolStripPanel.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
             // 
             // statusStrip
@@ -284,7 +261,7 @@ namespace BazisGUI
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer3.Size = new System.Drawing.Size(1087, 414);
+            this.splitContainer3.Size = new System.Drawing.Size(1087, 526);
             this.splitContainer3.SplitterDistance = 374;
             this.splitContainer3.SplitterWidth = 8;
             this.splitContainer3.SwitchShifting = false;
@@ -306,8 +283,8 @@ namespace BazisGUI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer1.Size = new System.Drawing.Size(374, 414);
-            this.splitContainer1.SplitterDistance = 226;
+            this.splitContainer1.Size = new System.Drawing.Size(374, 526);
+            this.splitContainer1.SplitterDistance = 284;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.SwitchShifting = false;
             this.splitContainer1.TabIndex = 0;
@@ -328,7 +305,7 @@ namespace BazisGUI
             this.navigator.Name = "navigator";
             this.navigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(374, 226);
+            this.navigator.Size = new System.Drawing.Size(374, 284);
             this.navigator.TabIndex = 0;
             this.navigator.UpColor = System.Drawing.Color.Gainsboro;
             this.navigator.HideResultsEvent += new System.Action(this.navigator_HideResultsEvent);
@@ -387,7 +364,7 @@ namespace BazisGUI
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(374, 180);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(374, 234);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // checkPlayerControl
@@ -399,7 +376,7 @@ namespace BazisGUI
             this.checkPlayerControl.CheckState = BaseModule.Player.CheckState.start;
             this.checkPlayerControl.CurrentValue = 50;
             this.checkPlayerControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkPlayerControl.Location = new System.Drawing.Point(0, 145);
+            this.checkPlayerControl.Location = new System.Drawing.Point(0, 199);
             this.checkPlayerControl.Margin = new System.Windows.Forms.Padding(0);
             this.checkPlayerControl.MinimumSize = new System.Drawing.Size(215, 35);
             this.checkPlayerControl.Name = "checkPlayerControl";
@@ -432,7 +409,7 @@ namespace BazisGUI
             this.propertiesPanel.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
             this.propertiesPanel.Name = "propertiesPanel";
             this.propertiesPanel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.propertiesPanel.Size = new System.Drawing.Size(374, 137);
+            this.propertiesPanel.Size = new System.Drawing.Size(374, 191);
             this.propertiesPanel.TabIndex = 0;
             this.propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
             this.propertiesPanel.PropertyUpdateEvent += new System.Action<BaseModule.PropertiesPanel.PropertyChangedEventArgs>(this.propertiesPanel_OnPropertyUpdate);
@@ -448,158 +425,342 @@ namespace BazisGUI
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel2);
-            this.splitContainer2.Panel1.Controls.Add(this.button1);
+            this.splitContainer2.Panel1.Controls.Add(this.btnSelect);
+            this.splitContainer2.Panel1.Controls.Add(this.btnDisplayArrow);
+            this.splitContainer2.Panel1.Controls.Add(this.btnRotVert90);
+            this.splitContainer2.Panel1.Controls.Add(this.btnRotHor90);
+            this.splitContainer2.Panel1.Controls.Add(this.btnRotZ);
+            this.splitContainer2.Panel1.Controls.Add(this.btnRotY);
+            this.splitContainer2.Panel1.Controls.Add(this.btnRotX);
+            this.splitContainer2.Panel1.Controls.Add(this.btnZY);
+            this.splitContainer2.Panel1.Controls.Add(this.btnZX);
+            this.splitContainer2.Panel1.Controls.Add(this.btnXY);
+            this.splitContainer2.Panel1.Controls.Add(this.button13);
+            this.splitContainer2.Panel1.Controls.Add(this.btnShowInsideObjects);
+            this.splitContainer2.Panel1.Controls.Add(this.btnFitToScreen);
+            this.splitContainer2.Panel1.Controls.Add(this.btnShowSidesRibs);
+            this.splitContainer2.Panel1.Controls.Add(this.btnShowRibs);
+            this.splitContainer2.Panel1.Controls.Add(this.btnShowSides);
+            this.splitContainer2.Panel1.Controls.Add(this.btnBazis);
+            this.splitContainer2.Panel1.Controls.Add(this.btnBorder);
+            this.splitContainer2.Panel1.Controls.Add(this.btnMakeScreenShot);
+            this.splitContainer2.Panel1.Controls.Add(this.btnAdvSelection);
             this.splitContainer2.Panel1.Controls.Add(this.scene);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.console);
-            this.splitContainer2.Size = new System.Drawing.Size(705, 414);
-            this.splitContainer2.SplitterDistance = 304;
+            this.splitContainer2.Size = new System.Drawing.Size(705, 526);
+            this.splitContainer2.SplitterDistance = 472;
             this.splitContainer2.SplitterWidth = 8;
             this.splitContainer2.SwitchShifting = false;
             this.splitContainer2.TabIndex = 0;
             // 
-            // tableLayoutPanel2
+            // btnSelect
             // 
-            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.label5, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.label6, 0, 5);
-            this.tableLayoutPanel2.Controls.Add(this.label7, 0, 6);
-            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 7);
-            this.tableLayoutPanel2.Controls.Add(this.label9, 0, 8);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(8, 8);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(8, 8, 4, 8);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 9;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(116, 246);
-            this.tableLayoutPanel2.TabIndex = 0;
-            this.tableLayoutPanel2.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel2_CellPaint);
+            this.btnSelect.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSelect.Location = new System.Drawing.Point(8, 8);
+            this.btnSelect.Margin = new System.Windows.Forms.Padding(8, 8, 4, 0);
+            this.btnSelect.Name = "btnSelect";
+            this.btnSelect.Size = new System.Drawing.Size(108, 27);
+            this.btnSelect.TabIndex = 5;
+            this.btnSelect.Tag = "False";
+            this.btnSelect.Text = "Выбрать";
+            this.btnSelect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSelect.UseVisualStyleBackColor = true;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
-            // label1
+            // btnDisplayArrow
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Выбрать";
+            this.btnDisplayArrow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDisplayArrow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDisplayArrow.ImageIndex = 0;
+            this.btnDisplayArrow.Location = new System.Drawing.Point(495, 8);
+            this.btnDisplayArrow.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDisplayArrow.Name = "btnDisplayArrow";
+            this.btnDisplayArrow.Size = new System.Drawing.Size(18, 27);
+            this.btnDisplayArrow.TabIndex = 4;
+            this.btnDisplayArrow.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // btnRotVert90
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 34);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Объект";
+            this.btnRotVert90.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRotVert90.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRotVert90.ImageIndex = 8;
+            this.btnRotVert90.ImageList = this.sceneImageList;
+            this.btnRotVert90.Location = new System.Drawing.Point(670, 283);
+            this.btnRotVert90.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRotVert90.Name = "btnRotVert90";
+            this.btnRotVert90.Size = new System.Drawing.Size(27, 27);
+            this.btnRotVert90.TabIndex = 3;
+            this.btnRotVert90.UseVisualStyleBackColor = true;
+            this.btnRotVert90.Click += new System.EventHandler(this.btnRotVert90_Click);
             // 
-            // label3
+            // sceneImageList
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Точка";
+            this.sceneImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("sceneImageList.ImageStream")));
+            this.sceneImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.sceneImageList.Images.SetKeyName(0, "вп 12.png");
+            this.sceneImageList.Images.SetKeyName(1, "вп 25.png");
+            this.sceneImageList.Images.SetKeyName(2, "вп 26.png");
+            this.sceneImageList.Images.SetKeyName(3, "вп 27.png");
+            this.sceneImageList.Images.SetKeyName(4, "вп 28.png");
+            this.sceneImageList.Images.SetKeyName(5, "вп 29.png");
+            this.sceneImageList.Images.SetKeyName(6, "вп 30.png");
+            this.sceneImageList.Images.SetKeyName(7, "вп 31.png");
+            this.sceneImageList.Images.SetKeyName(8, "вп 32.png");
+            this.sceneImageList.Images.SetKeyName(9, "вп 16.png");
+            this.sceneImageList.Images.SetKeyName(10, "вп 17.png");
+            this.sceneImageList.Images.SetKeyName(11, "вп 18.png");
+            this.sceneImageList.Images.SetKeyName(12, "вп 21.png");
+            this.sceneImageList.Images.SetKeyName(13, "вп 24.png");
+            this.sceneImageList.Images.SetKeyName(14, "вп 33.png");
+            this.sceneImageList.Images.SetKeyName(15, "вп 19.png");
+            this.sceneImageList.Images.SetKeyName(16, "вп 21.png");
+            this.sceneImageList.Images.SetKeyName(17, "вп 14.png");
             // 
-            // label4
+            // btnRotHor90
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(4, 88);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Кривая";
+            this.btnRotHor90.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRotHor90.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRotHor90.ImageIndex = 7;
+            this.btnRotHor90.ImageList = this.sceneImageList;
+            this.btnRotHor90.Location = new System.Drawing.Point(670, 248);
+            this.btnRotHor90.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRotHor90.Name = "btnRotHor90";
+            this.btnRotHor90.Size = new System.Drawing.Size(27, 27);
+            this.btnRotHor90.TabIndex = 3;
+            this.btnRotHor90.UseVisualStyleBackColor = true;
+            this.btnRotHor90.Click += new System.EventHandler(this.btnRotHor90_Click);
             // 
-            // label5
+            // btnRotZ
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 115);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Поверхность";
+            this.btnRotZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRotZ.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRotZ.ImageIndex = 6;
+            this.btnRotZ.ImageList = this.sceneImageList;
+            this.btnRotZ.Location = new System.Drawing.Point(670, 213);
+            this.btnRotZ.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRotZ.Name = "btnRotZ";
+            this.btnRotZ.Size = new System.Drawing.Size(27, 27);
+            this.btnRotZ.TabIndex = 3;
+            this.btnRotZ.UseVisualStyleBackColor = true;
+            this.btnRotZ.Click += new System.EventHandler(this.btnRotZ_Click);
             // 
-            // label6
+            // btnRotY
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 142);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(33, 13);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Узел";
+            this.btnRotY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRotY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRotY.ImageIndex = 5;
+            this.btnRotY.ImageList = this.sceneImageList;
+            this.btnRotY.Location = new System.Drawing.Point(670, 178);
+            this.btnRotY.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRotY.Name = "btnRotY";
+            this.btnRotY.Size = new System.Drawing.Size(27, 27);
+            this.btnRotY.TabIndex = 3;
+            this.btnRotY.UseVisualStyleBackColor = true;
+            this.btnRotY.Click += new System.EventHandler(this.btnRotY_Click);
             // 
-            // label7
+            // btnRotX
             // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(4, 169);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(21, 13);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "1D";
+            this.btnRotX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRotX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRotX.ImageIndex = 4;
+            this.btnRotX.ImageList = this.sceneImageList;
+            this.btnRotX.Location = new System.Drawing.Point(670, 143);
+            this.btnRotX.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRotX.Name = "btnRotX";
+            this.btnRotX.Size = new System.Drawing.Size(27, 27);
+            this.btnRotX.TabIndex = 3;
+            this.btnRotX.UseVisualStyleBackColor = true;
+            this.btnRotX.Click += new System.EventHandler(this.btnRotX_Click);
             // 
-            // label8
+            // btnZY
             // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(4, 196);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(21, 13);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "2D";
+            this.btnZY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnZY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnZY.ImageIndex = 3;
+            this.btnZY.ImageList = this.sceneImageList;
+            this.btnZY.Location = new System.Drawing.Point(670, 109);
+            this.btnZY.Margin = new System.Windows.Forms.Padding(4);
+            this.btnZY.Name = "btnZY";
+            this.btnZY.Size = new System.Drawing.Size(27, 27);
+            this.btnZY.TabIndex = 3;
+            this.btnZY.UseVisualStyleBackColor = true;
+            this.btnZY.Click += new System.EventHandler(this.btnZY_Click);
             // 
-            // label9
+            // btnZX
             // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(4, 224);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(21, 13);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "3D";
+            this.btnZX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnZX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnZX.ImageIndex = 2;
+            this.btnZX.ImageList = this.sceneImageList;
+            this.btnZX.Location = new System.Drawing.Point(670, 78);
+            this.btnZX.Margin = new System.Windows.Forms.Padding(4);
+            this.btnZX.Name = "btnZX";
+            this.btnZX.Size = new System.Drawing.Size(27, 27);
+            this.btnZX.TabIndex = 3;
+            this.btnZX.UseVisualStyleBackColor = true;
+            this.btnZX.Click += new System.EventHandler(this.btnZX_Click);
             // 
-            // button1
+            // btnXY
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ImageIndex = 0;
-            this.button1.ImageList = this.imageList1;
-            this.button1.Location = new System.Drawing.Point(132, 8);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(27, 27);
-            this.button1.TabIndex = 3;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnXY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnXY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXY.ImageIndex = 1;
+            this.btnXY.ImageList = this.sceneImageList;
+            this.btnXY.Location = new System.Drawing.Point(670, 43);
+            this.btnXY.Margin = new System.Windows.Forms.Padding(4);
+            this.btnXY.Name = "btnXY";
+            this.btnXY.Size = new System.Drawing.Size(27, 27);
+            this.btnXY.TabIndex = 3;
+            this.btnXY.UseVisualStyleBackColor = true;
+            this.btnXY.Click += new System.EventHandler(this.btnXY_Click);
             // 
-            // imageList1
+            // button13
             // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "вп 12.png");
+            this.button13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button13.ImageIndex = 0;
+            this.button13.Location = new System.Drawing.Point(626, 8);
+            this.button13.Margin = new System.Windows.Forms.Padding(4, 4, 24, 4);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(55, 27);
+            this.button13.TabIndex = 3;
+            this.button13.Text = "Вид";
+            this.button13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button13.UseVisualStyleBackColor = true;
+            // 
+            // btnShowInsideObjects
+            // 
+            this.btnShowInsideObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnShowInsideObjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowInsideObjects.ImageIndex = 17;
+            this.btnShowInsideObjects.ImageList = this.sceneImageList;
+            this.btnShowInsideObjects.Location = new System.Drawing.Point(591, 8);
+            this.btnShowInsideObjects.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowInsideObjects.Name = "btnShowInsideObjects";
+            this.btnShowInsideObjects.Size = new System.Drawing.Size(27, 27);
+            this.btnShowInsideObjects.TabIndex = 3;
+            this.btnShowInsideObjects.UseVisualStyleBackColor = true;
+            this.btnShowInsideObjects.Click += new System.EventHandler(this.btnShowInsideObjects_Click);
+            // 
+            // btnFitToScreen
+            // 
+            this.btnFitToScreen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFitToScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFitToScreen.ImageIndex = 14;
+            this.btnFitToScreen.ImageList = this.sceneImageList;
+            this.btnFitToScreen.Location = new System.Drawing.Point(556, 8);
+            this.btnFitToScreen.Margin = new System.Windows.Forms.Padding(4);
+            this.btnFitToScreen.Name = "btnFitToScreen";
+            this.btnFitToScreen.Size = new System.Drawing.Size(27, 27);
+            this.btnFitToScreen.TabIndex = 3;
+            this.btnFitToScreen.UseVisualStyleBackColor = true;
+            this.btnFitToScreen.Click += new System.EventHandler(this.btnFitToScreen_Click);
+            // 
+            // btnShowSidesRibs
+            // 
+            this.btnShowSidesRibs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnShowSidesRibs.BackColor = System.Drawing.SystemColors.Control;
+            this.btnShowSidesRibs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowSidesRibs.ImageIndex = 9;
+            this.btnShowSidesRibs.ImageList = this.sceneImageList;
+            this.btnShowSidesRibs.Location = new System.Drawing.Point(320, 8);
+            this.btnShowSidesRibs.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowSidesRibs.Name = "btnShowSidesRibs";
+            this.btnShowSidesRibs.Size = new System.Drawing.Size(27, 27);
+            this.btnShowSidesRibs.TabIndex = 3;
+            this.btnShowSidesRibs.UseVisualStyleBackColor = false;
+            this.btnShowSidesRibs.Click += new System.EventHandler(this.btnShowSidesRibs_Click);
+            // 
+            // btnShowRibs
+            // 
+            this.btnShowRibs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnShowRibs.BackColor = System.Drawing.SystemColors.Control;
+            this.btnShowRibs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowRibs.ImageIndex = 10;
+            this.btnShowRibs.ImageList = this.sceneImageList;
+            this.btnShowRibs.Location = new System.Drawing.Point(355, 8);
+            this.btnShowRibs.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowRibs.Name = "btnShowRibs";
+            this.btnShowRibs.Size = new System.Drawing.Size(27, 27);
+            this.btnShowRibs.TabIndex = 3;
+            this.btnShowRibs.UseVisualStyleBackColor = false;
+            this.btnShowRibs.Click += new System.EventHandler(this.btnShowRibs_Click);
+            // 
+            // btnShowSides
+            // 
+            this.btnShowSides.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnShowSides.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowSides.ImageIndex = 11;
+            this.btnShowSides.ImageList = this.sceneImageList;
+            this.btnShowSides.Location = new System.Drawing.Point(390, 8);
+            this.btnShowSides.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowSides.Name = "btnShowSides";
+            this.btnShowSides.Size = new System.Drawing.Size(27, 27);
+            this.btnShowSides.TabIndex = 3;
+            this.btnShowSides.UseVisualStyleBackColor = true;
+            this.btnShowSides.Click += new System.EventHandler(this.btnShowSides_Click);
+            // 
+            // btnBazis
+            // 
+            this.btnBazis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBazis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBazis.ImageIndex = 15;
+            this.btnBazis.ImageList = this.sceneImageList;
+            this.btnBazis.Location = new System.Drawing.Point(425, 8);
+            this.btnBazis.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBazis.Name = "btnBazis";
+            this.btnBazis.Size = new System.Drawing.Size(27, 27);
+            this.btnBazis.TabIndex = 3;
+            this.btnBazis.UseVisualStyleBackColor = true;
+            this.btnBazis.Click += new System.EventHandler(this.btnBazis_Click);
+            // 
+            // btnBorder
+            // 
+            this.btnBorder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBorder.ImageIndex = 16;
+            this.btnBorder.ImageList = this.sceneImageList;
+            this.btnBorder.Location = new System.Drawing.Point(460, 8);
+            this.btnBorder.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBorder.Name = "btnBorder";
+            this.btnBorder.Size = new System.Drawing.Size(27, 27);
+            this.btnBorder.TabIndex = 3;
+            this.btnBorder.Tag = "False";
+            this.btnBorder.UseVisualStyleBackColor = true;
+            this.btnBorder.Click += new System.EventHandler(this.btnBorder_Click);
+            // 
+            // btnMakeScreenShot
+            // 
+            this.btnMakeScreenShot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMakeScreenShot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMakeScreenShot.ImageIndex = 13;
+            this.btnMakeScreenShot.ImageList = this.sceneImageList;
+            this.btnMakeScreenShot.Location = new System.Drawing.Point(521, 8);
+            this.btnMakeScreenShot.Margin = new System.Windows.Forms.Padding(4);
+            this.btnMakeScreenShot.Name = "btnMakeScreenShot";
+            this.btnMakeScreenShot.Size = new System.Drawing.Size(27, 27);
+            this.btnMakeScreenShot.TabIndex = 3;
+            this.btnMakeScreenShot.UseVisualStyleBackColor = true;
+            this.btnMakeScreenShot.Click += new System.EventHandler(this.btnMakeScreenShot_Click);
+            // 
+            // btnAdvSelection
+            // 
+            this.btnAdvSelection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdvSelection.ImageIndex = 0;
+            this.btnAdvSelection.ImageList = this.sceneImageList;
+            this.btnAdvSelection.Location = new System.Drawing.Point(124, 8);
+            this.btnAdvSelection.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
+            this.btnAdvSelection.Name = "btnAdvSelection";
+            this.btnAdvSelection.Size = new System.Drawing.Size(27, 27);
+            this.btnAdvSelection.TabIndex = 3;
+            this.btnAdvSelection.Tag = "False";
+            this.btnAdvSelection.UseVisualStyleBackColor = true;
+            this.btnAdvSelection.Click += new System.EventHandler(this.btnAdvSelection_Click);
+            this.btnAdvSelection.Paint += new System.Windows.Forms.PaintEventHandler(this.btnSelection_Paint);
             // 
             // scene
             // 
@@ -617,7 +778,7 @@ namespace BazisGUI
             this.scene.Location = new System.Drawing.Point(0, 0);
             this.scene.Margin = new System.Windows.Forms.Padding(5);
             this.scene.Name = "scene";
-            this.scene.Size = new System.Drawing.Size(705, 304);
+            this.scene.Size = new System.Drawing.Size(705, 472);
             this.scene.StencilBits = ((byte)(0));
             this.scene.TabIndex = 1;
             this.scene.SizeChanged += new System.EventHandler(this.GlControl_Resize);
@@ -643,7 +804,7 @@ namespace BazisGUI
             this.console.Margin = new System.Windows.Forms.Padding(0);
             this.console.Name = "console";
             this.console.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.console.Size = new System.Drawing.Size(705, 102);
+            this.console.Size = new System.Drawing.Size(705, 46);
             this.console.TabIndex = 0;
             this.console.UpColor = System.Drawing.Color.Gainsboro;
             this.console.InEvent += new System.Action<object, System.EventArgs>(this.console_InEvent);
@@ -787,9 +948,8 @@ namespace BazisGUI
             // 
             this.инструментыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.измеритьToolStripMenuItem,
-            this.зеркалированиеToolStripMenuItem,
+            this.отзеркаливаниеToolStripMenuItem,
             this.скрытьПлоскостьюToolStripMenuItem});
-            this.инструментыToolStripMenuItem.Enabled = false;
             this.инструментыToolStripMenuItem.Name = "инструментыToolStripMenuItem";
             this.инструментыToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
             this.инструментыToolStripMenuItem.Text = "Инструменты";
@@ -799,18 +959,21 @@ namespace BazisGUI
             this.измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
             this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.измеритьToolStripMenuItem.Text = "Измерить";
+            this.измеритьToolStripMenuItem.Click += new System.EventHandler(this.измеритьToolStripMenuItem_Click);
             // 
-            // зеркалированиеToolStripMenuItem
+            // отзеркаливаниеToolStripMenuItem
             // 
-            this.зеркалированиеToolStripMenuItem.Name = "зеркалированиеToolStripMenuItem";
-            this.зеркалированиеToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.зеркалированиеToolStripMenuItem.Text = "Отзеркаливание";
+            this.отзеркаливаниеToolStripMenuItem.Name = "отзеркаливаниеToolStripMenuItem";
+            this.отзеркаливаниеToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.отзеркаливаниеToolStripMenuItem.Text = "Отзеркаливание";
+            this.отзеркаливаниеToolStripMenuItem.Click += new System.EventHandler(this.отзеркаливаниеToolStripMenuItem_Click);
             // 
             // скрытьПлоскостьюToolStripMenuItem
             // 
             this.скрытьПлоскостьюToolStripMenuItem.Name = "скрытьПлоскостьюToolStripMenuItem";
             this.скрытьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.скрытьПлоскостьюToolStripMenuItem.Text = "Скрыть плоскостью";
+            this.скрытьПлоскостьюToolStripMenuItem.Click += new System.EventHandler(this.скрытьПлоскостьюToolStripMenuItem_Click);
             // 
             // геометрияToolStripMenuItem
             // 
@@ -1284,445 +1447,6 @@ namespace BazisGUI
             this.btnAdvanceSelection.Tag = "4";
             this.btnAdvanceSelection.Text = "toolStripButton1";
             this.btnAdvanceSelection.ToolTipText = "Дополненный выбор";
-            this.btnAdvanceSelection.Click += new System.EventHandler(this.btnAdvanceSelection_Click);
-            // 
-            // displayToolStrip
-            // 
-            this.displayToolStrip.BackGroundColor = System.Drawing.Color.Gainsboro;
-            this.displayToolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.displayToolStrip.FrameColor = System.Drawing.Color.Gray;
-            this.displayToolStrip.GeneralFrame = true;
-            this.displayToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.displayToolStrip.IconLocation = new System.Drawing.Point(0, 4);
-            this.displayToolStrip.ImageRectangleSize = new System.Drawing.Point(26, 26);
-            this.displayToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
-            this.displayToolStrip.ItemFrame = true;
-            this.displayToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
-            this.displayToolStrip.ItemPressColor = System.Drawing.Color.Black;
-            this.displayToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnShowAll,
-            this.btnShowOpenSurfaces,
-            this.btnShowSurfaceAndRibbers,
-            this.btnShowRibbers,
-            this.btnShowSurfaces,
-            this.btnShowBasis,
-            this.btnShowNormals,
-            this.btnShowCountours});
-            this.displayToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.displayToolStrip.Location = new System.Drawing.Point(3, 80);
-            this.displayToolStrip.Name = "displayToolStrip";
-            this.displayToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.displayToolStrip.Size = new System.Drawing.Size(292, 56);
-            this.displayToolStrip.SplitButtonClickWidth = 16;
-            this.displayToolStrip.SplitButtonHeight = 34;
-            this.displayToolStrip.SplitButtonTriangleSize = 6;
-            this.displayToolStrip.TabIndex = 12;
-            this.displayToolStrip.Text = "Отображение";
-            this.displayToolStrip.TextBoxFrame = false;
-            this.displayToolStrip.TextBoxHeight = 14;
-            this.displayToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.displayToolStrip_ItemClicked);
-            // 
-            // btnShowAll
-            // 
-            this.btnShowAll.AutoSize = false;
-            this.btnShowAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
-            this.btnShowAll.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowAll.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowAll.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(36, 53);
-            this.btnShowAll.Tag = "0";
-            this.btnShowAll.Text = "toolStripButton17";
-            this.btnShowAll.ToolTipText = "Показывать все объекты";
-            // 
-            // btnShowOpenSurfaces
-            // 
-            this.btnShowOpenSurfaces.AutoSize = false;
-            this.btnShowOpenSurfaces.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowOpenSurfaces.Image = ((System.Drawing.Image)(resources.GetObject("btnShowOpenSurfaces.Image")));
-            this.btnShowOpenSurfaces.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowOpenSurfaces.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowOpenSurfaces.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowOpenSurfaces.Name = "btnShowOpenSurfaces";
-            this.btnShowOpenSurfaces.Size = new System.Drawing.Size(36, 53);
-            this.btnShowOpenSurfaces.Tag = "1";
-            this.btnShowOpenSurfaces.Text = "toolStripButton18";
-            this.btnShowOpenSurfaces.ToolTipText = "Показывать только поверхности";
-            // 
-            // btnShowSurfaceAndRibbers
-            // 
-            this.btnShowSurfaceAndRibbers.AutoSize = false;
-            this.btnShowSurfaceAndRibbers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowSurfaceAndRibbers.Image = ((System.Drawing.Image)(resources.GetObject("btnShowSurfaceAndRibbers.Image")));
-            this.btnShowSurfaceAndRibbers.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowSurfaceAndRibbers.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowSurfaceAndRibbers.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowSurfaceAndRibbers.Name = "btnShowSurfaceAndRibbers";
-            this.btnShowSurfaceAndRibbers.Size = new System.Drawing.Size(36, 53);
-            this.btnShowSurfaceAndRibbers.Tag = "2";
-            this.btnShowSurfaceAndRibbers.Text = "toolStripButton19";
-            this.btnShowSurfaceAndRibbers.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowSurfaceAndRibbers.ToolTipText = "Ребра и поверхности";
-            // 
-            // btnShowRibbers
-            // 
-            this.btnShowRibbers.AutoSize = false;
-            this.btnShowRibbers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowRibbers.Image = ((System.Drawing.Image)(resources.GetObject("btnShowRibbers.Image")));
-            this.btnShowRibbers.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowRibbers.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowRibbers.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowRibbers.Name = "btnShowRibbers";
-            this.btnShowRibbers.Size = new System.Drawing.Size(36, 53);
-            this.btnShowRibbers.Tag = "3";
-            this.btnShowRibbers.Text = "toolStripButton20";
-            this.btnShowRibbers.ToolTipText = "Ребра";
-            // 
-            // btnShowSurfaces
-            // 
-            this.btnShowSurfaces.AutoSize = false;
-            this.btnShowSurfaces.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowSurfaces.Image = ((System.Drawing.Image)(resources.GetObject("btnShowSurfaces.Image")));
-            this.btnShowSurfaces.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowSurfaces.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowSurfaces.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowSurfaces.Name = "btnShowSurfaces";
-            this.btnShowSurfaces.Size = new System.Drawing.Size(36, 53);
-            this.btnShowSurfaces.Tag = "4";
-            this.btnShowSurfaces.Text = "toolStripButton21";
-            this.btnShowSurfaces.ToolTipText = "Поверхности";
-            // 
-            // btnShowBasis
-            // 
-            this.btnShowBasis.AutoSize = false;
-            this.btnShowBasis.Checked = true;
-            this.btnShowBasis.CheckOnClick = true;
-            this.btnShowBasis.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.btnShowBasis.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowBasis.Image = ((System.Drawing.Image)(resources.GetObject("btnShowBasis.Image")));
-            this.btnShowBasis.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowBasis.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowBasis.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowBasis.Name = "btnShowBasis";
-            this.btnShowBasis.Size = new System.Drawing.Size(36, 53);
-            this.btnShowBasis.Tag = "5";
-            this.btnShowBasis.Text = "toolStripButton22";
-            this.btnShowBasis.ToolTipText = "Базис СК";
-            this.btnShowBasis.Click += new System.EventHandler(this.btnShowBasis_Click);
-            // 
-            // btnShowNormals
-            // 
-            this.btnShowNormals.AutoSize = false;
-            this.btnShowNormals.CheckOnClick = true;
-            this.btnShowNormals.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowNormals.Image = ((System.Drawing.Image)(resources.GetObject("btnShowNormals.Image")));
-            this.btnShowNormals.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowNormals.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowNormals.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowNormals.Name = "btnShowNormals";
-            this.btnShowNormals.Size = new System.Drawing.Size(36, 53);
-            this.btnShowNormals.Tag = "6";
-            this.btnShowNormals.Text = "toolStripButton23";
-            this.btnShowNormals.ToolTipText = "Показать нормали";
-            this.btnShowNormals.Click += new System.EventHandler(this.btnShowNormals_Click);
-            // 
-            // btnShowCountours
-            // 
-            this.btnShowCountours.AutoSize = false;
-            this.btnShowCountours.CheckOnClick = true;
-            this.btnShowCountours.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowCountours.Image = ((System.Drawing.Image)(resources.GetObject("btnShowCountours.Image")));
-            this.btnShowCountours.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowCountours.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowCountours.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowCountours.Name = "btnShowCountours";
-            this.btnShowCountours.Size = new System.Drawing.Size(36, 53);
-            this.btnShowCountours.Tag = "7";
-            this.btnShowCountours.Text = "toolStripButton24";
-            this.btnShowCountours.ToolTipText = "Показать контуры";
-            this.btnShowCountours.Click += new System.EventHandler(this.btnShowCountours_Click);
-            // 
-            // instrumentalToolStrip
-            // 
-            this.instrumentalToolStrip.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.instrumentalToolStrip.BackGroundColor = System.Drawing.Color.Gainsboro;
-            this.instrumentalToolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.instrumentalToolStrip.FrameColor = System.Drawing.Color.Gray;
-            this.instrumentalToolStrip.GeneralFrame = true;
-            this.instrumentalToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.instrumentalToolStrip.IconLocation = new System.Drawing.Point(1, 6);
-            this.instrumentalToolStrip.ImageRectangleSize = new System.Drawing.Point(26, 20);
-            this.instrumentalToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
-            this.instrumentalToolStrip.ItemFrame = true;
-            this.instrumentalToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
-            this.instrumentalToolStrip.ItemPressColor = System.Drawing.Color.Black;
-            this.instrumentalToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnMeasuring,
-            this.btnCrossSection,
-            this.btnScreenShot,
-            this.btnReflect,
-            this.btnClipPlane});
-            this.instrumentalToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.instrumentalToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.instrumentalToolStrip.Location = new System.Drawing.Point(3, 136);
-            this.instrumentalToolStrip.Name = "instrumentalToolStrip";
-            this.instrumentalToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.instrumentalToolStrip.Size = new System.Drawing.Size(184, 56);
-            this.instrumentalToolStrip.SplitButtonClickWidth = 16;
-            this.instrumentalToolStrip.SplitButtonHeight = 34;
-            this.instrumentalToolStrip.SplitButtonTriangleSize = 6;
-            this.instrumentalToolStrip.TabIndex = 13;
-            this.instrumentalToolStrip.Text = "Инструменты";
-            this.instrumentalToolStrip.TextBoxFrame = false;
-            this.instrumentalToolStrip.TextBoxHeight = 14;
-            // 
-            // btnMeasuring
-            // 
-            this.btnMeasuring.AutoSize = false;
-            this.btnMeasuring.CheckOnClick = true;
-            this.btnMeasuring.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnMeasuring.Image = ((System.Drawing.Image)(resources.GetObject("btnMeasuring.Image")));
-            this.btnMeasuring.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnMeasuring.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnMeasuring.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnMeasuring.Name = "btnMeasuring";
-            this.btnMeasuring.Size = new System.Drawing.Size(36, 53);
-            this.btnMeasuring.Tag = "0";
-            this.btnMeasuring.Text = "toolStripButton14";
-            this.btnMeasuring.ToolTipText = "Измерить";
-            this.btnMeasuring.Click += new System.EventHandler(this.btnMeasuring_Click);
-            // 
-            // btnCrossSection
-            // 
-            this.btnCrossSection.AutoSize = false;
-            this.btnCrossSection.CheckOnClick = true;
-            this.btnCrossSection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnCrossSection.Image = ((System.Drawing.Image)(resources.GetObject("btnCrossSection.Image")));
-            this.btnCrossSection.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnCrossSection.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnCrossSection.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCrossSection.Name = "btnCrossSection";
-            this.btnCrossSection.Size = new System.Drawing.Size(36, 53);
-            this.btnCrossSection.Tag = "1";
-            this.btnCrossSection.Text = "toolStripButton15";
-            this.btnCrossSection.ToolTipText = "Сделать сечение";
-            this.btnCrossSection.Click += new System.EventHandler(this.btnCrossSection_Click);
-            // 
-            // btnScreenShot
-            // 
-            this.btnScreenShot.AutoSize = false;
-            this.btnScreenShot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnScreenShot.Image = ((System.Drawing.Image)(resources.GetObject("btnScreenShot.Image")));
-            this.btnScreenShot.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnScreenShot.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnScreenShot.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnScreenShot.Name = "btnScreenShot";
-            this.btnScreenShot.Size = new System.Drawing.Size(36, 53);
-            this.btnScreenShot.Tag = "2";
-            this.btnScreenShot.Text = "toolStripButton16";
-            this.btnScreenShot.ToolTipText = "Снимок экрана";
-            this.btnScreenShot.Click += new System.EventHandler(this.btnScreenShot_Click);
-            // 
-            // btnReflect
-            // 
-            this.btnReflect.AutoSize = false;
-            this.btnReflect.CheckOnClick = true;
-            this.btnReflect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnReflect.Image = ((System.Drawing.Image)(resources.GetObject("btnReflect.Image")));
-            this.btnReflect.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnReflect.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnReflect.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnReflect.Name = "btnReflect";
-            this.btnReflect.Size = new System.Drawing.Size(36, 53);
-            this.btnReflect.Text = "btnReflect";
-            this.btnReflect.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnReflect.ToolTipText = "Зеркальное отображение";
-            this.btnReflect.Click += new System.EventHandler(this.btnReflect_Click);
-            // 
-            // btnClipPlane
-            // 
-            this.btnClipPlane.AutoSize = false;
-            this.btnClipPlane.CheckOnClick = true;
-            this.btnClipPlane.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnClipPlane.Image = ((System.Drawing.Image)(resources.GetObject("btnClipPlane.Image")));
-            this.btnClipPlane.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnClipPlane.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnClipPlane.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnClipPlane.Name = "btnClipPlane";
-            this.btnClipPlane.Size = new System.Drawing.Size(36, 53);
-            this.btnClipPlane.Text = "btnClipPlane";
-            this.btnClipPlane.ToolTipText = "Скрыть плоскостью";
-            this.btnClipPlane.Click += new System.EventHandler(this.btnClipPlane_Click);
-            // 
-            // viewToolStrip
-            // 
-            this.viewToolStrip.BackGroundColor = System.Drawing.Color.Gainsboro;
-            this.viewToolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.viewToolStrip.FrameColor = System.Drawing.Color.Gray;
-            this.viewToolStrip.GeneralFrame = true;
-            this.viewToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.viewToolStrip.IconLocation = new System.Drawing.Point(0, 4);
-            this.viewToolStrip.ImageRectangleSize = new System.Drawing.Point(26, 26);
-            this.viewToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
-            this.viewToolStrip.ItemFrame = true;
-            this.viewToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
-            this.viewToolStrip.ItemPressColor = System.Drawing.Color.Black;
-            this.viewToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnSetXY,
-            this.btnSetZX,
-            this.btnSetZY,
-            this.btnSetRotX,
-            this.btnSetRotY,
-            this.btnSetRotZ,
-            this.btnSetRotHor90,
-            this.btnSetRotVer90,
-            this.btnFitObjs});
-            this.viewToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.viewToolStrip.Location = new System.Drawing.Point(352, 24);
-            this.viewToolStrip.Name = "viewToolStrip";
-            this.viewToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.viewToolStrip.Size = new System.Drawing.Size(328, 56);
-            this.viewToolStrip.SplitButtonClickWidth = 16;
-            this.viewToolStrip.SplitButtonHeight = 34;
-            this.viewToolStrip.SplitButtonTriangleSize = 6;
-            this.viewToolStrip.TabIndex = 14;
-            this.viewToolStrip.Text = "Вид";
-            this.viewToolStrip.TextBoxFrame = false;
-            this.viewToolStrip.TextBoxHeight = 14;
-            this.viewToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.viewToolStrip_ItemClicked);
-            // 
-            // btnSetXY
-            // 
-            this.btnSetXY.AutoSize = false;
-            this.btnSetXY.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSetXY.Image = ((System.Drawing.Image)(resources.GetObject("btnSetXY.Image")));
-            this.btnSetXY.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSetXY.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSetXY.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSetXY.Name = "btnSetXY";
-            this.btnSetXY.Size = new System.Drawing.Size(36, 53);
-            this.btnSetXY.Tag = "0";
-            this.btnSetXY.Text = "toolStripButton5";
-            this.btnSetXY.ToolTipText = "Плоскость XY";
-            // 
-            // btnSetZX
-            // 
-            this.btnSetZX.AutoSize = false;
-            this.btnSetZX.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSetZX.Image = ((System.Drawing.Image)(resources.GetObject("btnSetZX.Image")));
-            this.btnSetZX.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSetZX.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSetZX.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSetZX.Name = "btnSetZX";
-            this.btnSetZX.Size = new System.Drawing.Size(36, 53);
-            this.btnSetZX.Tag = "1";
-            this.btnSetZX.Text = "toolStripButton6";
-            this.btnSetZX.ToolTipText = "Плоскость ZX";
-            // 
-            // btnSetZY
-            // 
-            this.btnSetZY.AutoSize = false;
-            this.btnSetZY.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSetZY.Image = ((System.Drawing.Image)(resources.GetObject("btnSetZY.Image")));
-            this.btnSetZY.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSetZY.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSetZY.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSetZY.Name = "btnSetZY";
-            this.btnSetZY.Size = new System.Drawing.Size(36, 53);
-            this.btnSetZY.Tag = "2";
-            this.btnSetZY.Text = "toolStripButton7";
-            this.btnSetZY.ToolTipText = "Плоскость ZY";
-            // 
-            // btnSetRotX
-            // 
-            this.btnSetRotX.AutoSize = false;
-            this.btnSetRotX.CheckOnClick = true;
-            this.btnSetRotX.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSetRotX.Image = ((System.Drawing.Image)(resources.GetObject("btnSetRotX.Image")));
-            this.btnSetRotX.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSetRotX.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSetRotX.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSetRotX.Name = "btnSetRotX";
-            this.btnSetRotX.Size = new System.Drawing.Size(36, 53);
-            this.btnSetRotX.Tag = "3";
-            this.btnSetRotX.Text = "toolStripButton8";
-            this.btnSetRotX.ToolTipText = "Вращение  по X";
-            this.btnSetRotX.Click += new System.EventHandler(this.btnSetRotAxis_Click);
-            // 
-            // btnSetRotY
-            // 
-            this.btnSetRotY.AutoSize = false;
-            this.btnSetRotY.CheckOnClick = true;
-            this.btnSetRotY.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSetRotY.Image = ((System.Drawing.Image)(resources.GetObject("btnSetRotY.Image")));
-            this.btnSetRotY.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSetRotY.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSetRotY.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSetRotY.Name = "btnSetRotY";
-            this.btnSetRotY.Size = new System.Drawing.Size(36, 53);
-            this.btnSetRotY.Tag = "4";
-            this.btnSetRotY.Text = "toolStripButton9";
-            this.btnSetRotY.ToolTipText = "Вращение  по Y";
-            this.btnSetRotY.Click += new System.EventHandler(this.btnSetRotAxis_Click);
-            // 
-            // btnSetRotZ
-            // 
-            this.btnSetRotZ.AutoSize = false;
-            this.btnSetRotZ.CheckOnClick = true;
-            this.btnSetRotZ.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSetRotZ.Image = ((System.Drawing.Image)(resources.GetObject("btnSetRotZ.Image")));
-            this.btnSetRotZ.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSetRotZ.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSetRotZ.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSetRotZ.Name = "btnSetRotZ";
-            this.btnSetRotZ.Size = new System.Drawing.Size(36, 53);
-            this.btnSetRotZ.Tag = "5";
-            this.btnSetRotZ.Text = "toolStripButton10";
-            this.btnSetRotZ.ToolTipText = "Вращение  по Z";
-            this.btnSetRotZ.Click += new System.EventHandler(this.btnSetRotAxis_Click);
-            // 
-            // btnSetRotHor90
-            // 
-            this.btnSetRotHor90.AutoSize = false;
-            this.btnSetRotHor90.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSetRotHor90.Image = ((System.Drawing.Image)(resources.GetObject("btnSetRotHor90.Image")));
-            this.btnSetRotHor90.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSetRotHor90.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSetRotHor90.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSetRotHor90.Name = "btnSetRotHor90";
-            this.btnSetRotHor90.Size = new System.Drawing.Size(36, 53);
-            this.btnSetRotHor90.Tag = "6";
-            this.btnSetRotHor90.Text = "toolStripButton11";
-            this.btnSetRotHor90.ToolTipText = "Поворот по горизонтали";
-            // 
-            // btnSetRotVer90
-            // 
-            this.btnSetRotVer90.AutoSize = false;
-            this.btnSetRotVer90.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSetRotVer90.Image = ((System.Drawing.Image)(resources.GetObject("btnSetRotVer90.Image")));
-            this.btnSetRotVer90.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSetRotVer90.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSetRotVer90.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSetRotVer90.Name = "btnSetRotVer90";
-            this.btnSetRotVer90.Size = new System.Drawing.Size(36, 53);
-            this.btnSetRotVer90.Tag = "7";
-            this.btnSetRotVer90.Text = "toolStripButton12";
-            this.btnSetRotVer90.ToolTipText = "Поворот по вертикали";
-            // 
-            // btnFitObjs
-            // 
-            this.btnFitObjs.AutoSize = false;
-            this.btnFitObjs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnFitObjs.Image = ((System.Drawing.Image)(resources.GetObject("btnFitObjs.Image")));
-            this.btnFitObjs.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnFitObjs.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnFitObjs.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFitObjs.Name = "btnFitObjs";
-            this.btnFitObjs.Size = new System.Drawing.Size(36, 53);
-            this.btnFitObjs.Tag = "8";
-            this.btnFitObjs.Text = "toolStripButton13";
-            this.btnFitObjs.ToolTipText = "Вписать в экран";
             // 
             // contextMenu
             // 
@@ -1832,18 +1556,10 @@ namespace BazisGUI
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.selectToolStrip.ResumeLayout(false);
             this.selectToolStrip.PerformLayout();
-            this.displayToolStrip.ResumeLayout(false);
-            this.displayToolStrip.PerformLayout();
-            this.instrumentalToolStrip.ResumeLayout(false);
-            this.instrumentalToolStrip.PerformLayout();
-            this.viewToolStrip.ResumeLayout(false);
-            this.viewToolStrip.PerformLayout();
             this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1889,31 +1605,6 @@ namespace BazisGUI
         protected System.Windows.Forms.ToolStripButton btnSelectElements;
         protected System.Windows.Forms.ToolStripButton btnSelectObjects;
         protected System.Windows.Forms.ToolStripButton btnAdvanceSelection;
-        public UserControlsEx.ToolStripEx instrumentalToolStrip;
-        protected System.Windows.Forms.ToolStripButton btnMeasuring;
-        protected System.Windows.Forms.ToolStripButton btnCrossSection;
-        protected System.Windows.Forms.ToolStripButton btnScreenShot;
-        private System.Windows.Forms.ToolStripButton btnReflect;
-        private System.Windows.Forms.ToolStripButton btnClipPlane;
-        public UserControlsEx.ToolStripEx displayToolStrip;
-        protected System.Windows.Forms.ToolStripButton btnShowAll;
-        protected System.Windows.Forms.ToolStripButton btnShowOpenSurfaces;
-        protected System.Windows.Forms.ToolStripButton btnShowSurfaceAndRibbers;
-        protected System.Windows.Forms.ToolStripButton btnShowRibbers;
-        protected System.Windows.Forms.ToolStripButton btnShowSurfaces;
-        protected System.Windows.Forms.ToolStripButton btnShowBasis;
-        protected System.Windows.Forms.ToolStripButton btnShowNormals;
-        protected System.Windows.Forms.ToolStripButton btnShowCountours;
-        public UserControlsEx.ToolStripEx viewToolStrip;
-        protected System.Windows.Forms.ToolStripButton btnSetXY;
-        protected System.Windows.Forms.ToolStripButton btnSetZX;
-        protected System.Windows.Forms.ToolStripButton btnSetZY;
-        protected System.Windows.Forms.ToolStripButton btnSetRotX;
-        protected System.Windows.Forms.ToolStripButton btnSetRotY;
-        protected System.Windows.Forms.ToolStripButton btnSetRotZ;
-        protected System.Windows.Forms.ToolStripButton btnSetRotHor90;
-        protected System.Windows.Forms.ToolStripButton btnSetRotVer90;
-        protected System.Windows.Forms.ToolStripButton btnFitObjs;
         private UserControlsEx.SplitContainerEx splitContainer3;
         private UserControlsEx.SplitContainerEx splitContainer1;
         private BaseModule.Navigator.NavigatorControl navigator;
@@ -1968,20 +1659,29 @@ namespace BazisGUI
         private ToolStripMenuItem инструментыToolStripMenuItem;
         private ToolStripMenuItem квадратизацияСуществующейToolStripMenuItem;
         private ToolStripMenuItem измеритьToolStripMenuItem;
-        private ToolStripMenuItem зеркалированиеToolStripMenuItem;
+        private ToolStripMenuItem отзеркаливаниеToolStripMenuItem;
         private ToolStripMenuItem скрытьПлоскостьюToolStripMenuItem;
-        private Button button1;
-        private ImageList imageList1;
-        private TableLayoutPanel tableLayoutPanel2;
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private Label label5;
-        private Label label6;
-        private Label label7;
-        private Label label8;
-        private Label label9;
+        private Button btnAdvSelection;
+        private ImageList sceneImageList;
+        private Button btnDisplayArrow;
+        private Button btnRotVert90;
+        private Button btnRotHor90;
+        private Button btnRotZ;
+        private Button btnRotY;
+        private Button btnRotX;
+        private Button btnZY;
+        private Button btnZX;
+        private Button btnXY;
+        private Button button13;
+        private Button btnShowInsideObjects;
+        private Button btnFitToScreen;
+        private Button btnShowSidesRibs;
+        private Button btnShowRibs;
+        private Button btnShowSides;
+        private Button btnBazis;
+        private Button btnBorder;
+        private Button btnMakeScreenShot;
+        private Button btnSelect;
     }
 }
 

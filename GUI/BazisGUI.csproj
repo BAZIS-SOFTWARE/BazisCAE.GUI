@@ -443,6 +443,27 @@
     <Compile Include="Methods\Results\CreatePlot.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Scene\Buttons\FitToScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\Buttons\SelectObjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\Buttons\MakeScreenShot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\Buttons\ShowInsideObjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\Buttons\ShowCountours.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\Buttons\ShowBasis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\Buttons\AdvanceSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Scene\ProjectionMatrix.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -785,6 +806,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
+    <None Include="Resources\вп 121.png" />
     <None Include="Resources\вп 12.png" />
     <None Include="Documents\Classes.mdpuml" />
     <None Include="Documents\Components.mdpuml" />

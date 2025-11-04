@@ -23,11 +23,11 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void btnMeasuring_Click(object sender, EventArgs e)
+        private void измеритьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                var btn = (ToolStripButton)sender;
+                var btn = sender as ToolStripMenuItem;
                 if (btn.Checked)
                 {
 
@@ -444,12 +444,6 @@ namespace BazisGUI
             CreateVBObject(presenter);
         }
 
-        private void btnScreenShot_Click(object sender, EventArgs e)
-        {
-            CreateScreenShot(WorkingDir + "\\screenShot.bmp");
-            console.PrintInfo($"Сделан снимок экрана {WorkingDir}\\screenShot.bmp", Color.Black);
-        }
-
         public void CreateScreenShot(string fileName)
         {
             this.BringToFront();
@@ -462,7 +456,7 @@ namespace BazisGUI
             bmpPicture.Save(fileName, System.Drawing.Imaging.ImageFormat.Bmp);
         }
 
-        private void btnReflect_Click(object sender, EventArgs e)
+        private void отзеркаливаниеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -634,8 +628,7 @@ namespace BazisGUI
             }
             obj.PointsColors = colors;
         }
-
-        private void btnClipPlane_Click(object sender, EventArgs e)
+        private void скрытьПлоскостьюToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {

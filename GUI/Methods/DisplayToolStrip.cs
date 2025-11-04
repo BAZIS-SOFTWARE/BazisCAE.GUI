@@ -18,42 +18,20 @@ namespace BazisGUI
     public partial class BaseForm
     {
 
-        private void displayToolStrip_ItemClicked(object arg1, ToolStripItemClickedEventArgs arg2)
+        private void btnShowSidesRibs_Click(object sender, EventArgs e)
         {
-
-            try
-            {
-
-                if (arg2.ClickedItem.Tag.ToString() == "0")
-                {
-                    ChangeInsideObjects(true);
-                }
-
-                else if (arg2.ClickedItem.Tag.ToString() == "1")
-                {
-                    ChangeInsideObjects(false);
-                }
-
-                else if (arg2.ClickedItem.Tag.ToString() == "2")
-                {
-                    ChangeViewModeObjects(ViewMode.LineSurface);
-                }
-
-                else if (arg2.ClickedItem.Tag.ToString() == "3")
-                {
-                    ChangeViewModeObjects(ViewMode.Line);
-                }
-
-                else if (arg2.ClickedItem.Tag.ToString() == "4")
-                {
-                    ChangeViewModeObjects(ViewMode.Surface);
-                }
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
+            ChangeViewModeObjects(ViewMode.LineSurface);
         }
+
+        private void btnShowRibs_Click(object sender, EventArgs e)
+        {
+            ChangeViewModeObjects(ViewMode.Line);
+        }
+
+        private void btnShowSides_Click(object sender, EventArgs e)
+        {
+            ChangeViewModeObjects(ViewMode.Surface);
+        }      
 
         private void ChangeViewModeObjects(ViewMode arg2)
         {
@@ -84,51 +62,7 @@ namespace BazisGUI
 
         }
 
-        private void ChangeInsideObjects(bool flag)
-        {
-            settingsConfig.IsInsideObjectsShown = flag;
 
-            project.ChangeInsideSurfacesState(settingsConfig.IsInsideObjectsShown);
-
-            foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
-            {
-                VBOController.DeleteVBObjects(item.Name);
-                var presenter = project.CreateModelObjectsPresentor(item);
-                var vbo = CreateVBObject(presenter);
-                VBOController.AddVbo(vbo);
-            }
-
-            if(!flag)
-                console.PrintInfo("Скрыты внутренние объекты", Color.Black);
-            else
-                console.PrintInfo("Показаны все объекты", Color.Black);
-
-            DisplayObjects();
-        }
-
-        private void ShowInsideObjects()
-        {
-            settingsConfig.IsInsideObjectsShown = true;
-            project.ChangeInsideSurfacesState(settingsConfig.IsInsideObjectsShown);
-            var presenter = project.CreateModelObjectsPresentor(ObjType.Элемент3D);
-            var name = ObjType.Элемент3D.ToString();
-
-            VBOController.DeleteVBObjects(name);
-            var vbo = CreateVBObject(presenter);
-            VBOController.AddVbo(vbo);
-            console.PrintInfo("Показаны все объекты", Color.Black);
-        }
-
-        private void btnShowBasis_Click(object sender, EventArgs e)
-        {
-            var btn = (ToolStripButton)sender;
-
-            if (btn.Checked)
-                settingsConfig.DisplayBasis = true;
-            else settingsConfig.DisplayBasis = false;
-
-            DisplayObjects();
-        }
 
         private void btnShowNormals_Click(object sender, EventArgs e)
         {
@@ -160,33 +94,6 @@ namespace BazisGUI
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        private void btnShowCountours_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var btn = (ToolStripButton)sender;
-                if (btn.Checked)
-                {
-                    var surfElems = project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement).
-            Select(x => (ISurfaceElement)x);
-                    var linesNodes = project.FindBoundaryEdges();
-                    var edges = project.CreateBoundaryEdges(linesNodes);
-                    var linePresenter = presentersCreator.CreateLineObjectsPresenter(edges);
-                    linePresenter.Name = "Boundary";
-                    var vbo = CreateVBObject(linePresenter);
-                    VBOController.AddVbo(vbo);
-                }
-                else
-                    VBOController.DeleteVBObjects("Boundary");
-                DisplayObjects();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
         }
     }
 }

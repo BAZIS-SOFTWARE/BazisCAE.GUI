@@ -6,67 +6,97 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void viewToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void btnXY_Click(object sender, EventArgs e)
         {
-            var btn = (ToolStripButton)e.ClickedItem;
+            SetOnPlane(ViewPlane.XY, ScaleFactor);
+            DisplayObjects();
+        }
 
-            if (e.ClickedItem.Tag.ToString() == "0")
+        private void btnZX_Click(object sender, EventArgs e)
+        {
+            SetOnPlane(ViewPlane.XZ, ScaleFactor);
+            DisplayObjects();
+        }
+
+        private void btnZY_Click(object sender, EventArgs e)
+        {
+            SetOnPlane(ViewPlane.YZ, ScaleFactor);
+            DisplayObjects();
+        }
+
+        private void btnRotX_Click(object sender, EventArgs e)
+        {
+            var btn = sender as Button;
+
+            if (!bool.Parse(btn.Tag.ToString()))
             {
-                SetOnPlane(ViewPlane.XY, ScaleFactor);
+                btn.Tag = true;
+
+                settingsConfig.RotationAxis = ViewAxis.X;
+
+                btnRotY.Tag = false;
+                btnRotZ.Tag = false;
             }
-            else if (e.ClickedItem.Tag.ToString() == "1")
+            else
             {
-                SetOnPlane(ViewPlane.XZ, ScaleFactor);
-            }
-            else if (e.ClickedItem.Tag.ToString() == "2")
-            {
-                SetOnPlane(ViewPlane.YZ, ScaleFactor);
-            }
-            else if (e.ClickedItem.Tag.ToString() == "6")
-            {
-                Rotate(ViewAxis.Y, 90);
-            }
-            else if (e.ClickedItem.Tag.ToString() == "7")
-            {
-                Rotate(ViewAxis.X, 90);
-            }
-            else if (e.ClickedItem.Tag.ToString() == "8")
-            {
-                FitObjectsToScreen();
+                btn.Tag = false;
+                settingsConfig.RotationAxis = ViewAxis.XYZ;
             }
             DisplayObjects();
         }
 
-        private void btnSetRotAxis_Click(object sender, EventArgs e)
+        private void btnRotY_Click(object sender, EventArgs e)
         {
-            var btn = (ToolStripButton)sender;
+            var btn = sender as Button;
 
-            if (btn.Checked)
+            if (!bool.Parse(btn.Tag.ToString()))
             {
-                if (btn.Tag.ToString() == "3")
-                {
-                    settingsConfig.RotationAxis = ViewAxis.X;
-                    btnSetRotY.Checked = false;
-                    btnSetRotZ.Checked = false;
-                }
+                btn.Tag = true;
 
-                else if (btn.Tag.ToString() == "4")
-                {
-                    settingsConfig.RotationAxis = ViewAxis.Y;
-                    btnSetRotX.Checked = false;
-                    btnSetRotZ.Checked = false;
-                }
+                settingsConfig.RotationAxis = ViewAxis.Y;
 
-                else
-                {
-                    settingsConfig.RotationAxis = ViewAxis.Z;
-                    btnSetRotX.Checked = false;
-                    btnSetRotY.Checked = false;
-                }
-
+                btnRotX.Tag = false;
+                btnRotZ.Tag = false;
             }
             else
+            {
+                btn.Tag = false;
                 settingsConfig.RotationAxis = ViewAxis.XYZ;
+            }
+            DisplayObjects();
         }
+
+        private void btnRotZ_Click(object sender, EventArgs e)
+        {
+            var btn = sender as Button;
+
+            if (!bool.Parse(btn.Tag.ToString()))
+            {
+                btn.Tag = true;
+
+                settingsConfig.RotationAxis = ViewAxis.Z;
+
+                btnRotX.Tag = false;
+                btnRotY.Tag = false;
+            }
+            else
+            {
+                btn.Tag = false;
+                settingsConfig.RotationAxis = ViewAxis.XYZ;
+            }
+            DisplayObjects();
+        }
+
+        private void btnRotHor90_Click(object sender, EventArgs e)
+        {
+            Rotate(ViewAxis.Y, 90);
+            DisplayObjects();
+        }
+
+        private void btnRotVert90_Click(object sender, EventArgs e)
+        {
+            Rotate(ViewAxis.X, 90);
+            DisplayObjects();
+        }  
     }
 }

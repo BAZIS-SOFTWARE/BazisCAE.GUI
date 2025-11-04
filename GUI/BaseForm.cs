@@ -119,9 +119,9 @@ namespace BazisGUI
             splitContainer3.SplitterWidth = 8;
             resultsMenuItem.DropDown.Closing += DropDown_Closing;
             selectToolStrip.Location = new Point(10, 24);
-            displayToolStrip.Location = new Point(310, 48);
-            instrumentalToolStrip.Location = new Point(597, 48);
-            viewToolStrip.Location = new Point(785, 48);
+            //displayToolStrip.Location = new Point(310, 48);
+            //instrumentalToolStrip.Location = new Point(597, 48);
+            //viewToolStrip.Location = new Point(785, 48);
 
 
             //var objs = project.ModelData.ObjectData.GetAllObjects();
@@ -962,18 +962,10 @@ namespace BazisGUI
         {
             if(project != null)
             {
-                SelectedObjects = ObjType.Узел.ToString();
-                spbSelectObject.Invalidate();
+                //SelectedObjects = ObjType.Узел.ToString();
+                //spbSelectObject.Invalidate();
             }
 
-        }
-
-        private void tableLayoutPanel2_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
-        {
-            if(e.Row == 0)
-            {
-                //TODO рисовать треугольник
-            }
         }
     }
 
