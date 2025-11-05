@@ -632,7 +632,7 @@ namespace BazisGUI
         {
             try
             {
-                var btn = sender as ToolStripButton;
+                var btn = sender as ToolStripMenuItem;
                 if (btn.Checked)
                 {
                     var clip = new ClipControl() { Dock = DockStyle.Fill };

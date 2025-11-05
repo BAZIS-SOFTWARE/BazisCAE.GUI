@@ -87,7 +87,6 @@
             this.del1DMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.del2DMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.del3DMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.всеDelMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groups_MenuStrip.SuspendLayout();
             this.geoMenuStrip.SuspendLayout();
             this.taskMenuStrip.SuspendLayout();
@@ -478,7 +477,7 @@
             this.show3DMenuItem,
             this.всеShowMenuItem});
             this.showMeshMenuItem.Name = "showMeshMenuItem";
-            this.showMeshMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.showMeshMenuItem.Size = new System.Drawing.Size(180, 22);
             this.showMeshMenuItem.Text = "Показать";
             // 
             // show1DMenuItem
@@ -517,7 +516,7 @@
             this.hide3DMenuItem,
             this.всеHideMenuItem});
             this.hideMeshMenuItem.Name = "hideMeshMenuItem";
-            this.hideMeshMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.hideMeshMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hideMeshMenuItem.Text = "Скрыть";
             // 
             // hide1DMenuItem
@@ -553,8 +552,7 @@
             this.delMeshMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.del1DMenuItem,
             this.del2DMenuItem,
-            this.del3DMenuItem,
-            this.всеDelMenuItem});
+            this.del3DMenuItem});
             this.delMeshMenuItem.Name = "delMeshMenuItem";
             this.delMeshMenuItem.Size = new System.Drawing.Size(124, 22);
             this.delMeshMenuItem.Text = "Удалить";
@@ -579,13 +577,6 @@
             this.del3DMenuItem.Size = new System.Drawing.Size(180, 22);
             this.del3DMenuItem.Text = "3D";
             this.del3DMenuItem.Click += new System.EventHandler(this.del3DMenuItem_Click);
-            // 
-            // всеDelMenuItem
-            // 
-            this.всеDelMenuItem.Name = "всеDelMenuItem";
-            this.всеDelMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.всеDelMenuItem.Text = "Все";
-            this.всеDelMenuItem.Click += new System.EventHandler(this.nodeDelMenuItem_Click);
             // 
             // NavigatorControl
             // 
@@ -668,6 +659,5 @@
         private System.Windows.Forms.ToolStripMenuItem del3DMenuItem;
         private System.Windows.Forms.ToolStripMenuItem всеShowMenuItem;
         private System.Windows.Forms.ToolStripMenuItem всеHideMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem всеDelMenuItem;
     }
 }

@@ -19,6 +19,7 @@ namespace BazisGUI
             try
             {
                 FitObjectsToScreen();
+                DisplayObjects();
             }
             catch (Exception ex)
             {

@@ -139,6 +139,7 @@ namespace BaseModule.Navigator
         public event Action<NodeName, string> SelectCondEvent;
         public event Action SelectTaskEvent;
         public event Action SelectGeoEvent;
+        public event Action SelectMeshEvent;
         public event Action SelectResultsEvent;
  
         public event Action<NodeName, string> SelectCompEvent;
@@ -570,6 +571,8 @@ namespace BaseModule.Navigator
             {
                 if (node.Name == NodeName.геометрия.ToString())
                     SelectGeoEvent?.Invoke();
+                else if (node.Name == NodeName.сетка.ToString())
+                    SelectMeshEvent?.Invoke();
                 else if (node.Name == NodeName.задача.ToString())
                     SelectTaskEvent?.Invoke();
                 else if (node.Name == NodeName.результаты.ToString())
@@ -890,19 +893,14 @@ e.Node.Name == NodeName.Объем.ToString()
             DelMeshEvent?.Invoke(3);
         }
 
-        private void nodeDelMenuItem_Click(object sender, EventArgs e)
-        {
-            DelMeshEvent?.Invoke(4);
-        }
-
         private void nodeHideMenuItem_Click(object sender, EventArgs e)
         {
-            ShowMeshEvent?.Invoke(4, false);
+            ShowMeshEvent?.Invoke(0, false);
         }
 
         private void nodeShowMenuItem_Click(object sender, EventArgs e)
         {
-            ShowMeshEvent?.Invoke(4, true);
+            ShowMeshEvent?.Invoke(0, true);
         }
 
         private void SplitButton_Closing(object sender, ToolStripDropDownClosingEventArgs e)

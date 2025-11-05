@@ -33,7 +33,7 @@ namespace BazisGUI
                 rows.Add(new RowProperty("Ориентация ребер", attributes[1]));
             }
 
-            rows.Add(new RowProperty("Показать номера точек", new ButtonPropertyValue("Показать",
+            rows.Add(new RowProperty("Номера точек", new ButtonPropertyValue("Показать",
     () => {
         var all = GmshController.Gmsh.Model.GetAdjacencies(2, number).Item2
         .Select(x => GmshController.Gmsh.Model.GetAdjacencies(1, x).Item2);

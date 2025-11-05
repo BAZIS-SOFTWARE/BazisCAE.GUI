@@ -755,6 +755,10 @@ namespace BazisGUI
             btnDisplayStates.Enabled = true;
             btnDisplayViews.Enabled = true;
 
+            btnFitToScreen.Enabled = true;
+            btnMakeScreenShot.Enabled = true;
+            btnShowInsideObjects.Enabled = true;
+
             console.Enabled = true;
         }
 

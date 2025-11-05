@@ -272,6 +272,9 @@
     <Compile Include="Methods\Navigator\Mesh\DelElementsEvent.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Methods\Navigator\Mesh\SelectMeshEvent .cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Methods\Navigator\Mesh\ShowHideElementsEvent.cs">
       <SubType>Form</SubType>
     </Compile>

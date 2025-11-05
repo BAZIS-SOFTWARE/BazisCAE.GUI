@@ -47,10 +47,14 @@ namespace BazisGUI
 
             foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
             {
-                VBOController.DeleteVBObjects(item.Name);
-                var presenter = project.CreateModelObjectsPresentor(item);
-                var vbo = CreateVBObject(presenter);
-                VBOController.AddVbo(vbo);
+                if(item.ViewState)
+                {
+                    VBOController.DeleteVBObjects(item.Name);
+                    var presenter = project.CreateModelObjectsPresentor(item);
+                    var vbo = CreateVBObject(presenter);
+                    VBOController.AddVbo(vbo);
+                }
+
             }
 
             if (!settingsConfig.IsInsideObjectsShown)

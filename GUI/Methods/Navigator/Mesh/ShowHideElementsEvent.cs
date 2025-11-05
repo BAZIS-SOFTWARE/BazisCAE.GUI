@@ -36,15 +36,9 @@ namespace BazisGUI
                     foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
                         NewMethod1(item, flag);
                 }
-                else if (obj == 4)
+                else if (obj == 0)
                 {
                     foreach (var item in project.GetModelSetsInfo(ObjType.Узел))
-                        NewMethod1(item, flag);
-                    foreach (var item in project.GetModelSetsInfo(ObjType.Элемент1D))
-                        NewMethod1(item, flag);
-                    foreach (var item in project.GetModelSetsInfo(ObjType.Элемент2D))
-                        NewMethod1(item, flag);
-                    foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
                         NewMethod1(item, flag);
                 }
                 DisplayObjects();
