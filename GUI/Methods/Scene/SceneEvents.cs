@@ -26,18 +26,18 @@ namespace BazisGUI
         {
             try
             {
-                if (spbSelectObject.ToolTipText == "Объекты" |
-spbSelectObject.ToolTipText == "Фигуры" |
-spbSelectObject.ToolTipText == "Элементы")
+                if (SelectedObjects == "Объекты" |
+                    SelectedObjects == "Фигуры" |
+                    SelectedObjects == "Элементы")
                 {
 
-                    console.PrintInfo($"Нельзя создать группу {spbSelectObject.ToolTipText}", Color.Orange);
+                    console.PrintInfo($"Нельзя создать группу {SelectedObjects}", Color.Orange);
                 }
                 else
                 {
                     //CreatedMeshGroupEvent?.Invoke(this, spbSelectObject.ToolTipText);
-                    var objTypeStr = spbSelectObject.ToolTipText;
-                    var selObjs = GetModelObjects(objTypeStr).
+                    var objTypeStr = SelectedObjects;
+                    var selObjs = GetModelObjects(SelectedObjects).
                         Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                     if (selObjs.Count() > 0)
@@ -65,22 +65,7 @@ spbSelectObject.ToolTipText == "Элементы")
 
                         console.PrintInfo(string.Format("Создана новая группа {0}", group.Name), Color.Black);
 
-                        PresentGroupDataOnTree();
-                        
-                        
-                        //var text = $"{group.Name} {selObjs.Count()}";
-
-                        //var nodeName = Converters.ConvertToNavigatorNodeType(objType);
-
-                        //var node = navigator.CreateRealNode(nodeName, text);
-
-                        //var ind = navigator.GetObjectImageIndex(nodeName);
-                        //node.ImageIndex = ind;
-                        //node.SelectedImageIndex = ind;
-
-                        //navigator.TrySearchNodes(NodeName.группы, out List<TreeNode> nodes);
-                        //nodes.First().Nodes.Add(node);
-                        //navigator.SetContextMenu(node);
+                        PresentGroupDataOnTree();                       
                     }
                 }
             }
@@ -94,7 +79,7 @@ spbSelectObject.ToolTipText == "Элементы")
         {
             try
             {
-                var objTypeStr = spbSelectObject.ToolTipText;
+                var objTypeStr = SelectedObjects;
 
                 var selObjs = GetModelObjects(objTypeStr).
         Where(x => x.Color == settingsConfig.SelectObjectColor);
@@ -210,18 +195,18 @@ spbSelectObject.ToolTipText == "Элементы")
             try
             {
                 // Пока нельзя удалить геометрию рамкой с экрана. Пока только через дерево.
-                if (spbSelectObject.ToolTipText == ObjType.Точка.ToString() |
-                    spbSelectObject.ToolTipText == ObjType.Кривая.ToString() |
-                    spbSelectObject.ToolTipText == ObjType.Поверхность.ToString())
+                if (SelectedObjects == ObjType.Точка.ToString() |
+                    SelectedObjects == ObjType.Кривая.ToString() |
+                    SelectedObjects == ObjType.Поверхность.ToString())
                     return;
 
-                    var selObjs = GetModelObjects(spbSelectObject.ToolTipText).
+                    var selObjs = GetModelObjects(SelectedObjects).
 Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 foreach (var item in selObjs)
                     item.ExistState = false;
 
-                if(spbSelectObject.ToolTipText == ObjType.Узел.ToString())
+                if(SelectedObjects == ObjType.Узел.ToString())
                 {
                     DeleteVBObjects("Элементы");
                     CreateVBObjects("Элементы");
@@ -289,6 +274,9 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
                 // все таки может выключать весь текст по эскайп?
                 DisplayText2DEvent = null;
                 DisplayText3DEvent = null;
+
+                SelectedObjects = "_";
+
                 SetBackColorToAllObjects();
                 DisplayObjects();
             }
@@ -376,7 +364,7 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
             {
                 if (project != null)
                 {
-                    var sets = GetModelSetsInfo(spbSelectObject.ToolTipText);
+                    var sets = GetModelSetsInfo(SelectedObjects);
                     //var sets = project.GetModelSetsInfo(spbSelectObject.ToolTipText);
                     if (SelectByPoint(sets, point, isSelected))
                     {
@@ -401,7 +389,7 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
             {
                 if(project != null)
                 {
-                    var sets = GetModelSetsInfo(spbSelectObject.ToolTipText);
+                    var sets = GetModelSetsInfo(SelectedObjects);
                     SelectByRect(sets, rectangleBox, isSelected);   
                 }
             }

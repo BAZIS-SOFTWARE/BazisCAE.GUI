@@ -50,17 +50,17 @@ namespace BazisGUI
                 var selectionControl = new AdvanceSelectionSet() { Dock = DockStyle.Fill };
                 selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
                 selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
-                selectionControl.SelectNodes += (s1, s2) =>
-                {
-                    spbSelectObject.ToolTipText = ObjType.Узел.ToString();
-                    spbSelectObject.Invalidate();
-                };
+                //selectionControl.SelectNodes += (s1, s2) =>
+                //{
+                //    spbSelectObject.ToolTipText = ObjType.Узел.ToString();
+                //    spbSelectObject.Invalidate();
+                //};
 
-                selectionControl.SelectElements += (s1, s2) =>
-                {
-                    spbSelectObject.ToolTipText = ObjType.Элемент2D.ToString();
-                    spbSelectObject.Invalidate();
-                };
+                //selectionControl.SelectElements += (s1, s2) =>
+                //{
+                //    spbSelectObject.ToolTipText = ObjType.Элемент2D.ToString();
+                //    spbSelectObject.Invalidate();
+                //};
 
                 form.ClientSize = selectionControl.Size;
                 form.Controls.Add(selectionControl);

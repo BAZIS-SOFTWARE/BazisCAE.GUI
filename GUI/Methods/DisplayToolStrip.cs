@@ -37,11 +37,11 @@ namespace BazisGUI
         {
             try
             {
-                foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Поверхность))
+                foreach (var item in project.GetModelSetsInfo(ObjType.Поверхность))
                     item.SetViewMode(arg2);
-                foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент2D))
+                foreach (var item in project.GetModelSetsInfo(ObjType.Элемент2D))
                     item.SetViewMode(arg2);
-                foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент3D))
+                foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
                     item.SetViewMode(arg2);
 
                 var vbobjs = VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle);

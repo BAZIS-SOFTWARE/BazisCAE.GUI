@@ -443,10 +443,13 @@
     <Compile Include="Methods\Results\CreatePlot.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Scene\Buttons\FitToScreen.cs">
+    <Compile Include="Methods\Scene\Buttons\DisplayViews.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Scene\Buttons\SelectObjects.cs">
+    <Compile Include="Methods\Scene\Buttons\DisplayStates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\Buttons\FitToScreen.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Scene\Buttons\MakeScreenShot.cs">
@@ -632,13 +635,13 @@
     <Compile Include="Methods\Scene\SceneEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\SelectToolStrip.cs">
+    <Compile Include="Methods\Scene\Buttons\SelectObjects.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\UtilityToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\ViewToolStrip.cs">
+    <Compile Include="Methods\Scene\Buttons\ViewToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IODataController.cs" />
@@ -806,6 +809,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
+    <None Include="Resources\arrow_l.png" />
+    <None Include="Resources\arrow_d.png" />
+    <None Include="Resources\arrow_r.png" />
     <None Include="Resources\вп 121.png" />
     <None Include="Resources\вп 12.png" />
     <None Include="Documents\Classes.mdpuml" />

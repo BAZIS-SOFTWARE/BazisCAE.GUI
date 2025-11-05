@@ -51,7 +51,7 @@ namespace BazisGUI
                     var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
                     measuringControl.PreparingMeasureEvent += (ar) =>
                     {
-                        spbSelectObject.ToolTipText = ar.ToString();
+                        SelectedObjects = ar.ToString();
                         DisplayGeometryObjectEvent = null;
                         DisplayText3DEvent = null;
                         DisplayObjects();
@@ -88,12 +88,12 @@ namespace BazisGUI
                 {
                     case MeasureKind.DistancePointToPoint:
                         {
-                            DistancePointToPoint(spbSelectObject.ToolTipText);
+                            DistancePointToPoint(SelectedObjects);
                             break;
                         }
                     case MeasureKind.DistancePointToPlane:
                         {
-                            DistancePointToPlane(spbSelectObject.ToolTipText);
+                            DistancePointToPlane(SelectedObjects);
                             break;
                         }
                     case MeasureKind.Path:
@@ -101,14 +101,14 @@ namespace BazisGUI
                         break;
                     case MeasureKind.Square:
                         {
-                            CalcSquare(spbSelectObject.ToolTipText);
+                            CalcSquare(SelectedObjects);
                             break;
                         }
 
                     case MeasureKind.Volume:
                         {
 
-                            CalcVolume(spbSelectObject.ToolTipText);
+                            CalcVolume(SelectedObjects);
                             break;
                         }
 
@@ -250,7 +250,7 @@ namespace BazisGUI
 
         private void CalcVolume(string arg2)
         {
-            var objs = project.ModelData.ObjectData.GetObjects(arg2.ToEnum<ObjType>());
+            var objs = project.GetModelObjects(arg2.ToEnum<ObjType>());
             var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
 
             var vol = 0.0f;
@@ -264,7 +264,7 @@ namespace BazisGUI
 
         private void CalcSquare(string arg2)
         {
-            var objs = project.ModelData.ObjectData.GetObjects(arg2.ToEnum<ObjType>());
+            var objs = project.GetModelObjects(arg2.ToEnum<ObjType>());
 
             var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
             var square = 0.0;
@@ -282,7 +282,7 @@ namespace BazisGUI
             var plane = CreateSurfaceAsync(project.ModelData, objType);
             await plane;
 
-            project.ModelData.ObjectData.SetBackColor(objType);
+            project.SetModelObjectsBackColor(objType);
 
             var pres = project.CreateModelObjectsPresentor(objType);
 
@@ -306,7 +306,7 @@ namespace BazisGUI
         {
 
             var objType = objTypeStr.ToEnum<ObjType>();
-            var objs = project.ModelData.ObjectData.GetObjects(objType);
+            var objs = project.GetModelObjects(objType);
             var color = settingsConfig.SelectObjectColor;
             var selObjs = objs.Where(x => x.Color == color).ToList();
 
@@ -352,7 +352,7 @@ namespace BazisGUI
                         DisplayObjects();
                     };
 
-                    crossSection.SelectNodesEvent += () => { spbSelectObject.ToolTipText = ObjType.Узел.ToString(); };
+                    crossSection.SelectNodesEvent += () => { SelectedObjects = ObjType.Узел.ToString(); };
 
                     crossSection.CreateCrossFromTextArgs += (ar1, ar2) =>
                     {
@@ -399,7 +399,7 @@ namespace BazisGUI
 
         private void CreateSectionSurfacesFromNodes()
         {
-            var objs = project.ModelData.ObjectData.GetObjects(ObjType.Узел);
+            var objs = project.GetModelObjects(ObjType.Узел);
             var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
             if (selObjs.Length < 3)
             {

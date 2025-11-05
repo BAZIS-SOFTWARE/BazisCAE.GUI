@@ -16,8 +16,15 @@ namespace BazisGUI
     {
         private void btnMakeScreenShot_Click(object sender, EventArgs e)
         {
-            CreateScreenShot(WorkingDir + "\\screenShot.bmp");
-            console.PrintInfo($"Сделан снимок экрана {WorkingDir}\\screenShot.bmp", Color.Black);
+            try
+            {
+                CreateScreenShot(WorkingDir + "\\screenShot.bmp");
+                console.PrintInfo($"Сделан снимок экрана {WorkingDir}\\screenShot.bmp", Color.Black);
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
         }
     }
 }

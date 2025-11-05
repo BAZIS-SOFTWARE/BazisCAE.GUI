@@ -1,11 +1,22 @@
 ﻿using BazisGUI.Scene.Interfaces;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
+        private void btnRot_Paint(object sender, PaintEventArgs e)
+        {
+            var g = e.Graphics;
+
+            var btn = sender as Button;
+
+            if (bool.Parse(btn.Tag.ToString()))
+                g.DrawRectangle(new Pen(Color.Black, 1.5f),
+                    1, 1, btn.Width - 3, btn.Height - 3);
+        }
         private void btnXY_Click(object sender, EventArgs e)
         {
             SetOnPlane(ViewPlane.XY, ScaleFactor);
@@ -26,11 +37,9 @@ namespace BazisGUI
 
         private void btnRotX_Click(object sender, EventArgs e)
         {
-            var btn = sender as Button;
-
-            if (!bool.Parse(btn.Tag.ToString()))
+            if (!bool.Parse(btnRotX.Tag.ToString()))
             {
-                btn.Tag = true;
+                btnRotX.Tag = true;
 
                 settingsConfig.RotationAxis = ViewAxis.X;
 
@@ -39,7 +48,7 @@ namespace BazisGUI
             }
             else
             {
-                btn.Tag = false;
+                btnRotX.Tag = false;
                 settingsConfig.RotationAxis = ViewAxis.XYZ;
             }
             DisplayObjects();
@@ -47,11 +56,9 @@ namespace BazisGUI
 
         private void btnRotY_Click(object sender, EventArgs e)
         {
-            var btn = sender as Button;
-
-            if (!bool.Parse(btn.Tag.ToString()))
+            if (!bool.Parse(btnRotY.Tag.ToString()))
             {
-                btn.Tag = true;
+                btnRotY.Tag = true;
 
                 settingsConfig.RotationAxis = ViewAxis.Y;
 
@@ -60,7 +67,7 @@ namespace BazisGUI
             }
             else
             {
-                btn.Tag = false;
+                btnRotY.Tag = false;
                 settingsConfig.RotationAxis = ViewAxis.XYZ;
             }
             DisplayObjects();
@@ -68,11 +75,9 @@ namespace BazisGUI
 
         private void btnRotZ_Click(object sender, EventArgs e)
         {
-            var btn = sender as Button;
-
-            if (!bool.Parse(btn.Tag.ToString()))
+            if (!bool.Parse(btnRotZ.Tag.ToString()))
             {
-                btn.Tag = true;
+                btnRotZ.Tag = true;
 
                 settingsConfig.RotationAxis = ViewAxis.Z;
 
@@ -81,7 +86,7 @@ namespace BazisGUI
             }
             else
             {
-                btn.Tag = false;
+                btnRotZ.Tag = false;
                 settingsConfig.RotationAxis = ViewAxis.XYZ;
             }
             DisplayObjects();

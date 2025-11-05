@@ -30,7 +30,7 @@ namespace BazisGUI
                     PresentMeshData();
                     PresentGroupDataOnTree();
                     PresentCondDataOnTree();
-                    PresentModelOnSelectToolStrip();
+                    PresentModelObjectsForSelection();
                     ClearAllDataOnScene();
                 }
 

@@ -49,7 +49,7 @@ namespace BazisGUI
             this.propertiesPanel = new BaseModule.PropertiesPanel.PropertiesPanelControl();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.btnSelect = new System.Windows.Forms.Button();
-            this.btnDisplayArrow = new System.Windows.Forms.Button();
+            this.btnDisplayStates = new System.Windows.Forms.Button();
             this.btnRotVert90 = new System.Windows.Forms.Button();
             this.sceneImageList = new System.Windows.Forms.ImageList(this.components);
             this.btnRotHor90 = new System.Windows.Forms.Button();
@@ -59,7 +59,7 @@ namespace BazisGUI
             this.btnZY = new System.Windows.Forms.Button();
             this.btnZX = new System.Windows.Forms.Button();
             this.btnXY = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
+            this.btnDisplayViews = new System.Windows.Forms.Button();
             this.btnShowInsideObjects = new System.Windows.Forms.Button();
             this.btnFitToScreen = new System.Windows.Forms.Button();
             this.btnShowSidesRibs = new System.Windows.Forms.Button();
@@ -85,10 +85,6 @@ namespace BazisGUI
             this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.инструментыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.измеритьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.отзеркаливаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.скрытьПлоскостьюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.геометрияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьgeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сформироватьgeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -117,18 +113,22 @@ namespace BazisGUI
             this.трениемСПеремешиваниемToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.термообработкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьНаДиаграммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.расчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.расчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьИнструкцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сформироватьИнструкцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.запуститьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.остановитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.результатыMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.объединитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.построитьГрафикToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.построитьДиаграммуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.создатьАнимациюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.экспортироватьРезультатыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.инструментыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.измеритьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отзеркаливаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.скрытьПлоскостьюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.содержаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -136,12 +136,6 @@ namespace BazisGUI
             this.новостиВерсииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.лицензияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сведенияMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectToolStrip = new UserControlsEx.ToolStripEx();
-            this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
-            this.btnSelectElements = new System.Windows.Forms.ToolStripButton();
-            this.btnSelectObjects = new System.Windows.Forms.ToolStripButton();
-            this.btnAdvanceSelection = new System.Windows.Forms.ToolStripButton();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.создатьГруппуItem = new System.Windows.Forms.ToolStripMenuItem();
             this.скрытьВыбранноеItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -168,7 +162,6 @@ namespace BazisGUI
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.menuStrip.SuspendLayout();
-            this.selectToolStrip.SuspendLayout();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -185,12 +178,12 @@ namespace BazisGUI
             this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainer3);
             this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1097, 536);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(942, 530);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(1097, 642);
+            this.toolStripContainer.Size = new System.Drawing.Size(942, 580);
             this.toolStripContainer.TabIndex = 0;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -198,7 +191,6 @@ namespace BazisGUI
             // 
             this.toolStripContainer.TopToolStripPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.menuStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
             this.toolStripContainer.TopToolStripPanel.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
             // 
             // statusStrip
@@ -212,7 +204,7 @@ namespace BazisGUI
             this.webPageLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 0);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1097, 26);
+            this.statusStrip.Size = new System.Drawing.Size(942, 26);
             this.statusStrip.TabIndex = 1;
             // 
             // lblStatus
@@ -222,7 +214,7 @@ namespace BazisGUI
             this.lblStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblStatus.Margin = new System.Windows.Forms.Padding(5, 3, 0, 2);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(972, 21);
+            this.lblStatus.Size = new System.Drawing.Size(817, 21);
             this.lblStatus.Spring = true;
             this.lblStatus.Text = "Создайте или загрузите проект или сетку";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -261,8 +253,8 @@ namespace BazisGUI
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer3.Size = new System.Drawing.Size(1087, 526);
-            this.splitContainer3.SplitterDistance = 374;
+            this.splitContainer3.Size = new System.Drawing.Size(932, 520);
+            this.splitContainer3.SplitterDistance = 262;
             this.splitContainer3.SplitterWidth = 8;
             this.splitContainer3.SwitchShifting = false;
             this.splitContainer3.TabIndex = 0;
@@ -283,8 +275,8 @@ namespace BazisGUI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer1.Size = new System.Drawing.Size(374, 526);
-            this.splitContainer1.SplitterDistance = 284;
+            this.splitContainer1.Size = new System.Drawing.Size(262, 520);
+            this.splitContainer1.SplitterDistance = 280;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.SwitchShifting = false;
             this.splitContainer1.TabIndex = 0;
@@ -305,7 +297,7 @@ namespace BazisGUI
             this.navigator.Name = "navigator";
             this.navigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(374, 284);
+            this.navigator.Size = new System.Drawing.Size(262, 280);
             this.navigator.TabIndex = 0;
             this.navigator.UpColor = System.Drawing.Color.Gainsboro;
             this.navigator.HideResultsEvent += new System.Action(this.navigator_HideResultsEvent);
@@ -364,7 +356,7 @@ namespace BazisGUI
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(374, 234);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(262, 232);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // checkPlayerControl
@@ -376,12 +368,12 @@ namespace BazisGUI
             this.checkPlayerControl.CheckState = BaseModule.Player.CheckState.start;
             this.checkPlayerControl.CurrentValue = 50;
             this.checkPlayerControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkPlayerControl.Location = new System.Drawing.Point(0, 199);
+            this.checkPlayerControl.Location = new System.Drawing.Point(0, 197);
             this.checkPlayerControl.Margin = new System.Windows.Forms.Padding(0);
             this.checkPlayerControl.MinimumSize = new System.Drawing.Size(215, 35);
             this.checkPlayerControl.Name = "checkPlayerControl";
             this.checkPlayerControl.ShowTextValue = true;
-            this.checkPlayerControl.Size = new System.Drawing.Size(374, 35);
+            this.checkPlayerControl.Size = new System.Drawing.Size(262, 35);
             this.checkPlayerControl.SliderBarInnerColor = System.Drawing.Color.Silver;
             this.checkPlayerControl.SliderBarOuterColor = System.Drawing.Color.Silver;
             this.checkPlayerControl.SliderElapsedInnerColor = System.Drawing.Color.Silver;
@@ -409,7 +401,7 @@ namespace BazisGUI
             this.propertiesPanel.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
             this.propertiesPanel.Name = "propertiesPanel";
             this.propertiesPanel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.propertiesPanel.Size = new System.Drawing.Size(374, 191);
+            this.propertiesPanel.Size = new System.Drawing.Size(262, 189);
             this.propertiesPanel.TabIndex = 0;
             this.propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
             this.propertiesPanel.PropertyUpdateEvent += new System.Action<BaseModule.PropertiesPanel.PropertyChangedEventArgs>(this.propertiesPanel_OnPropertyUpdate);
@@ -426,7 +418,7 @@ namespace BazisGUI
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.Controls.Add(this.btnSelect);
-            this.splitContainer2.Panel1.Controls.Add(this.btnDisplayArrow);
+            this.splitContainer2.Panel1.Controls.Add(this.btnDisplayStates);
             this.splitContainer2.Panel1.Controls.Add(this.btnRotVert90);
             this.splitContainer2.Panel1.Controls.Add(this.btnRotHor90);
             this.splitContainer2.Panel1.Controls.Add(this.btnRotZ);
@@ -435,7 +427,7 @@ namespace BazisGUI
             this.splitContainer2.Panel1.Controls.Add(this.btnZY);
             this.splitContainer2.Panel1.Controls.Add(this.btnZX);
             this.splitContainer2.Panel1.Controls.Add(this.btnXY);
-            this.splitContainer2.Panel1.Controls.Add(this.button13);
+            this.splitContainer2.Panel1.Controls.Add(this.btnDisplayViews);
             this.splitContainer2.Panel1.Controls.Add(this.btnShowInsideObjects);
             this.splitContainer2.Panel1.Controls.Add(this.btnFitToScreen);
             this.splitContainer2.Panel1.Controls.Add(this.btnShowSidesRibs);
@@ -450,8 +442,8 @@ namespace BazisGUI
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.console);
-            this.splitContainer2.Size = new System.Drawing.Size(705, 526);
-            this.splitContainer2.SplitterDistance = 472;
+            this.splitContainer2.Size = new System.Drawing.Size(662, 520);
+            this.splitContainer2.SplitterDistance = 384;
             this.splitContainer2.SplitterWidth = 8;
             this.splitContainer2.SwitchShifting = false;
             this.splitContainer2.TabIndex = 0;
@@ -460,8 +452,10 @@ namespace BazisGUI
             // 
             this.btnSelect.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSelect.Location = new System.Drawing.Point(8, 8);
-            this.btnSelect.Margin = new System.Windows.Forms.Padding(8, 8, 4, 0);
+            this.btnSelect.Image = global::BazisGUI.Properties.Resources.arrow_r;
+            this.btnSelect.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSelect.Location = new System.Drawing.Point(3, 3);
+            this.btnSelect.Margin = new System.Windows.Forms.Padding(3, 3, 2, 0);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(108, 27);
             this.btnSelect.TabIndex = 5;
@@ -470,18 +464,22 @@ namespace BazisGUI
             this.btnSelect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSelect.UseVisualStyleBackColor = true;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
+            this.btnSelect.Leave += new System.EventHandler(this.btnSelect_Leave);
             // 
-            // btnDisplayArrow
+            // btnDisplayStates
             // 
-            this.btnDisplayArrow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDisplayArrow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDisplayArrow.ImageIndex = 0;
-            this.btnDisplayArrow.Location = new System.Drawing.Point(495, 8);
-            this.btnDisplayArrow.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDisplayArrow.Name = "btnDisplayArrow";
-            this.btnDisplayArrow.Size = new System.Drawing.Size(18, 27);
-            this.btnDisplayArrow.TabIndex = 4;
-            this.btnDisplayArrow.UseVisualStyleBackColor = true;
+            this.btnDisplayStates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDisplayStates.Enabled = false;
+            this.btnDisplayStates.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDisplayStates.Image = global::BazisGUI.Properties.Resources.arrow_d;
+            this.btnDisplayStates.Location = new System.Drawing.Point(463, 3);
+            this.btnDisplayStates.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.btnDisplayStates.Name = "btnDisplayStates";
+            this.btnDisplayStates.Size = new System.Drawing.Size(18, 27);
+            this.btnDisplayStates.TabIndex = 4;
+            this.btnDisplayStates.Tag = "False";
+            this.btnDisplayStates.UseVisualStyleBackColor = true;
+            this.btnDisplayStates.Click += new System.EventHandler(this.btnDisplayStates_Click);
             // 
             // btnRotVert90
             // 
@@ -489,12 +487,13 @@ namespace BazisGUI
             this.btnRotVert90.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRotVert90.ImageIndex = 8;
             this.btnRotVert90.ImageList = this.sceneImageList;
-            this.btnRotVert90.Location = new System.Drawing.Point(670, 283);
-            this.btnRotVert90.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRotVert90.Location = new System.Drawing.Point(631, 253);
+            this.btnRotVert90.Margin = new System.Windows.Forms.Padding(3, 3, 4, 0);
             this.btnRotVert90.Name = "btnRotVert90";
             this.btnRotVert90.Size = new System.Drawing.Size(27, 27);
             this.btnRotVert90.TabIndex = 3;
             this.btnRotVert90.UseVisualStyleBackColor = true;
+            this.btnRotVert90.Visible = false;
             this.btnRotVert90.Click += new System.EventHandler(this.btnRotVert90_Click);
             // 
             // sceneImageList
@@ -526,12 +525,13 @@ namespace BazisGUI
             this.btnRotHor90.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRotHor90.ImageIndex = 7;
             this.btnRotHor90.ImageList = this.sceneImageList;
-            this.btnRotHor90.Location = new System.Drawing.Point(670, 248);
-            this.btnRotHor90.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRotHor90.Location = new System.Drawing.Point(631, 223);
+            this.btnRotHor90.Margin = new System.Windows.Forms.Padding(3, 3, 4, 0);
             this.btnRotHor90.Name = "btnRotHor90";
             this.btnRotHor90.Size = new System.Drawing.Size(27, 27);
             this.btnRotHor90.TabIndex = 3;
             this.btnRotHor90.UseVisualStyleBackColor = true;
+            this.btnRotHor90.Visible = false;
             this.btnRotHor90.Click += new System.EventHandler(this.btnRotHor90_Click);
             // 
             // btnRotZ
@@ -540,13 +540,16 @@ namespace BazisGUI
             this.btnRotZ.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRotZ.ImageIndex = 6;
             this.btnRotZ.ImageList = this.sceneImageList;
-            this.btnRotZ.Location = new System.Drawing.Point(670, 213);
-            this.btnRotZ.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRotZ.Location = new System.Drawing.Point(631, 193);
+            this.btnRotZ.Margin = new System.Windows.Forms.Padding(3, 3, 4, 0);
             this.btnRotZ.Name = "btnRotZ";
             this.btnRotZ.Size = new System.Drawing.Size(27, 27);
             this.btnRotZ.TabIndex = 3;
+            this.btnRotZ.Tag = "False";
             this.btnRotZ.UseVisualStyleBackColor = true;
+            this.btnRotZ.Visible = false;
             this.btnRotZ.Click += new System.EventHandler(this.btnRotZ_Click);
+            this.btnRotZ.Paint += new System.Windows.Forms.PaintEventHandler(this.btnRot_Paint);
             // 
             // btnRotY
             // 
@@ -554,13 +557,16 @@ namespace BazisGUI
             this.btnRotY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRotY.ImageIndex = 5;
             this.btnRotY.ImageList = this.sceneImageList;
-            this.btnRotY.Location = new System.Drawing.Point(670, 178);
-            this.btnRotY.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRotY.Location = new System.Drawing.Point(631, 163);
+            this.btnRotY.Margin = new System.Windows.Forms.Padding(3, 3, 4, 0);
             this.btnRotY.Name = "btnRotY";
             this.btnRotY.Size = new System.Drawing.Size(27, 27);
             this.btnRotY.TabIndex = 3;
+            this.btnRotY.Tag = "False";
             this.btnRotY.UseVisualStyleBackColor = true;
+            this.btnRotY.Visible = false;
             this.btnRotY.Click += new System.EventHandler(this.btnRotY_Click);
+            this.btnRotY.Paint += new System.Windows.Forms.PaintEventHandler(this.btnRot_Paint);
             // 
             // btnRotX
             // 
@@ -568,13 +574,16 @@ namespace BazisGUI
             this.btnRotX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRotX.ImageIndex = 4;
             this.btnRotX.ImageList = this.sceneImageList;
-            this.btnRotX.Location = new System.Drawing.Point(670, 143);
-            this.btnRotX.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRotX.Location = new System.Drawing.Point(631, 133);
+            this.btnRotX.Margin = new System.Windows.Forms.Padding(3, 3, 4, 0);
             this.btnRotX.Name = "btnRotX";
             this.btnRotX.Size = new System.Drawing.Size(27, 27);
             this.btnRotX.TabIndex = 3;
+            this.btnRotX.Tag = "False";
             this.btnRotX.UseVisualStyleBackColor = true;
+            this.btnRotX.Visible = false;
             this.btnRotX.Click += new System.EventHandler(this.btnRotX_Click);
+            this.btnRotX.Paint += new System.Windows.Forms.PaintEventHandler(this.btnRot_Paint);
             // 
             // btnZY
             // 
@@ -582,12 +591,13 @@ namespace BazisGUI
             this.btnZY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnZY.ImageIndex = 3;
             this.btnZY.ImageList = this.sceneImageList;
-            this.btnZY.Location = new System.Drawing.Point(670, 109);
-            this.btnZY.Margin = new System.Windows.Forms.Padding(4);
+            this.btnZY.Location = new System.Drawing.Point(631, 103);
+            this.btnZY.Margin = new System.Windows.Forms.Padding(3, 3, 4, 0);
             this.btnZY.Name = "btnZY";
             this.btnZY.Size = new System.Drawing.Size(27, 27);
             this.btnZY.TabIndex = 3;
             this.btnZY.UseVisualStyleBackColor = true;
+            this.btnZY.Visible = false;
             this.btnZY.Click += new System.EventHandler(this.btnZY_Click);
             // 
             // btnZX
@@ -596,12 +606,13 @@ namespace BazisGUI
             this.btnZX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnZX.ImageIndex = 2;
             this.btnZX.ImageList = this.sceneImageList;
-            this.btnZX.Location = new System.Drawing.Point(670, 78);
-            this.btnZX.Margin = new System.Windows.Forms.Padding(4);
+            this.btnZX.Location = new System.Drawing.Point(631, 73);
+            this.btnZX.Margin = new System.Windows.Forms.Padding(3, 3, 4, 0);
             this.btnZX.Name = "btnZX";
             this.btnZX.Size = new System.Drawing.Size(27, 27);
             this.btnZX.TabIndex = 3;
             this.btnZX.UseVisualStyleBackColor = true;
+            this.btnZX.Visible = false;
             this.btnZX.Click += new System.EventHandler(this.btnZX_Click);
             // 
             // btnXY
@@ -610,50 +621,58 @@ namespace BazisGUI
             this.btnXY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXY.ImageIndex = 1;
             this.btnXY.ImageList = this.sceneImageList;
-            this.btnXY.Location = new System.Drawing.Point(670, 43);
-            this.btnXY.Margin = new System.Windows.Forms.Padding(4);
+            this.btnXY.Location = new System.Drawing.Point(631, 43);
+            this.btnXY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.btnXY.Name = "btnXY";
             this.btnXY.Size = new System.Drawing.Size(27, 27);
             this.btnXY.TabIndex = 3;
             this.btnXY.UseVisualStyleBackColor = true;
+            this.btnXY.Visible = false;
             this.btnXY.Click += new System.EventHandler(this.btnXY_Click);
             // 
-            // button13
+            // btnDisplayViews
             // 
-            this.button13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.ImageIndex = 0;
-            this.button13.Location = new System.Drawing.Point(626, 8);
-            this.button13.Margin = new System.Windows.Forms.Padding(4, 4, 24, 4);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(55, 27);
-            this.button13.TabIndex = 3;
-            this.button13.Text = "Вид";
-            this.button13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button13.UseVisualStyleBackColor = true;
+            this.btnDisplayViews.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDisplayViews.Enabled = false;
+            this.btnDisplayViews.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDisplayViews.Image = global::BazisGUI.Properties.Resources.arrow_r;
+            this.btnDisplayViews.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDisplayViews.Location = new System.Drawing.Point(583, 3);
+            this.btnDisplayViews.Margin = new System.Windows.Forms.Padding(3, 4, 24, 4);
+            this.btnDisplayViews.Name = "btnDisplayViews";
+            this.btnDisplayViews.Size = new System.Drawing.Size(55, 27);
+            this.btnDisplayViews.TabIndex = 3;
+            this.btnDisplayViews.Tag = "False";
+            this.btnDisplayViews.Text = "Вид";
+            this.btnDisplayViews.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDisplayViews.UseVisualStyleBackColor = true;
+            this.btnDisplayViews.Click += new System.EventHandler(this.btnDisplayViews_Click);
             // 
             // btnShowInsideObjects
             // 
             this.btnShowInsideObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnShowInsideObjects.Enabled = false;
             this.btnShowInsideObjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowInsideObjects.ImageIndex = 17;
             this.btnShowInsideObjects.ImageList = this.sceneImageList;
-            this.btnShowInsideObjects.Location = new System.Drawing.Point(591, 8);
-            this.btnShowInsideObjects.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowInsideObjects.Location = new System.Drawing.Point(550, 3);
+            this.btnShowInsideObjects.Margin = new System.Windows.Forms.Padding(0, 4, 3, 4);
             this.btnShowInsideObjects.Name = "btnShowInsideObjects";
             this.btnShowInsideObjects.Size = new System.Drawing.Size(27, 27);
             this.btnShowInsideObjects.TabIndex = 3;
+            this.btnShowInsideObjects.Tag = "False";
             this.btnShowInsideObjects.UseVisualStyleBackColor = true;
             this.btnShowInsideObjects.Click += new System.EventHandler(this.btnShowInsideObjects_Click);
             // 
             // btnFitToScreen
             // 
             this.btnFitToScreen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFitToScreen.Enabled = false;
             this.btnFitToScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFitToScreen.ImageIndex = 14;
             this.btnFitToScreen.ImageList = this.sceneImageList;
-            this.btnFitToScreen.Location = new System.Drawing.Point(556, 8);
-            this.btnFitToScreen.Margin = new System.Windows.Forms.Padding(4);
+            this.btnFitToScreen.Location = new System.Drawing.Point(520, 3);
+            this.btnFitToScreen.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnFitToScreen.Name = "btnFitToScreen";
             this.btnFitToScreen.Size = new System.Drawing.Size(27, 27);
             this.btnFitToScreen.TabIndex = 3;
@@ -667,12 +686,13 @@ namespace BazisGUI
             this.btnShowSidesRibs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowSidesRibs.ImageIndex = 9;
             this.btnShowSidesRibs.ImageList = this.sceneImageList;
-            this.btnShowSidesRibs.Location = new System.Drawing.Point(320, 8);
-            this.btnShowSidesRibs.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowSidesRibs.Location = new System.Drawing.Point(307, 3);
+            this.btnShowSidesRibs.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnShowSidesRibs.Name = "btnShowSidesRibs";
             this.btnShowSidesRibs.Size = new System.Drawing.Size(27, 27);
             this.btnShowSidesRibs.TabIndex = 3;
             this.btnShowSidesRibs.UseVisualStyleBackColor = false;
+            this.btnShowSidesRibs.Visible = false;
             this.btnShowSidesRibs.Click += new System.EventHandler(this.btnShowSidesRibs_Click);
             // 
             // btnShowRibs
@@ -682,12 +702,13 @@ namespace BazisGUI
             this.btnShowRibs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowRibs.ImageIndex = 10;
             this.btnShowRibs.ImageList = this.sceneImageList;
-            this.btnShowRibs.Location = new System.Drawing.Point(355, 8);
-            this.btnShowRibs.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowRibs.Location = new System.Drawing.Point(337, 3);
+            this.btnShowRibs.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnShowRibs.Name = "btnShowRibs";
             this.btnShowRibs.Size = new System.Drawing.Size(27, 27);
             this.btnShowRibs.TabIndex = 3;
             this.btnShowRibs.UseVisualStyleBackColor = false;
+            this.btnShowRibs.Visible = false;
             this.btnShowRibs.Click += new System.EventHandler(this.btnShowRibs_Click);
             // 
             // btnShowSides
@@ -696,12 +717,13 @@ namespace BazisGUI
             this.btnShowSides.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowSides.ImageIndex = 11;
             this.btnShowSides.ImageList = this.sceneImageList;
-            this.btnShowSides.Location = new System.Drawing.Point(390, 8);
-            this.btnShowSides.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowSides.Location = new System.Drawing.Point(367, 3);
+            this.btnShowSides.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnShowSides.Name = "btnShowSides";
             this.btnShowSides.Size = new System.Drawing.Size(27, 27);
             this.btnShowSides.TabIndex = 3;
             this.btnShowSides.UseVisualStyleBackColor = true;
+            this.btnShowSides.Visible = false;
             this.btnShowSides.Click += new System.EventHandler(this.btnShowSides_Click);
             // 
             // btnBazis
@@ -710,13 +732,16 @@ namespace BazisGUI
             this.btnBazis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBazis.ImageIndex = 15;
             this.btnBazis.ImageList = this.sceneImageList;
-            this.btnBazis.Location = new System.Drawing.Point(425, 8);
-            this.btnBazis.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBazis.Location = new System.Drawing.Point(397, 3);
+            this.btnBazis.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnBazis.Name = "btnBazis";
             this.btnBazis.Size = new System.Drawing.Size(27, 27);
             this.btnBazis.TabIndex = 3;
+            this.btnBazis.Tag = "False";
             this.btnBazis.UseVisualStyleBackColor = true;
+            this.btnBazis.Visible = false;
             this.btnBazis.Click += new System.EventHandler(this.btnBazis_Click);
+            this.btnBazis.Paint += new System.Windows.Forms.PaintEventHandler(this.btnBazis_Paint);
             // 
             // btnBorder
             // 
@@ -724,23 +749,24 @@ namespace BazisGUI
             this.btnBorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBorder.ImageIndex = 16;
             this.btnBorder.ImageList = this.sceneImageList;
-            this.btnBorder.Location = new System.Drawing.Point(460, 8);
-            this.btnBorder.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBorder.Location = new System.Drawing.Point(427, 3);
+            this.btnBorder.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnBorder.Name = "btnBorder";
             this.btnBorder.Size = new System.Drawing.Size(27, 27);
             this.btnBorder.TabIndex = 3;
             this.btnBorder.Tag = "False";
             this.btnBorder.UseVisualStyleBackColor = true;
+            this.btnBorder.Visible = false;
             this.btnBorder.Click += new System.EventHandler(this.btnBorder_Click);
             // 
             // btnMakeScreenShot
             // 
             this.btnMakeScreenShot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMakeScreenShot.Enabled = false;
             this.btnMakeScreenShot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMakeScreenShot.ImageIndex = 13;
             this.btnMakeScreenShot.ImageList = this.sceneImageList;
-            this.btnMakeScreenShot.Location = new System.Drawing.Point(521, 8);
-            this.btnMakeScreenShot.Margin = new System.Windows.Forms.Padding(4);
+            this.btnMakeScreenShot.Location = new System.Drawing.Point(490, 3);
             this.btnMakeScreenShot.Name = "btnMakeScreenShot";
             this.btnMakeScreenShot.Size = new System.Drawing.Size(27, 27);
             this.btnMakeScreenShot.TabIndex = 3;
@@ -749,11 +775,12 @@ namespace BazisGUI
             // 
             // btnAdvSelection
             // 
+            this.btnAdvSelection.Enabled = false;
             this.btnAdvSelection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdvSelection.ImageIndex = 0;
             this.btnAdvSelection.ImageList = this.sceneImageList;
-            this.btnAdvSelection.Location = new System.Drawing.Point(124, 8);
-            this.btnAdvSelection.Margin = new System.Windows.Forms.Padding(4, 8, 4, 4);
+            this.btnAdvSelection.Location = new System.Drawing.Point(114, 3);
+            this.btnAdvSelection.Margin = new System.Windows.Forms.Padding(1, 8, 4, 4);
             this.btnAdvSelection.Name = "btnAdvSelection";
             this.btnAdvSelection.Size = new System.Drawing.Size(27, 27);
             this.btnAdvSelection.TabIndex = 3;
@@ -775,10 +802,11 @@ namespace BazisGUI
             this.scene.ColorBits = ((byte)(32));
             this.scene.DepthBits = ((byte)(16));
             this.scene.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scene.Enabled = false;
             this.scene.Location = new System.Drawing.Point(0, 0);
             this.scene.Margin = new System.Windows.Forms.Padding(5);
             this.scene.Name = "scene";
-            this.scene.Size = new System.Drawing.Size(705, 472);
+            this.scene.Size = new System.Drawing.Size(662, 384);
             this.scene.StencilBits = ((byte)(0));
             this.scene.TabIndex = 1;
             this.scene.SizeChanged += new System.EventHandler(this.GlControl_Resize);
@@ -797,6 +825,7 @@ namespace BazisGUI
             this.console.CheckPrintNodesInfo = false;
             this.console.Dock = System.Windows.Forms.DockStyle.Fill;
             this.console.DownColor = System.Drawing.Color.Gainsboro;
+            this.console.Enabled = false;
             this.console.HeaderColor = System.Drawing.Color.Black;
             this.console.HeaderName = "Консоль";
             this.console.IsPinndable = false;
@@ -804,7 +833,7 @@ namespace BazisGUI
             this.console.Margin = new System.Windows.Forms.Padding(0);
             this.console.Name = "console";
             this.console.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.console.Size = new System.Drawing.Size(705, 46);
+            this.console.Size = new System.Drawing.Size(662, 128);
             this.console.TabIndex = 0;
             this.console.UpColor = System.Drawing.Color.Gainsboro;
             this.console.InEvent += new System.Action<object, System.EventArgs>(this.console_InEvent);
@@ -822,20 +851,20 @@ namespace BazisGUI
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
             this.viewMenuItem,
-            this.инструментыToolStripMenuItem,
             this.геометрияToolStripMenuItem,
             this.сеткаToolStripMenuItem,
             this.dataBasesMenuItem,
             this.tasksMenuItem,
-            this.расчетToolStripMenuItem,
-            this.resultsMenuItem,
+            this.расчетыToolStripMenuItem,
+            this.результатыMenuItem,
+            this.инструментыToolStripMenuItem,
             this.настройкиToolStripMenuItem,
             this.справкаToolStripMenuItem,
             this.лицензияToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip.Size = new System.Drawing.Size(1097, 24);
+            this.menuStrip.Size = new System.Drawing.Size(942, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -944,42 +973,12 @@ namespace BazisGUI
             this.toolStripMenuItem3.Text = "Консоль";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
-            // инструментыToolStripMenuItem
-            // 
-            this.инструментыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.измеритьToolStripMenuItem,
-            this.отзеркаливаниеToolStripMenuItem,
-            this.скрытьПлоскостьюToolStripMenuItem});
-            this.инструментыToolStripMenuItem.Name = "инструментыToolStripMenuItem";
-            this.инструментыToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
-            this.инструментыToolStripMenuItem.Text = "Инструменты";
-            // 
-            // измеритьToolStripMenuItem
-            // 
-            this.измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
-            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.измеритьToolStripMenuItem.Text = "Измерить";
-            this.измеритьToolStripMenuItem.Click += new System.EventHandler(this.измеритьToolStripMenuItem_Click);
-            // 
-            // отзеркаливаниеToolStripMenuItem
-            // 
-            this.отзеркаливаниеToolStripMenuItem.Name = "отзеркаливаниеToolStripMenuItem";
-            this.отзеркаливаниеToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.отзеркаливаниеToolStripMenuItem.Text = "Отзеркаливание";
-            this.отзеркаливаниеToolStripMenuItem.Click += new System.EventHandler(this.отзеркаливаниеToolStripMenuItem_Click);
-            // 
-            // скрытьПлоскостьюToolStripMenuItem
-            // 
-            this.скрытьПлоскостьюToolStripMenuItem.Name = "скрытьПлоскостьюToolStripMenuItem";
-            this.скрытьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.скрытьПлоскостьюToolStripMenuItem.Text = "Скрыть плоскостью";
-            this.скрытьПлоскостьюToolStripMenuItem.Click += new System.EventHandler(this.скрытьПлоскостьюToolStripMenuItem_Click);
-            // 
             // геометрияToolStripMenuItem
             // 
             this.геометрияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.загрузитьgeoToolStripMenuItem,
             this.сформироватьgeoToolStripMenuItem});
+            this.геометрияToolStripMenuItem.Enabled = false;
             this.геометрияToolStripMenuItem.Name = "геометрияToolStripMenuItem";
             this.геометрияToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.геометрияToolStripMenuItem.Text = "Геометрия";
@@ -1004,6 +1003,7 @@ namespace BazisGUI
             this.dToolStripMenuItem,
             this.dToolStripMenuItem1,
             this.dToolStripMenuItem2});
+            this.сеткаToolStripMenuItem.Enabled = false;
             this.сеткаToolStripMenuItem.Name = "сеткаToolStripMenuItem";
             this.сеткаToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.сеткаToolStripMenuItem.Text = "Сетка";
@@ -1076,6 +1076,7 @@ namespace BazisGUI
             this.dataBasesMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.материалыMenuItem,
             this.функцииMenuItem});
+            this.dataBasesMenuItem.Enabled = false;
             this.dataBasesMenuItem.Name = "dataBasesMenuItem";
             this.dataBasesMenuItem.Size = new System.Drawing.Size(86, 20);
             this.dataBasesMenuItem.Text = "Базы данных";
@@ -1083,14 +1084,14 @@ namespace BazisGUI
             // материалыMenuItem
             // 
             this.материалыMenuItem.Name = "материалыMenuItem";
-            this.материалыMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.материалыMenuItem.Size = new System.Drawing.Size(180, 22);
             this.материалыMenuItem.Text = "Материалы";
             this.материалыMenuItem.Click += new System.EventHandler(this.материалыMenuItem_Click);
             // 
             // функцииMenuItem
             // 
             this.функцииMenuItem.Name = "функцииMenuItem";
-            this.функцииMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.функцииMenuItem.Size = new System.Drawing.Size(180, 22);
             this.функцииMenuItem.Text = "Функции";
             this.функцииMenuItem.Click += new System.EventHandler(this.функцииMenuItem_Click);
             // 
@@ -1101,6 +1102,7 @@ namespace BazisGUI
             this.добавитьУсловиеToolStripMenuItem,
             this.мастерToolStripMenuItem,
             this.показатьНаДиаграммеToolStripMenuItem});
+            this.tasksMenuItem.Enabled = false;
             this.tasksMenuItem.Name = "tasksMenuItem";
             this.tasksMenuItem.Size = new System.Drawing.Size(56, 20);
             this.tasksMenuItem.Text = "Задача";
@@ -1195,16 +1197,17 @@ namespace BazisGUI
             this.показатьНаДиаграммеToolStripMenuItem.Text = "Показать на диаграмме";
             this.показатьНаДиаграммеToolStripMenuItem.Click += new System.EventHandler(this.показатьНаДиаграммеToolStripMenuItem_Click);
             // 
-            // расчетToolStripMenuItem
+            // расчетыToolStripMenuItem
             // 
-            this.расчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.расчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.открытьИнструкцииToolStripMenuItem,
             this.сформироватьИнструкцииToolStripMenuItem,
             this.запуститьToolStripMenuItem,
             this.остановитьToolStripMenuItem});
-            this.расчетToolStripMenuItem.Name = "расчетToolStripMenuItem";
-            this.расчетToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.расчетToolStripMenuItem.Text = "Расчеты";
+            this.расчетыToolStripMenuItem.Enabled = false;
+            this.расчетыToolStripMenuItem.Name = "расчетыToolStripMenuItem";
+            this.расчетыToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.расчетыToolStripMenuItem.Text = "Расчеты";
             // 
             // открытьИнструкцииToolStripMenuItem
             // 
@@ -1234,18 +1237,19 @@ namespace BazisGUI
             this.остановитьToolStripMenuItem.Text = "Остановить";
             this.остановитьToolStripMenuItem.Click += new System.EventHandler(this.остановитьToolStripMenuItem_Click);
             // 
-            // resultsMenuItem
+            // результатыMenuItem
             // 
-            this.resultsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.результатыMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.открытьToolStripMenuItem1,
             this.объединитьToolStripMenuItem,
             this.построитьГрафикToolStripMenuItem,
             this.построитьДиаграммуToolStripMenuItem,
             this.создатьАнимациюToolStripMenuItem,
             this.экспортироватьРезультатыToolStripMenuItem});
-            this.resultsMenuItem.Name = "resultsMenuItem";
-            this.resultsMenuItem.Size = new System.Drawing.Size(77, 20);
-            this.resultsMenuItem.Text = "Результаты";
+            this.результатыMenuItem.Enabled = false;
+            this.результатыMenuItem.Name = "результатыMenuItem";
+            this.результатыMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.результатыMenuItem.Text = "Результаты";
             // 
             // открытьToolStripMenuItem1
             // 
@@ -1288,6 +1292,38 @@ namespace BazisGUI
             this.экспортироватьРезультатыToolStripMenuItem.Name = "экспортироватьРезультатыToolStripMenuItem";
             this.экспортироватьРезультатыToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.экспортироватьРезультатыToolStripMenuItem.Text = "Экспортировать результаты";
+            // 
+            // инструментыToolStripMenuItem
+            // 
+            this.инструментыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.измеритьToolStripMenuItem,
+            this.отзеркаливаниеToolStripMenuItem,
+            this.скрытьПлоскостьюToolStripMenuItem});
+            this.инструментыToolStripMenuItem.Enabled = false;
+            this.инструментыToolStripMenuItem.Name = "инструментыToolStripMenuItem";
+            this.инструментыToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.инструментыToolStripMenuItem.Text = "Инструменты";
+            // 
+            // измеритьToolStripMenuItem
+            // 
+            this.измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
+            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.измеритьToolStripMenuItem.Text = "Измерить";
+            this.измеритьToolStripMenuItem.Click += new System.EventHandler(this.измеритьToolStripMenuItem_Click);
+            // 
+            // отзеркаливаниеToolStripMenuItem
+            // 
+            this.отзеркаливаниеToolStripMenuItem.Name = "отзеркаливаниеToolStripMenuItem";
+            this.отзеркаливаниеToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.отзеркаливаниеToolStripMenuItem.Text = "Отзеркаливание";
+            this.отзеркаливаниеToolStripMenuItem.Click += new System.EventHandler(this.отзеркаливаниеToolStripMenuItem_Click);
+            // 
+            // скрытьПлоскостьюToolStripMenuItem
+            // 
+            this.скрытьПлоскостьюToolStripMenuItem.Name = "скрытьПлоскостьюToolStripMenuItem";
+            this.скрытьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.скрытьПлоскостьюToolStripMenuItem.Text = "Скрыть плоскостью";
+            this.скрытьПлоскостьюToolStripMenuItem.Click += new System.EventHandler(this.скрытьПлоскостьюToolStripMenuItem_Click);
             // 
             // настройкиToolStripMenuItem
             // 
@@ -1342,111 +1378,6 @@ namespace BazisGUI
             this.сведенияMenuItem.Size = new System.Drawing.Size(125, 22);
             this.сведенияMenuItem.Text = "Сведения";
             this.сведенияMenuItem.Click += new System.EventHandler(this.сведенияMenuItem_Click);
-            // 
-            // selectToolStrip
-            // 
-            this.selectToolStrip.BackColor = System.Drawing.Color.Transparent;
-            this.selectToolStrip.BackGroundColor = System.Drawing.Color.Gainsboro;
-            this.selectToolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.selectToolStrip.FrameColor = System.Drawing.Color.Gray;
-            this.selectToolStrip.GeneralFrame = true;
-            this.selectToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.selectToolStrip.IconLocation = new System.Drawing.Point(0, 4);
-            this.selectToolStrip.ImageRectangleSize = new System.Drawing.Point(26, 26);
-            this.selectToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
-            this.selectToolStrip.ItemFrame = true;
-            this.selectToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
-            this.selectToolStrip.ItemPressColor = System.Drawing.Color.Black;
-            this.selectToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.spbSelectObject,
-            this.btnSelectNodes,
-            this.btnSelectElements,
-            this.btnSelectObjects,
-            this.btnAdvanceSelection});
-            this.selectToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.selectToolStrip.Location = new System.Drawing.Point(3, 24);
-            this.selectToolStrip.Name = "selectToolStrip";
-            this.selectToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.selectToolStrip.Size = new System.Drawing.Size(298, 56);
-            this.selectToolStrip.SplitButtonClickWidth = 16;
-            this.selectToolStrip.SplitButtonHeight = 36;
-            this.selectToolStrip.SplitButtonTriangleSize = 7;
-            this.selectToolStrip.TabIndex = 7;
-            this.selectToolStrip.Text = "Выбор";
-            this.selectToolStrip.TextBoxFrame = false;
-            this.selectToolStrip.TextBoxHeight = 14;
-            // 
-            // spbSelectObject
-            // 
-            this.spbSelectObject.AutoSize = false;
-            this.spbSelectObject.BackColor = System.Drawing.SystemColors.Control;
-            this.spbSelectObject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.spbSelectObject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.spbSelectObject.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.spbSelectObject.Name = "spbSelectObject";
-            this.spbSelectObject.Size = new System.Drawing.Size(150, 53);
-            this.spbSelectObject.Tag = "0";
-            this.spbSelectObject.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.spbSelectObject_DropDownItemClicked);
-            // 
-            // btnSelectNodes
-            // 
-            this.btnSelectNodes.AutoSize = false;
-            this.btnSelectNodes.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSelectNodes.Image = ((System.Drawing.Image)(resources.GetObject("btnSelectNodes.Image")));
-            this.btnSelectNodes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSelectNodes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSelectNodes.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSelectNodes.Name = "btnSelectNodes";
-            this.btnSelectNodes.Size = new System.Drawing.Size(36, 53);
-            this.btnSelectNodes.Tag = "1";
-            this.btnSelectNodes.Text = "toolStripButton2";
-            this.btnSelectNodes.ToolTipText = "Выбор узлов";
-            this.btnSelectNodes.Click += new System.EventHandler(this.btnSelectNodes_Click);
-            // 
-            // btnSelectElements
-            // 
-            this.btnSelectElements.AutoSize = false;
-            this.btnSelectElements.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSelectElements.Enabled = false;
-            this.btnSelectElements.Image = ((System.Drawing.Image)(resources.GetObject("btnSelectElements.Image")));
-            this.btnSelectElements.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSelectElements.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSelectElements.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSelectElements.Name = "btnSelectElements";
-            this.btnSelectElements.Size = new System.Drawing.Size(36, 53);
-            this.btnSelectElements.Tag = "2";
-            this.btnSelectElements.Text = "toolStripButton3";
-            this.btnSelectElements.ToolTipText = "Выбор элементов";
-            // 
-            // btnSelectObjects
-            // 
-            this.btnSelectObjects.AutoSize = false;
-            this.btnSelectObjects.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSelectObjects.Enabled = false;
-            this.btnSelectObjects.Image = ((System.Drawing.Image)(resources.GetObject("btnSelectObjects.Image")));
-            this.btnSelectObjects.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSelectObjects.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSelectObjects.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSelectObjects.Name = "btnSelectObjects";
-            this.btnSelectObjects.Size = new System.Drawing.Size(36, 53);
-            this.btnSelectObjects.Tag = "3";
-            this.btnSelectObjects.Text = "toolStripButton4";
-            this.btnSelectObjects.ToolTipText = "Выбор геометрии";
-            // 
-            // btnAdvanceSelection
-            // 
-            this.btnAdvanceSelection.AutoSize = false;
-            this.btnAdvanceSelection.CheckOnClick = true;
-            this.btnAdvanceSelection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnAdvanceSelection.Image = ((System.Drawing.Image)(resources.GetObject("btnAdvanceSelection.Image")));
-            this.btnAdvanceSelection.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAdvanceSelection.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnAdvanceSelection.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAdvanceSelection.Name = "btnAdvanceSelection";
-            this.btnAdvanceSelection.Size = new System.Drawing.Size(36, 53);
-            this.btnAdvanceSelection.Tag = "4";
-            this.btnAdvanceSelection.Text = "toolStripButton1";
-            this.btnAdvanceSelection.ToolTipText = "Дополненный выбор";
             // 
             // contextMenu
             // 
@@ -1517,7 +1448,7 @@ namespace BazisGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1097, 642);
+            this.ClientSize = new System.Drawing.Size(942, 580);
             this.Controls.Add(this.toolStripContainer);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1527,7 +1458,7 @@ namespace BazisGUI
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(415, 320);
             this.Name = "BaseForm";
-            this.Text = "Bazis. Система технологического анализа";
+            this.Text = "Bazis. Система инженерного анализа";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClosingForm);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BaseForm_FormClosed);
@@ -1558,8 +1489,6 @@ namespace BazisGUI
             this.splitContainer2.ResumeLayout(false);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
-            this.selectToolStrip.ResumeLayout(false);
-            this.selectToolStrip.PerformLayout();
             this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1595,16 +1524,10 @@ namespace BazisGUI
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem tasksMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resultsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem результатыMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dataBasesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem материалыMenuItem;
         private System.Windows.Forms.ToolStripMenuItem функцииMenuItem;
-        public UserControlsEx.ToolStripEx selectToolStrip;
-        protected System.Windows.Forms.ToolStripSplitButton spbSelectObject;
-        protected System.Windows.Forms.ToolStripButton btnSelectNodes;
-        protected System.Windows.Forms.ToolStripButton btnSelectElements;
-        protected System.Windows.Forms.ToolStripButton btnSelectObjects;
-        protected System.Windows.Forms.ToolStripButton btnAdvanceSelection;
         private UserControlsEx.SplitContainerEx splitContainer3;
         private UserControlsEx.SplitContainerEx splitContainer1;
         private BaseModule.Navigator.NavigatorControl navigator;
@@ -1632,7 +1555,7 @@ namespace BazisGUI
         private ToolStripMenuItem нагрузкаToolStripMenuItem;
         private ToolStripMenuItem трениемСПеремешиваниемToolStripMenuItem;
         private ToolStripMenuItem термообработкаToolStripMenuItem;
-        private ToolStripMenuItem расчетToolStripMenuItem;
+        private ToolStripMenuItem расчетыToolStripMenuItem;
         private ToolStripMenuItem сформироватьИнструкцииToolStripMenuItem;
         private ToolStripMenuItem сеткаToolStripMenuItem;
         private ToolStripMenuItem dToolStripMenuItem;
@@ -1663,7 +1586,7 @@ namespace BazisGUI
         private ToolStripMenuItem скрытьПлоскостьюToolStripMenuItem;
         private Button btnAdvSelection;
         private ImageList sceneImageList;
-        private Button btnDisplayArrow;
+        private Button btnDisplayStates;
         private Button btnRotVert90;
         private Button btnRotHor90;
         private Button btnRotZ;
@@ -1672,7 +1595,7 @@ namespace BazisGUI
         private Button btnZY;
         private Button btnZX;
         private Button btnXY;
-        private Button button13;
+        private Button btnDisplayViews;
         private Button btnShowInsideObjects;
         private Button btnFitToScreen;
         private Button btnShowSidesRibs;

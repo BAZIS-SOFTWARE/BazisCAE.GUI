@@ -49,7 +49,7 @@ namespace BazisGUI
             DeleteVBObjects("Элементы");
             CreateVBObjects("Элементы");
             PresentMeshData();
-            PresentModelOnSelectToolStrip();
+            PresentModelObjectsForSelection();
             FitObjectsToScreen();
             DisplayObjects();
             }

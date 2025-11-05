@@ -20,11 +20,11 @@ namespace BazisGUI
         {
             try
             {
-                var btn = sender as Button;
-                if (!bool.Parse(btn.Tag.ToString()))
+
+                if (!bool.Parse(btnBorder.Tag.ToString()))
                 {
-                    btn.Tag = true;
-                    var surfElems = project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement).
+                    btnBorder.Tag = true;
+                    var surfElems = project.GetAllModelElements().Where(x => x is ISurfaceElement).
             Select(x => (ISurfaceElement)x);
                     var linesNodes = project.FindBoundaryEdges();
                     var edges = project.CreateBoundaryEdges(linesNodes);
@@ -35,7 +35,7 @@ namespace BazisGUI
                 }
                 else
                 {
-                    btn.Tag = false;
+                    btnBorder.Tag = false;
                     VBOController.DeleteVBObjects("Boundary");
                 }
                     

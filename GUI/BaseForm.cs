@@ -117,8 +117,8 @@ namespace BazisGUI
             splitContainer1.SplitterWidth = 8;
             splitContainer2.SplitterWidth = 8;
             splitContainer3.SplitterWidth = 8;
-            resultsMenuItem.DropDown.Closing += DropDown_Closing;
-            selectToolStrip.Location = new Point(10, 24);
+            результатыMenuItem.DropDown.Closing += DropDown_Closing;
+            //selectToolStrip.Location = new Point(10, 24);
             //displayToolStrip.Location = new Point(310, 48);
             //instrumentalToolStrip.Location = new Point(597, 48);
             //viewToolStrip.Location = new Point(785, 48);
@@ -255,14 +255,14 @@ namespace BazisGUI
                     tasksMenuItem.Enabled = true;
                     dataBasesMenuItem.Enabled = true;
                     //meshMenuItem.Visible = true;
-                    resultsMenuItem.Visible = true;
+                    результатыMenuItem.Visible = true;
                 }
                 else
                 {
                     tasksMenuItem.Enabled = false;
                     dataBasesMenuItem.Enabled = false;
                     //meshMenuItem.Visible = false;
-                    resultsMenuItem.Visible = false;
+                    результатыMenuItem.Visible = false;
                 }
             }
         }                                      
@@ -660,6 +660,8 @@ namespace BazisGUI
                 
                 ClearAllDataOnScene();
 
+                UnblockInterface();
+
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -688,7 +690,7 @@ namespace BazisGUI
 "STL(*.stl*)|*.stl|" +
 "SOLOMIA(*.dat*)|*.dat";
                 OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "All files(*.*)|*.*|" + 
+                dialog.Filter = "All files(*.*)|*.*|" +
                     projFilters + "|" +
                     geomFilter + "|" +
                     meshFilter;
@@ -703,7 +705,7 @@ namespace BazisGUI
                     project = await dataController.OpenProject(dialog.FileName);
                     GmshController?.Gmsh?.Clear();
                 }
-                    
+
                 else if (geomFilter.Contains(ext))
                 {
                     if (project == null)
@@ -727,6 +729,8 @@ namespace BazisGUI
                 ClearAllDataOnScene();
                 PresentProject();
 
+                UnblockInterface();
+
                 FitObjectsToScreen();
                 DisplayObjects();
             }
@@ -734,6 +738,24 @@ namespace BazisGUI
             {
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
+        }
+
+        private void UnblockInterface()
+        {
+            геометрияToolStripMenuItem.Enabled = true;
+            сеткаToolStripMenuItem.Enabled = true;
+            dataBasesMenuItem.Enabled = true;
+            tasksMenuItem.Enabled = true;
+            расчетыToolStripMenuItem.Enabled = true;
+            результатыMenuItem.Enabled = true;
+            инструментыToolStripMenuItem.Enabled = true;
+            scene.Enabled = true;
+
+            btnAdvSelection.Enabled = true;
+            btnDisplayStates.Enabled = true;
+            btnDisplayViews.Enabled = true;
+
+            console.Enabled = true;
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -805,7 +827,7 @@ namespace BazisGUI
             PresentMeshData();
             PresentGroupDataOnTree();
             PresentCondDataOnTree();
-            PresentModelOnSelectToolStrip();
+            PresentModelObjectsForSelection();
         }
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)
@@ -946,6 +968,8 @@ namespace BazisGUI
                     ClearAllDataOnScene();
                     PresentProject();
 
+                    UnblockInterface();
+
                     FitObjectsToScreen();
                     DisplayObjects();
                 }
@@ -958,15 +982,7 @@ namespace BazisGUI
 
         }
 
-        private void btnSelectNodes_Click(object sender, EventArgs e)
-        {
-            if(project != null)
-            {
-                //SelectedObjects = ObjType.Узел.ToString();
-                //spbSelectObject.Invalidate();
-            }
 
-        }
     }
 
 }
