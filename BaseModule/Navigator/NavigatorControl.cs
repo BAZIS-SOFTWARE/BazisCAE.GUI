@@ -6,9 +6,13 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using System.Xml.Linq;
 using UserControlsEx;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.Navigator
 {
@@ -102,8 +106,8 @@ namespace BaseModule.Navigator
         public event Action HideAllGroupsEvent;
         //public event Action SortGroupEvent;
 
-        public event Action<bool> ChangeAllObjectsViewStateEvent;
-        public event Action DelAllObjectsEvent;
+        public event Action<bool> ChangeAllGeoObjectsViewStateEvent;
+        public event Action DelAllGeoObjectsEvent;
 
         public event Action<int,bool> ShowMeshEvent;
         //public event Action<int> HideElementsEvent;
@@ -129,8 +133,8 @@ namespace BaseModule.Navigator
         public event Action<TreeNode> GetObjectsInfoEvent;
 
         public event Action<NodeName, int> SelectObjectEvent;
-        public event Action ShowAdjacenciesEvent;
-        public event Action ShowAdjacenciesSetEvent;
+        //public event Action ShowAdjacenciesEvent;
+        //public event Action ShowAdjacenciesSetEvent;
         public event Action<NodeName, int> DelObjectEvent;
         public event Action<NodeName, string, int> GetObjectInfoEvent;
         public event Action<NodeName, int> ShowObjectEvent;
@@ -270,6 +274,70 @@ namespace BaseModule.Navigator
                 }
             }
 
+        }
+
+        public void ActionMenu(TreeNode node, int actIndex)
+        {
+            if (node.Name == NodeName.результаты.ToString())
+            {
+                if (actIndex == 0)
+                    RemoveResultsEvent?.Invoke();
+                else if (actIndex == 1)
+                    HideResultsEvent?.Invoke();
+            }
+                //node.ContextMenuStrip = resultsMenuStrip;
+            else if (node.Name == NodeName.задача.ToString())
+                node.ContextMenuStrip = taskMenuStrip;
+            else if (node.Name == NodeName.геометрия.ToString())
+                node.ContextMenuStrip = geoMenuStrip;
+            else if (node.Name == NodeName.сетка.ToString())
+                node.ContextMenuStrip = meshMenuStrip;
+            else if (node.Name == NodeName.группы.ToString())
+                node.ContextMenuStrip = groups_MenuStrip;
+            //else if (node.Name == NodeName.расчеты.ToString())
+            //    node.ContextMenuStrip = compMenuStrip;
+
+
+            else if (node.Name == NodeName.Точки.ToString() |
+                node.Name == NodeName.Кривые.ToString() |
+                node.Name == NodeName.Поверхности.ToString() |
+                node.Name == NodeName.Объемы.ToString() |
+                node.Name == NodeName.Узлы.ToString() |
+                node.Name == NodeName.Элементы1D.ToString() |
+                node.Name == NodeName.Элементы2D.ToString() |
+                node.Name == NodeName.Элементы3D.ToString())
+            {
+                if (node.Parent.Name == NodeName.сетка.ToString())
+                    node.ContextMenuStrip = set_MenuStrip;
+                else if (node.Parent.Name == NodeName.геометрия.ToString())
+                    node.ContextMenuStrip = set_MenuStrip;
+                else if (node.Parent.Name == NodeName.группы.ToString())
+                {
+                    if (node.Name == NodeName.Узлы.ToString())
+                        node.ContextMenuStrip = ndGroup_MenuStrip;
+                    else if (node.Name == NodeName.Элементы1D.ToString() |
+                        node.Name == NodeName.Элементы2D.ToString() |
+                        node.Name == NodeName.Элементы3D.ToString())
+                        node.ContextMenuStrip = elGroup_MenuStrip;
+                }
+
+            }
+
+            else if (node.Name == NodeName.Точка.ToString() |
+    node.Name == NodeName.Кривая.ToString() |
+    node.Name == NodeName.Поверхность.ToString() |
+    node.Name == NodeName.Объем.ToString() |
+    node.Name == NodeName.Узел.ToString() |
+    node.Name == NodeName.Элемент1D.ToString() |
+    node.Name == NodeName.Элемент2D.ToString() |
+    node.Name == NodeName.Элемент3D.ToString())
+            {
+                node.ContextMenuStrip = objectMenuStrip;
+            }
+
+
+            else if (node.Parent.Name == NodeName.задача.ToString())
+                node.ContextMenuStrip = condMenuStrip;
         }
 
         public void SetContextMenu(TreeNode node)
@@ -437,6 +505,28 @@ namespace BaseModule.Navigator
         {
             treeView.SelectedNode = e.Node;
 
+            var show = treeNodesImageList_16x16.Images[18];
+            var hide = treeNodesImageList_16x16.Images[17];
+            var del = treeNodesImageList_16x16.Images[19];
+
+
+
+            var shift = del.Width + 20;
+            if(e.X > treeView.Width - shift & e.X < treeView.Width)
+            {
+                // удалить
+            }
+            shift += hide.Width + 4;
+            if (e.X > treeView.Width - shift & e.X < treeView.Width)
+            {
+                // скрыть
+            }
+            shift += show.Width + 4;
+            if (e.X > treeView.Width - shift & e.X < treeView.Width)
+            {
+                // показать
+            }
+
             if (e.Button == MouseButtons.Right)
             {
                 if (e.Node.ContextMenuStrip != null)
@@ -551,13 +641,14 @@ namespace BaseModule.Navigator
             if (treeView.SelectedNode != null)
             {
                 treeView.SelectedNode.BackColor = SystemColors.ControlDark;
-                treeView.SelectedNode.ForeColor = Color.White;
+                treeView.SelectedNode.ForeColor = Color.Black;
             }
         }
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             var node = e.Node;
+            //node..BackColor = System.Drawing.Color.LightBlue;
 
             if (e.Node.Level == 0)
             {
@@ -768,30 +859,67 @@ e.Node.Name == NodeName.Объем.ToString()
             ShowObjectEvent?.Invoke(nodeType, number);
         }
 
-        private void treeView_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        // Draws a node.
+        private void treeView_DrawNode(
+            object sender, DrawTreeNodeEventArgs e)
         {
-            //if ((e.State & TreeNodeStates.Selected) != 0)
-            //{
-                // Draw the background of the selected node. The NodeBounds
-                // method makes the highlight rectangle large enough to
-                // include the text of a node tag, if one is present.
-                e.Graphics.FillRectangle(Brushes.White, NodeBounds(e.Node));
+            var nodeFont = e.Node.NodeFont;
+            if (nodeFont == null)
+                nodeFont = treeView.Font;
 
-                // Retrieve the node font. If the node font has not been set,
-                // use the TreeView font.
-                Font nodeFont = e.Node.NodeFont;
-                if (nodeFont == null) nodeFont = ((TreeView)sender).Font;
+            var textS = 3;
 
+            // Draw the background and node text for a selected node.
+            if ((e.State & TreeNodeStates.Focused | e.State & TreeNodeStates.Selected) != 0)
+            {
                 // Draw the node text.
                 e.Graphics.DrawString(e.Node.Text, nodeFont, Brushes.Black,
-                    Rectangle.Inflate(e.Bounds, 2, 0));
-            //}
+                    e.Node.Bounds.X, e.Node.Bounds.Y + textS);
+            }
 
             // Use the default background and node text.
-            //else
-            //{
-            //    e.DrawDefault = true;
-            //}
+            else
+            {
+                // выделяем узел который хранит выделение прозрачным прямоугольником
+                if (treeView.SelectedNode != null & e.Node == treeView.SelectedNode)
+                {
+                    var brush = new SolidBrush(Color.FromArgb(100, 0, 1, 1));
+                    e.Graphics.FillRectangle(brush, 0, e.Node.Bounds.Y,
+                    treeView.Width, e.Node.Bounds.Height);
+                }
+
+                e.Graphics.DrawString(e.Node.Text, nodeFont, Brushes.Black,
+e.Node.Bounds.X, e.Node.Bounds.Y + textS);
+
+            }
+
+            // рисуем дополнительные иконки
+            DrawImages(e);
+
+        }
+
+        private void DrawImages(DrawTreeNodeEventArgs e)
+        {
+            if (e.Node.Level > 0) // Assuming you store the image in the node's Tag property
+            {
+
+                var show = treeNodesImageList_16x16.Images[18];
+                var hide = treeNodesImageList_16x16.Images[17];
+                var del = treeNodesImageList_16x16.Images[19];
+
+                // Calculate the position for the image after the text
+                // You might need to adjust the X and Y coordinates based on your desired layout
+                float imageX = e.Bounds.Right + 5; // 5 pixels right of the node's bounds
+                float imageY = e.Bounds.Y + (e.Bounds.Height - show.Height) / 2; // Vertically center the image
+
+                // Draw the images
+                var shift = del.Width + 20;
+                e.Graphics.DrawImage(del, treeView.Width - shift, imageY, del.Width, del.Height);
+                shift += hide.Width + 4;
+                e.Graphics.DrawImage(hide, treeView.Width - shift, imageY, hide.Width, hide.Height);
+                shift += show.Width + 4;
+                e.Graphics.DrawImage(show, treeView.Width - shift, imageY, show.Width, show.Height);
+            }
         }
 
         // Returns the bounds of the specified node, including the region 
@@ -822,30 +950,25 @@ e.Node.Name == NodeName.Объем.ToString()
             DelCondEvent?.Invoke();
         }
 
-        private void скрытьОбъектыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void скрытьГеометриюToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeAllObjectsViewStateEvent?.Invoke(false);
+            ChangeAllGeoObjectsViewStateEvent?.Invoke(false);
         }
 
 
-        private void удалитьОбъектыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void удалитьГеометриюToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DelAllObjectsEvent?.Invoke();
+            DelAllGeoObjectsEvent?.Invoke();
         }
 
-        private void показатьОбъектыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void показатьГеометриюToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeAllObjectsViewStateEvent?.Invoke(true);
-        }
-
-        private void показатьСмежныеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowAdjacenciesEvent?.Invoke();
+            ChangeAllGeoObjectsViewStateEvent?.Invoke(true);
         }
 
         private void показатьСмежныеНаборыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowAdjacenciesSetEvent?.Invoke();
+            //ShowAdjacenciesSetEvent?.Invoke();
         }
 
         private void show1DMenuItem_Click(object sender, EventArgs e)

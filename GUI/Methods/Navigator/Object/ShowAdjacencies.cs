@@ -20,14 +20,14 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_ShowAdjacenciesEvent()
+        private void ShowAdjacencies(NodeName nodeName, int number)
         {
             //TODO тут пишем метод который показывает все связанные объекты
 
             ISetInfo set;
 
-            var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
-            var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
+            //var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
+            //var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
 
 
                 if (nodeName == NodeName.Объем)

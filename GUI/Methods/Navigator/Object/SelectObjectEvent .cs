@@ -102,6 +102,11 @@ namespace BazisGUI
                 rows.AddRange(GetVolProperties(number));
             }
 
+            rows.Add(new RowProperty("Связанные объекты", new ButtonPropertyValue("Показать", 
+                new Action(() => 
+                {
+                    ShowAdjacencies(nodeName,number);
+                })), true)); ;
 
             propertiesPanel.DrawTable(rows);
         }

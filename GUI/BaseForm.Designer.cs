@@ -306,8 +306,8 @@ namespace BazisGUI
             this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
             this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
             this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
-            this.navigator.ChangeAllObjectsViewStateEvent += new System.Action<bool>(this.navigator_ChangeAllObjectsViewStateEvent);
-            this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
+            this.navigator.ChangeAllGeoObjectsViewStateEvent += new System.Action<bool>(this.navigator_ChangeAllObjectsViewStateEvent);
+            this.navigator.DelAllGeoObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
             this.navigator.ShowMeshEvent += new System.Action<int, bool>(this.navigator_ShowElementsEvent);
             this.navigator.DelMeshEvent += new System.Action<int>(this.navigator_DelElementsEvent);
             this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_ShowSetEvent);
@@ -324,8 +324,8 @@ namespace BazisGUI
             this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
             this.navigator.GetObjectsInfoEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_GetObjectsInfoEvent);
             this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_SelectObjectEvent);
-            this.navigator.ShowAdjacenciesEvent += new System.Action(this.navigator_ShowAdjacenciesEvent);
-            this.navigator.ShowAdjacenciesSetEvent += new System.Action(this.navigator_ShowAdjacenciesSetEvent);
+            //this.navigator.ShowAdjacenciesEvent += new System.Action(this.ShowAdjacencies);
+            //this.navigator.ShowAdjacenciesSetEvent += new System.Action(this.navigator_ShowAdjacenciesSetEvent);
             this.navigator.DelObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_DelObjectEvent);
             this.navigator.ShowObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_ShowObjectEvent);
             this.navigator.HideObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_HideObjectEvent);

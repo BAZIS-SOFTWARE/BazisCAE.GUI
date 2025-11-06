@@ -37,8 +37,8 @@ namespace BazisGUI
                         btnSelect.Text = "Выбрать";
                     else
                         btnSelect.Text = value;
-                    //SetBackColorToAllObjects();
-                    //DisplayObjects();
+                    SetBackColorToAllObjects();
+                    DisplayObjects();
                 }
             }
         }

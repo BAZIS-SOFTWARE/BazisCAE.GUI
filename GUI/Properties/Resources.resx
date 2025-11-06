@@ -130,11 +130,17 @@
   <data name="helpContent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\helpContent.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="hide_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hide_w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ScreenSaver" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ScreenSaver.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="show_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\show_w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="вп_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\вп 12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -150,5 +156,11 @@
   </data>
   <data name="м_37" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\м 37.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="н_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\н 4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="н_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\н 5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

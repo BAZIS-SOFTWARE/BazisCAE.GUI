@@ -482,9 +482,6 @@
     <Compile Include="Methods\Tasks\AddCondition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Objects\PresentObjsData.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Methods\Navigator\Cond\PresentCondData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -812,6 +809,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
+    <None Include="Resources\hide_w.png" />
+    <None Include="Resources\show_w.png" />
+    <None Include="Resources\н 5.png" />
+    <None Include="Resources\н 4.png" />
     <None Include="Resources\arrow_l.png" />
     <None Include="Resources\arrow_d.png" />
     <None Include="Resources\arrow_r.png" />

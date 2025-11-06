@@ -639,6 +639,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_CFDF33F093614CCDB9719E5B41DB933C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E1703CFA8EA7F7C0A9B9F4ECE6A2C83C"
         "OwnerKey" = "8:_4C0524FA04885F2667DE9D18826199C9"
         "MsmSig" = "8:_UNDEFINED"
@@ -851,6 +857,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_6F60599D6B2F486BBFBB83FC2D006062"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_CFDF33F093614CCDB9719E5B41DB933C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1117,17 +1129,17 @@
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_AC2450B9EFA545A5B841C585EF5AAA3B"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_270FA1ED69C7483A9A8282EE2B1813CE"
             {
-            "Name" = "8:Основные выходные файлы from BazisGUI (Active)"
+            "Name" = "8:Основные выходные файлы from InstallerAction (Active)"
             "Condition" = "8:"
-            "Object" = "8:_6F60599D6B2F486BBFBB83FC2D006062"
-            "FileType" = "3:2"
+            "Object" = "8:_CFDF33F093614CCDB9719E5B41DB933C"
+            "FileType" = "3:1"
             "InstallAction" = "3:1"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_03F2CF62_FE45_4F52_AECD_3444BFB3D9AD"
+            "Identifier" = "8:_C152F0DB_CFBE_4A79_A7B7_C5927D57BA68"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             "Run64Bit" = "11:TRUE"
@@ -3459,16 +3471,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost5.1.23"
-        "ProductCode" = "8:{034B524B-0016-441D-B3AD-62E9B1C198B0}"
-        "PackageCode" = "8:{909BE514-841C-4245-9D5C-B0F3B4BA6BCA}"
+        "ProductName" = "8:BazisPrePost5.1.25"
+        "ProductCode" = "8:{517C1BBD-DAAF-4DC6-B81C-3363159F1EBF}"
+        "PackageCode" = "8:{0091B8E9-BB8B-4F9F-9997-DC003973CCF7}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:5.1.23"
+        "ProductVersion" = "8:5.1.25"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
@@ -4111,6 +4123,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{A4E6398C-244E-4655-AEA7-5A9B606586C6}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CFDF33F093614CCDB9719E5B41DB933C"
+            {
+            "SourcePath" = "8:..\\InstallerAction\\obj\\Release\\InstallerAction.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{C8686866-7FFA-48D5-8816-69D0EBF7A58E}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

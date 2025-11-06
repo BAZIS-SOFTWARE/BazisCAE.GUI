@@ -40,6 +40,7 @@ namespace BazisGUI
                     DeleteElems(objType, item);
                 DisplayObjects();
                 PresentMeshData();
+                PresentModelObjectsForSelection();
             }
             catch (Exception ex)
             {

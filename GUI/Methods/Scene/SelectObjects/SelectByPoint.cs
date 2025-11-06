@@ -1,6 +1,7 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using Geometry;
+using Geometry.Exteisions;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using Model.MeshObjects;
@@ -40,8 +41,7 @@ namespace BazisGUI
                             scrPoints.Add(scrPoint);
                         }
 
-
-                        if (IsObjectSelected(selectionPoint, scrPoints))
+                        if (IsObjectSelected(selectionPoint, set.ObjType, scrPoints))
                         {
                             selFlag = true;
                             if (isSelected)
@@ -56,6 +56,7 @@ namespace BazisGUI
                             if (scnPoints.Count == 1)
                                 temp_z_depth = scnPoints[0]._z;
                             else
+                                // вычисление центральной z координаты объекта
                                 temp_z_depth = scnPoints.Sum(x => x._z) / scnPoints.Count;
 
                             if (cur_z_depth == 0)
@@ -82,6 +83,16 @@ namespace BazisGUI
                 CreateObjectProperties(tempSetInfo, tempNumb);
 
             return selFlag;
+        }
+
+        private bool IsObjectSelected(Point2D selectionPoint, ObjType objType, List<Point2D> scrPoints)
+        {
+            var temp = false;
+            if (objType == ObjType.Кривая)
+                temp = IsCurveSelected(selectionPoint, scrPoints);
+            else
+                temp = IsObjectSelected(selectionPoint, scrPoints);
+            return temp;
         }
 
         private void CreateObjectProperties(ISetInfo setName, int number)
@@ -127,6 +138,32 @@ namespace BazisGUI
             }
         }
 
+        private bool IsCurveSelected(Point2D selectionPoint, List<Point2D> scrPoints)
+        {
+            var rect = new RectangleBox(scrPoints);
+            if (rect.IsPointInside(selectionPoint))
+            // пока добавим дополнительную проверку, без нее работает гораздо хуже на изогнутых поверхностях
+            {
+                if (scrPoints.Count == 2)
+                {
+                    var seg = new Segment2D(scrPoints[0], scrPoints[1]);
+
+                    return seg.IsPointBelongSegment(selectionPoint, 5) ? true : false;
+                }
+                else
+                {
+                    var count = scrPoints.Count/2;
+                    for (int i = 0; i < count; i++)
+                    {          
+                        var seg = new Segment2D(scrPoints[2 * i + 0], scrPoints[2 * i + 1]);
+                        if (seg.IsPointBelongSegment(selectionPoint, 5))
+                            return true;
+                    }            
+                }
+            }
+            return false;
+        }
+
         private bool IsObjectSelected(Point2D selectionPoint, List<Point2D> scrPoints)
         {
             if (scrPoints.Count == 1)
@@ -145,21 +182,13 @@ namespace BazisGUI
             else
             {
                 var rect = new RectangleBox(scrPoints);
-                //if(rect.IsPointInside(selectionPoint))
-                //{
-                    if (scrPoints.Count == 2)
-                    {
-                        var seg = new Segment2D(scrPoints[0], scrPoints[1]);
- 
-                        return seg.IsPointBelongSegment(selectionPoint,5) ? true : false;
-                    }
-                    else
-                    {
-                        var creator = new Hull2DCreator();
-                        if (creator.TryCreateHullGraham(scrPoints, out Polygon polygon))
-                            return polygon.IsPointInsidePolygon(selectionPoint) ? true : false;
-                    }
-                //}
+                if (rect.IsPointInside(selectionPoint))
+                // пока добавим дополнительную проверку, без нее работает гораздо хуже на изогнутых поверхностях
+                {
+                    var creator = new Hull2DCreator();
+                    if (creator.TryCreateHullGraham(scrPoints, out Polygon polygon))
+                        return polygon.IsPointInsidePolygon(selectionPoint) ? true : false;
+                }
                 return false;
             }
         }

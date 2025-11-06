@@ -103,6 +103,16 @@ namespace BazisGUI.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap hide_w {
+            get {
+                object obj = ResourceManager.GetObject("hide_w", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ScreenSaver {
             get {
                 object obj = ResourceManager.GetObject("ScreenSaver", resourceCulture);
@@ -116,6 +126,16 @@ namespace BazisGUI.Properties {
         internal static System.Drawing.Bitmap settings {
             get {
                 object obj = ResourceManager.GetObject("settings", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap show_w {
+            get {
+                object obj = ResourceManager.GetObject("show_w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -166,6 +186,26 @@ namespace BazisGUI.Properties {
         internal static System.Drawing.Bitmap м_37 {
             get {
                 object obj = ResourceManager.GetObject("м_37", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap н_4 {
+            get {
+                object obj = ResourceManager.GetObject("н_4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap н_5 {
+            get {
+                object obj = ResourceManager.GetObject("н_5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
