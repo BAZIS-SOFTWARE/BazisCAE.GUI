@@ -65,7 +65,7 @@ namespace BazisGUI
 
                 await SelectContainerAsync(@"Выберите результат и нажмите на клавишу ""E"" для подтверждения");
 
-                if (navigator.SelectedNode.Name != NodeName.Результат.ToString())
+                if (navigator.SelectedNode.Name != NodeName.результат.ToString())
                     throw new Exception("Выберите результат в разделе результаты");
 
                 var selNode = navigator.SelectedNode;

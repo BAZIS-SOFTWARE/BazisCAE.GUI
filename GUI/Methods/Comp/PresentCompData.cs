@@ -55,7 +55,7 @@ namespace BazisGUI
             foreach (var item in compData)
             {
                 //var nodeName = item.Split(' ')[0].ToEnum<NodeName>();
-                var r = navigator.CreateRealNode(NodeName.Расчет, item);
+                var r = navigator.CreateRealNode(NodeName.расчет, item);
 
                 compNode.Nodes.Add(r);
             }

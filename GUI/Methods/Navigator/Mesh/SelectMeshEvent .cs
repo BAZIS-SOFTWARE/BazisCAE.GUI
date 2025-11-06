@@ -33,6 +33,8 @@ namespace BazisGUI
                 rows.Add(new RowProperty("Элементы 3D", project.GetAllModelElements().
 Where(x => x.ObjType == ObjType.Элемент3D).Count(), true));
 
+                //TODO добавить кнопки скрытия элемнентов по типу
+
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)

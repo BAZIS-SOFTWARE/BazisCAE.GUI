@@ -166,13 +166,13 @@ namespace BazisGUI
 
             foreach (var desc in scheme.Value)
             {
-                var rn = navigator.CreateRealNode(NodeName.Результат, $"{desc}");
+                var rn = navigator.CreateRealNode(NodeName.результат, $"{desc}");
                 rn.ImageIndex = 14;
                 rn.SelectedImageIndex = 14;
                 //var node = new TreeNode($"{desc}", 16, 16)
                 //{ Tag = "6.1", Name = desc };
 
-                var vn = navigator.CreateVirtualNode(NodeName.Результат);
+                var vn = navigator.CreateVirtualNode(NodeName.результат);
                 rn.Nodes.Add(vn);
                 results[0].Nodes.Add(rn);
             }

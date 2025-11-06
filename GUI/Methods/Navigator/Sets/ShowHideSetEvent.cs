@@ -11,11 +11,17 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_HideSetEvent(NodeName nodeType, string nodeText)
+        private void navigator_HideSetEvent()
         {
+
             try
             {
-                ChangeSetViewState(nodeText, nodeType, false);
+                var node = navigator.SelectedNode;
+
+                var nodeName = node.Name.ToEnum<NodeName>();
+                var nodeText = node.Text;
+
+                ChangeSetViewState(nodeName, nodeText, false);
             }
             catch (Exception ex)
             {
@@ -23,11 +29,15 @@ namespace BazisGUI
             }
         }
 
-        private void navigator_ShowSetEvent(NodeName nodeType, string nodeText)
+        private void navigator_ShowSetEvent()
         {
             try
             {
-                ChangeSetViewState(nodeText, nodeType, true);
+                var node = navigator.SelectedNode;
+
+                var nodeName = node.Name.ToEnum<NodeName>();
+                var nodeText = node.Text;
+                ChangeSetViewState(nodeName, nodeText, true);
             }
             catch (Exception ex)
             {

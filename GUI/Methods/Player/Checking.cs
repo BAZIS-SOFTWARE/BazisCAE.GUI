@@ -89,7 +89,7 @@ namespace BazisGUI
 
             var nodeName = name.ToEnum<NodeName>();
 
-            if (nodeName != NodeName.Результат &
+            if (nodeName != NodeName.результат &
                 nodeName != NodeName.Материал &
                     nodeName != NodeName.Среда &
                     nodeName != NodeName.Нагрев &

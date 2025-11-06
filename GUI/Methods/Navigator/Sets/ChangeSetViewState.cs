@@ -1,4 +1,5 @@
-﻿using BaseModule.Navigator;
+﻿using BaseModule.Extensions;
+using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Scene.VBO;
 using BazisGUI.Utilities;
@@ -16,7 +17,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void ChangeSetViewState(string nodeText, NodeName nodeName, bool viewState)
+        private void ChangeSetViewState(NodeName nodeName, string nodeText, bool viewState)
         {
             ISetInfo set;
 

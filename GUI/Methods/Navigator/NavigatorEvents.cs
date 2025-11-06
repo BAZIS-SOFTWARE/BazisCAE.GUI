@@ -243,7 +243,7 @@ namespace BazisGUI
         {
             var times = resultTimes.Select(x => x.ToString());
 
-            var childs = navigator.CreateRealNodes(NodeName.Время.ToString(), times);
+            var childs = navigator.CreateRealNodes(NodeName.время.ToString(), times);
             node.Nodes.AddRange(childs);
         }
     }

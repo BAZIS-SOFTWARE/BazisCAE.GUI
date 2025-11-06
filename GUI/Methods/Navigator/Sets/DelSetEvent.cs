@@ -1,4 +1,5 @@
-﻿using BaseModule.Navigator;
+﻿using BaseModule.Extensions;
+using BaseModule.Navigator;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using System;
@@ -11,13 +12,14 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_DelSetEvent(NodeName nodeName, string nodeText)
+        private void navigator_DelSetEvent()
         {
             try
             {
-                
+                var node = navigator.SelectedNode;
 
-                var setName = nodeText.Split(' ')[1];
+                var nodeName = node.Name.ToEnum<NodeName>(); 
+                var setName = node.Text.Split(' ')[1];
 
                 // Пока запретим удалять геометрические сущности
                 if (nodeName == NodeName.Объемы |
