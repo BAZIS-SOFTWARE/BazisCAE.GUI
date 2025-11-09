@@ -1,12 +1,6 @@
-﻿using BaseModule.Navigator;
-using BaseModule.Utilities;
-using BazisGUI.Scene.Interfaces;
-using Geometry;
+﻿using Geometry;
 using Model.Interfaces;
-using Model.Interfaces.ObjectsCollections;
-using Project.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;

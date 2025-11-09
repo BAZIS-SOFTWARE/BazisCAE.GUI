@@ -1,5 +1,4 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using GmshApi;

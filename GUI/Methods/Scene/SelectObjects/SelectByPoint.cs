@@ -1,5 +1,4 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using Geometry;
 using Geometry.Exteisions;
 using Model.Interfaces;
@@ -90,9 +89,38 @@ namespace BazisGUI
             var temp = false;
             if (objType == ObjType.Кривая)
                 temp = IsCurveSelected(selectionPoint, scrPoints);
+            else if (objType == ObjType.Поверхность)
+                temp = IsSurfaceSelected(selectionPoint, scrPoints);
             else
                 temp = IsObjectSelected(selectionPoint, scrPoints);
             return temp;
+        }
+
+        private bool IsSurfaceSelected(Point2D selectionPoint, List<Point2D> scrPoints)
+        {
+            var rect = new RectangleBox(scrPoints);
+            if (rect.IsPointInside(selectionPoint))
+            // пока добавим дополнительную проверку, без нее работает гораздо хуже на изогнутых поверхностях
+            {
+                var creator = new Hull2DCreator();
+                var count = scrPoints.Count/3;
+                for (int i = 0; i < count; i++)
+                {
+                    var temp = new Point2D[]
+                    {
+                        scrPoints[3 * i + 0],
+                        scrPoints[3 * i + 1],
+                        scrPoints[3 * i + 2]
+                    };
+                    if (creator.TryCreateHullGraham(temp, out Polygon polygon))
+                        if (polygon.IsPointInsidePolygon(selectionPoint))
+                            return true;
+                        //return polygon.IsPointInsidePolygon(selectionPoint) ? true :;
+                }
+                return false;
+            }
+            else 
+                return false;
         }
 
         private void CreateObjectProperties(ISetInfo setName, int number)

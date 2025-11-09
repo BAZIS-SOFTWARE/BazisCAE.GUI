@@ -1,5 +1,5 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
+using BazisGUI.Navigator;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using GmshApi;
@@ -45,12 +45,12 @@ namespace BazisGUI
                     else
                     {
                         var rn = navigator.CreateRealNode(NodeName.сетка, "Сетка");
-                        navigator.SetContextMenu(rn);
+                        //navigator.SetContextMenu(rn);
 
-                        var imgIndex = navigator.GetObjectImageIndex(NodeName.сетка);
+                        //var imgIndex = navigator.GetObjectImageIndex(NodeName.сетка);
 
-                        rn.ImageIndex = imgIndex;
-                        rn.SelectedImageIndex = imgIndex;
+                        //rn.ImageIndex = imgIndex;
+                        //rn.SelectedImageIndex = imgIndex;
 
                         var v_node = navigator.CreateVirtualNode();
                         rn.Nodes.Add(v_node);

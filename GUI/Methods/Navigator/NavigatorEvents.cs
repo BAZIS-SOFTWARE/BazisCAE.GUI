@@ -1,5 +1,5 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
+using BazisGUI.Navigator;
 using BaseModule.Tasks.BasicAdvisorControls.Events;
 using BazisGUI.Scene.VBO;
 using BazisGUI.Utilities;
@@ -140,40 +140,46 @@ namespace BazisGUI
           
         private void navigator_GetObjectsInfoEvent(TreeNode node)
         {
-            var nodeName = node.Name.ToEnum<NodeName>();
+            //TODO тут преобразование текста узла в тип объекта
 
-            if (nodeName == NodeName.Объемы)
+            ObjType objType;
+
+            var objInfo = node.Text.Split(' ')[0];
+            // пока заглушим обработку объема
+            if (!objInfo.TryToEnum(out objType))
             {
                 foreach (var item in project.GetModelVolumes())
                 {
                     //var text = $"{item.Number} {item.Name} {item.NumberOfSides}";
-                    var r_node = navigator.CreateRealNode(NodeName.Объем, item.ToString());
-                    //r_node.ImageIndex = 14;
-                    //r_node.SelectedImageIndex = 14;
+                    var r_node = navigator.CreateRealNode(NodeName.объект, item.ToString());
 
-                    navigator.SetContextMenu(r_node);
+                    //navigator.SetContextMenu(r_node);
 
                     node.Nodes.Add(r_node);
                 }
             }
             else
             {
-                var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
-
                 var setName = node.Text.Split(' ')[1];
-                if (nodeName == NodeName.Поверхности)
+                if (objType == ObjType.Поверхность)
                 {
                     var ar = node.Text.Split(' ');
                     setName = string.Join(" ", ar, 1, ar.Length - 2);
                 }
 
                 var setInfo = project.GetModelSetInfo(objType, setName);
-                var childs = navigator.CreateRealNodes(objType.ToString(), setInfo.GetObjectsInfo());
+                var childs = navigator.CreateRealNodes(NodeName.объект, setInfo.GetObjectsInfo());
 
-                foreach (var item in childs)
-                    navigator.SetContextMenu(item);
+                // Кажется что это костыль, но без него происходит
+                // вывод текста узлов в верхний левый угол вякий раз, когда добавляются
+                // ноыве узлы. Поэтому DrawNodeFrozen пока использовать обязательно
+                navigator.DrawNodeFrozen = true;
+                navigator.BeginUpdate();
 
                 node.Nodes.AddRange(childs);
+                
+                navigator.EndUpdate();
+                navigator.DrawNodeFrozen = false;
             }
 
  
@@ -207,28 +213,24 @@ namespace BazisGUI
             foreach (var item in objTypes)
                 foreach (var set in project.GetModelSetsInfo(item))
                 {
-                    var nodeName = Converters.ConvertToNavigatorNodeType(set.ObjType);
-                    var text = $"{nodeName} {set.Name} {set.NumberOfObjects}";
-                    var r_node = navigator.CreateRealNode(nodeName, text);
-                    r_node.ImageIndex = 14;
-                    r_node.SelectedImageIndex = 14;
+                    //var nodeName = Converters.ConvertToNavigatorNodeType(set.ObjType);
+                    var text = $"{set.ObjType} {set.Name} {set.NumberOfObjects}";
+                    var r_node = navigator.CreateRealNode(NodeName.набор, text);
                     var v_node = navigator.CreateVirtualNode();
                     r_node.Nodes.Add(v_node);
                     node.Nodes.Add(r_node);
-                    navigator.SetContextMenu(r_node);
+                    //navigator.SetContextMenu(r_node);
                 }
             // загрузка объемов
             if (nodeType == NodeName.геометрия)
             {
-                var text = $"{NodeName.Объемы} {NodeName.Объем} {project.GetModelVolumes().Count()}";
-                var r_node = navigator.CreateRealNode(NodeName.Объемы, text);
+                var text = $"Объемы Объем {project.GetModelVolumes().Count()}";
+                var r_node = navigator.CreateRealNode(NodeName.набор, text);
 
-                r_node.ImageIndex = 14;
-                r_node.SelectedImageIndex = 14;
                 var v_node = navigator.CreateVirtualNode();
                 r_node.Nodes.Add(v_node);
                 node.Nodes.Add(r_node);
-                navigator.SetContextMenu(r_node);
+                //navigator.SetContextMenu(r_node);
             }
                 //foreach (var item in project.GetModelVolumes())
                 //{
@@ -243,7 +245,7 @@ namespace BazisGUI
         {
             var times = resultTimes.Select(x => x.ToString());
 
-            var childs = navigator.CreateRealNodes(NodeName.время.ToString(), times);
+            var childs = navigator.CreateRealNodes(NodeName.время, times);
             node.Nodes.AddRange(childs);
         }
     }

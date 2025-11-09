@@ -1,13 +1,5 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
-using Model.Utilities;
-using Project.Tasks;
-using PropertiesCalculator.FunctionData;
-using PropertiesCalculator.MaterialData;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
-using System.Linq;
 
 namespace BazisGUI
 {

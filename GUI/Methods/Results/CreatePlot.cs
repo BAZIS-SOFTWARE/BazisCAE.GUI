@@ -13,8 +13,8 @@ using System.Collections.Generic;
 using UserControlsEx.Graph;
 using System.Threading.Tasks;
 using System.Linq;
-using BaseModule.Navigator;
 using Model;
+using BazisGUI.Navigator;
 
 namespace BazisGUI
 {

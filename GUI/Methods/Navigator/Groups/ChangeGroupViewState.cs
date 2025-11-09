@@ -1,16 +1,7 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
-using BazisGUI.Utilities;
-using Model.Interfaces;
+﻿using Model.Interfaces;
 using Model.Utilities;
-using Project.Interfaces.Tasks;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BazisGUI
 {

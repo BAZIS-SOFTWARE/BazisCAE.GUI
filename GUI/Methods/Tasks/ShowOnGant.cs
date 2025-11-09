@@ -1,5 +1,4 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using BaseModule.Tasks.BasicAdvisorControls.Events;
 using BazisGUI.Utilities;

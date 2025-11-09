@@ -1,6 +1,8 @@
-﻿using BaseModule.Navigator;
+﻿using BaseModule.Extensions;
+using BazisGUI.Navigator;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
+using Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,38 +16,50 @@ namespace BazisGUI
         {
             try
             {
+                ObjType objType;
                 var setName = arg2.Split(' ')[1];
-                if (arg1 == NodeName.Объем | arg1 == NodeName.Поверхности)
+                // пока заглушим обработку объема
+                if (arg2.Split(' ')[0].TryToEnum(out objType))
                 {
-                    var ar = arg2.Split(' ');
-                    setName = string.Join(" ", ar, 1, ar.Length - 2);
-                }
+                    if (objType == ObjType.Узел | objType == ObjType.Элемент1D
+                    | objType == ObjType.Элемент2D | objType == ObjType.Элемент3D)
+                    {
+                        //var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
 
-                if(arg1 == NodeName.Узлы | arg1 == NodeName.Элементы1D
-                    | arg1 == NodeName.Элементы2D | arg1 == NodeName.Элементы3D)
-                {
-                    var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
-
-                    var set = project.GetModelSetInfo(objType, setName);
-                    var rows = GetSetProperty(set);
+                        var set = project.GetModelSetInfo(objType, setName);
+                        if(set != null)
+                        {
+                            var rows = GetSetProperty(set);
 
 
-                    if (arg1 != NodeName.Узлы)
-                        rows.Add(new RowProperty("Порядок точности", 
-                            new DropDownPropertyValue("", 
-                            new List<string>() { "1", "2" })));
+                            if (objType != ObjType.Узел)
+                                rows.Add(new RowProperty("Порядок точности",
+                                    new DropDownPropertyValue("",
+                                    new List<string>() { "1", "2" })));
 
-                    propertiesPanel.DrawTable(rows);
-                }
-                else if (arg1 == NodeName.Поверхности
-                    | arg1 == NodeName.Кривые | arg1 == NodeName.Точки)
-                {
-                    var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
+                            propertiesPanel.DrawTable(rows);
+                        }
+ 
+                    }
+                    else if (objType == ObjType.Поверхность
+                        | objType == ObjType.Кривая | objType == ObjType.Точка)
+                    {
+                        //var objType = Converters.ConvertNavigatorNodeNameToObjType(arg1);
 
-                    var set = project.GetModelSetInfo(objType, setName);
-                    var rows = GetSetProperty(set);
-                    propertiesPanel.DrawTable(rows);
-                }
+                        var set = project.GetModelSetInfo(objType, setName);
+                        var rows = GetSetProperty(set);
+                        propertiesPanel.DrawTable(rows);
+                    }
+                }    
+
+                    
+                //if (arg1 == NodeName.Объем | arg1 == NodeName.Поверхности)
+                //{
+                //    var ar = arg2.Split(' ');
+                //    setName = string.Join(" ", ar, 1, ar.Length - 2);
+                //}
+
+                
                 else
                 {
                     var vol = project.GetModelVolumes().FirstOrDefault(x => x.Name == setName);

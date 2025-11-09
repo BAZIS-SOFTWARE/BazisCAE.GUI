@@ -1,16 +1,11 @@
 ﻿using BaseModule.Console.Events;
 using BaseModule.Console;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Geometry;
 using System.Drawing;
-using BaseModule.Navigator;
-using System.Windows.Forms;
 using Model.Interfaces.MeshObjects;
 using Model.Utilities;
 

@@ -1,5 +1,4 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using Model.Interfaces.MeshObjects;
 using Model.Interfaces;
 using Model.Utilities;

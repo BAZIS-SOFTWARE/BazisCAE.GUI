@@ -102,8 +102,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Geometry, Version=2.2.0.0, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geometry.2.2.0\lib\netstandard2.0\Geometry.dll</HintPath>
+    <Reference Include="Geometry, Version=2.2.1.0, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Geometry.2.2.1\lib\netstandard2.0\Geometry.dll</HintPath>
     </Reference>
     <Reference Include="Gif.Components, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -124,8 +124,8 @@
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=4.7.8.0, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.4.7.8\lib\netstandard2.0\Model.dll</HintPath>
+    <Reference Include="Model, Version=4.8.0.0, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.4.8.0\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -133,17 +133,17 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="OperationalController, Version=3.7.4.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\OperationalController.3.7.4\lib\netstandard2.0\OperationalController.dll</HintPath>
+    <Reference Include="OperationalController, Version=3.7.6.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\OperationalController.3.7.6\lib\netstandard2.0\OperationalController.dll</HintPath>
     </Reference>
-    <Reference Include="PostProc, Version=1.9.7.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostProc.1.9.7\lib\netstandard2.0\PostProc.dll</HintPath>
+    <Reference Include="PostProc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostProc.2.0.0\lib\netstandard2.0\PostProc.dll</HintPath>
     </Reference>
-    <Reference Include="PreProc, Version=1.8.6.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
-      <HintPath>..\packages\PreProc.1.8.6\lib\netstandard2.0\PreProc.dll</HintPath>
+    <Reference Include="PreProc, Version=1.8.8.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
+      <HintPath>..\packages\PreProc.1.8.8\lib\netstandard2.0\PreProc.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=5.2.4.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.5.2.4\lib\netstandard2.0\Project.dll</HintPath>
+    <Reference Include="Project, Version=5.2.6.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.5.2.6\lib\netstandard2.0\Project.dll</HintPath>
     </Reference>
     <Reference Include="PropertiesCalculator, Version=1.0.6.0, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertiesCalculator.1.0.6\lib\netstandard2.0\PropertiesCalculator.dll</HintPath>
@@ -651,6 +651,12 @@
     <Compile Include="MessageBoxEx\MessageBoxEx.Designer.cs">
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Navigator\NavigatorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Navigator\NavigatorControl.Designer.cs">
+      <DependentUpon>NavigatorControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene\EventsArgs\InfoObjectsEventArgs.cs" />
@@ -762,6 +768,9 @@
     <EmbeddedResource Include="MessageBoxEx\MessageBoxEx.resx">
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Navigator\NavigatorControl.resx">
+      <DependentUpon>NavigatorControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -809,6 +818,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
+    <None Include="Resources\Edit.png" />
     <None Include="Resources\hide_w.png" />
     <None Include="Resources\show_w.png" />
     <None Include="Resources\н 5.png" />

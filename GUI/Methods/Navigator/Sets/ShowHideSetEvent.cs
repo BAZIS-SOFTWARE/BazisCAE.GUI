@@ -1,10 +1,4 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
-using BazisGUI.Scene.Interfaces;
-using BazisGUI.Utilities;
-using Model.Interfaces;
-using Model.Interfaces.ObjectsCollections;
-using System.Drawing;
+﻿using System.Drawing;
 using System;
 
 namespace BazisGUI
@@ -16,12 +10,10 @@ namespace BazisGUI
 
             try
             {
-                var node = navigator.SelectedNode;
-
-                var nodeName = node.Name.ToEnum<NodeName>();
-                var nodeText = node.Text;
-
-                ChangeSetViewState(nodeName, nodeText, false);
+                var node = navigator.SelectedNode;               
+                var objInfo = node.Text.Split(' ')[0];
+                var setName = node.Text.Split(' ')[1];
+                ChangeSetViewState(objInfo, setName,false);
             }
             catch (Exception ex)
             {
@@ -34,10 +26,9 @@ namespace BazisGUI
             try
             {
                 var node = navigator.SelectedNode;
-
-                var nodeName = node.Name.ToEnum<NodeName>();
-                var nodeText = node.Text;
-                ChangeSetViewState(nodeName, nodeText, true);
+                var objInfo = node.Text.Split(' ')[0];
+                var setName = node.Text.Split(' ')[1];
+                ChangeSetViewState(objInfo, setName, true);
             }
             catch (Exception ex)
             {

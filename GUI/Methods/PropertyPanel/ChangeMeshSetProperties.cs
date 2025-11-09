@@ -1,5 +1,5 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
+using BazisGUI.Navigator;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Scene.Interfaces;
 using Model.Interfaces;
@@ -94,14 +94,19 @@ namespace BazisGUI
 
         private void SetElementsOrderEvent(int obj)
         {
-            var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
+            
             var setName = navigator.SelectedNode.Text.Split(' ')[1];
+            var objInfo = navigator.SelectedNode.Text.Split(' ')[0];
+            
             var isExpand = navigator.SelectedNode.IsExpanded;
-            if (nodeName == NodeName.Элементы1D)
+
+            var objType = objInfo.ToEnum<ObjType>();
+
+            if (objType == ObjType.Элемент1D)
                 project.ChangeMeshSetOrder(1, setName, obj);
-            else if (nodeName == NodeName.Элементы2D)
+            else if (objType == ObjType.Элемент2D)
                 project.ChangeMeshSetOrder(2, setName, obj);
-            else if (nodeName == NodeName.Элементы3D)
+            else if (objType == ObjType.Элемент3D)
                 project.ChangeMeshSetOrder(3, setName, obj);
 
             PresentMeshData();
@@ -113,7 +118,8 @@ namespace BazisGUI
 
             if (isExpand)
             {
-                var nodes = mesh.First().Nodes.Find(nodeName.ToString(), false);
+                var nodeName = navigator.SelectedNode.Name;
+                var nodes = mesh.First().Nodes.Find(nodeName, false);
                 nodes.FirstOrDefault(x => x.Text.Contains(setName))?.Expand();
             }
 

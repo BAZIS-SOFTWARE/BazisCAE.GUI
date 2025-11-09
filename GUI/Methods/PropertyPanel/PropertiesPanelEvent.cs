@@ -1,7 +1,7 @@
 ﻿using BaseModule.Extensions;
 using BaseModule.Mesh;
 using BaseModule.Mesh.SettingsControls;
-using BaseModule.Navigator;
+using BazisGUI.Navigator;
 using BaseModule.PropertiesPanel;
 using BaseModule.PropertiesPanel.DataGridViewNumericUpDown;
 using BazisGUI.Utilities;
@@ -31,20 +31,20 @@ namespace BazisGUI
                 if (obj.Tag == 1) // выбор со сцены
                 {
                     var number = int.Parse(obj.ObjInfo.Split(' ')[0]);
-                    var name = obj.ObjInfo.Split(' ')[1].ToEnum<NodeName>();
-                    if (name == NodeName.Узел)
+                    var objType = obj.ObjInfo.Split(' ')[1].ToEnum<ObjType>();
+                    if (objType == ObjType.Узел)
                         ChangeNodeProperty(obj, number);
-                    else if (name == NodeName.Элемент1D)
+                    else if (objType == ObjType.Элемент1D)
                         ChangeElementProperty(obj, ObjType.Элемент1D, number);
-                    else if (name == NodeName.Элемент2D)
+                    else if (objType == ObjType.Элемент2D)
                         ChangeElementProperty(obj, ObjType.Элемент2D, number);
-                    else if (name == NodeName.Элемент3D)
+                    else if (objType == ObjType.Элемент3D)
                         ChangeElementProperty(obj, ObjType.Элемент3D, number);
-                    else if (name == NodeName.Точка)
+                    else if (objType == ObjType.Точка)
                         ChangePointProperty(obj, number);
-                    else if (name == NodeName.Кривая)
+                    else if (objType == ObjType.Кривая)
                         ChangeCurveProperty(obj, number);
-                    else if (name == NodeName.Поверхность)
+                    else if (objType == ObjType.Поверхность)
                     {
                         var flag = false;
                         ChangeSurfaceProperty(obj, number, ref flag);
@@ -59,10 +59,13 @@ namespace BazisGUI
                 {
                     // В зависимости от свойства данных проекта (modelData, TaskData etc
                     // вызывать нужный метод в controller
-                    var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
+
+
+                    
 
                     if (navigator.SelectedNode.Level == 1)
                     {
+                        var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
                         if (nodeName == NodeName.задача)
                             ChangeTaskProperties(obj);
                         else if (nodeName == NodeName.геометрия)
@@ -81,14 +84,13 @@ namespace BazisGUI
                     if (navigator.SelectedNode.Level == 2)
                     {
                         var index = navigator.SelectedNode.Index;
-                        var parentName = navigator.SelectedNode.Parent.Name.ToEnum<NodeName>();
+                        var parentName = navigator.SelectedNode.Name.ToEnum<NodeName>();
+                        var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
                         if (parentName == NodeName.группы)
                         {
-                            if (nodeName == NodeName.Элементы3D |
-            nodeName == NodeName.Элементы2D |
-            nodeName == NodeName.Элементы1D |
-            nodeName == NodeName.Узлы
-            )
+                            if (nodeName == NodeName.группаЭлементов |
+                                nodeName == NodeName.группаУзлов
+                                )
                             {
                                 ChangeMeshGroupProperties(obj, index);
                                 PresentGroupDataOnTree();
@@ -97,9 +99,10 @@ namespace BazisGUI
                         }
                         else if (parentName == NodeName.сетка)
                         {
-                            if (nodeName == NodeName.Элементы3D)
+                            var objType = navigator.SelectedNode.Text.Split(' ')[0].ToEnum<ObjType>();
+                            if (nodeName == NodeName.набор & objType == ObjType.Элемент3D)
                                 ChangeMeshSetProperties(obj, 3);
-                            else if (nodeName == NodeName.Элементы2D)
+                            else if (nodeName == NodeName.набор & objType == ObjType.Элемент2D)
                                 ChangeMeshSetProperties(obj, 2);
                             else
                                 ChangeMeshSetProperties(obj, 1);
@@ -112,7 +115,7 @@ namespace BazisGUI
                             var _mats = project.MaterialsDB.Keys.ToList();
                             var groups = project.GetAllModelGroups();
                             var cond = project.TaskData[index];
-                            if (nodeName == NodeName.Материал)
+                            if (nodeName == NodeName.материал)
                             {
                                 ChangeMatProperties(obj, (MatData)cond, ref flag);
 
@@ -122,7 +125,7 @@ namespace BazisGUI
                                     propertiesPanel.DrawTable(rows);
                                 }
                             }
-                            else if (nodeName == NodeName.Нагрев)
+                            else if (nodeName == NodeName.нагрев)
                             {
                                 ChangeHeatProperties(obj, (HeatData)cond, ref flag);
 
@@ -132,7 +135,7 @@ namespace BazisGUI
                                     propertiesPanel.DrawTable(rows);
                                 }
                             }
-                            else if (nodeName == NodeName.Нагрузка)
+                            else if (nodeName == NodeName.нагрузка)
                             {
                                 ChangeLoadProperties(obj, (LoadData)cond, ref flag);
 
@@ -142,7 +145,7 @@ namespace BazisGUI
                                     propertiesPanel.DrawTable(rows);
                                 }
                             }
-                            else if (nodeName == NodeName.Среда)
+                            else if (nodeName == NodeName.среда)
                             {
                                 ChangeMediaProperties(obj, (MediaData)cond, ref flag);
 
@@ -153,7 +156,7 @@ namespace BazisGUI
                                 }
 
                             }
-                            else if (nodeName == NodeName.Закрепление)
+                            else if (nodeName == NodeName.закрепление)
                             {
                                 ChangeClampProperties(obj, (ClampData)cond, ref flag);
 
@@ -176,23 +179,40 @@ namespace BazisGUI
                     if (navigator.SelectedNode.Level == 3)
                     {
                         var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
-                        if (nodeName == NodeName.Узел)
-                            ChangeNodeProperty(obj, number);
-                        else if (nodeName == NodeName.Элемент1D)
-                            ChangeElementProperty(obj, ObjType.Элемент1D, number);
-                        else if (nodeName == NodeName.Элемент2D)
-                            ChangeElementProperty(obj, ObjType.Элемент2D, number);
-                        else if (nodeName == NodeName.Элемент3D)
-                            ChangeElementProperty(obj, ObjType.Элемент3D, number);
-                        else if (nodeName == NodeName.Точка)
+                        var objInfo = navigator.SelectedNode.Text.Split(' ')[0];
+
+                        ObjType objType;
+                        if(objInfo.TryToEnum(out objType))
                         {
-                            ChangePointProperty(obj, number);
-                        }
-                        else if (nodeName == NodeName.Кривая)
-                        {
-                            ChangeCurveProperty(obj, number);
-                        }
-                        else if (nodeName == NodeName.Объем)
+                            if (objType == ObjType.Узел)
+                                ChangeNodeProperty(obj, number);
+                            else if (objType == ObjType.Элемент1D)
+                                ChangeElementProperty(obj, objType, number);
+                            else if (objType == ObjType.Элемент2D)
+                                ChangeElementProperty(obj, objType, number);
+                            else if (objType == ObjType.Элемент3D)
+                                ChangeElementProperty(obj, objType, number);
+                            else if (objType == ObjType.Точка)
+                            {
+                                ChangePointProperty(obj, number);
+                            }
+                            else if (objType == ObjType.Кривая)
+                            {
+                                ChangeCurveProperty(obj, number);
+                            }
+                            else if (objType == ObjType.Поверхность)
+                            {
+                                var flag = false;
+                                ChangeSurfaceProperty(obj, number, ref flag);
+                                if (flag)
+                                {
+                                    var rows = GetSurfaceProperties(number);
+                                    propertiesPanel.DrawTable(rows);
+                                }
+
+                            }
+                        }       
+                        else
                         {
                             var flag = false;
                             ChangeVolProperty(obj, number,ref flag);
@@ -203,17 +223,7 @@ namespace BazisGUI
                             }
  
                         }
-                        else if (nodeName == NodeName.Поверхность)
-                        {
-                            var flag = false;
-                            ChangeSurfaceProperty(obj, number, ref flag);
-                            if (flag)
-                            {
-                                var rows = GetSurfaceProperties(number);
-                                propertiesPanel.DrawTable(rows);
-                            }
 
-                        }
                     }
                 }
     
@@ -245,16 +255,6 @@ namespace BazisGUI
 
             else if (obj.Header == "Показывать шкалу")
             {
-                /* TO DO
-
-                 * При активации создать и показать дополнительные строки с настройками
-                 * При деактивации - убрать строки
-
-                - Точность (взять из settingsConfig.Scale_Precision)
-                - Положение шкалы по Х (взять из settingsConfig.Scale_X_Coord)
-                - Положение шкалы по Y (взять из settingsConfig.Scale_Y_Coord)
-
-                */
                 settingsConfig.ShowResultsScale = bool.Parse(obj.NewValue);
 
                 if (!settingsConfig.ShowResultsScale)
@@ -293,72 +293,6 @@ namespace BazisGUI
                 settingsConfig.Scale_X_Coord = int.Parse(obj.NewValue);
             else if (obj.Header == "Положение шкалы по Y")
                 settingsConfig.Scale_Y_Coord = int.Parse(obj.NewValue);
-        }
-
-       
-
-
-        //public void SetCurveAttributes(string[] attributes)
-        //{
-        //    if (attributes.Length == 0)
-        //        ResetTransfinition();
-        //    else
-        //    {
-        //        var law = attributes[1];
-        //        if (rbtnBump.Text.Contains(law))
-        //            rbtnBump.Checked = true;
-        //        else if (rbtnBeta.Text.Contains(law))
-        //            rbtnBeta.Checked = true;
-        //        else
-        //            rbtnProgressive.Checked = true;
-
-        //        txbAlgoNPoints.Text = attributes[0];
-        //        txbAlgoCoef.Text = attributes[2].Length == 0 ? "1.0" : attributes[2];
-        //    }
-        //}
-
-
-        private void SetPointSize(int pointNumber, double[] pointSize)
-        {
-            // задаем значения парами размерность - номер
-            var dimTags = new int[] { 0, pointNumber };
-            GmshController.Gmsh.Model.Mesh.SetSize(dimTags, pointSize[0]);
-        }
-        //задаем во всех контр. узлах диапазон
-        private void SetMinMaxSizes(double[] sizes)
-        {
-            GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", sizes[0]);
-            GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", sizes[1]);
-        }
-
-
-
-        private void CurveAttribDelete(int obj)
-        {
-            var dimTags = new int[] { 1, obj };
-            GmshController.Gmsh.Model.RemoveAttribute($"transfinite {obj}");
-            GmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
-        }
-
-        private void GetCurveAttrib(object arg1, int arg2)
-        {
-            try
-            {
-                var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite {arg2}");
-                var curveControl = arg1 as GMSHCurveSettingsControl;
-                curveControl.SetCurveAttributes(attributes);
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
-        }
-
-        private void PointAttribDelete(int obj)
-        {
-            var dimTags = new int[] { 0, obj };
-            GmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
         }
     }
 }

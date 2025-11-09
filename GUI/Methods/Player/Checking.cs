@@ -1,5 +1,5 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
+using BazisGUI.Navigator;
 using Project.Interfaces.Tasks;
 using ResultDB.IO;
 using System;
@@ -90,11 +90,11 @@ namespace BazisGUI
             var nodeName = name.ToEnum<NodeName>();
 
             if (nodeName != NodeName.результат &
-                nodeName != NodeName.Материал &
-                    nodeName != NodeName.Среда &
-                    nodeName != NodeName.Нагрев &
-                    nodeName != NodeName.Нагрузка &
-                    nodeName != NodeName.Закрепление
+                nodeName != NodeName.материал &
+                    nodeName != NodeName.среда &
+                    nodeName != NodeName.нагрев &
+                    nodeName != NodeName.нагрузка &
+                    nodeName != NodeName.закрепление
                     )
             {
                 checkPlayerControl.Cancelation = true;

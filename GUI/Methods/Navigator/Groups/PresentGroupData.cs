@@ -1,4 +1,4 @@
-﻿using BaseModule.Navigator;
+﻿using BazisGUI.Navigator;
 using BaseModule.PropertiesPanel;
 using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
 using BazisGUI.Utilities;
@@ -35,7 +35,7 @@ namespace BazisGUI
                 else
                 {
                     var rn = navigator.CreateRealNode(NodeName.группы, "Группы");
-                    navigator.SetContextMenu(rn);
+                    //navigator.SetContextMenu(rn);
                     PresentGroups(rn);
                     navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
                     prNodes[0].Nodes.Add(rn);
@@ -54,14 +54,21 @@ namespace BazisGUI
 
             foreach (var item in project.GetAllModelGroups())
             {
-                var nodeName = Converters.ConvertToNavigatorNodeType(item.ObjType);
+                //var nodeName = Converters.ConvertToNavigatorNodeType(item.ObjType);
+                NodeName nodeName;
+
+                if (item.ObjType == ObjType.Узел)
+                    nodeName = NodeName.группаУзлов;
+                else
+                    nodeName = NodeName.группаЭлементов;
+
                 var r = navigator.CreateRealNode(nodeName, $"{item.Name} {item.Count}");
-                var ind = navigator.GetObjectImageIndex(nodeName);
-                r.ImageIndex = ind;
-                r.SelectedImageIndex = ind;
+                //var ind = navigator.GetObjectImageIndex(nodeName);
+                //r.ImageIndex = ind;
+                //r.SelectedImageIndex = ind;
 
                 grNode.Nodes.Add(r);
-                navigator.SetContextMenu(r);
+                //navigator.SetContextMenu(r);
             }
 
             navigator.EndUpdate();

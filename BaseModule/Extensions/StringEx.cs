@@ -1,5 +1,4 @@
-﻿using BaseModule.Navigator;
-using System;
+﻿using System;
 
 namespace BaseModule.Extensions
 {

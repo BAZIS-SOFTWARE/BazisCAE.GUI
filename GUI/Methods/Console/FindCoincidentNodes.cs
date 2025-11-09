@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Model.Interfaces;
 using System.Drawing;
-using System.Windows.Forms;
-using BaseModule.Navigator;
 using BazisGUI.Scene.VBO;
 
 namespace BazisGUI

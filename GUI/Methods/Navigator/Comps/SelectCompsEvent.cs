@@ -1,4 +1,4 @@
-﻿using BaseModule.Navigator;
+﻿using BazisGUI.Navigator;
 using BaseModule.PropertiesPanel;
 using System;
 using System.Collections.Generic;

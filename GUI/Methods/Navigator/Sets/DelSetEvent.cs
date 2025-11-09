@@ -1,5 +1,5 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
+using BazisGUI.Navigator;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using System;
@@ -17,53 +17,48 @@ namespace BazisGUI
             try
             {
                 var node = navigator.SelectedNode;
-
-                var nodeName = node.Name.ToEnum<NodeName>(); 
+                var objInfo = node.Text.Split(' ')[0];
                 var setName = node.Text.Split(' ')[1];
-
-                // Пока запретим удалять геометрические сущности
-                if (nodeName == NodeName.Объемы |
-                    nodeName == NodeName.Поверхности |
-                    nodeName == NodeName.Кривые |
-                    nodeName == NodeName.Точки)
-                    return;
-
-                // Пока закоментируем..позже сделаем с синхронизацие gmsh
-                //if (nodeName == NodeName.Объемы | nodeName == NodeName.Поверхности)
-                //{
-                //    var ar = nodeText.Split(' ');
-                //    setName = string.Join(" ", ar, 1, ar.Length - 2);
-                //}
- 
-                var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
-
-                if (objType == ObjType.Узел)
+                ObjType objType;
+                // пока заглушим обработку объема
+                if (objInfo.TryToEnum(out objType))
                 {
-                    DeleteVBObjects("Элементы");
-                    project.ClearModelCollection(objType);
-                }
 
+                    if (objType == ObjType.Узел)
+                    {
+                        DeleteVBObjects("Элементы");
+                        project.ClearModelCollection(objType);
+                    }
+
+                    else if (objType == ObjType.Элемент1D |
+                        objType == ObjType.Элемент2D |
+                        objType == ObjType.Элемент3D)
+                    {
+                        project.DeleteModelSet(objType, setName);
+                    }
+                    else
+                        return;
+
+                    VBOController.DeleteVBObjects(setName);
+
+                    //удаляем узел
+                    node.Remove();
+
+                    PresentGroupDataOnTree();
+                    PresentCondDataOnTree();
+                    PresentMeshData();
+                    PresentModelObjectsForSelection();
+                    if (navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> nodes))
+                    {
+                        nodes.First().Collapse();
+                        nodes.First().Expand();
+                    }
+
+                    DisplayObjects();
+
+                }
                 else
-                {
-                    project.DeleteModelSet(objType, setName);
-                }
-
-                VBOController.DeleteVBObjects(setName);
-
-                
-
-                PresentGroupDataOnTree();
-                PresentCondDataOnTree();
-                PresentMeshData();
-                PresentModelObjectsForSelection();
-                if (navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> nodes))
-                {
-                    nodes.First().Collapse();
-                    nodes.First().Expand();
-                }              
-                    
-
-                DisplayObjects();
+                    return;        
             }
             catch (Exception ex)
             {

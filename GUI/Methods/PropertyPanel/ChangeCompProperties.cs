@@ -1,5 +1,5 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
+using BazisGUI.Navigator;
 using BaseModule.PropertiesPanel;
 using Newtonsoft.Json;
 using Project.TaskParameters;

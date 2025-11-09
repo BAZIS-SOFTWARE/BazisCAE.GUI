@@ -1,5 +1,5 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
+using BazisGUI.Navigator;
 using BaseModule.PropertiesPanel;
 using BaseModule.Tasks.BasicAdvisorControls.Events;
 using BazisGUI.Utilities;
@@ -37,7 +37,7 @@ namespace BazisGUI
                     rn.ImageIndex = 14;
                     rn.SelectedImageIndex = 14;
 
-                    navigator.SetContextMenu(rn);
+                    //navigator.SetContextMenu(rn);
 
                     navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
                     prNodes[0].Nodes.Add(rn);

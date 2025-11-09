@@ -1,5 +1,4 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using BaseModule.PropertiesPanel.DataGridViewNumericUpDown;
 using Project.Interfaces.Tasks;
 using Project.Tasks;

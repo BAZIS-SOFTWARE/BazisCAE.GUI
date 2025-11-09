@@ -13,7 +13,6 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using UserControlsEx;
 using PostProc;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene;
@@ -23,16 +22,8 @@ using OperationalController.GmshController;
 using OperationalController.ModelScenePresentator;
 using System.Collections.Generic;
 using OperationalController;
-using Model;
 using BaseModule.Utilities;
-using System.Xml.Linq;
-using PreProc.Interfaces;
-using PreProc;
 using System.Threading.Tasks;
-using BazisGUI.Utilities;
-using BaseModule.Extensions;
-using BaseModule.Navigator;
-using BaseModule.Mesh;
 
 namespace BazisGUI
 {
@@ -749,7 +740,7 @@ namespace BazisGUI
             расчетыToolStripMenuItem.Enabled = true;
             результатыMenuItem.Enabled = true;
             инструментыToolStripMenuItem.Enabled = true;
-            scene.Enabled = true;
+            //scene.Enabled = true;
 
             btnAdvSelection.Enabled = true;
             btnDisplayStates.Enabled = true;

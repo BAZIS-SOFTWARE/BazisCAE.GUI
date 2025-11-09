@@ -1,4 +1,4 @@
-﻿namespace BaseModule.Navigator
+﻿namespace BazisGUI.Navigator
 {
     partial class NavigatorControl
     {
@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigatorControl));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Проект", 14, 14);
-            this.genImages = new System.Windows.Forms.ImageList(this.components);
-            this.contextMenuImageList = new System.Windows.Forms.ImageList(this.components);
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Проект", 7, 7);
+            this.genImageList = new System.Windows.Forms.ImageList(this.components);
+            this.helpImageList = new System.Windows.Forms.ImageList(this.components);
             this.ndGroup_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,38 +62,34 @@
             this.del1DMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.del2DMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.del3DMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpImages = new System.Windows.Forms.ImageList(this.components);
             this.ndGroup_MenuStrip.SuspendLayout();
             this.elGroup_MenuStrip.SuspendLayout();
             this.meshMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // genImages
+            // genImageList
             // 
-            this.genImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("genImages.ImageStream")));
-            this.genImages.TransparentColor = System.Drawing.Color.Transparent;
-            this.genImages.Images.SetKeyName(0, "NodeObjs.png");
-            this.genImages.Images.SetKeyName(1, "MeshObjs.png");
-            this.genImages.Images.SetKeyName(2, "GeomObjs.png");
-            this.genImages.Images.SetKeyName(3, "Материалы.bmp");
-            this.genImages.Images.SetKeyName(4, "Среда.bmp");
-            this.genImages.Images.SetKeyName(5, "Нагрев.bmp");
-            this.genImages.Images.SetKeyName(6, "Закрепление.bmp");
-            this.genImages.Images.SetKeyName(7, "Нагрузки.bmp");
-            this.genImages.Images.SetKeyName(8, "н 2.png");
-            this.genImages.Images.SetKeyName(9, "н 3.png");
-            this.genImages.Images.SetKeyName(10, "н1.png");
+            this.genImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("genImageList.ImageStream")));
+            this.genImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.genImageList.Images.SetKeyName(0, "NodeObjs.png");
+            this.genImageList.Images.SetKeyName(1, "MeshObjs.png");
+            this.genImageList.Images.SetKeyName(2, "Материалы.bmp");
+            this.genImageList.Images.SetKeyName(3, "Среда.bmp");
+            this.genImageList.Images.SetKeyName(4, "Нагрев.bmp");
+            this.genImageList.Images.SetKeyName(5, "Закрепление.bmp");
+            this.genImageList.Images.SetKeyName(6, "Нагрузки.bmp");
+            this.genImageList.Images.SetKeyName(7, "н 2.png");
+            this.genImageList.Images.SetKeyName(8, "н 3.png");
+            this.genImageList.Images.SetKeyName(9, "н1.png");
             // 
-            // contextMenuImageList
+            // helpImageList
             // 
-            this.contextMenuImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("contextMenuImageList.ImageStream")));
-            this.contextMenuImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.contextMenuImageList.Images.SetKeyName(0, "Del.ico");
-            this.contextMenuImageList.Images.SetKeyName(1, "Hide.bmp");
-            this.contextMenuImageList.Images.SetKeyName(2, "Show.bmp");
-            this.contextMenuImageList.Images.SetKeyName(3, "Edit.png");
-            this.contextMenuImageList.Images.SetKeyName(4, "Rename.png");
-            this.contextMenuImageList.Images.SetKeyName(5, "Info.bmp");
+            this.helpImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("helpImageList.ImageStream")));
+            this.helpImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.helpImageList.Images.SetKeyName(0, "Edit.png");
+            this.helpImageList.Images.SetKeyName(1, "show_w.png");
+            this.helpImageList.Images.SetKeyName(2, "hide_w.png");
+            this.helpImageList.Images.SetKeyName(3, "Del.ico");
             // 
             // ndGroup_MenuStrip
             // 
@@ -130,7 +126,6 @@
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
             this.toolStripMenuItem7.Size = new System.Drawing.Size(128, 22);
             this.toolStripMenuItem7.Text = "Изменить";
-            this.toolStripMenuItem7.Click += new System.EventHandler(this.EditGroup_Click);
             // 
             // toolStripMenuItem9
             // 
@@ -175,7 +170,6 @@
             this.toolStripMenuItem19.Name = "toolStripMenuItem19";
             this.toolStripMenuItem19.Size = new System.Drawing.Size(176, 22);
             this.toolStripMenuItem19.Text = "Изменить";
-            this.toolStripMenuItem19.Click += new System.EventHandler(this.EditGroup_Click);
             // 
             // toolStripMenuItem21
             // 
@@ -199,20 +193,20 @@
             this.treeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.treeView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.treeView.FullRowSelect = true;
-            this.treeView.ImageIndex = 10;
-            this.treeView.ImageList = this.genImages;
+            this.treeView.ImageIndex = 9;
+            this.treeView.ImageList = this.genImageList;
             this.treeView.Indent = 19;
             this.treeView.ItemHeight = 18;
             this.treeView.Location = new System.Drawing.Point(0, 15);
             this.treeView.Margin = new System.Windows.Forms.Padding(0);
             this.treeView.Name = "treeView";
-            treeNode1.ImageIndex = 14;
+            treeNode1.ImageIndex = 7;
             treeNode1.Name = "проект";
-            treeNode1.SelectedImageIndex = 14;
+            treeNode1.SelectedImageIndex = 7;
             treeNode1.Text = "Проект";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1});
-            this.treeView.SelectedImageIndex = 10;
+            this.treeView.SelectedImageIndex = 9;
             this.treeView.ShowLines = false;
             this.treeView.Size = new System.Drawing.Size(256, 539);
             this.treeView.TabIndex = 5;
@@ -223,7 +217,6 @@
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
             this.treeView.Enter += new System.EventHandler(this.treeView_Enter);
-            this.treeView.Leave += new System.EventHandler(this.treeView_Leave);
             // 
             // meshMenuStrip
             // 
@@ -344,15 +337,6 @@
             this.del3DMenuItem.Text = "3D";
             this.del3DMenuItem.Click += new System.EventHandler(this.del3DMenuItem_Click);
             // 
-            // helpImages
-            // 
-            this.helpImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("helpImages.ImageStream")));
-            this.helpImages.TransparentColor = System.Drawing.Color.Transparent;
-            this.helpImages.Images.SetKeyName(0, "Edit.png");
-            this.helpImages.Images.SetKeyName(1, "show_w.png");
-            this.helpImages.Images.SetKeyName(2, "hide_w.png");
-            this.helpImages.Images.SetKeyName(3, "delete.ico");
-            // 
             // NavigatorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -371,7 +355,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.ImageList contextMenuImageList;
+        private System.Windows.Forms.ImageList helpImageList;
         private System.Windows.Forms.ContextMenuStrip ndGroup_MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
@@ -385,7 +369,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem19;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem22;
-        private System.Windows.Forms.ImageList genImages;
+        private System.Windows.Forms.ImageList genImageList;
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.ContextMenuStrip meshMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem showMeshMenuItem;
@@ -402,6 +386,5 @@
         private System.Windows.Forms.ToolStripMenuItem del3DMenuItem;
         private System.Windows.Forms.ToolStripMenuItem всеShowMenuItem;
         private System.Windows.Forms.ToolStripMenuItem всеHideMenuItem;
-        private System.Windows.Forms.ImageList helpImages;
     }
 }

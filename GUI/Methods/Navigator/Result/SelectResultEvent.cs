@@ -10,7 +10,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectResultEvent(BaseModule.Navigator.NodeName arg1, string arg2)
+        private void navigator_SelectResultEvent(Navigator.NodeName arg1, string arg2)
         {
             try
             {

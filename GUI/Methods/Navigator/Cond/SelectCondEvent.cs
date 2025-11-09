@@ -1,9 +1,7 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using Model.Utilities;
+using Project.Interfaces.Tasks;
 using Project.Tasks;
-using PropertiesCalculator.FunctionData;
-using PropertiesCalculator.MaterialData;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,11 +11,11 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectCondEvent(NodeName arg1, string arg2)
+        private void navigator_SelectCondEvent(int arg1)
         {
             try
             {
-                var data = project.TaskData.First(x => x.ToString() == arg2);
+                var data = project.TaskData[arg1];
 
                 var _funcs = project.FunctionsDB.Keys.ToList();
                 _funcs.Add("*");
@@ -27,15 +25,15 @@ namespace BazisGUI
 
                 List<RowProperty> rows;
 
-                if (arg1 == NodeName.Материал)
+                if (data.Kind == DataKind.Материал)
                     rows = GetMatProperty((MatData)data, _mats, groups);
-                else if (arg1 == NodeName.Среда)
+                else if (data.Kind == DataKind.Среда)
                     rows = GetMediaProperty((MediaData)data, groups, _funcs);
-                else if (arg1 == NodeName.Нагрев)
+                else if (data.Kind == DataKind.Нагрев)
                     rows = GetHeatProperty((HeatData)data, groups, _funcs);
-                else if (arg1 == NodeName.Закрепление)
+                else if (data.Kind == DataKind.Закрепление)
                     rows = GetClampProperty((ClampData)data, groups);
-                else if (arg1 == NodeName.Нагрузка)
+                else if (data.Kind == DataKind.Закрепление)
                     rows = GetLoadProperty((LoadData)data, _funcs, groups);
                 else throw new NotImplementedException("Вид условия не определен");
 

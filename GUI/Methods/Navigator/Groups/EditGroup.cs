@@ -1,21 +1,18 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
-using Model.Interfaces;
+﻿using Model.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private async void EditGroup(int obj)
+        private async void EditGroup()
         {
-            var group = project.ModelData.GroupData[obj];
+            var ind = navigator.SelectedNode.Index;
+            var group = project.GetModelGroup(ind);
             //SelectedObjects = group.ObjType.ToString();
 
             foreach (var iobj in group)

@@ -1,5 +1,4 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using Project.Interfaces.Tasks;
 using PropertiesCalculator.FunctionData;

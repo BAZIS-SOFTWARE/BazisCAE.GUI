@@ -1,5 +1,4 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.MeshObjects;
@@ -11,43 +10,6 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void ChangeMeshObjectProperty(PropertyChangedEventArgs obj, NodeName nodeName)
-        {
-            var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
-
-            var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
-
-            // получаем объект
-            var mObj = project.GetModelObject(objType, number);
-
-            if (nodeName == NodeName.Узел)
-            {
-                var c = mObj.GetCoordinates().First();
-
-                if (obj.Header == "Координата X")
-                    c._x = float.Parse(obj.NewValue);
-                else if (obj.Header == "Координата Y")
-                    c._y = float.Parse(obj.NewValue);
-                else
-                    c._z = float.Parse(obj.NewValue);
-                List<ObjType> objTypes = new List<ObjType> { ObjType.Узел, ObjType.Элемент1D, ObjType.Элемент2D, ObjType.Элемент3D };
-                foreach (var type in objTypes)
-                {
-                    var presentor = project.CreateModelObjectsPresentor(type);
-                    SetVBObjectAttribute(presentor, "координаты");
-                }
-            }
-            else// if(objType == ObjType.Элемент1D | objType == ObjType.Элемент2D | objType == ObjType.Элемент3D)
-            {
-                var element = mObj as Element;
-                element.Level = int.Parse(obj.NewValue);
-            }
-            navigator.SelectedNode.Text = mObj.ToString();
-            DisplayObjects();
-
-        }
-
-
         private void ChangeNodeProperty(PropertyChangedEventArgs obj, int number)
         {
 

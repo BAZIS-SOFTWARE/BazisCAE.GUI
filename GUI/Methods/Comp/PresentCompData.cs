@@ -1,5 +1,5 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
+using BazisGUI.Navigator;
 using BaseModule.PropertiesPanel;
 using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
 using Project.Interfaces.Tasks;
@@ -31,7 +31,7 @@ namespace BazisGUI
                     else
                     {
                         var rn = navigator.CreateRealNode(NodeName.расчеты, "Расчеты");
-                        navigator.SetContextMenu(rn);
+                        //navigator.SetContextMenu(rn);
                         NewMethod(compData, rn);
                         navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
                         prNodes[0].Nodes.Add(rn);

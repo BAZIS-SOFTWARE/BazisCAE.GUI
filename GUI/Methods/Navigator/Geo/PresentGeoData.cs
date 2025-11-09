@@ -1,5 +1,5 @@
 ﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
+using BazisGUI.Navigator;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using GmshApi;
@@ -39,7 +39,10 @@ namespace BazisGUI
                     else
                     {
                         var rn = navigator.CreateRealNode(NodeName.геометрия, "Геометрия");
-                        navigator.SetContextMenu(rn);
+
+                        //navigator.SetContextMenu(rn);
+
+                        rn.Tag = "12,13,14";
 
                         var imgIndex = navigator.GetObjectImageIndex(NodeName.геометрия);
 

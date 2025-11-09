@@ -141,13 +141,6 @@
     <Compile Include="Mesh\ShowHeatMapEventArg.cs" />
     <Compile Include="Mesh\ShowTransPointsEventArgs.cs" />
     <Compile Include="Mesh\TreeNodeEqualityComparer.cs" />
-    <Compile Include="Navigator\NavigatorControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Navigator\NavigatorControl.Designer.cs">
-      <DependentUpon>NavigatorControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Navigator\SelectionType.cs" />
     <Compile Include="Player\PlayerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -449,9 +442,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mesh\SettingsControls\GMSHVolSettingsControl.resx">
       <DependentUpon>GMSHVolSettingsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Navigator\NavigatorControl.resx">
-      <DependentUpon>NavigatorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Player\PlayerControl.resx">
       <DependentUpon>PlayerControl.cs</DependentUpon>

@@ -1,19 +1,9 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
-using BazisGUI.Scene.VBO;
-using BazisGUI.Utilities;
-using Geometry;
-using GmshApi;
-using Model.GeometryObjects;
+﻿using BaseModule.PropertiesPanel;
 using Model.Interfaces;
-using OperationalController;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {

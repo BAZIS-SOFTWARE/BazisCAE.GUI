@@ -1,18 +1,15 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
 
-        private void Navigator_SelectCompEvent(NodeName arg1, string arg2)
+        private void Navigator_SelectCompEvent(string arg2)
         {
             try
             {

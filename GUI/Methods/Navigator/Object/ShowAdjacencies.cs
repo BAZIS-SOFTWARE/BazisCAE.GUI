@@ -1,26 +1,12 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
-using BazisGUI.Utilities;
-using GmshApi;
-using Model.GeometryObjects;
-using Model.Interfaces;
+﻿using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
-using Model.MeshObjects;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void ShowAdjacencies(NodeName nodeName, int number)
+        private void ShowAdjacencies(ObjType objType, int number)
         {
             //TODO тут пишем метод который показывает все связанные объекты
 
@@ -29,37 +15,25 @@ namespace BazisGUI
             //var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
             //var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
 
+            if (objType == ObjType.Поверхность)
+            {
+                ShowSurfAdg(number);
+                set = project.GetModelSetsInfo(ObjType.Поверхность).First();
+                PresentSet(set);
+                set = project.GetModelSetsInfo(ObjType.Кривая).First();
+                PresentSet(set);
+                set = project.GetModelSetsInfo(ObjType.Точка).First();
+                PresentSet(set);
+            }
+            else if (objType == ObjType.Кривая)
+            {
+                ShowCurvAdg(number);
+                set = project.GetModelSetsInfo(ObjType.Кривая).First();
+                PresentSet(set);
+                set = project.GetModelSetsInfo(ObjType.Точка).First();
+                PresentSet(set);
+            }
 
-                if (nodeName == NodeName.Объем)
-                {
-                    ShowVolAdg(number);
-                    set = project.GetModelSetsInfo(ObjType.Поверхность).First();
-                    PresentSet(set);
-                    set = project.GetModelSetsInfo(ObjType.Кривая).First();
-                    PresentSet(set);
-                    set = project.GetModelSetsInfo(ObjType.Точка).First();
-                    PresentSet(set);
-                }
-
-                else if (nodeName == NodeName.Поверхность)
-                {
-                    ShowSurfAdg(number);
-                    set = project.GetModelSetsInfo(ObjType.Поверхность).First();
-                    PresentSet(set);
-                    set = project.GetModelSetsInfo(ObjType.Кривая).First();
-                    PresentSet(set);
-                    set = project.GetModelSetsInfo(ObjType.Точка).First();
-                    PresentSet(set);
-                }
-                else if (nodeName == NodeName.Кривая)
-                {
-                    ShowCurvAdg(number);
-                    set = project.GetModelSetsInfo(ObjType.Кривая).First();
-                    PresentSet(set);
-                    set = project.GetModelSetsInfo(ObjType.Точка).First();
-                    PresentSet(set);
-                }
-            
             DisplayObjects();
         }
 

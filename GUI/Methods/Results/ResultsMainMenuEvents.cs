@@ -1,4 +1,4 @@
-﻿using BaseModule.Navigator;
+﻿using BazisGUI.Navigator;
 using BaseModule.Results.Export;
 using BaseModule.Results.GraphCreation;
 using BaseModule.Results.ScaleControl;
@@ -153,7 +153,7 @@ namespace BazisGUI
                 rn.ImageIndex = 14;
                 rn.SelectedImageIndex = 14;
 
-                navigator.SetContextMenu(rn);
+                //.SetContextMenu(rn);
                 navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
                 prNodes[0].Nodes.Add(rn);
                 results.Add(rn);

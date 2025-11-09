@@ -1,5 +1,5 @@
-﻿using BaseModule.Navigator;
-using BaseModule.Results.Animation;
+﻿using BaseModule.Results.Animation;
+using BazisGUI.Navigator;
 using Gif.Components;
 using ResultDB.IO;
 using System;

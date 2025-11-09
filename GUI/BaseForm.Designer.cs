@@ -1,4 +1,5 @@
-﻿using BaseModule.Navigator;
+﻿
+using BazisGUI.Navigator;
 using BazisGUI.Scene.EventsArgs;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace BazisGUI
             this.webPageLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer3 = new UserControlsEx.SplitContainerEx();
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
-            this.navigator = new BaseModule.Navigator.NavigatorControl();
+            this.navigator = new BazisGUI.Navigator.NavigatorControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.checkPlayerControl = new BaseModule.Player.PlayerControl();
             this.propertiesPanel = new BaseModule.PropertiesPanel.PropertiesPanelControl();
@@ -285,10 +286,10 @@ namespace BazisGUI
             // 
             this.navigator.BackColor = System.Drawing.Color.Gainsboro;
             this.navigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.navigator.CollapseIndex = 14;
+            this.navigator.CollapseIndex = 7;
             this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navigator.DownColor = System.Drawing.Color.Gainsboro;
-            this.navigator.ExpandIndex = 15;
+            this.navigator.ExpandIndex = 8;
             this.navigator.HeaderColor = System.Drawing.Color.Black;
             this.navigator.HeaderName = "Навигатор";
             this.navigator.IsPinndable = false;
@@ -308,37 +309,32 @@ namespace BazisGUI
             this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
             this.navigator.ChangeAllGeoViewStateEvent += new System.Action<bool>(this.navigator_ChangeAllObjectsViewStateEvent);
             this.navigator.DelAllGeoEvent += new System.Action(this.navigator_DelAllObjectsEvent);
+            this.navigator.ChangeAllMeshViewStateEvent += new System.Action<bool>(this.navigator_ChangeAllObjectsViewStateEvent);
+            this.navigator.DelAllMeshEvent += new System.Action(this.navigator_DelAllObjectsEvent);
+
             this.navigator.ShowMeshEvent += new System.Action<int, bool>(this.navigator_ShowElementsEvent);
             this.navigator.DelMeshEvent += new System.Action<int>(this.navigator_DelElementsEvent);
             this.navigator.ShowSetEvent += new System.Action(this.navigator_ShowSetEvent);
             this.navigator.HideSetEvent += new System.Action(this.navigator_HideSetEvent);
             this.navigator.DelSetEvent += new System.Action(this.navigator_DelSetEvent);
-            this.navigator.SelectSetEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectSetEvent);
+            this.navigator.SelectSetEvent += new System.Action<BazisGUI.Navigator.NodeName, string>(this.navigator_SelectSetEvent);
             this.navigator.GetSetsInfoEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_GetSetsInfoEvent);
             this.navigator.SelectGroupEvent += new System.Action<int>(this.navigator_SelectGroupEvent);
-            //this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
-            //this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
-            //this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
-            this.navigator.EditGroupEvent += new System.Action<int>(this.EditGroup);
+            this.navigator.EditGroupEvent += new System.Action(this.EditGroup);
             this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
             this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
             this.navigator.GetObjectsInfoEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_GetObjectsInfoEvent);
-            this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_SelectObjectEvent);
-            //this.navigator.ShowAdjacenciesEvent += new System.Action(this.ShowAdjacencies);
-            //this.navigator.ShowAdjacenciesSetEvent += new System.Action(this.navigator_ShowAdjacenciesSetEvent);
-            //this.navigator.DelObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_DelObjectEvent);
-            //this.navigator.ShowObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_ShowObjectEvent);
-            //this.navigator.HideObjectEvent += new System.Action<BaseModule.Navigator.NodeName, int>(this.navigator_HideObjectEvent);
-            this.navigator.SelectCondEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectCondEvent);
+            this.navigator.SelectObjectEvent += new System.Action<string, int>(this.navigator_SelectObjectEvent);
+            this.navigator.SelectCondEvent += new System.Action<int>(this.navigator_SelectCondEvent);
             this.navigator.SelectTaskEvent += new System.Action(this.navigator_SelectTaskEvent);
             this.navigator.SelectGeoEvent += new System.Action(this.navigator_SelectGeoEvent);
             this.navigator.SelectMeshEvent += new System.Action(this.navigator_SelectMeshEvent);
             this.navigator.SelectResultsEvent += new System.Action(this.navigator_SelectResultsEvent);
-            this.navigator.SelectCompEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.Navigator_SelectCompEvent);
+            this.navigator.SelectCompEvent += new System.Action<string>(this.Navigator_SelectCompEvent);
             this.navigator.SelectCompsEvent += new System.Action(this.Navigator_SelectCompsEvent);
             this.navigator.SelectGeneralInfoEvent += new System.Action(this.navigator_SelectGeneralInfoEvent);
             this.navigator.SelectTimeEvent += new System.Action<string, double>(this.navigator_SelectTimeEvent);
-            this.navigator.SelectResultEvent += new System.Action<BaseModule.Navigator.NodeName, string>(this.navigator_SelectResultEvent);
+            this.navigator.SelectResultEvent += new System.Action<BazisGUI.Navigator.NodeName, string>(this.navigator_SelectResultEvent);
             this.navigator.GetResultInfoEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_GetResultInfoEvent);
             this.navigator.DelCondEvent += new System.Action(this.navigator_DelCondEvent);
             this.navigator.CreateAnimationEvent += new System.Action<object, string, System.Collections.Generic.List<double>>(this.navigator_CreateAnimationEvent);
@@ -803,7 +799,6 @@ namespace BazisGUI
             this.scene.ColorBits = ((byte)(32));
             this.scene.DepthBits = ((byte)(16));
             this.scene.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scene.Enabled = false;
             this.scene.Location = new System.Drawing.Point(0, 0);
             this.scene.Margin = new System.Windows.Forms.Padding(5);
             this.scene.Name = "scene";
@@ -891,7 +886,7 @@ namespace BazisGUI
             this.создатьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.создатьToolStripMenuItem.Name = "создатьToolStripMenuItem";
             this.создатьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.создатьToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.создатьToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.создатьToolStripMenuItem.Text = "&Создать";
             this.создатьToolStripMenuItem.Click += new System.EventHandler(this.создатьToolStripMenuItem_Click);
             // 
@@ -901,21 +896,21 @@ namespace BazisGUI
             this.открытьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
             this.открытьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.открытьToolStripMenuItem.Text = "&Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // добавитьToolStripMenuItem
             // 
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.добавитьToolStripMenuItem.Text = "Добавить";
             this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.добавитьСеткуToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(177, 6);
             // 
             // сохранитьToolStripMenuItem
             // 
@@ -923,31 +918,31 @@ namespace BazisGUI
             this.сохранитьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             this.сохранитьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.сохранитьToolStripMenuItem.Text = "&Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // сохранитькакToolStripMenuItem
             // 
             this.сохранитькакToolStripMenuItem.Name = "сохранитькакToolStripMenuItem";
-            this.сохранитькакToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.сохранитькакToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.сохранитькакToolStripMenuItem.Text = "Сохранить &как";
             this.сохранитькакToolStripMenuItem.Click += new System.EventHandler(this.сохранитькакToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.выходToolStripMenuItem.Text = "Вы&ход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -1309,7 +1304,7 @@ namespace BazisGUI
             // 
             this.измеритьToolStripMenuItem.CheckOnClick = true;
             this.измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
-            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.измеритьToolStripMenuItem.Text = "Измерить";
             this.измеритьToolStripMenuItem.Click += new System.EventHandler(this.измеритьToolStripMenuItem_Click);
             // 
@@ -1317,7 +1312,7 @@ namespace BazisGUI
             // 
             this.отзеркаливаниеToolStripMenuItem.CheckOnClick = true;
             this.отзеркаливаниеToolStripMenuItem.Name = "отзеркаливаниеToolStripMenuItem";
-            this.отзеркаливаниеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.отзеркаливаниеToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.отзеркаливаниеToolStripMenuItem.Text = "Отзеркаливание";
             this.отзеркаливаниеToolStripMenuItem.Click += new System.EventHandler(this.отзеркаливаниеToolStripMenuItem_Click);
             // 
@@ -1325,7 +1320,7 @@ namespace BazisGUI
             // 
             this.скрытьПлоскостьюToolStripMenuItem.CheckOnClick = true;
             this.скрытьПлоскостьюToolStripMenuItem.Name = "скрытьПлоскостьюToolStripMenuItem";
-            this.скрытьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.скрытьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.скрытьПлоскостьюToolStripMenuItem.Text = "Скрыть плоскостью";
             this.скрытьПлоскостьюToolStripMenuItem.Click += new System.EventHandler(this.скрытьПлоскостьюToolStripMenuItem_Click);
             // 
@@ -1534,7 +1529,7 @@ namespace BazisGUI
         private System.Windows.Forms.ToolStripMenuItem функцииMenuItem;
         private UserControlsEx.SplitContainerEx splitContainer3;
         private UserControlsEx.SplitContainerEx splitContainer1;
-        private BaseModule.Navigator.NavigatorControl navigator;
+        private NavigatorControl navigator;
         private BaseModule.PropertiesPanel.PropertiesPanelControl propertiesPanel;
         private UserControlsEx.SplitContainerEx splitContainer2;
         private Tao.Platform.Windows.SimpleOpenGlControl scene;

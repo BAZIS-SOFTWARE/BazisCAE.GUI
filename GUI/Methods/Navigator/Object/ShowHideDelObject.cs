@@ -1,4 +1,4 @@
-﻿using BaseModule.Navigator;
+﻿using BaseModule.Extensions;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
@@ -14,28 +14,31 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_ShowObjectEvent(NodeName arg1, int arg3)
+        private void navigator_ShowObjectEvent(string arg1, int arg3)
         {
             ShowHideObject(arg1, arg3, true);
         }
 
 
-        private void navigator_HideObjectEvent(NodeName arg1,  int arg3)
+        private void navigator_HideObjectEvent(string arg1,  int arg3)
         {
             ShowHideObject(arg1, arg3, false);
         }
-        private void navigator_DelObjectEvent(NodeName arg1, int arg3)
+        private void navigator_DelObjectEvent(string arg1, int arg3)
         {
 
         }
-        public void ShowHideObject(NodeName nodeName, int number,bool flag)
+        public void ShowHideObject(string objInfo ,int number,bool flag)
         {
             try
             {
                 ISetInfo set;
-                if (nodeName != NodeName.Объем)
+                ObjType objType;
+
+                // пока заглушим обработку объема
+                if (objInfo.TryToEnum(out objType))
                 {
-                    var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
+                    //var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
                     set = project.GetModelSetInfo(objType, number);
                     set.SetBackColor();
 

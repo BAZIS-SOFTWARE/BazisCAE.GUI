@@ -1,6 +1,6 @@
 ﻿using BaseModule.Extensions;
 using BaseModule.Mesh;
-using BaseModule.Navigator;
+using BazisGUI.Navigator;
 using BaseModule.PropertiesPanel;
 using BaseModule.Tasks.BasicAdvisorControls.Events;
 using BazisGUI.Utilities;
@@ -79,8 +79,8 @@ namespace BazisGUI
 
                     if (set != null)
                     {
-                        var nodeName = Converters.ConvertToNavigatorNodeType(set.ObjType);
-                        var v = navigator.CreateVirtualNode(nodeName);
+                        //var nodeName = Converters.ConvertToNavigatorNodeType(set.ObjType);
+                        var v = navigator.CreateVirtualNode(set.ObjType.ToString());
                         navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> nodes);
                         nodes.First().Nodes.Add(v);
                     }

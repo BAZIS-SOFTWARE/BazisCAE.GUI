@@ -1,4 +1,4 @@
-﻿using BaseModule.Navigator;
+﻿using BaseModule.Extensions;
 using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using GmshApi;
@@ -14,14 +14,14 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectObjectEvent(NodeName nodeName, int number)
+        private void navigator_SelectObjectEvent(string objInfo, int number)
         {
             try
             {
+                ObjType objType;
                 // пока заглушим обработку объема
-                if (nodeName != NodeName.Объем)
+                if (objInfo.TryToEnum(out objType))
                 {
-                    var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
                     var setIndo = project.GetModelSetInfo(objType, number);
                     setIndo.SetBackColor();
 
@@ -35,6 +35,8 @@ namespace BazisGUI
                     SetVBObjectAttribute(pres, "цвет");
 
                     DisplayObjects();
+
+                    CreateObjectProperties(objType, number);
                 }
                 else
                 {
@@ -56,7 +58,7 @@ namespace BazisGUI
                     DisplayObjects();
                 }
 
-                CreateObjectProperties(nodeName, number);
+                
 
             }
             catch (Exception ex)
@@ -65,47 +67,67 @@ namespace BazisGUI
             }
         }
 
-        private void CreateObjectProperties(NodeName nodeName, int number)
+        private void CreateVolProperties(string objInfo,int number)
+        {
+            var rows = new List<RowProperty>();
+
+            rows.Add(new RowProperty("Объект", objInfo, true));
+
+            rows.AddRange(GetVolProperties(number));
+            
+
+            rows.Add(new RowProperty("Связанные объекты", new ButtonPropertyValue("Показать",
+                new Action(() =>
+                {
+                        ShowVolAdg(number);
+                        var set = project.GetModelSetsInfo(ObjType.Поверхность).First();
+                        PresentSet(set);
+                        set = project.GetModelSetsInfo(ObjType.Кривая).First();
+                        PresentSet(set);
+                        set = project.GetModelSetsInfo(ObjType.Точка).First();
+                        PresentSet(set);
+                    
+                })), true)); ;
+
+            propertiesPanel.DrawTable(rows);
+        }
+
+        private void CreateObjectProperties(ObjType objType, int number)
         {
 
             var rows = new List<RowProperty>();
 
-            rows.Add(new RowProperty("Объект", nodeName, true));
+            rows.Add(new RowProperty("Объект", objType, true));
 
-            if (nodeName == NodeName.Точка)
+            if (objType == ObjType.Точка)
                 rows.AddRange(GetPointProperty(number));
 
-            else if (nodeName == NodeName.Узел)
+            else if (objType == ObjType.Узел)
             {
                 var node = (Node)project.GetModelObject(ObjType.Узел, number);
                 rows.AddRange(GetNodeProperty(node));
             }
 
 
-            else if (nodeName == NodeName.Элемент1D |
-                nodeName == NodeName.Элемент2D |
-                nodeName == NodeName.Элемент3D)
+            else if (objType == ObjType.Элемент1D |
+                objType == ObjType.Элемент2D |
+                objType == ObjType.Элемент3D)
             {
                 var element = project.GetAllModelElements().First(x => x.Number == number);
                 rows.AddRange(GetElementProperty(element));
             }
 
 
-            else if (nodeName == NodeName.Кривая)
+            else if (objType == ObjType.Кривая)
                 rows.AddRange(GetCurveProperties(number));
 
-            else if (nodeName == NodeName.Поверхность)
+            else if (objType == ObjType.Поверхность)
                 rows.AddRange(GetSurfaceProperties(number));
-
-            else if (nodeName == NodeName.Объем)
-            {
-                rows.AddRange(GetVolProperties(number));
-            }
 
             rows.Add(new RowProperty("Связанные объекты", new ButtonPropertyValue("Показать", 
                 new Action(() => 
                 {
-                    ShowAdjacencies(nodeName,number);
+                    ShowAdjacencies(objType, number);
                 })), true)); ;
 
             propertiesPanel.DrawTable(rows);
