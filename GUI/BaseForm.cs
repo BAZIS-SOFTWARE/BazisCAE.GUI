@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using OperationalController;
 using BaseModule.Utilities;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -733,7 +734,7 @@ namespace BazisGUI
 
         private void UnblockInterface()
         {
-            геометрияToolStripMenuItem.Enabled = true;
+            скриптToolStripMenuItem.Enabled = true;
             сеткаToolStripMenuItem.Enabled = true;
             dataBasesMenuItem.Enabled = true;
             tasksMenuItem.Enabled = true;
@@ -974,10 +975,7 @@ namespace BazisGUI
             {
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
-
         }
-
-
     }
 
 }

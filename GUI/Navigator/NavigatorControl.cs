@@ -95,18 +95,12 @@ namespace BazisGUI.Navigator
         public event Action DelAllGroupsEvent;
         public event Action ShowAllGroupsEvent;
         public event Action HideAllGroupsEvent;
-        //public event Action SortGroupEvent;
 
         public event Action<bool> ChangeAllGeoViewStateEvent;
         public event Action DelAllGeoEvent;
 
-        public event Action<int,bool> ShowMeshEvent;
-        //public event Action<int> HideElementsEvent;
-        public event Action<int> DelMeshEvent;
         public event Action DelAllMeshEvent;
         public event Action<bool> ChangeAllMeshViewStateEvent;
-        //public event Action LoadMaterialsEvent;
-        //public event Action LoadFunctionsEvent;
 
         public event Action ShowSetEvent;
         public event Action HideSetEvent;
@@ -119,8 +113,7 @@ namespace BazisGUI.Navigator
         public event Action HideGroupEvent;
         public event Action ShowGroupEvent;
         public event Action EditGroupEvent;
-        public event Action<int> InfoGroupEvent;
-        public event Action<int> ShowGroupWithNodesEvent;
+        public event Action InfoGroupEvent;
 
         public event Action<TreeNode> GetObjectsInfoEvent;
 
@@ -147,8 +140,6 @@ namespace BazisGUI.Navigator
         public event Action<TreeNode> GetResultInfoEvent;
         public event Action DelCondEvent;
 
-        public event Action<object, string, List<double>> CreateAnimationEvent;
-
         public NavigatorControl()
         {
             InitializeComponent();
@@ -156,10 +147,6 @@ namespace BazisGUI.Navigator
             typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic |
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
                 SetValue(treeView, true, null);
-
-            showMeshMenuItem.DropDown.Closing += SplitButton_Closing;
-            hideMeshMenuItem.DropDown.Closing += SplitButton_Closing;
-            delMeshMenuItem.DropDown.Closing += SplitButton_Closing;
 
             //SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
 
@@ -189,21 +176,21 @@ namespace BazisGUI.Navigator
 
             helpImgDict = new Dictionary<NodeName, int[]>()
             {
-                { NodeName.сетка,new []{ 1,2,3} },
-                { NodeName.геометрия,new []{ 1,2,3} },
-                { NodeName.материал,new []{ 3} },
-                { NodeName.среда,new []{ 3}},
-                { NodeName.нагрев,new []{ 3}},
-                { NodeName.закрепление,new []{ 3}},
-                { NodeName.нагрузка,new []{ 3}},
-                { NodeName.результаты,new []{ 2,3}},
+                { NodeName.сетка,new []{ 2,3,4} },
+                { NodeName.геометрия,new []{ 2, 3, 4 } },
+                { NodeName.материал,new []{ 4} },
+                { NodeName.среда,new []{ 4}},
+                { NodeName.нагрев,new []{ 4}},
+                { NodeName.закрепление,new []{ 4}},
+                { NodeName.нагрузка,new []{ 4}},
+                { NodeName.результаты,new []{ 3,4}},
                 { NodeName.расчеты,new int [0]},
-                { NodeName.задача,new []{3} },
-                { NodeName.группы,new []{ 1,2,3}},
-                { NodeName.группаУзлов,new []{ 0,1,2,3}},
-                { NodeName.группаЭлементов,new []{ 0,1,2,3}},
-                { NodeName.объект,new []{ 1,2,3}},
-                { NodeName.набор,new []{ 1,2,3}},
+                { NodeName.задача,new []{4} },
+                { NodeName.группы,new []{ 2,3,4}},
+                { NodeName.группаУзлов,new []{ 0,1,2,3,4}},
+                { NodeName.группаЭлементов,new []{ 0,1,2,3,4}},
+                { NodeName.объект,new []{ 2,3,4}},
+                { NodeName.набор,new []{ 2,3,4}},
             };
 
             treeView.Nodes[0].Expand();
@@ -385,12 +372,14 @@ namespace BazisGUI.Navigator
                     node.Name == NodeName.группаЭлементов.ToString())
             {
                 if (actIndex == 0)
-                    EditGroupEvent?.Invoke();
+                    InfoGroupEvent?.Invoke();
                 else if (actIndex == 1)
-                    ShowGroupEvent?.Invoke();
+                    EditGroupEvent?.Invoke();
                 else if (actIndex == 2)
-                    HideGroupEvent?.Invoke();
+                    ShowGroupEvent?.Invoke();
                 else if (actIndex == 3)
+                    HideGroupEvent?.Invoke();
+                else if (actIndex == 4)
                     DelGroupEvent?.Invoke();
                 
             }
@@ -454,13 +443,6 @@ namespace BazisGUI.Navigator
             return nodes.Count != 0;
         }
 
-        public void ShowGroupWithNodes_Click(object sender, EventArgs e)
-        {
-            var groupIndex = treeView.SelectedNode.Index;
-
-            ShowGroupWithNodesEvent?.Invoke(groupIndex);
-        }
-
 
         private void treeView_AfterCollapse(object sender, TreeViewEventArgs e)
         {
@@ -504,20 +486,13 @@ namespace BazisGUI.Navigator
             }
         }
 
-
-        public void InfoGroup_Click(object sender, EventArgs e)
-        {
-            var groupIndex = treeView.SelectedNode.Index;
-
-            InfoGroupEvent?.Invoke(groupIndex);
-        }
         
         private void treeView_Enter(object sender, EventArgs e)
         {
             if (treeView.SelectedNode != null)
             {
                 treeView.SelectedNode.BackColor = Color.Empty;
-                //treeView.SelectedNode.ForeColor = Color.Empty;
+                treeView.SelectedNode.ForeColor = Color.Empty;
             }
         }
 
@@ -630,35 +605,6 @@ namespace BazisGUI.Navigator
             treeView.EndUpdate();
         }
 
-        private void скрытьРезToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HideResultsEvent?.Invoke();
-        }
-
-        private void удалитьРезToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RemoveResultsEvent?.Invoke();
-        }
-
-        private void удалитьВсеУсловияToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RemoveAllConditionsEvent?.Invoke();
-        }
-
-
-
-        private void создатьАнимациюMenuItem_Click(object sender, EventArgs e)
-        {
-            var node = treeView.SelectedNode;
-
-            var list = new List<double>();
-
-            foreach (TreeNode item in treeView.SelectedNode.Nodes)
-                list.Add(double.Parse(item.Text));
-
-            CreateAnimationEvent?.Invoke(this, node.Text, list);
-        }
-
         // Draws a node.
         private void treeView_DrawNode(
             object sender, DrawTreeNodeEventArgs e)
@@ -750,69 +696,7 @@ namespace BazisGUI.Navigator
             }
 
             return bounds;
-        }
-
-       
-
-        private void показатьСмежныеНаборыToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //ShowAdjacenciesSetEvent?.Invoke();
-        }
-
-        private void show1DMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowMeshEvent?.Invoke(1,true);
-        }
-
-        private void show2DMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowMeshEvent?.Invoke(2, true);
-        }
-
-        private void show3DMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowMeshEvent?.Invoke(3, true);
-        }
-
-        private void hide1DMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowMeshEvent?.Invoke(1, false);
-        }
-
-        private void hide2DMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowMeshEvent?.Invoke(2, false);
-        }
-
-        private void hide3DMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowMeshEvent?.Invoke(3, false);
-        }
-
-        private void del1DMenuItem_Click(object sender, EventArgs e)
-        {
-            DelMeshEvent?.Invoke(1);
-        }
-
-        private void del2DMenuItem_Click(object sender, EventArgs e)
-        {
-            DelMeshEvent?.Invoke(2);
-        }
-
-        private void del3DMenuItem_Click(object sender, EventArgs e)
-        {
-            DelMeshEvent?.Invoke(3);
-        }
-
-        private void nodeHideMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowMeshEvent?.Invoke(0, false);
-        }
-
-        private void nodeShowMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowMeshEvent?.Invoke(0, true);
-        }
+        }   
 
         private void SplitButton_Closing(object sender, ToolStripDropDownClosingEventArgs e)
         {

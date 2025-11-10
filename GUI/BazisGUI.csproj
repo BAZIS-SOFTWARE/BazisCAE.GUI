@@ -257,7 +257,7 @@
     <Compile Include="Methods\Console\ConsoleEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Geo\SaveLoadScript.cs">
+    <Compile Include="Methods\Script\SaveLoadScript.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Mesh\RefineMesh.cs">
@@ -323,7 +323,7 @@
     <Compile Include="Methods\Navigator\Groups\GroupsActionsEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\Navigator\Groups\ShowGroupWithNodesEvent.cs">
+    <Compile Include="Methods\Navigator\Groups\ShowGroupWithNodes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Groups\ShowGroupEvent.cs">
@@ -348,9 +348,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Groups\EditGroup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\CreateGIFAnimation.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\Navigator\Cond\CheckCondData.cs">
@@ -818,6 +815,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
+    <None Include="Resources\info_w.png" />
     <None Include="Resources\Edit.png" />
     <None Include="Resources\hide_w.png" />
     <None Include="Resources\show_w.png" />

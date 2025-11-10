@@ -15,6 +15,8 @@ namespace BazisGUI
                 var changed = Path.ChangeExtension(file, "gscript");
 
                 project.LoadSMF(changed);
+
+                console.PrintInfo($"скрипт {changed} выполнен", Color.Green);
             }
             catch (Exception ex)
             {
@@ -32,6 +34,8 @@ namespace BazisGUI
                 var changed = Path.ChangeExtension(file, "gscript");
                 
                 project.SaveSMF(changed);
+
+                console.PrintInfo($"скрипт {changed} сформирован", Color.Green);
             }
             catch (Exception ex)
             {

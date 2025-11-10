@@ -35,7 +35,8 @@ namespace BazisGUI
                     {
                         Name = "measureForm",
                         Text = "Панель измерений",
-                        ShowIcon = false,
+                        Icon = this.Icon,
+                        ShowIcon = true,
                         Owner = Application.OpenForms[0],
                         TopMost = true
                     };

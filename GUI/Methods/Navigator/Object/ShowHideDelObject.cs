@@ -2,6 +2,7 @@
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
+using Model.MeshObjects;
 using Model.Utilities;
 using System;
 using System.Collections.Generic;
@@ -14,19 +15,23 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_ShowObjectEvent(string arg1, int arg3)
+        private void navigator_ShowObjectEvent()
         {
-            ShowHideObject(arg1, arg3, true);
+            var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
+            var objInfo = navigator.SelectedNode.Text.Split(' ')[1];
+            ShowHideObject(objInfo, number, true);
         }
 
 
-        private void navigator_HideObjectEvent(string arg1,  int arg3)
+        private void navigator_HideObjectEvent()
         {
-            ShowHideObject(arg1, arg3, false);
+            var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
+            var objInfo = navigator.SelectedNode.Text.Split(' ')[1];
+            ShowHideObject(objInfo, number, false);
         }
-        private void navigator_DelObjectEvent(string arg1, int arg3)
+        private void navigator_DelObjectEvent()
         {
-
+            //TODO реализовать
         }
         public void ShowHideObject(string objInfo ,int number,bool flag)
         {

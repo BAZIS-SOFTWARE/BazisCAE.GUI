@@ -136,6 +136,9 @@
   <data name="hide_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hide_w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="info_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\info_w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ScreenSaver" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ScreenSaver.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

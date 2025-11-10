@@ -11,17 +11,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public void DeleteElems(ObjType objType,string name)
-        {
-            project.DeleteModelSet(objType, name);
-            VBOController.DeleteVBObjects(name);
-        }
-        private void navigator_DelElementsEvent(int obj)
+        private void DelElements(int obj)
         {
             try
             {
@@ -36,7 +32,10 @@ namespace BazisGUI
                 var names = project.GetModelSetsInfo(objType).
     Select(x => x.Name).ToList();
                 foreach (var item in names)
-                    DeleteElems(objType, item);
+                {
+                    project.DeleteModelSet(objType, item);
+                    VBOController.DeleteVBObjects(item);
+                }
                 DisplayObjects();
                 PresentMeshData();
                 PresentModelObjectsForSelection();

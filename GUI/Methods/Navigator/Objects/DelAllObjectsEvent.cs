@@ -19,7 +19,7 @@ namespace BazisGUI
                 {
                     project.ClearModelCollection(ObjType.Узел);
 
-                    PresentGeoData();
+                    //PresentGeoData();
                     PresentMeshData();
                     PresentGroupDataOnTree();
                     PresentCondDataOnTree();

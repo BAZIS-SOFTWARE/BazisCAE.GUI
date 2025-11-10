@@ -2,10 +2,15 @@
 {
     public partial class BaseForm
     {
-        private void navigator_DelGroupEvent(int grIndex)
+        private void navigator_DelGroupEvent()
         {
-            var group = project.ModelData.GroupData[grIndex];
+            var node = navigator.SelectedNode;
+            var group = project.ModelData.GroupData[node.Index];
+            
             project.DeleteModelGroup(group.Name);
+
+            //удаляем узел
+            node.Remove();
 
             //if (arg1 is TaskPage taskPage)
             PresentCondDataOnTree();

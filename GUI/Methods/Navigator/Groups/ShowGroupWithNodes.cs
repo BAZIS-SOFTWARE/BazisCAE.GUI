@@ -14,9 +14,9 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_ShowGroupWithNodesEvent(int obj)
+        private void ShowGroupWithNodes(IGroup group)
         {
-            var group = project.GetModelGroup(obj);
+            //var group = project.GetModelGroup(obj);
             foreach (var iobj in group)
             {
                 var elem = (IElement)iobj;

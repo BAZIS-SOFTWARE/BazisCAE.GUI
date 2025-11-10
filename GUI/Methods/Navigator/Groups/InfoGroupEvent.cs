@@ -5,9 +5,9 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_InfoGroupEvent(int obj)
-        {
-            var group = project.GetModelGroup(obj);
+        private void navigator_InfoGroupEvent()
+        {          
+            var group = project.GetModelGroup(navigator.SelectedNode.Index);
             console.PrintInfo(group.ToString(), Color.Black);
         }
     }

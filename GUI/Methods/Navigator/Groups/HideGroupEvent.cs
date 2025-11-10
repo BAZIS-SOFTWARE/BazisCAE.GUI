@@ -11,11 +11,11 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_HideGroupEvent(int obj)
+        private void navigator_HideGroupEvent()
         {
             try
             {
-                var group = project.GetModelGroup(obj);
+                var group = project.GetModelGroup(navigator.SelectedNode.Index);
                 ChangeGroupViewState(group, false);
 
             }

@@ -7,7 +7,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_ShowElementsEvent(int obj,bool flag)
+        private void ShowElements(int obj,bool flag)
         {
             try
             {

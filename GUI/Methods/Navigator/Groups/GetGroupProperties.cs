@@ -17,18 +17,24 @@ namespace BazisGUI
             rows.Add(new RowProperty("Имя", obj.Name));
 
             if (obj.ObjType == ObjType.Узел)
+            {
                 rows.Add(new RowProperty("Сортировка",
-                    new ButtonPropertyValue("Отсортировать",
-                    new Action(() => { obj.SortByDistance(); }))));
-            
-            if (obj.ObjType == ObjType.Узел)
+    new ButtonPropertyValue("Отсортировать",
+    new Action(() => { obj.SortByDistance(); }))));
                 rows.Add(new RowProperty("Направление",
                     new ButtonPropertyValue("Показать",
                     new Action(async () => { await ShowDirection(obj); }))));
-            if (obj.ObjType == ObjType.Узел)
                 rows.Add(new RowProperty("Направление",
-                    new ButtonPropertyValue("Реверс",
-                    new Action(() => { obj.Reverse(); }))));
+    new ButtonPropertyValue("Реверс",
+    new Action(() => { obj.Reverse(); }))));
+            }    
+            else
+            {
+                rows.Add(new RowProperty("Узлы элементов",
+    new ButtonPropertyValue("Показать",
+    new Action(() => { ShowGroupWithNodes(obj); }))));
+            }
+
 
             return rows;
         }

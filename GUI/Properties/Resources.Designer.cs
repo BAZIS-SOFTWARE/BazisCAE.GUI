@@ -123,6 +123,16 @@ namespace BazisGUI.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap info_w {
+            get {
+                object obj = ResourceManager.GetObject("info_w", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ScreenSaver {
             get {
                 object obj = ResourceManager.GetObject("ScreenSaver", resourceCulture);

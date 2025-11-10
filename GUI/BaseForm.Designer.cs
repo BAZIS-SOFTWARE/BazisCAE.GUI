@@ -86,7 +86,7 @@ namespace BazisGUI
             this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.геометрияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.скриптToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьgeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сформироватьgeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сеткаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -289,6 +289,7 @@ namespace BazisGUI
             this.navigator.CollapseIndex = 7;
             this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navigator.DownColor = System.Drawing.Color.Gainsboro;
+            this.navigator.DrawNodeFrozen = false;
             this.navigator.ExpandIndex = 8;
             this.navigator.HeaderColor = System.Drawing.Color.Black;
             this.navigator.HeaderName = "Навигатор";
@@ -309,22 +310,23 @@ namespace BazisGUI
             this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
             this.navigator.ChangeAllGeoViewStateEvent += new System.Action<bool>(this.navigator_ChangeAllObjectsViewStateEvent);
             this.navigator.DelAllGeoEvent += new System.Action(this.navigator_DelAllObjectsEvent);
-            this.navigator.ChangeAllMeshViewStateEvent += new System.Action<bool>(this.navigator_ChangeAllObjectsViewStateEvent);
             this.navigator.DelAllMeshEvent += new System.Action(this.navigator_DelAllObjectsEvent);
-
-            this.navigator.ShowMeshEvent += new System.Action<int, bool>(this.navigator_ShowElementsEvent);
-            this.navigator.DelMeshEvent += new System.Action<int>(this.navigator_DelElementsEvent);
+            this.navigator.ChangeAllMeshViewStateEvent += new System.Action<bool>(this.navigator_ChangeAllObjectsViewStateEvent);
             this.navigator.ShowSetEvent += new System.Action(this.navigator_ShowSetEvent);
             this.navigator.HideSetEvent += new System.Action(this.navigator_HideSetEvent);
             this.navigator.DelSetEvent += new System.Action(this.navigator_DelSetEvent);
             this.navigator.SelectSetEvent += new System.Action<BazisGUI.Navigator.NodeName, string>(this.navigator_SelectSetEvent);
             this.navigator.GetSetsInfoEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_GetSetsInfoEvent);
             this.navigator.SelectGroupEvent += new System.Action<int>(this.navigator_SelectGroupEvent);
+            this.navigator.DelGroupEvent += new System.Action(this.navigator_DelGroupEvent);
+            this.navigator.HideGroupEvent += new System.Action(this.navigator_HideGroupEvent);
+            this.navigator.ShowGroupEvent += new System.Action(this.navigator_ShowGroupEvent);
             this.navigator.EditGroupEvent += new System.Action(this.EditGroup);
-            this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
-            this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
+            this.navigator.InfoGroupEvent += new System.Action(this.navigator_InfoGroupEvent);
             this.navigator.GetObjectsInfoEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_GetObjectsInfoEvent);
             this.navigator.SelectObjectEvent += new System.Action<string, int>(this.navigator_SelectObjectEvent);
+            this.navigator.ShowObjectEvent += new System.Action(this.navigator_ShowObjectEvent);
+            this.navigator.HideObjectEvent += new System.Action(this.navigator_HideObjectEvent);
             this.navigator.SelectCondEvent += new System.Action<int>(this.navigator_SelectCondEvent);
             this.navigator.SelectTaskEvent += new System.Action(this.navigator_SelectTaskEvent);
             this.navigator.SelectGeoEvent += new System.Action(this.navigator_SelectGeoEvent);
@@ -337,7 +339,6 @@ namespace BazisGUI
             this.navigator.SelectResultEvent += new System.Action<BazisGUI.Navigator.NodeName, string>(this.navigator_SelectResultEvent);
             this.navigator.GetResultInfoEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_GetResultInfoEvent);
             this.navigator.DelCondEvent += new System.Action(this.navigator_DelCondEvent);
-            this.navigator.CreateAnimationEvent += new System.Action<object, string, System.Collections.Generic.List<double>>(this.navigator_CreateAnimationEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_ControlCollapseEvent);
             // 
             // tableLayoutPanel1
@@ -847,7 +848,7 @@ namespace BazisGUI
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
             this.viewMenuItem,
-            this.геометрияToolStripMenuItem,
+            this.скриптToolStripMenuItem,
             this.сеткаToolStripMenuItem,
             this.dataBasesMenuItem,
             this.tasksMenuItem,
@@ -969,15 +970,15 @@ namespace BazisGUI
             this.toolStripMenuItem3.Text = "Консоль";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
-            // геометрияToolStripMenuItem
+            // скриптToolStripMenuItem
             // 
-            this.геометрияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.скриптToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.загрузитьgeoToolStripMenuItem,
             this.сформироватьgeoToolStripMenuItem});
-            this.геометрияToolStripMenuItem.Enabled = false;
-            this.геометрияToolStripMenuItem.Name = "геометрияToolStripMenuItem";
-            this.геометрияToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
-            this.геометрияToolStripMenuItem.Text = "Геометрия";
+            this.скриптToolStripMenuItem.Enabled = false;
+            this.скриптToolStripMenuItem.Name = "скриптToolStripMenuItem";
+            this.скриптToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.скриптToolStripMenuItem.Text = "Скрипт";
             // 
             // загрузитьgeoToolStripMenuItem
             // 
@@ -1277,10 +1278,10 @@ namespace BazisGUI
             // 
             // создатьАнимациюToolStripMenuItem
             // 
-            this.создатьАнимациюToolStripMenuItem.Enabled = false;
             this.создатьАнимациюToolStripMenuItem.Name = "создатьАнимациюToolStripMenuItem";
             this.создатьАнимациюToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.создатьАнимациюToolStripMenuItem.Text = "Создать анимацию";
+            this.создатьАнимациюToolStripMenuItem.Click += new System.EventHandler(this.создатьАнимациюToolStripMenuItem_Click);
             // 
             // экспортироватьРезультатыToolStripMenuItem
             // 
@@ -1569,7 +1570,7 @@ namespace BazisGUI
         private ToolStripMenuItem создатьToolStripMenuItem1;
         private ToolStripMenuItem построитьГрафикToolStripMenuItem;
         private ToolStripMenuItem построитьДиаграммуToolStripMenuItem;
-        private ToolStripMenuItem геометрияToolStripMenuItem;
+        private ToolStripMenuItem скриптToolStripMenuItem;
         private ToolStripMenuItem загрузитьgeoToolStripMenuItem;
         private ToolStripMenuItem сформироватьgeoToolStripMenuItem;
         private ToolStripMenuItem наПоверхностиГеометрииToolStripMenuItem;
