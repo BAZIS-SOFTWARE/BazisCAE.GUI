@@ -84,7 +84,7 @@ namespace BazisGUI
                     if (navigator.SelectedNode.Level == 2)
                     {
                         var index = navigator.SelectedNode.Index;
-                        var parentName = navigator.SelectedNode.Name.ToEnum<NodeName>();
+                        var parentName = navigator.SelectedNode.Parent.Name.ToEnum<NodeName>();
                         var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
                         if (parentName == NodeName.группы)
                         {

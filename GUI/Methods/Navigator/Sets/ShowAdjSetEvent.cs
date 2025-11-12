@@ -10,40 +10,33 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_ShowAdjacenciesSetEvent()
+        private void ShowAdjacenciesSet(ObjType objType, string setName)
         {
-            var setName = navigator.SelectedNode.Text.Split()[1];
-            var objInfo = navigator.SelectedNode.Text.Split()[0];
-            //var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
 
-            ObjType objType;
-            if(objInfo.TryToEnum(out objType))
-            {
-                if (objType == ObjType.Элемент1D |
+            if (objType == ObjType.Элемент1D |
             objType == ObjType.Элемент2D |
             objType == ObjType.Элемент3D)
+            {
+                var dim = 1;
+                if (objType == ObjType.Элемент2D)
+                    dim = 2;
+                else if (objType == ObjType.Элемент3D)
+                    dim = 3;
+                var elements = project.GetModelElements(dim, setName);
+
+                foreach (var element in elements)
                 {
-                    var dim = 1;
-                    if (objType == ObjType.Элемент2D)
-                        dim = 2;
-                    else if (objType == ObjType.Элемент3D)
-                        dim = 3;
-                    var elements = project.GetModelElements(dim, setName);
-
-                    foreach (var element in elements)
-                    {
-                        foreach (var node in element.GetVertexes())
-                            node.ViewState = true;
-                    }
-
-                    VBOController.DeleteVBObjects(ObjType.Узел.ToString());
-                    var set = project.GetModelSetInfo(ObjType.Узел, setName);
-                    var pre = project.CreateModelObjectsPresentor(set);
-                    var vbo = CreateVBObject(pre);
-                    VBOController.AddVbo(vbo);
-                    DisplayObjects();
+                    foreach (var node in element.GetVertexes())
+                        node.ViewState = true;
                 }
-            }         
+
+                VBOController.DeleteVBObjects(ObjType.Узел.ToString());
+                var set = project.GetModelSetInfo(ObjType.Узел, setName);
+                var pre = project.CreateModelObjectsPresentor(set);
+                var vbo = CreateVBObject(pre);
+                VBOController.AddVbo(vbo);
+                DisplayObjects();
+            }                    
         }
     }
 }

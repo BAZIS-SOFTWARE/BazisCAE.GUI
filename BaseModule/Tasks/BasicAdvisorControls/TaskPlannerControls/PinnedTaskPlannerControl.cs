@@ -1,5 +1,4 @@
 ﻿using BaseModule.PinnedControl;
-using BaseModule.Results.Animation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

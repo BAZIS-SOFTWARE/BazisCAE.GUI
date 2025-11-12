@@ -1,7 +1,7 @@
 ﻿using BaseModule.Player;
 using UserControlsEx;
 
-namespace BaseModule.Results.Animation
+namespace BazisGUI.Animation
 {
     partial class AnimationPage
     {

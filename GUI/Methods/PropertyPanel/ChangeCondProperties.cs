@@ -7,6 +7,7 @@ using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.FrameCreators;
+using Project.Tasks.Functions;
 using Project.Tasks.Functions.Welding;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
@@ -52,6 +53,8 @@ namespace BazisGUI
                     cond.FrameFunction = new SphereFunction();
                 else if (obj.NewValue == "CIL")
                     cond.FrameFunction = new CillindricalFunction();
+                else
+                    cond.FrameFunction = new CustomFunction();
                 // TO DO добавить custom function
                 refresh = true;
             }

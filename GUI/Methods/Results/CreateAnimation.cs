@@ -17,7 +17,7 @@ using Model;
 using ResultDB;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using BaseModule.Results.Animation;
+using BazisGUI.Animation;
 using BazisGUI.Navigator;
 using Gif.Components;
 using System.IO;
@@ -82,6 +82,8 @@ namespace BazisGUI
 
         public async void CreateGIFAnimation(CreateAnimationEventArgs args)
         {
+            var outputFilePath = $@"{WorkingDir}\results.gif";
+            var stream = new FileStream(outputFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
             try
             {
                 //выбрать узел в дереве асинхронно
@@ -94,57 +96,64 @@ namespace BazisGUI
                 var resName = selNode.Text;
 
 
-                var outputFilePath = $@"{WorkingDir}\results.gif";
+                
 
-                AnimatedGifEncoder e = new AnimatedGifEncoder();
-
-                e.Start(outputFilePath);
-                e.SetDelay(args.DelayTime);
+                //e.Start(outputFilePath);
+                //e.SetDelay(args.DelayTime);
                 //-1:no repeat,0:always repeat
-                e.SetRepeat(0);
+                //e.SetRepeat(0);
 
                 var loader = new LoadResultsFileDB();
 
-                var tables = new List<string>();
-                navigator.TrySearchNodes(NodeName.результаты.ToString(), out List<TreeNode> nodes);
-                foreach (TreeNode item in nodes[0].Nodes)
-                    tables.Add(item.Text);
+                var tables = new List<string>()
+                { ResultType.nodes.ToString() };
 
                 //TODO сформировать серию изображений и сдеть GIF
                 // выполнить все асинхронно
-   
+
                 var list = new List<float>();
 
                 foreach (TreeNode item in navigator.SelectedNode.Nodes)
                     list.Add(float.Parse(item.Text));
 
+                //GifImage
+                // TODO заменить! Так как сборка неподписана
+                var e = new GifWriter(stream);
 
                 for (int i = 0; i < list.Count; i++)
                 {
                     var result = loader.GetResult(ResultDbPath, tables, list[i]); //resultData.FindByTime(args.ResltsKind, args.Times[i]);
                     //var resName = navigator.SelectedNode.Text;
                     ShowResults(result, resName);
-                    var image = $@"screenShot_{list[i]}";
-                    var imagePath = $@"{WorkingDir}\{image}.bmp";
-                    CreateScreenShot(imagePath);
+                    //var image = $@"screenShot_{list[i]}";
+                    //var imagePath = $@"{WorkingDir}\{image}.bmp";
+                    var image = CreateScreenShot();
 
-                    using (var stream = new FileStream(imagePath, FileMode.Open))
-                    {
-                        var bmpImage = Image.FromStream(stream);
+                    e.WriteFrame(image, args.DelayTime);
 
-                        //var bmpImage = Image.FromFile(imagesPaths[i]);
-                        e.AddFrame(bmpImage);
-                        var total = ((i + 1) / (float)list.Count * 100).ToString("#.##");
-                        console.PrintInfo($@"Создание GIF анимации {total}%", Color.Black);
-                    }
-                    File.Delete(imagePath);
+                    //using (var stream = new FileStream(imagePath, FileMode.Open))
+                    //{
+                    //    var bmpImage = Image.FromStream(stream);
+
+                    //    //var bmpImage = Image.FromFile(imagesPaths[i]);
+                    //    e.AddFrame(bmpImage);
+                    var total = ((i + 1) / (float)list.Count * 100).ToString("#.##");
+                    console.PrintInfo($@"Создание GIF анимации {total}%", Color.Black);
+                    //}
+                    //File.Delete(imagePath);
                 }
-                e.Finish();
+                e.Dispose();
+                //e.Finish();
                 console.PrintInfo("GIF анимация создана", Color.Green);
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
+
+            }
+            finally
+            {
+                stream.Dispose();
             }
         }
     }

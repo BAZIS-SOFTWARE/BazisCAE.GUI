@@ -6,7 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
-namespace BaseModule.Results.Animation
+namespace BazisGUI.Animation
 {
     public partial class AnimationPage : UserControl
     {

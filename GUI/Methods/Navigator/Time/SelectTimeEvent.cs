@@ -45,7 +45,7 @@ namespace BazisGUI
 
                     ClearAllGeometryDataOnScene();
                     ClearAllMeshDataOnScene();
-                    var scaleItems = resultsController.GetItems();
+ 
 
                     if (settingsConfig.ShowResultsScale)
                     {
@@ -55,14 +55,7 @@ namespace BazisGUI
                         DisplaySceneScale(title,info);
                     }
 
-
-                    resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.ToArray());
-                    resultsController.ResultsFieldsCreator.ScaleFactor = settingsConfig.Scale_scale;
-
-                    var presenter = CreateResultsField(result, resName, tableName);
-                    VBOController.DeleteAllVBObjects();
-                    var vb = CreateVBObject(presenter);
-                    VBOController.AddVbo(vb);
+                    PresentResultsField(result, resName, tableName);
                 }
 
                 if (settingsConfig.ShowNodeResultsValue)

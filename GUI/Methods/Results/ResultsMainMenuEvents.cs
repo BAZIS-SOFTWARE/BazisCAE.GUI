@@ -150,8 +150,6 @@ namespace BazisGUI
             if (!navigator.TrySearchNodes(NodeName.результаты, out results))
             {
                 var rn = navigator.CreateRealNode(NodeName.результаты, "Результаты");
-                rn.ImageIndex = 14;
-                rn.SelectedImageIndex = 14;
 
                 //.SetContextMenu(rn);
                 navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
@@ -167,8 +165,7 @@ namespace BazisGUI
             foreach (var desc in scheme.Value)
             {
                 var rn = navigator.CreateRealNode(NodeName.результат, $"{desc}");
-                rn.ImageIndex = 14;
-                rn.SelectedImageIndex = 14;
+  
                 //var node = new TreeNode($"{desc}", 16, 16)
                 //{ Tag = "6.1", Name = desc };
 
@@ -208,10 +205,14 @@ namespace BazisGUI
 
 
 
-        private IObjsPresenter CreateResultsField(Result result, string resName, string tableName)
+        private void PresentResultsField(Result result, string resName, string tableName)
         {
-            IEnumerable<ISurfaceElement> elems;
+            var scaleItems = resultsController.GetItems();
+            resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.ToArray());
+            resultsController.ResultsFieldsCreator.ScaleFactor = settingsConfig.Scale_scale;
 
+
+            IEnumerable<ISurfaceElement> elems;
 
             if (project.ProjectType == TaskType.Volume)
                 elems = project.ModelData.ObjectData.E3DCollection.GetObjects();
@@ -221,7 +222,10 @@ namespace BazisGUI
             var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, tableName, resName, elems);
             var pre = presentersCreator.CreateSurfaceObjectsPresenter(elsResults);
             pre.Name = resName;
-            return pre;
+
+            VBOController.DeleteAllVBObjects();
+            var vb = CreateVBObject(pre);
+            VBOController.AddVbo(vb);
         }
 
         private Tuple<float, float> GetMaxMin(Result result, string tableName, string resName)

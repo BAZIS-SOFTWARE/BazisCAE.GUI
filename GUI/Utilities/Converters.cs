@@ -92,24 +92,7 @@ namespace BazisGUI.Utilities
         //            return ObjType.Элемент2D;
         //        default: return ObjType.Элемент3D;
         //    }
-        //}
-
-        public static TaskKind ConvertToPreProcType(Tasks tasks)
-        {
-            switch (tasks)
-            {
-                case Tasks.химическая:
-                    return TaskKind.химическая;
-                case Tasks.термическая:
-                    return TaskKind.термическая;
-                case Tasks.механическая:
-                    return TaskKind.механическая;
-                case Tasks.химическая_и_термическая:
-                    return TaskKind.термическая_химическая;          
-                default:
-                    return TaskKind.термическая_механическая;
-            }
-        }   
+        //}  
 
         /// <summary>
         /// Метод для получения всех строковых значений для комбобокса

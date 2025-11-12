@@ -1278,6 +1278,7 @@ namespace BazisGUI
             // 
             // создатьАнимациюToolStripMenuItem
             // 
+            this.создатьАнимациюToolStripMenuItem.CheckOnClick = true;
             this.создатьАнимациюToolStripMenuItem.Name = "создатьАнимациюToolStripMenuItem";
             this.создатьАнимациюToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.создатьАнимациюToolStripMenuItem.Text = "Создать анимацию";
@@ -1305,7 +1306,7 @@ namespace BazisGUI
             // 
             this.измеритьToolStripMenuItem.CheckOnClick = true;
             this.измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
-            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.измеритьToolStripMenuItem.Text = "Измерить";
             this.измеритьToolStripMenuItem.Click += new System.EventHandler(this.измеритьToolStripMenuItem_Click);
             // 
@@ -1313,7 +1314,7 @@ namespace BazisGUI
             // 
             this.отзеркаливаниеToolStripMenuItem.CheckOnClick = true;
             this.отзеркаливаниеToolStripMenuItem.Name = "отзеркаливаниеToolStripMenuItem";
-            this.отзеркаливаниеToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.отзеркаливаниеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.отзеркаливаниеToolStripMenuItem.Text = "Отзеркаливание";
             this.отзеркаливаниеToolStripMenuItem.Click += new System.EventHandler(this.отзеркаливаниеToolStripMenuItem_Click);
             // 
@@ -1321,7 +1322,7 @@ namespace BazisGUI
             // 
             this.скрытьПлоскостьюToolStripMenuItem.CheckOnClick = true;
             this.скрытьПлоскостьюToolStripMenuItem.Name = "скрытьПлоскостьюToolStripMenuItem";
-            this.скрытьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.скрытьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.скрытьПлоскостьюToolStripMenuItem.Text = "Скрыть плоскостью";
             this.скрытьПлоскостьюToolStripMenuItem.Click += new System.EventHandler(this.скрытьПлоскостьюToolStripMenuItem_Click);
             // 

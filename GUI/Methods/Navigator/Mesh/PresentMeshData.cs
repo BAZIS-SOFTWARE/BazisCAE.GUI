@@ -20,44 +20,25 @@ namespace BazisGUI
         {
             try
             {
-                //navigator.BeginUpdate();
-
                 var searchMesh = navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> mesh);
 
                 var nodes = project.GetModelObjects(ObjType.Узел);
 
-                //var types = new List<ObjType>() 
-                //{ 
-                //    ObjType.Узел, 
-                //    ObjType.Элемент1D, 
-                //    ObjType.Элемент2D, 
-                //    ObjType.Элемент3D 
-                //};
-
+                // Наборы будут виртуальные
                 if (nodes.Count() != 0)
                     if (searchMesh)
                     {
                         var v_node = navigator.CreateVirtualNode();
                         mesh[0].Nodes.Clear();
                         mesh[0].Nodes.Add(v_node);
-                        //PresentObjects(mesh.First(),types);
                     }
                     else
                     {
                         var rn = navigator.CreateRealNode(NodeName.сетка, "Сетка");
-                        //navigator.SetContextMenu(rn);
-
-                        //var imgIndex = navigator.GetObjectImageIndex(NodeName.сетка);
-
-                        //rn.ImageIndex = imgIndex;
-                        //rn.SelectedImageIndex = imgIndex;
 
                         var v_node = navigator.CreateVirtualNode();
                         rn.Nodes.Add(v_node);
 
-                        // Наборы будет виртуальные
-
-                        //PresentObjects(rn,types);
                         navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
                         prNodes[0].Nodes.Add(rn);
                     }

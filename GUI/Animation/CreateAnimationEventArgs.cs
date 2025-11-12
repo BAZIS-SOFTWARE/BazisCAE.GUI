@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BaseModule.Results.Animation
+namespace BazisGUI.Animation
 {
     public class CreateAnimationEventArgs : EventArgs
     {

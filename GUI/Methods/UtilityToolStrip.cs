@@ -445,16 +445,16 @@ namespace BazisGUI
             CreateVBObject(presenter);
         }
 
-        public void CreateScreenShot(string fileName)
+        public Image CreateScreenShot()
         {
             this.BringToFront();
-            var bmpPicture = new Bitmap(Width, Height);
+            var bmpPicture = new Bitmap(scene.Width, scene.Height);
             var gr = Graphics.FromImage(bmpPicture);
             var pos = PointToScreen(Point.Empty);
-            var size = new Size(Size.Width - 5, Size.Height - 20);
+            var size = new Size(scene.Size.Width - 5, scene.Size.Height - 20);
             gr.CopyFromScreen(pos, Point.Empty, size);
 
-            bmpPicture.Save(fileName, System.Drawing.Imaging.ImageFormat.Bmp);
+            return bmpPicture;
         }
 
         private void отзеркаливаниеToolStripMenuItem_Click(object sender, EventArgs e)

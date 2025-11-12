@@ -3,7 +3,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace BaseModule.GanttChart
+namespace BazisGUI.GanttChart
 {
     partial class GanttChartTreeView
     {

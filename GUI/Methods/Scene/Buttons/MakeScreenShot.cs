@@ -18,7 +18,8 @@ namespace BazisGUI
         {
             try
             {
-                CreateScreenShot(WorkingDir + "\\screenShot.bmp");
+                var image = CreateScreenShot();
+                image.Save(WorkingDir + "\\screenShot.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
                 console.PrintInfo($"Сделан снимок экрана {WorkingDir}\\screenShot.bmp", Color.Black);
             }
             catch (Exception ex)

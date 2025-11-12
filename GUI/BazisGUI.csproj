@@ -1,19 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A4E6398C-244E-4655-AEA7-5A9B606586C6}</ProjectGuid>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>BazisGUI</RootNamespace>
-    <AssemblyName>BazisGUI</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,175 +17,41 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>BazisGUIKey.snk</AssemblyOriginatorKeyFile>
+    <SignManifests>false</SignManifests>
+    <ApplicationIcon>IconShort_32.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>BazisGUIKey.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>IconShort_32.ico</ApplicationIcon>
-  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="GanttChart\GanttChartModel.cs" />
+    <Compile Remove="GanttChart\GanttChartTreeView.cs" />
+    <Compile Remove="GanttChart\GanttChartTreeView.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="GanttChart\GanttChartTreeView.resx" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="ClientGUI">
       <HintPath>..\Libs\ClientGUI.dll</HintPath>
-    </Reference>
-    <Reference Include="ClientLogicCP, Version=1.1.10.0, Culture=neutral, PublicKeyToken=b3a174f7e9a95159, processorArchitecture=MSIL">
-      <HintPath>..\packages\ClientLogicCP.1.1.10\lib\netstandard2.0\ClientLogicCP.dll</HintPath>
-    </Reference>
-    <Reference Include="CsvHelper, Version=33.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <HintPath>..\packages\CsvHelper.33.1.0\lib\net48\CsvHelper.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Geometry, Version=2.2.1.0, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geometry.2.2.1\lib\netstandard2.0\Geometry.dll</HintPath>
     </Reference>
     <Reference Include="Gif.Components, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Gif.Components.dll</HintPath>
     </Reference>
-    <Reference Include="GmshApi, Version=3.1.2.0, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
-      <HintPath>..\packages\GmshApi.3.1.2\lib\netstandard2.0\GmshApi.dll</HintPath>
-    </Reference>
     <Reference Include="LicenseInfo">
       <HintPath>..\Libs\LicenseInfo.dll</HintPath>
     </Reference>
-    <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
-      <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
-    </Reference>
-    <Reference Include="Model, Version=4.8.0.0, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.4.8.0\lib\netstandard2.0\Model.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
-      <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
-    </Reference>
-    <Reference Include="OperationalController, Version=3.7.6.0, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\OperationalController.3.7.6\lib\netstandard2.0\OperationalController.dll</HintPath>
-    </Reference>
-    <Reference Include="PostProc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostProc.2.0.0\lib\netstandard2.0\PostProc.dll</HintPath>
-    </Reference>
-    <Reference Include="PreProc, Version=1.8.8.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
-      <HintPath>..\packages\PreProc.1.8.8\lib\netstandard2.0\PreProc.dll</HintPath>
-    </Reference>
-    <Reference Include="Project, Version=5.2.6.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.5.2.6\lib\netstandard2.0\Project.dll</HintPath>
-    </Reference>
-    <Reference Include="PropertiesCalculator, Version=1.0.6.0, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
-      <HintPath>..\packages\PropertiesCalculator.1.0.6\lib\netstandard2.0\PropertiesCalculator.dll</HintPath>
-    </Reference>
-    <Reference Include="ResultDB, Version=1.5.1.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
-      <HintPath>..\packages\ResultDB.1.5.1\lib\netstandard2.0\ResultDB.dll</HintPath>
-    </Reference>
-    <Reference Include="SurfaceMesherInterfaces, Version=1.0.1.15, Culture=neutral, PublicKeyToken=408a34659fa24684, processorArchitecture=MSIL">
-      <HintPath>..\packages\SurfaceMesherInterfaces.1.0.1.15\lib\net48\SurfaceMesherInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Collections.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.8.0.0\lib\net462\System.Collections.Immutable.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\lib\net46\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.118.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.118.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Forms.DataVisualization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
     <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Scene\Tao.OpenGl.dll</HintPath>
@@ -206,653 +60,100 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Scene\Tao.Platform.Windows.dll</HintPath>
     </Reference>
+    <PackageReference Include="ClientLogicCP" Version="1.1.10" />
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
+    <PackageReference Include="Geometry" Version="2.2.1" />
+    <PackageReference Include="GmshApi" Version="3.1.2" />
+    <PackageReference Include="MathNet.Numerics.Signed" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Model" Version="4.8.0" />
+    <PackageReference Include="NetOctree" Version="2.1.11" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="OperationalController" Version="3.8.0" />
+    <PackageReference Include="PostProc" Version="2.0.2" />
+    <PackageReference Include="PreProc" Version="1.9.0" />
+    <PackageReference Include="Project" Version="5.2.9" />
+    <PackageReference Include="PropertiesCalculator" Version="1.0.6" />
+    <PackageReference Include="ResultDB" Version="1.5.1" />
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework" Version="1.0.118.0" />
+    <PackageReference Include="System.Buffers" Version="4.5.1" />
+    <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118.0" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118.0" />
+    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.118.0" />
+    <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.118.0" />
+    <PackageReference Include="System.Memory" Version="4.5.5" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="7.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutLicenseControl.cs">
+    <Compile Update="AboutLicenseControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AboutLicenseControl.Designer.cs">
-      <DependentUpon>AboutLicenseControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AboutProgrammControl.cs">
+    <Compile Update="AboutProgrammControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AboutProgrammControl.Designer.cs">
-      <DependentUpon>AboutProgrammControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BaseForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BaseForm.Designer.cs">
-      <DependentUpon>BaseForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GanttChart\GanttChartModel.cs" />
-    <Compile Include="GanttChart\GanttChartTreeView.cs">
+    <Compile Update="Animation\AnimationPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GanttChart\GanttChartTreeView.Designer.cs">
-      <DependentUpon>GanttChartTreeView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Methods\BaseForm\SetPadding.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\BasePage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Comp\StartStopConp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Comp\OpenTSF.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Comp\GenerateTSF.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Console\FindCoincidentNodes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Console\FindFreeNodesEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Console\ConsoleEvents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Script\SaveLoadScript.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Mesh\RefineMesh.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Mesh\QuadMesh.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Comps\SelectCompsEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Mesh\DelElementsEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Mesh\SelectMeshEvent .cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Mesh\ShowHideElementsEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Objects\GetSurfaceProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Object\ShowAdjacencies.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Object\ShowHideDelObject.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Sets\ShowAdjSetEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangeCompProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Comp\GetPropertyChemicalTask.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Comp\GetPropertyMechanicalTask.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Comp\GetPropertyTermalTask.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Comp\SelectCompEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Cond\DelCondEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Mesh\GreateBoundaryMesh.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Mesh\GenerateMesh2DEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Mesh\GenerateMesh3DEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Geo\PresentGeoData.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Groups\GroupsActionsEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Groups\ShowGroupWithNodes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Groups\ShowGroupEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Groups\InfoGroupEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Groups\HideGroupEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Mesh\PresentMeshData.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Objects\DelAllObjectsEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Objects\GetVolProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Objects\GetCurveProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Groups\EditGroup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Cond\CheckCondData.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Objects\GetObjectProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Objects\ChangeAllObjectsViewStateEvents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Objects\ShowHideEvents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Comp\PresentCompData.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Groups\PresentGroupData.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Cond\SelectCondEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Geo\SelectGeoEvent .cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Sets\SelectSetEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Results\SelectResultsEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Task\SelectTaskInfoEvent .cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Object\SelectObjectEvent .cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Groups\SelectGroupEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Result\SelectResultEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Time\SelectTimeEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Sets\ShowHideSetEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PhysicalDataBase\GetDataBase.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PhysicalDataBase\DataBasesMainMenuEvents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\DisplayToolStrip.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\GetData\GetModelObjects.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\GetData\GetSets.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\MeshMainMenuEvents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Sets\ChangeSetViewState.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Groups\ChangeGroupViewState.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangeSurfProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangeVolProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangeCurveProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangePointProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Results\CreateAnimation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Results\CreateDiagramm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Results\CreatePlot.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\Buttons\DisplayViews.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\Buttons\DisplayStates.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\Buttons\FitToScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\Buttons\MakeScreenShot.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\Buttons\ShowInsideObjects.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\Buttons\ShowCountours.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\Buttons\ShowBasis.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\Buttons\AdvanceSelection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\ProjectionMatrix.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Tasks\ShowOnGant.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Tasks\Create.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Tasks\AddCondition.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Cond\PresentCondData.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Sets\DelSetEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Groups\DelGroupEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Project\SelectGeneralInfoEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\NavigatorEvents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\NavigatorMethods.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Player\Checking.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Cond\GetClampProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Cond\GetFrameFunctionProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Cond\GetMediaProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Cond\GetLocalFrameProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Cond\GetLoadProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Cond\GetHeatProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Cond\GetMatProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Sets\GetSetProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Navigator\Groups\GetGroupProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangeCondProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangeMeshSetProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangeMeshObjectProperty.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangeGeoProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangeTaskProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\PropertiesPanelEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\PropertyPanel\ChangeMeshGroupProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Results\ResultDbPath.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Results\ResultsMainMenuEvents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\ClearDataOnScene.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\ClipPlane.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\VBObjects\DeleteVBObjects.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\DisplayBasis.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\DisplayRotationPoint.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\DisplayReflectionPlane.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\DisplayCompass.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\CameraActions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\VBObjects\ColorObjects.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\GetSceenCoord.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\MouseEvents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\ScaleObjs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\GetSceneCoordOfScreenVector.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\SelectObjects\SelectByRect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\SelectObjects\SelectByPoint.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\FontBase.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\ViewMatrix.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\SceneInitialization.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\SetVBObjectAttribute.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\VBObjects\CreateVBObjects.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\DisplayGeometryObject.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\FitObjectsToScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\DisplayText.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\UpdateProjection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\DisplayObjects.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\SceneEvents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\Buttons\SelectObjects.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\UtilityToolStrip.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Methods\Scene\Buttons\ViewToolStrip.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IODataController.cs" />
-    <Compile Include="MessageBoxEx\MessageBoxEx.cs">
+    <Compile Update="MessageBoxEx\MessageBoxEx.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MessageBoxEx\MessageBoxEx.Designer.cs">
-      <DependentUpon>MessageBoxEx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Navigator\NavigatorControl.cs">
+    <Compile Update="Navigator\NavigatorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Navigator\NavigatorControl.Designer.cs">
-      <DependentUpon>NavigatorControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scene\EventsArgs\InfoObjectsEventArgs.cs" />
-    <Compile Include="Scene\EventsArgs\MessageEventArgs.cs" />
-    <Compile Include="Scene\EventsArgs\SelectObjectsEventArgs.cs" />
-    <Compile Include="Scene\Interfaces\IActiveDrawingObject.cs" />
-    <Compile Include="Scene\Interfaces\IScaleItem.cs" />
-    <Compile Include="Scene\Interfaces\ISceneCamera.cs" />
-    <Compile Include="Scene\Interfaces\ISceneControl.cs" />
-    <Compile Include="Scene\Interfaces\ISceneScale.cs" />
-    <Compile Include="Scene\Interfaces\IVBObject.cs" />
-    <Compile Include="Methods\Scene\VBObjects\CreateVBObject.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Scene\Rendering\Advanced3DClipper.cs" />
-    <Compile Include="Scene\Rendering\AverageColorRenderer.cs" />
-    <Compile Include="Scene\Rendering\ClipPlaneRenderer.cs" />
-    <Compile Include="Scene\Rendering\ShaderCollections.cs" />
-    <Compile Include="Scene\Rendering\ShaderProgramCreator.cs" />
-    <Compile Include="Scene\ScenePath.cs" />
-    <Compile Include="Scene\SceneScale.cs" />
-    <Compile Include="Scene\ScreenRectangle.cs" />
-    <Compile Include="Scene\TaoExtension.cs" />
-    <Compile Include="Scene\BoundingBox.cs" />
-    <Compile Include="Scene\VBO\ClipPlane.cs" />
-    <Compile Include="Scene\VBO\LineObjects.cs" />
-    <Compile Include="Scene\VBO\PointObjects.cs" />
-    <Compile Include="Scene\VBO\SurfaceObjects.cs" />
-    <Compile Include="Scene\VBO\VBO.cs" />
-    <Compile Include="Scene\VBO\VBObject.cs" />
-    <Compile Include="Scene\VBO\VBOController.cs" />
-    <Compile Include="WelcomeScreen.cs">
+    <Compile Update="WelcomeScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WelcomeScreen.Designer.cs">
-      <DependentUpon>WelcomeScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SettingsControls\SettingsConfig.cs" />
-    <Compile Include="SettingsControls\SettingsControl.cs">
+    <Compile Update="SettingsControls\SettingsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SettingsControls\SettingsControl.Designer.cs">
-      <DependentUpon>SettingsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SettingsControls\LightingControl.cs">
+    <Compile Update="SettingsControls\LightingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SettingsControls\LightingControl.Designer.cs">
-      <DependentUpon>LightingControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TasksControls\BasicControl.cs">
+    <Compile Update="TasksControls\BasicControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TasksControls\BasicControl.Designer.cs">
-      <DependentUpon>BasicControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TasksControls\ChemicalControl.cs">
+    <Compile Update="TasksControls\ChemicalControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TasksControls\ChemicalControl.Designer.cs">
-      <DependentUpon>ChemicalControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TasksControls\TaskControl.cs">
+    <Compile Update="TasksControls\TaskControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TasksControls\TaskControl.Designer.cs">
-      <DependentUpon>TaskControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TasksControls\HeatTaskControl_v2.cs">
+    <Compile Update="TasksControls\HeatTaskControl_v2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TasksControls\HeatTaskControl_v2.Designer.cs">
-      <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TasksControls\ITaskControl.cs" />
-    <Compile Include="TasksControls\MechTaskControl_v2.cs">
+    <Compile Update="TasksControls\MechTaskControl_v2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TasksControls\MechTaskControl_v2.Designer.cs">
-      <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TasksControls\SolverSettingsControl.cs">
+    <Compile Update="TasksControls\SolverSettingsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TasksControls\SolverSettingsControl.Designer.cs">
-      <DependentUpon>SolverSettingsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TasksControls\TimeSettingsControl.cs">
+    <Compile Update="TasksControls\TimeSettingsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TasksControls\TimeSettingsControl.Designer.cs">
-      <DependentUpon>TimeSettingsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\Converters.cs" />
-    <Compile Include="Utilities\ObjectsProvider.cs" />
-    <EmbeddedResource Include="AboutLicenseControl.resx">
-      <DependentUpon>AboutLicenseControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AboutProgrammControl.resx">
-      <DependentUpon>AboutProgrammControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BaseForm.resx">
-      <DependentUpon>BaseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GanttChart\GanttChartTreeView.resx">
-      <DependentUpon>GanttChartTreeView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MessageBoxEx\MessageBoxEx.resx">
-      <DependentUpon>MessageBoxEx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Navigator\NavigatorControl.resx">
-      <DependentUpon>NavigatorControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="SettingsControls\LightingControl.resx">
-      <DependentUpon>LightingControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SettingsControls\SettingsControl.resx">
-      <DependentUpon>SettingsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="TasksControls\BasicControl.resx">
-      <DependentUpon>BasicControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TasksControls\ChemicalControl.resx">
-      <DependentUpon>ChemicalControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TasksControls\TaskControl.resx">
-      <DependentUpon>TaskControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TasksControls\HeatTaskControl_v2.resx">
-      <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TasksControls\MechTaskControl_v2.resx">
-      <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TasksControls\SolverSettingsControl.resx">
-      <DependentUpon>SolverSettingsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TasksControls\TimeSettingsControl.resx">
-      <DependentUpon>TimeSettingsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WelcomeScreen.resx">
-      <DependentUpon>WelcomeScreen.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
-    <None Include="Resources\info_w.png" />
-    <None Include="Resources\Edit.png" />
-    <None Include="Resources\hide_w.png" />
-    <None Include="Resources\show_w.png" />
-    <None Include="Resources\н 5.png" />
-    <None Include="Resources\н 4.png" />
-    <None Include="Resources\arrow_l.png" />
-    <None Include="Resources\arrow_d.png" />
-    <None Include="Resources\arrow_r.png" />
-    <None Include="Resources\вп 121.png" />
-    <None Include="Resources\вп 12.png" />
-    <None Include="Documents\Classes.mdpuml" />
-    <None Include="Documents\Components.mdpuml" />
     <Content Include="IconShort_16.ico" />
     <Content Include="IconShort_32.ico" />
-    <None Include="Documents\EditingObjectProperties.mdpuml" />
-    <None Include="Documents\UseCases.mdpuml" />
-    <None Include="Resources\м 34.png" />
-    <None Include="Resources\м 35.png" />
-    <None Include="Resources\м 36.png" />
-    <None Include="Resources\м 37.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="GanttChart\" />
     <Folder Include="Projects\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BaseModule\BaseModule.csproj">
-      <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
-      <Name>BaseModule</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PropertiesDataBases\PropertiesDataBases.csproj">
-      <Project>{cdde2abd-68f3-441b-8220-94652083904f}</Project>
-      <Name>PropertiesDataBases</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UserControlEx\UserControlsEx.csproj">
-      <Project>{452d36b3-7997-48ac-96cb-4aa349e2b608}</Project>
-      <Name>UserControlsEx</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\BaseModule\BaseModule.csproj" />
+    <ProjectReference Include="..\PropertiesDataBases\PropertiesDataBases.csproj" />
+    <ProjectReference Include="..\UserControlEx\UserControlsEx.csproj" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
@@ -867,24 +168,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Help\ПО Bazis. Руководство пользователя.chm">
+    <None Update="Help\ПО Bazis. Руководство пользователя.chm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
-    <None Include="ReleaseNotes\ReleaseNotes.pdf">
+    <None Update="ReleaseNotes\ReleaseNotes.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
-    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
-  </Target>
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
-  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
 </Project>

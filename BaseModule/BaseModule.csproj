@@ -190,20 +190,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Results\Animation\AnimationPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Results\Animation\AnimationPage.Designer.cs">
-      <DependentUpon>AnimationPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Results\Animation\CreateAnimationEventArgs.cs" />
-    <Compile Include="Results\Animation\PinnedAnimationControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Results\Animation\PinnedAnimationControl.Designer.cs">
-      <DependentUpon>PinnedAnimationControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Results\Animation\ShowResultEventArgs.cs" />
     <Compile Include="Results\Export\CopyResultDBEventArgs.cs" />
     <Compile Include="Results\Export\ExportControl.cs">
       <SubType>UserControl</SubType>
@@ -462,12 +448,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Results\Animation\AnimationPage.resx">
-      <DependentUpon>AnimationPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Results\Animation\PinnedAnimationControl.resx">
-      <DependentUpon>PinnedAnimationControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Results\Export\ExportControl.resx">
       <DependentUpon>ExportControl.cs</DependentUpon>
