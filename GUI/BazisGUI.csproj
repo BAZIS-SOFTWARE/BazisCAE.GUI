@@ -52,14 +52,6 @@
     <Reference Include="LicenseInfo">
       <HintPath>..\Libs\LicenseInfo.dll</HintPath>
     </Reference>
-    <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Scene\Tao.OpenGl.dll</HintPath>
-    </Reference>
-    <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Scene\Tao.Platform.Windows.dll</HintPath>
-    </Reference>
     <PackageReference Include="ClientLogicCP" Version="1.1.10" />
     <PackageReference Include="CsvHelper" Version="33.1.0" />
     <PackageReference Include="Geometry" Version="2.2.1" />
@@ -72,6 +64,7 @@
     <PackageReference Include="Model" Version="4.8.0" />
     <PackageReference Include="NetOctree" Version="2.1.11" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
     <PackageReference Include="OperationalController" Version="3.8.0" />
     <PackageReference Include="PostProc" Version="2.0.2" />
     <PackageReference Include="PreProc" Version="1.9.0" />

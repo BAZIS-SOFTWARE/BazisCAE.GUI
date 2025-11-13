@@ -16,7 +16,8 @@ using System.Windows.Forms;
 using PostProc;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
+//using Tao.OpenGl;
 using BazisGUI.Scene.VBO;
 using OperationalController.GmshController;
 using OperationalController.ModelScenePresentator;
@@ -101,9 +102,9 @@ namespace BazisGUI
 
             SetPadding();
 
-            scene.InitializeContexts();
-            Gle.Load();
-            SceneInitialization();
+            //scene.InitializeContexts();
+            //Gle.Load();//Это скорее всего больше не понадобится
+            //SceneInitialization();//Это конвертировалось в событие scene.Load!
             //ComponentsPainter.Font = this.Font; //попробуем не контролировать кегль вручную. Пусть кон-ет система
 
             splitContainer1.SplitterWidth = 8;
@@ -561,7 +562,7 @@ namespace BazisGUI
             {
                 settingsConfig.LightingIntensity = ar;
                 var lightAttenuation = 1 - ar / 100.0f;
-                Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_LINEAR_ATTENUATION, ref lightAttenuation);
+                GL.Light(LightName.Light0, LightParameter.LinearAttenuation, lightAttenuation);
                 DisplayObjects();
             };
 

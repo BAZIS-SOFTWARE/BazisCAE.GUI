@@ -1,18 +1,20 @@
 ﻿using BazisGUI.Scene.Interfaces;
 using System;
-using Tao.OpenGl;
+//using Tao.OpenGl;
 using Geometry;
 using System.Drawing;
 using BazisGUI.Scene.VBO;
 using BazisGUI.Scene;
 using System.Reflection;
-using Tao.Platform.Windows;
+//using Tao.Platform.Windows;
+using OpenTK.Graphics.OpenGL;
+using static BazisGUI.Methods.PlatformSpecific.PlatformSpecific;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public void SceneInitialization()
+        public void SceneInitialization(object sender, EventArgs args)
         {
             //basis = new SceneBasis();
             DisplayBasis();
@@ -28,7 +30,7 @@ namespace BazisGUI
             Wgl.wglUseFontBitmapsW(hdc, 0, 1150, 1000); // Ниже заменю на проверенный корректный вызов
             */
 
-            FontBase = Gl.glGenLists(1150);//кол-во глифов (элементов для рисования букв 256 - только латиница, 1150 - поддержка еще и кирилицы)
+            FontBase = GL.GenLists(1150);//кол-во глифов (элементов для рисования букв 256 - только латиница, 1150 - поддержка еще и кирилицы)
             ChangeTextFont();//Используем шрифт по-умолчанию
             
             //ChangeTextFont(fontBase, "Comic Sans", 18, FontStyle.Italic);//Проверка различного типа шрифтов
@@ -47,7 +49,7 @@ namespace BazisGUI
                 averageColorRenderer.Dispose();
                 clipPlaneRenderer.Dispose();
                 advanced3DClipper.Dispose();
-                Gl.glDeleteLists(FontBase, 1150);
+                GL.DeleteLists(FontBase, 1150);
             };
 
             //Disposed += (s, e) => AverageColorRenderer.Dispose();
@@ -68,27 +70,27 @@ namespace BazisGUI
         {
             //ScaleFactor = 1;
             // подклюение функции проверки буфера глубины 
-            Gl.glEnable(Gl.GL_DEPTH_TEST);
+            GL.Enable(EnableCap.DepthTest);
 
             // задать цвет очистки экрана
-            Gl.glClearColor(1, 1, 1, 0);
+            GL.ClearColor(1f, 1f, 1f, 0);
 
             // выполнение очистки буфера цвета и буфера глубины в заданный цвет glClearColor(1, 1, 1, 0) 
-            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             // установка порта вывода в соответствии с размерами элемента anT 
-            Gl.glViewport(0, 0, scene.Width, scene.Height);
+            GL.Viewport(0, 0, scene.Width, scene.Height);
 
             // настройка матрицы проекции 
-            Gl.glMatrixMode(Gl.GL_PROJECTION);
-            Gl.glLoadIdentity();
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
             //Gl.glOrtho(0, baseScene.Width, 0, baseScene.Height, 0.1, 2000);
-            Glu.gluPerspective(settingsConfig.AngleOfProjection, (double)scene.Width / scene.Height, 1, 2000);
+            gluPerspective(settingsConfig.AngleOfProjection, (double)scene.Width / scene.Height, 1, 2000);
 
             // настройка матрицы видовых преобразований  
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glLoadIdentity();
-            Gl.glTranslatef(moveX, moveY, moveZ);
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadIdentity();
+            GL.Translate(moveX, moveY, moveZ);
         }
 
 
@@ -97,11 +99,10 @@ namespace BazisGUI
         /// Однако оно приватное, мы можем получить его через рефлексию
         /// </summary>
         /// <returns>IntPtr - deviceContext</returns>
-        private IntPtr GetDeviceContext()
+        private IntPtr GetDeviceContext() 
         {
-            var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-            var fields = typeof(SimpleOpenGlControl).GetFields(bindingFlags);
-            return (IntPtr)fields[1].GetValue(scene);//deviceContext распологается на первом индексе!
+            scene.MakeCurrent();
+            return GetCurrentDC();
         }
         /// <summary>
         /// Использовать шрифты по умолчанию или задать свой, для отображения текста
@@ -115,7 +116,7 @@ namespace BazisGUI
             var hdc = GetDeviceContext();
             if (string.IsNullOrEmpty(fontFamily))
             {
-                var status = Wgl.wglUseFontBitmapsW(hdc, 0, 1150, FontBase);
+                var status = UseFontBitmapsW(hdc, 0, 1150, FontBase);
             }
             else
             {
@@ -123,11 +124,11 @@ namespace BazisGUI
                 var hFont = font.ToHfont();
 
                 //Вызов системных функций, для корректной замены шрифта!
-                var oldFont = Gdi.SelectObject(hdc, hFont);//Делаем Swap шрифтов
-                var status = Wgl.wglUseFontBitmapsW(hdc, 0, 1150, FontBase);
+                var oldFont = SelectObject(hdc, hFont);//Делаем Swap шрифтов
+                var status = UseFontBitmapsW(hdc, 0, 1150, FontBase);
 
-                Gdi.SelectObject(hdc, oldFont);//Делаем текущим старый шрифт
-                Gdi.DeleteObject(hFont);//Обязательно освобождаем неуправляемый ресурс
+                SelectObject(hdc, oldFont);//Делаем текущим старый шрифт
+                DeleteObject(hFont);//Обязательно освобождаем неуправляемый ресурс
             }
         }
     }
