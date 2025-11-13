@@ -2,6 +2,8 @@
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Runtime.CompilerServices;
 
 namespace BazisGUI
 {
@@ -13,9 +15,11 @@ namespace BazisGUI
         [STAThread]
         static void Main(string[] args)
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            //Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new BaseForm(args));
+            ApplicationConfiguration.Initialize();
             Application.Run(new BaseForm(args));
         }
     }

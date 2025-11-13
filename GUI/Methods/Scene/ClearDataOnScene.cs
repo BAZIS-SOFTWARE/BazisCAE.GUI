@@ -1,7 +1,6 @@
 ﻿using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
 using System;
-using Tao.OpenGl;
 using Geometry;
 using System.Linq;
 using Model.Interfaces;

@@ -17,7 +17,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI
 {
@@ -579,12 +579,12 @@ namespace BazisGUI
 
             var reflMatrix = GetReflectionMatrix(plane);//from stack
             //DisplayReflectionPlane(src, plane);
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);//видовая и модельная матрица
-            Gl.glPushMatrix();
-            Gl.glLoadMatrixf(srcVbo.ModelMatrix);
-            Gl.glMultMatrixf(reflMatrix);
-            Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, copeVbo.ModelMatrix);
-            Gl.glPopMatrix();
+            GL.MatrixMode(MatrixMode.Modelview);//видовая и модельная матрица
+            GL.PushMatrix();
+            GL.LoadMatrix(srcVbo.ModelMatrix);
+            GL.MultMatrix(reflMatrix);
+            GL.GetFloat(GetPName.ModelviewMatrix, copeVbo.ModelMatrix);
+            GL.PopMatrix();
         }
 
         public float[] GetReflectionMatrix(Geometry.Plane plane)
@@ -636,7 +636,7 @@ namespace BazisGUI
                 var btn = sender as ToolStripMenuItem;
                 if (btn.Checked)
                 {
-                    var clip = new ClipControl() { Dock = DockStyle.Fill };
+                    var clip = new BaseModule.SceenControls.ClipControl() { Dock = DockStyle.Fill };
                     var clipForm = new Form()
                     {
                         Name = "clipPlaneForm",
@@ -724,7 +724,7 @@ namespace BazisGUI
                 if (mode == ClipMode.None)
                 {
                     el3d.ActiveDrawingObject = null;
-                    Gl.glDisable(Gl.GL_CLIP_PLANE0);
+                    GL.Disable(EnableCap.ClipPlane0);
                 }
                 else
                     el3d.ActiveDrawingObject = advanced3DClipper;

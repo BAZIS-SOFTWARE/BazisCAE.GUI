@@ -17,7 +17,6 @@ using PostProc;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene;
 using OpenTK.Graphics.OpenGL;
-//using Tao.OpenGl;
 using BazisGUI.Scene.VBO;
 using OperationalController.GmshController;
 using OperationalController.ModelScenePresentator;
@@ -25,7 +24,6 @@ using System.Collections.Generic;
 using OperationalController;
 using BaseModule.Utilities;
 using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -104,7 +102,7 @@ namespace BazisGUI
 
             //scene.InitializeContexts();
             //Gle.Load();//Это скорее всего больше не понадобится
-            //SceneInitialization();//Это конвертировалось в событие scene.Load!
+            scene.Load += SceneInitialization;//Это конвертировалось в событие scene.Load!
             //ComponentsPainter.Font = this.Font; //попробуем не контролировать кегль вручную. Пусть кон-ет система
 
             splitContainer1.SplitterWidth = 8;
@@ -125,7 +123,7 @@ namespace BazisGUI
             //    var newColor = Color.FromArgb(TransparencyValue, preColor);
             //    obj.Color = newColor;
             //}
-
+            
             if (args.Length != 0)
             {
                 var path = string.Empty;

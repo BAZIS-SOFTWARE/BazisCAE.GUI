@@ -2,7 +2,7 @@
 using Geometry;
 using MathNet.Numerics.LinearAlgebra;
 using System.Drawing;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI
 {
@@ -16,7 +16,7 @@ namespace BazisGUI
             matrix[0, 3] = 0; matrix[1, 3] = 0;
             var tempViewMatrixAr = matrix.AsColumnMajorArray();
 
-            Gl.glLoadMatrixf(tempViewMatrixAr);
+            GL.LoadMatrix(tempViewMatrixAr);
         }
 
         public void Move(Point new_mousePosition, Point mousePosition, float ScaleFactor)
@@ -28,7 +28,7 @@ namespace BazisGUI
 
             var crd = GetSceenCoord(pos, -5, ScaleFactor);
 
-            Gl.glTranslatef(crd._x, crd._y, crd._z);
+            GL.Translate(crd._x, crd._y, crd._z);
         }
 
         public void Rotate(ViewAxis axis, float angle)
@@ -37,11 +37,11 @@ namespace BazisGUI
             {
                 case ViewAxis.X:
                     var crdx = GetSceneCoordOfScreenVector(-1, 0);
-                    Gl.glRotatef(angle, crdx._x, crdx._y, crdx._z);
+                    GL.Rotate(angle, crdx._x, crdx._y, crdx._z);
                     break;
                 case ViewAxis.Y:
                     var crdy = GetSceneCoordOfScreenVector(0, -1);
-                    Gl.glRotatef(angle, crdy._x, crdy._y, crdy._z);
+                    GL.Rotate(angle, crdy._x, crdy._y, crdy._z);
                     break;
                 case ViewAxis.Z:
 
@@ -51,7 +51,7 @@ namespace BazisGUI
                     var vectorZ = Vector<float>.Build.DenseOfArray(point);
 
                     matrix.Multiply(vectorZ, vectorZ);
-                    Gl.glRotatef(angle, vectorZ[0], vectorZ[1], vectorZ[2]);
+                    GL.Rotate(angle, vectorZ[0], vectorZ[1], vectorZ[2]);
                     break;
             }
         }
@@ -65,12 +65,12 @@ namespace BazisGUI
                         if (vector_dy > 0)
                         {
                             var crdx = GetSceneCoordOfScreenVector(1, 0);
-                            Gl.glRotatef(angle, crdx._x, crdx._y, crdx._z);
+                            GL.Rotate(angle, crdx._x, crdx._y, crdx._z);
                         }
                         else
                         {
                             var crdx = GetSceneCoordOfScreenVector(-1, 0);
-                            Gl.glRotatef(angle, crdx._x, crdx._y, crdx._z);
+                            GL.Rotate(angle, crdx._x, crdx._y, crdx._z);
                         }
                     break;
                 case ViewAxis.Y:
@@ -78,12 +78,12 @@ namespace BazisGUI
                         if (vector_dx > 0)
                         {
                             var crdy = GetSceneCoordOfScreenVector(0, 1);
-                            Gl.glRotatef(angle, crdy._x, crdy._y, crdy._z);
+                            GL.Rotate(angle, crdy._x, crdy._y, crdy._z);
                         }
                         else
                         {
                             var crdy = GetSceneCoordOfScreenVector(0, -1);
-                            Gl.glRotatef(angle, crdy._x, crdy._y, crdy._z);
+                            GL.Rotate(angle, crdy._x, crdy._y, crdy._z);
                         }
                     break;
                 case ViewAxis.Z:
@@ -96,7 +96,7 @@ namespace BazisGUI
                             var vectorZ = Vector<float>.Build.DenseOfArray(point);
 
                             matrix.Multiply(vectorZ, vectorZ);
-                            Gl.glRotatef(angle, vectorZ[0], vectorZ[1], vectorZ[2]);
+                            GL.Rotate(angle, vectorZ[0], vectorZ[1], vectorZ[2]);
                         }
                         else
                         {
@@ -106,12 +106,12 @@ namespace BazisGUI
                             var vectorZ = Vector<float>.Build.DenseOfArray(point);
 
                             matrix.Multiply(vectorZ, vectorZ);
-                            Gl.glRotatef(angle, vectorZ[0], vectorZ[1], vectorZ[2]);
+                            GL.Rotate(angle, vectorZ[0], vectorZ[1], vectorZ[2]);
                         }
                     break;
                 case ViewAxis.XYZ:
                     var crdxyz = GetSceneCoordOfScreenVector(-vector_dy, vector_dx);
-                    Gl.glRotatef(angle, crdxyz._x, crdxyz._y, crdxyz._z);
+                    GL.Rotate(angle, crdxyz._x, crdxyz._y, crdxyz._z);
                     break;
             }
         }
@@ -134,7 +134,7 @@ namespace BazisGUI
             tempViewMatrix[3, 3] = 1;
             var tempViewMatrixAr = Matrix<float>.Build.DenseOfArray(tempViewMatrix).AsColumnMajorArray();
 
-            Gl.glLoadMatrixf(tempViewMatrixAr);
+            GL.LoadMatrix(tempViewMatrixAr);
             switch (plane)
             {
                 case ViewPlane.XY:

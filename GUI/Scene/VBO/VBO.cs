@@ -1,7 +1,7 @@
 ﻿
 using BazisGUI.Scene.Interfaces;
 using System;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI.Scene.VBO
 {
@@ -17,13 +17,13 @@ namespace BazisGUI.Scene.VBO
         public static void DeleteAllBuffers(VBObject obj)
         {
             var buffers = new int[] { obj.PointersBuffer, obj.CoordsBuffer, obj.ColorsBuffer, obj.NormalsBuffer };
-            Gl.glDeleteBuffers(buffers.Length, buffers);
+            GL.DeleteBuffers(buffers.Length, buffers);
 
             if (obj.GL_ObjType == GLObjType.triangle)
             {
-                var sObj = obj as SurfaceObjects;
-                buffers = new int[] { sObj.FrameBuffer, sObj.EdgeBuffer, sObj.SeparatorBuffer, sObj.LeftUpBuffer, sObj.RightDownBuffer };
-                Gl.glDeleteBuffers(buffers.Length, buffers);
+                var sObj = (SurfaceObjects)obj;
+                buffers = [sObj.FrameBuffer, sObj.EdgeBuffer, sObj.SeparatorBuffer, sObj.LeftUpBuffer, sObj.RightDownBuffer];
+                GL.DeleteBuffers(buffers.Length, buffers);
             }
         }
         /// <summary>
@@ -33,17 +33,17 @@ namespace BazisGUI.Scene.VBO
         public static void LoadVertexBuffers(VBObject obj)
         {
 
-            Gl.glBindBuffer(Gl.GL_ELEMENT_ARRAY_BUFFER, obj.PointersBuffer);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, obj.PointersBuffer);
 
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, obj.CoordsBuffer);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, obj.CoordsBuffer);
             //IntObjPtr ObjPtr = new IntObjPtr(obj.GlCoord.Length);
             //Gl.glBufferSubData(Gl.GL_ARRAY_BUFFER, IntObjPtr.Zero, ObjPtr, obj.GlCoord);
-            Gl.glVertexPointer(3, Gl.GL_FLOAT, 0, IntPtr.Zero);
+            GL.VertexPointer(3, VertexPointerType.Float, 0, IntPtr.Zero);
 
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, obj.ColorsBuffer);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, obj.ColorsBuffer);
             //ObjPtr = new IntObjPtr(obj.GlColor.Length);
             //Gl.glBufferSubData(Gl.GL_ARRAY_BUFFER, IntObjPtr.Zero, ObjPtr, obj.GlColor);
-            Gl.glColorPointer(4, Gl.GL_FLOAT, 0, IntPtr.Zero);
+            GL.ColorPointer(4, ColorPointerType.Float, 0, IntPtr.Zero);
         }
         /// <summary>
         /// 
@@ -51,8 +51,8 @@ namespace BazisGUI.Scene.VBO
         /// <param name="obj"></param>
         public static void LoadNormalBuffer(VBObject obj)
         {
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, obj.NormalsBuffer);
-            Gl.glNormalPointer(Gl.GL_FLOAT, 0, IntPtr.Zero);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, obj.NormalsBuffer);
+            GL.NormalPointer(NormalPointerType.Float, 0, IntPtr.Zero);
         }
 
         /// <summary>
@@ -60,8 +60,8 @@ namespace BazisGUI.Scene.VBO
         /// </summary>
         public static void LoadEdgeBuffer(int buffer)
         {
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, buffer);
-            Gl.glEdgeFlagPointer(0, IntPtr.Zero);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, buffer);
+            GL.EdgeFlagPointer(0, IntPtr.Zero);
         }
         /// <summary>
         /// Draw objects. indexLength - начало диапазона, IntPtr.Zero - конц диапазона
@@ -71,15 +71,15 @@ namespace BazisGUI.Scene.VBO
         public static void Draw(VBObject obj, int indexLength)
         {
 
-            Gl.glPointSize(obj.Gl_PointSize);
-            Gl.glLineWidth(obj.Gl_LineWidth);
+            GL.PointSize(obj.Gl_PointSize);
+            GL.LineWidth(obj.Gl_LineWidth);
 
-            Gl.glPolygonMode(obj.Gl_Face, obj.Gl_DisplayMode);
+            GL.PolygonMode(obj.Gl_Face, obj.Gl_DisplayMode);
 
             //Gl.glEnable(Gl.GL_BLEND);
             //Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
             //
-            Gl.glDrawElements((int)obj.GL_ObjType, indexLength, Gl.GL_UNSIGNED_INT, IntPtr.Zero);
+            GL.DrawElements((PrimitiveType)obj.GL_ObjType, indexLength, DrawElementsType.UnsignedInt, IntPtr.Zero);
 
             //Gl.glDisable(Gl.GL_BLEND);
         }
@@ -91,8 +91,8 @@ namespace BazisGUI.Scene.VBO
             //Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
             //Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
             //Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
-            Gl.glBindBuffer(Gl.GL_ELEMENT_ARRAY_BUFFER, 0);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
         }
         /// <summary>
         /// IndexInit
@@ -101,13 +101,13 @@ namespace BazisGUI.Scene.VBO
         /// <param name="indices"></param>
         public static void IndexDataInit(ref int buffer, int[] indices)
         {
-            Gl.glBindBuffer(Gl.GL_ELEMENT_ARRAY_BUFFER, 0);
-            Gl.glDeleteBuffers(1, ref buffer);
-            Gl.glGenBuffers(1, out buffer);
-            Gl.glBindBuffer(Gl.GL_ELEMENT_ARRAY_BUFFER, buffer);
-            Gl.glBufferData(Gl.GL_ELEMENT_ARRAY_BUFFER,
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
+            GL.DeleteBuffers(1, ref buffer);
+            GL.GenBuffers(1, out buffer);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, buffer);
+            GL.BufferData(BufferTarget.ElementArrayBuffer,
                  (IntPtr)(indices.Length * sizeof(int)),
-                              indices, Gl.GL_DYNAMIC_DRAW);
+                              indices, BufferUsageHint.DynamicDraw);
             //Gl.glBindBuffer(Gl.GL_ELEMENT_ARRAY_BUFFER, 0);
         }
         /// <summary>
@@ -116,16 +116,16 @@ namespace BazisGUI.Scene.VBO
         /// <param name="buffer"></param>
         /// <param name="data"></param>
         /// <param name="size"></param>
-        public static void VertexDataInit<T>(ref int buffer, T[] data, int size)
+        public static void VertexDataInit<T>(ref int buffer, T[] data, int size) where T : struct
         {
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
-            Gl.glDeleteBuffers(1, ref buffer);
-            Gl.glGenBuffers(1, out buffer);
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, buffer);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            GL.DeleteBuffers(1, ref buffer);
+            GL.GenBuffers(1, out buffer);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, buffer);
 
-            Gl.glBufferData(Gl.GL_ARRAY_BUFFER,
+            GL.BufferData(BufferTarget.ArrayBuffer,
                  (IntPtr)(data.Length * size),
-                              data, Gl.GL_STREAM_DRAW);
+                              data, BufferUsageHint.DynamicDraw);
         }
         /// <summary>
         /// SetSubData
@@ -135,11 +135,11 @@ namespace BazisGUI.Scene.VBO
         /// <param name="offset"></param>
         /// <param name="size"></param>
         /// <param name="data"></param>
-        public static void SetSubData<T>(int buffer, int offset, int size,T[] data)
+        public static void SetSubData<T>(int buffer, int offset, int size,T[] data) where T : struct
         {
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, buffer);
-            Gl.glBufferSubData(Gl.GL_ARRAY_BUFFER, (IntPtr)offset, (IntPtr)size, data);
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, buffer);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, offset, (IntPtr)size, data);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
         }
         /// <summary>
         /// GetSubData
@@ -149,11 +149,11 @@ namespace BazisGUI.Scene.VBO
         /// <param name="offset"></param>
         /// <param name="size"></param>
         /// <param name="data"></param>
-        public static void GetSubData<T>(int buffer, int offset, int size, T[] data)
+        public static void GetSubData<T>(int buffer, int offset, int size, T[] data) where T : struct
         {
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, buffer);
-            Gl.glGetBufferSubData(Gl.GL_ARRAY_BUFFER, (IntPtr)offset, (IntPtr)size, data);
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, buffer);
+            GL.GetBufferSubData(BufferTarget.ArrayBuffer, offset, (IntPtr)size, data);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
         }
 
     }

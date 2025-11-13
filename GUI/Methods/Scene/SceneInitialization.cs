@@ -1,14 +1,13 @@
 ﻿using BazisGUI.Scene.Interfaces;
 using System;
-//using Tao.OpenGl;
 using Geometry;
 using System.Drawing;
 using BazisGUI.Scene.VBO;
 using BazisGUI.Scene;
 using System.Reflection;
-//using Tao.Platform.Windows;
 using OpenTK.Graphics.OpenGL;
 using static BazisGUI.Methods.PlatformSpecific.PlatformSpecific;
+using System.Threading;
 
 namespace BazisGUI
 {
@@ -16,6 +15,10 @@ namespace BazisGUI
     {
         public void SceneInitialization(object sender, EventArgs args)
         {
+            var id = Thread.CurrentThread.ManagedThreadId;
+            if (scene.Profile != OpenTK.Windowing.Common.ContextProfile.Compatability)
+                throw new Exception("Используется deprecated код, задайте для экземпляра класса GLControl свойство Profile = Compatability");
+
             //basis = new SceneBasis();
             DisplayBasis();
             DisplayRotationPointEvent = CreateRotationPoint();
@@ -55,6 +58,14 @@ namespace BazisGUI
             //Disposed += (s, e) => AverageColorRenderer.Dispose();
             //Disposed += (s, e) => clipPlaneRenderer.Dispose();
             //DisplayClipPlane();//Регистрируем обработчик визуализации сечения
+
+            scene.Paint += (arg1, arg2) => DisplayObjects();
+            scene.SizeChanged += GlControl_Resize;
+            scene.KeyDown += GlControl_KeyDown;
+            scene.MouseDown += GlControl_MouseDown;
+            scene.MouseUp += GlControl_MouseUp;
+            scene.MouseMove += GlControl_MouseMove;
+            scene.MouseWheel += GlControl_MouseWheel;
         }
 
         /// <summary>

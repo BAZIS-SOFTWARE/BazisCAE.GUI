@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI.Scene
 {
@@ -31,15 +31,15 @@ namespace BazisGUI.Scene
         /// <summary>
         /// Конструктор GLSL программы
         /// </summary>
-        public ShaderProgramCreator(){}
+        public ShaderProgramCreator() { }
         /// <summary>
         /// Делает активной текущую GLSL программу
         /// </summary>
-        public void Bind() => Gl.glUseProgram(Program);
+        public void Bind() => GL.UseProgram(Program);
         /// <summary>
         /// Делает активной программу по умолчанию
         /// </summary>
-        public void Unbind() => Gl.glUseProgram(0);
+        public void Unbind() => GL.UseProgram(0);
         /// <summary>
         /// Активирует текстурный слот для переменной с именем name в шейдере
         /// </summary>
@@ -48,10 +48,10 @@ namespace BazisGUI.Scene
         /// <param name="texUnit">Номер текстурного слота</param>
         public void BindTextureRect(string name, int texId, int texUnit)
         {
-            Gl.glActiveTexture(Gl.GL_TEXTURE0 + texUnit);
-            Gl.glBindTexture(Gl.GL_TEXTURE_RECTANGLE_ARB, texId);
-            var id = Gl.glGetUniformLocation(Program, name);
-            Gl.glUniform1i(id, texUnit);
+            GL.ActiveTexture(TextureUnit.Texture0 + texUnit);
+            GL.BindTexture(TextureTarget.TextureRectangleArb, texId);
+            var id = GL.GetUniformLocation(Program, name);
+            GL.Uniform1(id, texUnit);
         }
         /// <summary>
         /// Связывает пользовательские аттрибуты с программой
@@ -60,14 +60,14 @@ namespace BazisGUI.Scene
         /// <param name="variable">Имя аттрибута в шейдере</param>
         /// <param name="attribsCount">Число аттрибутов</param>
         /// <param name="usedType">Используемый тип данных</param>
-        public void SetCustomAttributes(int buffer, string variable, int attribsCount = 3, int usedType = Gl.GL_FLOAT)
+        public void SetCustomAttributes(int buffer, string variable, int attribsCount = 3, VertexAttribPointerType usedType = VertexAttribPointerType.Float)
         {
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, buffer);
-            var location = Gl.glGetAttribLocation(Program, variable);
-            Gl.glBindAttribLocation(Program, location, variable);
-            Gl.glEnableVertexAttribArray(location);
-            Gl.glVertexAttribPointer(location, attribsCount, usedType, Gl.GL_FALSE, 0, IntPtr.Zero);
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, 0);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, buffer);
+            var location = GL.GetAttribLocation(Program, variable);
+            GL.BindAttribLocation(Program, location, variable);
+            GL.EnableVertexAttribArray(location);
+            GL.VertexAttribPointer(location, attribsCount, usedType, false, 0, IntPtr.Zero);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
         }
         /// <summary>
         /// Отвязывает пользовательские аттрибуты от программы
@@ -75,8 +75,8 @@ namespace BazisGUI.Scene
         /// <param name="variable">Имя аттрибута в шейдере</param>
         public void UnsetCustomAttributes(string variable)
         {
-            var location = Gl.glGetAttribLocation(Program, variable);
-            Gl.glDisableVertexAttribArray(location);
+            var location = GL.GetAttribLocation(Program, variable);
+            GL.DisableVertexAttribArray(location);
         }
 
         /// <summary>
@@ -86,27 +86,28 @@ namespace BazisGUI.Scene
         /// <param name="values">Массив значений переменной</param>
         public void SetUniform(string name, float[] values)
         {
-            var id = Gl.glGetUniformLocation(Program, name);
+            var id = GL.GetUniformLocation(Program, name);
+            var err = GL.GetError();
             var count = values.Length;
             if (id == -1)
                 return;
             if (count == 1)
-                Gl.glUniform1f(id, values[0]);
+                GL.Uniform1(id, values[0]);
             else if (count == 2)
-                Gl.glUniform2f(id, values[0], values[1]);
+                GL.Uniform2(id, values[0], values[1]);
             else if (count == 3)
-                Gl.glUniform3f(id, values[0], values[1], values[2]);
+                GL.Uniform3(id, values[0], values[1], values[2]);
             else if (count == 4)
-                Gl.glUniform4f(id, values[0], values[1], values[2], values[3]);
+                GL.Uniform4(id, values[0], values[1], values[2], values[3]);
             else
-                Gl.glUniformMatrix4fv(id, 1, Gl.GL_FALSE, values);//Передача матрицы в шейдер
+                GL.UniformMatrix4(id, 1, false, values);//Передача матрицы в шейдер
         }
         /// <summary>
         /// Подгружает из файла исходный код шейдера, указанного типа, компилирует и привязывает к идентификатору шейдера
         /// </summary>
         /// <param name="type">Тип шейдера (вершинный, фрагментный и т.д)</param>
         /// <param name="path">Путь до файла</param>
-        public void CreateShaderFromFile(int type, string path)
+        public void CreateShaderFromFile(ShaderType type, string path)
         {
             var data = new List<string>();
             using (var reader = new StreamReader(path))
@@ -120,28 +121,29 @@ namespace BazisGUI.Scene
         /// </summary>
         /// <param name="type">Тип шейдера (вершинный, фрагментный и т.д)</param>
         /// <param name="data">Массив строк исходного кода шейдера</param>
-        public void CreateShaderFromString(int type, string[] data)
+        public void CreateShaderFromString(ShaderType type, string[] data)
         {
-            var shader = Gl.glCreateShader(type);
-            Gl.glShaderSource(shader, data.Length, data, null);
+            var length = 0;
+            var shader = GL.CreateShader(type);
+            GL.ShaderSource(shader, data.Length, data, null as int[]);
             try
             {
-                Gl.glCompileShader(shader);
+                GL.CompileShader(shader);
                 int status;
-                Gl.glGetShaderiv(shader, Gl.GL_COMPILE_STATUS, out status);
-                if (status == Gl.GL_FALSE)
+                GL.GetShader(shader, ShaderParameter.CompileStatus, out status);
+                if (status == 0)
                     throw new Exception();
-                if (type == Gl.GL_VERTEX_SHADER)
+                if (type == ShaderType.VertexShader)
                     Vertex = shader;
-                else if (type == Gl.GL_FRAGMENT_SHADER)
+                else if (type == ShaderType.FragmentShader)
                     Fragment = shader;
-                else if (type == Gl.GL_GEOMETRY_SHADER_EXT)
+                else if (type == ShaderType.GeometryShaderExt)
                     Geometry = shader;
             }
             catch
             {
-                var sb = new StringBuilder(1024);
-                Gl.glGetShaderInfoLog(shader, 1024, null, sb);
+                var sb = string.Empty;
+                GL.GetShaderInfoLog(shader, 1024, out length, out sb);
                 if (MessageBox.Show(sb.ToString(), "Compile shader exception",
                                 MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Cancel)
                     Environment.Exit(1);
@@ -153,26 +155,27 @@ namespace BazisGUI.Scene
         /// <exception cref="Exception">Исключение, если связывание не удалось</exception>
         public void Link()
         {
-            Program = Gl.glCreateProgram();
-            if(Vertex != 0)
-                Gl.glAttachShader(Program, Vertex);
+            Program = GL.CreateProgram();
+            if (Vertex != 0)
+                GL.AttachShader(Program, Vertex);
             if (Fragment != 0)
-                Gl.glAttachShader(Program, Fragment);
+                GL.AttachShader(Program, Fragment);
             if (Geometry != 0)
-                Gl.glAttachShader(Program, Geometry);
+                GL.AttachShader(Program, Geometry);
             try
             {
-                Gl.glLinkProgram(Program);
+                GL.LinkProgram(Program);
                 int status;
-                Gl.glGetProgramiv(Program, Gl.GL_LINK_STATUS, out status);
-                if(status == Gl.GL_FALSE)
+                GL.GetProgram(Program, GetProgramParameterName.LinkStatus, out status);
+                if (status == 0)
                     throw new Exception();
             }
             catch
             {
-                var sb = new StringBuilder(1024);
-                Gl.glGetProgramInfoLog(Program, 1024, null, sb);
-                if (MessageBox.Show(sb.ToString(), "Link program exception", 
+                var length = 0;
+                var sb = string.Empty;
+                GL.GetProgramInfoLog(Program, 1024, out length, out sb);
+                if (MessageBox.Show(sb.ToString(), "Link program exception",
                                 MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Cancel)
                     Environment.Exit(1);
             }
@@ -182,13 +185,13 @@ namespace BazisGUI.Scene
         /// </summary>
         public void Dispose()
         {
-            Gl.glDetachShader(Program, Vertex);
-            Gl.glDeleteShader(Vertex);
-            Gl.glDetachShader(Program, Fragment);
-            Gl.glDeleteShader(Fragment);
-            Gl.glDetachShader(Program, Geometry);
-            Gl.glDeleteShader(Geometry);
-            Gl.glDeleteProgram(Program);
+            GL.DetachShader(Program, Vertex);
+            GL.DeleteShader(Vertex);
+            GL.DetachShader(Program, Fragment);
+            GL.DeleteShader(Fragment);
+            GL.DetachShader(Program, Geometry);
+            GL.DeleteShader(Geometry);
+            GL.DeleteProgram(Program);
         }
     }
 }

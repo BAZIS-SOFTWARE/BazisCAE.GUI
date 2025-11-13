@@ -800,14 +800,8 @@ namespace BazisGUI
             scene.SharedContext = null;
             scene.Size = new System.Drawing.Size(662, 384);
             scene.TabIndex = 1;
-            scene.SizeChanged += GlControl_Resize;
             scene.KeyDown += GlControl_KeyDown;
-            scene.MouseClick += scene_MouseClick;
-            scene.MouseDown += GlControl_MouseDown;
-            scene.MouseMove += GlControl_MouseMove;
-            scene.MouseUp += GlControl_MouseUp;
             scene.MouseWheel += GlControl_MouseWheel;
-            scene.Load += SceneInitialization;
             // 
             // console
             // 

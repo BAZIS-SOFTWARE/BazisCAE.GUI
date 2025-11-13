@@ -14,8 +14,8 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Windows.Forms;
-using Tao.OpenGl;
 using static BaseModule.Interfaces.GeneralParams;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI
 {
@@ -334,27 +334,24 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
 
             viewMatrix[0, 3] = 0; viewMatrix[1, 3] = 0;
             var tempViewMatrixAr = viewMatrix.AsColumnMajorArray();
-            Gl.glLoadMatrixf(tempViewMatrixAr);
+            GL.LoadMatrix(tempViewMatrixAr);
         }
 
         private void GlControl_Resize(object sender, EventArgs e)
         {
             // установка порта вывода в соответствии с размерами элемента anT 
-            Gl.glViewport(0, 0, scene.Width, scene.Height);
+            GL.Viewport(0, 0, scene.Width, scene.Height);
             // настройка матрицы проекции 
-            Gl.glMatrixMode(Gl.GL_PROJECTION);
-            Gl.glLoadIdentity();
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
 
             //Glu.gluPerspective(camera.AngleOfProjection, (double)scene.Width / scene.Height, 1, 2000);//Учтется при UpdateProjection
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
+            GL.MatrixMode(MatrixMode.Modelview);
             var matrix = ViewMatrix.AsColumnMajorArray();
-            Gl.glLoadMatrixf(matrix);
+            GL.LoadMatrix(matrix);
 
             UpdateProjection();
             averageColorRenderer.Reshape(scene.Width, scene.Height);
-            DisplayObjects();
-
-            scene.Invalidate();
         }
 
         private void SelectObjects(Point2D point, bool isSelected)
