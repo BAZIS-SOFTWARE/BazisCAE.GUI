@@ -141,6 +141,7 @@ namespace BazisGUI
         private void ChangeMatProperties(PropertyChangedEventArgs obj, MatData matCond, ref bool flag)
         {
             ChangeGeneralProperties(obj, matCond, ref flag);
+
             if (obj.Header == "Материал")
                 matCond.Material = project.MaterialsDB[obj.NewValue.ToString()];
             // TO DO дописать метод, так чтобы изменялись все свойства

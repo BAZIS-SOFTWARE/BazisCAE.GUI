@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
+using Project.Interfaces.Tasks;
 using Tao.OpenGl;
+using System.Linq;
 
 namespace BazisGUI
 {
@@ -27,7 +29,7 @@ namespace BazisGUI
                 rows.Add(new RowProperty("Направление",
     new ButtonPropertyValue("Реверс",
     new Action(() => { obj.Reverse(); }))));
-            }    
+            }
             else
             {
                 rows.Add(new RowProperty("Узлы элементов",
@@ -35,8 +37,99 @@ namespace BazisGUI
     new Action(() => { ShowGroupWithNodes(obj); }))));
             }
 
+            var res = project.TaskData.Find(obj.Name);
+            if (res.Count() == 0)
+                if(obj.ObjType != ObjType.Узел)
+                    CreateElementsConditionsProperties(obj, rows);
+                else
+                    CreateNodesConditionsProperties(obj, rows);
+            else
+                rows.Add(new RowProperty("Условие", res.First().Kind));
 
             return rows;
+        }
+
+        private void CreateNodesConditionsProperties(IGroup obj, List<RowProperty> rows)
+        {
+                    rows.Add(new RowProperty("Создать условие",
+        new DropDownPropertyValue("*",
+        new List<string>() {
+            DataKind.Закрепление.ToString(),
+            DataKind.Среда.ToString(),
+            DataKind.Нагрузка.ToString()
+        })));                          
+        }
+
+        private void CreateElementsConditionsProperties(IGroup obj, List<RowProperty> rows)
+        {
+            if (project.ProjectType == TaskType.Volume)
+            {
+                if (obj.ObjType == ObjType.Элемент3D)
+                    rows.Add(new RowProperty("Создать условие",
+        new DropDownPropertyValue("*",
+        new List<string>() {
+            DataKind.Материал.ToString(),
+            DataKind.Нагрев.ToString(),
+        })));
+                else if (obj.ObjType == ObjType.Элемент2D)
+                    rows.Add(new RowProperty("Создать условие",
+new DropDownPropertyValue("*",
+new List<string>()
+{
+    DataKind.Среда.ToString()
+})));
+            }
+            else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
+            {
+                if (obj.ObjType == ObjType.Элемент2D)
+                    rows.Add(new RowProperty("Создать условие",
+new DropDownPropertyValue("*",
+new List<string>()
+{
+    DataKind.Материал.ToString()
+})));
+                else if (obj.ObjType == ObjType.Элемент1D)
+                    rows.Add(new RowProperty("Создать условие",
+new DropDownPropertyValue("*",
+new List<string>()
+{
+    DataKind.Материал.ToString(),DataKind.Среда.ToString()
+})));
+            }
+            else if (project.ProjectType == TaskType.Linear)
+            {
+                if (obj.ObjType == ObjType.Элемент1D)
+                    rows.Add(new RowProperty("Создать условие",
+new DropDownPropertyValue("*",
+new List<string>()
+{
+    DataKind.Материал.ToString()
+})));
+            }
+            else
+            {
+                if (obj.ObjType == ObjType.Элемент1D)
+                    rows.Add(new RowProperty("Создать условие",
+new DropDownPropertyValue("*",
+new List<string>()
+{
+    DataKind.Материал.ToString()
+})));
+                else if (obj.ObjType == ObjType.Элемент2D)
+                    rows.Add(new RowProperty("Создать условие",
+new DropDownPropertyValue("*",
+new List<string>()
+{
+    DataKind.Материал.ToString(),DataKind.Среда.ToString()
+})));
+                else if (obj.ObjType == ObjType.Элемент3D)
+                    rows.Add(new RowProperty("Создать условие",
+new DropDownPropertyValue("*",
+new List<string>()
+{
+    DataKind.Материал.ToString()
+})));
+            }
         }
 
         private async Task ShowDirection(IGroup group)

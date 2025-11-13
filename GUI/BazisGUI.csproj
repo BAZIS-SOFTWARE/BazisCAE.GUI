@@ -71,7 +71,6 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Model" Version="4.8.0" />
     <PackageReference Include="NetOctree" Version="2.1.11" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="OperationalController" Version="3.8.0" />
     <PackageReference Include="PostProc" Version="2.0.2" />
     <PackageReference Include="PreProc" Version="1.9.0" />
@@ -89,7 +88,7 @@
     <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.118.0" />
     <PackageReference Include="System.Memory" Version="4.5.5" />
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
     <PackageReference Include="System.Text.Encodings.Web" Version="7.0.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
