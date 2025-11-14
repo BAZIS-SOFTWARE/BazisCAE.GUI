@@ -37,7 +37,7 @@ namespace BazisGUI
         {
             get
             {
-               return Path.GetDirectoryName(lblStatus.Text);
+                return Path.GetDirectoryName(lblStatus.Text);
             }
         }
 
@@ -51,8 +51,8 @@ namespace BazisGUI
 
         //BasePage module;
         ProjectController project;
-        IGmshController GmshController 
-        { 
+        IGmshController GmshController
+        {
             get { return project?.GmshController; }
         }
         IODataController dataController = new IODataController();
@@ -62,7 +62,7 @@ namespace BazisGUI
         VBOController VBOController = new VBOController();
 
         ClientController serverConnection;
-        
+
         SettingsConfig settingsConfig = new SettingsConfig()
         {
             BackGroundColor = Color.White,
@@ -173,7 +173,7 @@ namespace BazisGUI
                     project.ImportCAD(fullPath);
                     path = Path.GetDirectoryName(fullPath);
                 }
-   
+
                 lblStatus.Text = $"{path}\\{project.Name}";
             }
 
@@ -219,8 +219,8 @@ namespace BazisGUI
         {
             //if (module != null)
             //{
-                StopServerPing();
-                serverConnection?.RequestServer(moduleName + " Отдать");
+            StopServerPing();
+            serverConnection?.RequestServer(moduleName + " Отдать");
             //}
         }
 
@@ -239,7 +239,7 @@ namespace BazisGUI
 
         private void UnBlockGeneralMenuInterface(string moduleName, bool flag)
         {
-            if(moduleName == "Weld" | moduleName == "HeatTreatment")
+            if (moduleName == "Weld" | moduleName == "HeatTreatment")
             {
                 if (flag)
                 {
@@ -256,7 +256,7 @@ namespace BazisGUI
                     результатыMenuItem.Visible = false;
                 }
             }
-        }                                      
+        }
 
         private void CloseActivePageChildControls(string moduleName)
         {
@@ -283,11 +283,11 @@ namespace BazisGUI
                         lock (serverConnection)
                         {
                             serverConnection.RequestServer(moduleName + " Работа");
-                            if(serverConnection.Answer != "Работай")
+                            if (serverConnection.Answer != "Работай")
                             {
-                                throw new AccidentServerDisconnectionException();  
-                            }    
-                                
+                                throw new AccidentServerDisconnectionException();
+                            }
+
                         }
                         Thread.Sleep(3000);
                     }
@@ -295,7 +295,7 @@ namespace BazisGUI
                 }
                 catch (Exception ex)
                 {
-                    if(ex is AccidentServerDisconnectionException)
+                    if (ex is AccidentServerDisconnectionException)
                     {
                         Invoke(new Action(() =>
                         {
@@ -317,7 +317,7 @@ namespace BazisGUI
                 while (true)
                 {
                     if (serverConnectionPing.ThreadState == System.Threading.ThreadState.WaitSleepJoin |
-                        serverConnectionPing.ThreadState == System.Threading.ThreadState.Running                       
+                        serverConnectionPing.ThreadState == System.Threading.ThreadState.Running
                         )
                         serverConnectionPing.Abort();
                     if (serverConnectionPing.ThreadState == System.Threading.ThreadState.Aborted |
@@ -354,7 +354,7 @@ namespace BazisGUI
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
-  
+
         }
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)
@@ -364,7 +364,7 @@ namespace BazisGUI
 
         private void содержаниеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "helpForm", Text = "Справка", ShowIcon = false};
+            var form = new Form() { Name = "helpForm", Text = "Справка", ShowIcon = false };
             form.TopMost = true;
             var helpFile = Directory.GetFiles(Application.StartupPath, "ПО Bazis. Руководство пользователя.chm", SearchOption.AllDirectories);
 
@@ -375,7 +375,7 @@ namespace BazisGUI
 
         private void опрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "aboutProgrammForm", Text = "О программе", ShowIcon = false};
+            var form = new Form() { Name = "aboutProgrammForm", Text = "О программе", ShowIcon = false };
             var control = new AboutProgrammControl { Dock = DockStyle.Fill };
 
             form.ClientSize = control.Size;
@@ -385,21 +385,21 @@ namespace BazisGUI
 
         private void сведенияMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "aboutLicenseForm", Text = "Информация о лицензии", ShowIcon = false};
+            var form = new Form() { Name = "aboutLicenseForm", Text = "Информация о лицензии", ShowIcon = false };
             form.TopMost = true;
             var control = new AboutLicenseControl { Dock = DockStyle.Fill };
             form.ClientSize = control.Size;
-            
+
             try
             {
                 serverConnection.RequestServer("CheckLicenseInfo");
                 var licInfo = JsonConvert.DeserializeObject<License>(serverConnection.Answer);
-                
-                if(licInfo != null)
+
+                if (licInfo != null)
                 {
                     control.KeysInfo = string.Empty;
 
-                foreach (var key in licInfo.Keys)
+                    foreach (var key in licInfo.Keys)
                         control.KeysInfo += $"{key}\n";
 
                     control.OwnerInfo = licInfo.Company;
@@ -408,7 +408,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                if(ex is Newtonsoft.Json.JsonReaderException)
+                if (ex is Newtonsoft.Json.JsonReaderException)
                     MessageBox.Show("Ошибка запроса информации о лицензии");
                 else
                     MessageBox.Show(ex.Message);
@@ -423,7 +423,7 @@ namespace BazisGUI
             var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false };
             var control = new ClientControl() { Dock = DockStyle.Fill };
 
-            control.LicenseActionEvent += (ar1,ar2) => 
+            control.LicenseActionEvent += (ar1, ar2) =>
             {
                 serverConnection = new ClientController(ar1, ar2);
                 if (request != null)
@@ -436,7 +436,7 @@ namespace BazisGUI
                         UnBlockGeneralMenuInterface(request.Split(' ')[0], true);
                         StartLicensing(request.Split(' ')[0]);
                     }
-                    else if(serverConnection.Answer == "Пустой запрос")
+                    else if (serverConnection.Answer == "Пустой запрос")
                         control.LabelAnswer = "Соединение установлено";
                     else
                         control.LabelAnswer = serverConnection.Answer;
@@ -454,7 +454,7 @@ namespace BazisGUI
             var settings = new SettingsControl() { Dock = DockStyle.Fill };
 
             settings.SetSettings(settingsConfig);
-            
+
             //settings.SaveSettingsEvent += (ar) =>
             //{
             //    settingsConfig = ar;
@@ -478,12 +478,12 @@ namespace BazisGUI
                 form.Controls.Add(settings);
                 form.Show();
 
-                var location = scene == null ? new Point() :  PointToScreen(Point.Empty);
+                var location = scene == null ? new Point() : PointToScreen(Point.Empty);
                 form.Location = location;
             }
 
-             SetSettingsToConfig(settings);
-            
+            SetSettingsToConfig(settings);
+
         }
 
         private void SetSettingsToConfig(SettingsControl settings)
@@ -493,10 +493,11 @@ namespace BazisGUI
             settings.SetSelectionObjectColorEvent += (ar) =>
             settingsConfig.SelectObjectColor = ar;
 
-            settings.SetNodeColorEvent += (ar) => { 
+            settings.SetNodeColorEvent += (ar) =>
+            {
                 //NodeColor = ar;
                 var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
-                SetVBObjectAttribute(pres,"цвет");
+                SetVBObjectAttribute(pres, "цвет");
                 DisplayObjects();
             };
 
@@ -549,8 +550,8 @@ namespace BazisGUI
                     var preColor = obj.Color;
                     var newColor = Color.FromArgb(settingsConfig.TransparencyValue, preColor);
                     obj.Color = newColor;
-                } 
-                
+                }
+
                 ClearAllDataOnScene();
                 CreateVBObjects("Объекты");
                 DisplayObjects();
@@ -648,7 +649,7 @@ namespace BazisGUI
                 project.CreateProject("newProject.bpf2");
 
                 lblStatus.Text = $"{folderName}\\{project.Name}";
-                
+
                 ClearAllDataOnScene();
 
                 UnblockInterface();
@@ -785,7 +786,7 @@ namespace BazisGUI
                     var oldFolder = Path.GetDirectoryName(lblStatus.Text);
 
                     project.Name = Path.GetFileName(saveDialog.FileName);
-                    
+
                     // Пробуем не использовать это свойство
                     //project.Path = newFolder;
 
@@ -827,7 +828,7 @@ namespace BazisGUI
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)
         {
-                GmshController?.Gmsh?.finalize();
+            GmshController?.Gmsh?.finalize();
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -841,7 +842,7 @@ namespace BazisGUI
             var splitContainer = (SplitContainer)console.Parent.Parent;
             splitContainer.Panel2Collapsed = false;
         }
-     
+
 
         private void arcWeldingMenuItem_Click(object sender, EventArgs e)
         {
@@ -863,13 +864,13 @@ namespace BazisGUI
 
         private void fsWeldingMenuItem_Click(object sender, EventArgs e)
         {
- 
+
             var currentItem = sender as ToolStripMenuItem;
 
             foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
                 if (currentItem.Name != item.Name)
                     item.Checked = false;
-        }            
+        }
 
 
 
@@ -879,7 +880,7 @@ namespace BazisGUI
             var currentItem = sender as ToolStripMenuItem;
 
             foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
-                if(currentItem.Name != item.Name)
+                if (currentItem.Name != item.Name)
                     item.Checked = false;
         }
 
@@ -923,7 +924,7 @@ namespace BazisGUI
         {
             try
             {
-                if(project != null)
+                if (project != null)
                 {
                     string meshFilter =
 "All files(*.*)|*.*|" +
@@ -938,7 +939,7 @@ namespace BazisGUI
                     dialog.Filter = meshFilter;
                     if (dialog.ShowDialog() == DialogResult.Cancel)
                         return;
-                    
+
                     var mb = new MessageBoxEx.MessageBoxEx()
                     { Dock = DockStyle.Fill };
                     var mbf = dataController.CreateMessageBoxExForm(mb);

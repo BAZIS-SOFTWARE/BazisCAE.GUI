@@ -4,6 +4,8 @@ using Geometry;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
+using Project.Tasks.Materials;
+using PropertiesCalculator.MaterialData;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
@@ -14,34 +16,19 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void материалToolStripMenuItem_Click(object sender, EventArgs e)
+        private void e1DToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                IEnumerable<IGroup> groups;
-                if (project.ProjectType == TaskType.Volume)
-                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент3D);
-                else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
-                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент2D);
+                var groups = GetElementsGroup(ObjType.Элемент1D);
+                CheckMatsAndFuncs();
+
+                MatData matData;
+                if (project.ProjectType == TaskType.AxiPlain)
+                    matData = new MatData(project.MaterialsDB.First().Value, groups.First(), 0, 1);
                 else
-                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент1D);
+                    matData = new BeamMatData(project.MaterialsDB.First().Value, groups.First(), 0, 1);
 
-                if (groups.Count() == 0)
-                    throw new Exception("Отсутствуют группы элементов");
-
-                var matDB = project.MaterialsDB;
-                if (matDB == null)
-                    throw new Exception("Не загружена база физических свойств");
-                if (matDB.Count == 0)
-                    throw new Exception("База физических свойств пустая");
-
-                var funDB = project.FunctionsDB;
-                if (funDB == null)
-                    throw new Exception("Не загружена база функций");
-                if (funDB.Count == 0)
-                    throw new Exception("База функций пустая");
-
-                var matData = new MatData(matDB.First().Value, groups.First(), 0, 1);
                 project.TaskData.Add(matData);
                 PresentCondDataOnTree();
             }
@@ -49,7 +36,69 @@ namespace BazisGUI
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
+        }
 
+        private void e2DToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var groups = GetElementsGroup(ObjType.Элемент2D);
+                CheckMatsAndFuncs();
+                MatData matData;
+
+                if(project.ProjectType == TaskType.AxiPlain)
+                    matData = new MatData(project.MaterialsDB.First().Value, groups.First(), 0, 1);
+                else
+                    matData = new PlateMatData(project.MaterialsDB.First().Value, groups.First(), 0, 1);
+
+                project.TaskData.Add(matData);
+                PresentCondDataOnTree();
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        private void e3DToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var groups = GetElementsGroup(ObjType.Элемент3D);
+                CheckMatsAndFuncs();
+
+                var matData = new MatData(project.MaterialsDB.First().Value, groups.First(), 0, 1);
+                project.TaskData.Add(matData);
+                PresentCondDataOnTree();
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        private void CheckMatsAndFuncs()
+        {
+            var matDB = project.MaterialsDB;
+            if (matDB == null)
+                throw new Exception("Не загружена база физических свойств");
+            if (matDB.Count == 0)
+                throw new Exception("База физических свойств пустая");
+
+            var funDB = project.FunctionsDB;
+            if (funDB == null)
+                throw new Exception("Не загружена база функций");
+            if (funDB.Count == 0)
+                throw new Exception("База функций пустая");
+        }
+
+        private IEnumerable<IGroup> GetElementsGroup(ObjType objType)
+        {
+            var groups = project.GetAllModelGroups().Where(x => x.ObjType == objType);
+            if (groups.Count() == 0)
+                throw new Exception("Отсутствуют группы элементов");
+
+            return groups;
         }
 
         private void средаToolStripMenuItem_Click(object sender, EventArgs e)

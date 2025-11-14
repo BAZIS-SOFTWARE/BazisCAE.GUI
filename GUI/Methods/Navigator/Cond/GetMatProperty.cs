@@ -1,6 +1,8 @@
 ﻿using BaseModule.PropertiesPanel;
 using Model.Interfaces;
+using Project.Interfaces.Tasks;
 using Project.Tasks;
+using Project.Tasks.Materials;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,6 +12,19 @@ namespace BazisGUI
     {
         public List<RowProperty> GetMatProperty(MatData obj, List<string> mat, IEnumerable<IGroup> groups)
         {
+            // подумать над этим....
+            if (project.ProjectType == TaskType.Linear |
+                project.ProjectType == TaskType.Volume_mixed)
+            {
+                var bmat = obj as BeamMatData;
+            }
+            else if(project.ProjectType == TaskType.Plain |
+                project.ProjectType == TaskType.Volume_mixed)
+            {
+                var pmat = obj as PlateMatData;
+            }
+
+
             var rows = new List<RowProperty>
             {
                 //RowProperty.CreateTextBox("Имя", NodeType.Материал.ToString(), ValidationType.None, true),
