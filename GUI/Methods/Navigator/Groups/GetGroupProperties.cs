@@ -7,6 +7,7 @@ using System.Threading;
 using OpenTK.Graphics.OpenGL;
 using static BazisGUI.Methods.PlatformSpecific.PlatformSpecific;
 using System.Linq;
+using Project.Interfaces.Tasks;
 
 namespace BazisGUI
 {

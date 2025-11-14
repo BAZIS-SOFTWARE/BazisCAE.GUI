@@ -103,12 +103,12 @@ namespace BazisGUI
             функцииMenuItem = new ToolStripMenuItem();
             tasksMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem1 = new ToolStripMenuItem();
-            добавитьУсловиеToolStripMenuItem = new ToolStripMenuItem();
+            /*добавитьУсловиеToolStripMenuItem = new ToolStripMenuItem();
             материалToolStripMenuItem = new ToolStripMenuItem();
             средаToolStripMenuItem = new ToolStripMenuItem();
             нагревToolStripMenuItem = new ToolStripMenuItem();
             закреплениеToolStripMenuItem = new ToolStripMenuItem();
-            нагрузкаToolStripMenuItem = new ToolStripMenuItem();
+            нагрузкаToolStripMenuItem = new ToolStripMenuItem();*/
             мастерToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
             трениемСПеремешиваниемToolStripMenuItem = new ToolStripMenuItem();
