@@ -15,7 +15,6 @@ namespace BazisGUI
     {
         public void SceneInitialization(object sender, EventArgs args)
         {
-            var id = Thread.CurrentThread.ManagedThreadId;
             if (scene.Profile != OpenTK.Windowing.Common.ContextProfile.Compatability)
                 throw new Exception("Используется deprecated код, задайте для экземпляра класса GLControl свойство Profile = Compatability");
 
