@@ -42,27 +42,10 @@ namespace BazisGUI
                     if (selObjs.Count() > 0)
                     {
                         var objType = objTypeStr.ToEnum<ObjType>();
-                        var grps = project.ModelData.GroupData.FindMany(objType);
+                        var name = $"newGroup{objType}";
+                        project.ModelData.GroupData.Create(name, selObjs);
 
-                        var counter = 1;
-                        var name = $"{objTypeStr}_{grps.Count() + counter}";
-
-                        while (true)
-                        {
-                            if (project.ModelData.GroupData.Find(name) != null)
-                            {
-                                counter++;
-                                name = $"{objTypeStr}_{grps.Count() + counter}";
-                            }
-                            else break;
-                        }
-
-                        var group = new Group(name, objType);
-
-                        group.AddRange(selObjs);
-                        project.ModelData.GroupData.Add(group);
-
-                        console.PrintInfo(string.Format("Создана новая группа {0}", group.Name), Color.Black);
+                        console.PrintInfo(string.Format("Создана новая группа {0}", name), Color.Black);
 
                         PresentGroupDataOnTree();                       
                     }

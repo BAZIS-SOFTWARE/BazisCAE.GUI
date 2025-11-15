@@ -38,14 +38,15 @@ namespace BazisGUI
     new Action(() => { ShowGroupWithNodes(obj); }))));
             }
 
-            var res = project.TaskData.Find(obj.Name);
-            if (res.Count() == 0)
+            // показываем возможные условия
+            //var res = project.TaskData.Find(obj.Name);
+            //if (res.Count() == 0)
                 if(obj.ObjType != ObjType.Узел)
                     CreateElementsConditionsProperties(obj, rows);
                 else
                     CreateNodesConditionsProperties(obj, rows);
-            else
-                rows.Add(new RowProperty("Условие", res.First().Kind));
+            //else
+            //    rows.Add(new RowProperty("Условие", res.First().Kind));
 
             return rows;
         }
@@ -66,70 +67,92 @@ namespace BazisGUI
             if (project.ProjectType == TaskType.Volume)
             {
                 if (obj.ObjType == ObjType.Элемент3D)
-                    rows.Add(new RowProperty("Создать условие",
-        new DropDownPropertyValue("*",
-        new List<string>() {
-            DataKind.Материал.ToString(),
-            DataKind.Нагрев.ToString(),
-        })));
+                {
+                    if (project.ProjectKind == TaskKind.термическая | 
+                        project.ProjectKind == (TaskKind.термическая | TaskKind.механическая))
+                        rows.Add(new RowProperty("Создать условие",
+                        new DropDownPropertyValue("*",
+                        new List<string>() {
+                            DataKind.Материал.ToString(),
+                            DataKind.Нагрев.ToString(),
+                        })));
+                    else if (project.ProjectKind == TaskKind.механическая)
+                        rows.Add(new RowProperty("Создать условие",
+                        new DropDownPropertyValue("*",
+                        new List<string>() {
+                                        DataKind.Материал.ToString()
+                        })));
+                }
+
                 else if (obj.ObjType == ObjType.Элемент2D)
-                    rows.Add(new RowProperty("Создать условие",
-new DropDownPropertyValue("*",
-new List<string>()
-{
-    DataKind.Среда.ToString()
-})));
+                    if (project.ProjectKind == TaskKind.термическая |
+    project.ProjectKind == (TaskKind.термическая | TaskKind.механическая))
+                        rows.Add(new RowProperty("Создать условие",
+                        new DropDownPropertyValue("*",
+                        new List<string>()
+                        {
+                            DataKind.Среда.ToString()
+                        })));
             }
             else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
             {
                 if (obj.ObjType == ObjType.Элемент2D)
                     rows.Add(new RowProperty("Создать условие",
-new DropDownPropertyValue("*",
-new List<string>()
-{
-    DataKind.Материал.ToString()
-})));
+                    new DropDownPropertyValue("*",
+                    new List<string>()
+                    {
+                        DataKind.Материал.ToString()
+                    })));
                 else if (obj.ObjType == ObjType.Элемент1D)
-                    rows.Add(new RowProperty("Создать условие",
-new DropDownPropertyValue("*",
-new List<string>()
-{
-    DataKind.Материал.ToString(),DataKind.Среда.ToString()
-})));
+                    if (project.ProjectKind == TaskKind.термическая |
+    project.ProjectKind == (TaskKind.термическая | TaskKind.механическая))
+                        rows.Add(new RowProperty("Создать условие",
+                        new DropDownPropertyValue("*",
+                        new List<string>()
+                        {
+                            DataKind.Материал.ToString(),DataKind.Среда.ToString()
+                        })));
+                    else if (project.ProjectKind == TaskKind.механическая)
+                        rows.Add(new RowProperty("Создать условие",
+                        new DropDownPropertyValue("*",
+                        new List<string>()
+                        {
+                            DataKind.Материал.ToString()
+                        })));
             }
             else if (project.ProjectType == TaskType.Linear)
             {
                 if (obj.ObjType == ObjType.Элемент1D)
                     rows.Add(new RowProperty("Создать условие",
-new DropDownPropertyValue("*",
-new List<string>()
-{
-    DataKind.Материал.ToString()
-})));
+                    new DropDownPropertyValue("*",
+                    new List<string>()
+                    {
+                        DataKind.Материал.ToString()
+                    })));
             }
             else
             {
                 if (obj.ObjType == ObjType.Элемент1D)
                     rows.Add(new RowProperty("Создать условие",
-new DropDownPropertyValue("*",
-new List<string>()
-{
-    DataKind.Материал.ToString()
-})));
+                    new DropDownPropertyValue("*",
+                    new List<string>()
+                    {
+                        DataKind.Материал.ToString()
+                    })));
                 else if (obj.ObjType == ObjType.Элемент2D)
                     rows.Add(new RowProperty("Создать условие",
-new DropDownPropertyValue("*",
-new List<string>()
-{
-    DataKind.Материал.ToString(),DataKind.Среда.ToString()
-})));
+                    new DropDownPropertyValue("*",
+                    new List<string>()
+                    {
+                        DataKind.Материал.ToString(),DataKind.Среда.ToString()
+                    })));
                 else if (obj.ObjType == ObjType.Элемент3D)
                     rows.Add(new RowProperty("Создать условие",
-new DropDownPropertyValue("*",
-new List<string>()
-{
-    DataKind.Материал.ToString()
-})));
+                    new DropDownPropertyValue("*",
+                    new List<string>()
+                    {
+                        DataKind.Материал.ToString()
+                    })));
             }
         }
 

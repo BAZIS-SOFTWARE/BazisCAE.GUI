@@ -12,19 +12,6 @@ namespace BazisGUI
     {
         public List<RowProperty> GetMatProperty(MatData obj, List<string> mat, IEnumerable<IGroup> groups)
         {
-            // подумать над этим....
-            if (project.ProjectType == TaskType.Linear |
-                project.ProjectType == TaskType.Volume_mixed)
-            {
-                var bmat = obj as BeamMatData;
-            }
-            else if(project.ProjectType == TaskType.Plain |
-                project.ProjectType == TaskType.Volume_mixed)
-            {
-                var pmat = obj as PlateMatData;
-            }
-
-
             var rows = new List<RowProperty>
             {
                 //RowProperty.CreateTextBox("Имя", NodeType.Материал.ToString(), ValidationType.None, true),
@@ -33,6 +20,20 @@ namespace BazisGUI
                 new RowProperty("Старт, сек.", obj.StartTime),
                 new RowProperty("Стоп, сек.", obj.StopTime),
             };
+
+            // подумать над этим....
+            if (project.ProjectType == TaskType.Linear |
+                project.ProjectType == TaskType.Volume_mixed)
+            {
+                var bmat = obj as BeamMatData;
+                rows.Add(new RowProperty("Диаметр", bmat.Diameter));
+            }
+            else if (project.ProjectType == TaskType.Plain |
+                project.ProjectType == TaskType.Volume_mixed)
+            {
+                var pmat = obj as PlateMatData;
+                rows.Add(new RowProperty("Толщина", pmat.Thickness));
+            }
 
             var funcNames = new List<string>() { "*", "Custom" };
 
