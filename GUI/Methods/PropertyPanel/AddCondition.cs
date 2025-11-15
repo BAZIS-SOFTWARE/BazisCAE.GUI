@@ -1,4 +1,5 @@
 ﻿using BaseModule.Extensions;
+using BaseModule.PropertiesPanel;
 using BaseModule.Tasks.BasicAdvisorControls.Events;
 using Geometry;
 using Model.Interfaces;
@@ -16,67 +17,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void e1DToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var groups = GetElementsGroup(ObjType.Элемент1D);
-                CheckMatsAndFuncs();
-
-                MatData matData;
-                if (project.ProjectType == TaskType.AxiPlain)
-                    matData = new MatData(project.MaterialsDB.First().Value, groups.First(), 0, 1);
-                else
-                    matData = new BeamMatData(project.MaterialsDB.First().Value, groups.First(), 0, 1);
-
-                project.TaskData.Add(matData);
-                PresentCondDataOnTree();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
-        private void e2DToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var groups = GetElementsGroup(ObjType.Элемент2D);
-                CheckMatsAndFuncs();
-                MatData matData;
-
-                if(project.ProjectType == TaskType.AxiPlain)
-                    matData = new MatData(project.MaterialsDB.First().Value, groups.First(), 0, 1);
-                else
-                    matData = new PlateMatData(project.MaterialsDB.First().Value, groups.First(), 0, 1);
-
-                project.TaskData.Add(matData);
-                PresentCondDataOnTree();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
-        private void e3DToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var groups = GetElementsGroup(ObjType.Элемент3D);
-                CheckMatsAndFuncs();
-
-                var matData = new MatData(project.MaterialsDB.First().Value, groups.First(), 0, 1);
-                project.TaskData.Add(matData);
-                PresentCondDataOnTree();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
+      
         private void CheckMatsAndFuncs()
         {
             var matDB = project.MaterialsDB;
@@ -99,6 +40,32 @@ namespace BazisGUI
                 throw new Exception("Отсутствуют группы элементов");
 
             return groups;
+        }
+
+        private ICondData CreateMaterial(PropertyChangedEventArgs obj, IGroup _objectsGr)
+        {
+            if (project.ProjectType == TaskType.Linear)
+                return new BeamMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
+            else if (project.ProjectType == TaskType.Plain)
+                return new PlateMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
+            else if (project.ProjectType == TaskType.AxiPlain)
+            {
+                if (_objectsGr.ObjType == ObjType.Элемент1D)
+                    return new PlateMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
+                else
+                    return new MatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
+            }
+            else if(project.ProjectType == TaskType.Volume)
+                return new MatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
+            else
+            {
+                if (_objectsGr.ObjType == ObjType.Элемент1D)
+                    return new BeamMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
+                else if (_objectsGr.ObjType == ObjType.Элемент2D)
+                    return new PlateMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
+                else
+                    return new MatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
+            }
         }
 
         private void средаToolStripMenuItem_Click(object sender, EventArgs e)
@@ -124,31 +91,6 @@ namespace BazisGUI
             catch (Exception)
             {
 
-            }
-        }
-
-        private void нагревToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                IEnumerable<IGroup> groups;
-                if (project.ProjectType == TaskType.Volume)
-                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент3D);
-                else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
-                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент2D);
-                else
-                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент1D);
-
-                if (groups.Count() == 0)
-                    throw new Exception("Отсутствуют группы элементов");
-
-                var heatData = new HeatData(groups.First(), 0, 1);
-                project.TaskData.Add(heatData);
-                PresentCondDataOnTree();
-
-            }
-            catch (Exception)
-            {
             }
         }
 

@@ -69,12 +69,12 @@
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Model" Version="4.8.0" />
+    <PackageReference Include="Model" Version="4.8.1" />
     <PackageReference Include="NetOctree" Version="2.1.11" />
-    <PackageReference Include="OperationalController" Version="3.8.0" />
-    <PackageReference Include="PostProc" Version="2.0.2" />
-    <PackageReference Include="PreProc" Version="1.9.0" />
-    <PackageReference Include="Project" Version="5.2.9" />
+    <PackageReference Include="OperationalController" Version="3.8.1" />
+    <PackageReference Include="PostProc" Version="2.0.3" />
+    <PackageReference Include="PreProc" Version="1.9.1" />
+    <PackageReference Include="Project" Version="5.3.0" />
     <PackageReference Include="PropertiesCalculator" Version="1.0.6" />
     <PackageReference Include="ResultDB" Version="1.5.1" />
     <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework" Version="1.0.118.0" />
@@ -87,7 +87,6 @@
     <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.118.0" />
     <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.118.0" />
     <PackageReference Include="System.Memory" Version="4.5.5" />
-    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
     <PackageReference Include="System.Text.Encodings.Web" Version="7.0.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />

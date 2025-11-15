@@ -1,6 +1,9 @@
 ﻿using BaseModule.Extensions;
 using BaseModule.PropertiesPanel;
+using BazisGUI.Navigator;
 using Project.Interfaces.Tasks;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -16,11 +19,9 @@ namespace BazisGUI
             else if(obj.Header == "Тип")
                 project.ProjectKind = obj.NewValue.ToEnum<TaskKind>();
 
-            PresentCondDataOnTree();
-            //else if(obj.Header == "Материалы")
-            //    project.MaterialsDB = obj.NewValue;
-            //else if (obj.Header == "Функции")
-            //    project.FunctionsDB = obj.NewValue;
+            List<TreeNode> tasks;
+            var search = navigator.TrySearchNodes(NodeName.задача, out tasks);
+            tasks[0].Nodes.Clear();
         }
     }
 }

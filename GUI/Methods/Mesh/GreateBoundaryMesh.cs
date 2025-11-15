@@ -30,6 +30,7 @@ namespace BazisGUI
             try
             {
                 CreateBoundaryMesh(1);
+                PresentModelObjectsForSelection();
             }
             catch (Exception ex)
             {
@@ -42,6 +43,7 @@ namespace BazisGUI
             try
             {
                 CreateBoundaryMesh(2);
+                PresentModelObjectsForSelection();
             }
             catch (Exception ex)
             {

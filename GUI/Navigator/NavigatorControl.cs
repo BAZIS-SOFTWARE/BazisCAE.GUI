@@ -164,7 +164,7 @@ namespace BazisGUI.Navigator
                 { NodeName.нагрузка,6},
                 { NodeName.результаты,7},
                 { NodeName.расчеты,7},
-                { NodeName.расчет,7},
+                { NodeName.расчет,9},
                 { NodeName.результат,7},
                 { NodeName.время,9},
                 { NodeName.задача,7},

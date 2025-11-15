@@ -7,6 +7,7 @@ using Project.Tasks.Materials;
 using Project.Tasks;
 using System.Drawing;
 using System.Linq;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace BazisGUI
 {
@@ -28,27 +29,27 @@ namespace BazisGUI
                 CheckMatsAndFuncs();
                 if (obj.NewValue == DataKind.Материал.ToString())
                 {
-                    if(project.ProjectType == TaskType.Linear)
-                        cond = new BeamMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
-                    else if(project.ProjectType == TaskType.Plain)
-                        cond = new PlateMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
-                    else if (project.ProjectType == TaskType.AxiPlain |
-                        project.ProjectType == TaskType.Volume)
-                    {
-                        cond = new MatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
-                    }
-                    else
-                    {
-                        if(_objectsGr.ObjType == ObjType.Элемент1D)
-                            cond = new BeamMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
-                        else if (_objectsGr.ObjType == ObjType.Элемент2D)
-                            cond = new PlateMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
-                        else
-                            cond = new MatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
-                    }
-                    project.TaskData.Add(cond);
-                    PresentCondDataOnTree();
-                }      
+                    cond = CreateMaterial(obj, _objectsGr);
+                }
+                else if (obj.NewValue == DataKind.Нагрев.ToString())
+                {
+                    cond = new HeatData(_objectsGr, 0, 1);
+                }
+                else if (obj.NewValue == DataKind.Среда.ToString())
+                {
+                    cond = new MediaData(_objectsGr, 0, 1);
+                }
+                else if (obj.NewValue == DataKind.Закрепление.ToString())
+                {
+                    cond = new ClampData(_objectsGr, 0, 1);
+                }
+                else
+                {
+                    cond = new LoadData(_objectsGr, 0, 1);
+                }
+                
+                project.TaskData.Add(cond);
+                PresentCondDataOnTree();
             }    
         }
     }
