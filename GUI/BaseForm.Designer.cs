@@ -246,7 +246,7 @@ namespace BazisGUI
             // 
             splitContainer3.Panel2.Controls.Add(splitContainer2);
             splitContainer3.Size = new System.Drawing.Size(932, 520);
-            splitContainer3.SplitterDistance = 262;
+            splitContainer3.SplitterDistance = 273;
             splitContainer3.SplitterWidth = 8;
             splitContainer3.SwitchShifting = false;
             splitContainer3.TabIndex = 0;
@@ -267,7 +267,7 @@ namespace BazisGUI
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(tableLayoutPanel1);
-            splitContainer1.Size = new System.Drawing.Size(262, 520);
+            splitContainer1.Size = new System.Drawing.Size(273, 520);
             splitContainer1.SplitterDistance = 280;
             splitContainer1.SplitterWidth = 8;
             splitContainer1.SwitchShifting = false;
@@ -290,7 +290,7 @@ namespace BazisGUI
             navigator.Name = "navigator";
             navigator.Padding = new Padding(0, 15, 0, 0);
             navigator.ProjectInfoIndex = 0;
-            navigator.Size = new System.Drawing.Size(262, 280);
+            navigator.Size = new System.Drawing.Size(273, 280);
             navigator.TabIndex = 0;
             navigator.UpColor = System.Drawing.Color.Gainsboro;
             navigator.HideResultsEvent += navigator_HideResultsEvent;
@@ -345,7 +345,7 @@ namespace BazisGUI
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new System.Drawing.Size(262, 232);
+            tableLayoutPanel1.Size = new System.Drawing.Size(273, 232);
             tableLayoutPanel1.TabIndex = 3;
             // 
             // checkPlayerControl
@@ -362,7 +362,7 @@ namespace BazisGUI
             checkPlayerControl.MinimumSize = new System.Drawing.Size(215, 35);
             checkPlayerControl.Name = "checkPlayerControl";
             checkPlayerControl.ShowTextValue = true;
-            checkPlayerControl.Size = new System.Drawing.Size(262, 35);
+            checkPlayerControl.Size = new System.Drawing.Size(273, 35);
             checkPlayerControl.SliderBarInnerColor = System.Drawing.Color.Silver;
             checkPlayerControl.SliderBarOuterColor = System.Drawing.Color.Silver;
             checkPlayerControl.SliderElapsedInnerColor = System.Drawing.Color.Silver;
@@ -390,7 +390,7 @@ namespace BazisGUI
             propertiesPanel.Margin = new Padding(0, 0, 0, 8);
             propertiesPanel.Name = "propertiesPanel";
             propertiesPanel.Padding = new Padding(0, 15, 0, 0);
-            propertiesPanel.Size = new System.Drawing.Size(262, 189);
+            propertiesPanel.Size = new System.Drawing.Size(273, 189);
             propertiesPanel.TabIndex = 0;
             propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
             propertiesPanel.PropertyUpdateEvent += propertiesPanel_OnPropertyUpdate;
@@ -431,7 +431,7 @@ namespace BazisGUI
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(console);
-            splitContainer2.Size = new System.Drawing.Size(662, 520);
+            splitContainer2.Size = new System.Drawing.Size(651, 520);
             splitContainer2.SplitterDistance = 384;
             splitContainer2.SplitterWidth = 8;
             splitContainer2.SwitchShifting = false;
@@ -461,7 +461,7 @@ namespace BazisGUI
             btnDisplayStates.Enabled = false;
             btnDisplayStates.FlatStyle = FlatStyle.Flat;
             btnDisplayStates.Image = Properties.Resources.arrow_d;
-            btnDisplayStates.Location = new System.Drawing.Point(463, 3);
+            btnDisplayStates.Location = new System.Drawing.Point(452, 3);
             btnDisplayStates.Margin = new Padding(6, 4, 6, 4);
             btnDisplayStates.Name = "btnDisplayStates";
             btnDisplayStates.Size = new System.Drawing.Size(18, 27);
@@ -476,7 +476,7 @@ namespace BazisGUI
             btnRotVert90.FlatStyle = FlatStyle.Flat;
             btnRotVert90.ImageIndex = 8;
             btnRotVert90.ImageList = sceneImageList;
-            btnRotVert90.Location = new System.Drawing.Point(631, 253);
+            btnRotVert90.Location = new System.Drawing.Point(620, 253);
             btnRotVert90.Margin = new Padding(3, 3, 4, 0);
             btnRotVert90.Name = "btnRotVert90";
             btnRotVert90.Size = new System.Drawing.Size(27, 27);
@@ -515,7 +515,7 @@ namespace BazisGUI
             btnRotHor90.FlatStyle = FlatStyle.Flat;
             btnRotHor90.ImageIndex = 7;
             btnRotHor90.ImageList = sceneImageList;
-            btnRotHor90.Location = new System.Drawing.Point(631, 223);
+            btnRotHor90.Location = new System.Drawing.Point(620, 223);
             btnRotHor90.Margin = new Padding(3, 3, 4, 0);
             btnRotHor90.Name = "btnRotHor90";
             btnRotHor90.Size = new System.Drawing.Size(27, 27);
@@ -530,7 +530,7 @@ namespace BazisGUI
             btnRotZ.FlatStyle = FlatStyle.Flat;
             btnRotZ.ImageIndex = 6;
             btnRotZ.ImageList = sceneImageList;
-            btnRotZ.Location = new System.Drawing.Point(631, 193);
+            btnRotZ.Location = new System.Drawing.Point(620, 193);
             btnRotZ.Margin = new Padding(3, 3, 4, 0);
             btnRotZ.Name = "btnRotZ";
             btnRotZ.Size = new System.Drawing.Size(27, 27);
@@ -547,7 +547,7 @@ namespace BazisGUI
             btnRotY.FlatStyle = FlatStyle.Flat;
             btnRotY.ImageIndex = 5;
             btnRotY.ImageList = sceneImageList;
-            btnRotY.Location = new System.Drawing.Point(631, 163);
+            btnRotY.Location = new System.Drawing.Point(620, 163);
             btnRotY.Margin = new Padding(3, 3, 4, 0);
             btnRotY.Name = "btnRotY";
             btnRotY.Size = new System.Drawing.Size(27, 27);
@@ -564,7 +564,7 @@ namespace BazisGUI
             btnRotX.FlatStyle = FlatStyle.Flat;
             btnRotX.ImageIndex = 4;
             btnRotX.ImageList = sceneImageList;
-            btnRotX.Location = new System.Drawing.Point(631, 133);
+            btnRotX.Location = new System.Drawing.Point(620, 133);
             btnRotX.Margin = new Padding(3, 3, 4, 0);
             btnRotX.Name = "btnRotX";
             btnRotX.Size = new System.Drawing.Size(27, 27);
@@ -581,7 +581,7 @@ namespace BazisGUI
             btnZY.FlatStyle = FlatStyle.Flat;
             btnZY.ImageIndex = 3;
             btnZY.ImageList = sceneImageList;
-            btnZY.Location = new System.Drawing.Point(631, 103);
+            btnZY.Location = new System.Drawing.Point(620, 103);
             btnZY.Margin = new Padding(3, 3, 4, 0);
             btnZY.Name = "btnZY";
             btnZY.Size = new System.Drawing.Size(27, 27);
@@ -596,7 +596,7 @@ namespace BazisGUI
             btnZX.FlatStyle = FlatStyle.Flat;
             btnZX.ImageIndex = 2;
             btnZX.ImageList = sceneImageList;
-            btnZX.Location = new System.Drawing.Point(631, 73);
+            btnZX.Location = new System.Drawing.Point(620, 73);
             btnZX.Margin = new Padding(3, 3, 4, 0);
             btnZX.Name = "btnZX";
             btnZX.Size = new System.Drawing.Size(27, 27);
@@ -611,7 +611,7 @@ namespace BazisGUI
             btnXY.FlatStyle = FlatStyle.Flat;
             btnXY.ImageIndex = 1;
             btnXY.ImageList = sceneImageList;
-            btnXY.Location = new System.Drawing.Point(631, 43);
+            btnXY.Location = new System.Drawing.Point(620, 43);
             btnXY.Margin = new Padding(4, 4, 4, 0);
             btnXY.Name = "btnXY";
             btnXY.Size = new System.Drawing.Size(27, 27);
@@ -627,7 +627,7 @@ namespace BazisGUI
             btnDisplayViews.FlatStyle = FlatStyle.Flat;
             btnDisplayViews.Image = Properties.Resources.arrow_r;
             btnDisplayViews.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            btnDisplayViews.Location = new System.Drawing.Point(583, 3);
+            btnDisplayViews.Location = new System.Drawing.Point(572, 3);
             btnDisplayViews.Margin = new Padding(3, 4, 24, 4);
             btnDisplayViews.Name = "btnDisplayViews";
             btnDisplayViews.Size = new System.Drawing.Size(55, 27);
@@ -645,7 +645,7 @@ namespace BazisGUI
             btnShowInsideObjects.FlatStyle = FlatStyle.Flat;
             btnShowInsideObjects.ImageIndex = 17;
             btnShowInsideObjects.ImageList = sceneImageList;
-            btnShowInsideObjects.Location = new System.Drawing.Point(550, 3);
+            btnShowInsideObjects.Location = new System.Drawing.Point(539, 3);
             btnShowInsideObjects.Margin = new Padding(0, 4, 3, 4);
             btnShowInsideObjects.Name = "btnShowInsideObjects";
             btnShowInsideObjects.Size = new System.Drawing.Size(27, 27);
@@ -661,7 +661,7 @@ namespace BazisGUI
             btnFitToScreen.FlatStyle = FlatStyle.Flat;
             btnFitToScreen.ImageIndex = 14;
             btnFitToScreen.ImageList = sceneImageList;
-            btnFitToScreen.Location = new System.Drawing.Point(520, 3);
+            btnFitToScreen.Location = new System.Drawing.Point(509, 3);
             btnFitToScreen.Margin = new Padding(0, 3, 3, 3);
             btnFitToScreen.Name = "btnFitToScreen";
             btnFitToScreen.Size = new System.Drawing.Size(27, 27);
@@ -676,7 +676,7 @@ namespace BazisGUI
             btnShowSidesRibs.FlatStyle = FlatStyle.Flat;
             btnShowSidesRibs.ImageIndex = 9;
             btnShowSidesRibs.ImageList = sceneImageList;
-            btnShowSidesRibs.Location = new System.Drawing.Point(307, 3);
+            btnShowSidesRibs.Location = new System.Drawing.Point(296, 3);
             btnShowSidesRibs.Margin = new Padding(0, 3, 3, 3);
             btnShowSidesRibs.Name = "btnShowSidesRibs";
             btnShowSidesRibs.Size = new System.Drawing.Size(27, 27);
@@ -692,7 +692,7 @@ namespace BazisGUI
             btnShowRibs.FlatStyle = FlatStyle.Flat;
             btnShowRibs.ImageIndex = 10;
             btnShowRibs.ImageList = sceneImageList;
-            btnShowRibs.Location = new System.Drawing.Point(337, 3);
+            btnShowRibs.Location = new System.Drawing.Point(326, 3);
             btnShowRibs.Margin = new Padding(0, 3, 3, 3);
             btnShowRibs.Name = "btnShowRibs";
             btnShowRibs.Size = new System.Drawing.Size(27, 27);
@@ -707,7 +707,7 @@ namespace BazisGUI
             btnShowSides.FlatStyle = FlatStyle.Flat;
             btnShowSides.ImageIndex = 11;
             btnShowSides.ImageList = sceneImageList;
-            btnShowSides.Location = new System.Drawing.Point(367, 3);
+            btnShowSides.Location = new System.Drawing.Point(356, 3);
             btnShowSides.Margin = new Padding(0, 3, 3, 3);
             btnShowSides.Name = "btnShowSides";
             btnShowSides.Size = new System.Drawing.Size(27, 27);
@@ -722,7 +722,7 @@ namespace BazisGUI
             btnBazis.FlatStyle = FlatStyle.Flat;
             btnBazis.ImageIndex = 15;
             btnBazis.ImageList = sceneImageList;
-            btnBazis.Location = new System.Drawing.Point(397, 3);
+            btnBazis.Location = new System.Drawing.Point(386, 3);
             btnBazis.Margin = new Padding(0, 3, 3, 3);
             btnBazis.Name = "btnBazis";
             btnBazis.Size = new System.Drawing.Size(27, 27);
@@ -739,7 +739,7 @@ namespace BazisGUI
             btnBorder.FlatStyle = FlatStyle.Flat;
             btnBorder.ImageIndex = 16;
             btnBorder.ImageList = sceneImageList;
-            btnBorder.Location = new System.Drawing.Point(427, 3);
+            btnBorder.Location = new System.Drawing.Point(416, 3);
             btnBorder.Margin = new Padding(0, 3, 3, 3);
             btnBorder.Name = "btnBorder";
             btnBorder.Size = new System.Drawing.Size(27, 27);
@@ -756,7 +756,7 @@ namespace BazisGUI
             btnMakeScreenShot.FlatStyle = FlatStyle.Flat;
             btnMakeScreenShot.ImageIndex = 13;
             btnMakeScreenShot.ImageList = sceneImageList;
-            btnMakeScreenShot.Location = new System.Drawing.Point(490, 3);
+            btnMakeScreenShot.Location = new System.Drawing.Point(479, 3);
             btnMakeScreenShot.Name = "btnMakeScreenShot";
             btnMakeScreenShot.Size = new System.Drawing.Size(27, 27);
             btnMakeScreenShot.TabIndex = 3;
@@ -795,7 +795,7 @@ namespace BazisGUI
             scene.Location = new System.Drawing.Point(0, 0);
             scene.Margin = new Padding(5);
             scene.Name = "scene";
-            scene.Size = new System.Drawing.Size(662, 384);
+            scene.Size = new System.Drawing.Size(651, 384);
             scene.StencilBits = 0;
             scene.TabIndex = 1;
             scene.SizeChanged += GlControl_Resize;
@@ -822,7 +822,7 @@ namespace BazisGUI
             console.Margin = new Padding(0);
             console.Name = "console";
             console.Padding = new Padding(0, 15, 0, 0);
-            console.Size = new System.Drawing.Size(662, 128);
+            console.Size = new System.Drawing.Size(651, 128);
             console.TabIndex = 0;
             console.UpColor = System.Drawing.Color.Gainsboro;
             console.InEvent += console_InEvent;
