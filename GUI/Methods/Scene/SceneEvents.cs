@@ -334,8 +334,13 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
             Gl.glLoadMatrixf(matrix);
 
             UpdateProjection();
-            averageColorRenderer.Reshape(scene.Width, scene.Height);
-            DisplayObjects();
+
+            if(averageColorRenderer != null)
+            {
+                averageColorRenderer.Reshape(scene.Width, scene.Height);
+                DisplayObjects();
+            }
+
 
             scene.Invalidate();
         }

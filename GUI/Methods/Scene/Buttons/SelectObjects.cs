@@ -139,7 +139,6 @@ namespace BazisGUI
             //lbl.Location = new System.Drawing.Point(4, 7);
             btn.Name = name;
             btn.Size = btnSelect.Size;
-
             btn.Text = name;
             btn.AutoSize = btnSelect.AutoSize;
             btn.FlatStyle = btnSelect.FlatStyle;

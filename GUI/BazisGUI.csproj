@@ -105,6 +105,9 @@
     <Compile Update="MessageBoxEx\MessageBoxEx.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Methods\TabPageButton\SelectTabPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Navigator\NavigatorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

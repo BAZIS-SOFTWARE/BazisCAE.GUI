@@ -30,543 +30,558 @@ namespace BazisGUI.SettingsControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblSolverPath = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.chbLighting = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.chbBackRibbers = new System.Windows.Forms.CheckBox();
-            this.btnBackGroundColor = new System.Windows.Forms.Button();
-            this.panelBackGroundColor = new System.Windows.Forms.Panel();
-            this.clslLigthingIntensity = new UserControlsEx.ColorSlider();
-            this.label2 = new System.Windows.Forms.Label();
-            this.clslTransparency = new UserControlsEx.ColorSlider();
-            this.chbTransparency = new System.Windows.Forms.CheckBox();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.tabControlEx1 = new UserControlsEx.TabControlEx();
-            this.tbScene = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tbObjects = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnSelectNodeColor = new System.Windows.Forms.Button();
-            this.btnSelect2DElemColor = new System.Windows.Forms.Button();
-            this.btnSelectColor = new System.Windows.Forms.Button();
-            this.btnSelectGroupColor = new System.Windows.Forms.Button();
-            this.pnlSelectionObjsColor = new System.Windows.Forms.Panel();
-            this.pnlSelectionGroupColor = new System.Windows.Forms.Panel();
-            this.btnSelect3DElemColor = new System.Windows.Forms.Button();
-            this.pnl3DElemColor = new System.Windows.Forms.Panel();
-            this.pnl2DElemColor = new System.Windows.Forms.Panel();
-            this.pnlNodeColor = new System.Windows.Forms.Panel();
-            this.tbSolver = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.lightingControl = new BazisGUI.SettingsControls.LightingControl();
-            this.chbOrtoProjection = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tabControlEx1.SuspendLayout();
-            this.tbScene.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tbObjects.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.tbSolver.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.SuspendLayout();
+            lblSolverPath = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            chbLighting = new System.Windows.Forms.CheckBox();
+            label1 = new System.Windows.Forms.Label();
+            chbBackRibbers = new System.Windows.Forms.CheckBox();
+            btnBackGroundColor = new System.Windows.Forms.Button();
+            panelBackGroundColor = new System.Windows.Forms.Panel();
+            clslLigthingIntensity = new ColorSlider();
+            label2 = new System.Windows.Forms.Label();
+            clslTransparency = new ColorSlider();
+            chbTransparency = new System.Windows.Forms.CheckBox();
+            btnSaveConfig = new System.Windows.Forms.Button();
+            tabControlEx1 = new TabControlEx();
+            tbScene = new System.Windows.Forms.TabPage();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            lightingControl = new LightingControl();
+            chbOrtoProjection = new System.Windows.Forms.CheckBox();
+            label5 = new System.Windows.Forms.Label();
+            tbObjects = new System.Windows.Forms.TabPage();
+            tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            btnSelectNodeColor = new System.Windows.Forms.Button();
+            btnSelect2DElemColor = new System.Windows.Forms.Button();
+            btnSelectColor = new System.Windows.Forms.Button();
+            btnSelectGroupColor = new System.Windows.Forms.Button();
+            pnlSelectionObjsColor = new System.Windows.Forms.Panel();
+            pnlSelectionGroupColor = new System.Windows.Forms.Panel();
+            btnSelect3DElemColor = new System.Windows.Forms.Button();
+            pnl3DElemColor = new System.Windows.Forms.Panel();
+            pnl2DElemColor = new System.Windows.Forms.Panel();
+            pnlNodeColor = new System.Windows.Forms.Panel();
+            tbSolver = new System.Windows.Forms.TabPage();
+            tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            label3 = new System.Windows.Forms.Label();
+            tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            tabControlEx1.SuspendLayout();
+            tbScene.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            tbObjects.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
+            tbSolver.SuspendLayout();
+            tableLayoutPanel5.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            SuspendLayout();
             // 
             // lblSolverPath
             // 
-            this.lblSolverPath.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblSolverPath.AutoSize = true;
-            this.lblSolverPath.Location = new System.Drawing.Point(230, 307);
-            this.lblSolverPath.Name = "lblSolverPath";
-            this.lblSolverPath.Size = new System.Drawing.Size(13, 13);
-            this.lblSolverPath.TabIndex = 20;
-            this.lblSolverPath.Text = "?";
-            this.lblSolverPath.Click += new System.EventHandler(this.btnSetSolverPath_Click);
+            lblSolverPath.Anchor = System.Windows.Forms.AnchorStyles.None;
+            lblSolverPath.AutoSize = true;
+            lblSolverPath.Location = new System.Drawing.Point(271, 357);
+            lblSolverPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSolverPath.Name = "lblSolverPath";
+            lblSolverPath.Size = new System.Drawing.Size(12, 15);
+            lblSolverPath.TabIndex = 20;
+            lblSolverPath.Text = "?";
+            lblSolverPath.Click += btnSetSolverPath_Click;
             // 
             // label4
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(74, 524);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Прозрачность";
+            label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(90, 611);
+            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(86, 15);
+            label4.TabIndex = 1;
+            label4.Text = "Прозрачность";
             // 
             // chbLighting
             // 
-            this.chbLighting.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.chbLighting.AutoSize = true;
-            this.chbLighting.Location = new System.Drawing.Point(245, 106);
-            this.chbLighting.Name = "chbLighting";
-            this.chbLighting.Size = new System.Drawing.Size(75, 17);
-            this.chbLighting.TabIndex = 8;
-            this.chbLighting.Text = "Включить";
-            this.chbLighting.UseVisualStyleBackColor = true;
-            this.chbLighting.Click += new System.EventHandler(this.chbLighting_Click);
+            chbLighting.Anchor = System.Windows.Forms.AnchorStyles.None;
+            chbLighting.AutoSize = true;
+            chbLighting.Location = new System.Drawing.Point(290, 129);
+            chbLighting.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chbLighting.Name = "chbLighting";
+            chbLighting.Size = new System.Drawing.Size(81, 19);
+            chbLighting.TabIndex = 8;
+            chbLighting.Text = "Включить";
+            chbLighting.UseVisualStyleBackColor = true;
+            chbLighting.Click += chbLighting_Click;
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 69);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Внутренние ребра элементов";
+            label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(48, 86);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(170, 15);
+            label1.TabIndex = 6;
+            label1.Text = "Внутренние ребра элементов";
             // 
             // chbBackRibbers
             // 
-            this.chbBackRibbers.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.chbBackRibbers.AutoSize = true;
-            this.chbBackRibbers.Location = new System.Drawing.Point(245, 67);
-            this.chbBackRibbers.Name = "chbBackRibbers";
-            this.chbBackRibbers.Size = new System.Drawing.Size(75, 17);
-            this.chbBackRibbers.TabIndex = 5;
-            this.chbBackRibbers.Text = "Включить";
-            this.chbBackRibbers.UseVisualStyleBackColor = true;
-            this.chbBackRibbers.Click += new System.EventHandler(this.chbBackRibbers_Click);
+            chbBackRibbers.Anchor = System.Windows.Forms.AnchorStyles.None;
+            chbBackRibbers.AutoSize = true;
+            chbBackRibbers.Location = new System.Drawing.Point(290, 84);
+            chbBackRibbers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chbBackRibbers.Name = "chbBackRibbers";
+            chbBackRibbers.Size = new System.Drawing.Size(81, 19);
+            chbBackRibbers.TabIndex = 5;
+            chbBackRibbers.Text = "Включить";
+            chbBackRibbers.UseVisualStyleBackColor = true;
+            chbBackRibbers.Click += chbBackRibbers_Click;
             // 
             // btnBackGroundColor
             // 
-            this.btnBackGroundColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBackGroundColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBackGroundColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnBackGroundColor.Location = new System.Drawing.Point(7, 14);
-            this.btnBackGroundColor.Margin = new System.Windows.Forms.Padding(7);
-            this.btnBackGroundColor.Name = "btnBackGroundColor";
-            this.btnBackGroundColor.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnBackGroundColor.Size = new System.Drawing.Size(214, 27);
-            this.btnBackGroundColor.TabIndex = 2;
-            this.btnBackGroundColor.Text = "выбрать цвет заднего фона";
-            this.btnBackGroundColor.UseVisualStyleBackColor = true;
-            this.btnBackGroundColor.Click += new System.EventHandler(this.btnBackGroundColor_Click);
+            btnBackGroundColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            btnBackGroundColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnBackGroundColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
+            btnBackGroundColor.Location = new System.Drawing.Point(8, 20);
+            btnBackGroundColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnBackGroundColor.Name = "btnBackGroundColor";
+            btnBackGroundColor.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            btnBackGroundColor.Size = new System.Drawing.Size(251, 31);
+            btnBackGroundColor.TabIndex = 2;
+            btnBackGroundColor.Text = "выбрать цвет заднего фона";
+            btnBackGroundColor.UseVisualStyleBackColor = true;
+            btnBackGroundColor.Click += btnBackGroundColor_Click;
             // 
             // panelBackGroundColor
             // 
-            this.panelBackGroundColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBackGroundColor.BackColor = System.Drawing.Color.White;
-            this.panelBackGroundColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBackGroundColor.Location = new System.Drawing.Point(235, 14);
-            this.panelBackGroundColor.Margin = new System.Windows.Forms.Padding(7);
-            this.panelBackGroundColor.Name = "panelBackGroundColor";
-            this.panelBackGroundColor.Size = new System.Drawing.Size(96, 27);
-            this.panelBackGroundColor.TabIndex = 4;
+            panelBackGroundColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            panelBackGroundColor.BackColor = System.Drawing.Color.White;
+            panelBackGroundColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            panelBackGroundColor.Location = new System.Drawing.Point(275, 20);
+            panelBackGroundColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            panelBackGroundColor.Name = "panelBackGroundColor";
+            panelBackGroundColor.Size = new System.Drawing.Size(112, 31);
+            panelBackGroundColor.TabIndex = 4;
             // 
             // clslLigthingIntensity
             // 
-            this.clslLigthingIntensity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.clslLigthingIntensity.BackColor = System.Drawing.Color.Transparent;
-            this.clslLigthingIntensity.BarPenColor = System.Drawing.Color.Black;
-            this.clslLigthingIntensity.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            this.tableLayoutPanel1.SetColumnSpan(this.clslLigthingIntensity, 2);
-            this.clslLigthingIntensity.LargeChange = ((uint)(5u));
-            this.clslLigthingIntensity.Location = new System.Drawing.Point(3, 480);
-            this.clslLigthingIntensity.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.clslLigthingIntensity.Name = "clslLigthingIntensity";
-            this.clslLigthingIntensity.Size = new System.Drawing.Size(332, 23);
-            this.clslLigthingIntensity.SmallChange = ((uint)(1u));
-            this.clslLigthingIntensity.TabIndex = 12;
-            this.clslLigthingIntensity.Text = "colorSlider";
-            this.clslLigthingIntensity.ThumbPenColor = System.Drawing.Color.Black;
-            this.clslLigthingIntensity.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
-            this.clslLigthingIntensity.ThumbSize = 12;
-            this.clslLigthingIntensity.Scroll += new System.Windows.Forms.ScrollEventHandler(this.clslLigthingIntensity_Scroll);
+            clslLigthingIntensity.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            clslLigthingIntensity.BackColor = System.Drawing.Color.Transparent;
+            clslLigthingIntensity.BarPenColor = System.Drawing.Color.Black;
+            clslLigthingIntensity.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            tableLayoutPanel1.SetColumnSpan(clslLigthingIntensity, 2);
+            clslLigthingIntensity.LargeChange = 5U;
+            clslLigthingIntensity.Location = new System.Drawing.Point(4, 560);
+            clslLigthingIntensity.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            clslLigthingIntensity.Name = "clslLigthingIntensity";
+            clslLigthingIntensity.ShowTextValue = true;
+            clslLigthingIntensity.Size = new System.Drawing.Size(387, 27);
+            clslLigthingIntensity.SmallChange = 1U;
+            clslLigthingIntensity.TabIndex = 12;
+            clslLigthingIntensity.Text = "colorSlider";
+            clslLigthingIntensity.TextValueColor = System.Drawing.Color.Black;
+            clslLigthingIntensity.ThumbPenColor = System.Drawing.Color.Black;
+            clslLigthingIntensity.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
+            clslLigthingIntensity.ThumbSize = 12;
+            clslLigthingIntensity.Scroll += clslLigthingIntensity_Scroll;
             // 
             // label2
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(81, 108);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Освещение";
+            label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(98, 131);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(71, 15);
+            label2.TabIndex = 0;
+            label2.Text = "Освещение";
             // 
             // clslTransparency
             // 
-            this.clslTransparency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.clslTransparency.BackColor = System.Drawing.Color.Transparent;
-            this.clslTransparency.BarPenColor = System.Drawing.Color.Black;
-            this.clslTransparency.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            this.tableLayoutPanel1.SetColumnSpan(this.clslTransparency, 2);
-            this.clslTransparency.LargeChange = ((uint)(50u));
-            this.clslTransparency.Location = new System.Drawing.Point(3, 557);
-            this.clslTransparency.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.clslTransparency.Maximum = 99;
-            this.clslTransparency.Name = "clslTransparency";
-            this.clslTransparency.Size = new System.Drawing.Size(332, 25);
-            this.clslTransparency.SmallChange = ((uint)(1u));
-            this.clslTransparency.TabIndex = 14;
-            this.clslTransparency.Text = "colorSlider1";
-            this.clslTransparency.ThumbPenColor = System.Drawing.Color.Black;
-            this.clslTransparency.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
-            this.clslTransparency.ThumbSize = 12;
-            this.clslTransparency.Scroll += new System.Windows.Forms.ScrollEventHandler(this.clslTransparency_Scroll);
+            clslTransparency.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            clslTransparency.BackColor = System.Drawing.Color.Transparent;
+            clslTransparency.BarPenColor = System.Drawing.Color.Black;
+            clslTransparency.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            tableLayoutPanel1.SetColumnSpan(clslTransparency, 2);
+            clslTransparency.LargeChange = 50U;
+            clslTransparency.Location = new System.Drawing.Point(4, 649);
+            clslTransparency.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            clslTransparency.Maximum = 99;
+            clslTransparency.Name = "clslTransparency";
+            clslTransparency.ShowTextValue = true;
+            clslTransparency.Size = new System.Drawing.Size(387, 29);
+            clslTransparency.SmallChange = 1U;
+            clslTransparency.TabIndex = 14;
+            clslTransparency.Text = "colorSlider1";
+            clslTransparency.TextValueColor = System.Drawing.Color.Black;
+            clslTransparency.ThumbPenColor = System.Drawing.Color.Black;
+            clslTransparency.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
+            clslTransparency.ThumbSize = 12;
+            clslTransparency.Scroll += clslTransparency_Scroll;
             // 
             // chbTransparency
             // 
-            this.chbTransparency.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.chbTransparency.AutoSize = true;
-            this.chbTransparency.Location = new System.Drawing.Point(245, 522);
-            this.chbTransparency.Name = "chbTransparency";
-            this.chbTransparency.Size = new System.Drawing.Size(75, 17);
-            this.chbTransparency.TabIndex = 18;
-            this.chbTransparency.Text = "Включить";
-            this.chbTransparency.UseVisualStyleBackColor = true;
-            this.chbTransparency.Click += new System.EventHandler(this.chbTransparency_Click);
+            chbTransparency.Anchor = System.Windows.Forms.AnchorStyles.None;
+            chbTransparency.AutoSize = true;
+            chbTransparency.Location = new System.Drawing.Point(290, 609);
+            chbTransparency.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chbTransparency.Name = "chbTransparency";
+            chbTransparency.Size = new System.Drawing.Size(81, 19);
+            chbTransparency.TabIndex = 18;
+            chbTransparency.Text = "Включить";
+            chbTransparency.UseVisualStyleBackColor = true;
+            chbTransparency.Click += chbTransparency_Click;
             // 
             // btnSaveConfig
             // 
-            this.btnSaveConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveConfig.Location = new System.Drawing.Point(209, 687);
-            this.btnSaveConfig.Margin = new System.Windows.Forms.Padding(7);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(136, 27);
-            this.btnSaveConfig.TabIndex = 22;
-            this.btnSaveConfig.Text = "Сохранить";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            btnSaveConfig.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            btnSaveConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSaveConfig.Location = new System.Drawing.Point(244, 792);
+            btnSaveConfig.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnSaveConfig.Name = "btnSaveConfig";
+            btnSaveConfig.Size = new System.Drawing.Size(159, 31);
+            btnSaveConfig.TabIndex = 22;
+            btnSaveConfig.Text = "Сохранить";
+            btnSaveConfig.UseVisualStyleBackColor = true;
+            btnSaveConfig.Click += btnSaveConfig_Click;
             // 
             // tabControlEx1
             // 
-            this.tableLayoutPanel3.SetColumnSpan(this.tabControlEx1, 2);
-            this.tabControlEx1.Controls.Add(this.tbScene);
-            this.tabControlEx1.Controls.Add(this.tbObjects);
-            this.tabControlEx1.Controls.Add(this.tbSolver);
-            this.tabControlEx1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlEx1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.tabControlEx1.FontColor = System.Drawing.Color.Black;
-            this.tabControlEx1.ItemSize = new System.Drawing.Size(43, 30);
-            this.tabControlEx1.Location = new System.Drawing.Point(3, 3);
-            this.tabControlEx1.Name = "tabControlEx1";
-            this.tabControlEx1.SelectColor = System.Drawing.SystemColors.Control;
-            this.tabControlEx1.SelectedIndex = 0;
-            this.tabControlEx1.Size = new System.Drawing.Size(346, 666);
-            this.tabControlEx1.TabIndex = 3;
-            this.tabControlEx1.UnSelectColor = System.Drawing.Color.LightGray;
+            tableLayoutPanel3.SetColumnSpan(tabControlEx1, 2);
+            tabControlEx1.Controls.Add(tbScene);
+            tabControlEx1.Controls.Add(tbObjects);
+            tabControlEx1.Controls.Add(tbSolver);
+            tabControlEx1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tabControlEx1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            tabControlEx1.FontColor = System.Drawing.Color.Black;
+            tabControlEx1.ItemSize = new System.Drawing.Size(43, 30);
+            tabControlEx1.Location = new System.Drawing.Point(4, 3);
+            tabControlEx1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabControlEx1.Name = "tabControlEx1";
+            tabControlEx1.SelectColor = System.Drawing.SystemColors.Control;
+            tabControlEx1.SelectedIndex = 0;
+            tabControlEx1.Size = new System.Drawing.Size(403, 769);
+            tabControlEx1.TabIndex = 3;
+            tabControlEx1.UnSelectColor = System.Drawing.Color.LightGray;
             // 
             // tbScene
             // 
-            this.tbScene.Controls.Add(this.tableLayoutPanel1);
-            this.tbScene.Location = new System.Drawing.Point(4, 34);
-            this.tbScene.Margin = new System.Windows.Forms.Padding(0);
-            this.tbScene.Name = "tbScene";
-            this.tbScene.Size = new System.Drawing.Size(338, 628);
-            this.tbScene.TabIndex = 0;
-            this.tbScene.Text = "Сцена";
-            this.tbScene.UseVisualStyleBackColor = true;
+            tbScene.Controls.Add(tableLayoutPanel1);
+            tbScene.Location = new System.Drawing.Point(4, 34);
+            tbScene.Margin = new System.Windows.Forms.Padding(0);
+            tbScene.Name = "tbScene";
+            tbScene.Size = new System.Drawing.Size(395, 731);
+            tbScene.TabIndex = 0;
+            tbScene.Text = "Сцена";
+            tbScene.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.chbTransparency, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.lightingControl, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.chbLighting, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnBackGroundColor, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panelBackGroundColor, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.chbBackRibbers, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.clslLigthingIntensity, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.clslTransparency, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.chbOrtoProjection, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 7);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 338F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(338, 628);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // tbObjects
-            // 
-            this.tbObjects.Controls.Add(this.tableLayoutPanel4);
-            this.tbObjects.Location = new System.Drawing.Point(4, 34);
-            this.tbObjects.Margin = new System.Windows.Forms.Padding(0);
-            this.tbObjects.Name = "tbObjects";
-            this.tbObjects.Size = new System.Drawing.Size(338, 628);
-            this.tbObjects.TabIndex = 1;
-            this.tbObjects.Text = "Объекты";
-            this.tbObjects.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
-            this.tableLayoutPanel4.Controls.Add(this.btnSelectNodeColor, 0, 4);
-            this.tableLayoutPanel4.Controls.Add(this.btnSelect2DElemColor, 0, 3);
-            this.tableLayoutPanel4.Controls.Add(this.btnSelectColor, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.btnSelectGroupColor, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.pnlSelectionObjsColor, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.pnlSelectionGroupColor, 1, 1);
-            this.tableLayoutPanel4.Controls.Add(this.btnSelect3DElemColor, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.pnl3DElemColor, 1, 2);
-            this.tableLayoutPanel4.Controls.Add(this.pnl2DElemColor, 1, 3);
-            this.tableLayoutPanel4.Controls.Add(this.pnlNodeColor, 1, 4);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 5;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(338, 628);
-            this.tableLayoutPanel4.TabIndex = 0;
-            // 
-            // btnSelectNodeColor
-            // 
-            this.btnSelectNodeColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectNodeColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSelectNodeColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSelectNodeColor.Location = new System.Drawing.Point(7, 550);
-            this.btnSelectNodeColor.Margin = new System.Windows.Forms.Padding(7);
-            this.btnSelectNodeColor.Name = "btnSelectNodeColor";
-            this.btnSelectNodeColor.Size = new System.Drawing.Size(214, 27);
-            this.btnSelectNodeColor.TabIndex = 15;
-            this.btnSelectNodeColor.Text = "выбрать цвет узлов";
-            this.btnSelectNodeColor.UseVisualStyleBackColor = true;
-            this.btnSelectNodeColor.Click += new System.EventHandler(this.btnSelectNodeColor_Click);
-            // 
-            // btnSelect2DElemColor
-            // 
-            this.btnSelect2DElemColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelect2DElemColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSelect2DElemColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSelect2DElemColor.Location = new System.Drawing.Point(7, 424);
-            this.btnSelect2DElemColor.Margin = new System.Windows.Forms.Padding(7);
-            this.btnSelect2DElemColor.Name = "btnSelect2DElemColor";
-            this.btnSelect2DElemColor.Size = new System.Drawing.Size(214, 27);
-            this.btnSelect2DElemColor.TabIndex = 14;
-            this.btnSelect2DElemColor.Text = "выбрать цвет 2D элементов";
-            this.btnSelect2DElemColor.UseVisualStyleBackColor = true;
-            this.btnSelect2DElemColor.Click += new System.EventHandler(this.btnSelect2DElemColor_Click);
-            // 
-            // btnSelectColor
-            // 
-            this.btnSelectColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSelectColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSelectColor.Location = new System.Drawing.Point(7, 49);
-            this.btnSelectColor.Margin = new System.Windows.Forms.Padding(7);
-            this.btnSelectColor.Name = "btnSelectColor";
-            this.btnSelectColor.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnSelectColor.Size = new System.Drawing.Size(214, 27);
-            this.btnSelectColor.TabIndex = 1;
-            this.btnSelectColor.Text = "выбрать цвет выделения объектов";
-            this.btnSelectColor.UseVisualStyleBackColor = true;
-            this.btnSelectColor.Click += new System.EventHandler(this.btnSelectObjectColor_Click);
-            // 
-            // btnSelectGroupColor
-            // 
-            this.btnSelectGroupColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectGroupColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSelectGroupColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSelectGroupColor.Location = new System.Drawing.Point(7, 174);
-            this.btnSelectGroupColor.Margin = new System.Windows.Forms.Padding(7);
-            this.btnSelectGroupColor.Name = "btnSelectGroupColor";
-            this.btnSelectGroupColor.Size = new System.Drawing.Size(214, 27);
-            this.btnSelectGroupColor.TabIndex = 10;
-            this.btnSelectGroupColor.Text = "выбрать цвет выделения групп";
-            this.btnSelectGroupColor.UseVisualStyleBackColor = true;
-            this.btnSelectGroupColor.Click += new System.EventHandler(this.btnSelectGroupColor_Click);
-            // 
-            // pnlSelectionObjsColor
-            // 
-            this.pnlSelectionObjsColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlSelectionObjsColor.BackColor = System.Drawing.Color.LawnGreen;
-            this.pnlSelectionObjsColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlSelectionObjsColor.Location = new System.Drawing.Point(235, 49);
-            this.pnlSelectionObjsColor.Margin = new System.Windows.Forms.Padding(7);
-            this.pnlSelectionObjsColor.Name = "pnlSelectionObjsColor";
-            this.pnlSelectionObjsColor.Size = new System.Drawing.Size(96, 27);
-            this.pnlSelectionObjsColor.TabIndex = 11;
-            // 
-            // pnlSelectionGroupColor
-            // 
-            this.pnlSelectionGroupColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlSelectionGroupColor.BackColor = System.Drawing.Color.Yellow;
-            this.pnlSelectionGroupColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlSelectionGroupColor.Location = new System.Drawing.Point(235, 174);
-            this.pnlSelectionGroupColor.Margin = new System.Windows.Forms.Padding(7);
-            this.pnlSelectionGroupColor.Name = "pnlSelectionGroupColor";
-            this.pnlSelectionGroupColor.Size = new System.Drawing.Size(96, 27);
-            this.pnlSelectionGroupColor.TabIndex = 12;
-            // 
-            // btnSelect3DElemColor
-            // 
-            this.btnSelect3DElemColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelect3DElemColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSelect3DElemColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSelect3DElemColor.Location = new System.Drawing.Point(7, 299);
-            this.btnSelect3DElemColor.Margin = new System.Windows.Forms.Padding(7);
-            this.btnSelect3DElemColor.Name = "btnSelect3DElemColor";
-            this.btnSelect3DElemColor.Size = new System.Drawing.Size(214, 27);
-            this.btnSelect3DElemColor.TabIndex = 13;
-            this.btnSelect3DElemColor.Text = "выбрать цвет 3D элементов";
-            this.btnSelect3DElemColor.UseVisualStyleBackColor = true;
-            this.btnSelect3DElemColor.Click += new System.EventHandler(this.btnSelect3DElemColor_Click);
-            // 
-            // pnl3DElemColor
-            // 
-            this.pnl3DElemColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnl3DElemColor.BackColor = System.Drawing.Color.Yellow;
-            this.pnl3DElemColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnl3DElemColor.Location = new System.Drawing.Point(235, 299);
-            this.pnl3DElemColor.Margin = new System.Windows.Forms.Padding(7);
-            this.pnl3DElemColor.Name = "pnl3DElemColor";
-            this.pnl3DElemColor.Size = new System.Drawing.Size(96, 27);
-            this.pnl3DElemColor.TabIndex = 16;
-            // 
-            // pnl2DElemColor
-            // 
-            this.pnl2DElemColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnl2DElemColor.BackColor = System.Drawing.Color.Yellow;
-            this.pnl2DElemColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnl2DElemColor.Location = new System.Drawing.Point(235, 424);
-            this.pnl2DElemColor.Margin = new System.Windows.Forms.Padding(7);
-            this.pnl2DElemColor.Name = "pnl2DElemColor";
-            this.pnl2DElemColor.Size = new System.Drawing.Size(96, 27);
-            this.pnl2DElemColor.TabIndex = 18;
-            // 
-            // pnlNodeColor
-            // 
-            this.pnlNodeColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlNodeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlNodeColor.Location = new System.Drawing.Point(235, 550);
-            this.pnlNodeColor.Margin = new System.Windows.Forms.Padding(7);
-            this.pnlNodeColor.Name = "pnlNodeColor";
-            this.pnlNodeColor.Size = new System.Drawing.Size(96, 27);
-            this.pnlNodeColor.TabIndex = 19;
-            // 
-            // tbSolver
-            // 
-            this.tbSolver.Controls.Add(this.tableLayoutPanel5);
-            this.tbSolver.Location = new System.Drawing.Point(4, 34);
-            this.tbSolver.Margin = new System.Windows.Forms.Padding(0);
-            this.tbSolver.Name = "tbSolver";
-            this.tbSolver.Size = new System.Drawing.Size(338, 628);
-            this.tbSolver.TabIndex = 2;
-            this.tbSolver.Text = "Решатель";
-            this.tbSolver.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel5.Controls.Add(this.lblSolverPath, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(338, 628);
-            this.tableLayoutPanel5.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 307);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(129, 13);
-            this.label3.TabIndex = 21;
-            this.label3.Text = "Путь до решателя";
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.58929F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.41071F));
-            this.tableLayoutPanel3.Controls.Add(this.btnSaveConfig, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.tabControlEx1, 0, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 92.26519F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.734807F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(352, 729);
-            this.tableLayoutPanel3.TabIndex = 4;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128F));
+            tableLayoutPanel1.Controls.Add(label4, 0, 5);
+            tableLayoutPanel1.Controls.Add(label2, 0, 2);
+            tableLayoutPanel1.Controls.Add(chbTransparency, 1, 5);
+            tableLayoutPanel1.Controls.Add(lightingControl, 0, 3);
+            tableLayoutPanel1.Controls.Add(chbLighting, 1, 2);
+            tableLayoutPanel1.Controls.Add(btnBackGroundColor, 0, 0);
+            tableLayoutPanel1.Controls.Add(panelBackGroundColor, 1, 0);
+            tableLayoutPanel1.Controls.Add(chbBackRibbers, 1, 1);
+            tableLayoutPanel1.Controls.Add(label1, 0, 1);
+            tableLayoutPanel1.Controls.Add(clslLigthingIntensity, 0, 4);
+            tableLayoutPanel1.Controls.Add(clslTransparency, 0, 6);
+            tableLayoutPanel1.Controls.Add(chbOrtoProjection, 1, 7);
+            tableLayoutPanel1.Controls.Add(label5, 0, 7);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 8;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 390F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(395, 731);
+            tableLayoutPanel1.TabIndex = 0;
             // 
             // lightingControl
             // 
-            this.lightingControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lightingControl.BallPosition = new System.Drawing.Point(0, 0);
-            this.lightingControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel1.SetColumnSpan(this.lightingControl, 2);
-            this.lightingControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lightingControl.Location = new System.Drawing.Point(0, 134);
-            this.lightingControl.Margin = new System.Windows.Forms.Padding(0);
-            this.lightingControl.Name = "lightingControl";
-            this.lightingControl.Size = new System.Drawing.Size(338, 338);
-            this.lightingControl.TabIndex = 11;
+            lightingControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            lightingControl.BallPosition = new System.Drawing.Point(0, 0);
+            lightingControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            tableLayoutPanel1.SetColumnSpan(lightingControl, 2);
+            lightingControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            lightingControl.Location = new System.Drawing.Point(0, 161);
+            lightingControl.Margin = new System.Windows.Forms.Padding(0);
+            lightingControl.Name = "lightingControl";
+            lightingControl.Size = new System.Drawing.Size(395, 390);
+            lightingControl.TabIndex = 11;
             // 
             // chbOrtoProjection
             // 
-            this.chbOrtoProjection.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.chbOrtoProjection.AutoSize = true;
-            this.chbOrtoProjection.Location = new System.Drawing.Point(245, 600);
-            this.chbOrtoProjection.Name = "chbOrtoProjection";
-            this.chbOrtoProjection.Size = new System.Drawing.Size(75, 17);
-            this.chbOrtoProjection.TabIndex = 19;
-            this.chbOrtoProjection.Text = "Включить";
-            this.chbOrtoProjection.UseVisualStyleBackColor = true;
-            this.chbOrtoProjection.Click += new System.EventHandler(this.chbOrtoProjection_Click);
+            chbOrtoProjection.Anchor = System.Windows.Forms.AnchorStyles.None;
+            chbOrtoProjection.AutoSize = true;
+            chbOrtoProjection.Location = new System.Drawing.Point(290, 699);
+            chbOrtoProjection.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chbOrtoProjection.Name = "chbOrtoProjection";
+            chbOrtoProjection.Size = new System.Drawing.Size(81, 19);
+            chbOrtoProjection.TabIndex = 19;
+            chbOrtoProjection.Text = "Включить";
+            chbOrtoProjection.UseVisualStyleBackColor = true;
+            chbOrtoProjection.Click += chbOrtoProjection_Click;
             // 
             // label5
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(39, 602);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(149, 13);
-            this.label5.TabIndex = 20;
-            this.label5.Text = "Ортографическая проекция";
+            label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(52, 701);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(162, 15);
+            label5.TabIndex = 20;
+            label5.Text = "Ортографическая проекция";
+            // 
+            // tbObjects
+            // 
+            tbObjects.Controls.Add(tableLayoutPanel4);
+            tbObjects.Location = new System.Drawing.Point(4, 34);
+            tbObjects.Margin = new System.Windows.Forms.Padding(0);
+            tbObjects.Name = "tbObjects";
+            tbObjects.Size = new System.Drawing.Size(396, 730);
+            tbObjects.TabIndex = 1;
+            tbObjects.Text = "Объекты";
+            tbObjects.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.ColumnCount = 2;
+            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128F));
+            tableLayoutPanel4.Controls.Add(btnSelectNodeColor, 0, 4);
+            tableLayoutPanel4.Controls.Add(btnSelect2DElemColor, 0, 3);
+            tableLayoutPanel4.Controls.Add(btnSelectColor, 0, 0);
+            tableLayoutPanel4.Controls.Add(btnSelectGroupColor, 0, 1);
+            tableLayoutPanel4.Controls.Add(pnlSelectionObjsColor, 1, 0);
+            tableLayoutPanel4.Controls.Add(pnlSelectionGroupColor, 1, 1);
+            tableLayoutPanel4.Controls.Add(btnSelect3DElemColor, 0, 2);
+            tableLayoutPanel4.Controls.Add(pnl3DElemColor, 1, 2);
+            tableLayoutPanel4.Controls.Add(pnl2DElemColor, 1, 3);
+            tableLayoutPanel4.Controls.Add(pnlNodeColor, 1, 4);
+            tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 5;
+            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            tableLayoutPanel4.Size = new System.Drawing.Size(396, 730);
+            tableLayoutPanel4.TabIndex = 0;
+            // 
+            // btnSelectNodeColor
+            // 
+            btnSelectNodeColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            btnSelectNodeColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSelectNodeColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
+            btnSelectNodeColor.Location = new System.Drawing.Point(8, 641);
+            btnSelectNodeColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnSelectNodeColor.Name = "btnSelectNodeColor";
+            btnSelectNodeColor.Size = new System.Drawing.Size(252, 31);
+            btnSelectNodeColor.TabIndex = 15;
+            btnSelectNodeColor.Text = "выбрать цвет узлов";
+            btnSelectNodeColor.UseVisualStyleBackColor = true;
+            btnSelectNodeColor.Click += btnSelectNodeColor_Click;
+            // 
+            // btnSelect2DElemColor
+            // 
+            btnSelect2DElemColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            btnSelect2DElemColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSelect2DElemColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
+            btnSelect2DElemColor.Location = new System.Drawing.Point(8, 495);
+            btnSelect2DElemColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnSelect2DElemColor.Name = "btnSelect2DElemColor";
+            btnSelect2DElemColor.Size = new System.Drawing.Size(252, 31);
+            btnSelect2DElemColor.TabIndex = 14;
+            btnSelect2DElemColor.Text = "выбрать цвет 2D элементов";
+            btnSelect2DElemColor.UseVisualStyleBackColor = true;
+            btnSelect2DElemColor.Click += btnSelect2DElemColor_Click;
+            // 
+            // btnSelectColor
+            // 
+            btnSelectColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            btnSelectColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSelectColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
+            btnSelectColor.Location = new System.Drawing.Point(8, 57);
+            btnSelectColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnSelectColor.Name = "btnSelectColor";
+            btnSelectColor.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            btnSelectColor.Size = new System.Drawing.Size(252, 31);
+            btnSelectColor.TabIndex = 1;
+            btnSelectColor.Text = "выбрать цвет выделения объектов";
+            btnSelectColor.UseVisualStyleBackColor = true;
+            btnSelectColor.Click += btnSelectObjectColor_Click;
+            // 
+            // btnSelectGroupColor
+            // 
+            btnSelectGroupColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            btnSelectGroupColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSelectGroupColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
+            btnSelectGroupColor.Location = new System.Drawing.Point(8, 203);
+            btnSelectGroupColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnSelectGroupColor.Name = "btnSelectGroupColor";
+            btnSelectGroupColor.Size = new System.Drawing.Size(252, 31);
+            btnSelectGroupColor.TabIndex = 10;
+            btnSelectGroupColor.Text = "выбрать цвет выделения групп";
+            btnSelectGroupColor.UseVisualStyleBackColor = true;
+            btnSelectGroupColor.Click += btnSelectGroupColor_Click;
+            // 
+            // pnlSelectionObjsColor
+            // 
+            pnlSelectionObjsColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            pnlSelectionObjsColor.BackColor = System.Drawing.Color.LawnGreen;
+            pnlSelectionObjsColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            pnlSelectionObjsColor.Location = new System.Drawing.Point(276, 57);
+            pnlSelectionObjsColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            pnlSelectionObjsColor.Name = "pnlSelectionObjsColor";
+            pnlSelectionObjsColor.Size = new System.Drawing.Size(112, 31);
+            pnlSelectionObjsColor.TabIndex = 11;
+            // 
+            // pnlSelectionGroupColor
+            // 
+            pnlSelectionGroupColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            pnlSelectionGroupColor.BackColor = System.Drawing.Color.Yellow;
+            pnlSelectionGroupColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            pnlSelectionGroupColor.Location = new System.Drawing.Point(276, 203);
+            pnlSelectionGroupColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            pnlSelectionGroupColor.Name = "pnlSelectionGroupColor";
+            pnlSelectionGroupColor.Size = new System.Drawing.Size(112, 31);
+            pnlSelectionGroupColor.TabIndex = 12;
+            // 
+            // btnSelect3DElemColor
+            // 
+            btnSelect3DElemColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            btnSelect3DElemColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSelect3DElemColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
+            btnSelect3DElemColor.Location = new System.Drawing.Point(8, 349);
+            btnSelect3DElemColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnSelect3DElemColor.Name = "btnSelect3DElemColor";
+            btnSelect3DElemColor.Size = new System.Drawing.Size(252, 31);
+            btnSelect3DElemColor.TabIndex = 13;
+            btnSelect3DElemColor.Text = "выбрать цвет 3D элементов";
+            btnSelect3DElemColor.UseVisualStyleBackColor = true;
+            btnSelect3DElemColor.Click += btnSelect3DElemColor_Click;
+            // 
+            // pnl3DElemColor
+            // 
+            pnl3DElemColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            pnl3DElemColor.BackColor = System.Drawing.Color.Yellow;
+            pnl3DElemColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            pnl3DElemColor.Location = new System.Drawing.Point(276, 349);
+            pnl3DElemColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            pnl3DElemColor.Name = "pnl3DElemColor";
+            pnl3DElemColor.Size = new System.Drawing.Size(112, 31);
+            pnl3DElemColor.TabIndex = 16;
+            // 
+            // pnl2DElemColor
+            // 
+            pnl2DElemColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            pnl2DElemColor.BackColor = System.Drawing.Color.Yellow;
+            pnl2DElemColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            pnl2DElemColor.Location = new System.Drawing.Point(276, 495);
+            pnl2DElemColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            pnl2DElemColor.Name = "pnl2DElemColor";
+            pnl2DElemColor.Size = new System.Drawing.Size(112, 31);
+            pnl2DElemColor.TabIndex = 18;
+            // 
+            // pnlNodeColor
+            // 
+            pnlNodeColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            pnlNodeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            pnlNodeColor.Location = new System.Drawing.Point(276, 641);
+            pnlNodeColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            pnlNodeColor.Name = "pnlNodeColor";
+            pnlNodeColor.Size = new System.Drawing.Size(112, 31);
+            pnlNodeColor.TabIndex = 19;
+            // 
+            // tbSolver
+            // 
+            tbSolver.Controls.Add(tableLayoutPanel5);
+            tbSolver.Location = new System.Drawing.Point(4, 34);
+            tbSolver.Margin = new System.Windows.Forms.Padding(0);
+            tbSolver.Name = "tbSolver";
+            tbSolver.Size = new System.Drawing.Size(396, 730);
+            tbSolver.TabIndex = 2;
+            tbSolver.Text = "Решатель";
+            tbSolver.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel5
+            // 
+            tableLayoutPanel5.ColumnCount = 2;
+            tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            tableLayoutPanel5.Controls.Add(lblSolverPath, 1, 0);
+            tableLayoutPanel5.Controls.Add(label3, 0, 0);
+            tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel5.Name = "tableLayoutPanel5";
+            tableLayoutPanel5.RowCount = 1;
+            tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel5.Size = new System.Drawing.Size(396, 730);
+            tableLayoutPanel5.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(4, 357);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(150, 15);
+            label3.TabIndex = 21;
+            label3.Text = "Путь до решателя";
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 2;
+            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.58929F));
+            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.41071F));
+            tableLayoutPanel3.Controls.Add(btnSaveConfig, 1, 1);
+            tableLayoutPanel3.Controls.Add(tabControlEx1, 0, 0);
+            tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 2;
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 92.26519F));
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.734807F));
+            tableLayoutPanel3.Size = new System.Drawing.Size(411, 841);
+            tableLayoutPanel3.TabIndex = 4;
             // 
             // SettingsControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.tableLayoutPanel3);
-            this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "SettingsControl";
-            this.Size = new System.Drawing.Size(352, 729);
-            this.tabControlEx1.ResumeLayout(false);
-            this.tbScene.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tbObjects.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tbSolver.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            Controls.Add(tableLayoutPanel3);
+            Margin = new System.Windows.Forms.Padding(0);
+            Name = "SettingsControl";
+            Size = new System.Drawing.Size(411, 841);
+            tabControlEx1.ResumeLayout(false);
+            tbScene.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            tbObjects.ResumeLayout(false);
+            tableLayoutPanel4.ResumeLayout(false);
+            tbSolver.ResumeLayout(false);
+            tableLayoutPanel5.ResumeLayout(false);
+            tableLayoutPanel5.PerformLayout();
+            tableLayoutPanel3.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

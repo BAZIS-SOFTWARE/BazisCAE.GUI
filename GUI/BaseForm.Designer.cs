@@ -1,6 +1,7 @@
 ﻿
 using BazisGUI.Navigator;
 using BazisGUI.Scene.EventsArgs;
+using BazisGUI.SettingsControls;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -43,6 +44,7 @@ namespace BazisGUI
             lblVersion = new ToolStripStatusLabel();
             webPageLabel = new ToolStripStatusLabel();
             splitContainer3 = new UserControlsEx.SplitContainerEx();
+            btnTab = new Button();
             splitContainer1 = new UserControlsEx.SplitContainerEx();
             navigator = new NavigatorControl();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -173,7 +175,7 @@ namespace BazisGUI
             toolStripContainer.ContentPanel.Controls.Add(splitContainer3);
             toolStripContainer.ContentPanel.Margin = new Padding(2);
             toolStripContainer.ContentPanel.Padding = new Padding(5);
-            toolStripContainer.ContentPanel.Size = new System.Drawing.Size(942, 530);
+            toolStripContainer.ContentPanel.Size = new System.Drawing.Size(942, 524);
             toolStripContainer.Dock = DockStyle.Fill;
             toolStripContainer.Location = new System.Drawing.Point(0, 0);
             toolStripContainer.Margin = new Padding(2);
@@ -196,7 +198,7 @@ namespace BazisGUI
             statusStrip.Items.AddRange(new ToolStripItem[] { lblStatus, lblVersion, webPageLabel });
             statusStrip.Location = new System.Drawing.Point(0, 0);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new System.Drawing.Size(942, 26);
+            statusStrip.Size = new System.Drawing.Size(942, 32);
             statusStrip.TabIndex = 1;
             // 
             // lblStatus
@@ -206,7 +208,7 @@ namespace BazisGUI
             lblStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             lblStatus.Margin = new Padding(5, 3, 0, 2);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new System.Drawing.Size(817, 21);
+            lblStatus.Size = new System.Drawing.Size(817, 27);
             lblStatus.Spring = true;
             lblStatus.Text = "Создайте или загрузите проект или сетку";
             lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -216,7 +218,7 @@ namespace BazisGUI
             lblVersion.BorderSides = ToolStripStatusLabelBorderSides.Left | ToolStripStatusLabelBorderSides.Right;
             lblVersion.DisplayStyle = ToolStripItemDisplayStyle.Text;
             lblVersion.Name = "lblVersion";
-            lblVersion.Size = new System.Drawing.Size(4, 21);
+            lblVersion.Size = new System.Drawing.Size(4, 27);
             // 
             // webPageLabel
             // 
@@ -225,7 +227,7 @@ namespace BazisGUI
             webPageLabel.IsLink = true;
             webPageLabel.LinkColor = System.Drawing.Color.OrangeRed;
             webPageLabel.Name = "webPageLabel";
-            webPageLabel.Size = new System.Drawing.Size(101, 21);
+            webPageLabel.Size = new System.Drawing.Size(101, 27);
             webPageLabel.Text = "www.bazisnet.ru";
             webPageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             webPageLabel.Click += webPageLabel_Click;
@@ -240,23 +242,37 @@ namespace BazisGUI
             // 
             // splitContainer3.Panel1
             // 
+            splitContainer3.Panel1.Controls.Add(btnTab);
             splitContainer3.Panel1.Controls.Add(splitContainer1);
             // 
             // splitContainer3.Panel2
             // 
             splitContainer3.Panel2.Controls.Add(splitContainer2);
-            splitContainer3.Size = new System.Drawing.Size(932, 520);
+            splitContainer3.Size = new System.Drawing.Size(932, 514);
             splitContainer3.SplitterDistance = 273;
             splitContainer3.SplitterWidth = 8;
             splitContainer3.SwitchShifting = false;
             splitContainer3.TabIndex = 0;
             // 
+            // btnTab
+            // 
+            btnTab.FlatStyle = FlatStyle.Flat;
+            btnTab.Location = new System.Drawing.Point(0, 0);
+            btnTab.Margin = new Padding(0, 0, 3, 3);
+            btnTab.Name = "btnTab";
+            btnTab.Size = new System.Drawing.Size(27, 130);
+            btnTab.TabIndex = 1;
+            btnTab.Tag = "Навигатор";
+            btnTab.UseVisualStyleBackColor = true;
+            btnTab.Paint += button1_Paint;
+            // 
             // splitContainer1
             // 
-            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             splitContainer1.IncrementButtonSize = new System.Drawing.Size(50, 5);
             splitContainer1.IncrementShifting = 50;
-            splitContainer1.Location = new System.Drawing.Point(0, 0);
+            splitContainer1.Location = new System.Drawing.Point(30, 0);
+            splitContainer1.Margin = new Padding(26, 0, 0, 0);
             splitContainer1.Name = "splitContainer1";
             splitContainer1.Orientation = Orientation.Horizontal;
             // 
@@ -267,8 +283,8 @@ namespace BazisGUI
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(tableLayoutPanel1);
-            splitContainer1.Size = new System.Drawing.Size(273, 520);
-            splitContainer1.SplitterDistance = 280;
+            splitContainer1.Size = new System.Drawing.Size(243, 514);
+            splitContainer1.SplitterDistance = 275;
             splitContainer1.SplitterWidth = 8;
             splitContainer1.SwitchShifting = false;
             splitContainer1.TabIndex = 0;
@@ -286,11 +302,11 @@ namespace BazisGUI
             navigator.HeaderName = "Навигатор";
             navigator.IsPinndable = false;
             navigator.Location = new System.Drawing.Point(0, 0);
-            navigator.Margin = new Padding(5, 5, 5, 0);
+            navigator.Margin = new Padding(0, 5, 5, 0);
             navigator.Name = "navigator";
             navigator.Padding = new Padding(0, 15, 0, 0);
             navigator.ProjectInfoIndex = 0;
-            navigator.Size = new System.Drawing.Size(273, 280);
+            navigator.Size = new System.Drawing.Size(243, 275);
             navigator.TabIndex = 0;
             navigator.UpColor = System.Drawing.Color.Gainsboro;
             navigator.HideResultsEvent += navigator_HideResultsEvent;
@@ -345,7 +361,7 @@ namespace BazisGUI
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new System.Drawing.Size(273, 232);
+            tableLayoutPanel1.Size = new System.Drawing.Size(243, 231);
             tableLayoutPanel1.TabIndex = 3;
             // 
             // checkPlayerControl
@@ -357,12 +373,12 @@ namespace BazisGUI
             checkPlayerControl.CheckState = BaseModule.Player.CheckState.start;
             checkPlayerControl.CurrentValue = 50;
             checkPlayerControl.Dock = DockStyle.Fill;
-            checkPlayerControl.Location = new System.Drawing.Point(0, 197);
+            checkPlayerControl.Location = new System.Drawing.Point(0, 196);
             checkPlayerControl.Margin = new Padding(0);
             checkPlayerControl.MinimumSize = new System.Drawing.Size(215, 35);
             checkPlayerControl.Name = "checkPlayerControl";
             checkPlayerControl.ShowTextValue = true;
-            checkPlayerControl.Size = new System.Drawing.Size(273, 35);
+            checkPlayerControl.Size = new System.Drawing.Size(243, 35);
             checkPlayerControl.SliderBarInnerColor = System.Drawing.Color.Silver;
             checkPlayerControl.SliderBarOuterColor = System.Drawing.Color.Silver;
             checkPlayerControl.SliderElapsedInnerColor = System.Drawing.Color.Silver;
@@ -390,7 +406,7 @@ namespace BazisGUI
             propertiesPanel.Margin = new Padding(0, 0, 0, 8);
             propertiesPanel.Name = "propertiesPanel";
             propertiesPanel.Padding = new Padding(0, 15, 0, 0);
-            propertiesPanel.Size = new System.Drawing.Size(273, 189);
+            propertiesPanel.Size = new System.Drawing.Size(243, 188);
             propertiesPanel.TabIndex = 0;
             propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
             propertiesPanel.PropertyUpdateEvent += propertiesPanel_OnPropertyUpdate;
@@ -431,8 +447,8 @@ namespace BazisGUI
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(console);
-            splitContainer2.Size = new System.Drawing.Size(651, 520);
-            splitContainer2.SplitterDistance = 384;
+            splitContainer2.Size = new System.Drawing.Size(651, 514);
+            splitContainer2.SplitterDistance = 378;
             splitContainer2.SplitterWidth = 8;
             splitContainer2.SwitchShifting = false;
             splitContainer2.TabIndex = 0;
@@ -793,9 +809,9 @@ namespace BazisGUI
             scene.DepthBits = 16;
             scene.Dock = DockStyle.Fill;
             scene.Location = new System.Drawing.Point(0, 0);
-            scene.Margin = new Padding(5);
+            scene.Margin = new Padding(0);
             scene.Name = "scene";
-            scene.Size = new System.Drawing.Size(651, 384);
+            scene.Size = new System.Drawing.Size(651, 378);
             scene.StencilBits = 0;
             scene.TabIndex = 1;
             scene.SizeChanged += GlControl_Resize;
@@ -1268,16 +1284,17 @@ namespace BazisGUI
             // 
             // contextMenu
             // 
+            contextMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
             contextMenu.Items.AddRange(new ToolStripItem[] { создатьГруппуItem, скрытьВыбранноеItem, показатьСкрытыеItem, menuItem_InfoSelectedObjects, menuItem_SetRotPoint, menuItem_DeleteSelectedObjects });
             contextMenu.Name = "sceneContextMenu";
-            contextMenu.Size = new System.Drawing.Size(204, 136);
+            contextMenu.Size = new System.Drawing.Size(212, 184);
             // 
             // создатьГруппуItem
             // 
             создатьГруппуItem.Image = (System.Drawing.Image)resources.GetObject("создатьГруппуItem.Image");
             создатьГруппуItem.ImageScaling = ToolStripItemImageScaling.None;
             создатьГруппуItem.Name = "создатьГруппуItem";
-            создатьГруппуItem.Size = new System.Drawing.Size(203, 22);
+            создатьГруппуItem.Size = new System.Drawing.Size(211, 30);
             создатьГруппуItem.Text = "Создать новую группу";
             создатьГруппуItem.Click += создатьГруппуItem_Click;
             // 
@@ -1286,7 +1303,7 @@ namespace BazisGUI
             скрытьВыбранноеItem.Image = (System.Drawing.Image)resources.GetObject("скрытьВыбранноеItem.Image");
             скрытьВыбранноеItem.ImageScaling = ToolStripItemImageScaling.None;
             скрытьВыбранноеItem.Name = "скрытьВыбранноеItem";
-            скрытьВыбранноеItem.Size = new System.Drawing.Size(203, 22);
+            скрытьВыбранноеItem.Size = new System.Drawing.Size(211, 30);
             скрытьВыбранноеItem.Text = "Скрыть выбранное";
             скрытьВыбранноеItem.Click += скрытьВыбранноеItem_Click;
             // 
@@ -1295,7 +1312,7 @@ namespace BazisGUI
             показатьСкрытыеItem.Image = (System.Drawing.Image)resources.GetObject("показатьСкрытыеItem.Image");
             показатьСкрытыеItem.ImageScaling = ToolStripItemImageScaling.None;
             показатьСкрытыеItem.Name = "показатьСкрытыеItem";
-            показатьСкрытыеItem.Size = new System.Drawing.Size(203, 22);
+            показатьСкрытыеItem.Size = new System.Drawing.Size(211, 30);
             показатьСкрытыеItem.Text = "Показать все скрытые";
             показатьСкрытыеItem.Click += показатьСкрытыеItem_Click;
             // 
@@ -1304,7 +1321,7 @@ namespace BazisGUI
             menuItem_InfoSelectedObjects.Image = (System.Drawing.Image)resources.GetObject("menuItem_InfoSelectedObjects.Image");
             menuItem_InfoSelectedObjects.ImageScaling = ToolStripItemImageScaling.None;
             menuItem_InfoSelectedObjects.Name = "menuItem_InfoSelectedObjects";
-            menuItem_InfoSelectedObjects.Size = new System.Drawing.Size(203, 22);
+            menuItem_InfoSelectedObjects.Size = new System.Drawing.Size(211, 30);
             menuItem_InfoSelectedObjects.Text = "Инфо";
             menuItem_InfoSelectedObjects.Click += menuItem_InfoSelectedObjects_Click;
             // 
@@ -1313,7 +1330,7 @@ namespace BazisGUI
             menuItem_SetRotPoint.Image = (System.Drawing.Image)resources.GetObject("menuItem_SetRotPoint.Image");
             menuItem_SetRotPoint.ImageScaling = ToolStripItemImageScaling.None;
             menuItem_SetRotPoint.Name = "menuItem_SetRotPoint";
-            menuItem_SetRotPoint.Size = new System.Drawing.Size(203, 22);
+            menuItem_SetRotPoint.Size = new System.Drawing.Size(211, 30);
             menuItem_SetRotPoint.Text = "Задать точку вращения";
             menuItem_SetRotPoint.Click += menuItem_SetRotPoint_Click;
             // 
@@ -1321,7 +1338,7 @@ namespace BazisGUI
             // 
             menuItem_DeleteSelectedObjects.Image = (System.Drawing.Image)resources.GetObject("menuItem_DeleteSelectedObjects.Image");
             menuItem_DeleteSelectedObjects.Name = "menuItem_DeleteSelectedObjects";
-            menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(203, 22);
+            menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(211, 30);
             menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             menuItem_DeleteSelectedObjects.Click += menuItem_DeleteSelectedObjects_Click;
             // 
@@ -1479,6 +1496,7 @@ namespace BazisGUI
         private Button btnBorder;
         private Button btnMakeScreenShot;
         private Button btnSelect;
+        private Button btnTab;
     }
 }
 
