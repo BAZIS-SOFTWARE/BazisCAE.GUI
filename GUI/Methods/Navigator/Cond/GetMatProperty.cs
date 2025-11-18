@@ -22,16 +22,12 @@ namespace BazisGUI
             };
 
             // подумать над этим....
-            if (project.ProjectType == TaskType.Linear |
-                project.ProjectType == TaskType.Volume_mixed)
+            if (obj is BeamMatData bmat )
             {
-                var bmat = obj as BeamMatData;
                 rows.Add(new RowProperty("Диаметр", bmat.Diameter));
             }
-            else if (project.ProjectType == TaskType.Plain |
-                project.ProjectType == TaskType.Volume_mixed)
+            else if (obj is PlateMatData pmat)
             {
-                var pmat = obj as PlateMatData;
                 rows.Add(new RowProperty("Толщина", pmat.Thickness));
             }
 

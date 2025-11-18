@@ -33,15 +33,6 @@ namespace BazisGUI
                 throw new Exception("База функций пустая");
         }
 
-        private IEnumerable<IGroup> GetElementsGroup(ObjType objType)
-        {
-            var groups = project.GetAllModelGroups().Where(x => x.ObjType == objType);
-            if (groups.Count() == 0)
-                throw new Exception("Отсутствуют группы элементов");
-
-            return groups;
-        }
-
         private ICondData CreateMaterial(PropertyChangedEventArgs obj, IGroup _objectsGr)
         {
             if (project.ProjectType == TaskType.Linear)
@@ -66,109 +57,8 @@ namespace BazisGUI
                 else
                     return new MatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
             }
-        }
-
-        private void средаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                IEnumerable<IGroup> groups;
-                if (project.ProjectType == TaskType.Volume)
-                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент2D);
-                else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
-                    groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Элемент1D);
-                else
-                    return;
-
-                if (groups.Count() == 0)
-                    throw new Exception("Отсутствуют группы элементов");
-
-                var medData = new MediaData(groups.First(), 0, 1);
-                project.TaskData.Add(medData);
-                PresentCondDataOnTree();
-
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-
-        private void закреплениеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Узел);
-
-                if (groups.Count() == 0)
-                    throw new Exception("Отсутствуют группы элементов");
-
-                var clampData = new ClampData(groups.First(), 0, 1);
-                project.TaskData.Add(clampData);
-                PresentCondDataOnTree();
-
-            }
-            catch (Exception)
-            {
-
-
-            }
-        }
-
-        private void нагрузкаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var groups = project.GetAllModelGroups().Where(x => x.ObjType == ObjType.Узел);
-
-                if (groups.Count() == 0)
-                    return;
-
-                var loadData = new LoadData(groups.First(), 0, 1);
-                project.TaskData.Add(loadData);
-                PresentCondDataOnTree();
-            }
-            catch (Exception)
-            {
-            }
-        }
-       
-        public async void AddConditions(AddDataEventArgs arg2)
-        {
-            try
-            {
-                if (arg2.DataInfo.Contains("LRF"))
-                {
-                    foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
-                    {
-                        project.SetModelObjectsBackColor(type);
-                        var pres = project.CreateModelObjectsPresentor(type);
-                        SetVBObjectAttribute(pres, "цвет");
-                    }
-
-                    DisplayObjects();
-                    //SelectedObjects = ObjType.Узел.ToString();
-
-                    var taskStrLRF = CreateSurfaceAsync(project.ModelData, ObjType.Узел);
-                    await taskStrLRF;
-                    var vec = taskStrLRF.Result.Normal;
-                    var nVec = Geometry.Vector.GetVectorNorm(vec);
-
-                    AddDataLRF(nVec, arg2.DataName, arg2.DataInfo);
-                }
-                else
-                {
-                    var newData = project.TaskData.Create(arg2.DataName.ToEnum<DataKind>(), arg2.DataInfo, project.ModelData.GroupData);
-                    project.TaskData.Add(newData);
-                }
-
-                PresentCondDataOnTree();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
+        }   
+      
 
         private void AddDataLRF(Point3D vec, string dataName, string dataInfo)
         {
