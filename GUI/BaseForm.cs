@@ -99,7 +99,7 @@ namespace BazisGUI
         {
             InitializeComponent();
 
-            splitContainer1.SplitterWidth = 8;
+            cntrНавигатор.SplitterWidth = 8;
             splitContainer2.SplitterWidth = 8;
             splitContainer3.SplitterWidth = 8;
 

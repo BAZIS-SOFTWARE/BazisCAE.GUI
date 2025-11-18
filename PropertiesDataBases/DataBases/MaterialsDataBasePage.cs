@@ -36,11 +36,7 @@ namespace PropertiesDataBases.DataBases
                     Formatting = Formatting.Indented
                 };
                 var propertyString = JsonConvert.SerializeObject(Materials, settingsSerializer);
-                File.WriteAllText(dbFullPath, propertyString);
-
-                DbName = Path.GetFileName(dbFullPath);
-                //DbPath = Path.GetDirectoryName(saveFile.FileName);
-            
+                File.WriteAllText(dbFullPath, propertyString);         
         }
 
         public override void AddDB_Click(object sender, EventArgs e)
@@ -90,8 +86,6 @@ namespace PropertiesDataBases.DataBases
         {
             try
             {
-                //base.Load(fileName, addFlag);
-                DbName = Path.GetFileName(fileName);
                 var ext = Path.GetExtension(fileName);
                 DataExtension = ext;
 

@@ -34,14 +34,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="GanttChart\GanttChartModel.cs" />
-    <Compile Remove="GanttChart\GanttChartTreeView.cs" />
-    <Compile Remove="GanttChart\GanttChartTreeView.Designer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="GanttChart\GanttChartTreeView.resx" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="ClientGUI">
       <HintPath>..\Libs\ClientGUI.dll</HintPath>
     </Reference>
@@ -105,6 +97,9 @@
     <Compile Update="MessageBoxEx\MessageBoxEx.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Methods\TabPageButton\AddRemoveTabPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Methods\TabPageButton\SelectTabPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,7 +143,6 @@
     <Content Include="IconShort_32.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GanttChart\" />
     <Folder Include="Projects\" />
   </ItemGroup>
   <ItemGroup>

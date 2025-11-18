@@ -1,4 +1,5 @@
 ﻿using BaseModule.Utilities;
+using Mono.Unix.Native;
 using Project.Interfaces;
 using PropertiesCalculator.MaterialData;
 using PropertiesDataBases.DataBases;
@@ -17,20 +18,36 @@ namespace BazisGUI
     {
         private void материалыMenuItem_Click(object sender, EventArgs e)
         {
-            //var module = (TaskPage)ModulePage;
-            OpenMaterialsDB();
+            var btn = sender as ToolStripMenuItem;
+
+            if(btn.Checked)
+                OpenMaterialsDB();
+            else
+            {
+                HideTabButton("btnTabМатериалы");
+                splitContainer3.Panel1.Controls.RemoveByKey("cntrМатериалы");
+            }
         }
 
         public void OpenMaterialsDB()
         {
             try
             {
-                var matBasePage = new MaterialsDataBasePage() { Dock = DockStyle.Fill, HeadColor = Color.Gainsboro };
-                var name = "База материалов";
-                var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = matBasePage.Size, ShowIcon = false };
-                form.Controls.Add(matBasePage);
-                form.ClientSize = matBasePage.Size;
-                form.Show();
+                var matBasePage = new MaterialsDataBasePage() 
+                { 
+                    Dock = DockStyle.Fill, 
+                    HeadColor = Color.Gainsboro,
+                    Name = "cntrМатериалы"
+                };
+
+                ShowTabButton("btnTabМатериалы");
+
+                matBasePage.Size = cntrНавигатор.Size;
+                matBasePage.Location = cntrНавигатор.Location;
+                matBasePage.Anchor = cntrНавигатор.Anchor;
+
+                splitContainer3.Panel1.Controls.Add(matBasePage);
+                matBasePage.BringToFront();
 
                 matBasePage.LoadEvent += () =>
                 {
@@ -62,15 +79,27 @@ namespace BazisGUI
 
         private void функцииMenuItem_Click(object sender, EventArgs e)
         {
-            //var module = (TaskPage)ModulePage;
-            OpenFunctionsDB();
+            var btn = sender as ToolStripMenuItem;
+
+            if (btn.Checked)
+                OpenFunctionsDB();
+            else
+            {
+                HideTabButton("btnTabФункции");
+                splitContainer3.Panel1.Controls.RemoveByKey("cntrФункции");
+            }
         }
 
         public void OpenFunctionsDB()
         {
             try
             {
-                var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill, HeadColor = Color.Gainsboro };
+                var funBasePage = new FunctionDataBasePage() 
+                { 
+                    Dock = DockStyle.Fill, 
+                    HeadColor = Color.Gainsboro,
+                    Name = "cntrФункции"
+                };
                 funBasePage.LoadEvent += () =>
                 {
                     if (project == null)
@@ -79,11 +108,14 @@ namespace BazisGUI
                     project.FunctionsDB = funBasePage.Functions;
                 };
 
-                var name = "База функций";
-                var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = funBasePage.Size, ShowIcon = false };
-                form.Controls.Add(funBasePage);
-                form.ClientSize = funBasePage.Size;
-                form.Show();
+                ShowTabButton("btnTabФункции");
+
+                funBasePage.Size = cntrНавигатор.Size;
+                funBasePage.Location = cntrНавигатор.Location;
+                funBasePage.Anchor = cntrНавигатор.Anchor;
+
+                splitContainer3.Panel1.Controls.Add(funBasePage);
+                funBasePage.BringToFront();
 
                 if (project == null)
                     return;

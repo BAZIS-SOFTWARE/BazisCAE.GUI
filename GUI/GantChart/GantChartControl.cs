@@ -13,11 +13,11 @@ using UserControlsEx;
 
 namespace BazisGUI.GantChart
 {
-    public partial class GantChartControl : UserControl
+    public partial class cntrГант : UserControl
     {
         float koeff;
 
-        public GantChartControl()
+        public cntrГант()
         {
             InitializeComponent();
         }
