@@ -127,6 +127,8 @@ namespace BazisGUI
             if (string.IsNullOrEmpty(fontFamily))
             {
                 var status = UseFontBitmapsW(hdc, 0, 1150, FontBase);
+                if (!status)
+                    throw new Exception("Не уадлось загрузить глифы для шрифта");
             }
             else
             {
@@ -139,6 +141,8 @@ namespace BazisGUI
 
                 SelectObject(hdc, oldFont);//Делаем текущим старый шрифт
                 DeleteObject(hFont);//Обязательно освобождаем неуправляемый ресурс
+                if (!status)
+                    throw new Exception("Не уадлось загрузить глифы для шрифта");
             }
         }
     }
