@@ -119,9 +119,6 @@ namespace PropertiesDataBases.DataBases
         {
             try
             {
-                DbName = Path.GetFileName(fileName);
-                //base.Load(fileName, addFlag);
-
                 var ext = Path.GetExtension(fileName);
                 DataExtension = ext;
 
@@ -204,13 +201,7 @@ namespace PropertiesDataBases.DataBases
                     Formatting = Formatting.Indented
                 };
                 var propertyString = JsonConvert.SerializeObject(Functions, settingsSerializer);
-                File.WriteAllText(dbFullPath, propertyString);
-
-                DbName = Path.GetFileName(dbFullPath);
-                //DbPath = Path.GetDirectoryName(saveFile.FileName);
-
-                //base.SafeFileButton_Click(sender, e);
-            
+                File.WriteAllText(dbFullPath, propertyString);        
         }
 /// <inheritdoc/>
 

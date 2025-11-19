@@ -98,6 +98,10 @@ namespace BazisGUI
         {
             InitializeComponent();
 
+            cntrНавигатор.SplitterWidth = 8;
+            splitContainer2.SplitterWidth = 8;
+            splitContainer3.SplitterWidth = 8;
+
             SetPadding();
 
             //scene.InitializeContexts();
@@ -105,9 +109,7 @@ namespace BazisGUI
             scene.Load += SceneInitialization;//Это конвертировалось в событие scene.Load!
             //ComponentsPainter.Font = this.Font; //попробуем не контролировать кегль вручную. Пусть кон-ет система
 
-            splitContainer1.SplitterWidth = 8;
-            splitContainer2.SplitterWidth = 8;
-            splitContainer3.SplitterWidth = 8;
+
             результатыMenuItem.DropDown.Closing += DropDown_Closing;
             //selectToolStrip.Location = new Point(10, 24);
             //displayToolStrip.Location = new Point(310, 48);
@@ -976,6 +978,8 @@ namespace BazisGUI
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
         }
+
+
     }
 
 }
