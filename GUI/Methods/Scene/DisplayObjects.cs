@@ -2,8 +2,9 @@
 using BazisGUI.Scene.VBO;
 using BazisGUI.Scene;
 using System.Linq;
-using Tao.OpenGl;
 using System.Drawing;
+using OpenTK.Graphics.OpenGL;
+using BazisGUI.SettingsControls;
 
 namespace BazisGUI
 {
@@ -16,11 +17,11 @@ namespace BazisGUI
         /// </summary>
         public void DisplayObjects()
         {
-            Gl.glClearColor(settingsConfig.BackGroundColor.R / 255.0f, 
-                settingsConfig.BackGroundColor.G / 255.0f, 
+            GL.ClearColor(settingsConfig.BackGroundColor.R / 255.0f,
+                settingsConfig.BackGroundColor.G / 255.0f,
                 settingsConfig.BackGroundColor.B / 255.0f, 0);
             // очистка буфера цвета и буфера глубины в заданный цвет 
-            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                 averageColorRenderer.ClearColors();
@@ -33,20 +34,21 @@ namespace BazisGUI
                 //basis.Display(ScaleFactor);
 
                 DisplayRotationPointEvent?.Invoke();
+
                 if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             }
 
             //----
-            Gl.glPushMatrix();
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glLoadIdentity();
+            GL.PushMatrix();
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadIdentity();
 
             var matrix = ViewMatrix;
             var viewMatrixAr = matrix.AsColumnMajorArray();
 
-            Gl.glLoadMatrixf(viewMatrixAr);
-            Gl.glPopMatrix();
+            GL.LoadMatrix(viewMatrixAr);
+            GL.PopMatrix();
 
             //----
             // вызов всех подключенных методов   
@@ -59,9 +61,9 @@ namespace BazisGUI
 
             if (settingsConfig.IsCutting)
             {
-                Gl.glEnable(Gl.GL_CULL_FACE);
-                Gl.glCullFace(Gl.GL_BACK);
-                Gl.glFrontFace(Gl.GL_CCW);
+                GL.Enable(EnableCap.CullFace);
+                GL.CullFace(TriangleFace.Back);
+                GL.FrontFace(FrontFaceDirection.Ccw);
             }
             //if (IsLighting)//Перенес в другое место
             //Gl.glEnable(Gl.GL_LIGHTING);
@@ -90,7 +92,7 @@ namespace BazisGUI
 
             //Gl.glFlush();
             //scene.Invalidate();
-            Gl.glFinish(); // Обработка драйвером буффера команд. См Khronos
+            GL.Finish(); // Обработка драйвером буффера команд. См Khronos
             scene.SwapBuffers(); // Поменять местами буфферы кадров.
         }
 
@@ -114,21 +116,21 @@ namespace BazisGUI
 
         private void DisplayModelObjects()
         {
-            Gl.glPushMatrix();//У каждого VBObject теперь свои трансформации
-            Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
+            GL.PushMatrix();//У каждого VBObject теперь свои трансформации
+            GL.Translate(-Position._x, -Position._y, -Position._z);
 
-            Gl.glEnable(Gl.GL_NORMALIZE); //делам нормали одинаковой величины во избежание артефактов
-            Gl.glEnable(Gl.GL_LIGHT0);
+            GL.Enable(EnableCap.Normalize); //делам нормали одинаковой величины во избежание артефактов
+            GL.Enable(EnableCap.Light0);
 
             //Установим вектор перемещения для источника света GL_LIGHT0
-            Gl.glPushMatrix();
-            Gl.glLoadIdentity();
-            Gl.glTranslatef(settingsConfig.LighterPosition.X, settingsConfig.LighterPosition.Y, 0);
+            GL.PushMatrix();
+            GL.LoadIdentity();
+            GL.Translate(settingsConfig.LighterPosition.X, settingsConfig.LighterPosition.Y, 0);
             var pos = new float[] { 0.0f, 0.0f, 1.0f, 1.0f };
-            Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, pos);
-            Gl.glPopMatrix();
+            GL.Light(LightName.Light0, LightParameter.Position, pos);
+            GL.PopMatrix();
 
-            Gl.glBlendFuncSeparate(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA, Gl.GL_ONE, Gl.GL_ONE);
+            GL.BlendFuncSeparate(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha, BlendingFactorSrc.One, BlendingFactorDest.One);
 
             //Gl.glEnableClientState(Gl.GL_VERTEX_ARRAY);//Перенес по месту вызова Draw конкретного объекта, может помочь
             //Gl.glEnableClientState(Gl.GL_COLOR_ARRAY);
@@ -137,59 +139,59 @@ namespace BazisGUI
             DisplayReflectionPlaneEvent?.Invoke();
 
             DisplayClipPlaneEvent?.Invoke();
-            
+
             if (settingsConfig.Lighting)
-                Gl.glEnable(Gl.GL_LIGHTING);
+                GL.Enable(EnableCap.Lighting);
             float[] global_ambient = new float[] { 0.2f, 0.2f, 0.2f, 1 };
-            Gl.glLightModelfv(Gl.GL_LIGHT_MODEL_AMBIENT, global_ambient);
+            GL.LightModel(LightModelParameter.LightModelAmbient, global_ambient);
             float[] diffuse = new float[] { 1, 1, 1, 1 };
-            Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_DIFFUSE, diffuse);
+            GL.Light(LightName.Light0, LightParameter.Diffuse, diffuse);
             //float[] light_position = new float[] { 1, 1, 1, 1 };
             //Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, light_position);
-            Gl.glLightModeli(Gl.GL_LIGHT_MODEL_TWO_SIDE, Gl.GL_TRUE);
+            GL.LightModel(LightModelParameter.LightModelTwoSide, 1);
 
             //Gl.glColorMaterial(Gl.GL_FRONT_AND_BACK, Gl.GL_AMBIENT_AND_DIFFUSE); // have to be before loadinng objects you want to light
-            Gl.glEnable(Gl.GL_COLOR_MATERIAL);
+            GL.Enable(EnableCap.ColorMaterial);
 
-            Gl.glLineWidth(1.5f);
+            GL.LineWidth(1.5f);
 
 
             foreach (var sObj in VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle))
             {
-                Gl.glPushMatrix();
-                Gl.glMultMatrixf(sObj.ModelMatrix);
+                GL.PushMatrix();
+                GL.MultMatrix(sObj.ModelMatrix);
                 //Поправка: Возможное решение проблемы с отсутсвием картинки в режиме ребер на радеоне! (работает на NVidia)
                 //Gl.glEnableClientState(Gl.GL_EDGE_FLAG_ARRAY);
                 sObj.Load();
                 //Gl.glDisableClientState(Gl.GL_EDGE_FLAG_ARRAY);
-                Gl.glPopMatrix();
+                GL.PopMatrix();
             }
-            Gl.glDisable(Gl.GL_LIGHTING);
+            GL.Disable(EnableCap.Lighting);
 
             foreach (var lObj in VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.line))
             {
-                Gl.glPushMatrix();
-                Gl.glMultMatrixf(lObj.ModelMatrix);
+                GL.PushMatrix();
+                GL.MultMatrix(lObj.ModelMatrix);
                 lObj.Load();
-                Gl.glPopMatrix();
+                GL.PopMatrix();
             }
             foreach (var pObj in VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.point))
             {
-                Gl.glPushMatrix();
-                Gl.glMultMatrixf(pObj.ModelMatrix);
+                GL.PushMatrix();
+                GL.MultMatrix(pObj.ModelMatrix);
                 pObj.Load();
-                Gl.glPopMatrix();
+                GL.PopMatrix();
             }
 
-            Gl.glDisable(Gl.GL_BLEND);
-            Gl.glDisable(Gl.GL_CULL_FACE);
-            Gl.glDisable(Gl.GL_COLOR_MATERIAL);
+            GL.Disable(EnableCap.Blend);
+            GL.Disable(EnableCap.CullFace);
+            GL.Disable(EnableCap.ColorMaterial);
             //Gl.glDisableClientState(Gl.GL_VERTEX_ARRAY);
             //Gl.glDisableClientState(Gl.GL_COLOR_ARRAY);
 
             //Gl.glDisableClientState(Gl.GL_NORMAL_ARRAY);
             //Gl.glDisableClientState(Gl.GL_EDGE_FLAG_ARRAY);
-            Gl.glPopMatrix();
+            GL.PopMatrix();
         }
     }
 }

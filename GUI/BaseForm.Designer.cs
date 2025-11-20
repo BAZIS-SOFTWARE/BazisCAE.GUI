@@ -37,7 +37,7 @@ namespace BazisGUI
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             toolStripContainer = new ToolStripContainer();
             statusStrip = new StatusStrip();
             lblStatus = new ToolStripStatusLabel();
@@ -75,7 +75,7 @@ namespace BazisGUI
             btnBorder = new Button();
             btnMakeScreenShot = new Button();
             btnAdvSelection = new Button();
-            scene = new Tao.Platform.Windows.SimpleOpenGlControl();
+            scene = new OpenTK.GLControl.GLControl();
             console = new BaseModule.Console.ConsoleControl();
             menuStrip = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
@@ -108,6 +108,12 @@ namespace BazisGUI
             функцииMenuItem = new ToolStripMenuItem();
             tasksMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem1 = new ToolStripMenuItem();
+            /*добавитьУсловиеToolStripMenuItem = new ToolStripMenuItem();
+            материалToolStripMenuItem = new ToolStripMenuItem();
+            средаToolStripMenuItem = new ToolStripMenuItem();
+            нагревToolStripMenuItem = new ToolStripMenuItem();
+            закреплениеToolStripMenuItem = new ToolStripMenuItem();
+            нагрузкаToolStripMenuItem = new ToolStripMenuItem();*/
             мастерToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
             трениемСПеремешиваниемToolStripMenuItem = new ToolStripMenuItem();
@@ -846,29 +852,20 @@ namespace BazisGUI
             // 
             // scene
             // 
-            scene.AccumBits = 0;
-            scene.AutoCheckErrors = false;
-            scene.AutoFinish = false;
-            scene.AutoMakeCurrent = true;
-            scene.AutoSwapBuffers = false;
-            scene.AutoValidate = AutoValidate.EnablePreventFocusChange;
+            scene.API = OpenTK.Windowing.Common.ContextAPI.OpenGL;
+            scene.APIVersion = new Version(3, 3, 0, 0);
             scene.BackColor = System.Drawing.Color.Silver;
-            scene.BorderStyle = BorderStyle.FixedSingle;
-            scene.ColorBits = 32;
-            scene.DepthBits = 16;
             scene.Dock = DockStyle.Fill;
+            scene.Flags = OpenTK.Windowing.Common.ContextFlags.Default;
+            scene.IsEventDriven = true;
             scene.Location = new System.Drawing.Point(0, 0);
             scene.Margin = new Padding(0);
             scene.Name = "scene";
-            scene.Size = new System.Drawing.Size(620, 411);
-            scene.StencilBits = 0;
+            scene.Profile = OpenTK.Windowing.Common.ContextProfile.Compatability;
+            scene.SharedContext = null;
+            scene.Size = new System.Drawing.Size(662, 384);
             scene.TabIndex = 1;
-            scene.SizeChanged += GlControl_Resize;
             scene.KeyDown += GlControl_KeyDown;
-            scene.MouseClick += scene_MouseClick;
-            scene.MouseDown += GlControl_MouseDown;
-            scene.MouseMove += GlControl_MouseMove;
-            scene.MouseUp += GlControl_MouseUp;
             scene.MouseWheel += GlControl_MouseWheel;
             // 
             // console
@@ -1482,7 +1479,6 @@ namespace BazisGUI
         private NavigatorControl navigator;
         private BaseModule.PropertiesPanel.PropertiesPanelControl propertiesPanel;
         private UserControlsEx.SplitContainerEx splitContainer2;
-        private Tao.Platform.Windows.SimpleOpenGlControl scene;
         private BaseModule.Console.ConsoleControl console;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem создатьГруппуItem;
@@ -1552,6 +1548,7 @@ namespace BazisGUI
         private Button btnTabГант;
         private Button btnTabФункции;
         private Button btnTabМатериалы;
+        private OpenTK.GLControl.GLControl scene;
     }
 }
 

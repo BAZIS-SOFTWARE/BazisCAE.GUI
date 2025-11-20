@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using PostProc;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
 using BazisGUI.Scene.VBO;
 using OperationalController.GmshController;
 using OperationalController.ModelScenePresentator;
@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using OperationalController;
 using BaseModule.Utilities;
 using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -105,9 +104,9 @@ namespace BazisGUI
 
             SetPadding();
 
-            scene.InitializeContexts();
-            Gle.Load();
-            SceneInitialization();
+            //scene.InitializeContexts();
+            //Gle.Load();//Это скорее всего больше не понадобится
+            scene.Load += SceneInitialization;//Это конвертировалось в событие scene.Load!
             //ComponentsPainter.Font = this.Font; //попробуем не контролировать кегль вручную. Пусть кон-ет система
 
 
@@ -126,7 +125,7 @@ namespace BazisGUI
             //    var newColor = Color.FromArgb(TransparencyValue, preColor);
             //    obj.Color = newColor;
             //}
-
+            
             if (args.Length != 0)
             {
                 var path = string.Empty;
@@ -564,7 +563,7 @@ namespace BazisGUI
             {
                 settingsConfig.LightingIntensity = ar;
                 var lightAttenuation = 1 - ar / 100.0f;
-                Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_LINEAR_ATTENUATION, ref lightAttenuation);
+                GL.Light(LightName.Light0, LightParameter.LinearAttenuation, lightAttenuation);
                 DisplayObjects();
             };
 

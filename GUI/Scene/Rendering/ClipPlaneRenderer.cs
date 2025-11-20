@@ -1,8 +1,8 @@
 ﻿
 using BazisGUI.Scene.VBO;
 using Geometry;
+using OpenTK.Graphics.OpenGL;
 using System;
-using Tao.OpenGl;
 
 namespace BazisGUI.Scene
 {
@@ -21,9 +21,9 @@ namespace BazisGUI.Scene
         public ClipPlaneRenderer()
         {
             Program = new ShaderProgramCreator();
-            Program.CreateShaderFromString(Gl.GL_VERTEX_SHADER, ShaderCollections.clipPlaneVertex);
-            Program.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.clipPlaneGeometry);
-            Program.CreateShaderFromString(Gl.GL_FRAGMENT_SHADER, ShaderCollections.clipPlaneFragment);
+            Program.CreateShaderFromString(ShaderType.VertexShader, ShaderCollections.clipPlaneVertex);
+            Program.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.clipPlaneGeometry);
+            Program.CreateShaderFromString(ShaderType.FragmentShader, ShaderCollections.clipPlaneFragment);
             Program.Link();
         }
         /// <summary>

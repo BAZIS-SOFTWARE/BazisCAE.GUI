@@ -1,10 +1,10 @@
 ﻿using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.Interfaces;
 using System;
-using Tao.OpenGl;
 using Geometry;
 using System.Drawing;
 using MathNet.Numerics.LinearAlgebra;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI
 {
@@ -17,7 +17,7 @@ namespace BazisGUI
             {
                 float[] vector = new float[16];
 
-                Gl.glGetFloatv(Gl.GL_PROJECTION_MATRIX, vector);
+                GL.GetFloat(GetPName.ProjectionMatrix, vector);
                 //float[,] multiMassView = new float[4, 4];
 
                 var matrix = Matrix<float>.Build.Dense(4, 4);
@@ -35,7 +35,7 @@ namespace BazisGUI
             set
             {
                 var tempViewMatrixAr = value.AsColumnMajorArray();
-                Gl.glLoadMatrixf(tempViewMatrixAr);
+                GL.LoadMatrix(tempViewMatrixAr);
             }
         }
     }

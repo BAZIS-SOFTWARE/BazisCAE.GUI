@@ -4,9 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
-using Project.Interfaces.Tasks;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
+using static BazisGUI.Methods.PlatformSpecific.PlatformSpecific;
 using System.Linq;
+using Project.Interfaces.Tasks;
 
 namespace BazisGUI
 {
@@ -162,22 +163,22 @@ namespace BazisGUI
                 DisplayGeometryObjectEvent = null;
                 DisplayGeometryObjectEvent += new Action(() =>
                 {
-                    var quadObj = Glu.gluNewQuadric(); // создаем новый объект
+                    var quadObj = gluNewQuadric(); // создаем новый объект
                                                        // для создания сфер и цилиндров
                                                        //Glu.gluQuadricOrientation(quadObj, Glu.GLU_OUTSIDE);
-                    Gl.glPushMatrix();
-                    Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_FILL);
-                    Gl.glColor3d(1, 0, 0);
-                    Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
+                    GL.PushMatrix();
+                    GL.PolygonMode(TriangleFace.FrontAndBack, PolygonMode.Fill);
+                    GL.Color3(1f, 0, 0);
+                    GL.Translate(-Position._x, -Position._y, -Position._z);
 
-                    Gl.glTranslatef(item._x, item._y, item._z);
+                    GL.Translate(item._x, item._y, item._z);
 
 
                     //Glu.gluQuadricDrawStyle(quadObj, Glu.GLU_FILL); // устанавливаем
-                    Glu.gluSphere(quadObj, 1.5, 10, 10); // рисуем сферу
+                    gluSphere(quadObj, 1.5, 10, 10); // рисуем сферу
                                                          // радиусом 0.5
-                    Gl.glPopMatrix();
-                    Glu.gluDeleteQuadric(quadObj);
+                    GL.PopMatrix();
+                    gluDeleteQuadric(quadObj);
                 });
                 DisplayObjects();
                 Thread.Sleep(500);

@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI.Scene
 {
@@ -31,40 +31,40 @@ namespace BazisGUI.Scene
 
         private void Initialize_GUI_Plane(int width, int height)
         {
-            Gl.glMatrixMode(Gl.GL_PROJECTION);
-            Gl.glPushMatrix();
-            Gl.glLoadIdentity();
-            Gl.glOrtho(0, width, 0, height, 0.1, 200);
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.PushMatrix();
+            GL.LoadIdentity();
+            GL.Ortho(0, width, 0, height, 0.1, 200);
 
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glPushMatrix();
-            Gl.glLoadIdentity();
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.PushMatrix();
+            GL.LoadIdentity();
         }
 
         private void Finish_GUI_Plane()
         {
-            Gl.glMatrixMode(Gl.GL_PROJECTION);
-            Gl.glPopMatrix();
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glPopMatrix();
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.PopMatrix();
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.PopMatrix();
         }
         public void Display(int width, int height)
         {
             Initialize_GUI_Plane(width, height);
             {
-                Gl.glTranslatef(0, 0, -0.1f);
-                Gl.glPushMatrix();
-                Gl.glColor3f(Red, Green, Blue);
-                Gl.glLineWidth(1.5f);
-                Gl.glBegin(Gl.GL_LINE_LOOP);
+                GL.Translate(0, 0, -0.1f);
+                GL.PushMatrix();
+                GL.Color3(Red, Green, Blue);
+                GL.LineWidth(1.5f);
+                GL.Begin(PrimitiveType.LineLoop);
 
-                Gl.glVertex2f(winScrenePosit.X, winScrenePosit.Y);
-                Gl.glVertex2f(winScreneCoord.X, winScrenePosit.Y);
-                Gl.glVertex2f(winScreneCoord.X, winScreneCoord.Y);
-                Gl.glVertex2f(winScrenePosit.X, winScreneCoord.Y);
+                GL.Vertex2(winScrenePosit.X, winScrenePosit.Y);
+                GL.Vertex2(winScreneCoord.X, winScrenePosit.Y);
+                GL.Vertex2(winScreneCoord.X, winScreneCoord.Y);
+                GL.Vertex2(winScrenePosit.X, winScreneCoord.Y);
 
-                Gl.glEnd();
-                Gl.glPopMatrix();
+                GL.End();
+                GL.PopMatrix();
             }
 
             Finish_GUI_Plane();

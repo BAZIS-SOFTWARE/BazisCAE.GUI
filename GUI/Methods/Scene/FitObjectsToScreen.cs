@@ -1,8 +1,8 @@
 ﻿using BazisGUI.Scene.Interfaces;
 using System;
-using Tao.OpenGl;
 using Geometry;
 using System.Drawing;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI
 {
@@ -14,7 +14,7 @@ namespace BazisGUI
             matrix[0, 3] = 0; matrix[1, 3] = 0;
             var tempViewMatrixAr = matrix.AsColumnMajorArray();
 
-            Gl.glLoadMatrixf(tempViewMatrixAr);
+            GL.LoadMatrix(tempViewMatrixAr);
 
             for (int i = 0; i < 3; i++)
             {
