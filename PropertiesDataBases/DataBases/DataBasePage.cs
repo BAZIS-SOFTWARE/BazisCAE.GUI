@@ -80,19 +80,6 @@ namespace PropertiesDataBases.DataBases
         public DataGridViewCell EditCell { get; private set; }
         public object OldCellValue { get; private set; }
         public object NewCellValue { get; private set; }
-        /// <summary>
-        /// Path to data base
-        /// </summary>
-        //public string DbPath { get; internal set; }
-        /// <summary>
-        /// Name of data base
-        /// </summary>
-        public string DbName 
-        
-        { 
-            get { return lblDBName.Text; }
-            internal set { lblDBName.Text = value; }
-        }
 
         public DataBasePage()
         {

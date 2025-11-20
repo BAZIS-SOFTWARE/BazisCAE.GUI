@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UserControlsEx;
 
 namespace BazisGUI
 {
@@ -25,7 +26,11 @@ namespace BazisGUI
         {
             try
             {
-                ShowGantChart(project.GetAllCondData());
+                var btn = sender as ToolStripMenuItem;
+                if(btn.Checked)
+                    ShowGantChart(project.GetAllCondData());
+                else
+                    HideGantChart();
             }
             catch (Exception ex)
             {
@@ -33,20 +38,26 @@ namespace BazisGUI
             }
         }
 
+        private void HideGantChart()
+        {
+            HideTabButton("btnTabГант");
+            splitContainer3.Panel1.Controls.RemoveByKey("cntrГант");
+        
+        }
+
         public void ShowGantChart(IEnumerable<ICondData> tasks)
         {
-            var ganttContol = new GantChartControl();
+            var ganttContol = new cntrГант();
             ganttContol.AddConds(tasks);
-            var ganttDiagramForm = new Form
-            {
-                ClientSize = new Size(ganttContol.Width, ganttContol.Height),
-                FormBorderStyle = FormBorderStyle.FixedSingle,
-                MaximizeBox = false,
-                MinimizeBox = false             
-            };
 
-            ganttDiagramForm.Controls.Add(ganttContol);
-            ganttDiagramForm.Show(this);
+            ShowTabButton("btnTabГант");
+
+            ganttContol.Size = cntrНавигатор.Size;
+            ganttContol.Location = cntrНавигатор.Location;
+            ganttContol.Anchor = cntrНавигатор.Anchor;
+            
+            splitContainer3.Panel1.Controls.Add(ganttContol);
+            ganttContol.BringToFront();
         }
     }
 }

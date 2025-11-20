@@ -1,49 +1,54 @@
 ﻿using BazisGUI.Scene.Interfaces;
 using System;
-using Tao.OpenGl;
 using Geometry;
 using System.Drawing;
 using BazisGUI.Scene;
 using System.Linq;
+using OpenTK.Graphics.OpenGL;
+using static BazisGUI.Methods.PlatformSpecific.PlatformSpecific;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
         event Action DisplayGeometryObjectEvent;
+
         public void DisplayLocalFrame(Frame frame)
         {
             DisplayGeometryObjectEvent += new Action(() =>
             {
-                Gl.glPushMatrix();
-                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
+                GL.PushMatrix();
+                GL.Translate(-Position._x, -Position._y, -Position._z);
 
-                Gl.glLineWidth(1.5f);
-                Gl.glBegin(Gl.GL_LINES);
+                GL.LineWidth(1.5f);
+                GL.Begin(PrimitiveType.Lines);
 
                 // draw "Z"
                 var axis_z = frame.Centre.Sum(frame.Dir_Z);
 
-                Gl.glColor3f(0, 0, 1);
-                Gl.glVertex3f(frame.Centre._x, frame.Centre._y, frame.Centre._z);
-                Gl.glVertex3f(axis_z._x, axis_z._y, axis_z._z);
+                GL.Color3(0, 0, 1f);
+                GL.Vertex3(frame.Centre._x, frame.Centre._y, frame.Centre._z);
+                GL.Color3(0, 0, 1f);
+                GL.Vertex3(axis_z._x, axis_z._y, axis_z._z);
 
 
                 // draw "Y"
                 var axis_y = frame.Centre.Sum(frame.Dir_Y);
-                Gl.glColor3f(0, 1, 0);
-                Gl.glVertex3f(frame.Centre._x, frame.Centre._y, frame.Centre._z);
-                Gl.glVertex3f(axis_y._x, axis_y._y, axis_y._z);
+                GL.Color3(0, 1f, 0);
+                GL.Vertex3(frame.Centre._x, frame.Centre._y, frame.Centre._z);
+                GL.Color3(0, 1f, 0);
+                GL.Vertex3(axis_y._x, axis_y._y, axis_y._z);
 
 
                 // draw "X"
                 var axis_x = frame.Centre.Sum(frame.Dir_X);
-                Gl.glColor3f(1, 0.5f, 0);
-                Gl.glVertex3f(frame.Centre._x, frame.Centre._y, frame.Centre._z);
-                Gl.glVertex3f(axis_x._x, axis_x._y, axis_x._z);
+                GL.Color3(1, 0.5f, 0);
+                GL.Vertex3(frame.Centre._x, frame.Centre._y, frame.Centre._z);
+                GL.Color3(1, 0.5f, 0);
+                GL.Vertex3(axis_x._x, axis_x._y, axis_x._z);
 
-                Gl.glEnd();
-                Gl.glPopMatrix();
+                GL.End();
+                GL.PopMatrix();
             });
         }
 
@@ -51,16 +56,16 @@ namespace BazisGUI
         {
             var met = new Action(() =>
             {
-                Gl.glPushMatrix();
-                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
-                Gl.glColor3f(1, 0, 0);
-                Gl.glLineWidth(5.0f);
-                Gl.glBegin(Gl.GL_LINES);
+                GL.PushMatrix();
+                GL.Translate(-Position._x, -Position._y, -Position._z);
+                GL.Color3(1f, 0, 0);
+                GL.LineWidth(5.0f);
+                GL.Begin(PrimitiveType.Lines);
 
-                Gl.glVertex3f(line.P0._x, line.P0._y, line.P0._z);
-                Gl.glVertex3f(line.P1._x, line.P1._y, line.P1._z);
-                Gl.glEnd();
-                Gl.glPopMatrix();
+                GL.Vertex3(line.P0._x, line.P0._y, line.P0._z);
+                GL.Vertex3(line.P1._x, line.P1._y, line.P1._z);
+                GL.End();
+                GL.PopMatrix();
 
                 var p0 = GetSceenCoord(line.P0);
                 var p1 = GetSceenCoord(line.P1);
@@ -100,21 +105,21 @@ namespace BazisGUI
         {
             DisplayGeometryObjectEvent += new Action(() =>
             {
-                Gl.glPushMatrix();
-    
-                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
-                Gl.glTranslatef(posit._x, posit._y, posit._z);
-                Gl.glScalef(1 / ScaleFactor, 1 / ScaleFactor, 1 / ScaleFactor);     
+                GL.PushMatrix();
 
-                Gl.glColor3ub(objColor.R, objColor.G, objColor.B);
-                Gl.glLineWidth(5.0f);
-                Gl.glBegin(Gl.GL_LINES);
+                GL.Translate(-Position._x, -Position._y, -Position._z);
+                GL.Translate(posit._x, posit._y, posit._z);
+                GL.Scale(1 / ScaleFactor, 1 / ScaleFactor, 1 / ScaleFactor);
 
-                Gl.glVertex3f(0, 0, 0);
-                Gl.glVertex3f(length._x, length._y, length._z);
-                Gl.glEnd();
-               
-                Gl.glPopMatrix();
+                GL.Color3(objColor.R, objColor.G, objColor.B);
+                GL.LineWidth(5.0f);
+                GL.Begin(PrimitiveType.Lines);
+
+                GL.Vertex3(0, 0, 0);
+                GL.Vertex3(length._x, length._y, length._z);
+                GL.End();
+
+                GL.PopMatrix();
             });
         }
 
@@ -169,16 +174,16 @@ namespace BazisGUI
         {
             DisplayGeometryObjectEvent += new Action(() =>
             {
-                Gl.glPushMatrix();
-                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
-                Gl.glColor3ub(objColor.R, objColor.G, objColor.B);
-                Gl.glLineWidth(5.0f);
-                Gl.glBegin(Gl.GL_LINES);
+                GL.PushMatrix();
+                GL.Translate(-Position._x, -Position._y, -Position._z);
+                GL.Color3(objColor.R, objColor.G, objColor.B);
+                GL.LineWidth(5.0f);
+                GL.Begin(PrimitiveType.Lines);
 
-                Gl.glVertex3f(p0._x, p0._y, p0._z);
-                Gl.glVertex3f(p1._x, p1._y, p1._z);
-                Gl.glEnd();
-                Gl.glPopMatrix();
+                GL.Vertex3(p0._x, p0._y, p0._z);
+                GL.Vertex3(p1._x, p1._y, p1._z);
+                GL.End();
+                GL.PopMatrix();
             });
         }
         /// <inheritdoc/>
@@ -191,17 +196,17 @@ namespace BazisGUI
 
             DisplayGeometryObjectEvent += new Action(() =>
             {
-                var quadObj = Glu.gluNewQuadric(); // создаем новый объект
+                var quadObj = gluNewQuadric(); // создаем новый объект
                                                    // для создания сфер и цилиндров
                                                    //Glu.gluQuadricOrientation(quadObj, Glu.GLU_OUTSIDE);
-                Gl.glPushMatrix();
-                Gl.glColor3d(1, 0, 0);
-                Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
+                GL.PushMatrix();
+                GL.Color3(1f, 0, 0);
+                GL.PolygonMode(TriangleFace.FrontAndBack, PolygonMode.Line);
 
-                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
+                GL.Translate(-Position._x, -Position._y, -Position._z);
 
                 //shifting
-                Gl.glTranslatef(frame.Centre._x, frame.Centre._y, frame.Centre._z);
+                GL.Translate(frame.Centre._x, frame.Centre._y, frame.Centre._z);
 
                 //rotation z' and z global
                 //var dirZ = frame.Z.Sub(frame.Centre);
@@ -210,14 +215,14 @@ namespace BazisGUI
                 angleZ = (float)(Math.Acos(angleZ) * 180 / Math.PI);
 
                 var axisZ = Vector.CrossProd(new Point3D(0, 0, 1), frame.Dir_Z);
-                Gl.glRotatef(angleZ, axisZ._x, axisZ._y, axisZ._z);
+                GL.Rotate(angleZ, axisZ._x, axisZ._y, axisZ._z);
 
-                Gl.glTranslatef(0, 0, -length);
+                GL.Translate(0, 0, -length);
 
-                Glu.gluCylinder(quadObj, lover_rad, upeer_rad, length, 10, 10); // рисуем конус
+                gluCylinder(quadObj, lover_rad, upeer_rad, length, 10, 10); // рисуем конус
 
-                Gl.glPopMatrix();
-                Glu.gluDeleteQuadric(quadObj);
+                GL.PopMatrix();
+                gluDeleteQuadric(quadObj);
                 //averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
         }
@@ -229,27 +234,27 @@ namespace BazisGUI
             {
                 //if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                 //    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                var quadObj = Glu.gluNewQuadric(); // создаем новый объект
+                var quadObj = gluNewQuadric(); // создаем новый объект
                                                    // для создания сфер и цилиндров
                                                    //Glu.gluQuadricOrientation(quadObj, Glu.GLU_OUTSIDE);
-                Gl.glPushMatrix();
-                Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
-                Gl.glColor3d(1, 0, 0);
-                Gl.glTranslatef(-Position._x, -Position._y, -Position._z);
+                GL.PushMatrix();
+                GL.PolygonMode(TriangleFace.FrontAndBack, PolygonMode.Line);
+                GL.Color3(1f, 0, 0);
+                GL.Translate(-Position._x, -Position._y, -Position._z);
 
-                Gl.glTranslatef(frame.Centre._x, frame.Centre._y, frame.Centre._z);
+                GL.Translate(frame.Centre._x, frame.Centre._y, frame.Centre._z);
 
                 //var dirZ = frame.Z.Sub(frame.Centre);
                 var axis = Vector.CrossProd(new Point3D(0, 0, 1), frame.Dir_Z);
                 var angle = Vector.GetCosAngleVectors(new Point3D(0, 0, 1), frame.Dir_Z);
                 angle = (float)(Math.Acos(angle) * 180 / Math.PI);
 
-                Gl.glRotatef(angle, axis._x, axis._y, axis._z);
+                GL.Rotate(angle, axis._x, axis._y, axis._z);
                 //Glu.gluQuadricDrawStyle(quadObj, Glu.GLU_FILL); // устанавливаем
-                Glu.gluSphere(quadObj, width / 2, 10, 10); // рисуем сферу
+                gluSphere(quadObj, width / 2, 10, 10); // рисуем сферу
                                                            // радиусом 0.5
-                Gl.glPopMatrix();
-                Glu.gluDeleteQuadric(quadObj);
+                GL.PopMatrix();
+                gluDeleteQuadric(quadObj);
                 //averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
         }

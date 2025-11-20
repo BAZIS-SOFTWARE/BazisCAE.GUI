@@ -9,6 +9,7 @@ using Project.Tasks;
 using Project.Tasks.FrameCreators;
 using Project.Tasks.Functions;
 using Project.Tasks.Functions.Welding;
+using Project.Tasks.Materials;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
 using System;
@@ -144,6 +145,10 @@ namespace BazisGUI
 
             if (obj.Header == "Материал")
                 matCond.Material = project.MaterialsDB[obj.NewValue.ToString()];
+            else if (obj.Header == "Диаметр")
+                (matCond as BeamMatData).Diameter = double.Parse(obj.NewValue);
+            else if (obj.Header == "Толщина")
+                (matCond as PlateMatData).Thickness = double.Parse(obj.NewValue);
             // TO DO дописать метод, так чтобы изменялись все свойства
         }
 

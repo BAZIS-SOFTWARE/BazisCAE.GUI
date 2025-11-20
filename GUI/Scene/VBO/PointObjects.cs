@@ -1,5 +1,5 @@
 ﻿using BazisGUI.Scene.Interfaces;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI.Scene.VBO
 {
@@ -28,13 +28,13 @@ namespace BazisGUI.Scene.VBO
 
         public override void Draw()
         {
-            Gl.glEnableClientState(Gl.GL_VERTEX_ARRAY);//По советам ЛГБТшников перенес сюда
-            Gl.glEnableClientState(Gl.GL_COLOR_ARRAY);
+            GL.EnableClientState(ArrayCap.VertexArray);//По советам ЛГБТшников перенес сюда
+            GL.EnableClientState(ArrayCap.ColorArray);
             VBO.LoadVertexBuffers(this);
             VBO.Draw(this, PtrLength);
             VBO.UnLoadAllBuffers();
-            Gl.glDisableClientState(Gl.GL_VERTEX_ARRAY);
-            Gl.glDisableClientState(Gl.GL_COLOR_ARRAY);
+            GL.DisableClientState(ArrayCap.VertexArray);
+            GL.DisableClientState(ArrayCap.ColorArray);
         }
 
         /// <inheritdoc/>

@@ -1,6 +1,6 @@
 ﻿
 using Geometry;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI.Scene
 {
@@ -32,11 +32,11 @@ namespace BazisGUI.Scene
         }
         public void Display(Point3D position)
         {
-            Gl.glPushMatrix();
-            Gl.glTranslatef(-position._x, -position._y, -position._z);
+            GL.PushMatrix();
+            GL.Translate(-position._x, -position._y, -position._z);
 
-            Gl.glLineWidth(5.0f);
-            Gl.glBegin(Gl.GL_LINES);
+            GL.LineWidth(5.0f);
+            GL.Begin(PrimitiveType.Lines);
 
             for (int i = 0; i < coords.Length - 1; i++)
             {
@@ -44,18 +44,18 @@ namespace BazisGUI.Scene
                 var p1 = coords[i + 1];
 
 
-                Gl.glColor3f(1, 0, 0);
-                Gl.glVertex3f(p0._x, p0._y, p0._z);
-                Gl.glVertex3f(p1._x, p1._y, p1._z);
+                GL.Color3(1f, 0, 0);
+                GL.Vertex3(p0._x, p0._y, p0._z);
+                GL.Vertex3(p1._x, p1._y, p1._z);
             }
-            Gl.glEnd();
+            GL.End();
 
-            Gl.glPointSize(12.5f);
-            Gl.glBegin(Gl.GL_POINTS);
-            Gl.glVertex3f(coords[0]._x, coords[0]._y, coords[0]._z);
-            Gl.glVertex3f(coords[coords.Length - 1]._x, coords[coords.Length - 1]._y, coords[coords.Length - 1]._z);
-            Gl.glEnd();
-            Gl.glPopMatrix();
+            GL.PointSize(12.5f);
+            GL.Begin(PrimitiveType.Points);
+            GL.Vertex3(coords[0]._x, coords[0]._y, coords[0]._z);
+            GL.Vertex3(coords[coords.Length - 1]._x, coords[coords.Length - 1]._y, coords[coords.Length - 1]._z);
+            GL.End();
+            GL.PopMatrix();
         }
     }
 }

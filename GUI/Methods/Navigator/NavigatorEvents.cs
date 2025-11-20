@@ -134,7 +134,7 @@ namespace BazisGUI
 
         private void navigator_NavigatorPanelCollapseEvent()
         {
-            splitContainer1.Panel1Collapsed = true;
+            cntrНавигатор.Panel1Collapsed = true;
         }
 
           

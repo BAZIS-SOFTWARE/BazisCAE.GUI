@@ -1,8 +1,8 @@
 ﻿
 using System;
-using Tao.OpenGl;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI.Scene
 {
@@ -172,11 +172,11 @@ namespace BazisGUI.Scene
                 {
                     program = ClipMode == ClipMode.KeepElement ? KeepElementWireframeRenderer : LayerWireframeRenderer;
                     program.Bind();
-                    program.SetCustomAttributes(((SurfaceObjects)vbo).EdgeBuffer, "wire", 1, Gl.GL_UNSIGNED_BYTE);
+                    program.SetCustomAttributes(((SurfaceObjects)vbo).EdgeBuffer, "wire", 1, VertexAttribPointerType.UnsignedByte);
                 }
 
-                var lighting = Gl.glIsEnabled(Gl.GL_LIGHTING);
-                program.SetUniform("isLighting", new float[] { lighting });
+                var lighting = Convert.ToSingle(GL.IsEnabled(EnableCap.Lighting));
+                program.SetUniform("isLighting", [lighting]);
                 program.SetUniform("clipEquat", ClipEquat);
 
                 if (ClipMode == ClipMode.Layered)
@@ -199,7 +199,7 @@ namespace BazisGUI.Scene
         /// <param name="elements">[In]Элемент отрисовки</param>
         public void DoActionsAfterDrawing(VBObject vbo, DrawElements elements)
         {
-            Gl.glDisable(Gl.GL_CLIP_PLANE0);
+            GL.Disable(EnableCap.ClipPlane0);
 
             if (ClipMode > ClipMode.Default)
             {
@@ -247,19 +247,19 @@ namespace BazisGUI.Scene
 
         private void ApplyMatrixSettings()
         {
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glPushMatrix();
-            Gl.glLoadMatrixf(ClipMatrix);
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.PushMatrix();
+            GL.LoadMatrix(ClipMatrix);
 
-            Gl.glClipPlane(Gl.GL_CLIP_PLANE0, new double[] { 0, 0, -1, 0 });
-            Gl.glEnable(Gl.GL_CLIP_PLANE0);
+            GL.ClipPlane(ClipPlaneName.ClipPlane0, [ 0, 0, -1, 0 ]);
+            GL.Enable(EnableCap.ClipPlane0);
 
-            Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_POSITION, new float[] { 0, 0, -1, 0 });
-            Gl.glGetLightfv(Gl.GL_LIGHT1, Gl.GL_POSITION, ClipEquat);
+            GL.Light(LightName.Light1, LightParameter.Position, new float[] { 0, 0, -1, 0 });
+            GL.GetLight(LightName.Light1, LightParameter.Position, ClipEquat);
             var dot = -(ClipMatrix[12] * ClipEquat[0] + ClipMatrix[13] * ClipEquat[1] + ClipMatrix[14] * ClipEquat[2]);
             ClipEquat[3] = dot;
 
-            Gl.glPopMatrix();
+            GL.PopMatrix();
         }
 
         private void CreateKeepElementSurfaceRenderer()
@@ -268,9 +268,9 @@ namespace BazisGUI.Scene
             KeepElementSurfaceRenderer = new ShaderProgramCreator();
             ChangeCompilationCondition(1, ShaderCollections.baseFragment, "#define NO_TRANSPARENT\n");
 
-            KeepElementSurfaceRenderer.CreateShaderFromString(Gl.GL_VERTEX_SHADER, ShaderCollections.baseVertex);
-            KeepElementSurfaceRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
-            KeepElementSurfaceRenderer.CreateShaderFromString(Gl.GL_FRAGMENT_SHADER, ShaderCollections.baseFragment);
+            KeepElementSurfaceRenderer.CreateShaderFromString(ShaderType.VertexShader, ShaderCollections.baseVertex);
+            KeepElementSurfaceRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
+            KeepElementSurfaceRenderer.CreateShaderFromString(ShaderType.FragmentShader, ShaderCollections.baseFragment);
             KeepElementSurfaceRenderer.Link();
         }
 
@@ -280,7 +280,7 @@ namespace BazisGUI.Scene
             ChangeCompilationCondition(1, ShaderCollections.keepElementsGeometry, "#define WIREFRAME\n");
 
             KeepElementWireframeRenderer.Vertex = KeepElementSurfaceRenderer.Vertex;
-            KeepElementWireframeRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
+            KeepElementWireframeRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
             KeepElementWireframeRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
             KeepElementWireframeRenderer.Link();
         }
@@ -303,7 +303,7 @@ namespace BazisGUI.Scene
             ChangeCompilationCondition(2, ShaderCollections.keepElementsGeometry, "#define LAYER\n");
 
             LayerSurfaceRenderer.Vertex = KeepElementSurfaceRenderer.Vertex;
-            LayerSurfaceRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
+            LayerSurfaceRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
             LayerSurfaceRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
             LayerSurfaceRenderer.Link();
         }
@@ -314,7 +314,7 @@ namespace BazisGUI.Scene
             ChangeCompilationCondition(1, ShaderCollections.keepElementsGeometry, "#define WIREFRAME\n");
 
             LayerWireframeRenderer.Vertex = LayerSurfaceRenderer.Vertex;
-            LayerWireframeRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
+            LayerWireframeRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
             LayerWireframeRenderer.Fragment = LayerSurfaceRenderer.Fragment;
             LayerWireframeRenderer.Link();
         }

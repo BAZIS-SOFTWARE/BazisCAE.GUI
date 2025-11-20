@@ -1,7 +1,7 @@
 ﻿using System;
 using BazisGUI.Scene.Interfaces;
 using Geometry;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
 
 
 namespace BazisGUI.Scene.VBO
@@ -169,9 +169,9 @@ namespace BazisGUI.Scene.VBO
         public GLObjType GL_ObjType { get; set; }//Публичный, т.к как-то нужно проверить копию и оригинал между собой (идентичность типов) извне
         internal float Gl_PointSize { get; set; }
         internal float Gl_LineWidth { get; set; }
-        internal int Gl_DisplayMode { get; set; }
+        internal PolygonMode Gl_DisplayMode { get; set; }
 
-        internal int Gl_Face { get; set; } = 1032;
+        internal TriangleFace Gl_Face { get; set; } = TriangleFace.FrontAndBack;
         /// <summary>
         /// VBObjects view mode
         /// </summary>
@@ -355,11 +355,11 @@ namespace BazisGUI.Scene.VBO
         /// </summary>
         public void SetIdentityModelMatrix()
         {
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glPushMatrix();
-            Gl.glLoadIdentity();
-            Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, ModelMatrix);
-            Gl.glPopMatrix();
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.PushMatrix();
+            GL.LoadIdentity();
+            GL.GetFloat(GetPName.ModelviewMatrix, ModelMatrix);
+            GL.PopMatrix();
         }
     }
 }

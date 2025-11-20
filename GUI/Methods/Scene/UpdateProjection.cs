@@ -1,7 +1,9 @@
 ﻿using BazisGUI.Scene.Interfaces;
 using System;
-using Tao.OpenGl;
+//using Tao.OpenGl;
 using Geometry;
+using OpenTK.Graphics.OpenGL;
+using static BazisGUI.Methods.PlatformSpecific.PlatformSpecific;
 
 namespace BazisGUI
 {
@@ -9,12 +11,15 @@ namespace BazisGUI
     {
         public void UpdateProjection()
         {
-            var aspectRatio = (double)scene.Width / scene.Height;
-            var angleDeg = 2.5;
+            var viewport = new int[4];
+            GL.GetInteger(GetPName.Viewport, viewport);
+
+            var aspectRatio = (float)viewport[2] / viewport[3];
+            var angleDeg = 2.5f;
             if (settingsConfig.Projection == ViewProjection.Parallel)
             {
                 float[] view = new float[16];
-                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, view);//Не могу вызывать Camera.GetViewMatrix() - т.к Camera = null
+                GL.GetFloat(GetPName.ModelviewMatrix, view);//Не могу вызывать Camera.GetViewMatrix() - т.к Camera = null
                 var worldPos = new Point3D(-view[12], -view[13], -view[14]);
                 var distance = Vector.GetVectorLenght(worldPos);
                 if (Math.Abs(distance) < 1e-4)
@@ -24,17 +29,17 @@ namespace BazisGUI
                 var width = height * aspectRatio;
                 var sizeX = width / 2;
                 var sizeY = height / 2;
-                Gl.glMatrixMode(Gl.GL_PROJECTION);
-                Gl.glLoadIdentity();
-                Gl.glOrtho(-sizeX, sizeX, -sizeY, sizeY, -distance * 2, distance * 2);
+                GL.MatrixMode(MatrixMode.Projection);
+                GL.LoadIdentity();
+                GL.Ortho(-sizeX, sizeX, -sizeY, sizeY, -distance * 2, distance * 2);
             }
             else
             {
-                Gl.glMatrixMode(Gl.GL_PROJECTION);
-                Gl.glLoadIdentity();
-                Glu.gluPerspective(angleDeg, aspectRatio, 1, 2000);
+                GL.MatrixMode(MatrixMode.Projection);
+                GL.LoadIdentity();
+                gluPerspective(angleDeg, aspectRatio, 1, 2000);
             }
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);//Возврашаем на ModelView, иначе начинаются проблемы с рисованием
+            GL.MatrixMode(MatrixMode.Modelview);//Возврашаем на ModelView, иначе начинаются проблемы с рисованием
         }      
     }
 }

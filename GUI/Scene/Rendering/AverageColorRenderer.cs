@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using Tao.OpenGl;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
+using OpenTK.Graphics.OpenGL;
 
 
 namespace BazisGUI.Scene
@@ -25,10 +25,10 @@ namespace BazisGUI.Scene
         int transpCountTex = 0;//Текстура количества фрагменетов накопленных при смешивании
 
         int quadDisplayList = 0;//Список отображения для рендера на плоскость
-        public uint[] fbo { get; private set; } = new uint[5];//0 - узлы, 1 - линии, 2 - ребра поверхностей, 3 - непрозрач. поверхности и текст,
-                                                                     //4 - прозрач. поверхности
+        public uint[] Fbo { get; private set; } = new uint[5];//0 - узлы, 1 - линии, 2 - ребра поверхностей, 3 - непрозрач. поверхности и текст,
+                                                              //4 - прозрач. поверхности
 
-        int surfacePassCount = 0;
+        //int surfacePassCount = 0;
         ///
         public ShaderProgramCreator SurfaceShader { get; private set; }//Программа смешивания объектов типа Surface и LineSurface
         ///
@@ -57,20 +57,20 @@ namespace BazisGUI.Scene
             var bV_1 = ShaderCollections.baseVertex[1];
             ChangeCompilationCondition(1, ShaderCollections.baseVertex, "#define TRANSPARENT\n");
 
-            SurfaceShader.CreateShaderFromString(Gl.GL_VERTEX_SHADER, ShaderCollections.baseVertex);
-            SurfaceShader.CreateShaderFromString(Gl.GL_FRAGMENT_SHADER, ShaderCollections.baseFragment);
+            SurfaceShader.CreateShaderFromString(ShaderType.VertexShader, ShaderCollections.baseVertex);
+            SurfaceShader.CreateShaderFromString(ShaderType.FragmentShader, ShaderCollections.baseFragment);
             SurfaceShader.Link();
 
             ChangeCompilationCondition(1, ShaderCollections.baseVertex, bV_1);
 
             BlendShader = new ShaderProgramCreator();
-            BlendShader.CreateShaderFromString(Gl.GL_VERTEX_SHADER, ShaderCollections.averageColorFinalBlendVertex);
-            BlendShader.CreateShaderFromString(Gl.GL_FRAGMENT_SHADER, ShaderCollections.averageColorFinalBlendFragment);
+            BlendShader.CreateShaderFromString(ShaderType.VertexShader, ShaderCollections.averageColorFinalBlendVertex);
+            BlendShader.CreateShaderFromString(ShaderType.FragmentShader, ShaderCollections.averageColorFinalBlendFragment);
             BlendShader.Link();
 
             InitBuffers(width, height);
             MakeFullScreenQuad();
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
         }
 
 
@@ -82,31 +82,33 @@ namespace BazisGUI.Scene
         public void DoActionsBeforeDrawing(VBObject vbo, DrawElements elements)
         {
             var index = (int)elements;
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, fbo[index]);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, Fbo[index]);
             if (elements == DrawElements.Surfaces)
             {
-                Gl.glDrawBuffer(Gl.GL_BACK);
-                Gl.glColorMask(Gl.GL_FALSE, Gl.GL_FALSE, Gl.GL_FALSE, Gl.GL_FALSE);//Проход только по буферу глубины
+                GL.DrawBuffer(DrawBufferMode.Back);
+                GL.ColorMask(false, false, false, false);//Проход только по буферу глубины
                 vbo.Draw();
-                Gl.glColorMask(Gl.GL_TRUE, Gl.GL_TRUE, Gl.GL_TRUE, Gl.GL_TRUE);
+                GL.ColorMask(true, true, true, true);
 
-                Gl.glDrawBuffers(2, new int[] { Gl.GL_COLOR_ATTACHMENT0_EXT, Gl.GL_COLOR_ATTACHMENT1_EXT });
-                Gl.glDisable(Gl.GL_DEPTH_TEST);
-                Gl.glEnable(Gl.GL_BLEND);
-                Gl.glBlendFunc(Gl.GL_ONE, Gl.GL_ONE);
-                Gl.glBlendEquation(Gl.GL_FUNC_ADD);
+                GL.DrawBuffers(2, [DrawBuffersEnum.ColorAttachment0, DrawBuffersEnum.ColorAttachment1]);
+                GL.Disable(EnableCap.DepthTest);
+                GL.Enable(EnableCap.Blend);
+                GL.BlendFunc(BlendingFactor.One, BlendingFactor.One);
+                GL.BlendEquation(BlendEquationMode.FuncAdd);
                 SurfaceShader.Bind();
-                SurfaceShader.SetUniform("isLighting", new float[] { Convert.ToInt32(IsLighting) });
+                SurfaceShader.SetUniform("isLighting", [Convert.ToInt32(IsLighting)]);
             }
             else if (elements == DrawElements.Wireframe)
             {
-                Gl.glDrawBuffer(Gl.GL_COLOR_ATTACHMENT0_EXT);
+                GL.DrawBuffer(DrawBufferMode.ColorAttachment0);
                 if (!ShowSurfaceBackEdges)
                 {
-                    Gl.glEnable(Gl.GL_CULL_FACE);
-                    Gl.glCullFace(Gl.GL_BACK);
+                    GL.Enable(EnableCap.CullFace);
+                    GL.CullFace(TriangleFace.Back);
                 }
             }
+            else if (elements == DrawElements.GeometryObjects)
+                GL.DrawBuffer(DrawBufferMode.ColorAttachment0);
         }
         /// <summary>
         /// Выполнить действия после вызова glDrawElements
@@ -117,27 +119,27 @@ namespace BazisGUI.Scene
         {
             if (elements == DrawElements.Surfaces)
             {
-                Gl.glEnable(Gl.GL_DEPTH_TEST);
-                Gl.glDisable(Gl.GL_BLEND);
+                GL.Enable(EnableCap.DepthTest);
+                GL.Disable(EnableCap.Blend);
             }
             else if (elements == DrawElements.Wireframe)
             {
                 if (!ShowSurfaceBackEdges)
-                    Gl.glDisable(Gl.GL_CULL_FACE);
+                    GL.Disable(EnableCap.CullFace);
             }
             SurfaceShader.Unbind();
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, 0);
-            Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_FILL);//Необходимо вызывать чтобы избежать артефакты при рендеринге
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
+            GL.PolygonMode(TriangleFace.FrontAndBack, PolygonMode.Fill);//Необходимо вызывать чтобы избежать артефакты при рендеринге
         }
         /// <summary>
         /// Смешивает прозрачные и непрозрачные объекты отображая их на плоскость
         /// </summary>
         public void BlendFramebuffers()
         {
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, 0);
-            Gl.glDrawBuffer(Gl.GL_BACK);
-            Gl.glEnable(Gl.GL_DEPTH_TEST);
-            Gl.glDisable(Gl.GL_BLEND);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
+            GL.DrawBuffer(DrawBufferMode.Back);
+            GL.Enable(EnableCap.DepthTest);
+            GL.Disable(EnableCap.Blend);
 
             BlendShader.Bind();
             var back = new float[] { BackgroundColor.R / 255f, BackgroundColor.G / 255f, BackgroundColor.B / 255f };
@@ -153,9 +155,9 @@ namespace BazisGUI.Scene
             BlendShader.BindTextureRect("transpDepth", transpDepthTex, 8);
             BlendShader.BindTextureRect("transpColor", transpColorTex, 9);
             BlendShader.BindTextureRect("transpCount", transpCountTex, 10);
-            Gl.glDepthMask(Gl.GL_FALSE);
-            Gl.glCallList(quadDisplayList);
-            Gl.glDepthMask(Gl.GL_TRUE);
+            GL.DepthMask(false);
+            GL.CallList(quadDisplayList);
+            GL.DepthMask(true);
             BlendShader.Unbind();
         }
         /// <summary>
@@ -165,18 +167,18 @@ namespace BazisGUI.Scene
         {
             for (var i = 0; i < 4; ++i)
             {
-                Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, fbo[i]);
-                Gl.glDrawBuffer(Gl.GL_COLOR_ATTACHMENT0_EXT);
-                Gl.glClearDepth(1);
-                Gl.glClearColor(0, 0, 0, 0);
-                Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
+                GL.BindFramebuffer(FramebufferTarget.FramebufferExt, Fbo[i]);
+                GL.DrawBuffer(DrawBufferMode.ColorAttachment0);
+                GL.ClearDepth(1);
+                GL.ClearColor(0, 0, 0, 0);
+                GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             }
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, fbo[4]);
-            Gl.glDrawBuffers(2, new int[] { Gl.GL_COLOR_ATTACHMENT0_EXT, Gl.GL_COLOR_ATTACHMENT1_EXT });
-            Gl.glClearColor(0, 0, 0, 0);
-            Gl.glClearDepth(1);
-            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, Fbo[4]);
+            GL.DrawBuffers(2, [DrawBuffersEnum.ColorAttachment0, DrawBuffersEnum.ColorAttachment1]);
+            GL.ClearColor(0, 0, 0, 0);
+            GL.ClearDepth(1);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
         }
         /// <summary>
         /// Изменяет размеры текстур при изменении окна
@@ -187,7 +189,7 @@ namespace BazisGUI.Scene
         {
             DeleteBuffersAndTextures();
             InitBuffers(width, height);
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
         }
         /// <summary>
         /// Освобождает все привязанные объекты OpenGL
@@ -197,30 +199,31 @@ namespace BazisGUI.Scene
             SurfaceShader.Dispose();
             BlendShader.Dispose();
             DeleteBuffersAndTextures();
-            Gl.glDeleteLists(quadDisplayList, 15);
+            GL.DeleteLists(quadDisplayList, 15);
         }
         /// <summary>
         /// Задает плоскость, на которую будет отображаться результат смешивания 
         /// </summary>
-        private void MakeFullScreenQuad()
+        public void MakeFullScreenQuad()
         {
-            quadDisplayList = Gl.glGenLists(15);
-            Gl.glNewList(quadDisplayList, Gl.GL_COMPILE);
+            //var id = Thread.CurrentThread.ManagedThreadId;
+            quadDisplayList = GL.GenLists(1);
+            GL.NewList(quadDisplayList, ListMode.Compile);
 
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glPushMatrix();
-            Gl.glLoadIdentity();
-            Gl.glOrtho(0.0, 1.0, 0.0, 1.0f, -1.0, 1.0f);
-            Gl.glBegin(Gl.GL_QUADS);
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.PushMatrix();
+            GL.LoadIdentity();
+            GL.Ortho(0.0, 1.0, 0.0, 1.0f, -1.0, 1.0f);
+            GL.Begin(PrimitiveType.Quads);
             {
-                Gl.glVertex2f(0.0f, 0.0f);
-                Gl.glVertex2f(1.0f, 0.0f);
-                Gl.glVertex2f(1.0f, 1.0f);
-                Gl.glVertex2f(0.0f, 1.0f);
+                GL.Vertex2(0.0f, 0.0f);
+                GL.Vertex2(1.0f, 0.0f);
+                GL.Vertex2(1.0f, 1.0f);
+                GL.Vertex2(0.0f, 1.0f);
             }
-            Gl.glEnd();
-            Gl.glPopMatrix();
-            Gl.glEndList();
+            GL.End();
+            GL.PopMatrix();
+            GL.EndList();
         }
         /// <summary>
         /// Инициализация текстур с настройкой параметров
@@ -230,75 +233,75 @@ namespace BazisGUI.Scene
         /// <param name="height">[In]Высота текстуры</param>
         /// <param name="intFormat">[In]Внутренний формат текстуры</param>
         /// <param name="format">[In]Формат пикселей в памяти</param>
-        private void SetTexture(ref int texture, int width, int height, int intFormat, int format)
+        private static void SetTexture(ref int texture, int width, int height, PixelInternalFormat intFormat, PixelFormat format)
         {
-            Gl.glBindTexture(Gl.GL_TEXTURE_RECTANGLE_ARB, texture);
-            Gl.glTexParameterf(Gl.GL_TEXTURE_RECTANGLE_ARB, Gl.GL_TEXTURE_WRAP_S, Gl.GL_CLAMP);
-            Gl.glTexParameterf(Gl.GL_TEXTURE_RECTANGLE_ARB, Gl.GL_TEXTURE_WRAP_T, Gl.GL_CLAMP);
-            Gl.glTexParameterf(Gl.GL_TEXTURE_RECTANGLE_ARB, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_NEAREST);
-            Gl.glTexParameterf(Gl.GL_TEXTURE_RECTANGLE_ARB, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_NEAREST);
-            Gl.glTexImage2D(Gl.GL_TEXTURE_RECTANGLE_ARB, 0, intFormat,
-                            width, height, 0, format, Gl.GL_FLOAT, IntPtr.Zero);
+            GL.BindTexture(TextureTarget.TextureRectangleArb, texture);
+            GL.TexParameter(TextureTarget.TextureRectangleArb, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Clamp);
+            GL.TexParameter(TextureTarget.TextureRectangleArb, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Clamp);
+            GL.TexParameter(TextureTarget.TextureRectangleArb, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+            GL.TexParameter(TextureTarget.TextureRectangleArb, TextureParameterName.TextureMagFilter, (int)TextureMinFilter.Nearest);
+            GL.TexImage2D(TextureTarget.TextureRectangleArb, 0, intFormat,
+                            width, height, 0, format, PixelType.Float, IntPtr.Zero);
         }
         /// <summary>
         /// Инициализация фреймбуфферов, текстур
         /// </summary>
         private void InitBuffers(int width, int height)
         {
-            Gle.glGenFramebuffers(5, fbo);
+            GL.GenFramebuffers(5, Fbo);
 
-            Gl.glGenTextures(1, out nodesDepthTex);//Буфер глубины для узлов
-            Gl.glGenTextures(1, out nodesColorTex);//Текстура цвета для узлов
+            GL.GenTextures(1, out nodesDepthTex);//Буфер глубины для узлов
+            GL.GenTextures(1, out nodesColorTex);//Текстура цвета для узлов
 
-            Gl.glGenTextures(1, out linesDepthTex);//Буфер глубины для 1D-элементов
-            Gl.glGenTextures(1, out linesColorTex);//Текстура цвета 1D-элементов
+            GL.GenTextures(1, out linesDepthTex);//Буфер глубины для 1D-элементов
+            GL.GenTextures(1, out linesColorTex);//Текстура цвета 1D-элементов
 
-            Gl.glGenTextures(1, out frameDepthTex);//Буфер глубины для ребер
-            Gl.glGenTextures(1, out frameColorTex);//Текстура цвета для ребер
+            GL.GenTextures(1, out frameDepthTex);//Буфер глубины для ребер
+            GL.GenTextures(1, out frameColorTex);//Текстура цвета для ребер
 
-            Gl.glGenTextures(1, out opaqueDepthTex);//Общий буфер глубины для вспомогательных объектов
-            Gl.glGenTextures(1, out opaqueColorTex);//Общий буфер глубины для вспомогательных объектов
+            GL.GenTextures(1, out opaqueDepthTex);//Общий буфер глубины для вспомогательных объектов
+            GL.GenTextures(1, out opaqueColorTex);//Общий буфер глубины для вспомогательных объектов
 
-            Gl.glGenTextures(1, out transpDepthTex);//Общий буфер глубины для объектов типа Surface и LineSurface
-            Gl.glGenTextures(1, out transpColorTex);//Текстура цвета для объектов типа Surface и LineSurface
-            Gl.glGenTextures(1, out transpCountTex);//Текстура количества фрагменетов накопленных при смешивании
+            GL.GenTextures(1, out transpDepthTex);//Общий буфер глубины для объектов типа Surface и LineSurface
+            GL.GenTextures(1, out transpColorTex);//Текстура цвета для объектов типа Surface и LineSurface
+            GL.GenTextures(1, out transpCountTex);//Текстура количества фрагменетов накопленных при смешивании
 
-            SetTexture(ref nodesDepthTex, width, height, Gl.GL_DEPTH_COMPONENT16, Gl.GL_DEPTH_COMPONENT);
-            SetTexture(ref nodesColorTex, width, height, Gl.GL_RGBA32F_ARB, Gl.GL_RGBA);
+            SetTexture(ref nodesDepthTex, width, height, PixelInternalFormat.DepthComponent16, PixelFormat.DepthComponent);
+            SetTexture(ref nodesColorTex, width, height, PixelInternalFormat.Rgba32f, PixelFormat.Rgba);
 
-            SetTexture(ref linesDepthTex, width, height, Gl.GL_DEPTH_COMPONENT16, Gl.GL_DEPTH_COMPONENT);
-            SetTexture(ref linesColorTex, width, height, Gl.GL_RGBA32F_ARB, Gl.GL_RGBA);
+            SetTexture(ref linesDepthTex, width, height, PixelInternalFormat.DepthComponent16, PixelFormat.DepthComponent);
+            SetTexture(ref linesColorTex, width, height, PixelInternalFormat.Rgba32f, PixelFormat.Rgba);
 
-            SetTexture(ref frameDepthTex, width, height, Gl.GL_DEPTH_COMPONENT16, Gl.GL_DEPTH_COMPONENT);
-            SetTexture(ref frameColorTex, width, height, Gl.GL_RGBA32F_ARB, Gl.GL_RGBA);
+            SetTexture(ref frameDepthTex, width, height, PixelInternalFormat.DepthComponent16, PixelFormat.DepthComponent);
+            SetTexture(ref frameColorTex, width, height, PixelInternalFormat.Rgba32f, PixelFormat.Rgba);
 
-            SetTexture(ref opaqueDepthTex, width, height, Gl.GL_DEPTH_COMPONENT16, Gl.GL_DEPTH_COMPONENT);
-            SetTexture(ref opaqueColorTex, width, height, Gl.GL_RGBA32F_ARB, Gl.GL_RGBA);
+            SetTexture(ref opaqueDepthTex, width, height, PixelInternalFormat.DepthComponent16, PixelFormat.DepthComponent);
+            SetTexture(ref opaqueColorTex, width, height, PixelInternalFormat.Rgba32f, PixelFormat.Rgba);
 
-            SetTexture(ref transpDepthTex, width, height, Gl.GL_DEPTH_COMPONENT16, Gl.GL_DEPTH_COMPONENT);
-            SetTexture(ref transpColorTex, width, height, Gl.GL_RGBA32F_ARB, Gl.GL_RGBA);
-            SetTexture(ref transpCountTex, width, height, Gle.GL_R32F, Gl.GL_RED);
+            SetTexture(ref transpDepthTex, width, height, PixelInternalFormat.DepthComponent16, PixelFormat.DepthComponent);
+            SetTexture(ref transpColorTex, width, height, PixelInternalFormat.Rgba32f, PixelFormat.Rgba);
+            SetTexture(ref transpCountTex, width, height, PixelInternalFormat.R32f, PixelFormat.Red);
 
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, fbo[0]);
-            Gle.glFramebufferTexture2D(Gl.GL_FRAMEBUFFER_EXT, Gl.GL_DEPTH_ATTACHMENT_EXT, Gl.GL_TEXTURE_RECTANGLE_ARB, (uint)nodesDepthTex, 0);
-            Gle.glFramebufferTexture2D(Gl.GL_FRAMEBUFFER_EXT, Gl.GL_COLOR_ATTACHMENT0_EXT, Gl.GL_TEXTURE_RECTANGLE_ARB, (uint)nodesColorTex, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, Fbo[0]);
+            GL.FramebufferTexture2D(FramebufferTarget.FramebufferExt, FramebufferAttachment.DepthAttachmentExt, TextureTarget.TextureRectangleArb, (uint)nodesDepthTex, 0);
+            GL.FramebufferTexture2D(FramebufferTarget.FramebufferExt, FramebufferAttachment.ColorAttachment0Ext, TextureTarget.TextureRectangleArb, (uint)nodesColorTex, 0);
 
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, fbo[1]);
-            Gle.glFramebufferTexture2D(Gl.GL_FRAMEBUFFER_EXT, Gl.GL_DEPTH_ATTACHMENT_EXT, Gl.GL_TEXTURE_RECTANGLE_ARB, (uint)linesDepthTex, 0);
-            Gle.glFramebufferTexture2D(Gl.GL_FRAMEBUFFER_EXT, Gl.GL_COLOR_ATTACHMENT0_EXT, Gl.GL_TEXTURE_RECTANGLE_ARB, (uint)linesColorTex, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, Fbo[1]);
+            GL.FramebufferTexture2D(FramebufferTarget.FramebufferExt, FramebufferAttachment.DepthAttachmentExt, TextureTarget.TextureRectangleArb, (uint)linesDepthTex, 0);
+            GL.FramebufferTexture2D(FramebufferTarget.FramebufferExt, FramebufferAttachment.ColorAttachment0Ext, TextureTarget.TextureRectangleArb, (uint)linesColorTex, 0);
 
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, fbo[2]);
-            Gle.glFramebufferTexture2D(Gl.GL_FRAMEBUFFER_EXT, Gl.GL_DEPTH_ATTACHMENT_EXT, Gl.GL_TEXTURE_RECTANGLE_ARB, (uint)frameDepthTex, 0);
-            Gle.glFramebufferTexture2D(Gl.GL_FRAMEBUFFER_EXT, Gl.GL_COLOR_ATTACHMENT0_EXT, Gl.GL_TEXTURE_RECTANGLE_ARB, (uint)frameColorTex, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, Fbo[2]);
+            GL.FramebufferTexture2D(FramebufferTarget.FramebufferExt, FramebufferAttachment.DepthAttachmentExt, TextureTarget.TextureRectangleArb, (uint)frameDepthTex, 0);
+            GL.FramebufferTexture2D(FramebufferTarget.FramebufferExt, FramebufferAttachment.ColorAttachment0Ext, TextureTarget.TextureRectangleArb, (uint)frameColorTex, 0);
 
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, fbo[3]);
-            Gle.glFramebufferTexture2D(Gl.GL_FRAMEBUFFER_EXT, Gl.GL_DEPTH_ATTACHMENT_EXT, Gl.GL_TEXTURE_RECTANGLE_ARB, (uint)opaqueDepthTex, 0);
-            Gle.glFramebufferTexture2D(Gl.GL_FRAMEBUFFER_EXT, Gl.GL_COLOR_ATTACHMENT0_EXT, Gl.GL_TEXTURE_RECTANGLE_ARB, (uint)opaqueColorTex, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, Fbo[3]);
+            GL.FramebufferTexture2D(FramebufferTarget.FramebufferExt, FramebufferAttachment.DepthAttachmentExt, TextureTarget.TextureRectangleArb, (uint)opaqueDepthTex, 0);
+            GL.FramebufferTexture2D(FramebufferTarget.FramebufferExt, FramebufferAttachment.ColorAttachment0Ext, TextureTarget.TextureRectangleArb, (uint)opaqueColorTex, 0);
 
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, fbo[4]);
-            Gle.glFramebufferTexture2D(Gl.GL_FRAMEBUFFER_EXT, Gl.GL_DEPTH_ATTACHMENT_EXT, Gl.GL_TEXTURE_RECTANGLE_ARB, (uint)transpDepthTex, 0);
-            Gle.glFramebufferTexture2D(Gl.GL_FRAMEBUFFER_EXT, Gl.GL_COLOR_ATTACHMENT0_EXT, Gl.GL_TEXTURE_RECTANGLE_ARB, (uint)transpColorTex, 0);
-            Gle.glFramebufferTexture2D(Gl.GL_FRAMEBUFFER_EXT, Gl.GL_COLOR_ATTACHMENT1_EXT, Gl.GL_TEXTURE_RECTANGLE_ARB, (uint)transpCountTex, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, Fbo[4]);
+            GL.FramebufferTexture2D(FramebufferTarget.FramebufferExt, FramebufferAttachment.DepthAttachmentExt, TextureTarget.TextureRectangleArb, (uint)transpDepthTex, 0);
+            GL.FramebufferTexture2D(FramebufferTarget.FramebufferExt, FramebufferAttachment.ColorAttachment0Ext, TextureTarget.TextureRectangleArb, (uint)transpColorTex, 0);
+            GL.FramebufferTexture2D(FramebufferTarget.FramebufferExt, FramebufferAttachment.ColorAttachment1Ext, TextureTarget.TextureRectangleArb, (uint)transpCountTex, 0);
         }
         /*
         /// <summary>
@@ -318,13 +321,13 @@ namespace BazisGUI.Scene
         /// </summary>
         private void DeleteBuffersAndTextures()
         {
-            Gle.glDeleteFramebuffers(5, fbo);
-            Gl.glDeleteTextures(11, new int[] { nodesDepthTex, nodesColorTex, linesDepthTex, linesColorTex,
+            GL.DeleteFramebuffers(5, Fbo);
+            GL.DeleteTextures(11, [nodesDepthTex, nodesColorTex, linesDepthTex, linesColorTex,
                                                frameDepthTex, frameColorTex, opaqueDepthTex, opaqueColorTex,
-                                               transpDepthTex, transpColorTex, transpCountTex});
+                                               transpDepthTex, transpColorTex, transpCountTex]);
         }
 
-        private void ChangeCompilationCondition(int position, string[] source, string newCondition)
+        private static void ChangeCompilationCondition(int position, string[] source, string newCondition)
         {
             source[position] = newCondition;
         }

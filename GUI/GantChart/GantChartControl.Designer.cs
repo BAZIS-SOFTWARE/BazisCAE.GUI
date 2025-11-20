@@ -1,6 +1,6 @@
 ﻿namespace BazisGUI.GantChart
 {
-    partial class GantChartControl
+    partial class cntrГант
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -50,7 +50,7 @@
             // 
             // CondName
             // 
-            CondName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            CondName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             CondName.HeaderText = "Условие";
             CondName.Name = "CondName";
             CondName.ReadOnly = true;
@@ -63,12 +63,12 @@
             CondTime.Name = "CondTime";
             CondTime.ReadOnly = true;
             // 
-            // GantChartControl
+            // cntrГант
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(dataGridView);
-            Name = "GantChartControl";
+            Name = "cntrГант";
             Size = new System.Drawing.Size(385, 373);
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);

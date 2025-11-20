@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI.Scene.VBO
 {
@@ -21,7 +21,7 @@ namespace BazisGUI.Scene.VBO
         /// <param name="name">Имя</param>
         public ClipPlane(string name,int[] pointers, float[] glCoords, float[] glColors) : base(name,pointers, glCoords, glColors)
         {
-            Gl_DisplayMode = Gl.GL_FILL;
+            Gl_DisplayMode = PolygonMode.Fill;
             Gl_LineWidth = 2.5f;
             GL_ObjType = GLObjType.triangle;
 
@@ -97,13 +97,13 @@ namespace BazisGUI.Scene.VBO
         /// </summary>
         public override void Load()
         {
-            Gl.glEnableClientState(Gl.GL_VERTEX_ARRAY);
-            Gl.glEnableClientState(Gl.GL_COLOR_ARRAY);
+            GL.EnableClientState(ArrayCap.VertexArray);
+            GL.EnableClientState(ArrayCap.ColorArray);
             VBO.LoadVertexBuffers(this);
             Draw();
             VBO.UnLoadAllBuffers();
-            Gl.glDisableClientState(Gl.GL_COLOR_ARRAY);
-            Gl.glDisableClientState(Gl.GL_VERTEX_ARRAY);
+            GL.DisableClientState(ArrayCap.ColorArray);
+            GL.DisableClientState(ArrayCap.VertexArray);
         }
     }
 }

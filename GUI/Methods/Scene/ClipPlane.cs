@@ -1,17 +1,16 @@
 ﻿using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
 using System;
-using Tao.OpenGl;
 using Geometry;
 using System.Linq;
 using BazisGUI.Scene;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
         event Action DisplayClipPlaneEvent;
-
         public void CreateClipPlane()
         {
             if (VBOController.GetVBObjs().Count() > 0)
@@ -19,12 +18,12 @@ namespace BazisGUI
                 var bbox = VBOController.GetVBObjs().OrderByDescending(v => v.BoundingBox.GetDiagonalLength()).First().BoundingBox;
 
                 var data = ClipPlane.CreateBoundingBoxPlanes(bbox);
-                var vboObj = new ClipPlane("ClipPlane",data.Item1, data.Item2, data.Item3);
+                var vboObj = new ClipPlane("ClipPlane", data.Item1, data.Item2, data.Item3);
 
                 vboObj.Renderer = clipPlaneRenderer;
 
                 VBOController.AddVbo(vboObj);
-            } 
+            }
         }
 
         public void DeleteClipPlane() => VBOController.DeleteVBObjects("ClipPlane");
@@ -42,12 +41,12 @@ namespace BazisGUI
                     var model = GetModelMatrix(plane, objBox.BoundingBox);
                     objBox.ModelMatrix = model;
 
-                    Gl.glPushMatrix();
-                    Gl.glMultMatrixf(model);
-                    Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, advanced3DClipper.ClipMatrix);
-                    Gl.glPopMatrix();
+                    GL.PushMatrix();
+                    GL.MultMatrix(model);
+                    GL.GetFloat(GetPName.ModelviewMatrix, advanced3DClipper.ClipMatrix);
+                    GL.PopMatrix();
 
-                    Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, objBox.ViewMatrix);
+                    GL.GetFloat(GetPName.ModelviewMatrix, objBox.ViewMatrix);
                 }
             });
         }
@@ -61,9 +60,9 @@ namespace BazisGUI
         {
             var modelMatrix = new float[16];
 
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glPushMatrix();
-            Gl.glLoadIdentity();
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.PushMatrix();
+            GL.LoadIdentity();
             var origin = plane.Normal.Mult(plane.Shifting);
 
             var sX = Math.Sign(plane.Normal._x);
@@ -71,15 +70,15 @@ namespace BazisGUI
             var sZ = Math.Sign(plane.Normal._z);
 
             var center = bbox.RightDownFar.Sum(bbox.LeftUpNear).Mult(0.5f);
-            Gl.glTranslatef(center._x, center._y, center._z);
-            Gl.glTranslatef(sX * origin._x, sY * origin._y, sZ * origin._z);
+            GL.Translate(center._x, center._y, center._z);
+            GL.Translate(sX * origin._x, sY * origin._y, sZ * origin._z);
             var angle = Vector.GetCosAngleVectors(new Point3D(0, 0, -1), plane.Normal);
             angle = (float)(Math.Acos(angle) * 180 / Math.PI);
             var axis = Vector.CrossProd(new Point3D(0, 0, -1), plane.Normal);
-            Gl.glRotatef(angle, axis._x, axis._y, axis._z);
+            GL.Rotate(angle, axis._x, axis._y, axis._z);
 
-            Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, modelMatrix);
-            Gl.glPopMatrix();
+            GL.GetFloat(GetPName.ModelviewMatrix, modelMatrix);
+            GL.PopMatrix();
 
             return modelMatrix;
         }

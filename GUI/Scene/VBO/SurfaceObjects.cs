@@ -1,6 +1,6 @@
 ﻿using BazisGUI.Scene.Interfaces;
 using System;
-using Tao.OpenGl;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI.Scene.VBO
 {
@@ -156,7 +156,7 @@ namespace BazisGUI.Scene.VBO
             {
                 if (ViewMode == ObjView.Lines)
                 {
-                    Gl_DisplayMode = 6913;
+                    Gl_DisplayMode = PolygonMode.Line;
                     //AverageColorRenderer.SetRenderSettings(2);
                     ActiveDrawingObject?.DoActionsBeforeDrawing(this, DrawElements.Wireframe);
                     Draw();
@@ -165,7 +165,7 @@ namespace BazisGUI.Scene.VBO
                 }
                 else if (ViewMode == ObjView.Surface)
                 {
-                    Gl_DisplayMode = 6914;
+                    Gl_DisplayMode = PolygonMode.Fill;
                     //AverageColorRenderer.SetSurfaceRenderSettings(Draw);
                     ActiveDrawingObject?.DoActionsBeforeDrawing(this, DrawElements.Surfaces);
                     Draw();
@@ -173,7 +173,7 @@ namespace BazisGUI.Scene.VBO
                 }
                 else
                 {
-                    Gl_DisplayMode = 6914;
+                    Gl_DisplayMode = PolygonMode.Fill;
                     //AverageColorRenderer.SetSurfaceRenderSettings(Draw);
                     ActiveDrawingObject?.DoActionsBeforeDrawing(this, DrawElements.Surfaces);
                     Draw();
@@ -181,12 +181,12 @@ namespace BazisGUI.Scene.VBO
                     //AverageColorRenderer.SetRenderSettings(2);
                     var temp = ColorsBuffer;
                     ColorsBuffer = FrameBuffer;
-                    Gl_DisplayMode = 6913;
-                    Gl.glDepthFunc(Gl.GL_LEQUAL);
+                    Gl_DisplayMode = PolygonMode.Line;
+                    GL.DepthFunc(DepthFunction.Lequal);
                     ActiveDrawingObject?.DoActionsBeforeDrawing(this, DrawElements.Wireframe);
                     Draw();
                     ActiveDrawingObject?.DoActionsAfterDrawing(this, DrawElements.Wireframe);
-                    Gl.glDepthFunc(Gl.GL_LESS);
+                    GL.DepthFunc(DepthFunction.Less);
                     ColorsBuffer = temp;
                     //AverageColorRenderer.RestoreRenderSettings(2);
                 }
@@ -196,19 +196,19 @@ namespace BazisGUI.Scene.VBO
 
         public override void Draw()
         {
-            Gl.glEnableClientState(Gl.GL_VERTEX_ARRAY);//По советам ЛГБТшников перенес сюда
-            Gl.glEnableClientState(Gl.GL_COLOR_ARRAY);
-            Gl.glEnableClientState(Gl.GL_NORMAL_ARRAY);
-            Gl.glEnableClientState(Gl.GL_EDGE_FLAG_ARRAY);
+            GL.EnableClientState(ArrayCap.VertexArray);//По советам ЛГБТшников перенес сюда
+            GL.EnableClientState(ArrayCap.ColorArray);
+            GL.EnableClientState(ArrayCap.NormalArray);
+            GL.EnableClientState(ArrayCap.EdgeFlagArray);
             VBO.LoadVertexBuffers(this);
             VBO.LoadNormalBuffer(this);
             VBO.LoadEdgeBuffer(EdgeBuffer);
             VBO.Draw(this, PtrLength);
             VBO.UnLoadAllBuffers();
-            Gl.glDisableClientState(Gl.GL_VERTEX_ARRAY);
-            Gl.glDisableClientState(Gl.GL_COLOR_ARRAY);
-            Gl.glDisableClientState(Gl.GL_NORMAL_ARRAY);
-            Gl.glDisableClientState(Gl.GL_EDGE_FLAG_ARRAY);
+            GL.DisableClientState(ArrayCap.VertexArray);
+            GL.DisableClientState(ArrayCap.ColorArray);
+            GL.DisableClientState(ArrayCap.NormalArray);
+            GL.DisableClientState(ArrayCap.EdgeFlagArray);
         }
 
         /// <summary>
