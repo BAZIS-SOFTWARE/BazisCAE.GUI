@@ -25,7 +25,7 @@ namespace BazisGUI.Scene.VBO
             Gl_LineWidth = 2.5f;
             GL_ObjType = GLObjType.triangle;
 
-            normalSize = Vector.GetVectorLenght(BoundingBox.LeftUpNear.Sub(BoundingBox.RightDownFar)) * 0.125f;
+            normalSize = Vector.GetVectorLength(BoundingBox.LeftUpNear.Sub(BoundingBox.RightDownFar)) * 0.125f;
         }
         /// <summary>
         /// Создает VBO-массивы для 6 плоскостей из паралелепипеда

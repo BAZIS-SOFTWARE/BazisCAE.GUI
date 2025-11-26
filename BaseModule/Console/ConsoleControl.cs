@@ -277,7 +277,7 @@ namespace BaseModule.Console
                         break;
                     case GenCmd.FindCoincident:
                         if (cmds[1] == "Узлы")
-                            InEvent(this, new ModelFindCoincidentsNodesEventArgs());
+                            InEvent(this, new ModelFindCoincidentsNodesEventArgs(cmds[2]));
                         break;
                     case GenCmd.BeamConnection:
                         InEvent(this, new BeamConnectionEventArgs(cmds[1], cmds[2],cmds[3], cmds[4]));

@@ -106,7 +106,7 @@ namespace BazisGUI.Scene
         public float GetDiagonalLength()
         {
             var vec = LeftUpNear.Sub(RightDownFar);
-            return Vector.GetVectorLenght(vec);
+            return Vector.GetVectorLength(vec);
         }
     }
 }

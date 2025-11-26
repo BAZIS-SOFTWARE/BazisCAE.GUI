@@ -3,6 +3,7 @@ using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.FrameCreators;
+using Project.Tasks.Functions;
 using Project.Tasks.Functions.Welding;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +28,8 @@ namespace BazisGUI
             }
             else
             {
-                //TO DO
-                //var custom = function as CustomFunction;
-                //rows.Add(new RowProperty("Исп. файл, *.py", caustom.Path));
+                var cf = function as CustomFunction;
+                rows.Add(new RowProperty("Файл", cf.ExecutedFile == null ? "*" : cf.ExecutedFile));
             }
 
             return rows;

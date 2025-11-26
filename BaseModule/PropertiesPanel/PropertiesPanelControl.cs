@@ -121,6 +121,7 @@ namespace BaseModule.PropertiesPanel
                     btnCell.Value = bv.Text;
                     cell = btnCell;
                 }
+
                 else
                 {
                     cell = new DataGridViewTextBoxCell();
@@ -176,16 +177,30 @@ namespace BaseModule.PropertiesPanel
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0) return;
+
+            var value = "";
             if (dataGridView1[0,e.RowIndex].Value.ToString() == "Цвет")
             {
                 ColorDialog colorDialog = new ColorDialog();
                 if(colorDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var color = colorDialog.Color.ToString();
-                    dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = color;
-
-                    dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[0];
+                    value = colorDialog.Color.ToString();
                 }
+            }
+
+            else if (dataGridView1[0, e.RowIndex].Value.ToString() == "Файл")
+            {
+                var fileDialog = new OpenFileDialog();
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    value = fileDialog.FileName;
+                }
+            }
+
+            if(value != "")
+            {
+                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = value;
+                dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[0];
             }
 
 
@@ -195,7 +210,8 @@ namespace BaseModule.PropertiesPanel
             {
                 var buttonSet = cell.Style.Tag as ButtonPropertyValue;
                
-                buttonSet.OnClick?.Invoke();
+                if(buttonSet != null)
+                    buttonSet.OnClick?.Invoke();
             }
 
         }

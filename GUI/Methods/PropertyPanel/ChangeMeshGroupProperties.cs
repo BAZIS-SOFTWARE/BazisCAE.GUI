@@ -1,13 +1,6 @@
-﻿using BaseModule.Extensions;
-using BaseModule.PropertiesPanel;
-using Model.Interfaces;
-using Model.Interfaces.ObjectsCollections;
+﻿using BaseModule.PropertiesPanel;
 using Project.Interfaces.Tasks;
-using Project.Tasks.Materials;
 using Project.Tasks;
-using System.Drawing;
-using System.Linq;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace BazisGUI
 {

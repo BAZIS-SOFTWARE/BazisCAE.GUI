@@ -70,6 +70,12 @@ namespace BazisGUI
                 refresh = true;
             }
 
+            else if (obj.Header == "Файл")
+            {
+                var cf = cond.FrameFunction as CustomFunction;
+                cf.CreateEngine(obj.NewValue);
+            }
+
             else if (obj.Header == "Ширина, мм.")
             {
                 var func = cond.FrameFunction as SphereFunction;

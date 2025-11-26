@@ -142,7 +142,7 @@ namespace BazisGUI
             try
             {
                 var selectedNode = navigator.SelectedNode;
-                var compType = navigator.SelectedNode.Name.ToEnum<NodeName>();
+                var compType = selectedNode.Text.Split(' ')[0];
                 var parameters = ReadTaskParametersFromFile(selectedNode.Text.Split(' ')[1]);
 
                 var tasks = new List<string>();
@@ -151,7 +151,7 @@ namespace BazisGUI
                     tasks.Add(item.Text);
 
                 foreach (var taskName in tasks)
-                    if (taskName.Contains(compType.ToString()))
+                    if (taskName.Contains(compType))
                         SaveGeneralParametersToFile(parameters, taskName);
             }
             catch (Exception ex)

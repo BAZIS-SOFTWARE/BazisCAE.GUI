@@ -60,11 +60,12 @@ namespace BazisGUI
 
             scene.Paint += (arg1, arg2) => DisplayObjects();
             scene.SizeChanged += GlControl_Resize;
-            scene.KeyDown += GlControl_KeyDown;
+            //scene.KeyDown += GlControl_KeyDown;
             scene.MouseDown += GlControl_MouseDown;
             scene.MouseUp += GlControl_MouseUp;
             scene.MouseMove += GlControl_MouseMove;
-            scene.MouseWheel += GlControl_MouseWheel;
+            //scene.MouseWheel += GlControl_MouseWheel;
+            scene.MouseClick += scene_MouseClick;
         }
 
         /// <summary>
@@ -128,7 +129,7 @@ namespace BazisGUI
             {
                 var status = UseFontBitmapsW(hdc, 0, 1150, FontBase);
                 if (!status)
-                    throw new Exception("Не уадлось загрузить глифы для шрифта");
+                    throw new Exception("Не удалось загрузить глифы для шрифта");
             }
             else
             {
@@ -142,7 +143,7 @@ namespace BazisGUI
                 SelectObject(hdc, oldFont);//Делаем текущим старый шрифт
                 DeleteObject(hFont);//Обязательно освобождаем неуправляемый ресурс
                 if (!status)
-                    throw new Exception("Не уадлось загрузить глифы для шрифта");
+                    throw new Exception("Не удалось загрузить глифы для шрифта");
             }
         }
     }

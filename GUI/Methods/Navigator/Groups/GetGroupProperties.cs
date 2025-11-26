@@ -25,8 +25,8 @@ namespace BazisGUI
     new ButtonPropertyValue("Отсортировать",
     new Action(() => { obj.SortByDistance(); }))));
                 rows.Add(new RowProperty("Направление",
-                    new ButtonPropertyValue("Показать",
-                    new Action(async () => { await ShowDirection(obj); }))));
+                    new ButtonPropertyValue("Показать", 
+                    new Action(async() => { await NewMethod2(obj); }))));
                 rows.Add(new RowProperty("Направление",
     new ButtonPropertyValue("Реверс",
     new Action(() => { obj.Reverse(); }))));
@@ -49,6 +49,48 @@ namespace BazisGUI
             //    rows.Add(new RowProperty("Условие", res.First().Kind));
 
             return rows;
+        }
+
+        private async Task NewMethod2(IGroup obj)
+        {
+            var objs = new List<IModelObject>() { obj.First(), obj.Last() };
+
+            await Task.Run(new Action(() =>
+            {
+                DisplayGeometryObjectEvent = null;
+                foreach (var item in objs)
+                {
+                    NewMethod3(item);
+                    Task.Delay(500);
+                    Invoke(new Action(() =>
+                    {
+                        DisplayObjects();
+                    }));
+                }
+            }));
+        }
+
+        private void NewMethod3(IModelObject item)
+        {
+            DisplayGeometryObjectEvent += new Action(() =>
+            {
+                var quadObj = gluNewQuadric(); // создаем новый объект
+                                               // для создания сфер и цилиндров
+                                               //Glu.gluQuadricOrientation(quadObj, Glu.GLU_OUTSIDE);
+                GL.PushMatrix();
+                GL.PolygonMode(TriangleFace.FrontAndBack, PolygonMode.Fill);
+                GL.Color3(1f, 0, 0);
+                GL.Translate(-Position._x, -Position._y, -Position._z);
+
+                GL.Translate(item._x, item._y, item._z);
+
+
+                //Glu.gluQuadricDrawStyle(quadObj, Glu.GLU_FILL); // устанавливаем
+                gluSphere(quadObj, 1.5, 10, 10); // рисуем сферу
+                                                 // радиусом 0.5
+                GL.PopMatrix();
+                gluDeleteQuadric(quadObj);
+            });
         }
 
         private void CreateNodesConditionsProperties(IGroup obj, List<RowProperty> rows)
@@ -153,35 +195,6 @@ namespace BazisGUI
                     {
                         DataKind.Материал.ToString()
                     })));
-            }
-        }
-
-        private async Task ShowDirection(IGroup group)
-        {
-            foreach (var item in group)
-            {
-                DisplayGeometryObjectEvent = null;
-                DisplayGeometryObjectEvent += new Action(() =>
-                {
-                    var quadObj = gluNewQuadric(); // создаем новый объект
-                                                       // для создания сфер и цилиндров
-                                                       //Glu.gluQuadricOrientation(quadObj, Glu.GLU_OUTSIDE);
-                    GL.PushMatrix();
-                    GL.PolygonMode(TriangleFace.FrontAndBack, PolygonMode.Fill);
-                    GL.Color3(1f, 0, 0);
-                    GL.Translate(-Position._x, -Position._y, -Position._z);
-
-                    GL.Translate(item._x, item._y, item._z);
-
-
-                    //Glu.gluQuadricDrawStyle(quadObj, Glu.GLU_FILL); // устанавливаем
-                    gluSphere(quadObj, 1.5, 10, 10); // рисуем сферу
-                                                         // радиусом 0.5
-                    GL.PopMatrix();
-                    gluDeleteQuadric(quadObj);
-                });
-                DisplayObjects();
-                Thread.Sleep(500);
             }
         }
     }

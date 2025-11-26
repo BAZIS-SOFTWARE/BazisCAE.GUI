@@ -31,6 +31,7 @@ namespace BazisGUI
 
                 rows.Add(new RowProperty("Угловые точки", attributes[0]));
                 rows.Add(new RowProperty("Ориентация ребер", attributes[1]));
+                rows.Add(new RowProperty("Квадратизация", GmshController.GetRecombineSurface(number)));
             }
 
             rows.Add(new RowProperty("Номера точек", new ButtonPropertyValue("Показать",

@@ -23,8 +23,11 @@ namespace BazisGUI
 
                 rows.Add(new RowProperty("Вид",new DropDownPropertyValue(project.ProjectType,
            Converters.GetEnumNames<TaskType>())));
-                rows.Add(new RowProperty("Тип", new DropDownPropertyValue(project.ProjectKind,
-Converters.GetEnumNames<TaskKind>())));
+
+                var kinds = Converters.GetEnumNames<TaskKind>();
+                var term_mech = (TaskKind.термическая | TaskKind.механическая).ToString();
+                kinds.Add(term_mech);
+                rows.Add(new RowProperty("Тип", new DropDownPropertyValue(project.ProjectKind, kinds)));
 
                 if(project.MaterialsDB != null)
                     rows.Add(new RowProperty("Материалы", project.MaterialsDB.Name,true));

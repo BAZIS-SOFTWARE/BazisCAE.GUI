@@ -273,32 +273,45 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
 
                 var selection = new List<Point3D>();
 
+
                 foreach (var glObj in VBOController.GetVBObjs())
                 {
-                    var coords = glObj.PointsCoords;
+                    // добавление прямоугольника выбора по параллелограмму объекта
+                    var scrPoints = glObj.BoundingBox.GetCornerPoints().
+                        Select(c => GetSceenCoord(c._x, c._y, c._z)).
+                        Select(s => GetScreenCoord(s));
 
-                    var length = coords.Length / 3;
+                    var rect = new RectangleBox(scrPoints);
 
-                    for (int i = 0; i < length; i++)
+                    if (selectionBox.IsInnerOther(rect) |
+                        selectionBox.IsIntersectWithOther(rect))
                     {
-                        var x = coords[3 * i + 0];
-                        var y = coords[3 * i + 1];
-                        var z = coords[3 * i + 2];
+                        var coords = glObj.PointsCoords;
 
-                        var scnPoint = GetSceenCoord(x, y, z);
-                        var scrPoint = GetScreenCoord(scnPoint);
+                        var length = coords.Length / 3;
 
-                        if (selectionBox.IsPointInside(scrPoint))
-                            selection.Add(new Point3D(x, y, z));
+                        for (int i = 0; i < length; i++)
+                        {
+                            var x = coords[3 * i + 0];
+                            var y = coords[3 * i + 1];
+                            var z = coords[3 * i + 2];
+
+                            var scnPoint = GetSceenCoord(x, y, z);
+                            var scrPoint = GetScreenCoord(scnPoint);
+
+                            if (selectionBox.IsPointInside(scrPoint))
+                                selection.Add(new Point3D(x, y, z));
+                        }
+                        var distSelection = selection.Distinct();
+                        var sortedSelection = distSelection.OrderByDescending(x => x._z);
+                        if (sortedSelection.Count() > 0)
+                        {
+                            SetRotationCentre(sortedSelection.First());
+                            break;
+                        }
                     }
                 }
-                var distSelection = selection.Distinct();
-                var sortedSelection = distSelection.OrderByDescending(x => x._z);
-                if (sortedSelection.Count() > 0)
-                    SetRotationCentre(sortedSelection.First());
-
                 DisplayObjects();
-
             }
             else if (e.KeyCode == Keys.F)
             {

@@ -39,7 +39,7 @@ namespace BazisGUI
                 }
                 else if (arg2 is ModelFindCoincidentsNodesEventArgs coincidentNodesEventArgs)
                 {
-                    FindCoincidentNodes();
+                    FindCoincidentNodes(coincidentNodesEventArgs.Distance);
                 }
                 else if(arg2 is FindVolElemsEventArgs findVolElemsArgs)
                 {

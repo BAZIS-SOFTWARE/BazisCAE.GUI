@@ -9,13 +9,13 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private async Task FindCoincidentNodes()
+        private async Task FindCoincidentNodes(float distance)
         {
             if (project == null)
                 return;
             Invoke(new Action(() => { console.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
 
-            var coincidentNodes = project.FindCoincidentObjects(ObjType.Узел, 0.1f);
+            var coincidentNodes = project.FindCoincidentObjects(ObjType.Узел, distance);
 
             Invoke(new Action(() => { console.PrintInfo($"Найдено {coincidentNodes.Count()} совпадений", Color.Black); }));
             Invoke(new Action(() =>

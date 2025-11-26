@@ -65,7 +65,9 @@ namespace BazisGUI
                     btnSelect.Location.X - 1,
                     btnSelect.Location.Y + btnSelect.Height - 2);
             }
-            scene.Controls.Add(btn);
+            splitContainer2.Panel1.Controls.Add(btn);
+            btn.BringToFront();
+
             objButtons.Add(objsType, btn);
         }
 
@@ -108,13 +110,14 @@ namespace BazisGUI
             btnSelect.Tag = flag;
             foreach (var item in objButtons)
                 item.Value.Visible = flag;
+
         }
 
         public void PresentModelObjectsForSelection()
         {
 
             foreach (var item in objButtons)
-                scene.Controls.Remove(item.Value);
+                splitContainer2.Panel1.Controls.Remove(item.Value);
 
             objButtons.Clear();
 

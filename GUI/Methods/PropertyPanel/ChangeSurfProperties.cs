@@ -26,28 +26,6 @@ namespace BazisGUI
                 {
                     var surfPoints = project.GmshController.GetSurfaceNodes(number);
                     project.GmshController.SetTransfiniteSurface(number, Arrangement.Left, surfPoints);
-
-                    //var surface = (SurfaceFigure)project.GetModelObject(ObjType.Поверхность, number);
-
-
-                    //var pointsNumbs = new List<int>();
-                    //foreach (var item in surface.CurveNumbers)
-                    //{
-                    //    var curve = (Curve)project.GetModelObject(ObjType.Кривая, item);
-                    //    foreach (var pointNumb in curve.PointsNumbers)
-                    //        pointsNumbs.Add(pointNumb);
-                    //}
-
-                    //var distinct = pointsNumbs.Distinct();
-                    //var pointsStr = string.Join(",", distinct);
-
-                    //var attributes = new string[] { pointsStr, Arrangement.Left.ToString() };
-                    //GmshController.Gmsh.Model.
-                    //    SetAttribute($"transfinite surface {number}", attributes);
-                    
-                    ////Пока уберем. Добавлять если больше 4 точек - distinct.ToArray()
-                    //GmshController.Gmsh.Model.Mesh.SetTransfiniteSurface(number, Arrangement.Left);
-                    //GmshController.Gmsh.Model.Mesh.SetRecombine(2, number);
                 }
                 else
                 {
@@ -59,17 +37,21 @@ namespace BazisGUI
             }
             else
             {
+                if(obj.Header == "Квадратизация")
+                    if(bool.Parse(obj.NewValue))
+                        project.GmshController.SetRecombineSurface(number);
+                    else
+                    {
+                        GmshController.Gmsh.Model.Mesh.RemoveConstraints(new int[] { 2, number });
+                        GmshController.Gmsh.Model.RemoveAttribute($"recombine surface {number}");
+                    }
+
                 var attributes = GmshController.GetTransfiniteSurface(number);
-                //var attributes = GmshController.Gmsh.Model.
-                //GetAttribute($"transfinite surface {number}");
 
                 if (obj.Header == "Угловые точки")
                     attributes[0] = obj.NewValue;    
                 else if (obj.Header == "Ориентация ребер")
                     attributes[1] = obj.NewValue;  
-
-       //         GmshController.Gmsh.Model.
-       //SetAttribute($"transfinite surface {number}", attributes);
 
                 var arrangement = attributes[1].ToEnum<Arrangement>();
                 var points = attributes[0].Split(',').Select(x => int.Parse(x));

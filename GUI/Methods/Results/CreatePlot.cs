@@ -71,7 +71,9 @@ namespace BazisGUI
                 var resDes = selNode.Text;
 
                 var loader = new LoadResultsFileDB();
-                var tables = new List<string>(){ResultType.nodes.ToString()};
+
+                // важно, так как если режим усреднения, то будет исключение
+                var tables = new List<string>(){ResultType.nodes.ToString(), ResultType.elements.ToString() };
                 var times = loader.GetValues(ResultDbPath, "nodes", "Time");
 
                 var grDataAr = new List<GraphData>();

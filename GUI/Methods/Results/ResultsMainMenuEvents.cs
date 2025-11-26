@@ -247,7 +247,7 @@ namespace BazisGUI
                 else
                     interfaceNodes = project.FindInterfacedNodes(2);
 
-                console.PrintInfo($"Выполняется пересчет на узлы", Color.Black);
+                console.PrintInfo($"Выполняется пересчет на узлы, время {result.Time}", Color.Black);
                 console.PrintInfo("", Color.Black);
 
                 var resNames = result.Data.Tables[(int)ResultType.elements].GetTableSchema();

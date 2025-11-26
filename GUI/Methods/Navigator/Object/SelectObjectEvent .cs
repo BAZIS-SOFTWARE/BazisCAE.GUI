@@ -56,6 +56,8 @@ namespace BazisGUI
    
                     SetVBObjectAttribute(pres, "цвет");
                     DisplayObjects();
+
+                    CreateVolProperties(number);
                 }
 
                 
@@ -67,11 +69,11 @@ namespace BazisGUI
             }
         }
 
-        private void CreateVolProperties(string objInfo,int number)
+        private void CreateVolProperties(int number)
         {
             var rows = new List<RowProperty>();
 
-            rows.Add(new RowProperty("Объект", objInfo, true));
+            rows.Add(new RowProperty("Объект", "Объем", true));
 
             rows.AddRange(GetVolProperties(number));
             
@@ -86,8 +88,9 @@ namespace BazisGUI
                         PresentSet(set);
                         set = project.GetModelSetsInfo(ObjType.Точка).First();
                         PresentSet(set);
+                    DisplayObjects();
                     
-                })), true)); ;
+                })), true));
 
             propertiesPanel.DrawTable(rows);
         }

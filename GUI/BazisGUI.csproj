@@ -34,6 +34,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="DataBases\Functions\functions_draft.txt" />
+    <None Remove="DataBases\Materials\materials_draft.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="ClientGUI">
       <HintPath>..\Libs\ClientGUI.dll</HintPath>
     </Reference>
@@ -51,9 +55,9 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
-    <PackageReference Include="OperationalController" Version="3.8.3" />
-    <PackageReference Include="PostProc" Version="2.0.3" />
-    <PackageReference Include="PreProc" Version="1.9.3" />
+    <PackageReference Include="OperationalController" Version="3.8.6" />
+    <PackageReference Include="PostProc" Version="2.0.4" />
+    <PackageReference Include="PreProc" Version="1.9.6" />
     <PackageReference Include="PropertiesCalculator" Version="1.0.6" />
     <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework" Version="1.0.118.0" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
@@ -78,6 +82,29 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Animation\AnimationPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="DataBases\DataBasePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="DataBases\FunctionDataBasePage.cs" />
+    <Compile Update="DataBases\MaterialsDataBasePage.cs" />
+    <Compile Update="DataBases\MechanicalGUI\CreepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="DataBases\MechanicalGUI\HardeningControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="DataBases\MetallurgyGUI\CCTControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="DataBases\MetallurgyGUI\DiagramControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="DataBases\MetallurgyGUI\TTTControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="DataBases\ReactionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="MessageBoxEx\MessageBoxEx.cs">
@@ -125,6 +152,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
+    <Content Include="DataBases\Functions\functions_draft.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBases\Materials\materials_draft.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="IconShort_16.ico" />
     <Content Include="IconShort_32.ico" />
   </ItemGroup>
@@ -133,7 +166,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseModule\BaseModule.csproj" />
-    <ProjectReference Include="..\PropertiesDataBases\PropertiesDataBases.csproj" />
     <ProjectReference Include="..\UserControlEx\UserControlsEx.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +181,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Update="DataBases\Functions\functions.jsf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DataBases\Materials\Materials_v4.jsf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DataBases\Materials\Materials_v6.jsf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Help\ПО Bazis. Руководство пользователя.chm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

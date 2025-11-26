@@ -57,7 +57,8 @@ namespace BazisGUI.GantChart
                 using (SolidBrush barBrush = new SolidBrush(Color.Blue)) // Example color
                 {
                     
-                    e.Graphics.FillRectangle(barBrush, e.CellBounds.X + barStartPixel, e.CellBounds.Y + 5, barWidthPixel, e.CellBounds.Height - 10);
+                    e.Graphics.FillRectangle(barBrush, e.CellBounds.X + barStartPixel, e.CellBounds.Y + 5, 
+                        barWidthPixel - barStartPixel, e.CellBounds.Height - 10);
                 }
 
                 e.Handled = true; // Prevent default cell painting

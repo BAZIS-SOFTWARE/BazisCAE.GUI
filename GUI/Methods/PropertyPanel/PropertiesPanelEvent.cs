@@ -179,7 +179,7 @@ namespace BazisGUI
                     if (navigator.SelectedNode.Level == 3)
                     {
                         var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
-                        var objInfo = navigator.SelectedNode.Text.Split(' ')[0];
+                        var objInfo = navigator.SelectedNode.Text.Split(' ')[1];
 
                         ObjType objType;
                         if(objInfo.TryToEnum(out objType))

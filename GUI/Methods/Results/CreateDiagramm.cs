@@ -63,7 +63,7 @@ namespace BazisGUI
                         var delta = new Point3D();
                         if (pathPoints.Count > 0)
                             delta = point.Sub(pathPoints.Last());
-                        path += Vector.GetVectorLenght(delta);
+                        path += Vector.GetVectorLength(delta);
 
                         pathPoints.Add(obj.CalcCentr());
 

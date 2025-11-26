@@ -21,7 +21,7 @@ namespace BazisGUI
                 float[] view = new float[16];
                 GL.GetFloat(GetPName.ModelviewMatrix, view);//Не могу вызывать Camera.GetViewMatrix() - т.к Camera = null
                 var worldPos = new Point3D(-view[12], -view[13], -view[14]);
-                var distance = Vector.GetVectorLenght(worldPos);
+                var distance = Vector.GetVectorLength(worldPos);
                 if (Math.Abs(distance) < 1e-4)
                     distance = 1;
                 var radAngle = angleDeg * Math.PI / 180;
