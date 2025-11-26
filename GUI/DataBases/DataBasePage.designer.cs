@@ -54,7 +54,7 @@ namespace BazisGUI.DataBases
             dgrToolStrip = new ToolStripEx();
             btnAddNewRow = new ToolStripButton();
             btnDelRow = new ToolStripButton();
-            toolStripButton1 = new ToolStripButton();
+            btnAscSort = new ToolStripButton();
             menuLev0 = new ContextMenuStrip(components);
             itmRename = new ToolStripMenuItem();
             itmDelete = new ToolStripMenuItem();
@@ -183,7 +183,7 @@ namespace BazisGUI.DataBases
             // 
             btnOpenDB.AutoSize = false;
             btnOpenDB.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnOpenDB.Image = Resources.OpenDB;
+            btnOpenDB.Image = (System.Drawing.Image)resources.GetObject("btnOpenDB.Image");
             btnOpenDB.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             btnOpenDB.ImageScaling = ToolStripItemImageScaling.None;
             btnOpenDB.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -196,7 +196,7 @@ namespace BazisGUI.DataBases
             // 
             btnAddDB.AutoSize = false;
             btnAddDB.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnAddDB.Image = Resources.AddDB;
+            btnAddDB.Image = (System.Drawing.Image)resources.GetObject("btnAddDB.Image");
             btnAddDB.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             btnAddDB.ImageScaling = ToolStripItemImageScaling.None;
             btnAddDB.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -248,7 +248,7 @@ namespace BazisGUI.DataBases
             // 
             btnCreateCopy.AutoSize = false;
             btnCreateCopy.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnCreateCopy.Image = Properties.Resources.Copy;
+            btnCreateCopy.Image = (System.Drawing.Image)resources.GetObject("btnCreateCopy.Image");
             btnCreateCopy.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             btnCreateCopy.ImageScaling = ToolStripItemImageScaling.None;
             btnCreateCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -353,7 +353,7 @@ namespace BazisGUI.DataBases
             dgrToolStrip.ItemFrame = true;
             dgrToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
             dgrToolStrip.ItemPressColor = System.Drawing.Color.Black;
-            dgrToolStrip.Items.AddRange(new ToolStripItem[] { btnAddNewRow, btnDelRow, toolStripButton1 });
+            dgrToolStrip.Items.AddRange(new ToolStripItem[] { btnAddNewRow, btnDelRow, btnAscSort });
             dgrToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
             dgrToolStrip.Location = new System.Drawing.Point(0, 0);
             dgrToolStrip.Name = "dgrToolStrip";
@@ -393,18 +393,18 @@ namespace BazisGUI.DataBases
             btnDelRow.Text = "Удалить все ряды";
             btnDelRow.Click += DelAllRowsButton_Click;
             // 
-            // toolStripButton1
+            // btnAscSort
             // 
-            toolStripButton1.AutoSize = false;
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton1.Image = Properties.Resources.ASC_sort;
-            toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            toolStripButton1.ImageScaling = ToolStripItemImageScaling.None;
-            toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new System.Drawing.Size(30, 30);
-            toolStripButton1.Text = "Сортировать";
-            toolStripButton1.Click += Resort_Click;
+            btnAscSort.AutoSize = false;
+            btnAscSort.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnAscSort.Image = (System.Drawing.Image)resources.GetObject("btnAscSort.Image");
+            btnAscSort.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            btnAscSort.ImageScaling = ToolStripItemImageScaling.None;
+            btnAscSort.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnAscSort.Name = "btnAscSort";
+            btnAscSort.Size = new System.Drawing.Size(30, 30);
+            btnAscSort.Text = "Сортировать";
+            btnAscSort.Click += Resort_Click;
             // 
             // menuLev0
             // 
@@ -477,7 +477,7 @@ namespace BazisGUI.DataBases
         private ContextMenuStrip menuLev0;
         private ToolStripMenuItem itmRename;
         private ToolStripMenuItem itmDelete;
-        private ToolStripButton toolStripButton1;
+        private ToolStripButton btnAscSort;
         private ToolStripButton btnAddDB;
         private ToolStripButton btnCreateCopy;
         private GraphContainer graphContainer;

@@ -10,8 +10,8 @@ using System.Text.RegularExpressions;
 using PropertiesCalculator.MaterialData;
 using PropertiesCalculator;
 using UserControlsEx.Graph;
-using PropertiesDataBases.DataBases.MechanicalGUI;
-using PropertiesDataBases.DataBases.MetallurgyGUI;
+using BazisGUI.DataBases.MechanicalGUI;
+using BazisGUI.DataBases.MetallurgyGUI;
 
 namespace BazisGUI.DataBases
 {

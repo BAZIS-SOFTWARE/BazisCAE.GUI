@@ -114,7 +114,7 @@
             this.btnChangePhaseValue.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnChangePhaseValue.Enabled = false;
             this.btnChangePhaseValue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChangePhaseValue.Image = global::PropertiesDataBases.Properties.Resources.Refresh;
+            this.btnChangePhaseValue.Image = BazisGUI.Properties.Resources.arrow_d;
             this.btnChangePhaseValue.Location = new System.Drawing.Point(88, 106);
             this.btnChangePhaseValue.Name = "btnChangePhaseValue";
             this.btnChangePhaseValue.Size = new System.Drawing.Size(25, 25);
@@ -127,7 +127,7 @@
             this.btnDelPhaseValue.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnDelPhaseValue.Enabled = false;
             this.btnDelPhaseValue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelPhaseValue.Image = global::PropertiesDataBases.Properties.Resources.delete.ToBitmap();
+            this.btnDelPhaseValue.Image = BazisGUI.Properties.Resources.arrow_d;
             this.btnDelPhaseValue.Location = new System.Drawing.Point(57, 106);
             this.btnDelPhaseValue.Name = "btnDelPhaseValue";
             this.btnDelPhaseValue.Size = new System.Drawing.Size(25, 25);
@@ -140,7 +140,7 @@
             this.btnAddPhaseValue.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddPhaseValue.Enabled = false;
             this.btnAddPhaseValue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddPhaseValue.Image = global::PropertiesDataBases.Properties.Resources.Add.ToBitmap();
+            this.btnAddPhaseValue.Image = BazisGUI.Properties.Resources.arrow_d;
             this.btnAddPhaseValue.Location = new System.Drawing.Point(26, 106);
             this.btnAddPhaseValue.Name = "btnAddPhaseValue";
             this.btnAddPhaseValue.Size = new System.Drawing.Size(25, 25);

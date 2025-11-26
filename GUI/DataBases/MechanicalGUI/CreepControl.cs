@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PropertiesDataBases.DataBases.MechanicalGUI
+namespace BazisGUI.DataBases.MechanicalGUI
 {
     public partial class CreepControl : UserControl
     {

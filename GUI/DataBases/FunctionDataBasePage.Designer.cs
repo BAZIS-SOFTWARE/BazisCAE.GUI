@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.IO;
 
-namespace PropertiesDataBases.DataBases
+namespace BazisGUI.DataBases
 {
     partial class FunctionDataBasePage
     {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PropertiesDataBases.DataBases.MetallurgyGUI
+namespace BazisGUI.DataBases.MetallurgyGUI
 {
     public partial class CCTControl : UserControl
     {

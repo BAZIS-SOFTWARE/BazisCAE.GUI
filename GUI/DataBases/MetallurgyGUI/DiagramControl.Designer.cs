@@ -1,6 +1,6 @@
 ﻿using UserControlsEx.Graph;
 
-namespace PropertiesDataBases.DataBases.MetallurgyGUI
+namespace BazisGUI.DataBases.MetallurgyGUI
 {
     partial class DiagramControl
     {

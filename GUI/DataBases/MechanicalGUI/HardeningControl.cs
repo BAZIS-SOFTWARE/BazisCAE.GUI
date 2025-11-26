@@ -11,7 +11,7 @@ using System.Linq;
 using System.Windows.Forms;
 using UserControlsEx.Graph;
 
-namespace PropertiesDataBases.DataBases.MechanicalGUI
+namespace BazisGUI.DataBases.MechanicalGUI
 {
     public partial class HardeningControl : UserControl
     {

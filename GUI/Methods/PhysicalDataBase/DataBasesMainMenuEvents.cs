@@ -2,7 +2,7 @@
 using Mono.Unix.Native;
 using Project.Interfaces;
 using PropertiesCalculator.MaterialData;
-using PropertiesDataBases.DataBases;
+using BazisGUI.DataBases;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

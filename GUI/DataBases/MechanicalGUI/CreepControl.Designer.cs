@@ -1,6 +1,6 @@
 ﻿using UserControlsEx.Graph;
 
-namespace PropertiesDataBases.DataBases.MechanicalGUI
+namespace BazisGUI.DataBases.MechanicalGUI
 {
     partial class CreepControl
     {

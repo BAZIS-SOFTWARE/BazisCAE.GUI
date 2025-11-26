@@ -34,6 +34,11 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="DataBases\Resources\**" />
+    <EmbeddedResource Remove="DataBases\Resources\**" />
+    <None Remove="DataBases\Resources\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="DataBases\Functions\functions_draft.txt" />
     <None Remove="DataBases\Materials\materials_draft.txt" />
   </ItemGroup>
@@ -55,10 +60,9 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
-    <PackageReference Include="OperationalController" Version="3.8.6" />
+    <PackageReference Include="OperationalController" Version="3.8.7" />
     <PackageReference Include="PostProc" Version="2.0.4" />
-    <PackageReference Include="PreProc" Version="1.9.6" />
-    <PackageReference Include="PropertiesCalculator" Version="1.0.6" />
+    <PackageReference Include="PreProc" Version="1.9.7" />
     <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework" Version="1.0.118.0" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />

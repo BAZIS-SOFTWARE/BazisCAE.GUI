@@ -8,7 +8,7 @@ using System.Linq;
 using System.Windows.Forms;
 using UserControlsEx.Graph;
 
-namespace PropertiesDataBases.DataBases.MetallurgyGUI
+namespace BazisGUI.DataBases.MetallurgyGUI
 {
     public partial class DiagramControl : UserControl
     {

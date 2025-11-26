@@ -1,4 +1,4 @@
-﻿namespace PropertiesDataBases.DataBases.MetallurgyGUI
+﻿namespace BazisGUI.DataBases.MetallurgyGUI
 {
     partial class TTTControl
     {
