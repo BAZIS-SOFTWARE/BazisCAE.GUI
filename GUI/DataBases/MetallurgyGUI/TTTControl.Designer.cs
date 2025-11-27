@@ -28,191 +28,195 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txbFinTemp = new System.Windows.Forms.TextBox();
-            this.txbIniTemp = new System.Windows.Forms.TextBox();
-            this.nudTemps = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txbMaxPhase = new System.Windows.Forms.TextBox();
-            this.txbMinPhase = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cmbPhases = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txbMaxTime = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTemps)).BeginInit();
-            this.SuspendLayout();
+            txbFinTemp = new System.Windows.Forms.TextBox();
+            txbIniTemp = new System.Windows.Forms.TextBox();
+            nudTemps = new System.Windows.Forms.NumericUpDown();
+            label2 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            txbMaxPhase = new System.Windows.Forms.TextBox();
+            txbMinPhase = new System.Windows.Forms.TextBox();
+            label3 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            cmbPhases = new System.Windows.Forms.ComboBox();
+            label5 = new System.Windows.Forms.Label();
+            txbMaxTime = new System.Windows.Forms.TextBox();
+            label6 = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)nudTemps).BeginInit();
+            SuspendLayout();
             // 
             // txbFinTemp
             // 
-            this.txbFinTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbFinTemp.Location = new System.Drawing.Point(104, 108);
-            this.txbFinTemp.Name = "txbFinTemp";
-            this.txbFinTemp.Size = new System.Drawing.Size(254, 20);
-            this.txbFinTemp.TabIndex = 11;
-            this.txbFinTemp.Text = "20";
+            txbFinTemp.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txbFinTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbFinTemp.Location = new System.Drawing.Point(121, 125);
+            txbFinTemp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txbFinTemp.Name = "txbFinTemp";
+            txbFinTemp.Size = new System.Drawing.Size(296, 23);
+            txbFinTemp.TabIndex = 11;
+            txbFinTemp.Text = "20";
             // 
             // txbIniTemp
             // 
-            this.txbIniTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbIniTemp.Location = new System.Drawing.Point(104, 82);
-            this.txbIniTemp.Name = "txbIniTemp";
-            this.txbIniTemp.Size = new System.Drawing.Size(254, 20);
-            this.txbIniTemp.TabIndex = 12;
-            this.txbIniTemp.Text = "800";
+            txbIniTemp.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txbIniTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbIniTemp.Location = new System.Drawing.Point(121, 95);
+            txbIniTemp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txbIniTemp.Name = "txbIniTemp";
+            txbIniTemp.Size = new System.Drawing.Size(296, 23);
+            txbIniTemp.TabIndex = 12;
+            txbIniTemp.Text = "800";
             // 
             // nudTemps
             // 
-            this.nudTemps.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudTemps.Location = new System.Drawing.Point(104, 56);
-            this.nudTemps.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.nudTemps.Name = "nudTemps";
-            this.nudTemps.Size = new System.Drawing.Size(254, 20);
-            this.nudTemps.TabIndex = 10;
-            this.nudTemps.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            nudTemps.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            nudTemps.Location = new System.Drawing.Point(121, 65);
+            nudTemps.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudTemps.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+            nudTemps.Name = "nudTemps";
+            nudTemps.Size = new System.Drawing.Size(296, 23);
+            nudTemps.TabIndex = 10;
+            nudTemps.Value = new decimal(new int[] { 10, 0, 0, 0 });
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Мак. фаза, у.ед.";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(10, 37);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(92, 15);
+            label2.TabIndex = 8;
+            label2.Text = "Мак. фаза, у.ед.";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Мин. фаза, у.ед.";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(8, 7);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(94, 15);
+            label1.TabIndex = 9;
+            label1.Text = "Мин. фаза, у.ед.";
             // 
             // txbMaxPhase
             // 
-            this.txbMaxPhase.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMaxPhase.Location = new System.Drawing.Point(104, 29);
-            this.txbMaxPhase.Name = "txbMaxPhase";
-            this.txbMaxPhase.Size = new System.Drawing.Size(254, 20);
-            this.txbMaxPhase.TabIndex = 6;
-            this.txbMaxPhase.Text = "1";
+            txbMaxPhase.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txbMaxPhase.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbMaxPhase.Location = new System.Drawing.Point(121, 33);
+            txbMaxPhase.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txbMaxPhase.Name = "txbMaxPhase";
+            txbMaxPhase.Size = new System.Drawing.Size(296, 23);
+            txbMaxPhase.TabIndex = 6;
+            txbMaxPhase.Text = "1";
             // 
             // txbMinPhase
             // 
-            this.txbMinPhase.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMinPhase.Location = new System.Drawing.Point(104, 3);
-            this.txbMinPhase.Name = "txbMinPhase";
-            this.txbMinPhase.Size = new System.Drawing.Size(254, 20);
-            this.txbMinPhase.TabIndex = 7;
-            this.txbMinPhase.Text = "0.01";
+            txbMinPhase.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txbMinPhase.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbMinPhase.Location = new System.Drawing.Point(121, 3);
+            txbMinPhase.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txbMinPhase.Name = "txbMinPhase";
+            txbMinPhase.Size = new System.Drawing.Size(296, 23);
+            txbMinPhase.TabIndex = 7;
+            txbMinPhase.Text = "0.01";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 85);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(76, 13);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Мак. темп, °С";
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(26, 98);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(82, 15);
+            label3.TabIndex = 13;
+            label3.Text = "Мак. темп, °С";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 111);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Мин. темп, °С";
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(26, 128);
+            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(84, 15);
+            label4.TabIndex = 14;
+            label4.Text = "Мин. темп, °С";
             // 
             // cmbPhases
             // 
-            this.cmbPhases.AccessibleName = "InitialPhase";
-            this.cmbPhases.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbPhases.FormattingEnabled = true;
-            this.cmbPhases.Location = new System.Drawing.Point(104, 134);
-            this.cmbPhases.Name = "cmbPhases";
-            this.cmbPhases.Size = new System.Drawing.Size(254, 21);
-            this.cmbPhases.TabIndex = 16;
+            cmbPhases.AccessibleName = "InitialPhase";
+            cmbPhases.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cmbPhases.FormattingEnabled = true;
+            cmbPhases.Location = new System.Drawing.Point(121, 155);
+            cmbPhases.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cmbPhases.Name = "cmbPhases";
+            cmbPhases.Size = new System.Drawing.Size(296, 23);
+            cmbPhases.TabIndex = 16;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 137);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(91, 13);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Начальная фаза";
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(8, 158);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(96, 15);
+            label5.TabIndex = 15;
+            label5.Text = "Начальная фаза";
             // 
             // txbMaxTime
             // 
-            this.txbMaxTime.AccessibleName = "Время";
-            this.txbMaxTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMaxTime.Location = new System.Drawing.Point(104, 161);
-            this.txbMaxTime.Name = "txbMaxTime";
-            this.txbMaxTime.Size = new System.Drawing.Size(254, 20);
-            this.txbMaxTime.TabIndex = 17;
-            this.txbMaxTime.Text = "1";
+            txbMaxTime.AccessibleName = "Время";
+            txbMaxTime.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txbMaxTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbMaxTime.Location = new System.Drawing.Point(121, 186);
+            txbMaxTime.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txbMaxTime.Name = "txbMaxTime";
+            txbMaxTime.Size = new System.Drawing.Size(296, 23);
+            txbMaxTime.TabIndex = 17;
+            txbMaxTime.Text = "1";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(32, 164);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 13);
-            this.label6.TabIndex = 18;
-            this.label6.Text = "Время, сек";
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(37, 189);
+            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(66, 15);
+            label6.TabIndex = 18;
+            label6.Text = "Время, сек";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(49, 58);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(47, 13);
-            this.label7.TabIndex = 19;
-            this.label7.Text = "Кол - во";
+            label7.AutoSize = true;
+            label7.Location = new System.Drawing.Point(57, 67);
+            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(52, 15);
+            label7.TabIndex = 19;
+            label7.Text = "Кол - во";
             // 
             // TTTControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.txbMaxTime);
-            this.Controls.Add(this.cmbPhases);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txbFinTemp);
-            this.Controls.Add(this.txbIniTemp);
-            this.Controls.Add(this.nudTemps);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txbMaxPhase);
-            this.Controls.Add(this.txbMinPhase);
-            this.Name = "TTTControl";
-            this.Size = new System.Drawing.Size(361, 195);
-            ((System.ComponentModel.ISupportInitialize)(this.nudTemps)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(label7);
+            Controls.Add(label6);
+            Controls.Add(txbMaxTime);
+            Controls.Add(cmbPhases);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(txbFinTemp);
+            Controls.Add(txbIniTemp);
+            Controls.Add(nudTemps);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(txbMaxPhase);
+            Controls.Add(txbMinPhase);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "TTTControl";
+            Size = new System.Drawing.Size(421, 225);
+            ((System.ComponentModel.ISupportInitialize)nudTemps).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

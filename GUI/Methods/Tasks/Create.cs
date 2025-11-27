@@ -1,20 +1,7 @@
-﻿using BaseModule.Extensions;
-using BazisGUI.Navigator;
-using BaseModule.PropertiesPanel;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BazisGUI.Utilities;
-using Geometry;
-using Model.Interfaces;
-using Project.Interfaces.Tasks;
-using Project.Tasks;
-using PropertiesCalculator.MaterialData;
+﻿using BazisGUI.Navigator;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BazisGUI

@@ -4,7 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using PropertiesCalculator.Interfaces;
+using MaterialDB.Interfaces;
 using UserControlsEx;
 using UserControlsEx.Graph;
 

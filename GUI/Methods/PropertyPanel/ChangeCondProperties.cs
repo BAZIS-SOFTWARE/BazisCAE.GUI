@@ -1,22 +1,13 @@
 ﻿using BaseModule.Extensions;
 using BaseModule.PropertiesPanel;
-using BazisGUI.Utilities;
-using Geometry;
-using MathNet.Numerics.RootFinding;
-using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.FrameCreators;
 using Project.Tasks.Functions;
 using Project.Tasks.Functions.Welding;
 using Project.Tasks.Materials;
-using PropertiesCalculator.FunctionData;
-using PropertiesCalculator.MaterialData;
 using System;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Drawing;
 using System.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace BazisGUI
 {

@@ -1,8 +1,6 @@
 ﻿using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using Project.Interfaces.Tasks;
-using PropertiesCalculator.FunctionData;
-using PropertiesCalculator.MaterialData;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

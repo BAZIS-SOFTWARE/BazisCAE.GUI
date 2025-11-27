@@ -1,5 +1,7 @@
-﻿using PropertiesCalculator.MaterialData;
-using PropertiesCalculator.MaterialData.Metallurgical;
+﻿using MaterialDB;
+using MaterialDB.MaterialData;
+using MaterialDB.MaterialData.MetallurgicalData;
+using PropertiesCalculator.PropertiesController.MetallurgicalModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,6 +24,7 @@ namespace BazisGUI.DataBases.MetallurgyGUI
             InitializeComponent();
 
             this.material = material;
+            this.phaseData = phaseData;
 
             cctPanel = new CCTControl() { Dock = DockStyle.Fill };
 
@@ -40,8 +43,6 @@ namespace BazisGUI.DataBases.MetallurgyGUI
                     coolingPhases.Add(reaction.Key.Split(' ', '-')[1]);
                 }
             }
-
-            this.phaseData = phaseData;
 
             var phases = phaseData.AsEnumerable().Select(r => r.Field<string>(0));
             foreach (var phase in phases)
@@ -97,37 +98,37 @@ namespace BazisGUI.DataBases.MetallurgyGUI
             var reacInitial = new Dictionary<string, List<DiagramGraphPoint>>();
             var reacFinal = new Dictionary<string, List<DiagramGraphPoint>>();
 
-            var phases = phaseData.AsEnumerable().Select(r => r.Field<string>(0));
+            var phases = new PhaseData(phaseData);
             foreach (var phase in phases)
             {
-                if (phase != tttPanel.InitialPhase)
+                if (phase.Name != tttPanel.InitialPhase)
                 {
-                    reacInitial.Add(phase, new List<DiagramGraphPoint>());
-                    reacFinal.Add(phase, new List<DiagramGraphPoint>());
+                    reacInitial.Add(phase.Name, new List<DiagramGraphPoint>());
+                    reacFinal.Add(phase.Name, new List<DiagramGraphPoint>());
                 }
             }
 
             while (temp > tempStop)
             {
 
-                var model = new MetallurgicalData(material,phaseData);
-                model.ProcessData.CreateProcesses(tempering, new string[] { "Охлаждение" });                
+                var model = new MetallurgicalModel();
+                var processData = new ProcessData(tempering, new string[] { "Охлаждение" });                
 
-                SetInitialCondition(model, tttPanel.InitialPhase);
+                SetInitialCondition(phases, tttPanel.InitialPhase);
 
                 var reacData = new Dictionary<string, List<DiagramGraphPoint>>();
 
                 foreach (var phase in phases)
-                    reacData.Add(phase, new List<DiagramGraphPoint>());
+                    reacData.Add(phase.Name, new List<DiagramGraphPoint>());
                 var time = 0.0f;
                 while (time < timeMax)
                 {
-                    model.Calc(temp, 0, timeStep);
+                    model.Calc(temp, timeStep, phases, processData);
 
                     time += timeStep;
                     var time_log10 = (float)Math.Log10(time);
 
-                    foreach (var phase in model.PhaseData)
+                    foreach (var phase in phases)
                     {
                         var val = phase.Value;
                         if (reacData[phase.Name].Count == 0)
@@ -178,13 +179,13 @@ namespace BazisGUI.DataBases.MetallurgyGUI
             var reacFinal = new Dictionary<string, List<DiagramGraphPoint>>();
             var vels = new List<List<GraphPoint>>();
 
-            var phases = phaseData.AsEnumerable().Select(r => r.Field<string>(0));
+            var phases = new PhaseData(phaseData);
             foreach (var phase in phases)
             {
-                if (phase != cctPanel.InitialPhase)
+                if (phase.Name != cctPanel.InitialPhase)
                 {
-                    reacInitial.Add(phase, new List<DiagramGraphPoint>());
-                    reacFinal.Add(phase, new List<DiagramGraphPoint>());
+                    reacInitial.Add(phase.Name, new List<DiagramGraphPoint>());
+                    reacFinal.Add(phase.Name, new List<DiagramGraphPoint>());
                 }
             }
 
@@ -196,23 +197,23 @@ namespace BazisGUI.DataBases.MetallurgyGUI
                 var temp = tempStart;
                 var time = 1.0f;
 
-                var model = new MetallurgicalData(material, phaseData);
-                model.ProcessData.CreateProcesses(coolings, new string[] { "Охлаждение" });
+                var model = new MetallurgicalModel();
+                var processData = new ProcessData(coolings, new string[] { "Охлаждение" });
 
-                SetInitialCondition(model, cctPanel.InitialPhase);
+                SetInitialCondition(phases, cctPanel.InitialPhase);
 
                 var reacData = new Dictionary<string, List<DiagramGraphPoint>>();
 
                 foreach (var phase in phases)
-                    reacData.Add(phase, new List<DiagramGraphPoint>());
+                    reacData.Add(phase.Name, new List<DiagramGraphPoint>());
 
                 while (temp > tempStop)
                 {
-                    model.Calc(temp, tempVel, timeStep);
+                    model.Calc(temp, timeStep, phases,processData);
                     var time_log10 = (float)Math.Log10(time);
                     curVel.Add(new GraphPoint(time_log10, temp));
 
-                    foreach (var phase in model.PhaseData)
+                    foreach (var phase in phases)
                     {
                         var val = phase.Value;
                         if (reacData[phase.Name].Count == 0)
@@ -250,9 +251,9 @@ namespace BazisGUI.DataBases.MetallurgyGUI
             CreateCCTDiagram(reacInitial, reacFinal, dicVel);
         }
 
-        private void SetInitialCondition(MetallurgicalData model, string iniPhase)
+        private void SetInitialCondition(PhaseData phases, string iniPhase)
         {
-            foreach (var item in model.PhaseData)
+            foreach (var item in phases)
             {
                 if (item.Name == iniPhase)
                     item.Value = 1.0f;

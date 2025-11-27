@@ -30,156 +30,157 @@ namespace BazisGUI.DataBases.MechanicalGUI
         /// </summary>
         private void InitializeComponent()
         {
-            this.graphContainer = new GraphContainer();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnCalc = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.chbTemp = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmbPhases = new System.Windows.Forms.ComboBox();
-            this.txbTemp = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            graphContainer = new GraphContainer();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            btnCalc = new System.Windows.Forms.Button();
+            panel1 = new System.Windows.Forms.Panel();
+            chbTemp = new System.Windows.Forms.CheckBox();
+            label2 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            cmbPhases = new System.Windows.Forms.ComboBox();
+            txbTemp = new System.Windows.Forms.TextBox();
+            tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // graphContainer
             // 
-            this.graphContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphContainer.Location = new System.Drawing.Point(0, 0);
-            this.graphContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.graphContainer.Name = "graphContainer";
-            this.graphContainer.Size = new System.Drawing.Size(353, 423);
-            this.graphContainer.TabIndex = 0;
+            graphContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            graphContainer.Location = new System.Drawing.Point(0, 0);
+            graphContainer.Margin = new System.Windows.Forms.Padding(0);
+            graphContainer.Name = "graphContainer";
+            graphContainer.Size = new System.Drawing.Size(412, 488);
+            graphContainer.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.69649F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.30351F));
-            this.tableLayoutPanel1.Controls.Add(this.graphContainer, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(547, 423);
-            this.tableLayoutPanel1.TabIndex = 1;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.69649F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.30351F));
+            tableLayoutPanel1.Controls.Add(graphContainer, 0, 0);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 0);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(638, 488);
+            tableLayoutPanel1.TabIndex = 1;
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.btnCalc, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(355, 3);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(190, 417);
-            this.tableLayoutPanel2.TabIndex = 1;
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(btnCalc, 0, 1);
+            tableLayoutPanel2.Controls.Add(panel1, 0, 0);
+            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel2.Location = new System.Drawing.Point(414, 3);
+            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 2;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(222, 482);
+            tableLayoutPanel2.TabIndex = 1;
             // 
             // btnCalc
             // 
-            this.btnCalc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCalc.Location = new System.Drawing.Point(2, 388);
-            this.btnCalc.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnCalc.Name = "btnCalc";
-            this.btnCalc.Size = new System.Drawing.Size(186, 26);
-            this.btnCalc.TabIndex = 0;
-            this.btnCalc.Text = "Рассчитать";
-            this.btnCalc.UseVisualStyleBackColor = true;
-            this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
+            btnCalc.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnCalc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCalc.Location = new System.Drawing.Point(2, 448);
+            btnCalc.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            btnCalc.Name = "btnCalc";
+            btnCalc.Size = new System.Drawing.Size(218, 31);
+            btnCalc.TabIndex = 0;
+            btnCalc.Text = "Рассчитать";
+            btnCalc.UseVisualStyleBackColor = true;
+            btnCalc.Click += btnCalc_Click;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.chbTemp);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.cmbPhases);
-            this.panel1.Controls.Add(this.txbTemp);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(2, 3);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(186, 379);
-            this.panel1.TabIndex = 1;
+            panel1.Controls.Add(chbTemp);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(cmbPhases);
+            panel1.Controls.Add(txbTemp);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(2, 3);
+            panel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(218, 439);
+            panel1.TabIndex = 1;
             // 
             // chbTemp
             // 
-            this.chbTemp.AutoSize = true;
-            this.chbTemp.Location = new System.Drawing.Point(85, 51);
-            this.chbTemp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.chbTemp.Name = "chbTemp";
-            this.chbTemp.Size = new System.Drawing.Size(136, 17);
-            this.chbTemp.TabIndex = 3;
-            this.chbTemp.Text = "Указать температуру";
-            this.chbTemp.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.chbTemp.UseVisualStyleBackColor = true;
-            this.chbTemp.CheckedChanged += new System.EventHandler(this.chbTemp_CheckedChanged);
+            chbTemp.AutoSize = true;
+            chbTemp.Location = new System.Drawing.Point(99, 59);
+            chbTemp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            chbTemp.Name = "chbTemp";
+            chbTemp.Size = new System.Drawing.Size(140, 19);
+            chbTemp.TabIndex = 3;
+            chbTemp.Text = "Указать температуру";
+            chbTemp.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            chbTemp.UseVisualStyleBackColor = true;
+            chbTemp.CheckedChanged += chbTemp_CheckedChanged;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 75);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Температура";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(8, 87);
+            label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(79, 15);
+            label2.TabIndex = 2;
+            label2.Text = "Температура";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 27);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Фаза";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(26, 31);
+            label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(33, 15);
+            label1.TabIndex = 2;
+            label1.Text = "Фаза";
             // 
             // cmbPhases
             // 
-            this.cmbPhases.AccessibleDescription = "";
-            this.cmbPhases.AccessibleName = "Phases";
-            this.cmbPhases.FormattingEnabled = true;
-            this.cmbPhases.Location = new System.Drawing.Point(85, 24);
-            this.cmbPhases.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cmbPhases.Name = "cmbPhases";
-            this.cmbPhases.Size = new System.Drawing.Size(70, 21);
-            this.cmbPhases.TabIndex = 1;
+            cmbPhases.AccessibleDescription = "";
+            cmbPhases.AccessibleName = "Phases";
+            cmbPhases.FormattingEnabled = true;
+            cmbPhases.Location = new System.Drawing.Point(99, 28);
+            cmbPhases.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            cmbPhases.Name = "cmbPhases";
+            cmbPhases.Size = new System.Drawing.Size(81, 23);
+            cmbPhases.TabIndex = 1;
             // 
             // txbTemp
             // 
-            this.txbTemp.AccessibleName = "Temp";
-            this.txbTemp.Enabled = false;
-            this.txbTemp.Location = new System.Drawing.Point(85, 72);
-            this.txbTemp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.txbTemp.Name = "txbTemp";
-            this.txbTemp.Size = new System.Drawing.Size(70, 20);
-            this.txbTemp.TabIndex = 0;
+            txbTemp.AccessibleName = "Temp";
+            txbTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbTemp.Enabled = false;
+            txbTemp.Location = new System.Drawing.Point(99, 83);
+            txbTemp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            txbTemp.Name = "txbTemp";
+            txbTemp.Size = new System.Drawing.Size(81, 23);
+            txbTemp.TabIndex = 0;
             // 
             // HardeningControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.Name = "HardeningControl";
-            this.Size = new System.Drawing.Size(547, 423);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(tableLayoutPanel1);
+            Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            Name = "HardeningControl";
+            Size = new System.Drawing.Size(638, 488);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

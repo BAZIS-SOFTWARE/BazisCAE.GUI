@@ -1,16 +1,11 @@
 ﻿using BaseModule.Extensions;
 using BaseModule.PropertiesPanel;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
 using Geometry;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.Materials;
-using PropertiesCalculator.MaterialData;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Drawing;
 using System.Linq;
 
 namespace BazisGUI

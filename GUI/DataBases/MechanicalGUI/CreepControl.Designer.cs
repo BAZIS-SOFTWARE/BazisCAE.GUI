@@ -30,203 +30,219 @@ namespace BazisGUI.DataBases.MechanicalGUI
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.graphContainer1 = new GraphContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txbTime = new System.Windows.Forms.TextBox();
-            this.txbForce = new System.Windows.Forms.TextBox();
-            this.txbLength = new System.Windows.Forms.TextBox();
-            this.txbDiam = new System.Windows.Forms.TextBox();
-            this.btnCalc = new System.Windows.Forms.Button();
-            this.txbTemp = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cmbPhases = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            graphContainer1 = new GraphContainer();
+            panel1 = new System.Windows.Forms.Panel();
+            label6 = new System.Windows.Forms.Label();
+            cmbPhases = new System.Windows.Forms.ComboBox();
+            label5 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            txbTemp = new System.Windows.Forms.TextBox();
+            txbTime = new System.Windows.Forms.TextBox();
+            txbForce = new System.Windows.Forms.TextBox();
+            txbLength = new System.Windows.Forms.TextBox();
+            txbDiam = new System.Windows.Forms.TextBox();
+            btnCalc = new System.Windows.Forms.Button();
+            tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.75F));
-            this.tableLayoutPanel1.Controls.Add(this.graphContainer1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnCalc, 1, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.88937F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.110629F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(592, 461);
-            this.tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.25F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.75F));
+            tableLayoutPanel1.Controls.Add(graphContainer1, 0, 0);
+            tableLayoutPanel1.Controls.Add(panel1, 1, 0);
+            tableLayoutPanel1.Controls.Add(btnCalc, 1, 1);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.88937F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.110629F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(691, 532);
+            tableLayoutPanel1.TabIndex = 0;
             // 
             // graphContainer1
             // 
-            this.graphContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphContainer1.Location = new System.Drawing.Point(0, 0);
-            this.graphContainer1.Margin = new System.Windows.Forms.Padding(0);
-            this.graphContainer1.Name = "graphContainer1";
-            this.tableLayoutPanel1.SetRowSpan(this.graphContainer1, 2);
-            this.graphContainer1.Size = new System.Drawing.Size(333, 461);
-            this.graphContainer1.TabIndex = 0;
+            graphContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            graphContainer1.Location = new System.Drawing.Point(0, 0);
+            graphContainer1.Margin = new System.Windows.Forms.Padding(0);
+            graphContainer1.Name = "graphContainer1";
+            tableLayoutPanel1.SetRowSpan(graphContainer1, 2);
+            graphContainer1.Size = new System.Drawing.Size(388, 532);
+            graphContainer1.TabIndex = 0;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.cmbPhases);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.txbTemp);
-            this.panel1.Controls.Add(this.txbTime);
-            this.panel1.Controls.Add(this.txbForce);
-            this.panel1.Controls.Add(this.txbLength);
-            this.panel1.Controls.Add(this.txbDiam);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(336, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(253, 413);
-            this.panel1.TabIndex = 1;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(55, 95);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Время, ч";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 69);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Нагрузка, Н";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(44, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Длина, мм";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Диаметр, мм";
-            // 
-            // txbTime
-            // 
-            this.txbTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbTime.Location = new System.Drawing.Point(112, 92);
-            this.txbTime.Name = "txbTime";
-            this.txbTime.Size = new System.Drawing.Size(128, 20);
-            this.txbTime.TabIndex = 0;
-            // 
-            // txbForce
-            // 
-            this.txbForce.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbForce.Location = new System.Drawing.Point(112, 66);
-            this.txbForce.Name = "txbForce";
-            this.txbForce.Size = new System.Drawing.Size(128, 20);
-            this.txbForce.TabIndex = 0;
-            // 
-            // txbLength
-            // 
-            this.txbLength.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbLength.Location = new System.Drawing.Point(112, 40);
-            this.txbLength.Name = "txbLength";
-            this.txbLength.Size = new System.Drawing.Size(128, 20);
-            this.txbLength.TabIndex = 0;
-            // 
-            // txbDiam
-            // 
-            this.txbDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbDiam.Location = new System.Drawing.Point(112, 14);
-            this.txbDiam.Name = "txbDiam";
-            this.txbDiam.Size = new System.Drawing.Size(128, 20);
-            this.txbDiam.TabIndex = 0;
-            // 
-            // btnCalc
-            // 
-            this.btnCalc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCalc.Location = new System.Drawing.Point(336, 422);
-            this.btnCalc.Name = "btnCalc";
-            this.btnCalc.Size = new System.Drawing.Size(253, 36);
-            this.btnCalc.TabIndex = 2;
-            this.btnCalc.Text = "Рассчитать";
-            this.btnCalc.UseVisualStyleBackColor = true;
-            this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
-            // 
-            // txbTemp
-            // 
-            this.txbTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbTemp.Location = new System.Drawing.Point(112, 118);
-            this.txbTemp.Name = "txbTemp";
-            this.txbTemp.Size = new System.Drawing.Size(128, 20);
-            this.txbTemp.TabIndex = 0;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 121);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(91, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Температура, °С";
-            // 
-            // cmbPhases
-            // 
-            this.cmbPhases.FormattingEnabled = true;
-            this.cmbPhases.Location = new System.Drawing.Point(112, 144);
-            this.cmbPhases.Name = "cmbPhases";
-            this.cmbPhases.Size = new System.Drawing.Size(128, 21);
-            this.cmbPhases.TabIndex = 2;
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(cmbPhases);
+            panel1.Controls.Add(label5);
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(txbTemp);
+            panel1.Controls.Add(txbTime);
+            panel1.Controls.Add(txbForce);
+            panel1.Controls.Add(txbLength);
+            panel1.Controls.Add(txbDiam);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(392, 3);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(295, 477);
+            panel1.TabIndex = 1;
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(70, 147);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(36, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Фаза";
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(82, 170);
+            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(33, 15);
+            label6.TabIndex = 3;
+            label6.Text = "Фаза";
+            // 
+            // cmbPhases
+            // 
+            cmbPhases.FormattingEnabled = true;
+            cmbPhases.Location = new System.Drawing.Point(131, 166);
+            cmbPhases.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cmbPhases.Name = "cmbPhases";
+            cmbPhases.Size = new System.Drawing.Size(149, 23);
+            cmbPhases.TabIndex = 2;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(18, 140);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(98, 15);
+            label5.TabIndex = 1;
+            label5.Text = "Температура, °С";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(64, 110);
+            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(55, 15);
+            label4.TabIndex = 1;
+            label4.Text = "Время, ч";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(43, 80);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(72, 15);
+            label3.TabIndex = 1;
+            label3.Text = "Нагрузка, Н";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(51, 50);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(66, 15);
+            label2.TabIndex = 1;
+            label2.Text = "Длина, мм";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(36, 20);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(79, 15);
+            label1.TabIndex = 1;
+            label1.Text = "Диаметр, мм";
+            // 
+            // txbTemp
+            // 
+            txbTemp.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txbTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbTemp.Location = new System.Drawing.Point(131, 136);
+            txbTemp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txbTemp.Name = "txbTemp";
+            txbTemp.Size = new System.Drawing.Size(149, 23);
+            txbTemp.TabIndex = 0;
+            // 
+            // txbTime
+            // 
+            txbTime.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txbTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbTime.Location = new System.Drawing.Point(131, 106);
+            txbTime.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txbTime.Name = "txbTime";
+            txbTime.Size = new System.Drawing.Size(149, 23);
+            txbTime.TabIndex = 0;
+            // 
+            // txbForce
+            // 
+            txbForce.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txbForce.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbForce.Location = new System.Drawing.Point(131, 76);
+            txbForce.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txbForce.Name = "txbForce";
+            txbForce.Size = new System.Drawing.Size(149, 23);
+            txbForce.TabIndex = 0;
+            // 
+            // txbLength
+            // 
+            txbLength.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txbLength.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbLength.Location = new System.Drawing.Point(131, 46);
+            txbLength.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txbLength.Name = "txbLength";
+            txbLength.Size = new System.Drawing.Size(149, 23);
+            txbLength.TabIndex = 0;
+            // 
+            // txbDiam
+            // 
+            txbDiam.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txbDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbDiam.Location = new System.Drawing.Point(131, 16);
+            txbDiam.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txbDiam.Name = "txbDiam";
+            txbDiam.Size = new System.Drawing.Size(149, 23);
+            txbDiam.TabIndex = 0;
+            // 
+            // btnCalc
+            // 
+            btnCalc.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnCalc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCalc.Location = new System.Drawing.Point(392, 486);
+            btnCalc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCalc.Name = "btnCalc";
+            btnCalc.Size = new System.Drawing.Size(295, 43);
+            btnCalc.TabIndex = 2;
+            btnCalc.Text = "Рассчитать";
+            btnCalc.UseVisualStyleBackColor = true;
+            btnCalc.Click += btnCalc_Click;
             // 
             // CreepControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "CreepControl";
-            this.Size = new System.Drawing.Size(592, 461);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(tableLayoutPanel1);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "CreepControl";
+            Size = new System.Drawing.Size(691, 532);
+            tableLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

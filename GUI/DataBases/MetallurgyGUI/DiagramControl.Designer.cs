@@ -30,122 +30,129 @@ namespace BazisGUI.DataBases.MetallurgyGUI
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.rbtCCT = new System.Windows.Forms.RadioButton();
-            this.rbtTTT = new System.Windows.Forms.RadioButton();
-            this.btnCalcDiag = new System.Windows.Forms.Button();
-            this.graphContainer = new GraphContainer();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.SuspendLayout();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            panel1 = new System.Windows.Forms.Panel();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            rbtCCT = new System.Windows.Forms.RadioButton();
+            rbtTTT = new System.Windows.Forms.RadioButton();
+            btnCalcDiag = new System.Windows.Forms.Button();
+            graphContainer = new GraphContainer();
+            tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnCalcDiag, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.graphContainer, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(652, 466);
-            this.tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 233F));
+            tableLayoutPanel1.Controls.Add(panel1, 0, 0);
+            tableLayoutPanel1.Controls.Add(btnCalcDiag, 1, 2);
+            tableLayoutPanel1.Controls.Add(graphContainer, 0, 1);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(761, 538);
+            tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
-            this.panel1.Controls.Add(this.tableLayoutPanel2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(4, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(644, 44);
-            this.panel1.TabIndex = 2;
+            tableLayoutPanel1.SetColumnSpan(panel1, 2);
+            panel1.Controls.Add(tableLayoutPanel2);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(5, 4);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(751, 52);
+            panel1.TabIndex = 2;
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.rbtCCT, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.rbtTTT, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(644, 44);
-            this.tableLayoutPanel2.TabIndex = 1;
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(rbtCCT, 1, 0);
+            tableLayoutPanel2.Controls.Add(rbtTTT, 0, 0);
+            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(751, 52);
+            tableLayoutPanel2.TabIndex = 1;
             // 
             // rbtCCT
             // 
-            this.rbtCCT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.rbtCCT.AutoSize = true;
-            this.rbtCCT.Checked = true;
-            this.rbtCCT.Location = new System.Drawing.Point(460, 13);
-            this.rbtCCT.Name = "rbtCCT";
-            this.rbtCCT.Size = new System.Drawing.Size(46, 17);
-            this.rbtCCT.TabIndex = 0;
-            this.rbtCCT.TabStop = true;
-            this.rbtCCT.Text = "CCT";
-            this.rbtCCT.UseVisualStyleBackColor = true;
-            this.rbtCCT.CheckedChanged += new System.EventHandler(this.rbtCCT_CheckedChanged);
+            rbtCCT.Anchor = System.Windows.Forms.AnchorStyles.None;
+            rbtCCT.AutoSize = true;
+            rbtCCT.Checked = true;
+            rbtCCT.Location = new System.Drawing.Point(539, 16);
+            rbtCCT.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbtCCT.Name = "rbtCCT";
+            rbtCCT.Size = new System.Drawing.Size(48, 19);
+            rbtCCT.TabIndex = 0;
+            rbtCCT.TabStop = true;
+            rbtCCT.Text = "CCT";
+            rbtCCT.UseVisualStyleBackColor = true;
+            rbtCCT.CheckedChanged += rbtCCT_CheckedChanged;
             // 
             // rbtTTT
             // 
-            this.rbtTTT.AccessibleName = "TTT";
-            this.rbtTTT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.rbtTTT.AutoSize = true;
-            this.rbtTTT.Location = new System.Drawing.Point(138, 13);
-            this.rbtTTT.Name = "rbtTTT";
-            this.rbtTTT.Size = new System.Drawing.Size(46, 17);
-            this.rbtTTT.TabIndex = 0;
-            this.rbtTTT.Text = "TTT";
-            this.rbtTTT.UseVisualStyleBackColor = true;
-            this.rbtTTT.CheckedChanged += new System.EventHandler(this.rbtTTT_CheckedChanged);
+            rbtTTT.AccessibleName = "TTT";
+            rbtTTT.Anchor = System.Windows.Forms.AnchorStyles.None;
+            rbtTTT.AutoSize = true;
+            rbtTTT.Location = new System.Drawing.Point(164, 16);
+            rbtTTT.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbtTTT.Name = "rbtTTT";
+            rbtTTT.Size = new System.Drawing.Size(46, 19);
+            rbtTTT.TabIndex = 0;
+            rbtTTT.Text = "TTT";
+            rbtTTT.UseVisualStyleBackColor = true;
+            rbtTTT.CheckedChanged += rbtTTT_CheckedChanged;
             // 
             // btnCalcDiag
             // 
-            this.btnCalcDiag.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCalcDiag.Location = new System.Drawing.Point(454, 428);
-            this.btnCalcDiag.Name = "btnCalcDiag";
-            this.btnCalcDiag.Size = new System.Drawing.Size(194, 34);
-            this.btnCalcDiag.TabIndex = 3;
-            this.btnCalcDiag.Text = "Рассчитать";
-            this.btnCalcDiag.UseVisualStyleBackColor = true;
-            this.btnCalcDiag.Click += new System.EventHandler(this.btnCalcDiag_Click);
+            btnCalcDiag.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnCalcDiag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCalcDiag.Location = new System.Drawing.Point(531, 494);
+            btnCalcDiag.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCalcDiag.Name = "btnCalcDiag";
+            btnCalcDiag.Size = new System.Drawing.Size(225, 40);
+            btnCalcDiag.TabIndex = 3;
+            btnCalcDiag.Text = "Рассчитать";
+            btnCalcDiag.UseVisualStyleBackColor = true;
+            btnCalcDiag.Click += btnCalcDiag_Click;
             // 
             // graphContainer
             // 
-            this.graphContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphContainer.Location = new System.Drawing.Point(1, 52);
-            this.graphContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.graphContainer.Name = "graphContainer";
-            this.graphContainer.Size = new System.Drawing.Size(449, 372);
-            this.graphContainer.TabIndex = 4;
+            graphContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            graphContainer.Location = new System.Drawing.Point(1, 60);
+            graphContainer.Margin = new System.Windows.Forms.Padding(0);
+            graphContainer.Name = "graphContainer";
+            graphContainer.Size = new System.Drawing.Size(525, 430);
+            graphContainer.TabIndex = 4;
             // 
             // DiagramControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "DiagramControl";
-            this.Size = new System.Drawing.Size(652, 466);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(tableLayoutPanel1);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "DiagramControl";
+            Size = new System.Drawing.Size(761, 538);
+            tableLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

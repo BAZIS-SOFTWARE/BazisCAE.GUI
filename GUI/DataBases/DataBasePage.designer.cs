@@ -183,7 +183,7 @@ namespace BazisGUI.DataBases
             // 
             btnOpenDB.AutoSize = false;
             btnOpenDB.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnOpenDB.Image = (System.Drawing.Image)resources.GetObject("btnOpenDB.Image");
+            btnOpenDB.Image = Resources.OpenDB;
             btnOpenDB.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             btnOpenDB.ImageScaling = ToolStripItemImageScaling.None;
             btnOpenDB.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -196,7 +196,7 @@ namespace BazisGUI.DataBases
             // 
             btnAddDB.AutoSize = false;
             btnAddDB.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnAddDB.Image = (System.Drawing.Image)resources.GetObject("btnAddDB.Image");
+            btnAddDB.Image = Resources.AddDB;
             btnAddDB.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             btnAddDB.ImageScaling = ToolStripItemImageScaling.None;
             btnAddDB.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -248,7 +248,7 @@ namespace BazisGUI.DataBases
             // 
             btnCreateCopy.AutoSize = false;
             btnCreateCopy.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnCreateCopy.Image = (System.Drawing.Image)resources.GetObject("btnCreateCopy.Image");
+            btnCreateCopy.Image = Resources.Copy;
             btnCreateCopy.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             btnCreateCopy.ImageScaling = ToolStripItemImageScaling.None;
             btnCreateCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -397,7 +397,7 @@ namespace BazisGUI.DataBases
             // 
             btnAscSort.AutoSize = false;
             btnAscSort.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnAscSort.Image = (System.Drawing.Image)resources.GetObject("btnAscSort.Image");
+            btnAscSort.Image = Resources.ASC_sort;
             btnAscSort.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             btnAscSort.ImageScaling = ToolStripItemImageScaling.None;
             btnAscSort.ImageTransparentColor = System.Drawing.Color.Magenta;

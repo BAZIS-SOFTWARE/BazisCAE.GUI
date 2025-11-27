@@ -7,8 +7,8 @@ using System.IO;
 using Newtonsoft.Json;
 using UserControlsEx.Graph;
 using PropertiesCalculator;
-using PropertiesCalculator.FunctionData;
-using PropertiesCalculator.MaterialData;
+using MaterialDB.FunctionData;
+using MaterialDB.MaterialData;
 
 namespace BazisGUI.DataBases
 {

@@ -1,8 +1,8 @@
-﻿using PropertiesCalculator.MaterialData;
+﻿using MaterialDB.MaterialData;
+using MaterialDB.Utilities;
 using PropertiesCalculator.PropertiesCalculator.MechanicalModels;
 using PropertiesCalculator.PropertiesController.Interfaces;
 using PropertiesCalculator.PropertiesController.MechanicalModels;
-using PropertiesCalculator.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;

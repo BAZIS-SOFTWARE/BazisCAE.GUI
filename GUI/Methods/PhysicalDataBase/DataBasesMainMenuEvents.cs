@@ -1,15 +1,8 @@
-﻿using BaseModule.Utilities;
-using Mono.Unix.Native;
-using Project.Interfaces;
-using PropertiesCalculator.MaterialData;
-using BazisGUI.DataBases;
+﻿using BazisGUI.DataBases;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BazisGUI

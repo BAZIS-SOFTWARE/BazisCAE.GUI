@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using PropertiesCalculator.MaterialData;
+using MaterialDB.MaterialData;
 
 namespace BazisGUI.DataBases
 {

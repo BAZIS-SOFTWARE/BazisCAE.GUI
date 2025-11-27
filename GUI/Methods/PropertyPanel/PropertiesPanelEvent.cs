@@ -10,8 +10,6 @@ using Model.GeometryObjects;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
-using PropertiesCalculator.FunctionData;
-using PropertiesCalculator.MaterialData;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;

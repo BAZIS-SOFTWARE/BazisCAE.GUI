@@ -7,11 +7,11 @@ using System.IO;
 using System.Drawing;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
-using PropertiesCalculator.MaterialData;
 using PropertiesCalculator;
 using UserControlsEx.Graph;
 using BazisGUI.DataBases.MechanicalGUI;
 using BazisGUI.DataBases.MetallurgyGUI;
+using MaterialDB.MaterialData;
 
 namespace BazisGUI.DataBases
 {
