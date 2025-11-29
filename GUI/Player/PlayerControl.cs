@@ -174,15 +174,15 @@ namespace BazisGUI.Player
         {
             if (CheckState == CheckState.start)
             {
-                //btnCheckDinamic.Image = BazisGUI.Properties.Resources.StartCheck;
+                btnCheckDinamic.Image = BazisGUI.Properties.Resources.StartCheck.ToBitmap();
             }
             else if (CheckState == CheckState.pause)
             {
-                //btnCheckDinamic.Image = BazisGUI.Properties.Resources.Pause.ToBitmap();
+                btnCheckDinamic.Image = BazisGUI.Properties.Resources.Pause.ToBitmap();
             }
             else
             {
-                //btnCheckDinamic.Image = BazisGUI.Properties.Resources.StartCheck;
+                btnCheckDinamic.Image = BazisGUI.Properties.Resources.StartCheck.ToBitmap();
             }
         }
     }
