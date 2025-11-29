@@ -1,7 +1,7 @@
-﻿using BaseModule;
-using BaseModule.Console;
-using BaseModule.Extensions;
-using BaseModule.SceenControls;
+﻿using BazisGUI;
+using BazisGUI.Console;
+using BazisGUI.Extensions;
+using BazisGUI.SceenControls;
 using BazisGUI.Scene;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenTK.Graphics.OpenGL;
+using BazisGUI.Reflect;
 
 namespace BazisGUI
 {
@@ -636,7 +637,7 @@ namespace BazisGUI
                 var btn = sender as ToolStripMenuItem;
                 if (btn.Checked)
                 {
-                    var clip = new BaseModule.SceenControls.ClipControl() { Dock = DockStyle.Fill };
+                    var clip = new Clip.ClipControl() { Dock = DockStyle.Fill };
                     var clipForm = new Form()
                     {
                         Name = "clipPlaneForm",

@@ -1,12 +1,12 @@
-using BaseModule.PinnedControl;
-using BaseModule.PropertiesPanel.DataGridViewNumericUpDown;
+using BazisGUI.PinnedControl;
+using BazisGUI.PropertiesPanel.DataGridViewNumericUpDown;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace BaseModule.PropertiesPanel
+namespace BazisGUI.PropertiesPanel
 {
     public partial class PropertiesPanelControl : PinnedPage
     {

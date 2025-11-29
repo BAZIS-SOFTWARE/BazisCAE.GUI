@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BaseModule.Tasks.WeldingModule.WeldingTypeControls {
+namespace BazisGUI.Tasks.WeldingModule.WeldingTypeControls {
     using System;
     
     

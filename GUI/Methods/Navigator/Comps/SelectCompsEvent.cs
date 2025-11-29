@@ -1,5 +1,5 @@
 ﻿using BazisGUI.Navigator;
-using BaseModule.PropertiesPanel;
+using BazisGUI.PropertiesPanel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

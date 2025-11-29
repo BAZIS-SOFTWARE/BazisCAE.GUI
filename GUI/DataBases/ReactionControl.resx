@@ -118,19 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnChangePhaseValue.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABEAAAAQCAYAAADwMZRfAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAF5IAABeSAUKsXsEAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAABjElEQVQ4T31TzytEURT+/NjZIMkSZYel8gcoylqUpVjIysJ2Fv4DJZp3z60p+ZUd2VlIQkkjkjJz
+        zzWNGWXBhkIe776ZN+/dec9XZ3PO9333nnPuBWwIHgPxHohLIHZB/ALBhyA9jR23yaZH4RTafbIRJsUl
+        SPfaUh9StYL4NkYUFyWkuce2AIh3LeIVBM9D6hEQz4D4KFRjpPODprX1pw7fQPCwZbAS27vgRZA6Ruah
+        E5lyCwSfwOFlvyjZCRmcIuU22voAXk2qLhDfgPSX4RsIvg9MhJ6wdRFkHvshOB86NAfXbfDm8R4kYwdW
+        gb/6otV6GTLX55l81JIJ6yM9HjmsGpK/4eg5z+SullSTtj6ALAxAqk1IfgPxK4h/KroD75S1kPvZv4Ml
+        vVXjqhykypq5wMkPWddcRcpttvWQeinKU1Mmv6HbfAKp7QhBcBZSL/jD1LPmfYTrUp/X39j7N6SurRsl
+        RRFSdUcNqvCesDekelEo1EXiBiOQarTSXgHEnyB+huR9s7m47/CHX4emk5d7FjGPAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="btnDelPhaseValue.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABVSURBVDhPzYxBCgAgCAT9/w96rVEg1JTmIaiBvbizinyF
-        FtEW3o2wt9KTTv0ijBLv6QdRuO9Q8sLdBGWG/haOroxTTyh74a5D6RTutw8y3URYJvo3VDymCDq6CvIk
-        AAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wgAADsIBFShKgAAAAFVJREFUOE/NjEEKACAIBP3/D3qtUSDUlOYhqIG9uLOKfIUW0RbejbC30pNO/SKM
+        Eu/pB1G471Dywt0EZYb+Fo6ujFNPKHvhrkPpFO63DzLdRFgm+jdUPKYIOroK8iQAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="btnAddPhaseValue.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAApSURBVDhPY2CgFXA4wPAfGaPLEwQjzQB0xcTi4WQANkCS
-        Ymxg1ADiAQAQa7+hLnLb/wAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wgAADsIBFShKgAAAAClJREFUOE9jYKAVcDjA8B8Zo8sTBCPNAHTFxOLhZAA2QJJibGDUAOIBABBrv6Eu
+        ctv/AAAAAElFTkSuQmCC
 </value>
   </data>
 </root>

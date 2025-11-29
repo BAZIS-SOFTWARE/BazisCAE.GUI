@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BaseModule.Results.ScaleControl
+namespace BazisGUI.Results.ScaleControl
 {
     public partial class ScalePage : UserControl
     {

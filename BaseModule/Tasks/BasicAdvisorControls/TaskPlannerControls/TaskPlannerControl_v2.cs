@@ -7,12 +7,12 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
+using BazisGUI.Tasks.BasicAdvisorControls.Events;
+using BazisGUI.Tasks.BasicAdvisorControls.Interfaces;
 using Newtonsoft.Json;
 using System.Runtime;
 
-namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
+namespace BazisGUI.Tasks.BasicAdvisorControls.TaskPlannerControls
 {
     public enum Tasks : int { химическая, термическая, механическая,химическая_и_термическая, термическая_и_механическая };
     public enum Priority : int { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий };

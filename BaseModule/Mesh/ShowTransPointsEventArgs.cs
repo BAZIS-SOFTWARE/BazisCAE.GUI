@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 
-namespace BaseModule.Mesh
+namespace BazisGUI.Mesh
 {
     public class ShowTransPointsEventArgs
     {

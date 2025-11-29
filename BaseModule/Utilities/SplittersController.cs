@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.Control;
 
-namespace BaseModule.Utilities
+namespace BazisGUI.Utilities
 {
     public class SplittersController
     {

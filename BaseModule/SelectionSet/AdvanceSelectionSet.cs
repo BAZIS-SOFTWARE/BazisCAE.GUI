@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BaseModule.Interfaces.GeneralParams;
+using static BazisGUI.Interfaces.GeneralParams;
 
-namespace BaseModule
+namespace BazisGUI
 {
     public partial class AdvanceSelectionSet : UserControl
     {

@@ -1,5 +1,5 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Results.GraphCreation;
+﻿using BazisGUI.Extensions;
+using BazisGUI.Results.GraphCreation;
 using Model;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;

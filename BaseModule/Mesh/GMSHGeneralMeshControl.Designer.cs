@@ -1,8 +1,8 @@
-﻿using BaseModule.Mesh.SettingsControls;
+﻿using BazisGUI.Mesh.SettingsControls;
 using System.Windows.Forms;
 using UserControlsEx;
 
-namespace BaseModule.Mesh
+namespace BazisGUI.Mesh
 {
     partial class GMSHGeneralMeshControl : UserControl
     {
@@ -43,9 +43,9 @@ namespace BaseModule.Mesh
             this.geometryLayout = new System.Windows.Forms.TableLayoutPanel();
             this.geomTree = new System.Windows.Forms.TreeView();
             this.entitieSettingsBox = new UserControlsEx.GroupBoxEx();
-            this.volSettingsControl = new BaseModule.Mesh.SettingsControls.GMSHVolSettingsControl();
-            this.curveSettingsControl = new BaseModule.Mesh.SettingsControls.GMSHCurveSettingsControl();
-            this.pointSettingsControl = new BaseModule.Mesh.SettingsControls.GMSHPointSettingsControl();
+            this.volSettingsControl = new BazisGUI.Mesh.SettingsControls.GMSHVolSettingsControl();
+            this.curveSettingsControl = new BazisGUI.Mesh.SettingsControls.GMSHCurveSettingsControl();
+            this.pointSettingsControl = new BazisGUI.Mesh.SettingsControls.GMSHPointSettingsControl();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.btnMinMaxSizes = new System.Windows.Forms.Button();
@@ -215,7 +215,7 @@ namespace BaseModule.Mesh
             this.volSettingsControl.Name = "volSettingsControl";
             this.volSettingsControl.Size = new System.Drawing.Size(467, 195);
             this.volSettingsControl.TabIndex = 3;
-            this.volSettingsControl.setMeshGradientEvent += new System.Action<object, BaseModule.Mesh.MeshGradientSettingsEventArgs>(this.gmshVolSettingsControl_setMeshGradientSettingsEventHandler);
+            this.volSettingsControl.setMeshGradientEvent += new System.Action<object, BazisGUI.Mesh.MeshGradientSettingsEventArgs>(this.gmshVolSettingsControl_setMeshGradientSettingsEventHandler);
             this.volSettingsControl.delMeshGradientEvent += new System.Action<object>(this.gmshVolSettingsControl_delMeshGradientEventHandler);
             // 
             // curveSettingsControl

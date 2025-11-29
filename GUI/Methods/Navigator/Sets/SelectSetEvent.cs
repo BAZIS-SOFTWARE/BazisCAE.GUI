@@ -1,6 +1,6 @@
-﻿using BaseModule.Extensions;
+﻿using BazisGUI.Extensions;
 using BazisGUI.Navigator;
-using BaseModule.PropertiesPanel;
+using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using System;

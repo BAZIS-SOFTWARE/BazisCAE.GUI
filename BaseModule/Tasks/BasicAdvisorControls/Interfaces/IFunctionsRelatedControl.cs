@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseModule.Tasks.BasicAdvisorControls.Interfaces
+namespace BazisGUI.Tasks.BasicAdvisorControls.Interfaces
 {
     public interface IFunctionsRelatedControl
     {

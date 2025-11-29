@@ -1,4 +1,4 @@
-﻿using BaseModule.Player;
+﻿using BazisGUI.Player;
 using UserControlsEx;
 
 namespace BazisGUI.Animation

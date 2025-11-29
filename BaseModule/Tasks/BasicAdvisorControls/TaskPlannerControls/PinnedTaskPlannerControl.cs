@@ -1,4 +1,4 @@
-﻿using BaseModule.PinnedControl;
+﻿using BazisGUI.PinnedControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
+namespace BazisGUI.Tasks.BasicAdvisorControls.TaskPlannerControls
 {
     public partial class PinnedTaskPlannerControl : PinnedPage
     {

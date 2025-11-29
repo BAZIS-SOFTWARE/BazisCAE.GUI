@@ -51,12 +51,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1EEF0FDF732B4799B885C88133CC3003"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_20BA79FD8B6B4136B4C0F2F4F326E553"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -99,13 +93,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_56E228796FB14D07BC5AADA132412ED5"
+        "MsmKey" = "8:_566BC26F33134E439179C4CA3A447DDD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6F60599D6B2F486BBFBB83FC2D006062"
+        "MsmKey" = "8:_56E228796FB14D07BC5AADA132412ED5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -232,6 +226,12 @@
         "Entry"
         {
         "MsmKey" = "8:_CFDF33F093614CCDB9719E5B41DB933C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DF0A3AD7D4714D219D76A3C1111EBD6F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -479,26 +479,6 @@
             "TargetName" = "8:functions_draft.txt"
             "Tag" = "8:"
             "Folder" = "8:_D1E434C130BE42E1AEE8D65AF0642946"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1EEF0FDF732B4799B885C88133CC3003"
-            {
-            "SourcePath" = "8:..\\PropertiesDataBases\\DataBases\\Materials\\Materials_v6.jsf"
-            "TargetName" = "8:Materials_v6.jsf"
-            "Tag" = "8:"
-            "Folder" = "8:_165B5CC7B486452D86FB1790B789B641"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1073,6 +1053,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DF0A3AD7D4714D219D76A3C1111EBD6F"
+            {
+            "SourcePath" = "8:C:\\BazisSolver\\TestPropertiesCalculator\\Materials\\Materials_v7.jsf"
+            "TargetName" = "8:Materials_v7.jsf"
+            "Tag" = "8:"
+            "Folder" = "8:_165B5CC7B486452D86FB1790B789B641"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EC3F8D4759074ABEBCCF192F16F9C15E"
             {
             "SourcePath" = "8:C:\\Distrs\\gmsh-4.12.2-Windows64\\gmsh.exe"
@@ -1346,7 +1346,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BazisPrePost5.2.29"
         "ProductCode" = "8:{41FEC49F-2B18-449C-9A2C-16E67392338E}"
-        "PackageCode" = "8:{4449D703-8F56-48A9-A3EF-3FB7643192A7}"
+        "PackageCode" = "8:{108DCA71-17C0-42CC-AABC-FB3B41EC8B01}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -1466,15 +1466,15 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B5BE2A50AA254739809DBCDC1BA72156"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_35C41ACC09424F75B404B481D08229ED"
             {
-            "Name" = "8:Bazis_5.1_beta"
+            "Name" = "8:BazisGUI 5.2.(beta)"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_6F60599D6B2F486BBFBB83FC2D006062"
+            "Target" = "8:_566BC26F33134E439179C4CA3A447DDD"
             "Folder" = "8:_79C2669022E649E4972582DACECCA7EE"
             "WorkingFolder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
             "Icon" = "8:"
@@ -1973,9 +1973,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6F60599D6B2F486BBFBB83FC2D006062"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_566BC26F33134E439179C4CA3A447DDD"
             {
-            "SourcePath" = "8:..\\GUI\\obj\\Debug\\net8.0-windows\\BazisGUI.dll"
+            "SourcePath" = "8:..\\GUI\\obj\\Release\\net8.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
@@ -1994,7 +1994,7 @@
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
+            "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{A4E6398C-244E-4655-AEA7-5A9B606586C6}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
@@ -2003,7 +2003,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CFDF33F093614CCDB9719E5B41DB933C"
             {
-            "SourcePath" = "8:..\\InstallerAction\\obj\\Debug\\InstallerAction.dll"
+            "SourcePath" = "8:..\\InstallerAction\\obj\\Release\\InstallerAction.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"

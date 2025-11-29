@@ -1,10 +1,10 @@
-﻿using BaseModule.Properties;
+﻿using BazisGUI.Properties;
 using System.Drawing;
 using System.Windows.Forms;
 using TaskModule.WeldingModule.WeldingTypeControls;
 using UserControlsEx;
 
-namespace BaseModule.Tasks.TasksFromNavigator.Controls
+namespace BazisGUI.Tasks.TasksFromNavigator.Controls
 {
     partial class HeatControlCreator
     {

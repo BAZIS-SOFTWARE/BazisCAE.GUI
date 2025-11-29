@@ -1,4 +1,4 @@
-﻿using BaseModule.PropertiesPanel;
+﻿using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
 using GmshApi;
 using System.Collections.Generic;

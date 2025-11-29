@@ -4,7 +4,7 @@ using System;
 using Geometry;
 using System.Drawing;
 using MathNet.Numerics.LinearAlgebra;
-using BaseModule;
+using BazisGUI;
 using System.Windows.Forms;
 using Model.Interfaces;
 using System.Linq;

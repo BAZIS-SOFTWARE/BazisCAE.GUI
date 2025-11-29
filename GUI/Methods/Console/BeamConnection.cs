@@ -2,7 +2,7 @@
 using System.Linq;
 using Model.Interfaces;
 using System.Drawing;
-using BaseModule.Console;
+using BazisGUI.Console;
 
 namespace BazisGUI
 {

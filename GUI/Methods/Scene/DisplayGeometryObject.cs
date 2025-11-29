@@ -139,7 +139,7 @@ namespace BazisGUI
 
                 Initialize_GUI_Plane(scene.Width, scene.Height);
 
-                var lenght = scene.Height - Coord_Y - 50;
+                var lenght = scene.Height - Coord_Y - 100;
                 var gap_Y = 2;
                 var cellSize_Y = (lenght - ((items.Count() - 1) * gap_Y)) / items.Count();
 

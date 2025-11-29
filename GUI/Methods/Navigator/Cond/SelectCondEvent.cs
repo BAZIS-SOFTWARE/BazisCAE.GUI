@@ -1,4 +1,4 @@
-﻿using BaseModule.PropertiesPanel;
+﻿using BazisGUI.PropertiesPanel;
 using Model.Utilities;
 using Project.Interfaces.Tasks;
 using Project.Tasks;

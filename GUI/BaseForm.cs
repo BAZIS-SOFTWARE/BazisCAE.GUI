@@ -22,7 +22,7 @@ using OperationalController.GmshController;
 using OperationalController.ModelScenePresentator;
 using System.Collections.Generic;
 using OperationalController;
-using BaseModule.Utilities;
+using BazisGUI.Utilities;
 using System.Threading.Tasks;
 
 namespace BazisGUI
@@ -653,7 +653,8 @@ namespace BazisGUI
                 lblStatus.Text = $"{folderName}\\{project.Name}";
 
                 ClearAllDataOnScene();
-
+                PresentProject();
+                PresentCompDataOnTree(new List<string>());
                 UnblockInterface();
 
                 DisplayObjects();
@@ -736,7 +737,6 @@ namespace BazisGUI
 
         private void UnblockInterface()
         {
-            скриптToolStripMenuItem.Enabled = true;
             сеткаToolStripMenuItem.Enabled = true;
             dataBasesMenuItem.Enabled = true;
             tasksMenuItem.Enabled = true;

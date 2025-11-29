@@ -117,7 +117,7 @@
             btnChangePhaseValue.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnChangePhaseValue.Enabled = false;
             btnChangePhaseValue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnChangePhaseValue.Image = Properties.Resources.Refresh;
+            btnChangePhaseValue.Image = (System.Drawing.Image)resources.GetObject("btnChangePhaseValue.Image");
             btnChangePhaseValue.Location = new System.Drawing.Point(103, 122);
             btnChangePhaseValue.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnChangePhaseValue.Name = "btnChangePhaseValue";

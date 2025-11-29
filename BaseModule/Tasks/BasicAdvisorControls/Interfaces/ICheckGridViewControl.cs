@@ -1,7 +1,7 @@
-﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
+﻿using BazisGUI.Tasks.BasicAdvisorControls.Events;
 using System;
 
-namespace BaseModule.Tasks.BasicAdvisorControls.Interfaces
+namespace BazisGUI.Tasks.BasicAdvisorControls.Interfaces
 {
     public interface ICheckGridViewControl : IGridViewControl
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BaseModule.Interfaces.GeneralParams;
+using static BazisGUI.Interfaces.GeneralParams;
 
-namespace BaseModule.Results.Export
+namespace BazisGUI.Results.Export
 {
     public class CopyResultDBEventArgs : EventArgs
     {

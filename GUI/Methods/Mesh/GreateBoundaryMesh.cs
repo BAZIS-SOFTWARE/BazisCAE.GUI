@@ -1,25 +1,11 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Mesh;
-using BazisGUI.Navigator;
-using BaseModule.PropertiesPanel;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BazisGUI.Utilities;
-using Model;
+﻿using BazisGUI.Navigator;
 using Model.Interfaces;
-using Model.MeshObjects;
-using OperationalController.GmshController;
-using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace BazisGUI
 {

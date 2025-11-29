@@ -1,20 +1,4 @@
-﻿using BaseModule.Mesh;
-using BaseModule.Mesh.SettingsControls;
-using BazisGUI.Scene;
-using BazisGUI.Utilities;
-using Geometry;
-using GmshApi;
-using Model.GeometryObjects;
-using Model.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Security;
-using System.Windows.Forms;
-using static BaseModule.Interfaces.GeneralParams;
+﻿using Model.Interfaces;
 
 namespace BazisGUI
 {

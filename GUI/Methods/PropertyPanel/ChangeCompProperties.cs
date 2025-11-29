@@ -1,6 +1,6 @@
-﻿using BaseModule.Extensions;
+﻿using BazisGUI.Extensions;
 using BazisGUI.Navigator;
-using BaseModule.PropertiesPanel;
+using BazisGUI.PropertiesPanel;
 using Newtonsoft.Json;
 using Project.TaskParameters;
 using System;
@@ -143,7 +143,7 @@ namespace BazisGUI
             {
                 var selectedNode = navigator.SelectedNode;
                 var compType = selectedNode.Text.Split(' ')[0];
-                var parameters = ReadTaskParametersFromFile(selectedNode.Text.Split(' ')[1]);
+                var sample = ReadTaskParametersFromFile(selectedNode.Text.Split(' ')[1]);
 
                 var tasks = new List<string>();
                 navigator.TrySearchNodes(NodeName.расчеты, out List<TreeNode> task);
@@ -152,7 +152,21 @@ namespace BazisGUI
 
                 foreach (var taskName in tasks)
                     if (taskName.Contains(compType))
-                        SaveGeneralParametersToFile(parameters, taskName);
+                    {
+                        var temp = ReadTaskParametersFromFile(taskName.Split(' ')[1]);
+                        temp.InitTemp = sample.InitTemp;
+                        temp.Iterations = sample.Iterations;
+                        temp.MetallurgicalProcesses = sample.MetallurgicalProcesses;
+                        temp.SaveRate = sample.SaveRate;
+                        temp.SolverSettings = sample.SolverSettings;
+                        temp.TermalProcesses = sample.TermalProcesses;
+                        temp.TimeSettings.InitTimeStep = sample.TimeSettings.InitTimeStep;
+                        temp.TimeSettings.MinTimeStep = sample.TimeSettings.MinTimeStep;
+                        temp.TimeSettings.MaxTimeStep = sample.TimeSettings.MaxTimeStep;
+                        SaveGeneralParametersToFile(temp, taskName);
+                    }
+                        // TODO
+                       
             }
             catch (Exception ex)
             {

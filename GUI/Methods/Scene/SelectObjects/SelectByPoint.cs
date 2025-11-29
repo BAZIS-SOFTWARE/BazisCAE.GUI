@@ -1,4 +1,4 @@
-﻿using BaseModule.PropertiesPanel;
+﻿using BazisGUI.PropertiesPanel;
 using Geometry;
 using Geometry.Exteisions;
 using Model.Interfaces;

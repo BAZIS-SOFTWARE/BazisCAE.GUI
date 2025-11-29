@@ -1,4 +1,4 @@
-﻿namespace BaseModule.Results.Export
+﻿namespace BazisGUI.Results.Export
 {
     partial class ExportControl
     {

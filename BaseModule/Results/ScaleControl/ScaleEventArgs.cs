@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseModule.Results.ScaleControl
+namespace BazisGUI.Results.ScaleControl
 {
     public class ScaleEventArgs : EventArgs
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using static BaseModule.Interfaces.GeneralParams;
+using static BazisGUI.Interfaces.GeneralParams;
 
-namespace BaseModule
+namespace BazisGUI
 {
     public partial class MeasuringSet : UserControl
     {

@@ -1,5 +1,5 @@
-﻿using BaseModule.Extensions;
-using BaseModule.PinnedControl;
+﻿using BazisGUI.Extensions;
+using BazisGUI.PinnedControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

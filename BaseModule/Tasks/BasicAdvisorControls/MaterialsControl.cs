@@ -6,8 +6,8 @@ using System.Drawing;
 using System.ComponentModel;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using System.Linq;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
+using BazisGUI.Tasks.BasicAdvisorControls.Events;
+using BazisGUI.Tasks.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.BasicAdvisorControls
 {

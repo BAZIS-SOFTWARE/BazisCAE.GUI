@@ -1,6 +1,6 @@
 ﻿using UserControlsEx;
 
-namespace BaseModule.Player
+namespace BazisGUI.Player
 {
     partial class PlayerControl
     {
@@ -57,7 +57,7 @@ namespace BaseModule.Player
             // 
             this.btnCheckDinamic.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCheckDinamic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCheckDinamic.Image = global::BaseModule.Properties.Resources.StartCheck;
+            this.btnCheckDinamic.Image = global::BazisGUI.Properties.Resources.StartCheck;
             this.btnCheckDinamic.Location = new System.Drawing.Point(3, 3);
             this.btnCheckDinamic.MaximumSize = new System.Drawing.Size(27, 27);
             this.btnCheckDinamic.Name = "btnCheckDinamic";

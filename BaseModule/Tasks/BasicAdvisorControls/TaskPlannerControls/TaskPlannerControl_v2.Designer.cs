@@ -1,6 +1,6 @@
 ﻿using UserControlsEx;
 
-namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
+namespace BazisGUI.Tasks.BasicAdvisorControls.TaskPlannerControls
 {
     partial class TaskPlannerControl_v2
     {
@@ -153,7 +153,7 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
             this.btnLoadParameters.AutoSize = true;
             this.btnLoadParameters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadParameters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnLoadParameters.Image = global::BaseModule.Properties.Resources.ComputationFolder;
+            this.btnLoadParameters.Image = global::BazisGUI.Properties.Resources.ComputationFolder;
             this.btnLoadParameters.Location = new System.Drawing.Point(11, 27);
             this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 14, 3, 0);
             this.btnLoadParameters.Name = "btnLoadParameters";

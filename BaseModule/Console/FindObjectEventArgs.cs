@@ -1,7 +1,7 @@
 ﻿using System;
-using static BaseModule.Interfaces.GeneralParams;
+using static BazisGUI.Interfaces.GeneralParams;
 
-namespace BaseModule.Console
+namespace BazisGUI.Console
 {
     public class FindObjectEventArgs : EventArgs
     {

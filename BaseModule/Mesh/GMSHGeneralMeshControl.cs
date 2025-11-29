@@ -3,9 +3,9 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using static BaseModule.Interfaces.GeneralParams;
+using static BazisGUI.Interfaces.GeneralParams;
 
-namespace BaseModule.Mesh
+namespace BazisGUI.Mesh
 {
     public partial class GMSHGeneralMeshControl : UserControl
     {

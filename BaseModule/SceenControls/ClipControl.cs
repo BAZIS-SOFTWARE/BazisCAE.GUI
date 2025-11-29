@@ -7,7 +7,7 @@ using System.Globalization;
 using UserControlsEx;
 using System.Collections.Generic;
 
-namespace BaseModule.SceenControls
+namespace BazisGUI.SceenControls
 {
     /// <summary>
     /// Режим отсечения, устанавливаемый при отрисовке модели

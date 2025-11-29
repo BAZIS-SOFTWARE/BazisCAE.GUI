@@ -1,8 +1,8 @@
-﻿using BaseModule.Player;
+﻿using BazisGUI.Player;
 using System.Windows.Forms;
 using UserControlsEx;
 
-namespace BaseModule.Tasks.HeatTreatmentModule
+namespace BazisGUI.Tasks.HeatTreatmentModule
 {
     partial class HeatControl
     {
@@ -56,7 +56,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.Player.PlayerControl();
+            this.player = new BazisGUI.Player.PlayerControl();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txbStopTime = new UserControlsEx.TextBoxEx(this.components);
@@ -364,7 +364,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             // player
             // 
             this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CheckState = BazisGUI.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(176, 73);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -422,7 +422,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             // 
             this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHideAll.Image = global::BaseModule.Properties.Resources.HideAll;
+            this.btnHideAll.Image = global::BazisGUI.Properties.Resources.HideAll;
             this.btnHideAll.Location = new System.Drawing.Point(143, 76);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
@@ -436,7 +436,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             // 
             this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowAll.Image = global::BaseModule.Properties.Resources.ShowAll;
+            this.btnShowAll.Image = global::BazisGUI.Properties.Resources.ShowAll;
             this.btnShowAll.Location = new System.Drawing.Point(110, 76);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
@@ -451,7 +451,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Image = global::BaseModule.Properties.Resources.Refresh;
+            this.btnRefresh.Image = global::BazisGUI.Properties.Resources.Refresh;
             this.btnRefresh.Location = new System.Drawing.Point(77, 76);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
@@ -465,7 +465,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             // 
             this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearAll.Image = global::BaseModule.Properties.Resources.Delete;
+            this.btnClearAll.Image = global::BazisGUI.Properties.Resources.Delete;
             this.btnClearAll.Location = new System.Drawing.Point(44, 76);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";

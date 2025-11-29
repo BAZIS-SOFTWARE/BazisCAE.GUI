@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using UserControlsEx;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
-namespace BaseModule.Tasks.TasksFromNavigator.Controls
+namespace BazisGUI.Tasks.TasksFromNavigator.Controls
 {
     partial class ClampControlCreator
     {

@@ -76,94 +76,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Console\BeamConnectionEventArgs.cs" />
-    <Compile Include="Console\ConsoleToolStrRender.cs" />
-    <Compile Include="Console\Events\ExitAppEventArgs.cs" />
-    <Compile Include="Console\Events\LoadProjectEventArgs.cs" />
-    <Compile Include="Console\Events\ModelFindCoincidentsNodesEventArgs.cs" />
-    <Compile Include="Console\Events\ModelFindFreeNodesEventArgs.cs" />
-    <Compile Include="Console\Events\ModelRenumberEventArgs.cs" />
-    <Compile Include="Console\Events\ModelShiftCoordinateEventArgs.cs" />
-    <Compile Include="Console\Events\SaveProjectEventArgs.cs" />
-    <Compile Include="Console\Events\SolveProjectEventArgs.cs" />
-    <Compile Include="Console\ConsoleControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Console\ConsoleControl.Designer.cs">
-      <DependentUpon>ConsoleControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Console\FindObjectEventArgs.cs" />
-    <Compile Include="Console\Events\FindVolElemsEventArgs.cs" />
-    <Compile Include="Console\ModelRotateEventArgs.cs" />
     <Compile Include="Extensions\StringEx.cs" />
     <Compile Include="Interfaces\GeneralParams.cs" />
     <Compile Include="Interfaces\IPinnedControl.cs" />
-    <Compile Include="Mesh\CurveAttribsEventArgs.cs" />
-    <Compile Include="Mesh\DeleteElementEventArgs.cs" />
-    <Compile Include="Mesh\GMSH2DMeshControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Mesh\GMSH2DMeshControl.Designer.cs">
-      <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Mesh\GMSHGeneralMeshControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Mesh\GMSHGeneralMeshControl.Designer.cs">
-      <DependentUpon>GMSHGeneralMeshControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Mesh\MeshGradientSettingsEventArgs.cs" />
-    <Compile Include="Mesh\PinnedMeshGenControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Mesh\PinnedMeshGenControl.Designer.cs">
-      <DependentUpon>PinnedMeshGenControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Mesh\PointSizesEventArgs.cs" />
-    <Compile Include="Mesh\SettingsControls\GMSHCurveSettingsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Mesh\SettingsControls\GMSHCurveSettingsControl.Designer.cs">
-      <DependentUpon>GMSHCurveSettingsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Mesh\SettingsControls\GMSHPointSettingsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Mesh\SettingsControls\GMSHPointSettingsControl.Designer.cs">
-      <DependentUpon>GMSHPointSettingsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Mesh\SettingsControls\GMSHVolSettingsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Mesh\SettingsControls\GMSHVolSettingsControl.Designer.cs">
-      <DependentUpon>GMSHVolSettingsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Mesh\ShowHeatMapEventArg.cs" />
-    <Compile Include="Mesh\ShowTransPointsEventArgs.cs" />
-    <Compile Include="Mesh\TreeNodeEqualityComparer.cs" />
-    <Compile Include="Player\PlayerControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Player\PlayerControl.Designer.cs">
-      <DependentUpon>PlayerControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesPanel\ButtonPropertyValue.cs" />
-    <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\DataGridViewNumericUpDownCell.cs" />
-    <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\DataGridViewNumericUpDownEditingControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\DataGridViewNumericUpDownEditingControl.Designer.cs">
-      <DependentUpon>DataGridViewNumericUpDownEditingControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesPanel\DataGridViewNumericUpDown\NumericUpDownValue.cs" />
-    <Compile Include="PropertiesPanel\DropDownPropertyValue.cs" />
-    <Compile Include="SceenControls\ClipControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SceenControls\ClipControl.Designer.cs">
-      <DependentUpon>ClipControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SceenControls\Plane.cs" />
     <Compile Include="SceenControls\CreatePlaneFromTextArgs.cs" />
     <Compile Include="SceenControls\CrossSectionControl.cs">
       <SubType>UserControl</SubType>
@@ -172,18 +87,6 @@
       <DependentUpon>CrossSectionControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Measurement\MeasureEventArgs.cs" />
-    <Compile Include="PropertiesPanel\Enum\SequenceType.cs" />
-    <Compile Include="PropertiesPanel\Events\CellValidatorEventArgs.cs" />
-    <Compile Include="PropertiesPanel\Events\DrowPropertyOnPanelEventArgs.cs" />
-    <Compile Include="PropertiesPanel\PropertiesPanelControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PropertiesPanel\PropertiesPanelControl.Designer.cs">
-      <DependentUpon>PropertiesPanelControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PropertiesPanel\Events\PropertyChangedEventArgs.cs" />
-    <Compile Include="PropertiesPanel\RowProperty.cs" />
-    <Compile Include="PropertiesPanel\Enum\ValidationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -214,12 +117,6 @@
     <Compile Include="Results\ScaleControl\ScalePage.Designer.cs">
       <DependentUpon>ScalePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="SceenControls\ReflectControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SceenControls\ReflectControl.Designer.cs">
-      <DependentUpon>ReflectControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="SelectionSet\SelectInDirectionEventArgs.cs" />
     <Compile Include="SelectionSet\SelectInPlainEventArgs.cs" />
     <Compile Include="Measurement\MeasuringSet.cs">
@@ -234,215 +131,17 @@
     <Compile Include="SelectionSet\AdvanceSelectionSet.Designer.cs">
       <DependentUpon>AdvanceSelectionSet.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\ClampControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\ClampControl.Designer.cs">
-      <DependentUpon>ClampControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\Events\AddDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Events\ChangeDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Events\ChangeTaskTypeEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Events\CheckDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Events\DeleteAllDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Events\DeleteDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Events\HideDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Events\RefreshDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Events\ShowDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IBoundaryControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\ICheckGridViewControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IDataNamedControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IDGVControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IElmentsGroupsControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IFunctionsRelatedControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IGridViewControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\ILoadControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IMaterialsRelatedControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\INodesGroupControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\LoadControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\LoadControl.designer.cs">
-      <DependentUpon>LoadControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\MaterialsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\MaterialsControl.designer.cs">
-      <DependentUpon>MaterialsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\FileSettingsIO.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\GenerateTCFEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.Designer.cs">
-      <DependentUpon>InfoForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\PinnedTaskPlannerControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\PinnedTaskPlannerControl.Designer.cs">
-      <DependentUpon>PinnedTaskPlannerControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.Designer.cs">
-      <DependentUpon>TaskPlannerControl_v2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskTypeControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskTypeControl.Designer.cs">
-      <DependentUpon>TaskTypeControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PinnedControl\PinnedPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PinnedControl\PinnedPage.Designer.cs">
-      <DependentUpon>PinnedPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\ClampControlCreator.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\ClampControlCreator.Designer.cs">
-      <DependentUpon>ClampControlCreator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\HeatControlCreator.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\HeatControlCreator.Designer.cs">
-      <DependentUpon>HeatControlCreator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\LoadControlCreator.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\LoadControlCreator.Designer.cs">
-      <DependentUpon>LoadControlCreator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\MaterialControlCreator.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\MaterialControlCreator.Designer.cs">
-      <DependentUpon>MaterialControlCreator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\MediaControlCreator.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\MediaControlCreator.Designer.cs">
-      <DependentUpon>MediaControlCreator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\GeneralСontrol.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\GeneralСontrol.Designer.cs">
-      <DependentUpon>GeneralСontrol.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\BasicTaskAdvisor\TaskAdvisor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicTaskAdvisor\TaskAdvisor.Designer.cs">
-      <DependentUpon>TaskAdvisor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\DiffusionControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\DiffusionControl.Designer.cs">
-      <DependentUpon>DiffusionControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\DoubleIncomestandardizer.cs" />
-    <Compile Include="Tasks\HeatTreatmentModule\HeatControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\HeatControl.Designer.cs">
-      <DependentUpon>HeatControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.designer.cs">
-      <DependentUpon>ArcWeldingControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ArcWeldingControl.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\FSWeldingControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\FSWeldingControl.designer.cs">
-      <DependentUpon>FSWeldingControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\LWeldingControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\LWeldingControl.Designer.cs">
-      <DependentUpon>LWeldingControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldContainerCntrEventArgs.cs" />
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldContainerControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldContainerControl.Designer.cs">
-      <DependentUpon>WeldContainerControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldingHeatingControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldingHeatingControl.Designer.cs">
-      <DependentUpon>WeldingHeatingControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldingMediaControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldingMediaControl.designer.cs">
-      <DependentUpon>WeldingMediaControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\FieldsParser.cs" />
     <Compile Include="Utilities\IOFileController.cs" />
     <Compile Include="Utilities\SplittersController.cs" />
     <Compile Include="Utilities\RecursiveSearchControls.cs" />
-    <Compile Include="Utilities\Token.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Console\ConsoleControl.resx">
-      <DependentUpon>ConsoleControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mesh\GMSH2DMeshControl.resx">
-      <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mesh\GMSHGeneralMeshControl.resx">
-      <DependentUpon>GMSHGeneralMeshControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mesh\PinnedMeshGenControl.resx">
-      <DependentUpon>PinnedMeshGenControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mesh\SettingsControls\GMSHCurveSettingsControl.resx">
-      <DependentUpon>GMSHCurveSettingsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mesh\SettingsControls\GMSHPointSettingsControl.resx">
-      <DependentUpon>GMSHPointSettingsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mesh\SettingsControls\GMSHVolSettingsControl.resx">
-      <DependentUpon>GMSHVolSettingsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Player\PlayerControl.resx">
-      <DependentUpon>PlayerControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SceenControls\ClipControl.resx">
-      <DependentUpon>ClipControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SceenControls\CrossSectionControl.resx">
       <DependentUpon>CrossSectionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Measurement\MeasuringSet.resx">
       <DependentUpon>MeasuringSet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesPanel\PropertiesPanelControl.resx">
-      <DependentUpon>PropertiesPanelControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -458,79 +157,8 @@
     <EmbeddedResource Include="Results\ScaleControl\ScalePage.resx">
       <DependentUpon>ScalePage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SceenControls\ReflectControl.resx">
-      <DependentUpon>ReflectControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SelectionSet\AdvanceSelectionSet.resx">
       <DependentUpon>AdvanceSelectionSet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\ClampControl.resx">
-      <DependentUpon>ClampControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\LoadControl.resx">
-      <DependentUpon>LoadControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\MaterialsControl.resx">
-      <DependentUpon>MaterialsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.resx">
-      <DependentUpon>InfoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\PinnedTaskPlannerControl.resx">
-      <DependentUpon>PinnedTaskPlannerControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.resx">
-      <DependentUpon>TaskPlannerControl_v2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskTypeControl.resx">
-      <DependentUpon>TaskTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PinnedControl\PinnedPage.resx">
-      <DependentUpon>PinnedPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\HeatControlCreator.resx">
-      <DependentUpon>HeatControlCreator.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\LoadControlCreator.resx">
-      <DependentUpon>LoadControlCreator.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\MaterialControlCreator.resx">
-      <DependentUpon>MaterialControlCreator.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\MediaControlCreator.resx">
-      <DependentUpon>MediaControlCreator.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\TasksFromNavigator\GeneralСontrol.resx">
-      <DependentUpon>GeneralСontrol.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicTaskAdvisor\TaskAdvisor.resx">
-      <DependentUpon>TaskAdvisor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\HeatTreatmentModule\DiffusionControl.resx">
-      <DependentUpon>DiffusionControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\HeatTreatmentModule\HeatControl.resx">
-      <DependentUpon>HeatControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.resx">
-      <DependentUpon>ArcWeldingControl.cs</DependentUpon>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ArcWeldingControl1.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\FSWeldingControl.resx">
-      <DependentUpon>FSWeldingControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\LWeldingControl.resx">
-      <DependentUpon>LWeldingControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\WeldContainerControl.resx">
-      <DependentUpon>WeldContainerControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\WeldingHeatingControl.resx">
-      <DependentUpon>WeldingHeatingControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\WeldingMediaControl.resx">
-      <DependentUpon>WeldingMediaControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -546,8 +174,6 @@
     <None Include="Resources\save.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Tasks\BasicAdvisorControls\Resources\Icons.zip" />
-    <None Include="Tasks\WeldingModule\packages.config" />
     <None Include="TreeViewPic\switchOn_nodes_16x16.png" />
     <None Include="TreeViewPic\switchOn_elems_16x16.png" />
   </ItemGroup>
@@ -583,44 +209,6 @@
     <None Include="Resources\Tasks\Welding.ico" />
     <None Include="Resources\Tasks\Материалы.ico" />
     <None Include="Resources\Tasks\Функции.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\Add.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\AddAsDraft.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\AddDraft.png" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\AddDraft_1.png" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\AddDraft_2.png" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\Arc_new.png" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\AxiSymTask.png" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\Console.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\create.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\decrValue.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\delete.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\FSW_new.jpg" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\HideAll.png" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\incrValue.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\LW.png" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\MoveDown.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\MoveNext.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\MovePrev.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\MoveUp.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\open.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\Pause.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\PlainTask.png" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\Refresh_6.png" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\ReverseDirection.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\save.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\ShowAll.png" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\ShowAllClamp.bmp" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\StartCheck.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\StartComputation.bmp" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\Stop.ico" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\StopComputation.bmp" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\VolTask.png" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\Консоль.bmp" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\Настройки сцены.bmp" />
-    <Content Include="Tasks\BasicAdvisorControls\Resources\Справка.bmp" />
-    <Content Include="Tasks\HeatTreatmentModule\HT.ico" />
-    <Content Include="Tasks\HeatTreatmentModule\Icon.bmp" />
-    <Content Include="Tasks\WeldingModule\Icon.bmp" />
     <None Include="Resources\PlayerControlIcons\Pause.ico" />
     <None Include="Resources\PlayerControlIcons\StartCheck.ico" />
     <None Include="Resources\PlayerControlIcons\Stop.ico" />
@@ -634,8 +222,6 @@
       <Name>UserControlsEx</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reflect\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

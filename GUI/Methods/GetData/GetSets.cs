@@ -1,7 +1,7 @@
 ﻿using Model.Interfaces.ObjectsCollections;
 using Model.Interfaces;
 using System.Collections.Generic;
-using BaseModule.Extensions;
+using BazisGUI.Extensions;
 
 namespace BazisGUI
 {

@@ -1,5 +1,5 @@
-﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
+﻿using BazisGUI.Tasks.BasicAdvisorControls.Events;
+using BazisGUI.Tasks.BasicAdvisorControls.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BaseModule.Tasks.HeatTreatmentModule
+namespace BazisGUI.Tasks.HeatTreatmentModule
 {
     public partial class DiffusionСontrol : UserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {

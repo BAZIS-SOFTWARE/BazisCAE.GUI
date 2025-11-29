@@ -1,6 +1,6 @@
-﻿using BaseModule;
-using BaseModule.Console;
-using BaseModule.Extensions;
+﻿using BazisGUI;
+using BazisGUI.Console;
+using BazisGUI.Extensions;
 using BazisGUI.Properties;
 using BazisGUI.Utilities;
 using Model.Interfaces;

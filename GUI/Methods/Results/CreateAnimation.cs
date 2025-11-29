@@ -3,7 +3,7 @@ using System;
 using Geometry;
 using System.Drawing;
 using MathNet.Numerics.LinearAlgebra;
-using BaseModule.Results.GraphCreation;
+using BazisGUI.Results.GraphCreation;
 using ResultDB.IO;
 using System.Windows.Forms;
 using BazisGUI.Utilities;
@@ -20,7 +20,7 @@ using BazisGUI.Animation;
 using BazisGUI.Navigator;
 using Gif.Components;
 using System.IO;
-using BaseModule;
+using BazisGUI;
 
 namespace BazisGUI
 {

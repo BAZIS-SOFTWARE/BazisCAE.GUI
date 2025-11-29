@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseModule.Mesh
+namespace BazisGUI.Mesh
 {
     public enum PointSizesRequest
     {

@@ -1,6 +1,6 @@
-﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
-using BaseModule.Tasks.WeldingModule;
+﻿using BazisGUI.Tasks.BasicAdvisorControls.Events;
+using BazisGUI.Tasks.BasicAdvisorControls.Interfaces;
+using BazisGUI.Tasks.WeldingModule;
 using System;
 using System.Collections.Generic;
 using System.Data;

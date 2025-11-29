@@ -13,7 +13,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>5.2.29.%2a</ApplicationVersion>
+    <Version>5.2.29</Version>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -34,8 +34,11 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Console\consoleBtn_x16\**" />
     <Compile Remove="DataBases\Resources\**" />
+    <EmbeddedResource Remove="Console\consoleBtn_x16\**" />
     <EmbeddedResource Remove="DataBases\Resources\**" />
+    <None Remove="Console\consoleBtn_x16\**" />
     <None Remove="DataBases\Resources\**" />
   </ItemGroup>
   <ItemGroup>
@@ -60,19 +63,14 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
-    <PackageReference Include="OperationalController" Version="3.8.9" />
-    <PackageReference Include="PostProc" Version="2.0.4" />
-    <PackageReference Include="PreProc" Version="1.9.9" />
+    <PackageReference Include="OperationalController" Version="3.9.2" />
+    <PackageReference Include="PostProc" Version="2.0.6" />
+    <PackageReference Include="PreProc" Version="2.0.4" />
     <PackageReference Include="PropertiesCalculator" Version="1.1.0" />
-    <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework" Version="1.0.118.0" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.118.0" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118.0" />
-    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.118.0" />
-    <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.118.0" />
     <PackageReference Include="System.Memory" Version="4.5.5" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
     <PackageReference Include="System.Text.Encodings.Web" Version="7.0.0" />
@@ -87,6 +85,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Animation\AnimationPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Clip\ClipControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Console\ConsoleControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="DataBases\DataBasePage.cs">
@@ -122,6 +126,26 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Navigator\NavigatorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PinnedControl\PinnedPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Player\PlayerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PropertiesPanel\DataGridViewNumericUpDown\DataGridViewNumericUpDownEditingControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="PropertiesPanel\PropertiesPanelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Reflect\ReflectControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="WelcomeScreen.cs">
@@ -197,6 +221,10 @@
     </None>
     <None Update="Help\ПО Bazis. Руководство пользователя.chm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Update="ReleaseNotes\ReleaseNotes.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

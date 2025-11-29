@@ -1,22 +1,11 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Mesh;
-using BaseModule.Mesh.SettingsControls;
+﻿using BazisGUI.Extensions;
 using BazisGUI.Navigator;
-using BaseModule.PropertiesPanel;
-using BaseModule.PropertiesPanel.DataGridViewNumericUpDown;
-using BazisGUI.Utilities;
-using GmshApi;
-using Model.GeometryObjects;
+using BazisGUI.PropertiesPanel;
 using Model.Interfaces;
-using Project.Interfaces.Tasks;
 using Project.Tasks;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace BazisGUI
 {

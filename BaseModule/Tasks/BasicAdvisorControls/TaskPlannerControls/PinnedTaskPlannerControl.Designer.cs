@@ -1,4 +1,4 @@
-﻿namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
+﻿namespace BazisGUI.Tasks.BasicAdvisorControls.TaskPlannerControls
 {
     partial class PinnedTaskPlannerControl
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.taskPlannerControl_v21 = new BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.TaskPlannerControl_v2();
+            this.taskPlannerControl_v21 = new BazisGUI.Tasks.BasicAdvisorControls.TaskPlannerControls.TaskPlannerControl_v2();
             this.SuspendLayout();
             // 
             // taskPlannerControl_v21

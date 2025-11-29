@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseModule.Utilities
+namespace BazisGUI.Utilities
 {
     public static class IOFileController
     {

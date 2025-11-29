@@ -1,7 +1,7 @@
 ﻿using UserControlsEx;
-using BaseModule.Player;
+using BazisGUI.Player;
 
-namespace BaseModule.Tasks.HeatTreatmentModule
+namespace BazisGUI.Tasks.HeatTreatmentModule
 {
     partial class DiffusionСontrol
     {
@@ -72,7 +72,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.rbtAlphaFe = new System.Windows.Forms.RadioButton();
             this.rbtGammaFe = new System.Windows.Forms.RadioButton();
-            this.player = new BaseModule.Player.PlayerControl();
+            this.player = new BazisGUI.Player.PlayerControl();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -205,7 +205,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             // btnHideAll
             // 
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHideAll.Image = global::BaseModule.Properties.Resources.HideAll;
+            this.btnHideAll.Image = global::BazisGUI.Properties.Resources.HideAll;
             this.btnHideAll.Location = new System.Drawing.Point(137, 79);
             this.btnHideAll.Name = "btnHideAll";
             this.btnHideAll.Size = new System.Drawing.Size(27, 27);
@@ -216,7 +216,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             // btnShowAll
             // 
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowAll.Image = global::BaseModule.Properties.Resources.ShowAll;
+            this.btnShowAll.Image = global::BazisGUI.Properties.Resources.ShowAll;
             this.btnShowAll.Location = new System.Drawing.Point(104, 79);
             this.btnShowAll.Name = "btnShowAll";
             this.btnShowAll.Size = new System.Drawing.Size(27, 27);
@@ -227,7 +227,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             // btnRefresh
             // 
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Image = global::BaseModule.Properties.Resources.Refresh;
+            this.btnRefresh.Image = global::BazisGUI.Properties.Resources.Refresh;
             this.btnRefresh.Location = new System.Drawing.Point(71, 79);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(27, 27);
@@ -238,7 +238,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             // btnClearAll
             // 
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearAll.Image = global::BaseModule.Properties.Resources.Delete;
+            this.btnClearAll.Image = global::BazisGUI.Properties.Resources.Delete;
             this.btnClearAll.Location = new System.Drawing.Point(38, 79);
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(27, 27);
@@ -249,7 +249,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             // btnAddNewRow
             // 
             this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddNewRow.Image = global::BaseModule.Properties.Resources.Add.ToBitmap();
+            this.btnAddNewRow.Image = global::BazisGUI.Properties.Resources.Add.ToBitmap();
             this.btnAddNewRow.Location = new System.Drawing.Point(5, 79);
             this.btnAddNewRow.Name = "btnAddNewRow";
             this.btnAddNewRow.Size = new System.Drawing.Size(27, 27);
@@ -589,7 +589,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CheckState = BazisGUI.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(170, 79);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);

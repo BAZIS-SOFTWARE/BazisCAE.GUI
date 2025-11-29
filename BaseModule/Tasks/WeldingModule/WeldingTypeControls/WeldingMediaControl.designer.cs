@@ -1,4 +1,4 @@
-﻿using BaseModule.Player;
+﻿using BazisGUI.Player;
 using System.Windows.Forms;
 using UserControlsEx;
 
@@ -50,7 +50,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.Player.PlayerControl();
+            this.player = new BazisGUI.Player.PlayerControl();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txbStopTime = new UserControlsEx.TextBoxEx(this.components);
@@ -295,7 +295,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CheckState = BazisGUI.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(173, 76);
             this.player.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
@@ -353,7 +353,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHideAll.Image = global::BaseModule.Properties.Resources.HideAll;
+            this.btnHideAll.Image = global::BazisGUI.Properties.Resources.HideAll;
             this.btnHideAll.Location = new System.Drawing.Point(140, 79);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
@@ -367,7 +367,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowAll.Image = global::BaseModule.Properties.Resources.ShowAll;
+            this.btnShowAll.Image = global::BazisGUI.Properties.Resources.ShowAll;
             this.btnShowAll.Location = new System.Drawing.Point(107, 79);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
@@ -382,7 +382,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Image = global::BaseModule.Properties.Resources.Refresh;
+            this.btnRefresh.Image = global::BazisGUI.Properties.Resources.Refresh;
             this.btnRefresh.Location = new System.Drawing.Point(74, 79);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
@@ -396,7 +396,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearAll.Image = global::BaseModule.Properties.Resources.Delete;
+            this.btnClearAll.Image = global::BazisGUI.Properties.Resources.Delete;
             this.btnClearAll.Location = new System.Drawing.Point(41, 79);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BaseModule.Mesh
+namespace BazisGUI.Mesh
 {
     public class TreeNodeEqualityComparer : IEqualityComparer<TreeNode>
     {

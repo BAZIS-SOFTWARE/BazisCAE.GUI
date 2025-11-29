@@ -1,6 +1,6 @@
-﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BaseModule.Tasks.HeatTreatmentModule;
-using BaseModule.Tasks.TasksFromNavigator.Controls;
+﻿using BazisGUI.Tasks.BasicAdvisorControls.Events;
+using BazisGUI.Tasks.HeatTreatmentModule;
+using BazisGUI.Tasks.TasksFromNavigator.Controls;
 using MathNet.Numerics.RootFinding;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Windows.Forms;
 using UserControlsEx;
 
-namespace BaseModule.Tasks.TasksFromNavigator
+namespace BazisGUI.Tasks.TasksFromNavigator
 {
     public partial class GeneralСontrol : UserControl
     {

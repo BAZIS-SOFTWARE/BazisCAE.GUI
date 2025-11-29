@@ -1,6 +1,6 @@
 ﻿using UserControlsEx;
 
-namespace BaseModule.SceenControls
+namespace BazisGUI.SceenControls
 {
     partial class ReflectControl
     {

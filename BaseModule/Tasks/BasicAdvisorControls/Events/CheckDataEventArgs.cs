@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BaseModule.Tasks.BasicAdvisorControls.Events
+namespace BazisGUI.Tasks.BasicAdvisorControls.Events
 {
     public class CheckDataEventArgs : EventArgs
     {

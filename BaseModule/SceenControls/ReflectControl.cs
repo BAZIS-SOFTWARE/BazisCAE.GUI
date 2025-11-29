@@ -10,7 +10,7 @@ using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra;
 using UserControlsEx;
 
-namespace BaseModule.SceenControls
+namespace BazisGUI.SceenControls
 {
     public partial class ReflectControl : UserControl
     {

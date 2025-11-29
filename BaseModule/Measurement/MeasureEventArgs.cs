@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BaseModule
+namespace BazisGUI
 {
 
     public enum MeasureKind

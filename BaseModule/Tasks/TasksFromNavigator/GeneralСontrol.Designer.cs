@@ -4,9 +4,9 @@ using TaskModule.BasicAdvisorControls;
 using System.Reflection.Emit;
 using MathNet.Numerics;
 using UserControlsEx;
-using BaseModule.Tasks.TasksFromNavigator.Controls;
+using BazisGUI.Tasks.TasksFromNavigator.Controls;
 
-namespace BaseModule.Tasks.TasksFromNavigator
+namespace BazisGUI.Tasks.TasksFromNavigator
 {
     partial class GeneralСontrol
     {
@@ -70,11 +70,11 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.btnCreatePhysicalData = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
             this.generalTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.matControl = new BaseModule.Tasks.TasksFromNavigator.Controls.MaterialControlCreator();
-            this.clampControl = new BaseModule.Tasks.TasksFromNavigator.Controls.ClampControlCreator();
-            this.loadControl = new BaseModule.Tasks.TasksFromNavigator.Controls.LoadControlCreator();
-            this.mediaControl = new BaseModule.Tasks.TasksFromNavigator.Controls.MediaControlCreator();
-            this.heatControl = new BaseModule.Tasks.TasksFromNavigator.Controls.HeatControlCreator();
+            this.matControl = new BazisGUI.Tasks.TasksFromNavigator.Controls.MaterialControlCreator();
+            this.clampControl = new BazisGUI.Tasks.TasksFromNavigator.Controls.ClampControlCreator();
+            this.loadControl = new BazisGUI.Tasks.TasksFromNavigator.Controls.LoadControlCreator();
+            this.mediaControl = new BazisGUI.Tasks.TasksFromNavigator.Controls.MediaControlCreator();
+            this.heatControl = new BazisGUI.Tasks.TasksFromNavigator.Controls.HeatControlCreator();
             this.movementParametersGroupBox.SuspendLayout();
             this.trajectoryTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanelX.SuspendLayout();
@@ -571,7 +571,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.matControl.Name = "matControl";
             this.matControl.Size = new System.Drawing.Size(528, 158);
             this.matControl.TabIndex = 0;
-            this.matControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.matControl.AddDataEvent += new System.Action<BazisGUI.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
             // clampControl
             // 
@@ -582,7 +582,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.clampControl.Name = "clampControl";
             this.clampControl.Size = new System.Drawing.Size(150, 150);
             this.clampControl.TabIndex = 0;
-            this.clampControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.clampControl.AddDataEvent += new System.Action<BazisGUI.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
             // loadControl
             // 
@@ -593,7 +593,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.loadControl.Name = "loadControl";
             this.loadControl.Size = new System.Drawing.Size(150, 150);
             this.loadControl.TabIndex = 0;
-            this.loadControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.loadControl.AddDataEvent += new System.Action<BazisGUI.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
             // mediaControl
             // 
@@ -604,7 +604,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.mediaControl.Name = "mediaControl";
             this.mediaControl.Size = new System.Drawing.Size(150, 150);
             this.mediaControl.TabIndex = 0;
-            this.mediaControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.mediaControl.AddDataEvent += new System.Action<BazisGUI.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
             // heatControl
             // 
@@ -616,7 +616,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.heatControl.Name = "heatControl";
             this.heatControl.Size = new System.Drawing.Size(841, 132);
             this.heatControl.TabIndex = 0;
-            this.heatControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.heatControl.AddDataEvent += new System.Action<BazisGUI.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
             // GeneralСontrol
             // 
@@ -686,10 +686,10 @@ namespace BaseModule.Tasks.TasksFromNavigator
         private System.Windows.Forms.Button btnCreatePhysicalData;
         private System.Windows.Forms.Button btnClean;
 
-        private BaseModule.Tasks.TasksFromNavigator.Controls.MaterialControlCreator matControl;
-        private BaseModule.Tasks.TasksFromNavigator.Controls.ClampControlCreator clampControl;
-        private BaseModule.Tasks.TasksFromNavigator.Controls.LoadControlCreator loadControl;
-        private BaseModule.Tasks.TasksFromNavigator.Controls.MediaControlCreator mediaControl;
+        private BazisGUI.Tasks.TasksFromNavigator.Controls.MaterialControlCreator matControl;
+        private BazisGUI.Tasks.TasksFromNavigator.Controls.ClampControlCreator clampControl;
+        private BazisGUI.Tasks.TasksFromNavigator.Controls.LoadControlCreator loadControl;
+        private BazisGUI.Tasks.TasksFromNavigator.Controls.MediaControlCreator mediaControl;
         private HeatControlCreator heatControl;
     }
 }

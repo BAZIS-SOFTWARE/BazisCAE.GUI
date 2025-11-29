@@ -1,5 +1,5 @@
-﻿using BaseModule.Extensions;
-using BaseModule.PropertiesPanel;
+﻿using BazisGUI.Extensions;
+using BazisGUI.PropertiesPanel;
 using BazisGUI.Scene.VBO;
 using BazisGUI.Utilities;
 using Geometry;

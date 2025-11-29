@@ -1,4 +1,4 @@
-﻿namespace BaseModule.Results.ScaleControl
+﻿namespace BazisGUI.Results.ScaleControl
 {
     partial class ScalePage
     {

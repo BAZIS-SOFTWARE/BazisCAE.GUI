@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Reflection.Emit;
 
-namespace BaseModule.Player
+namespace BazisGUI.Player
 {
     public enum CheckState : int { start, pause, continuation };
     public partial class PlayerControl: UserControl
@@ -174,15 +174,15 @@ namespace BaseModule.Player
         {
             if (CheckState == CheckState.start)
             {
-                btnCheckDinamic.Image = BaseModule.Properties.Resources.StartCheck;
+                btnCheckDinamic.Image = BazisGUI.Properties.Resources.StartCheck;
             }
             else if (CheckState == CheckState.pause)
             {
-                btnCheckDinamic.Image = BaseModule.Properties.Resources.Pause.ToBitmap();
+                btnCheckDinamic.Image = BazisGUI.Properties.Resources.Pause.ToBitmap();
             }
             else
             {
-                btnCheckDinamic.Image = BaseModule.Properties.Resources.StartCheck;
+                btnCheckDinamic.Image = BazisGUI.Properties.Resources.StartCheck;
             }
         }
     }

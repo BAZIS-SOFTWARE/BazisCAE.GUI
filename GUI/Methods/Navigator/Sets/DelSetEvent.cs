@@ -1,4 +1,4 @@
-﻿using BaseModule.Extensions;
+﻿using BazisGUI.Extensions;
 using BazisGUI.Navigator;
 using BazisGUI.Utilities;
 using Model.Interfaces;

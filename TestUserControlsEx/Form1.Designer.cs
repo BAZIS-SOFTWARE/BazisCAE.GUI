@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.playerControl1 = new BaseModule.Player.PlayerControl();
+            this.playerControl1 = new BazisGUI.Player.PlayerControl();
             this.SuspendLayout();
             // 
             // playerControl1
             // 
             this.playerControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.playerControl1.CheckState = BaseModule.Player.CheckState.start;
+            this.playerControl1.CheckState = BazisGUI.Player.CheckState.start;
             this.playerControl1.CurrentValue = 50;
             this.playerControl1.Location = new System.Drawing.Point(127, 69);
             this.playerControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -65,7 +65,7 @@
         }
 
         #endregion
-        private BaseModule.Player.PlayerControl playerControl1;
+        private BazisGUI.Player.PlayerControl playerControl1;
     }
 }
 

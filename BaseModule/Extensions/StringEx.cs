@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BaseModule.Extensions
+namespace BazisGUI.Extensions
 {
     public static class StringEx
     {

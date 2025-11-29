@@ -1,7 +1,7 @@
 ﻿using BazisGUI.Navigator;
-using BaseModule.Results.Export;
-using BaseModule.Results.GraphCreation;
-using BaseModule.Results.ScaleControl;
+using BazisGUI.Results.Export;
+using BazisGUI.Results.GraphCreation;
+using BazisGUI.Results.ScaleControl;
 using BazisGUI.Utilities;
 using Geometry;
 using Model.Interfaces;

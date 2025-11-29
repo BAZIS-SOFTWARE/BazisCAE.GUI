@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace BaseModule.Mesh
+namespace BazisGUI.Mesh
 {
     public partial class GMSH2DMeshControl : UserControl
     {

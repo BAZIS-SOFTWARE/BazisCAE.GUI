@@ -1,5 +1,5 @@
-﻿using BaseModule.Console.Events;
-using BaseModule.Console;
+﻿using BazisGUI.Console.Events;
+using BazisGUI.Console;
 using System;
 using System.Linq;
 using BazisGUI.Utilities;
@@ -21,20 +21,26 @@ namespace BazisGUI
                 {
                     Invoke(new Action(() =>
                     {
-                        var objsType = Converters.ConvertToObjsType(findObjectEventArgs.ObjsType);
-                        var obj = project.ModelData.ObjectData.Find(objsType, (int)findObjectEventArgs.Number);
+                        var obj = project.GetAllModelObjects().
+                        FirstOrDefault(x => x.ObjType == findObjectEventArgs.ObjType & x.Number == findObjectEventArgs.Number);
 
                         if (obj != null)
                         {
-                            foreach (var item in project.ModelData.ObjectData.GetObjects(obj.ObjType))
-                                item.ViewState = false;
+                            foreach (var item in project.GetModelSetsInfo(findObjectEventArgs.ObjType))
+                                item.SetViewState(false);
                             obj.ViewState = true;
+
+                            var set = project.GetModelSetInfo(findObjectEventArgs.ObjType, ((int)findObjectEventArgs.Number));
+                            var pres = project.CreateModelObjectsPresentor(set);
+                            var vbo = CreateVBObject(pres);
+
                             ClearAllDataOnScene();
 
-                            var pres = project.CreateModelObjectsPresentor(obj.ObjType);
-                            CreateVBObject(pres);
+                            VBOController.AddVbo(vbo);
                             DisplayObjects();
                         }
+                        else
+                            console.PrintInfo("Объект не найден", Color.Orange);
                     }));
                 }
                 else if (arg2 is ModelFindCoincidentsNodesEventArgs coincidentNodesEventArgs)
@@ -69,6 +75,16 @@ namespace BazisGUI
                 {
                     BeamConnection(beamConnectionEventArgs);
                 }
+                else if(arg2 is SetElementLevelEventArgs setElementLevelEventArgs)
+                {
+                    foreach (var item in project.GetAllModelElements().
+                            Where(x => x.ObjType == setElementLevelEventArgs.ObjType))
+                    {
+                        item.Level = setElementLevelEventArgs.Level;
+                    }
+
+                        
+                }
             }
             catch (Exception ex)
             {
@@ -83,7 +99,7 @@ namespace BazisGUI
             //project.Renumber(project.ModelData.ObjectData, Converters.ConvertToObjsType(arg2.ObjsType));
         }
 
-        private void console_ModelShiftCoordinateEvent(object arg1, BaseModule.Console.Events.ModelShiftCoordinateEventArgs arg2)
+        private void console_ModelShiftCoordinateEvent(object arg1, BazisGUI.Console.Events.ModelShiftCoordinateEventArgs arg2)
         {
             project.ModelData.ObjectData.Move(ObjType.Узел, new Point3D(arg2.X, arg2.Y, arg2.Z));
 

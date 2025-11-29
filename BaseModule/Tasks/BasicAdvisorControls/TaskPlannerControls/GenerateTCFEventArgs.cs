@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
+namespace BazisGUI.Tasks.BasicAdvisorControls.TaskPlannerControls
 {
     public class GenerateTCFEventArgs : EventArgs, IEnumerable<string>
     {

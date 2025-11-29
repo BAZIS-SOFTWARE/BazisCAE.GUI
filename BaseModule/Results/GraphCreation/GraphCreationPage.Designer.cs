@@ -1,4 +1,4 @@
-﻿namespace BaseModule.Results.GraphCreation
+﻿namespace BazisGUI.Results.GraphCreation
 {
     partial class GraphCreationPage
     {

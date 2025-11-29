@@ -1,12 +1,10 @@
-﻿using BaseModule.Results.GraphCreation;
-using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+﻿using BazisGUI.Results.GraphCreation;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using static BaseModule.Interfaces.GeneralParams;
+using static BazisGUI.Interfaces.GeneralParams;
 
 namespace BazisGUI.Utilities
 {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BaseModule.Mesh.SettingsControls
+namespace BazisGUI.Mesh.SettingsControls
 {
     public partial class GMSHVolSettingsControl : UserControl
     {

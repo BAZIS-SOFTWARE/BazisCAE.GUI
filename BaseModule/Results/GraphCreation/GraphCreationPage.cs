@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BaseModule.Interfaces.GeneralParams;
+using static BazisGUI.Interfaces.GeneralParams;
 using System.Numerics;
 
-namespace BaseModule.Results.GraphCreation
+namespace BazisGUI.Results.GraphCreation
 {
     public enum GraphObjects : int { Узел, Элемент }
     public partial class GraphCreationPage : UserControl

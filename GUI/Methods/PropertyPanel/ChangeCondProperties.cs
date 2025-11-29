@@ -1,5 +1,5 @@
-﻿using BaseModule.Extensions;
-using BaseModule.PropertiesPanel;
+﻿using BazisGUI.Extensions;
+using BazisGUI.PropertiesPanel;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.FrameCreators;

@@ -49,7 +49,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         private void btnInfo_Click(object sender, EventArgs e)
         {
-            CreatePictureBox(BaseModule.Properties.Resources.Arc_new, new Point(Width / 2, btnInfo.Location.Y));
+            CreatePictureBox(BazisGUI.Properties.Resources.Arc_new, new Point(Width / 2, btnInfo.Location.Y));
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
+﻿using BazisGUI.Tasks.BasicAdvisorControls.Events;
+using BazisGUI.Tasks.BasicAdvisorControls.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;

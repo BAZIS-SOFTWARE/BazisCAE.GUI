@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseModule.SceenControls
+namespace BazisGUI.SceenControls
 {
     public struct Plane
     {

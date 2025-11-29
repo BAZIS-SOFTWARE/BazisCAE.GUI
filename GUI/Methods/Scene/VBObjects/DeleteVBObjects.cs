@@ -1,4 +1,4 @@
-﻿using BaseModule.Extensions;
+﻿using BazisGUI.Extensions;
 using BazisGUI.Scene.VBO;
 using Model.Interfaces;
 

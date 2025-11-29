@@ -1,4 +1,4 @@
-﻿namespace BaseModule.Mesh
+﻿namespace BazisGUI.Mesh
 {
     public class DeleteElementEventArgs
     {

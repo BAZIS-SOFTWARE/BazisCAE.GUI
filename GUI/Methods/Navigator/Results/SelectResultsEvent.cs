@@ -1,5 +1,5 @@
-﻿using BaseModule.PropertiesPanel;
-using BaseModule.PropertiesPanel.DataGridViewNumericUpDown;
+﻿using BazisGUI.PropertiesPanel;
+using BazisGUI.PropertiesPanel.DataGridViewNumericUpDown;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using ResultDB.IO;

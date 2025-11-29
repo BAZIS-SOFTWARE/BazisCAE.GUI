@@ -1,22 +1,12 @@
-﻿using BaseModule.Extensions;
+﻿using BazisGUI.Extensions;
 using BazisGUI.Navigator;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BazisGUI.Scene.VBO;
-using BazisGUI.Utilities;
 using Model.Interfaces;
-using Model.Interfaces.MeshObjects;
-using Model.Utilities;
-using PreProc;
-using PreProc.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -82,45 +72,7 @@ namespace BazisGUI
             }
 
         }    
-
-
-
-        private List<string> GetLoadGroupsNames(TaskType taskType, IModelData modelData)
-        {
-            if (taskType == TaskType.AxiPlain || taskType == TaskType.Plain)
-                return modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList();
-            else
-                return modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList();
-        }
-
-        private List<string> GetBoundaryGroupsNames(TaskType taskType, IModelData modelData)
-        {
-            if (taskType == TaskType.AxiPlain || taskType == TaskType.Plain)
-                return modelData.GroupData.FindMany(ObjType.Элемент1D).Select(x => x.Name).ToList();
-            else
-                return modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList();
-        }
-
-        private List<string> GetMaterialGroupsNames(TaskType taskType, IModelData modelData)
-        {
-            if (taskType == TaskType.AxiPlain || taskType == TaskType.Plain)
-                return modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList();
-            else
-                return modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList();
-        }      
-
-        public void navigator_HideConditionsEvent(object arg1, IModelData modelData, HideDataEventArgs arg2)
-        {
-            DisplayGeometryObjectEvent = null;
-            DisplayText3DEvent = null;
-            foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
-            {
-                modelData.ObjectData.SetBackColor(type);
-                var pres = project.CreateModelObjectsPresentor(type);
-                SetVBObjectAttribute(pres, "цвет");
-            }
-            DisplayObjects();
-        }     
+     
 
         private void navigator_ControlCollapseEvent()
         {

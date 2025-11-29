@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BaseModule.Properties {
+namespace BazisGUI.Properties {
     using System;
     
     

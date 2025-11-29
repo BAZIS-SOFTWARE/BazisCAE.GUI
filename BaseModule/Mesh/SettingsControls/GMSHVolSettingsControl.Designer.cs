@@ -1,4 +1,4 @@
-﻿namespace BaseModule.Mesh.SettingsControls
+﻿namespace BazisGUI.Mesh.SettingsControls
 {
     partial class GMSHVolSettingsControl
     {

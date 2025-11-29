@@ -1,4 +1,4 @@
-﻿using BaseModule.PropertiesPanel;
+﻿using BazisGUI.PropertiesPanel;
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;

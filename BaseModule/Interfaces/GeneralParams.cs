@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseModule.Interfaces
+namespace BazisGUI.Interfaces
 {
     public static class GeneralParams
     {

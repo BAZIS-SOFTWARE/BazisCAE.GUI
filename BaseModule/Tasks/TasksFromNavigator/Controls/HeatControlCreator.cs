@@ -1,10 +1,10 @@
-﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
+﻿using BazisGUI.Tasks.BasicAdvisorControls.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BaseModule.Tasks.TasksFromNavigator.Controls
+namespace BazisGUI.Tasks.TasksFromNavigator.Controls
 {
     public partial class HeatControlCreator : UserControl
     {

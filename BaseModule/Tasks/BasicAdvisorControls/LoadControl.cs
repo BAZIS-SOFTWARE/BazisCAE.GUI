@@ -5,8 +5,8 @@ using System.Globalization;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
+using BazisGUI.Tasks.BasicAdvisorControls.Events;
+using BazisGUI.Tasks.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.BasicAdvisorControls
 {

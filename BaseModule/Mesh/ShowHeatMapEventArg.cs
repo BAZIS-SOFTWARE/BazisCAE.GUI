@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseModule.Mesh
+namespace BazisGUI.Mesh
 {
     /// <summary>
     /// Событие для считывания минимального, максимального числа точек разметки кривой

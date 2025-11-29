@@ -1,6 +1,6 @@
 ﻿using UserControlsEx;
 
-namespace BaseModule.Console
+namespace BazisGUI.Console
 {
     partial class ConsoleControl
     {
@@ -226,7 +226,7 @@ namespace BaseModule.Console
             this.btnStartMacro.AutoSize = false;
             this.btnStartMacro.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnStartMacro.Enabled = false;
-            this.btnStartMacro.Image = global::BaseModule.Properties.Resources.StartCheck;
+            this.btnStartMacro.Image = global::BazisGUI.Properties.Resources.StartCheck;
             this.btnStartMacro.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnStartMacro.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnStartMacro.Name = "btnStartMacro";

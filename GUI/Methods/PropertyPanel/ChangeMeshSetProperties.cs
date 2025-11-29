@@ -1,6 +1,6 @@
-﻿using BaseModule.Extensions;
+﻿using BazisGUI.Extensions;
 using BazisGUI.Navigator;
-using BaseModule.PropertiesPanel;
+using BazisGUI.PropertiesPanel;
 using BazisGUI.Scene.Interfaces;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;

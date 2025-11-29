@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace BaseModule.Results.ScaleControl
+namespace BazisGUI.Results.ScaleControl
 {
     public interface IScale
     {

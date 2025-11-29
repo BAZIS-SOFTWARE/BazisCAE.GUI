@@ -1,4 +1,4 @@
-﻿using BaseModule.Player;
+﻿using BazisGUI.Player;
 using System.Windows.Forms;
 using UserControlsEx;
 
@@ -41,7 +41,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.player = new BaseModule.Player.PlayerControl();
+            this.player = new BazisGUI.Player.PlayerControl();
             this.label11 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -164,7 +164,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CheckState = BazisGUI.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(173, 207);
             this.player.Margin = new System.Windows.Forms.Padding(0, 3, 15, 0);
@@ -227,7 +227,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearAll.Image = global::BaseModule.Properties.Resources.Delete;
+            this.btnClearAll.Image = global::BazisGUI.Properties.Resources.Delete;
             this.btnClearAll.Location = new System.Drawing.Point(44, 210);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
@@ -292,7 +292,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnHide.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnHide.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHide.Image = global::BaseModule.Properties.Resources.HideAll;
+            this.btnHide.Image = global::BazisGUI.Properties.Resources.HideAll;
             this.btnHide.Location = new System.Drawing.Point(143, 210);
             this.btnHide.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.btnHide.Name = "btnHide";
@@ -307,7 +307,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnShow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShow.Image = global::BaseModule.Properties.Resources.ShowAll;
+            this.btnShow.Image = global::BazisGUI.Properties.Resources.ShowAll;
             this.btnShow.Location = new System.Drawing.Point(110, 210);
             this.btnShow.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShow.Name = "btnShow";
@@ -324,7 +324,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Image = global::BaseModule.Properties.Resources.Refresh;
+            this.btnRefresh.Image = global::BazisGUI.Properties.Resources.Refresh;
             this.btnRefresh.Location = new System.Drawing.Point(77, 210);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";

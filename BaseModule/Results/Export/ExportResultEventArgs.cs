@@ -1,7 +1,7 @@
 ﻿using System;
-using static BaseModule.Interfaces.GeneralParams;
+using static BazisGUI.Interfaces.GeneralParams;
 
-namespace BaseModule.Results.Export
+namespace BazisGUI.Results.Export
 {
     public class ExportResultEventArgs : EventArgs
     {

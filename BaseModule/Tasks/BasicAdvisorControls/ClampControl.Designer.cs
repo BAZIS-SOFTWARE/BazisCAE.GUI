@@ -1,4 +1,4 @@
-﻿using BaseModule.Player;
+﻿using BazisGUI.Player;
 using System.Windows.Forms;
 using UserControlsEx;
 
@@ -43,7 +43,7 @@ namespace TaskModule.BasicAdvisorControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.Player.PlayerControl();
+            this.player = new BazisGUI.Player.PlayerControl();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -204,7 +204,7 @@ namespace TaskModule.BasicAdvisorControls
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CheckState = BazisGUI.Player.CheckState.start;
             this.player.CurrentValue = 50;
             this.player.Location = new System.Drawing.Point(173, 81);
             this.player.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);

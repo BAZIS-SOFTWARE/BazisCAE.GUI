@@ -1,4 +1,4 @@
-﻿namespace BaseModule.SceenControls
+﻿namespace BazisGUI.SceenControls
 {
     partial class CrossSectionControl
     {

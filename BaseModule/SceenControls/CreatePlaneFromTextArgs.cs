@@ -1,7 +1,7 @@
 ﻿
 using System.Numerics;
 
-namespace BaseModule.SceenControls
+namespace BazisGUI.SceenControls
 {
     public class CreatePlaneFromTextArgs
     {

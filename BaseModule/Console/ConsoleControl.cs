@@ -6,14 +6,14 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using System.Reflection;
-using BaseModule.Console.Events;
+using BazisGUI.Console.Events;
 using System.ComponentModel;
 using UserControlsEx;
-using BaseModule.Utilities;
-using BaseModule.Interfaces;
-using BaseModule.PinnedControl;
+using BazisGUI.Utilities;
+using BazisGUI.Interfaces;
+using BazisGUI.PinnedControl;
 
-namespace BaseModule.Console
+namespace BazisGUI.Console
 {
     public enum GenCmd
     {

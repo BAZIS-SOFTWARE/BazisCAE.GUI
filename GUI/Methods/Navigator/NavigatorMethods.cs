@@ -1,6 +1,4 @@
-﻿
-using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
-using BazisGUI.TasksControls;
+﻿using BazisGUI.TasksControls;
 using Geometry;
 using Model.Interfaces;
 using Newtonsoft.Json;
@@ -14,7 +12,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using UserControlsEx;
 
 namespace BazisGUI
 {
@@ -127,15 +124,15 @@ namespace BazisGUI
             var fileName = Path.GetFileNameWithoutExtension(filePath);
             var taskName = fileName.Split('_')[0];
 
-            Tasks tasksSet;
-            Enum.TryParse(taskName, out tasksSet);
+            TaskKind taskKind;
+            Enum.TryParse(taskName, out taskKind);
 
-            if (tasksSet == Tasks.термическая)
+            if (taskKind == TaskKind.термическая)
             {
                 return JsonConvert.DeserializeObject<TermalParameters>
 (File.ReadAllText(filePath), settingsSerializer);
             }
-            else if (tasksSet == Tasks.механическая)
+            else if (taskKind == TaskKind.механическая)
             {
                 return JsonConvert.DeserializeObject<MechanicalParameters>
 (File.ReadAllText(filePath), settingsSerializer);

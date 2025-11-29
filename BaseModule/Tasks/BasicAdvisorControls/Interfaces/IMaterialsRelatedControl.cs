@@ -1,4 +1,4 @@
-﻿using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
+﻿using BazisGUI.Tasks.BasicAdvisorControls.Interfaces;
 using System.Collections.Generic;
 
 namespace TaskModule.BasicAdvisorControls.Interfaces

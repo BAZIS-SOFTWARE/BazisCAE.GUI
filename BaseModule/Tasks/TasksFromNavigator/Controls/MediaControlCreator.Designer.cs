@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using UserControlsEx;
 
-namespace BaseModule.Tasks.TasksFromNavigator.Controls
+namespace BazisGUI.Tasks.TasksFromNavigator.Controls
 {
     partial class MediaControlCreator
     {

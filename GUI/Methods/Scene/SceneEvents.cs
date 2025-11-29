@@ -1,4 +1,4 @@
-﻿using BaseModule.Extensions;
+﻿using BazisGUI.Extensions;
 using BazisGUI.Scene.EventsArgs;
 using BazisGUI.Utilities;
 using Geometry;
@@ -14,8 +14,9 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Windows.Forms;
-using static BaseModule.Interfaces.GeneralParams;
+using static BazisGUI.Interfaces.GeneralParams;
 using OpenTK.Graphics.OpenGL;
+using BazisGUI.Scene.VBO;
 
 namespace BazisGUI
 {
@@ -81,8 +82,12 @@ namespace BazisGUI
                     if (set.ViewState)
                     {
                         var pre = project.CreateModelObjectsPresentor(set);
-                        var vbo = CreateVBObject(pre);
-                        VBOController.AddVbo(vbo);
+                        VBObject vb;
+                        if(TryCreateVBObject(pre, out vb))
+                            VBOController.AddVbo(vb);
+
+                        //var vbo = CreateVBObject(pre);
+                        //VBOController.AddVbo(vbo);
                     }
                 }
 

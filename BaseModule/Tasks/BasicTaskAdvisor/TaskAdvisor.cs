@@ -5,11 +5,11 @@ using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls;
 using System.Linq;
 using TaskModule.BasicAdvisorControls.Interfaces;
-using BaseModule.Utilities;
+using BazisGUI.Utilities;
 using UserControlsEx;
-using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
+using BazisGUI.Tasks.BasicAdvisorControls.TaskPlannerControls;
+using BazisGUI.Tasks.BasicAdvisorControls.Events;
+using BazisGUI.Tasks.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.BasicTaskAdvisor
 {

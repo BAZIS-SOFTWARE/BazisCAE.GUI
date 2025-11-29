@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using BaseModule.Player;
+using BazisGUI.Player;
 using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls
@@ -36,7 +36,7 @@ namespace TaskModule.BasicAdvisorControls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.Player.PlayerControl();
+            this.player = new BazisGUI.Player.PlayerControl();
             this.label8 = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnHideAll = new System.Windows.Forms.Button();
@@ -122,7 +122,7 @@ namespace TaskModule.BasicAdvisorControls
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CheckState = BazisGUI.Player.CheckState.start;
             this.player.CurrentValue = 50;
             this.player.Location = new System.Drawing.Point(173, 76);
             this.player.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);

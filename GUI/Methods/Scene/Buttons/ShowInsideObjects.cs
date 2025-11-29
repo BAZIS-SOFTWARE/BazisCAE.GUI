@@ -4,11 +4,12 @@ using System;
 using Geometry;
 using System.Drawing;
 using MathNet.Numerics.LinearAlgebra;
-using BaseModule;
+using BazisGUI;
 using System.Windows.Forms;
 using Model.Interfaces;
 using System.Linq;
 using Model.Interfaces.MeshObjects;
+using BazisGUI.Scene.VBO;
 
 namespace BazisGUI
 {
@@ -43,15 +44,22 @@ namespace BazisGUI
         public void ChangeInsideObjects()
         {
             project.ChangeInsideSurfacesState(settingsConfig.IsInsideObjectsShown);
-
+            
             foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
             {
                 if(item.ViewState)
                 {
                     VBOController.DeleteVBObjects(item.Name);
                     var presenter = project.CreateModelObjectsPresentor(item);
-                    var vbo = CreateVBObject(presenter);
-                    VBOController.AddVbo(vbo);
+
+                    // тут введем проверку возможности создать vbo объект. Это необходимо в случае если у нас набор 3д
+                    // находится внутри другого набора. 
+                    VBObject vbo;
+                    if (TryCreateVBObject(presenter, out vbo))
+                        VBOController.AddVbo(vbo);
+
+                    //var vbo = CreateVBObject(presenter);
+                    //VBOController.AddVbo(vbo);
                 }
 
             }
