@@ -4,6 +4,7 @@ package "Core" {
 [preProc]
 [postProc]
 [project]
+[Material DB]
 [model]
 [Geometry]
 [GMSH Api]
@@ -12,7 +13,8 @@ package "Core" {
 }
 
 [baseForm] --> [ClientController]
-[baseForm] --> [Tao.OpenGL Api]
+[baseForm] --> [OpenTK Api]
+[baseForm] --> [PropertiesCalculator]
 
 [baseForm] --> [postProc]
 [baseForm] --> [preProc]
@@ -26,6 +28,7 @@ package "Core" {
 [postProc] --> [Results DB]
 [Results DB] --> [SQLite]
 [project] --> [model]
+[project] --> [Material DB]
 [project] --> [Geometry]
 [model] --> [Geometry]
 @enduml
