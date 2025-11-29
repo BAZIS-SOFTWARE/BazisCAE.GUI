@@ -459,7 +459,7 @@ namespace BazisGUI
         {
             try
             {
-                var btn = sender as ToolStripButton;
+                var btn = sender as ToolStripMenuItem;
                 if (btn.Checked)
                 {
                     var reflect = new ReflectControl();
