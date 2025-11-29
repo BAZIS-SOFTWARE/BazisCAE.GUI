@@ -1,9 +1,5 @@
 ﻿using BazisGUI.Navigator;
-using BazisGUI.Results.Export;
-using BazisGUI.Results.GraphCreation;
-using BazisGUI.Results.ScaleControl;
 using BazisGUI.Utilities;
-using Geometry;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
 using Project.Interfaces.Tasks;
@@ -13,12 +9,9 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UserControlsEx.Graph;
-using OperationalController;
 using ResultDB;
 using ResultDB.IO;
 using System.IO;
-using System.Security.Cryptography;
 
 namespace BazisGUI
 {
@@ -294,66 +287,66 @@ namespace BazisGUI
             }
         }
 
-        private async void ExportResultsAsync(IModelData modelData, Result result, ExportResultEventArgs args)
-        {
-            try
-            {
-                var format = args.Extension.Split('-')[0];
-                var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
+        //private async void ExportResultsAsync(IModelData modelData, Result result, ExportResultEventArgs args)
+        //{
+        //    try
+        //    {
+        //        var format = args.Extension.Split('-')[0];
+        //        var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
 
-                await Task.Run(() =>
-                {
-                    IEnumerable<IModelObject> objects;
+        //        await Task.Run(() =>
+        //        {
+        //            IEnumerable<IModelObject> objects;
 
-                    var objTypes = Converters.ConvertToObjsType(args.ExportObj);
+        //            var objTypes = Converters.ConvertToObjsType(args.ExportObj);
 
-                    if (objTypes == ObjType.Узел)
-                        objects = modelData.ObjectData.NodesSet.Values;
-                    else
-                        objects = modelData.ObjectData.GetAllElements();
+        //            if (objTypes == ObjType.Узел)
+        //                objects = modelData.ObjectData.NodesSet.Values;
+        //            else
+        //                objects = modelData.ObjectData.GetAllElements();
 
-                    resultsController.ResultsExporter.ExportObjectsResults(objects, result, args.ResName, formatedPath, format);
-                });
+        //            resultsController.ResultsExporter.ExportObjectsResults(objects, result, args.ResName, formatedPath, format);
+        //        });
 
-                console.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
-            }
-            catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
-        }
+        //        console.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
+        //    }
+        //    catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
+        //}
 
-        private async void ExportGridAsync(IModelData modelData, ITaskData taskData, Result result, ExportResultEventArgs args)
-        {
-            try
-            {
-                var format = args.Extension.Split('-')[0];
-                var formatedPath = $"{args.Path}\\GridExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
+        //private async void ExportGridAsync(IModelData modelData, ITaskData taskData, Result result, ExportResultEventArgs args)
+        //{
+        //    try
+        //    {
+        //        var format = args.Extension.Split('-')[0];
+        //        var formatedPath = $"{args.Path}\\GridExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
 
-                await Task.Run(() =>
-                {
-                    IEnumerable<ISurfaceElement> elements;
-                    if (taskData.TaskType == TaskType.Volume)
-                        elements = modelData.ObjectData.E3DCollection.GetObjects();
-                    else
-                        elements = modelData.ObjectData.E2DCollection.GetObjects();
+        //        await Task.Run(() =>
+        //        {
+        //            IEnumerable<ISurfaceElement> elements;
+        //            if (taskData.TaskType == TaskType.Volume)
+        //                elements = modelData.ObjectData.E3DCollection.GetObjects();
+        //            else
+        //                elements = modelData.ObjectData.E2DCollection.GetObjects();
 
-                    var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
-                        ResultType.nodes.ToString(), args.ResName, elements);
-                    resultsController.GridExporter.ExportGridSurfaces(figures, formatedPath, $".{args.Extension}");
-                });
+        //            var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
+        //                ResultType.nodes.ToString(), args.ResName, elements);
+        //            resultsController.GridExporter.ExportGridSurfaces(figures, formatedPath, $".{args.Extension}");
+        //        });
 
-                console.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
-            }
-            catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
-        }
+        //        console.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
+        //    }
+        //    catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
+        //}
 
-        private async void CopyResultDBAsync(Result result, CopyResultDBEventArgs args)
-        {
-            var path = args.DirPath + "\\temp.db";
-            await Task.Run(() =>
-            {
-                var saver = new SaveResultsFileDb();
-                saver.Save(new List<Result>() { result }, path, false);
-            });
-            console.PrintInfo($"созданный файл сохранен по пути: {path}", Color.Black);
-        }
+        //private async void CopyResultDBAsync(Result result, CopyResultDBEventArgs args)
+        //{
+        //    var path = args.DirPath + "\\temp.db";
+        //    await Task.Run(() =>
+        //    {
+        //        var saver = new SaveResultsFileDb();
+        //        saver.Save(new List<Result>() { result }, path, false);
+        //    });
+        //    console.PrintInfo($"созданный файл сохранен по пути: {path}", Color.Black);
+        //}
     }
 }

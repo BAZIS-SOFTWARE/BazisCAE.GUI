@@ -49,10 +49,6 @@
     <Reference Include="ClientGUI">
       <HintPath>..\Libs\ClientGUI.dll</HintPath>
     </Reference>
-    <Reference Include="Gif.Components, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Gif.Components.dll</HintPath>
-    </Reference>
     <Reference Include="LicenseInfo">
       <HintPath>..\Libs\LicenseInfo.dll</HintPath>
     </Reference>
@@ -82,6 +78,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="AboutProgrammControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="AdvanceSelection\AdvanceSelectionSet.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Animation\AnimationPage.cs">
@@ -116,6 +115,9 @@
     <Compile Update="DataBases\ReactionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Measurement\MeasuringSet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="MessageBoxEx\MessageBoxEx.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -146,6 +148,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Update="Reflect\ReflectControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="CrossSection\CrossSectionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="WelcomeScreen.cs">
@@ -194,7 +199,6 @@
     <Folder Include="Projects\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BaseModule\BaseModule.csproj" />
     <ProjectReference Include="..\UserControlEx\UserControlsEx.csproj" />
   </ItemGroup>
   <ItemGroup>

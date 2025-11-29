@@ -1,18 +1,18 @@
-﻿using System;
-using static BazisGUI.Interfaces.GeneralParams;
+﻿using Model.Interfaces;
+using System;
 
 namespace BazisGUI.Console.Events
 {
     public class ModelRenumberEventArgs : EventArgs
     {
         public uint Number { get; }
-        public Objects ObjsType { get; }
+        public ObjType ObjsType { get; }
 
         public ModelRenumberEventArgs(string cmd)
         {
             uint number;
 
-            Objects objType;
+            ObjType objType;
             if (!Enum.TryParse(cmd.Split(':')[0], out objType))
                 throw new Exception("Неизвестный тип объекта!");
             ObjsType = objType;

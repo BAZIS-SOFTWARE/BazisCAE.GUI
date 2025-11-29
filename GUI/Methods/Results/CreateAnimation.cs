@@ -1,26 +1,12 @@
-﻿using BazisGUI.Scene.Interfaces;
-using System;
-using Geometry;
+﻿using System;
 using System.Drawing;
-using MathNet.Numerics.LinearAlgebra;
-using BazisGUI.Results.GraphCreation;
 using ResultDB.IO;
 using System.Windows.Forms;
-using BazisGUI.Utilities;
-using Model.Interfaces;
 using System.Collections.Generic;
-using UserControlsEx.Graph;
-using System.Threading.Tasks;
 using System.Linq;
-using Model;
-using ResultDB;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using BazisGUI.Animation;
 using BazisGUI.Navigator;
-using Gif.Components;
 using System.IO;
-using BazisGUI;
 
 namespace BazisGUI
 {

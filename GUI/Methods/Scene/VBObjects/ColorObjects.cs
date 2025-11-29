@@ -4,7 +4,6 @@ using Geometry;
 using System.Drawing;
 using BazisGUI.Utilities;
 using Model.Interfaces;
-using static BazisGUI.Interfaces.GeneralParams;
 
 namespace BazisGUI
 {

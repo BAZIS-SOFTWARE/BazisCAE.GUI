@@ -8,6 +8,7 @@ using BazisGUI;
 using System.Windows.Forms;
 using Model.Interfaces;
 using System.Linq;
+using BazisGUI.AdvanceSelection;
 
 namespace BazisGUI
 {

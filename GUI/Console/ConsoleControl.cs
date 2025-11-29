@@ -7,10 +7,7 @@ using System.IO;
 using System.Threading;
 using System.Reflection;
 using BazisGUI.Console.Events;
-using System.ComponentModel;
-using UserControlsEx;
 using BazisGUI.Utilities;
-using BazisGUI.Interfaces;
 using BazisGUI.PinnedControl;
 
 namespace BazisGUI.Console

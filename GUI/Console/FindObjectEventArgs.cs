@@ -1,6 +1,5 @@
 ﻿using Model.Interfaces;
 using System;
-using static BazisGUI.Interfaces.GeneralParams;
 
 namespace BazisGUI.Console
 {

@@ -1,20 +1,11 @@
-﻿using BazisGUI.Scene.Interfaces;
-using System;
+﻿using System;
 using Geometry;
 using System.Drawing;
-using MathNet.Numerics.LinearAlgebra;
-using BazisGUI.Results.GraphCreation;
 using ResultDB.IO;
 using System.Windows.Forms;
-using BazisGUI.Utilities;
-using Model.Interfaces;
 using System.Collections.Generic;
 using UserControlsEx.Graph;
-using System.Threading.Tasks;
 using System.Linq;
-using Model;
-using ResultDB;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using BazisGUI.Navigator;
 
 namespace BazisGUI

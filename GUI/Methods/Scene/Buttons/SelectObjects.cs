@@ -1,18 +1,14 @@
-﻿using BazisGUI;
-using BazisGUI.Console;
+﻿using BazisGUI.AdvanceSelection;
 using BazisGUI.Extensions;
 using BazisGUI.Properties;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.MeshObjects;
 using Model.Utilities;
-using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BazisGUI
@@ -173,7 +169,7 @@ namespace BazisGUI
         {
             try
             {
-                var objsType = Converters.ConvertToObjsType(arg2.Objects);
+                var objsType = arg2.Objects;
                 if (objsType == SelectedObjects.ToEnum<ObjType>())
                 {
                     if (objsType == ObjType.Узел)
@@ -247,7 +243,7 @@ Distinct(new DefaultSetInfoComparer()))
         {
             try
             {
-                var objsType = Converters.ConvertToObjsType(arg2.Objects);
+                var objsType = arg2.Objects;
                 if (objsType == SelectedObjects.ToEnum<ObjType>())
                 {
                     SelectInDirection(objsType, arg2.Angle, arg2.Reverse);

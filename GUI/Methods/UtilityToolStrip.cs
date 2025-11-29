@@ -1,9 +1,5 @@
-﻿using BazisGUI;
-using BazisGUI.Console;
-using BazisGUI.Extensions;
-using BazisGUI.SceenControls;
+﻿using BazisGUI.Extensions;
 using BazisGUI.Scene;
-using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
 using Geometry;
 using Model.GeometryObjects;
@@ -14,11 +10,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenTK.Graphics.OpenGL;
 using BazisGUI.Reflect;
+using BazisGUI.Measurement;
+using BazisGUI.CrossSection;
 
 namespace BazisGUI
 {

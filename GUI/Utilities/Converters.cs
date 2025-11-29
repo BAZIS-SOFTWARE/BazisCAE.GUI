@@ -1,10 +1,8 @@
-﻿using BazisGUI.Results.GraphCreation;
-using Model.Interfaces;
+﻿using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static BazisGUI.Interfaces.GeneralParams;
 
 namespace BazisGUI.Utilities
 {
@@ -15,34 +13,6 @@ namespace BazisGUI.Utilities
             DataKind objType;
             return Enum.TryParse(dataKind, out objType) ? objType :
                 throw new Exception($"Ошибка конвертации объектов {dataKind}");
-        }
-        public static string ConvertToDBTablesNames(GraphObjects graphObjects)
-        {
-            switch (graphObjects)
-            {
-                case GraphObjects.Узел:
-                    return "nodes";
-                default:
-                    return "elements";
-            }
-        }
-        public static ObjType ConvertToObjsType(Objects objects)
-        {
-            switch (objects)
-            {
-                case Objects.Точка:
-                    return ObjType.Точка;
-                case Objects.Узел:
-                    return ObjType.Узел;
-                case Objects.Линия:
-                    return ObjType.Кривая;
-                case Objects.Элемент2D:
-                    return ObjType.Элемент2D;
-                case Objects.Элемент3D:
-                    return ObjType.Элемент3D;
-                default:
-                    throw new Exception($"Ошибка конвертации объектов {objects}");
-            }
         }
 
         //public static NodeName ConvertToNavigatorNodeType(ObjType objType)

@@ -1,20 +1,12 @@
 ﻿using BazisGUI.Extensions;
-using BazisGUI.Scene.EventsArgs;
-using BazisGUI.Utilities;
 using Geometry;
-using Model;
-using Model.GroupsData;
 using Model.Interfaces;
-using Model.Interfaces.ObjectsCollections;
 using Model.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Windows.Forms;
-using static BazisGUI.Interfaces.GeneralParams;
 using OpenTK.Graphics.OpenGL;
 using BazisGUI.Scene.VBO;
 
