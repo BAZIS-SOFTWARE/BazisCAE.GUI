@@ -24,16 +24,16 @@ namespace BazisGUI
                 if (!flag)
                 {
                     btn.Tag = true;
-                    settingsConfig.IsInsideObjectsShown = true;
+                    //settingsConfig.IsInsideObjectsShown = true;
                 }
 
                 else
                 {
                     btn.Tag = false;
-                    settingsConfig.IsInsideObjectsShown = false;
+                    //settingsConfig.IsInsideObjectsShown = false;
                 }
                     
-                ChangeInsideObjects();
+                ChangeInsideObjects(!flag);
             }
             catch (Exception ex)
             {
@@ -41,9 +41,9 @@ namespace BazisGUI
             }
         }
 
-        public void ChangeInsideObjects()
+        public void ChangeInsideObjects(bool flag)
         {
-            project.ChangeInsideSurfacesState(settingsConfig.IsInsideObjectsShown);
+            project.ChangeInsideSurfacesState(flag);
             
             foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
             {
@@ -64,7 +64,7 @@ namespace BazisGUI
 
             }
 
-            if (!settingsConfig.IsInsideObjectsShown)
+            if (!flag)
                 console.PrintInfo("Скрыты внутренние объекты", Color.Black);
             else
                 console.PrintInfo("Показаны все объекты", Color.Black);

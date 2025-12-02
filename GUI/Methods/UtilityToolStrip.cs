@@ -47,7 +47,10 @@ namespace BazisGUI
                         DisplayObjects();
                     };
 
-                    var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
+                    var measuringControl = new MeasuringSet() 
+                    { 
+                        Dock = DockStyle.Fill
+                    };
                     measuringControl.PreparingMeasureEvent += (ar) =>
                     {
                         SelectedObjects = ar.ToString();
@@ -128,6 +131,7 @@ namespace BazisGUI
             var message = @"Начните строить путь нажав на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
             console.PrintInfo(message, Color.Black);
 
+            var path = 0.0f;
             while (true)
             {
                 //var objType = Converters.ConvertToObjsType(SelectedObjects);
@@ -148,8 +152,13 @@ namespace BazisGUI
                 if (nodes.Count > 1)
                 {
                     var line = new Segment3D(nodes[nodes.Count - 1].Position, nodes[nodes.Count - 2].Position);
-                    console.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
+                    console.PrintInfo($"Расстояние : { path+=line.GetLength()}", Color.Black);
                     DisplayDistance(line);
+
+                    var coord = line.P0.Sum(line.P1).Div(2);
+
+                    DisplayText3D(path.ToString(), Color.FromArgb(0, 0, 0), coord);
+
                     DisplayObjects();
                 }
             }
@@ -468,8 +477,9 @@ namespace BazisGUI
                     var reflectForm = new Form()
                     {
                         TopMost = true,
-                        ShowIcon = false,
-                        ClientSize = new Size(250, 210),
+                        ShowIcon = true,
+                        Icon = this.Icon,
+                        Owner = Application.OpenForms[0],
                         MaximizeBox = false,
                         FormBorderStyle = FormBorderStyle.FixedSingle,
                         Text = "Отражение"
@@ -639,7 +649,8 @@ namespace BazisGUI
                     {
                         Name = "clipPlaneForm",
                         TopMost = true,
-                        ShowIcon = false,
+                        ShowIcon = true,
+                        Icon = this.Icon,
                         ClientSize = clip.Size,
                         MaximizeBox = false,
                         Text = "Сечение",

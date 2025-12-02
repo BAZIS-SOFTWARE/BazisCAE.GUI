@@ -75,10 +75,6 @@ namespace BazisGUI
             });
 
             DisplayGeometryObjectEvent += met;
-
-            var coord = line.P0.Sum(line.P1).Div(2);
-
-            DisplayText3D(line.GetLength().ToString(), Color.FromArgb(0, 0, 0), coord);
         }
 
         public void DisplayPath(Point3D[] points)
