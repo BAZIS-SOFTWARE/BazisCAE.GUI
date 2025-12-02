@@ -1344,16 +1344,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost5.2.29"
-        "ProductCode" = "8:{41FEC49F-2B18-449C-9A2C-16E67392338E}"
-        "PackageCode" = "8:{108DCA71-17C0-42CC-AABC-FB3B41EC8B01}"
+        "ProductName" = "8:BazisPrePost5.2.30"
+        "ProductCode" = "8:{BC9FCD6B-7859-4A32-AE6C-3C50F8EA1D72}"
+        "PackageCode" = "8:{6880928D-4B39-46E7-990F-27FD8584A457}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:5.2.29"
+        "ProductVersion" = "8:5.2.30"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
@@ -1975,7 +1975,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_566BC26F33134E439179C4CA3A447DDD"
             {
-            "SourcePath" = "8:..\\GUI\\obj\\Release\\net8.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\GUI\\obj\\Debug\\net8.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
@@ -2003,7 +2003,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CFDF33F093614CCDB9719E5B41DB933C"
             {
-            "SourcePath" = "8:..\\InstallerAction\\obj\\Release\\InstallerAction.dll"
+            "SourcePath" = "8:..\\InstallerAction\\obj\\Debug\\InstallerAction.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
