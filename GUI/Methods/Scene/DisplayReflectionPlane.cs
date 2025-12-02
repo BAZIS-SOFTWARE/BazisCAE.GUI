@@ -25,6 +25,7 @@ namespace BazisGUI
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 var bb = original.BoundingBox;
                 GL.PushMatrix();
+                // используем модельную матрицу объекта
                 GL.MultMatrix(original.ModelMatrix);
                 var normal = Vector.GetVectorNorm(plane.Normal);
                 var origin = normal.Mult(plane.Shifting);

@@ -35,7 +35,7 @@ namespace BazisGUI
         }
 
         public void CreateVBObjsByObjsType(ObjType objType)
-        {
+        {         
             foreach (var setInfo in project.GetModelSetsInfo(objType))
             {
                 if (setInfo.NumberOfObjects > 0 && setInfo.ViewState)

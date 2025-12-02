@@ -41,7 +41,6 @@ namespace BazisGUI.SettingsControls
             label2 = new System.Windows.Forms.Label();
             clslTransparency = new ColorSlider();
             chbTransparency = new System.Windows.Forms.CheckBox();
-            btnSaveConfig = new System.Windows.Forms.Button();
             tabControlEx1 = new TabControlEx();
             tbScene = new System.Windows.Forms.TabPage();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -63,7 +62,6 @@ namespace BazisGUI.SettingsControls
             tbSolver = new System.Windows.Forms.TabPage();
             tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             label3 = new System.Windows.Forms.Label();
-            tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             tabControlEx1.SuspendLayout();
             tbScene.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -71,14 +69,13 @@ namespace BazisGUI.SettingsControls
             tableLayoutPanel4.SuspendLayout();
             tbSolver.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
-            tableLayoutPanel3.SuspendLayout();
             SuspendLayout();
             // 
             // lblSolverPath
             // 
             lblSolverPath.Anchor = System.Windows.Forms.AnchorStyles.None;
             lblSolverPath.AutoSize = true;
-            lblSolverPath.Location = new System.Drawing.Point(271, 357);
+            lblSolverPath.Location = new System.Drawing.Point(276, 394);
             lblSolverPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblSolverPath.Name = "lblSolverPath";
             lblSolverPath.Size = new System.Drawing.Size(12, 15);
@@ -90,7 +87,7 @@ namespace BazisGUI.SettingsControls
             // 
             label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(90, 611);
+            label4.Location = new System.Drawing.Point(94, 680);
             label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(86, 15);
@@ -101,7 +98,7 @@ namespace BazisGUI.SettingsControls
             // 
             chbLighting.Anchor = System.Windows.Forms.AnchorStyles.None;
             chbLighting.AutoSize = true;
-            chbLighting.Location = new System.Drawing.Point(290, 129);
+            chbLighting.Location = new System.Drawing.Point(297, 189);
             chbLighting.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             chbLighting.Name = "chbLighting";
             chbLighting.Size = new System.Drawing.Size(81, 19);
@@ -114,7 +111,7 @@ namespace BazisGUI.SettingsControls
             // 
             label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(48, 86);
+            label1.Location = new System.Drawing.Point(52, 134);
             label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(170, 15);
@@ -125,7 +122,7 @@ namespace BazisGUI.SettingsControls
             // 
             chbBackRibbers.Anchor = System.Windows.Forms.AnchorStyles.None;
             chbBackRibbers.AutoSize = true;
-            chbBackRibbers.Location = new System.Drawing.Point(290, 84);
+            chbBackRibbers.Location = new System.Drawing.Point(297, 132);
             chbBackRibbers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             chbBackRibbers.Name = "chbBackRibbers";
             chbBackRibbers.Size = new System.Drawing.Size(81, 19);
@@ -139,11 +136,11 @@ namespace BazisGUI.SettingsControls
             btnBackGroundColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             btnBackGroundColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnBackGroundColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            btnBackGroundColor.Location = new System.Drawing.Point(8, 20);
-            btnBackGroundColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnBackGroundColor.Location = new System.Drawing.Point(9, 41);
+            btnBackGroundColor.Margin = new System.Windows.Forms.Padding(8);
             btnBackGroundColor.Name = "btnBackGroundColor";
             btnBackGroundColor.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            btnBackGroundColor.Size = new System.Drawing.Size(251, 31);
+            btnBackGroundColor.Size = new System.Drawing.Size(256, 31);
             btnBackGroundColor.TabIndex = 2;
             btnBackGroundColor.Text = "выбрать цвет заднего фона";
             btnBackGroundColor.UseVisualStyleBackColor = true;
@@ -154,8 +151,8 @@ namespace BazisGUI.SettingsControls
             panelBackGroundColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             panelBackGroundColor.BackColor = System.Drawing.Color.White;
             panelBackGroundColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panelBackGroundColor.Location = new System.Drawing.Point(275, 20);
-            panelBackGroundColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            panelBackGroundColor.Location = new System.Drawing.Point(282, 41);
+            panelBackGroundColor.Margin = new System.Windows.Forms.Padding(8);
             panelBackGroundColor.Name = "panelBackGroundColor";
             panelBackGroundColor.Size = new System.Drawing.Size(112, 31);
             panelBackGroundColor.TabIndex = 4;
@@ -168,11 +165,11 @@ namespace BazisGUI.SettingsControls
             clslLigthingIntensity.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             tableLayoutPanel1.SetColumnSpan(clslLigthingIntensity, 2);
             clslLigthingIntensity.LargeChange = 5U;
-            clslLigthingIntensity.Location = new System.Drawing.Point(4, 560);
+            clslLigthingIntensity.Location = new System.Drawing.Point(5, 628);
             clslLigthingIntensity.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             clslLigthingIntensity.Name = "clslLigthingIntensity";
             clslLigthingIntensity.ShowTextValue = true;
-            clslLigthingIntensity.Size = new System.Drawing.Size(387, 27);
+            clslLigthingIntensity.Size = new System.Drawing.Size(393, 27);
             clslLigthingIntensity.SmallChange = 1U;
             clslLigthingIntensity.TabIndex = 12;
             clslLigthingIntensity.Text = "colorSlider";
@@ -186,7 +183,7 @@ namespace BazisGUI.SettingsControls
             // 
             label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(98, 131);
+            label2.Location = new System.Drawing.Point(101, 191);
             label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(71, 15);
@@ -201,12 +198,12 @@ namespace BazisGUI.SettingsControls
             clslTransparency.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             tableLayoutPanel1.SetColumnSpan(clslTransparency, 2);
             clslTransparency.LargeChange = 50U;
-            clslTransparency.Location = new System.Drawing.Point(4, 649);
+            clslTransparency.Location = new System.Drawing.Point(5, 719);
             clslTransparency.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             clslTransparency.Maximum = 99;
             clslTransparency.Name = "clslTransparency";
             clslTransparency.ShowTextValue = true;
-            clslTransparency.Size = new System.Drawing.Size(387, 29);
+            clslTransparency.Size = new System.Drawing.Size(393, 29);
             clslTransparency.SmallChange = 1U;
             clslTransparency.TabIndex = 14;
             clslTransparency.Text = "colorSlider1";
@@ -220,7 +217,7 @@ namespace BazisGUI.SettingsControls
             // 
             chbTransparency.Anchor = System.Windows.Forms.AnchorStyles.None;
             chbTransparency.AutoSize = true;
-            chbTransparency.Location = new System.Drawing.Point(290, 609);
+            chbTransparency.Location = new System.Drawing.Point(297, 678);
             chbTransparency.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             chbTransparency.Name = "chbTransparency";
             chbTransparency.Size = new System.Drawing.Size(81, 19);
@@ -229,22 +226,8 @@ namespace BazisGUI.SettingsControls
             chbTransparency.UseVisualStyleBackColor = true;
             chbTransparency.Click += chbTransparency_Click;
             // 
-            // btnSaveConfig
-            // 
-            btnSaveConfig.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            btnSaveConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnSaveConfig.Location = new System.Drawing.Point(244, 792);
-            btnSaveConfig.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
-            btnSaveConfig.Name = "btnSaveConfig";
-            btnSaveConfig.Size = new System.Drawing.Size(159, 31);
-            btnSaveConfig.TabIndex = 22;
-            btnSaveConfig.Text = "Сохранить";
-            btnSaveConfig.UseVisualStyleBackColor = true;
-            btnSaveConfig.Click += btnSaveConfig_Click;
-            // 
             // tabControlEx1
             // 
-            tableLayoutPanel3.SetColumnSpan(tabControlEx1, 2);
             tabControlEx1.Controls.Add(tbScene);
             tabControlEx1.Controls.Add(tbObjects);
             tabControlEx1.Controls.Add(tbSolver);
@@ -252,12 +235,12 @@ namespace BazisGUI.SettingsControls
             tabControlEx1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             tabControlEx1.FontColor = System.Drawing.Color.Black;
             tabControlEx1.ItemSize = new System.Drawing.Size(43, 30);
-            tabControlEx1.Location = new System.Drawing.Point(4, 3);
+            tabControlEx1.Location = new System.Drawing.Point(0, 0);
             tabControlEx1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabControlEx1.Name = "tabControlEx1";
             tabControlEx1.SelectColor = System.Drawing.SystemColors.Control;
             tabControlEx1.SelectedIndex = 0;
-            tabControlEx1.Size = new System.Drawing.Size(403, 769);
+            tabControlEx1.Size = new System.Drawing.Size(411, 841);
             tabControlEx1.TabIndex = 3;
             tabControlEx1.UnSelectColor = System.Drawing.Color.LightGray;
             // 
@@ -267,13 +250,16 @@ namespace BazisGUI.SettingsControls
             tbScene.Location = new System.Drawing.Point(4, 34);
             tbScene.Margin = new System.Windows.Forms.Padding(0);
             tbScene.Name = "tbScene";
-            tbScene.Size = new System.Drawing.Size(395, 731);
+            tbScene.Size = new System.Drawing.Size(403, 803);
             tbScene.TabIndex = 0;
             tbScene.Text = "Сцена";
             tbScene.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
+            tableLayoutPanel1.AutoScroll = true;
+            tableLayoutPanel1.AutoScrollMinSize = new System.Drawing.Size(0, 735);
+            tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128F));
@@ -295,15 +281,15 @@ namespace BazisGUI.SettingsControls
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 8;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 390F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(395, 731);
+            tableLayoutPanel1.Size = new System.Drawing.Size(403, 803);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // lightingControl
@@ -313,17 +299,17 @@ namespace BazisGUI.SettingsControls
             lightingControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             tableLayoutPanel1.SetColumnSpan(lightingControl, 2);
             lightingControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            lightingControl.Location = new System.Drawing.Point(0, 161);
+            lightingControl.Location = new System.Drawing.Point(1, 228);
             lightingControl.Margin = new System.Windows.Forms.Padding(0);
             lightingControl.Name = "lightingControl";
-            lightingControl.Size = new System.Drawing.Size(395, 390);
+            lightingControl.Size = new System.Drawing.Size(401, 390);
             lightingControl.TabIndex = 11;
             // 
             // chbOrtoProjection
             // 
             chbOrtoProjection.Anchor = System.Windows.Forms.AnchorStyles.None;
             chbOrtoProjection.AutoSize = true;
-            chbOrtoProjection.Location = new System.Drawing.Point(290, 699);
+            chbOrtoProjection.Location = new System.Drawing.Point(297, 770);
             chbOrtoProjection.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             chbOrtoProjection.Name = "chbOrtoProjection";
             chbOrtoProjection.Size = new System.Drawing.Size(81, 19);
@@ -336,7 +322,7 @@ namespace BazisGUI.SettingsControls
             // 
             label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(52, 701);
+            label5.Location = new System.Drawing.Point(56, 772);
             label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(162, 15);
@@ -349,13 +335,14 @@ namespace BazisGUI.SettingsControls
             tbObjects.Location = new System.Drawing.Point(4, 34);
             tbObjects.Margin = new System.Windows.Forms.Padding(0);
             tbObjects.Name = "tbObjects";
-            tbObjects.Size = new System.Drawing.Size(396, 730);
+            tbObjects.Size = new System.Drawing.Size(403, 803);
             tbObjects.TabIndex = 1;
             tbObjects.Text = "Объекты";
             tbObjects.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel4
             // 
+            tableLayoutPanel4.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel4.ColumnCount = 2;
             tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128F));
@@ -379,7 +366,7 @@ namespace BazisGUI.SettingsControls
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            tableLayoutPanel4.Size = new System.Drawing.Size(396, 730);
+            tableLayoutPanel4.Size = new System.Drawing.Size(403, 803);
             tableLayoutPanel4.TabIndex = 0;
             // 
             // btnSelectNodeColor
@@ -387,10 +374,10 @@ namespace BazisGUI.SettingsControls
             btnSelectNodeColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             btnSelectNodeColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnSelectNodeColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            btnSelectNodeColor.Location = new System.Drawing.Point(8, 641);
-            btnSelectNodeColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnSelectNodeColor.Location = new System.Drawing.Point(9, 706);
+            btnSelectNodeColor.Margin = new System.Windows.Forms.Padding(8);
             btnSelectNodeColor.Name = "btnSelectNodeColor";
-            btnSelectNodeColor.Size = new System.Drawing.Size(252, 31);
+            btnSelectNodeColor.Size = new System.Drawing.Size(256, 31);
             btnSelectNodeColor.TabIndex = 15;
             btnSelectNodeColor.Text = "выбрать цвет узлов";
             btnSelectNodeColor.UseVisualStyleBackColor = true;
@@ -401,10 +388,10 @@ namespace BazisGUI.SettingsControls
             btnSelect2DElemColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             btnSelect2DElemColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnSelect2DElemColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            btnSelect2DElemColor.Location = new System.Drawing.Point(8, 495);
-            btnSelect2DElemColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnSelect2DElemColor.Location = new System.Drawing.Point(9, 545);
+            btnSelect2DElemColor.Margin = new System.Windows.Forms.Padding(8);
             btnSelect2DElemColor.Name = "btnSelect2DElemColor";
-            btnSelect2DElemColor.Size = new System.Drawing.Size(252, 31);
+            btnSelect2DElemColor.Size = new System.Drawing.Size(256, 31);
             btnSelect2DElemColor.TabIndex = 14;
             btnSelect2DElemColor.Text = "выбрать цвет 2D элементов";
             btnSelect2DElemColor.UseVisualStyleBackColor = true;
@@ -415,11 +402,11 @@ namespace BazisGUI.SettingsControls
             btnSelectColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             btnSelectColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnSelectColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            btnSelectColor.Location = new System.Drawing.Point(8, 57);
-            btnSelectColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnSelectColor.Location = new System.Drawing.Point(9, 65);
+            btnSelectColor.Margin = new System.Windows.Forms.Padding(8);
             btnSelectColor.Name = "btnSelectColor";
             btnSelectColor.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            btnSelectColor.Size = new System.Drawing.Size(252, 31);
+            btnSelectColor.Size = new System.Drawing.Size(256, 31);
             btnSelectColor.TabIndex = 1;
             btnSelectColor.Text = "выбрать цвет выделения объектов";
             btnSelectColor.UseVisualStyleBackColor = true;
@@ -430,10 +417,10 @@ namespace BazisGUI.SettingsControls
             btnSelectGroupColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             btnSelectGroupColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnSelectGroupColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            btnSelectGroupColor.Location = new System.Drawing.Point(8, 203);
-            btnSelectGroupColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnSelectGroupColor.Location = new System.Drawing.Point(9, 225);
+            btnSelectGroupColor.Margin = new System.Windows.Forms.Padding(8);
             btnSelectGroupColor.Name = "btnSelectGroupColor";
-            btnSelectGroupColor.Size = new System.Drawing.Size(252, 31);
+            btnSelectGroupColor.Size = new System.Drawing.Size(256, 31);
             btnSelectGroupColor.TabIndex = 10;
             btnSelectGroupColor.Text = "выбрать цвет выделения групп";
             btnSelectGroupColor.UseVisualStyleBackColor = true;
@@ -444,8 +431,8 @@ namespace BazisGUI.SettingsControls
             pnlSelectionObjsColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             pnlSelectionObjsColor.BackColor = System.Drawing.Color.LawnGreen;
             pnlSelectionObjsColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            pnlSelectionObjsColor.Location = new System.Drawing.Point(276, 57);
-            pnlSelectionObjsColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            pnlSelectionObjsColor.Location = new System.Drawing.Point(282, 65);
+            pnlSelectionObjsColor.Margin = new System.Windows.Forms.Padding(8);
             pnlSelectionObjsColor.Name = "pnlSelectionObjsColor";
             pnlSelectionObjsColor.Size = new System.Drawing.Size(112, 31);
             pnlSelectionObjsColor.TabIndex = 11;
@@ -455,8 +442,8 @@ namespace BazisGUI.SettingsControls
             pnlSelectionGroupColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             pnlSelectionGroupColor.BackColor = System.Drawing.Color.Yellow;
             pnlSelectionGroupColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            pnlSelectionGroupColor.Location = new System.Drawing.Point(276, 203);
-            pnlSelectionGroupColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            pnlSelectionGroupColor.Location = new System.Drawing.Point(282, 225);
+            pnlSelectionGroupColor.Margin = new System.Windows.Forms.Padding(8);
             pnlSelectionGroupColor.Name = "pnlSelectionGroupColor";
             pnlSelectionGroupColor.Size = new System.Drawing.Size(112, 31);
             pnlSelectionGroupColor.TabIndex = 12;
@@ -466,10 +453,10 @@ namespace BazisGUI.SettingsControls
             btnSelect3DElemColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             btnSelect3DElemColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnSelect3DElemColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            btnSelect3DElemColor.Location = new System.Drawing.Point(8, 349);
-            btnSelect3DElemColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            btnSelect3DElemColor.Location = new System.Drawing.Point(9, 385);
+            btnSelect3DElemColor.Margin = new System.Windows.Forms.Padding(8);
             btnSelect3DElemColor.Name = "btnSelect3DElemColor";
-            btnSelect3DElemColor.Size = new System.Drawing.Size(252, 31);
+            btnSelect3DElemColor.Size = new System.Drawing.Size(256, 31);
             btnSelect3DElemColor.TabIndex = 13;
             btnSelect3DElemColor.Text = "выбрать цвет 3D элементов";
             btnSelect3DElemColor.UseVisualStyleBackColor = true;
@@ -480,8 +467,8 @@ namespace BazisGUI.SettingsControls
             pnl3DElemColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             pnl3DElemColor.BackColor = System.Drawing.Color.Yellow;
             pnl3DElemColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            pnl3DElemColor.Location = new System.Drawing.Point(276, 349);
-            pnl3DElemColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            pnl3DElemColor.Location = new System.Drawing.Point(282, 385);
+            pnl3DElemColor.Margin = new System.Windows.Forms.Padding(8);
             pnl3DElemColor.Name = "pnl3DElemColor";
             pnl3DElemColor.Size = new System.Drawing.Size(112, 31);
             pnl3DElemColor.TabIndex = 16;
@@ -491,8 +478,8 @@ namespace BazisGUI.SettingsControls
             pnl2DElemColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             pnl2DElemColor.BackColor = System.Drawing.Color.Yellow;
             pnl2DElemColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            pnl2DElemColor.Location = new System.Drawing.Point(276, 495);
-            pnl2DElemColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            pnl2DElemColor.Location = new System.Drawing.Point(282, 545);
+            pnl2DElemColor.Margin = new System.Windows.Forms.Padding(8);
             pnl2DElemColor.Name = "pnl2DElemColor";
             pnl2DElemColor.Size = new System.Drawing.Size(112, 31);
             pnl2DElemColor.TabIndex = 18;
@@ -501,8 +488,8 @@ namespace BazisGUI.SettingsControls
             // 
             pnlNodeColor.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             pnlNodeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            pnlNodeColor.Location = new System.Drawing.Point(276, 641);
-            pnlNodeColor.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            pnlNodeColor.Location = new System.Drawing.Point(282, 706);
+            pnlNodeColor.Margin = new System.Windows.Forms.Padding(8);
             pnlNodeColor.Name = "pnlNodeColor";
             pnlNodeColor.Size = new System.Drawing.Size(112, 31);
             pnlNodeColor.TabIndex = 19;
@@ -513,7 +500,7 @@ namespace BazisGUI.SettingsControls
             tbSolver.Location = new System.Drawing.Point(4, 34);
             tbSolver.Margin = new System.Windows.Forms.Padding(0);
             tbSolver.Name = "tbSolver";
-            tbSolver.Size = new System.Drawing.Size(396, 730);
+            tbSolver.Size = new System.Drawing.Size(403, 803);
             tbSolver.TabIndex = 2;
             tbSolver.Text = "Решатель";
             tbSolver.UseVisualStyleBackColor = true;
@@ -531,43 +518,26 @@ namespace BazisGUI.SettingsControls
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel5.Size = new System.Drawing.Size(396, 730);
+            tableLayoutPanel5.Size = new System.Drawing.Size(403, 803);
             tableLayoutPanel5.TabIndex = 0;
             // 
             // label3
             // 
             label3.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(4, 357);
+            label3.Location = new System.Drawing.Point(4, 394);
             label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(150, 15);
+            label3.Size = new System.Drawing.Size(153, 15);
             label3.TabIndex = 21;
             label3.Text = "Путь до решателя";
-            // 
-            // tableLayoutPanel3
-            // 
-            tableLayoutPanel3.ColumnCount = 2;
-            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.58929F));
-            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.41071F));
-            tableLayoutPanel3.Controls.Add(btnSaveConfig, 1, 1);
-            tableLayoutPanel3.Controls.Add(tabControlEx1, 0, 0);
-            tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 2;
-            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 92.26519F));
-            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.734807F));
-            tableLayoutPanel3.Size = new System.Drawing.Size(411, 841);
-            tableLayoutPanel3.TabIndex = 4;
             // 
             // SettingsControl
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            Controls.Add(tableLayoutPanel3);
+            Controls.Add(tabControlEx1);
             Margin = new System.Windows.Forms.Padding(0);
             Name = "SettingsControl";
             Size = new System.Drawing.Size(411, 841);
@@ -580,7 +550,6 @@ namespace BazisGUI.SettingsControls
             tbSolver.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
-            tableLayoutPanel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -597,12 +566,10 @@ namespace BazisGUI.SettingsControls
         private System.Windows.Forms.CheckBox chbTransparency;
         private System.Windows.Forms.Label lblSolverPath;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnSaveConfig;
         private TabControlEx tabControlEx1;
         private System.Windows.Forms.TabPage tbScene;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TabPage tbObjects;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Button btnSelectColor;
         private System.Windows.Forms.Button btnSelectGroupColor;
