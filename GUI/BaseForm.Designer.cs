@@ -44,6 +44,7 @@ namespace BazisGUI
             lblVersion = new ToolStripStatusLabel();
             webPageLabel = new ToolStripStatusLabel();
             splitContainer3 = new UserControlsEx.SplitContainerEx();
+            btnTabНастройки = new Button();
             btnTabГант = new Button();
             btnTabФункции = new Button();
             btnTabМатериалы = new Button();
@@ -51,8 +52,8 @@ namespace BazisGUI
             cntrНавигатор = new UserControlsEx.SplitContainerEx();
             navigator = new NavigatorControl();
             tableLayoutPanel1 = new TableLayoutPanel();
-            checkPlayerControl = new BazisGUI.Player.PlayerControl();
-            propertiesPanel = new BazisGUI.PropertiesPanel.PropertiesPanelControl();
+            checkPlayerControl = new Player.PlayerControl();
+            propertiesPanel = new PropertiesPanel.PropertiesPanelControl();
             splitContainer2 = new UserControlsEx.SplitContainerEx();
             btnSelect = new Button();
             btnDisplayStates = new Button();
@@ -76,7 +77,7 @@ namespace BazisGUI
             btnMakeScreenShot = new Button();
             btnAdvSelection = new Button();
             scene = new OpenTK.GLControl.GLControl();
-            console = new BazisGUI.Console.ConsoleControl();
+            console = new Console.ConsoleControl();
             menuStrip = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem = new ToolStripMenuItem();
@@ -244,6 +245,7 @@ namespace BazisGUI
             // 
             // splitContainer3.Panel1
             // 
+            splitContainer3.Panel1.Controls.Add(btnTabНастройки);
             splitContainer3.Panel1.Controls.Add(btnTabГант);
             splitContainer3.Panel1.Controls.Add(btnTabФункции);
             splitContainer3.Panel1.Controls.Add(btnTabМатериалы);
@@ -258,6 +260,20 @@ namespace BazisGUI
             splitContainer3.SplitterWidth = 8;
             splitContainer3.SwitchShifting = false;
             splitContainer3.TabIndex = 0;
+            // 
+            // btnTabНастройки
+            // 
+            btnTabНастройки.FlatStyle = FlatStyle.Flat;
+            btnTabНастройки.Location = new System.Drawing.Point(0, 532);
+            btnTabНастройки.Margin = new Padding(0, 0, 3, 3);
+            btnTabНастройки.Name = "btnTabНастройки";
+            btnTabНастройки.Size = new System.Drawing.Size(27, 130);
+            btnTabНастройки.TabIndex = 1;
+            btnTabНастройки.Tag = "True";
+            btnTabНастройки.UseVisualStyleBackColor = true;
+            btnTabНастройки.Visible = false;
+            btnTabНастройки.Paint += buttonTab_Paint;
+            btnTabНастройки.MouseDown += button_MouseDown;
             // 
             // btnTabГант
             // 
@@ -418,7 +434,7 @@ namespace BazisGUI
             checkPlayerControl.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             checkPlayerControl.BorderStyle = BorderStyle.FixedSingle;
             checkPlayerControl.Cancelation = false;
-            checkPlayerControl.CheckState = BazisGUI.Player.CheckState.start;
+            checkPlayerControl.CheckState = Player.CheckState.start;
             checkPlayerControl.CurrentValue = 50;
             checkPlayerControl.Dock = DockStyle.Fill;
             checkPlayerControl.Location = new System.Drawing.Point(0, 218);
@@ -1268,6 +1284,7 @@ namespace BazisGUI
             // 
             // настройкиToolStripMenuItem
             // 
+            настройкиToolStripMenuItem.CheckOnClick = true;
             настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
             настройкиToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             настройкиToolStripMenuItem.Text = "&Настройки";
@@ -1534,6 +1551,7 @@ namespace BazisGUI
         private Button btnTabФункции;
         private Button btnTabМатериалы;
         private OpenTK.GLControl.GLControl scene;
+        private Button btnTabНастройки;
     }
 }
 

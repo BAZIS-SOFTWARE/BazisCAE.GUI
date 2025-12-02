@@ -24,7 +24,7 @@ namespace BazisGUI.SettingsControls
         public ViewProjection Projection = ViewProjection.Perspective;
         public bool DisplayBasis = true;
         public bool DisplayCompass = true;
-        public bool IsInsideObjectsShown = true;
+        //public bool IsInsideObjectsShown = true;
         public bool IsCutting = false;
         public float RotationAngle = 2.5f;
         public ViewAxis RotationAxis = ViewAxis.XYZ;

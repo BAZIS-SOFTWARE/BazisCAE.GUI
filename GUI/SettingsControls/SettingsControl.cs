@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using System.IO;
 using System.Drawing;
 using BazisGUI.Scene.Interfaces;
 
@@ -27,7 +26,6 @@ namespace BazisGUI.SettingsControls
 
         public Action<bool> SetOrtoProjectionEvent;
         
-        SettingsConfig config;
         public SettingsControl()
         {
             InitializeComponent();
@@ -40,8 +38,6 @@ namespace BazisGUI.SettingsControls
 
         public void SetSettings(SettingsConfig settingsConfig)
         {
-            // возможно не самое лучшее решение
-            config = settingsConfig;
             panelBackGroundColor.BackColor = settingsConfig.BackGroundColor;
             pnlSelectionObjsColor.BackColor = settingsConfig.SelectObjectColor;
             pnlSelectionGroupColor.BackColor = settingsConfig.SelectGroupColor;
@@ -55,46 +51,7 @@ namespace BazisGUI.SettingsControls
             chbOrtoProjection.Checked = settingsConfig.Projection == ViewProjection.Parallel ?
                 true : false;
             clslTransparency.Value = settingsConfig.TransparencyValue;
-        }
-
-        private void btnSaveConfig_Click(object sender, EventArgs e)
-        {
-
-            //var config = new SettingsConfig()
-            //{
-            config.BackGroundColor = panelBackGroundColor.BackColor;
-            config.SelectObjectColor = pnlSelectionObjsColor.BackColor;
-            config.SelectGroupColor = pnlSelectionGroupColor.BackColor;
-
-            config.SolverPath = lblSolverPath.Text;
-            config.Lighting = chbLighting.Checked;
-            config.LighterPosition = lightingControl.BallPosition;
-            config.LightingIntensity = clslLigthingIntensity.Value;
-            config.Transparency = chbTransparency.Checked;
-            config.BackRibbers = chbBackRibbers.Checked;
-            config.Projection = chbOrtoProjection.Checked == true ?
-            ViewProjection.Parallel : ViewProjection.Perspective;
-
-            config.TransparencyValue = clslTransparency.Value;
-            config.NodeColor = pnlNodeColor.BackColor;
-            //};
-
-            //SaveSettingsEvent();
-
-            var settingsSerializer = new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto,
-                Formatting = Formatting.Indented
-            };
-
-            var configString = JsonConvert.SerializeObject(config, settingsSerializer);
-
-            var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            File.WriteAllText($@"{folder}\settingsConfig.json", configString);
-
-            MessageBox.Show($@"Конфигурация сохранена в {folder}\settingsConfig.json");
-        }
+        }  
 
         private void btnSelectObjectColor_Click(object sender, EventArgs e)
         {

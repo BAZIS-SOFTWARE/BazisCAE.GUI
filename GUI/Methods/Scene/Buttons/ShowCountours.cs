@@ -22,6 +22,7 @@ namespace BazisGUI
 
                 if (!bool.Parse(btnBorder.Tag.ToString()))
                 {
+                    ChangeInsideObjects(false);
                     btnBorder.Tag = true;
                     var surfElems = project.GetAllModelElements().Where(x => x is ISurfaceElement).
             Select(x => (ISurfaceElement)x);

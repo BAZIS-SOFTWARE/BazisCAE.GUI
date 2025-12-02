@@ -121,6 +121,12 @@
     <Compile Update="MessageBoxEx\MessageBoxEx.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Methods\Settings\SaveSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Methods\Settings\MainMenuEvents.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Methods\TabPageButton\AddRemoveTabPage.cs">
       <SubType>Form</SubType>
     </Compile>
