@@ -125,7 +125,7 @@ namespace BazisGUI
             //    var newColor = Color.FromArgb(TransparencyValue, preColor);
             //    obj.Color = newColor;
             //}
-            
+
             if (args.Length != 0)
             {
                 var path = string.Empty;
@@ -190,54 +190,7 @@ namespace BazisGUI
             }
         }
 
-        private void GetServerConnection()
-        {
-            var net = Environment.GetEnvironmentVariable("BazisServerPath", EnvironmentVariableTarget.Machine);
-
-            if (net != null)
-            {
-                var iPAddress = IPAddress.Parse(net.Split(':')[0]);
-                var port = int.Parse(net.Split(':')[1]);
-
-                serverConnection = new ClientController(iPAddress, port);
-            }
-            else
-            {
-                var res = MessageBox.Show
-                    (
-                    $@"Не найдена переменная среды ""BazisServerPath""
-                    Создать переменную?", "Внимание!",
-                    MessageBoxButtons.YesNo
-                    );
-
-                if (res == DialogResult.Yes)
-                    StartLisenceForm("");
-                else
-                    serverConnection = new ClientController(IPAddress.Loopback, 8001);
-            }
-        }
-
-        private void DisconnectWithServer(string moduleName)
-        {
-            //if (module != null)
-            //{
-            StopServerPing();
-            serverConnection?.RequestServer(moduleName + " Отдать");
-            //}
-        }
-
-        private void LicenseModule(string moduleName)
-        {
-            serverConnection?.RequestServer(moduleName + " Взять");
-
-            if (serverConnection?.Answer == "можно")
-            {
-                UnBlockGeneralMenuInterface(moduleName, true);
-                StartLicensing(moduleName);
-            }
-
-            else StartLisenceForm(moduleName + " Взять");
-        }
+      
 
         private void UnBlockGeneralMenuInterface(string moduleName, bool flag)
         {
@@ -273,62 +226,7 @@ namespace BazisGUI
             }
         }
 
-        private void StartLicensing(string moduleName)
-        {
-
-            serverConnectionPing = new Thread(() =>
-            {
-                try
-                {
-                    while (true)
-                    {
-                        lock (serverConnection)
-                        {
-                            serverConnection.RequestServer(moduleName + " Работа");
-                            if (serverConnection.Answer != "Работай")
-                            {
-                                throw new AccidentServerDisconnectionException();
-                            }
-
-                        }
-                        Thread.Sleep(3000);
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    if (ex is AccidentServerDisconnectionException)
-                    {
-                        Invoke(new Action(() =>
-                        {
-                            MessageBox.Show(this, "Внимание! Лицензирование прервано. Приложение будет заблокировано. Проверьте сервер лицензий.");
-                            //Application.ExitThread();
-                            UnBlockGeneralMenuInterface(moduleName, false);
-                        }));
-                    }
-                }
-            });
-            serverConnectionPing.Start();
-
-        }
-
-        private void StopServerPing()
-        {
-            if (serverConnectionPing != null)
-            {
-                while (true)
-                {
-                    if (serverConnectionPing.ThreadState == System.Threading.ThreadState.WaitSleepJoin |
-                        serverConnectionPing.ThreadState == System.Threading.ThreadState.Running
-                        )
-                        serverConnectionPing.Abort();
-                    if (serverConnectionPing.ThreadState == System.Threading.ThreadState.Aborted |
-                        serverConnectionPing.ThreadState == System.Threading.ThreadState.Stopped
-                        )
-                        break;
-                }
-            }
-        }
+        
 
         private void SetGeneralSettings()
         {
@@ -394,19 +292,36 @@ namespace BazisGUI
 
             try
             {
-                serverConnection.RequestServer("CheckLicenseInfo");
-                var licInfo = JsonConvert.DeserializeObject<License>(serverConnection.Answer);
-
-                if (licInfo != null)
+                if(TryServerConnection())
                 {
-                    control.KeysInfo = string.Empty;
+                    serverConnection.RequestServer("CheckLicenseInfo");
+                    var licInfo = JsonConvert.DeserializeObject<License>(serverConnection.Answer);
 
-                    foreach (var key in licInfo.Keys)
-                        control.KeysInfo += $"{key}\n";
+                    if (licInfo != null)
+                    {
+                        control.KeysInfo = string.Empty;
 
-                    control.OwnerInfo = licInfo.Company;
+                        foreach (var key in licInfo.Keys)
+                            control.KeysInfo += $"{key}\n";
+
+                        control.OwnerInfo = licInfo.Company;
+                    }
+                    control.AdressInfo = $"{serverConnection.IPAddress} : {serverConnection.Port}";
                 }
-                control.AdressInfo = $"{serverConnection.IPAddress} : {serverConnection.Port}";
+                else
+                {
+                    var res = MessageBox.Show
+    (
+    $@"Соединение не установлено. Не найдена переменная среды ""BazisServerPath""
+                    Создать переменную?", "Внимание!",
+    MessageBoxButtons.YesNo
+    );
+
+                    if (res == DialogResult.Yes)
+                        StartLisenceForm("");
+                    else
+                        serverConnection = new ClientController(IPAddress.Loopback, 8001);
+                }
             }
             catch (Exception ex)
             {
@@ -713,63 +628,6 @@ namespace BazisGUI
         }
 
 
-        private void arcWeldingMenuItem_Click(object sender, EventArgs e)
-        {
-            var currentItem = sender as ToolStripMenuItem;
-
-            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
-                if (currentItem.Name != item.Name)
-                    item.Checked = false;
-        }
-
-        private void lazerWeldingMenuItem_Click(object sender, EventArgs e)
-        {
-            var currentItem = sender as ToolStripMenuItem;
-
-            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
-                if (currentItem.Name != item.Name)
-                    item.Checked = false;
-        }
-
-        private void fsWeldingMenuItem_Click(object sender, EventArgs e)
-        {
-
-            var currentItem = sender as ToolStripMenuItem;
-
-            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
-                if (currentItem.Name != item.Name)
-                    item.Checked = false;
-        }
-
-
-
-        private void heatingMenuItem_Click(object sender, EventArgs e)
-        {
-
-            var currentItem = sender as ToolStripMenuItem;
-
-            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
-                if (currentItem.Name != item.Name)
-                    item.Checked = false;
-        }
-
-        private void temperingMenuItem_Click(object sender, EventArgs e)
-        {
-            var currentItem = sender as ToolStripMenuItem;
-
-            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
-                if (currentItem.Name != item.Name)
-                    item.Checked = false;
-        }
-
-        private void quenchingMenuItem_Click(object sender, EventArgs e)
-        {
-            var currentItem = sender as ToolStripMenuItem;
-
-            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
-                if (currentItem.Name != item.Name)
-                    item.Checked = false;
-        }
 
         private async void экспортСеткиToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -845,8 +703,6 @@ namespace BazisGUI
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
         }
-
-
     }
 
 }

@@ -59,7 +59,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
-    <PackageReference Include="OperationalController" Version="3.9.2" />
+    <PackageReference Include="OperationalController" Version="3.9.3" />
     <PackageReference Include="PostProc" Version="2.0.6" />
     <PackageReference Include="PreProc" Version="2.0.4" />
     <PackageReference Include="PropertiesCalculator" Version="1.1.0" />
@@ -121,10 +121,10 @@
     <Compile Update="MessageBoxEx\MessageBoxEx.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Methods\Settings\SaveSettings.cs">
+    <Compile Update="Methods\License\LicenseModule.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Methods\Settings\MainMenuEvents.cs">
+    <Compile Update="Methods\Results\Reflect.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Methods\TabPageButton\AddRemoveTabPage.cs">

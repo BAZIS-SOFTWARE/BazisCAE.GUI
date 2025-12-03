@@ -51,6 +51,7 @@ namespace BazisGUI
                                 set.SetColor(settingsConfig.SelectObjectColor, numb);//  page.ScenePage.settingsConfig.SelectObjectColor;
                             else
                                 set.SetBackColor(numb);
+
                         }
                     }
                 }
@@ -59,16 +60,11 @@ namespace BazisGUI
                 {
                     var pres = project.CreateModelObjectsPresentor(set);
                     SetVBObjectAttribute(pres, "цвет");
+                    console.PrintInfo($"Выбраны объекты : {set.ObjType}", Color.Black);
                 }
             }
             DisplayObjects();
-            //if (isSorted & selections.Count > 0)
-            //{
-            //    var near = selections.OrderByDescending(x => GetSceenCoord(x.CalcCentr())._z).FirstOrDefault();
-            //    selections = new List<IModelObject>() { near };
-            //}
 
-            //return changeFlag;
         }
 
         private bool ChechSelection(RectangleBox selectionBox, Hull2DCreator creator, HashSet<Point2D> scrPoints)
