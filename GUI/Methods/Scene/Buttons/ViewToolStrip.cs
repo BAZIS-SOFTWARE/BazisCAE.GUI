@@ -94,13 +94,13 @@ namespace BazisGUI
 
         private void btnRotHor90_Click(object sender, EventArgs e)
         {
-            Rotate(ViewAxis.Y, 90);
+            RotateCamera(ViewAxis.Y, 90);
             DisplayObjects();
         }
 
         private void btnRotVert90_Click(object sender, EventArgs e)
         {
-            Rotate(ViewAxis.X, 90);
+            RotateCamera(ViewAxis.X, 90);
             DisplayObjects();
         }  
     }

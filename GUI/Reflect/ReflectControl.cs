@@ -93,7 +93,9 @@ namespace BazisGUI.Reflect
                 var rBtn = sender as RadioButton;
                 var strVec = rBtn.Tag.ToString().Split(' ');
                 var vec = strVec.Select(x => float.Parse(x)).ToArray();
-                var vector = TransformVector(vec);
+
+                var vector = Vector<float>.Build.Dense(vec);
+                //var vector = TransformVector(vec);
                 UpdateControlNormal(vector);
                 UpdateReflectPlane?.Invoke(comboBox1.SelectedItem.ToString(), Plane);
             }
@@ -146,34 +148,11 @@ namespace BazisGUI.Reflect
             OnResetShifting(this, null);
             PreventRedraw = false;
         }
-        /// <summary>
-        /// Метод переводит текущий вектор нормали в систему координат той модели на которую переключаемся
-        /// </summary>
-        /// <param name="vector">Текущий вектор нормали</param>
-        /// <returns>Вектор в системе координат выделенного объекта</returns>
-        private Vector<float> TransformVector(float[] vector)
-        {
-            var evnt = new MatrixEvent();
-            var name = comboBox1.SelectedItem.ToString();
-            MatrixEvent?.Invoke(name, evnt);
-            var mat = Matrix<float>.Build.Dense(4, 4, evnt.Matrix);
-            mat = mat.Inverse();
-            var vec = Vector<float>.Build.Dense(vector);
-            vec = vec.Normalize(2);
-            vec = mat.Multiply(vec);
-            vec[0] = vec[0].Round(2);
-            vec[1] = vec[1].Round(2);
-            vec[2] = vec[2].Round(2);
-            vec[3] = vec[3].Round(2);
-            return vec;
-        }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnCreateCopy.Enabled = true;
-            var vec = TransformVector(new float[] { Plane[0], Plane[1], Plane[2], 0 });
-            UpdateControlNormal(vec);
-            UpdateReflectPlane?.Invoke(comboBox1.SelectedItem.ToString(), Plane);
+    
             ShowObjs?.Invoke(comboBox1.SelectedItem.ToString());
         }
     }

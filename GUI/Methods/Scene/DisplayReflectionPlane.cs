@@ -4,97 +4,66 @@ using System;
 using Geometry;
 using OpenTK.Graphics.OpenGL;
 using BazisGUI.SettingsControls;
+using System.Drawing;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public event Action DisplayReflectionPlaneEvent;
+        //public event Action DisplayReflectionPlaneEvent;
 
-        public void DisplayReflectionPlane(string objName, float[] coeff)
+        public void DisplayReflectionPlane(float[] coeff)
         {
-            var plane = new Plane(new Point3D(coeff[0], coeff[1], coeff[2]), coeff[3]);
-            var original = VBOController.FindVBObj(objName);
-
-            if (original == null)
-                throw new Exception($"Объект с именем {original.ObjName} не существует");
-
-            var met = new Action(() =>
+            try
             {
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                var bb = original.BoundingBox;
-                GL.PushMatrix();
-                // используем модельную матрицу объекта
-                GL.MultMatrix(original.ModelMatrix);
-                var normal = Vector.GetVectorNorm(plane.Normal);
-                var origin = normal.Mult(plane.Shifting);
-                GL.Translate(origin._x, origin._y, origin._z);
-                var z = new Point3D(0, 0, -1);
-                var angleY = Vector.GetCosAngleVectors(z, normal);
-                angleY = (float)(Math.Acos(angleY) * 180 / Math.PI);
-                var axisY = Vector.CrossProd(z, normal);
-                GL.Rotate(angleY, axisY._x, axisY._y, axisY._z);
+                var plane = new Plane(new Point3D(coeff[0], coeff[1], coeff[2]), coeff[3]);
 
-                var scale = 1f;
-                var left = bb.LeftUpNear.Mult(scale);
-                var right = bb.RightDownFar.Mult(scale);
+                var met = new Action(() =>
+                {
+                    GL.PushMatrix();
 
-                var zN = (float)Math.Min(right._x - left._x, left._y - right._y) * -Math.Sign(plane.Shifting) * 0.25f;
-                normal = new Point3D(0, 0, zN);
+                    GL.Translate(-Position._x, -Position._y, -Position._z);
 
-                var center = new Point3D((right._x + left._x) / 2, (right._y + left._y) / 2, 0);
-                var endNormal = center.Sum(normal);
+                    GL.Scale(1 / ScaleFactor, 1 / ScaleFactor, 1 / ScaleFactor);
+                    var normal = Vector.GetVectorNorm(plane.Normal);
 
-                var arrow0 = new Point3D((left._x - center._x) * 0.5f, 0, 0);
-                var arrow1 = arrow0.Mult(-1);
+                    var centre = normal.Mult(plane.Shifting);
+                    GL.Translate(centre._x, centre._y, centre._z);
 
-                arrow0 = arrow0.Sub(normal).Mult(0.15f);
-                arrow1 = arrow1.Sub(normal).Mult(0.15f);
+                    var z = new Point3D(0, 0, -1);
+                    var x = Vector.CrossProd(z, normal);
+                    var y = Vector.CrossProd(x, normal);
 
-                arrow0 = endNormal.Sum(arrow0);
-                arrow1 = endNormal.Sum(arrow1);
+                    var xn = Vector.GetVectorNorm(x);
+                    var yn = Vector.GetVectorNorm(y);
 
-                //Рисование рамки
-                GL.Begin(PrimitiveType.LineStrip);
-                GL.Color3(0, 1f, 0);
-                GL.Vertex3(left._x, right._y, 0);
+                    var xp = xn.Mult(0.1f).Sum(centre);
+                    var yp = yn.Mult(0.1f).Sum(centre);
 
-                GL.Color3(0, 1f, 0);
-                GL.Vertex3(right._x, right._y, 0);
+                    var xyp = xp.Sum(yp);
 
-                GL.Color3(0, 1f, 0);
-                GL.Vertex3(right._x, left._y, 0);
+                    //Рисование рамки
+                     GL.Color3(1f, 0, 0);
+                    GL.Begin(PrimitiveType.LineStrip);
 
-                GL.Color3(0, 1f, 0);
-                GL.Vertex3(left._x, left._y, 0);
+                    GL.Vertex3(centre._x, centre._y, centre._z);
+                    GL.Vertex3(xp._x, xp._y, xp._z);
+                    GL.Vertex3(xyp._x, xyp._y, xyp._z);
+                    GL.Vertex3(yp._x, yp._y, yp._z);
+                    GL.Vertex3(centre._x, centre._y, centre._z);
 
-                GL.Color3(0, 1f, 0);
-                GL.Vertex3(left._x, right._y, 0);
-                GL.End();
-                //Рисование нормали (3 линии)
-                GL.Begin(PrimitiveType.Lines);
-                GL.Color3(0, 1f, 0);
-                GL.Vertex3(center._x, center._y, center._z);
-                GL.Color3(0, 1f, 0);
-                GL.Vertex3(endNormal._x, endNormal._y, endNormal._z);
+                    GL.End();
+ 
+                    GL.PopMatrix();
+                });
 
-                GL.Color3(0, 1f, 0);
-                GL.Vertex3(endNormal._x, endNormal._y, endNormal._z);
-                GL.Color3(0, 1f, 0);
-                GL.Vertex3(arrow0._x, arrow0._y, arrow0._z);
-
-                GL.Color3(0, 1f, 0);
-                GL.Vertex3(endNormal._x, endNormal._y, endNormal._z);
-                GL.Color3(0, 1f, 0);
-                GL.Vertex3(arrow1._x, arrow1._y, arrow1._z);
-                GL.End();
-                GL.PopMatrix();
-                if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
-            });
-
-            DisplayReflectionPlaneEvent = met;
+                DisplayGeometryObjectEvent += met;
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+            
         }
     }
 }

@@ -14,6 +14,12 @@ namespace BazisGUI.Scene.VBO
 
         Dictionary<string,VBObject> glObjs = new Dictionary<string,VBObject>();
 
+        
+        public bool Contains(string objName)
+        {
+            return glObjs.ContainsKey(objName);
+        }
+        
         public VBObject FindVBObj(string objName)
         {
             return glObjs.ContainsKey(objName) ? glObjs[objName] : null ;
@@ -115,7 +121,7 @@ namespace BazisGUI.Scene.VBO
         /// <inheritdoc/>
 
 
-        public void CopyVBObjects(VBObject original, string copyName)
+        public VBObject CopyVBObjects(VBObject original, string copyName)
         {
             VBObject copyVbo;
             var pointers = original.PointsIndexes;
@@ -136,8 +142,8 @@ namespace BazisGUI.Scene.VBO
                 copyVbo = CreateSurfaceVBObjects(pointers, coords, colors, normals, edges, copyName, sObj.Separators, ObjView.LinesSurface);
                 
             }
-            glObjs.Add(copyName,copyVbo);
 
+            return copyVbo;
         }
         /// <summary>
         /// Смена режима прозрачности для vbo-объектов

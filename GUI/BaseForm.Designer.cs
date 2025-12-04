@@ -1252,6 +1252,7 @@ namespace BazisGUI
             // 
             // toolStripMenuItem4
             // 
+            toolStripMenuItem4.CheckOnClick = true;
             toolStripMenuItem4.Name = "toolStripMenuItem4";
             toolStripMenuItem4.Size = new System.Drawing.Size(224, 22);
             toolStripMenuItem4.Text = "Отразить результаты";
@@ -1299,21 +1300,21 @@ namespace BazisGUI
             // содержаниеToolStripMenuItem
             // 
             содержаниеToolStripMenuItem.Name = "содержаниеToolStripMenuItem";
-            содержаниеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            содержаниеToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             содержаниеToolStripMenuItem.Text = "&Содержание";
             содержаниеToolStripMenuItem.Click += содержаниеToolStripMenuItem_Click;
             // 
             // опрограммеToolStripMenuItem
             // 
             опрограммеToolStripMenuItem.Name = "опрограммеToolStripMenuItem";
-            опрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            опрограммеToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             опрограммеToolStripMenuItem.Text = "&О программе...";
             опрограммеToolStripMenuItem.Click += опрограммеToolStripMenuItem_Click;
             // 
             // новостиВерсииToolStripMenuItem
             // 
             новостиВерсииToolStripMenuItem.Name = "новостиВерсииToolStripMenuItem";
-            новостиВерсииToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            новостиВерсииToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             новостиВерсииToolStripMenuItem.Text = "Новости версии";
             новостиВерсииToolStripMenuItem.Click += новостиВерсииToolStripMenuItem_Click;
             // 
@@ -1327,7 +1328,7 @@ namespace BazisGUI
             // сведенияMenuItem
             // 
             сведенияMenuItem.Name = "сведенияMenuItem";
-            сведенияMenuItem.Size = new System.Drawing.Size(180, 22);
+            сведенияMenuItem.Size = new System.Drawing.Size(125, 22);
             сведенияMenuItem.Text = "Сведения";
             сведенияMenuItem.Click += сведенияMenuItem_Click;
             // 

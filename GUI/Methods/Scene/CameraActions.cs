@@ -19,7 +19,7 @@ namespace BazisGUI
             GL.LoadMatrix(tempViewMatrixAr);
         }
 
-        public void Move(Point new_mousePosition, Point mousePosition, float ScaleFactor)
+        public void MoveCamera(Point new_mousePosition, Point mousePosition, float ScaleFactor)
         {
             var dx = new_mousePosition.X - mousePosition.X;
             var dy = new_mousePosition.Y - mousePosition.Y;
@@ -31,7 +31,7 @@ namespace BazisGUI
             GL.Translate(crd._x, crd._y, crd._z);
         }
 
-        public void Rotate(ViewAxis axis, float angle)
+        public void RotateCamera(ViewAxis axis, float angle)
         {
             switch (axis)
             {
@@ -56,7 +56,7 @@ namespace BazisGUI
             }
         }
         /// <inheritdoc/>
-        public void Rotate(float vector_dx, float vector_dy, ViewAxis axis, float angle)
+        public void RotateCamera(float vector_dx, float vector_dy, ViewAxis axis, float angle)
         {
             switch (axis)
             {
@@ -141,11 +141,11 @@ namespace BazisGUI
                     break;
                 case ViewPlane.XZ:
                     //Translation_dx = 1; Translation_dy = 0;
-                    Rotate(ViewAxis.X, -90);
+                    RotateCamera(ViewAxis.X, -90);
                     break;
                 case ViewPlane.YZ:
                     //Translation_dx = 0; Translation_dy = 1;
-                    Rotate(ViewAxis.Y, 90);
+                    RotateCamera(ViewAxis.Y, 90);
                     break;
             }
         }

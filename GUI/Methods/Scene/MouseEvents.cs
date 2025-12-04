@@ -46,7 +46,7 @@ namespace BazisGUI
 
             else if (e.Button == MouseButtons.Right)
             {
-                Move(new_mousePosition, ScreenMousePosition, ScaleFactor);
+                MoveCamera(new_mousePosition, ScreenMousePosition, ScaleFactor);
                 DisplayObjects();
             }
 
@@ -56,7 +56,7 @@ namespace BazisGUI
                 var moveCam_z = -5;
                 var dx = (new_mousePosition.X - ScreenMousePosition.X) * (2 * (-moveCam_z)) / (float)(scene.Width); //(mousePosition.Y - new_mousePosition.Y)
                 var dy = (new_mousePosition.Y - ScreenMousePosition.Y) * (2 * (-moveCam_z)) / (float)(scene.Height);
-                Rotate(dx, dy, settingsConfig.RotationAxis, settingsConfig.RotationAngle);
+                RotateCamera(dx, dy, settingsConfig.RotationAxis, settingsConfig.RotationAngle);
 
                 DisplayObjects();
             }

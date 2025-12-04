@@ -1,4 +1,5 @@
 ﻿using Geometry;
+using Model.GeometryObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,9 @@ namespace BazisGUI.Scene
     /// </summary>
     public class BoundingBox : IComparable<BoundingBox>
     {
-        Point3D[] corners = new Point3D[8]; 
+        List<Point3D[]> surfaces;
+
+        Point3D[] corners; 
         /// <summary>
         /// Левая верхняя ближняя точка ограничивающего параллелепипеда
         /// </summary>
@@ -50,20 +53,53 @@ namespace BazisGUI.Scene
                     zMin = Math.Min(zMin, coords[i + 2]);
                     zMax = Math.Max(zMax, coords[i + 2]);
                 }
-                LeftUpNear = new Point3D(xMin, yMax, zMax);
-                corners[0] = LeftUpNear;
-                corners[1] = new Point3D(xMin, yMax, zMin);
-                corners[2] = new Point3D(xMin, yMin, zMin);
-                corners[3] = new Point3D(xMin, yMin, zMax);
-                RightDownFar = new Point3D(xMax, yMin, zMin);
-                corners[4] = RightDownFar;
-                corners[5] = new Point3D(xMax, yMin, zMax);
-                corners[6] = new Point3D(xMax, yMax, zMax);
-                corners[7] = new Point3D(xMax, yMax, zMin);
 
-                //BoundingBox = new BoundingBox(leftUpNear, rightDownFar);
+                CreateCornerPoints(xMin, xMax, yMin, yMax, zMin, zMax);
+
+                LeftUpNear = corners[0];
+                RightDownFar = corners[4];
+                CreateSides();
             }
         }
+
+        private void CreateCornerPoints(float xMin, float xMax, float yMin, float yMax, float zMin, float zMax)
+        {
+            corners = new Point3D[8];
+            corners[0] = new Point3D(xMin, yMax, zMax);
+            corners[1] = new Point3D(xMin, yMax, zMin);
+            corners[2] = new Point3D(xMin, yMin, zMin);
+            corners[3] = new Point3D(xMin, yMin, zMax);
+            corners[4] = new Point3D(xMax, yMin, zMin);
+            corners[5] = new Point3D(xMax, yMin, zMax);
+            corners[6] = new Point3D(xMax, yMax, zMax);
+            corners[7] = new Point3D(xMax, yMax, zMin);
+        }
+
+        private void CreateSides()
+        {
+            surfaces = new List<Point3D[]>()
+                {
+                    new Point3D[]{ LeftUpNear, corners[1], corners[2], corners[3] },
+                    new Point3D[]{corners[2], RightDownFar, corners[7], corners[1] },
+                    new Point3D[]{corners[6], corners[5], RightDownFar, corners[7] },
+                    new Point3D[]{ LeftUpNear, corners[3], corners[5], corners[6] },
+                    new Point3D[]{ LeftUpNear, corners[6], corners[7], corners[1] },
+                    new Point3D[]{ corners[2], RightDownFar, corners[5], corners[3] },
+                };
+        }
+
+        /// <summary>
+        /// GetCornerPoints
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Point3D[]> GetSidesPoints()
+        {
+            foreach (var surface in surfaces)
+            {
+                yield return surface;
+            }
+        }
+
         /// <summary>
         /// GetCornerPoints
         /// </summary>

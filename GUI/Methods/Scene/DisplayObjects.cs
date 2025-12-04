@@ -136,7 +136,7 @@ namespace BazisGUI
             //Gl.glEnableClientState(Gl.GL_COLOR_ARRAY);
             //Gl.glEnableClientState(Gl.GL_NORMAL_ARRAY);
             //Gl.glEnableClientState(Gl.GL_EDGE_FLAG_ARRAY);
-            DisplayReflectionPlaneEvent?.Invoke();
+            //DisplayReflectionPlaneEvent?.Invoke();
 
             DisplayClipPlaneEvent?.Invoke();
 
