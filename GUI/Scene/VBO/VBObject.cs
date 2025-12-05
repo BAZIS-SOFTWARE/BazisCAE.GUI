@@ -1,6 +1,5 @@
 ﻿using System;
 using BazisGUI.Scene.Interfaces;
-using Geometry;
 using OpenTK.Graphics.OpenGL;
 
 

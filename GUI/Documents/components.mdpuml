@@ -29,6 +29,7 @@ package "Core" {
 [Results DB] --> [SQLite]
 [project] --> [model]
 [project] --> [Material DB]
+[PropertiesCalculator] --> [Material DB]
 [project] --> [Geometry]
 [model] --> [Geometry]
 @enduml

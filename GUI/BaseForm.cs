@@ -553,7 +553,7 @@ namespace BazisGUI
 
             using (SaveFileDialog saveDialog = new SaveFileDialog())
             {
-                saveDialog.DefaultExt = "bpf";
+                saveDialog.DefaultExt = "bpf2";
 
                 var filter = "(*.bpf)|*.bpf|(*.bpf2)|*.bpf2";
 

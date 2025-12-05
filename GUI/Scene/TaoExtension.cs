@@ -6,6 +6,7 @@ namespace BazisGUI.Scene
     /// <summary>
     /// Класс для вытягивания из видеодрайвера несуществующих в Tao функций, аббривиатура класса Gle = Gl extension
     /// </summary>
+    [Obsolete("Не использовать, так как перешли на OpenTK")]
     public static class Gle
     {
         private const string Library = "opengl32.dll";
