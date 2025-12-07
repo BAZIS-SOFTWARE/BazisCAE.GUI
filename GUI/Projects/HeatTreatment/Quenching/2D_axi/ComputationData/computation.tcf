@@ -1,9 +1,0 @@
-\\загрузка сетки и данных
-загрузить проект C:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi\2D_val.bpf
-\\загрузка материалов
-загрузить материалы C:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi\materials_v1.jsf
-\\загрузка функций
-загрузить функции C:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi\functions.jsf
-\\расчет
-расчет термическая C:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi\InputData\термическая_1_0_1.tsf выполнить
-расчет механическая C:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi\InputData\механическая_1_0_1.tsf выполнить
