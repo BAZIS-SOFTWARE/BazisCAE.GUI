@@ -236,8 +236,11 @@
     <None Update="DataBases\Materials\Materials_v6.jsf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Help\ПО Bazis. Руководство пользователя.chm">
+    <None Update="Help\ПО Bazis 5.2. Руководство пользователя.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Help\ПО Bazis. Руководство пользователя.chm">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

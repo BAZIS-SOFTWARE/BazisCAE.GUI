@@ -266,7 +266,7 @@ namespace BazisGUI
         {
             var form = new Form() { Name = "helpForm", Text = "Справка", ShowIcon = false };
             form.TopMost = true;
-            var helpFile = Directory.GetFiles(Application.StartupPath, "ПО Bazis. Руководство пользователя.chm", SearchOption.AllDirectories);
+            var helpFile = Directory.GetFiles(Application.StartupPath, "ПО Bazis 5.2. Руководство пользователя.pdf", SearchOption.AllDirectories);
 
             if (helpFile.Count() != 0)
                 Help.ShowHelp(form, helpFile[0]);
@@ -398,11 +398,6 @@ namespace BazisGUI
             }
         }
 
-        private void новостиВерсииToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowReleaseNotes();
-        }
-
         private static void ShowReleaseNotes()
         {
             var form = new Form() { Name = "newsForm", Text = "Новости версии", ShowIcon = false, Size = new Size(500, 300) };
@@ -412,11 +407,6 @@ namespace BazisGUI
             if (helpFile.Count() != 0)
                 Help.ShowHelp(form, helpFile[0]);
             else MessageBox.Show("Отсутствует файл!");
-        }
-
-        private void releaseNoteslinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ShowReleaseNotes();
         }
 
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)

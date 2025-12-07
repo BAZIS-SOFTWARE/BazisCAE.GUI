@@ -133,7 +133,6 @@ namespace BazisGUI
             справкаToolStripMenuItem = new ToolStripMenuItem();
             содержаниеToolStripMenuItem = new ToolStripMenuItem();
             опрограммеToolStripMenuItem = new ToolStripMenuItem();
-            новостиВерсииToolStripMenuItem = new ToolStripMenuItem();
             лицензияToolStripMenuItem = new ToolStripMenuItem();
             сведенияMenuItem = new ToolStripMenuItem();
             contextMenu = new ContextMenuStrip(components);
@@ -1292,7 +1291,7 @@ namespace BazisGUI
             // 
             // справкаToolStripMenuItem
             // 
-            справкаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { содержаниеToolStripMenuItem, опрограммеToolStripMenuItem, новостиВерсииToolStripMenuItem });
+            справкаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { содержаниеToolStripMenuItem, опрограммеToolStripMenuItem });
             справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
             справкаToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             справкаToolStripMenuItem.Text = "Спра&вка";
@@ -1300,23 +1299,16 @@ namespace BazisGUI
             // содержаниеToolStripMenuItem
             // 
             содержаниеToolStripMenuItem.Name = "содержаниеToolStripMenuItem";
-            содержаниеToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            содержаниеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             содержаниеToolStripMenuItem.Text = "&Содержание";
             содержаниеToolStripMenuItem.Click += содержаниеToolStripMenuItem_Click;
             // 
             // опрограммеToolStripMenuItem
             // 
             опрограммеToolStripMenuItem.Name = "опрограммеToolStripMenuItem";
-            опрограммеToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            опрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             опрограммеToolStripMenuItem.Text = "&О программе...";
             опрограммеToolStripMenuItem.Click += опрограммеToolStripMenuItem_Click;
-            // 
-            // новостиВерсииToolStripMenuItem
-            // 
-            новостиВерсииToolStripMenuItem.Name = "новостиВерсииToolStripMenuItem";
-            новостиВерсииToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            новостиВерсииToolStripMenuItem.Text = "Новости версии";
-            новостиВерсииToolStripMenuItem.Click += новостиВерсииToolStripMenuItem_Click;
             // 
             // лицензияToolStripMenuItem
             // 
@@ -1454,7 +1446,6 @@ namespace BazisGUI
         
 
         private System.Windows.Forms.ToolStripMenuItem сведенияMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem новостиВерсииToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
