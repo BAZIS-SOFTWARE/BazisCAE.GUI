@@ -25,8 +25,7 @@ namespace BazisGUI
 
                 rows.Add(new RowProperty("Количество точек", 0));
                 rows.Add(new RowProperty("Алгоритм", new DropDownPropertyValue(MeshType.Progression, algo)));
-                rows.Add(new RowProperty("Коэффициент", 1));
-                
+                rows.Add(new RowProperty("Коэффициент", 1));            
             }
             else
             {

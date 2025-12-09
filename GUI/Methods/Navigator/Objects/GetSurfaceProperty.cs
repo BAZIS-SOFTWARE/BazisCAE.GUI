@@ -19,6 +19,9 @@ namespace BazisGUI
             var attributes = GmshController.GetTransfiniteSurface(number);//GmshController.Gmsh.Model.GetAttribute($"transfinite surface {number}");
             var meshTypes = new List<string>() { "*", "регулярная" };
 
+
+            
+
             if (attributes.Length == 0)
                 rows.Add(new RowProperty("Вид сетки",
                     new DropDownPropertyValue("*", meshTypes)));
@@ -33,6 +36,9 @@ namespace BazisGUI
                 rows.Add(new RowProperty("Ориентация ребер", attributes[1]));
                 rows.Add(new RowProperty("Квадратизация", GmshController.GetRecombineSurface(number)));
             }
+
+            // TODO Добавить свойство "Добавленные кривые" TextBox
+            // Если кривых нет , то поле пустое. Если есть то узнать список кривых и вывести через запятую
 
             rows.Add(new RowProperty("Номера точек", new ButtonPropertyValue("Показать",
     () => {
