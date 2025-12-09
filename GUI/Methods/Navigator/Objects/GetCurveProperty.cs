@@ -23,14 +23,14 @@ namespace BazisGUI
                 //attributes = new string[] { "0", MeshType.Progression.ToString(), "1" };
                 //gmshController.Gmsh.Model.SetAttribute($"transfinite curve {arg3}", attributes);
 
-                rows.Add(new RowProperty("Колличество точек", 0));
+                rows.Add(new RowProperty("Количество точек", 0));
                 rows.Add(new RowProperty("Алгоритм", new DropDownPropertyValue(MeshType.Progression, algo)));
                 rows.Add(new RowProperty("Коэффициент", 1));
                 
             }
             else
             {
-                rows.Add(new RowProperty("Колличество точек", attributes[0]));
+                rows.Add(new RowProperty("Количество точек", attributes[0]));
                 rows.Add(new RowProperty("Алгоритм", new DropDownPropertyValue(attributes[1], algo)));
                 rows.Add(new RowProperty("Коэффициент", attributes[2]));    
             }

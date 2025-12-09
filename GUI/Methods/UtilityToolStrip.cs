@@ -128,14 +128,14 @@ namespace BazisGUI
         {
             var nodes = new List<IPoint>();
 
-            var message = @"Начните строить путь нажав на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
+            var message = @"Идет построение пути...";
             console.PrintInfo(message, Color.Black);
 
             var path = 0.0f;
             while (true)
             {
-                //var objType = Converters.ConvertToObjsType(SelectedObjects);
-                var res = SelectObjectAsync(ObjType.Узел);
+                message = $@"Выберите {ObjType.Узел} и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
+                var res = SelectObjectAsync(ObjType.Узел,message);
                 await res;
 
                 if (res.Result is IPoint node)
@@ -165,7 +165,7 @@ namespace BazisGUI
             return nodes;
         }
 
-        public async Task<object> SelectObjectsAsync(IModelData modelData, ObjType objType)
+        public async Task<object> SelectObjectAsync(ObjType objType,string message)
         {
             var actBreak = new Action(() =>
             {
@@ -175,52 +175,9 @@ namespace BazisGUI
                 }));
             });
 
-            var message = $@"Выберите {objType} и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
-
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objs = modelData.ObjectData.GetObjects(objType);
-
-                var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
-
-                if (selObjs.Count() == 0)
-                {
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo($"Не выбран ни один {objType}!", Color.Orange);
-                    }));
-                    return new Tuple<bool, object>(false, new object());
-                }
-                else
-                {
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo($"Выбраны {selObjs.Count()} {objType}", Color.Green);
-                    }));
-                    return new Tuple<bool, object>(true, selObjs);
-                }
-            });
-
-            var awaitResult = AsyncMethodContainer(actPointConfirm, actBreak, message);
-            await awaitResult;
-            return awaitResult.Result;
-        }
-
-        public async Task<object> SelectObjectAsync(ObjType objType)
-        {
-            var actBreak = new Action(() =>
-            {
-                Invoke(new Action(() =>
-                {
-                    console.PrintInfo("Операция отменена", Color.Black);
-                }));
-            });
-
-            var message = $@"Выберите {objType} и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
-
-            var actPointConfirm = new Func<Tuple<bool, object>>(() =>
-            {
-                var objs = project.ModelData.ObjectData.GetObjects(objType);
+                var objs = project.GetModelObjects(objType);
 
                 var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
 
@@ -296,8 +253,8 @@ namespace BazisGUI
 
             SetVBObjectAttribute(pres, "цвет");
             DisplayObjects();
-
-            var res = SelectObjectAsync(objType);
+            var message = $@"Выберите {ObjType.Узел} и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
+            var res = SelectObjectAsync(objType, message);
             await res;
 
             if (res.Result is IPoint point)

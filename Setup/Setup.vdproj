@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_0EB5F13D00484410BAFA4C35218523D0"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_0F86BB529E59453E83C85D827D03DBAB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -118,12 +124,6 @@
         "Entry"
         {
         "MsmKey" = "8:_816FB904EA904574B897C60D3B301FA4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_88E5AA0664B549EE9D7E8E124D96C400"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -369,6 +369,26 @@
             "TargetName" = "8:Tutorial_02.pdf"
             "Tag" = "8:"
             "Folder" = "8:_4C63950A38B540BDB1A50D4F19B6BD2B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0EB5F13D00484410BAFA4C35218523D0"
+            {
+            "SourcePath" = "8:..\\LICENSE.txt"
+            "TargetName" = "8:LICENSE.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_048CF3E704B642F8B568ABADF7411C13"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -669,26 +689,6 @@
             "TargetName" = "8:Инструкция по использованию сеточного генератора.pdf"
             "Tag" = "8:"
             "Folder" = "8:_82A90498F81743969E2D1E23673AE515"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_88E5AA0664B549EE9D7E8E124D96C400"
-            {
-            "SourcePath" = "8:..\\License\\Лицензионное соглашение.rtf"
-            "TargetName" = "8:Лицензионное соглашение.rtf"
-            "Tag" = "8:"
-            "Folder" = "8:_048CF3E704B642F8B568ABADF7411C13"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1194,7 +1194,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BazisPrePost5.2.37"
         "ProductCode" = "8:{973432D2-4990-49AB-9541-FE846260091D}"
-        "PackageCode" = "8:{3D7233C1-F5E3-4348-99AB-C84D3575A209}"
+        "PackageCode" = "8:{789AB6F1-A311-4413-B666-7A4548ABE5EF}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -1553,7 +1553,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_88E5AA0664B549EE9D7E8E124D96C400"
+                            "Value" = "8:_0EB5F13D00484410BAFA4C35218523D0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -1751,7 +1751,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_88E5AA0664B549EE9D7E8E124D96C400"
+                            "Value" = "8:_0EB5F13D00484410BAFA4C35218523D0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -1823,7 +1823,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_566BC26F33134E439179C4CA3A447DDD"
             {
-            "SourcePath" = "8:..\\GUI\\obj\\Debug\\net8.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\GUI\\obj\\Release\\net8.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
@@ -1851,7 +1851,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CFDF33F093614CCDB9719E5B41DB933C"
             {
-            "SourcePath" = "8:..\\InstallerAction\\obj\\Debug\\InstallerAction.dll"
+            "SourcePath" = "8:..\\InstallerAction\\obj\\Release\\InstallerAction.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"

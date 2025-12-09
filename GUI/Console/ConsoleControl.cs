@@ -17,13 +17,10 @@ namespace BazisGUI.Console
         LoadProject,
         SaveProject,
         NewProject,
-        ShowResults,
-        HideResults,
         CreateGraph,
         SolveProject,
         Exit,
         RenumberMesh,
-        ChangeView,
         FindFreeNodes,
         MoveMesh,
         ChangeObjCoordinates,
@@ -32,7 +29,8 @@ namespace BazisGUI.Console
         FindVolElems,
         BeamConnection,
         SetLevel,
-        RotateMesh
+        RotateMesh,
+        MoveNodes
     }
 
     public enum GeomCmd
@@ -56,10 +54,9 @@ namespace BazisGUI.Console
 
         public bool ShowTaskInfo { get; private set; }
 
-        public event Action ControlCollapseEvent;
+
         public event Action<object, EventArgs> InEvent;
         public event Action FindFreeNodesEvent;
-        public event Action ControlUnpinnedEvent;
         public event Action<object, ModelRenumberEventArgs> RenumberMeshEvent;
         public event Action<object, ModelShiftCoordinateEventArgs> ModelShiftCoordinateEvent;
         public event Action<object, ModelRotateEventArgs> ModelRotateEvent;
@@ -76,6 +73,7 @@ namespace BazisGUI.Console
             { "Сохранить проект",GenCmd.SaveProject},
             { "Рассчитать проект",GenCmd.SolveProject},
             { "Перенумерация сетки",GenCmd.RenumberMesh},
+            { "Переместить узел",GenCmd.MoveNodes},
             { "Переместить сетку",GenCmd.MoveMesh},
             { "Повернуть сетку",GenCmd.MoveMesh},
             { "Найти свободные узлы",GenCmd.FindFreeNodes},
@@ -94,6 +92,7 @@ namespace BazisGUI.Console
             { GenCmd.SolveProject,new string[]{}},
             { GenCmd.RenumberMesh,new string[]{"тип:начальный номер"}},
             { GenCmd.MoveMesh,new string[]{ "переместить","x,y,z" }},
+            { GenCmd.MoveNodes,new string[]{ "переместить" }},
             { GenCmd.RotateMesh,new string[]{ "повернуть","x,y,z:угол" }},
             { GenCmd.FindFreeNodes,new string[]{}},
             { GenCmd.FindCoincident,new string[]{ "узлы","расстояние" }},
@@ -254,10 +253,6 @@ namespace BazisGUI.Console
                     case GenCmd.SaveProject:
                         InEvent(this, new SaveProjectEventArgs(cmds[1]));
                         break;
-                    case GenCmd.ShowResults:
-                        break;
-                    case GenCmd.HideResults:
-                        break;
                     case GenCmd.CreateGraph:
                         break;
                     case GenCmd.RenumberMesh:
@@ -268,6 +263,12 @@ namespace BazisGUI.Console
                             ModelShiftCoordinateEvent?.Invoke(this, new ModelShiftCoordinateEventArgs(cmds[2]));
                         else
                             ModelRotateEvent?.Invoke(this, new ModelRotateEventArgs(cmds[2]));
+                        break;
+                    case GenCmd.MoveNodes:
+                        if (cmds[1] == "переместить")
+                            InEvent?.Invoke(this, new NodesShiftCoordinateEventArgs());
+                        else
+                            InEvent?.Invoke(this, new NodesRotateCoordinateEventArgs());
                         break;
                     case GenCmd.FindFreeNodes:
                         FindFreeNodesEvent?.Invoke();

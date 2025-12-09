@@ -51,9 +51,6 @@ namespace BazisGUI.Navigator
         время
     };
 
-
-    public enum Priority : int { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий };
-
     public partial class NavigatorControl : PinnedPage
     {
         public TreeNode SelectedNode
@@ -502,64 +499,71 @@ namespace BazisGUI.Navigator
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            var node = e.Node;
-            //node..BackColor = System.Drawing.Color.LightBlue;
-
-            if (e.Node.Level == 0)
+            try
             {
-                if (node.Name == NodeName.проект.ToString())
-                    SelectGeneralInfoEvent?.Invoke();
-                else if (node.Name == NodeName.результаты.ToString())
-                    SelectResultsEvent?.Invoke();
-            }
+                var node = e.Node;
+                //node..BackColor = System.Drawing.Color.LightBlue;
 
-            else if (e.Node.Level == 1)
-            {
-                if (node.Name == NodeName.геометрия.ToString())
-                    SelectGeoEvent?.Invoke();
-                else if (node.Name == NodeName.сетка.ToString())
-                    SelectMeshEvent?.Invoke();
-                else if (node.Name == NodeName.задача.ToString())
-                    SelectTaskEvent?.Invoke();
-                else if (node.Name == NodeName.результаты.ToString())
-                    SelectResultsEvent?.Invoke();
-                else if (node.Name == NodeName.расчеты.ToString())
-                    SelectCompsEvent?.Invoke();
-            }
-
-            else if (e.Node.Level == 2)
-            {
-                if (e.Node.Name == NodeName.материал.ToString() |
-                    e.Node.Name == NodeName.среда.ToString() |
-                    e.Node.Name == NodeName.нагрев.ToString() |
-                    e.Node.Name == NodeName.закрепление.ToString() |
-                    e.Node.Name == NodeName.нагрузка.ToString())
-                    SelectCondEvent?.Invoke(e.Node.Index);
-                else if (e.Node.Name == NodeName.расчет.ToString())
+                if (e.Node.Level == 0)
                 {
-                    SelectCompEvent?.Invoke(e.Node.Text);
+                    if (node.Name == NodeName.проект.ToString())
+                        SelectGeneralInfoEvent?.Invoke();
+                    else if (node.Name == NodeName.результаты.ToString())
+                        SelectResultsEvent?.Invoke();
                 }
 
-                else if (e.Node.Name == NodeName.группаУзлов.ToString() |
-                    e.Node.Name == NodeName.группаЭлементов.ToString() )
-                    SelectGroupEvent?.Invoke(e.Node.Index);
-
-                else if (e.Node.Name == NodeName.результат.ToString())
-                    SelectResultEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
-                else
-                    SelectSetEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
-            }
-
-            else if (e.Node.Level == 3)
-            {
-                if (e.Node.Name == NodeName.объект.ToString())
+                else if (e.Node.Level == 1)
                 {
-                    var number = int.Parse(node.Text.Split(' ')[0]);
-                    var objType = node.Text.Split(' ')[1];
-                    SelectObjectEvent?.Invoke(objType, number);
+                    if (node.Name == NodeName.геометрия.ToString())
+                        SelectGeoEvent?.Invoke();
+                    else if (node.Name == NodeName.сетка.ToString())
+                        SelectMeshEvent?.Invoke();
+                    else if (node.Name == NodeName.задача.ToString())
+                        SelectTaskEvent?.Invoke();
+                    else if (node.Name == NodeName.результаты.ToString())
+                        SelectResultsEvent?.Invoke();
+                    else if (node.Name == NodeName.расчеты.ToString())
+                        SelectCompsEvent?.Invoke();
                 }
-                else if (e.Node.Name == NodeName.время.ToString())
-                    SelectTimeEvent?.Invoke(e.Node.Parent.Text, double.Parse(e.Node.Text));
+
+                else if (e.Node.Level == 2)
+                {
+                    if (e.Node.Name == NodeName.материал.ToString() |
+                        e.Node.Name == NodeName.среда.ToString() |
+                        e.Node.Name == NodeName.нагрев.ToString() |
+                        e.Node.Name == NodeName.закрепление.ToString() |
+                        e.Node.Name == NodeName.нагрузка.ToString())
+                        SelectCondEvent?.Invoke(e.Node.Index);
+                    else if (e.Node.Name == NodeName.расчет.ToString())
+                    {
+                        SelectCompEvent?.Invoke(e.Node.Text);
+                    }
+
+                    else if (e.Node.Name == NodeName.группаУзлов.ToString() |
+                        e.Node.Name == NodeName.группаЭлементов.ToString())
+                        SelectGroupEvent?.Invoke(e.Node.Index);
+
+                    else if (e.Node.Name == NodeName.результат.ToString())
+                        SelectResultEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
+                    else
+                        SelectSetEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
+                }
+
+                else if (e.Node.Level == 3)
+                {
+                    if (e.Node.Name == NodeName.объект.ToString())
+                    {
+                        var number = int.Parse(node.Text.Split(' ')[0]);
+                        var objType = node.Text.Split(' ')[1];
+                        SelectObjectEvent?.Invoke(objType, number);
+                    }
+                    else if (e.Node.Name == NodeName.время.ToString())
+                        SelectTimeEvent?.Invoke(e.Node.Parent.Text, double.Parse(e.Node.Text));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 

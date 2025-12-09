@@ -43,6 +43,13 @@ namespace BazisGUI
                             console.PrintInfo("Объект не найден", Color.Orange);
                     }));
                 }
+
+                else if(arg2 is NodesShiftCoordinateEventArgs eventArgs)
+                {
+                    console_NodesShiftCoordinate();
+                }
+
+
                 else if (arg2 is ModelFindCoincidentsNodesEventArgs coincidentNodesEventArgs)
                 {
                     FindCoincidentNodes(coincidentNodesEventArgs.Distance);
