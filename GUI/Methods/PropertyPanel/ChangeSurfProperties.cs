@@ -1,18 +1,13 @@
 ﻿using BazisGUI.Extensions;
 using BazisGUI.PropertiesPanel;
 using GmshApi;
-using Model.GeometryObjects;
-using Model.Interfaces;
-using Project.Interfaces.Tasks;
-using System.Collections.Generic;
 using System.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void ChangeSurfaceProperty(PropertyChangedEventArgs obj, int number,ref bool flag)
+        private void ChangeSurfaceProperty(PropertyChangedEventArgs obj, int number, ref bool flag)
         {
             //var attribut = GmshController.Gmsh.Model.GetAttribute($"transfinite surface {number}");
 
@@ -35,29 +30,36 @@ namespace BazisGUI
                     GmshController.Gmsh.Model.RemoveAttribute($"transfinite surface {number}");
                 }
             }
+            else if (obj.Header == "Добавленные кривые")
+            {
+                // TODO Добавить реализацию после завершения работ Николая
+            }
             else
             {
-                if(obj.Header == "Квадратизация")
-                    if(bool.Parse(obj.NewValue))
+                var attributes = GmshController.GetTransfiniteSurface(number);
+                if (obj.Header == "Квадратизация") 
+                {
+                    if (bool.Parse(obj.NewValue))
                         project.GmshController.SetRecombineSurface(number);
                     else
                     {
                         GmshController.Gmsh.Model.Mesh.RemoveConstraints(new int[] { 2, number });
                         GmshController.Gmsh.Model.RemoveAttribute($"recombine surface {number}");
                     }
+                }
+                else if (obj.Header == "Угловые точки")
+                {
+                    attributes[0] = obj.NewValue;
+                }
 
-                var attributes = GmshController.GetTransfiniteSurface(number);
-
-                if (obj.Header == "Угловые точки")
-                    attributes[0] = obj.NewValue;    
                 else if (obj.Header == "Ориентация ребер")
-                    attributes[1] = obj.NewValue;  
-
+                {
+                    attributes[1] = obj.NewValue;
+                }
                 var arrangement = attributes[1].ToEnum<Arrangement>();
                 var points = attributes[0].Split(',').Select(x => int.Parse(x));
 
                 project.GmshController.SetTransfiniteSurface(number, arrangement, points.ToArray());
-                //GmshController.Gmsh.Model.Mesh.SetTransfiniteSurface(number, arrangement, points.ToArray());
             }
             
         }

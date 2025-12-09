@@ -167,13 +167,9 @@ namespace BazisGUI
                     else if (objType == ObjType.Элемент3D)
                         ChangeElementProperty(obj, objType, number);
                     else if (objType == ObjType.Точка)
-                    {
                         ChangePointProperty(obj, number);
-                    }
                     else if (objType == ObjType.Кривая)
-                    {
                         ChangeCurveProperty(obj, number);
-                    }
                     else if (objType == ObjType.Поверхность)
                     {
                         var flag = false;
@@ -183,7 +179,6 @@ namespace BazisGUI
                             var rows = GetSurfaceProperties(number);
                             propertiesPanel.DrawTable(rows);
                         }
-
                     }
                 }
                 else
@@ -195,9 +190,7 @@ namespace BazisGUI
                         var rows = GetVolProperties(number);
                         propertiesPanel.DrawTable(rows);
                     }
-
                 }
-
             }
         }
 
