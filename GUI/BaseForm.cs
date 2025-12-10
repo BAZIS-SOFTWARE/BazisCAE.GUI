@@ -122,9 +122,9 @@ namespace BazisGUI
             //Gle.Load();//Это скорее всего больше не понадобится
             scene.Load += SceneInitialization;//Это конвертировалось в событие scene.Load!
             //ComponentsPainter.Font = this.Font; //попробуем не контролировать кегль вручную. Пусть кон-ет система
-
-
+            
             результатыMenuItem.DropDown.Closing += DropDown_Closing;
+            Shown += (arg1, arg2) => HandleArgs(args);
             //selectToolStrip.Location = new Point(10, 24);
             //displayToolStrip.Location = new Point(310, 48);
             //instrumentalToolStrip.Location = new Point(597, 48);
@@ -139,7 +139,10 @@ namespace BazisGUI
             //    var newColor = Color.FromArgb(TransparencyValue, preColor);
             //    obj.Color = newColor;
             //}
+        }
 
+        public void HandleArgs(string[] args)
+        {
             if (args.Length != 0)
             {
                 var path = string.Empty;
