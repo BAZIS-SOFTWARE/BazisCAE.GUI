@@ -1,14 +1,10 @@
 ﻿using BazisGUI.Scene;
-using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
 using BazisGUI.SettingsControls;
-using BazisGUI.Utilities;
 using ClientGUI;
 using ClientLogic;
 using LicenseInfo;
-using Model.Interfaces;
 using Newtonsoft.Json;
-using OpenTK.Graphics.OpenGL;
 using OperationalController;
 using OperationalController.GmshController;
 using OperationalController.ModelScenePresentator;
@@ -24,7 +20,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace BazisGUI
 {
