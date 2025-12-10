@@ -1,10 +1,20 @@
-﻿using BazisGUI.SettingsControls;
+﻿using BazisGUI.Scene;
+using BazisGUI.Scene.Interfaces;
+using BazisGUI.Scene.VBO;
+using BazisGUI.SettingsControls;
+using BazisGUI.Utilities;
 using ClientGUI;
 using ClientLogic;
 using LicenseInfo;
 using Model.Interfaces;
 using Newtonsoft.Json;
+using OpenTK.Graphics.OpenGL;
+using OperationalController;
+using OperationalController.GmshController;
+using OperationalController.ModelScenePresentator;
+using PostProc;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -12,18 +22,9 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading;
-using System.Windows.Forms;
-using PostProc;
-using BazisGUI.Scene.Interfaces;
-using BazisGUI.Scene;
-using OpenTK.Graphics.OpenGL;
-using BazisGUI.Scene.VBO;
-using OperationalController.GmshController;
-using OperationalController.ModelScenePresentator;
-using System.Collections.Generic;
-using OperationalController;
-using BazisGUI.Utilities;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace BazisGUI
 {
@@ -40,6 +41,19 @@ namespace BazisGUI
                 return Path.GetDirectoryName(lblStatus.Text);
             }
         }
+
+        private string projFilter = "Project file(*.bpf)|*.bpf|Project file(*.bpf2)|*.bpf2";
+        private string meshFilter = "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
+            "GMSH(*.inp)|*.inp|" +
+            "GMSH(*.inp_v2)|*.inp_v2|" +
+            "STL(*.stl*)|*.stl|" +
+            "SOLOMIA(*.dat*)|*.dat";
+        private string geomFilter = "(*.brep*)|*.brep|" +
+            "(*.geo*)|*.geo|" +
+            "*.stp*)|*.stp|" +
+            "(*.step*)|*.step|" +
+            "(*.iges*)|*.iges|" +
+            "(*.igs*)|*.igs";
 
         //private System.Windows.Forms.Timer connectTimer = new System.Windows.Forms.Timer();
         //ProjectData project;
@@ -136,11 +150,7 @@ namespace BazisGUI
                     if (args.Length - 1 - projInd < 1)
                         throw new Exception($"Отсутствуют необходимые аргументы для -proj path file");
 
-                    path = Path.GetDirectoryName(args[projInd + 1]);
-                    var name = Path.GetFileName(args[projInd + 1]);
-
-                    project = new ProjectController();
-                    project.Load(path);
+                    OpenProject(Path.GetFullPath(args[projInd + 1]));
                 }
                 if (args.Contains("-res"))
                 {
@@ -165,21 +175,9 @@ namespace BazisGUI
                     if (args.Length - 1 - resInd < 1)
                         throw new Exception($"Отсутствуют необходимые аргументы для -cad file");
 
-                    var fullPath = Path.GetFullPath(args[resInd + 1]);
-
-                    //if (GmshController == null)         
-                    project.GmshController = dataController.LoadGMSH();
-
-                    if (project == null)
-                        project = new ProjectController();
-                    project.ImportCAD(fullPath);
-                    path = Path.GetDirectoryName(fullPath);
+                    OpenProject(Path.GetFullPath(args[resInd + 1]));
                 }
-
-                lblStatus.Text = $"{path}\\{project.Name}";
             }
-
-
         }
 
         private void DropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
@@ -437,39 +435,15 @@ namespace BazisGUI
             }
         }
 
-        private async void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void OpenProject(string filePath)
         {
             try
             {
-                var projFilters = "Project file(*.bpf)|*.bpf|Project file(*.bpf2)|*.bpf2";
-                var geomFilter =
-"(*.brep*)|*.brep|" +
-"(*.geo*)|*.geo|" +
-"*.stp*)|*.stp|" +
-"(*.step*)|*.step|" +
-"(*.iges*)|*.iges|" +
-"(*.igs*)|*.igs";
-                string meshFilter =
-"Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
-"GMSH(*.inp)|*.inp|" +
-"GMSH(*.inp_v2)|*.inp_v2|" +
-"ANSYS(*.cdb*)|*.cdb|" +
-"STL(*.stl*)|*.stl|" +
-"SOLOMIA(*.dat*)|*.dat";
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "All files(*.*)|*.*|" +
-                    projFilters + "|" +
-                    geomFilter + "|" +
-                    meshFilter;
-                dialog.DefaultExt = "*.bpf2";
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
+                var ext = Path.GetExtension(filePath);
 
-                var ext = Path.GetExtension(dialog.FileName);
-
-                if (projFilters.Contains(ext))
+                if (projFilter.Contains(ext))
                 {
-                    project = await dataController.OpenProject(dialog.FileName);
+                    project = await dataController.OpenProject(filePath);
                     GmshController?.Gmsh?.Clear();
                 }
 
@@ -480,18 +454,16 @@ namespace BazisGUI
 
                     if (GmshController.Gmsh == null)
                         project.GmshController = dataController.LoadGMSH();
-                    project.ImportCAD(dialog.FileName);
+                    project.ImportCAD(filePath);
                 }
+
                 else
                 {
-                    project = await dataController.ImportMesh(dialog.FileName);
+                    project = await dataController.ImportMesh(filePath);
                     GmshController?.Gmsh?.Clear();
                 }
 
-                var path = Path.GetDirectoryName(dialog.FileName);
-
-                lblStatus.Text = dialog.FileName;
-
+                lblStatus.Text = filePath;
 
                 ClearAllDataOnScene();
                 PresentProject();
@@ -505,6 +477,24 @@ namespace BazisGUI
             {
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //OpenFileDialog dialog = new OpenFileDialog();
+            //dialog.Filter = "All files(*.*)|*.*|" +
+            //    projFilters + "|" +
+            //    geomFilter + "|" +
+            //    meshFilter;
+            //dialog.DefaultExt = "*.bpf2";
+
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = string.Join("|", "All files(*.*)|*.*", projFilter, geomFilter, meshFilter);
+            dialog.DefaultExt = "*.bpf2";
+            if (dialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            OpenProject(dialog.FileName);
         }
 
         private void UnblockInterface()
