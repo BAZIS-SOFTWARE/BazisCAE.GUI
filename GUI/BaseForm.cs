@@ -42,13 +42,13 @@ namespace BazisGUI
             }
         }
 
-        private string projFilter = "Project file(*.bpf)|*.bpf|Project file(*.bpf2)|*.bpf2";
-        private string meshFilter = "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
+        private readonly string projFilter = "Project file(*.bpf)|*.bpf|Project file(*.bpf2)|*.bpf2";
+        private readonly string meshFilter = "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
             "GMSH(*.inp)|*.inp|" +
             "GMSH(*.inp_v2)|*.inp_v2|" +
             "STL(*.stl*)|*.stl|" +
             "SOLOMIA(*.dat*)|*.dat";
-        private string geomFilter = "(*.brep*)|*.brep|" +
+        private readonly string geomFilter = "(*.brep*)|*.brep|" +
             "(*.geo*)|*.geo|" +
             "*.stp*)|*.stp|" +
             "(*.step*)|*.step|" +
@@ -141,11 +141,10 @@ namespace BazisGUI
             //}
         }
 
-        public void HandleArgs(string[] args)
+        public async void HandleArgs(string[] args)
         {
             if (args.Length != 0)
             {
-                var path = string.Empty;
                 if (args.Contains("-proj"))
                 {
                     var projInd = Array.IndexOf(args, "-proj");
@@ -153,7 +152,7 @@ namespace BazisGUI
                     if (args.Length - 1 - projInd < 1)
                         throw new Exception($"Отсутствуют необходимые аргументы для -proj path file");
 
-                    OpenProject(Path.GetFullPath(args[projInd + 1]));
+                    await OpenProject(Path.GetFullPath(args[projInd + 1]));
                 }
                 if (args.Contains("-res"))
                 {
@@ -167,9 +166,11 @@ namespace BazisGUI
                     if (project == null)
                         throw new Exception($"Для загрузки результатов требуется сперва загрузить проект");
 
-                    navigator.TrySearchNodes("результаты", out List<TreeNode> nodes);
+                    ResultDbPath = fullPath;
+                    FillingResultsData();
+                    //navigator.TrySearchNodes("результаты", out List<TreeNode> nodes);
 
-                    nodes.First().Nodes[0].Text = fullPath;
+                    //nodes.First().Nodes[0].Text = fullPath;
                 }
                 if (args.Contains("-cad"))
                 {
@@ -178,7 +179,7 @@ namespace BazisGUI
                     if (args.Length - 1 - resInd < 1)
                         throw new Exception($"Отсутствуют необходимые аргументы для -cad file");
 
-                    OpenProject(Path.GetFullPath(args[resInd + 1]));
+                    await OpenProject(Path.GetFullPath(args[resInd + 1]));
                 }
             }
         }
@@ -438,11 +439,11 @@ namespace BazisGUI
             }
         }
 
-        private async void OpenProject(string filePath)
+        private async Task OpenProject(string filePath)
         {
             try
             {
-                var ext = Path.GetExtension(filePath);
+                var ext = Path.GetExtension(filePath).ToLower();
 
                 if (projFilter.Contains(ext))
                 {
