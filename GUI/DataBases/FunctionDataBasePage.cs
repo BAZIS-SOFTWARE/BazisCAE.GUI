@@ -214,17 +214,16 @@ namespace BazisGUI.DataBases
                 var dbPath = string.Empty;
                 var name = string.Empty;
                 dbPath = Directory.GetFiles(Application.StartupPath, "functions_draft.txt", SearchOption.AllDirectories)[0];
-                name = "Новая_функция";
+                name = GetNextName("Новая_функция_");
 
                 var dataSet = Loader.LoadDataBase(dbPath);
                 var function = ConvertToFunctions(dataSet);
 
                 var oldName = function.Last().Key;
                 var values = function.Last().Value;
-                var newName = oldName.Replace(name, $"{name}_{number}");
  
-                values.Name = newName;
-                Functions.Add(newName, values);
+                values.Name = name;
+                Functions.Add(name, values);
 
                 AddTreeNode(values);
             }
@@ -320,6 +319,29 @@ namespace BazisGUI.DataBases
             base.OpenFileDB_Click(sender, e);
         }
 
+        private string GetNextName(string basePrefix)
+        {
+            var numbers = Functions.Keys
+                .Where(k => k.StartsWith(basePrefix))
+                .Select(k =>
+                {
+                    var suffix = k.Substring(basePrefix.Length);
+                    return int.TryParse(suffix, out int n) ? n : (int?)null;
+                })
+                .Where(n => n.HasValue)
+                .Select(n => n.Value)
+                .OrderBy(n => n)
+                .ToList();
+            int next = 1;
+            foreach (var n in numbers)
+            {
+                if (n == next)
+                    next++;
+                else
+                    break;
+            }
+            return $"{basePrefix}{next}";
+        }
         private FunctionDBData ConvertToFunctions(DataSet dataSet)
         {
             var functions = new FunctionDBData();

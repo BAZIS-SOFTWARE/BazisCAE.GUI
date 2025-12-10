@@ -517,7 +517,7 @@ namespace BazisGUI.DataBases
                 var dbPath = string.Empty;
                 var name = string.Empty;
                 dbPath = Directory.GetFiles(Application.StartupPath, "materials_draft.txt", SearchOption.AllDirectories)[0];
-                name = "Новый_материал";
+                name = GetNextName("Новый_материал_");
 
                 var dataSet = Loader.LoadDataBase(dbPath);
                 var material = ConvertToMaterials(dataSet);
@@ -525,11 +525,10 @@ namespace BazisGUI.DataBases
                 var lastItem = material.Last();
                 var oldName = lastItem.Key;
                 var values = lastItem.Value;
-                var newName = oldName.Replace(name, $"{name}_{number}");
-                Materials.Remove(oldName);
-                values.Name = newName;
-                Materials.Add(newName, values);
 
+                Materials.Remove(oldName);
+                values.Name = name;
+                Materials.Add(name, values);
 
                 AddTreeNode(values);
             }
@@ -599,7 +598,29 @@ namespace BazisGUI.DataBases
             }
         }
 
-        private void UpdatePhaseColumns(IEnumerable<DataTable> tables, string [] phaseNames)
+        private string GetNextName(string basePrefix)
+        {
+            var numbers = Materials.Keys
+                .Where(k => k.StartsWith(basePrefix))
+                .Select(k =>
+                {
+            var suffix = k.Substring(basePrefix.Length);
+            return int.TryParse(suffix, out int n) ? n : (int?)null;})
+                .Where(n => n.HasValue)
+                .Select(n => n.Value)
+                .OrderBy(n => n)
+                .ToList();
+            int next = 1;
+            foreach (var n in numbers)
+            {
+                if (n == next)
+                    next++;
+                else
+                    break;
+            }
+            return $"{basePrefix}{next}";
+        }
+private void UpdatePhaseColumns(IEnumerable<DataTable> tables, string [] phaseNames)
         {
             foreach (var table in tables)
             {
