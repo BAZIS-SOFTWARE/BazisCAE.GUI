@@ -196,7 +196,7 @@ namespace BazisGUI.Console
             // 
             toolStripButton1.AutoSize = false;
             toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton1.Image = (System.Drawing.Image)resources.GetObject("toolStripButton1.Image");
+            toolStripButton1.Image = Properties.Resources.ColorFill;
             toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -209,7 +209,7 @@ namespace BazisGUI.Console
             // 
             toolStripButton2.AutoSize = false;
             toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton2.Image = (System.Drawing.Image)resources.GetObject("toolStripButton2.Image");
+            toolStripButton2.Image = Properties.Resources.Erase;
             toolStripButton2.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             toolStripButton2.Name = "toolStripButton2";
@@ -222,7 +222,7 @@ namespace BazisGUI.Console
             btnStartMacro.AutoSize = false;
             btnStartMacro.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             btnStartMacro.Enabled = false;
-            btnStartMacro.Image = (System.Drawing.Image)resources.GetObject("btnStartMacro.Image");
+            btnStartMacro.Image = Properties.Resources.CreateGroup;
             btnStartMacro.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             btnStartMacro.ImageTransparentColor = System.Drawing.Color.Magenta;
             btnStartMacro.Name = "btnStartMacro";

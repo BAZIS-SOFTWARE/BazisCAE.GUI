@@ -23,7 +23,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>BazisGUIKey.snk</AssemblyOriginatorKeyFile>
     <SignManifests>false</SignManifests>
-    <ApplicationIcon>IconShort_32.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\IconShort_32.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -153,6 +153,11 @@
     <Compile Update="PropertiesPanel\PropertiesPanelControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -196,15 +201,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AboutBanner.jpg" />
     <Content Include="DataBases\Functions\functions_draft.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DataBases\Materials\materials_draft.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IconShort_16.ico" />
-    <Content Include="IconShort_32.ico" />
+    <Content Include="Resources\IconShort_32.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Projects\" />
@@ -227,6 +230,10 @@
   <ItemGroup>
     <EmbeddedResource Update="BaseForm.resx">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -924,7 +924,7 @@ namespace BazisGUI
             // 
             // создатьToolStripMenuItem
             // 
-            создатьToolStripMenuItem.Image = (System.Drawing.Image)resources.GetObject("создатьToolStripMenuItem.Image");
+            создатьToolStripMenuItem.Image = Properties.Resources.Create;
             создатьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             создатьToolStripMenuItem.Name = "создатьToolStripMenuItem";
             создатьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
@@ -934,7 +934,7 @@ namespace BazisGUI
             // 
             // открытьToolStripMenuItem
             // 
-            открытьToolStripMenuItem.Image = (System.Drawing.Image)resources.GetObject("открытьToolStripMenuItem.Image");
+            открытьToolStripMenuItem.Image = Properties.Resources.OpenDB;
             открытьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
             открытьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
@@ -956,7 +956,7 @@ namespace BazisGUI
             // 
             // сохранитьToolStripMenuItem
             // 
-            сохранитьToolStripMenuItem.Image = (System.Drawing.Image)resources.GetObject("сохранитьToolStripMenuItem.Image");
+            сохранитьToolStripMenuItem.Image = Properties.Resources.Save;
             сохранитьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             сохранитьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
@@ -1333,7 +1333,7 @@ namespace BazisGUI
             // 
             // создатьГруппуItem
             // 
-            создатьГруппуItem.Image = (System.Drawing.Image)resources.GetObject("создатьГруппуItem.Image");
+            создатьГруппуItem.Image = Properties.Resources.CreateGroup;
             создатьГруппуItem.ImageScaling = ToolStripItemImageScaling.None;
             создатьГруппуItem.Name = "создатьГруппуItem";
             создатьГруппуItem.Size = new System.Drawing.Size(203, 22);
@@ -1342,7 +1342,7 @@ namespace BazisGUI
             // 
             // скрытьВыбранноеItem
             // 
-            скрытьВыбранноеItem.Image = Properties.Resources.hide_w;
+            скрытьВыбранноеItem.Image = Properties.Resources.Hide;
             скрытьВыбранноеItem.ImageScaling = ToolStripItemImageScaling.None;
             скрытьВыбранноеItem.Name = "скрытьВыбранноеItem";
             скрытьВыбранноеItem.Size = new System.Drawing.Size(203, 22);
@@ -1351,7 +1351,7 @@ namespace BazisGUI
             // 
             // показатьСкрытыеItem
             // 
-            показатьСкрытыеItem.Image = Properties.Resources.show_w;
+            показатьСкрытыеItem.Image = Properties.Resources.show_1;
             показатьСкрытыеItem.ImageScaling = ToolStripItemImageScaling.None;
             показатьСкрытыеItem.Name = "показатьСкрытыеItem";
             показатьСкрытыеItem.Size = new System.Drawing.Size(203, 22);
@@ -1369,7 +1369,7 @@ namespace BazisGUI
             // 
             // menuItem_SetRotPoint
             // 
-            menuItem_SetRotPoint.Image = (System.Drawing.Image)resources.GetObject("menuItem_SetRotPoint.Image");
+            menuItem_SetRotPoint.Image = Properties.Resources.SetRotPoint;
             menuItem_SetRotPoint.ImageScaling = ToolStripItemImageScaling.None;
             menuItem_SetRotPoint.Name = "menuItem_SetRotPoint";
             menuItem_SetRotPoint.Size = new System.Drawing.Size(203, 22);
@@ -1378,7 +1378,7 @@ namespace BazisGUI
             // 
             // menuItem_DeleteSelectedObjects
             // 
-            menuItem_DeleteSelectedObjects.Image = (System.Drawing.Image)resources.GetObject("menuItem_DeleteSelectedObjects.Image");
+            menuItem_DeleteSelectedObjects.Image = Properties.Resources.Delete;
             menuItem_DeleteSelectedObjects.ImageScaling = ToolStripItemImageScaling.None;
             menuItem_DeleteSelectedObjects.Name = "menuItem_DeleteSelectedObjects";
             menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(203, 22);

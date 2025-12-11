@@ -468,21 +468,21 @@ namespace BazisGUI.Navigator
                 // Draw the images
                 if (indexes.Length > 0)
                 {
-                    var image = helpImageList.Images[indexes.First()];
-                    var shift = image.Width + 20;
+                    //var image = helpImageList.Images[indexes.First()];
+                    //var shift = image.Width + 20;
 
 
-                    if (e.X > treeView.Width - shift & e.X < treeView.Width - shift + image.Width)
-                        ActionMenu(e.Node, indexes.Length - 1);
+                    //if (e.X > treeView.Width - shift & e.X < treeView.Width - shift + image.Width)
+                    //    ActionMenu(e.Node, indexes.Length - 1);
 
-                    for (int i = indexes.Length - 2; i >= 0; i--)
-                    {
-                        image = helpImageList.Images[i];
-                        shift += image.Width + 4;
+                    //for (int i = indexes.Length - 2; i >= 0; i--)
+                    //{
+                    //    image = helpImageList.Images[i];
+                    //    shift += image.Width + 4;
 
-                        if (e.X > treeView.Width - shift & e.X < treeView.Width - shift + image.Width)
-                            ActionMenu(e.Node, i);
-                    }
+                    //    if (e.X > treeView.Width - shift & e.X < treeView.Width - shift + image.Width)
+                    //        ActionMenu(e.Node, i);
+                    //}
                 }
             }
         }
@@ -666,18 +666,18 @@ namespace BazisGUI.Navigator
                 // Draw the images
                 if(indexes.Length > 0)
                 {
-                    var image = helpImageList.Images[indexes.Last()];
-                    var shift = image.Width + 20;
-                    float imageY = e.Bounds.Y + (e.Bounds.Height - image.Height) / 2; // Vertically center the image
-                    e.Graphics.DrawImage(image, treeView.Width - shift, imageY, image.Width, image.Height);
+                    //var image = helpImageList.Images[indexes.Last()];
+                    //var shift = image.Width + 20;
+                    //float imageY = e.Bounds.Y + (e.Bounds.Height - image.Height) / 2; // Vertically center the image
+                    //e.Graphics.DrawImage(image, treeView.Width - shift, imageY, image.Width, image.Height);
 
-                    foreach (var index in indexes.Reverse().Skip(1))
-                    {
-                        image = helpImageList.Images[index];
-                        shift += image.Width + 4;
+                    //foreach (var index in indexes.Reverse().Skip(1))
+                    //{
+                    //    //image = helpImageList.Images[index];
+                    //    shift += image.Width + 4;
 
-                        e.Graphics.DrawImage(image, treeView.Width - shift, imageY, image.Width, image.Height);
-                    }
+                    //    e.Graphics.DrawImage(image, treeView.Width - shift, imageY, image.Width, image.Height);
+                    //}
                 }
 
             }

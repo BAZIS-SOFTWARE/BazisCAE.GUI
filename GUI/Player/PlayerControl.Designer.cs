@@ -1,4 +1,5 @@
-﻿using UserControlsEx;
+﻿using System.Drawing;
+using UserControlsEx;
 
 namespace BazisGUI.Player
 {
@@ -43,7 +44,7 @@ namespace BazisGUI.Player
             btnStopCheck.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnStopCheck.Dock = System.Windows.Forms.DockStyle.Fill;
             btnStopCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnStopCheck.Image = (System.Drawing.Image)resources.GetObject("btnStopCheck.Image");
+            btnStopCheck.Image = Properties.Resources.Stop.ToBitmap();
             btnStopCheck.Location = new System.Drawing.Point(43, 3);
             btnStopCheck.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnStopCheck.MaximumSize = new System.Drawing.Size(31, 31);
@@ -58,7 +59,7 @@ namespace BazisGUI.Player
             // 
             btnCheckDinamic.Dock = System.Windows.Forms.DockStyle.Fill;
             btnCheckDinamic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnCheckDinamic.Image = (System.Drawing.Image)resources.GetObject("btnCheckDinamic.Image");
+            btnCheckDinamic.Image = Properties.Resources.StartCheck.ToBitmap();
             btnCheckDinamic.Location = new System.Drawing.Point(4, 3);
             btnCheckDinamic.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnCheckDinamic.MaximumSize = new System.Drawing.Size(31, 31);
