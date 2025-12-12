@@ -37,7 +37,7 @@ namespace BazisGUI
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             toolStripContainer = new ToolStripContainer();
             statusStrip = new StatusStrip();
             lblStatus = new ToolStripStatusLabel();
@@ -52,8 +52,8 @@ namespace BazisGUI
             cntrНавигатор = new UserControlsEx.SplitContainerEx();
             navigator = new NavigatorControl();
             tableLayoutPanel1 = new TableLayoutPanel();
-            checkPlayerControl = new Player.PlayerControl();
-            propertiesPanel = new PropertiesPanel.PropertiesPanelControl();
+            checkPlayerControl = new BazisGUI.Player.PlayerControl();
+            propertiesPanel = new BazisGUI.PropertiesPanel.PropertiesPanelControl();
             splitContainer2 = new UserControlsEx.SplitContainerEx();
             btnSelect = new Button();
             btnDisplayStates = new Button();
@@ -77,7 +77,7 @@ namespace BazisGUI
             btnMakeScreenShot = new Button();
             btnAdvSelection = new Button();
             scene = new OpenTK.GLControl.GLControl();
-            console = new Console.ConsoleControl();
+            console = new BazisGUI.Console.ConsoleControl();
             menuStrip = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem = new ToolStripMenuItem();
@@ -567,7 +567,7 @@ namespace BazisGUI
             // sceneImageList
             // 
             sceneImageList.ColorDepth = ColorDepth.Depth8Bit;
-            sceneImageList.ImageStream = (ImageListStreamer)resources.GetObject("sceneImageList.ImageStream");
+            sceneImageList.ImageStream = Properties.Resources.sceneImageList_ImageStream;
             sceneImageList.TransparentColor = System.Drawing.Color.Transparent;
             sceneImageList.Images.SetKeyName(0, "вп 12.png");
             sceneImageList.Images.SetKeyName(1, "вп 25.png");
@@ -992,7 +992,7 @@ namespace BazisGUI
             // 
             viewMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, toolStripMenuItem3 });
             viewMenuItem.Name = "viewMenuItem";
-            viewMenuItem.Size = new System.Drawing.Size(39, 20);
+            viewMenuItem.Size = new System.Drawing.Size(38, 20);
             viewMenuItem.Text = "Вид";
             // 
             // toolStripMenuItem2
@@ -1139,19 +1139,19 @@ namespace BazisGUI
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(227, 22);
+            toolStripMenuItem1.Size = new System.Drawing.Size(228, 22);
             toolStripMenuItem1.Text = "Сварка плавлением";
             // 
             // трениемСПеремешиваниемToolStripMenuItem
             // 
             трениемСПеремешиваниемToolStripMenuItem.Name = "трениемСПеремешиваниемToolStripMenuItem";
-            трениемСПеремешиваниемToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            трениемСПеремешиваниемToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             трениемСПеремешиваниемToolStripMenuItem.Text = "Трением с перемешиванием";
             // 
             // термообработкаToolStripMenuItem
             // 
             термообработкаToolStripMenuItem.Name = "термообработкаToolStripMenuItem";
-            термообработкаToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            термообработкаToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             термообработкаToolStripMenuItem.Text = "Термообработка";
             // 
             // показатьНаДиаграммеToolStripMenuItem
@@ -1299,14 +1299,14 @@ namespace BazisGUI
             // содержаниеToolStripMenuItem
             // 
             содержаниеToolStripMenuItem.Name = "содержаниеToolStripMenuItem";
-            содержаниеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            содержаниеToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             содержаниеToolStripMenuItem.Text = "&Содержание";
             содержаниеToolStripMenuItem.Click += содержаниеToolStripMenuItem_Click;
             // 
             // опрограммеToolStripMenuItem
             // 
             опрограммеToolStripMenuItem.Name = "опрограммеToolStripMenuItem";
-            опрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            опрограммеToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             опрограммеToolStripMenuItem.Text = "&О программе...";
             опрограммеToolStripMenuItem.Click += опрограммеToolStripMenuItem_Click;
             // 
@@ -1392,7 +1392,7 @@ namespace BazisGUI
             ClientSize = new System.Drawing.Size(942, 625);
             Controls.Add(toolStripContainer);
             Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Icon = Properties.Resources.IconShort_32;
             IsMdiContainer = true;
             KeyPreview = true;
             MainMenuStrip = menuStrip;

@@ -191,6 +191,16 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Point, аналогичного {X=268,Y=46}.
+        /// </summary>
+        public static System.Drawing.Point contextMenu_TrayLocation {
+            get {
+                object obj = ResourceManager.GetObject("contextMenu.TrayLocation", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Copy {
@@ -381,6 +391,16 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Point, аналогичного {X=133,Y=17}.
+        /// </summary>
+        public static System.Drawing.Point menuStrip_TrayLocation {
+            get {
+                object obj = ResourceManager.GetObject("menuStrip.TrayLocation", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Mesh {
@@ -481,6 +501,26 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Windows.Forms.ImageListStreamer.
+        /// </summary>
+        public static System.Windows.Forms.ImageListStreamer sceneImageList_ImageStream {
+            get {
+                object obj = ResourceManager.GetObject("sceneImageList.ImageStream", resourceCulture);
+                return ((System.Windows.Forms.ImageListStreamer)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Point, аналогичного {X=17,Y=54}.
+        /// </summary>
+        public static System.Drawing.Point sceneImageList_TrayLocation {
+            get {
+                object obj = ResourceManager.GetObject("sceneImageList.TrayLocation", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ScreenSaver {
@@ -547,6 +587,16 @@ namespace BazisGUI.Properties {
             get {
                 object obj = ResourceManager.GetObject("StartCheck", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Point, аналогичного {X=837,Y=17}.
+        /// </summary>
+        public static System.Drawing.Point statusStrip_TrayLocation {
+            get {
+                object obj = ResourceManager.GetObject("statusStrip.TrayLocation", resourceCulture);
+                return ((System.Drawing.Point)(obj));
             }
         }
         
