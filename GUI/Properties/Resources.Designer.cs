@@ -281,6 +281,26 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Windows.Forms.ImageListStreamer.
+        /// </summary>
+        public static System.Windows.Forms.ImageListStreamer genImageList_ImageStream {
+            get {
+                object obj = ResourceManager.GetObject("genImageList.ImageStream", resourceCulture);
+                return ((System.Windows.Forms.ImageListStreamer)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Point, аналогичного {X=453,Y=79}.
+        /// </summary>
+        public static System.Drawing.Point genImageList_TrayLocation {
+            get {
+                object obj = ResourceManager.GetObject("genImageList.TrayLocation", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Heat_1 {
@@ -317,6 +337,26 @@ namespace BazisGUI.Properties {
             get {
                 object obj = ResourceManager.GetObject("helpContent", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Windows.Forms.ImageListStreamer.
+        /// </summary>
+        public static System.Windows.Forms.ImageListStreamer helpImageList_ImageStream {
+            get {
+                object obj = ResourceManager.GetObject("helpImageList.ImageStream", resourceCulture);
+                return ((System.Windows.Forms.ImageListStreamer)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Point, аналогичного {X=13,Y=76}.
+        /// </summary>
+        public static System.Drawing.Point helpImageList_TrayLocation {
+            get {
+                object obj = ResourceManager.GetObject("helpImageList.TrayLocation", resourceCulture);
+                return ((System.Drawing.Point)(obj));
             }
         }
         

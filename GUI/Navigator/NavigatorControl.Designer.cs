@@ -31,35 +31,35 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigatorControl));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Проект", 7, 7);
-            //this.genImageList = new System.Windows.Forms.ImageList(this.components);
-            //this.helpImageList = new System.Windows.Forms.ImageList(this.components);
+            this.genImageList = new System.Windows.Forms.ImageList(this.components);
+            this.helpImageList = new System.Windows.Forms.ImageList(this.components);
             this.treeView = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
             // genImageList
             // 
-            //this.genImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("genImageList.ImageStream")));
-            //this.genImageList.TransparentColor = System.Drawing.Color.Transparent;
-            //this.genImageList.Images.SetKeyName(0, "NodeObjs.png");
-            //this.genImageList.Images.SetKeyName(1, "MeshObjs.png");
-            //this.genImageList.Images.SetKeyName(2, "Материалы.bmp");
-            //this.genImageList.Images.SetKeyName(3, "Среда.bmp");
-            //this.genImageList.Images.SetKeyName(4, "Нагрев.bmp");
-            //this.genImageList.Images.SetKeyName(5, "Закрепление.bmp");
-            //this.genImageList.Images.SetKeyName(6, "Нагрузки.bmp");
-            //this.genImageList.Images.SetKeyName(7, "н 2.png");
-            //this.genImageList.Images.SetKeyName(8, "н 3.png");
-            //this.genImageList.Images.SetKeyName(9, "н1.png");
+            this.genImageList.ImageStream = Properties.Resources.genImageList_ImageStream;
+            this.genImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.genImageList.Images.SetKeyName(0, "NodeObjs.png");
+            this.genImageList.Images.SetKeyName(1, "MeshObjs.png");
+            this.genImageList.Images.SetKeyName(2, "Материалы.bmp");
+            this.genImageList.Images.SetKeyName(3, "Среда.bmp");
+            this.genImageList.Images.SetKeyName(4, "Нагрев.bmp");
+            this.genImageList.Images.SetKeyName(5, "Закрепление.bmp");
+            this.genImageList.Images.SetKeyName(6, "Нагрузки.bmp");
+            this.genImageList.Images.SetKeyName(7, "н 2.png");
+            this.genImageList.Images.SetKeyName(8, "н 3.png");
+            this.genImageList.Images.SetKeyName(9, "н1.png");
             // 
             // helpImageList
             // 
-            //this.helpImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("helpImageList.ImageStream")));
-            //this.helpImageList.TransparentColor = System.Drawing.Color.Transparent;
-            //this.helpImageList.Images.SetKeyName(0, "info_w.png");
-            //this.helpImageList.Images.SetKeyName(1, "Edit.png");
-            //this.helpImageList.Images.SetKeyName(2, "show_w.png");
-            //this.helpImageList.Images.SetKeyName(3, "hide_w.png");
-            //this.helpImageList.Images.SetKeyName(4, "Del.ico");
+            this.helpImageList.ImageStream = Properties.Resources.helpImageList_ImageStream;
+            this.helpImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.helpImageList.Images.SetKeyName(0, "info_w.png");
+            this.helpImageList.Images.SetKeyName(1, "Edit.png");
+            this.helpImageList.Images.SetKeyName(2, "show_w.png");
+            this.helpImageList.Images.SetKeyName(3, "hide_w.png");
+            this.helpImageList.Images.SetKeyName(4, "Del.ico");
             // 
             // treeView
             // 
@@ -109,8 +109,8 @@
         }
 
         #endregion
-        //private System.Windows.Forms.ImageList helpImageList;
-        //private System.Windows.Forms.ImageList genImageList;
+        private System.Windows.Forms.ImageList helpImageList;
+        private System.Windows.Forms.ImageList genImageList;
         private System.Windows.Forms.TreeView treeView;
     }
 }
