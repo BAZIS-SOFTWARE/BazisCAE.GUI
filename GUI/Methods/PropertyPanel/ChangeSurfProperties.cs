@@ -1,12 +1,7 @@
 ﻿using BazisGUI.Extensions;
 using BazisGUI.PropertiesPanel;
 using GmshApi;
-using Model.GeometryObjects;
-using Model.Interfaces;
-using Project.Interfaces.Tasks;
-using System.Collections.Generic;
 using System.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -58,8 +53,7 @@ namespace BazisGUI
 
                 project.GmshController.SetTransfiniteSurface(number, arrangement, points.ToArray());
                 //GmshController.Gmsh.Model.Mesh.SetTransfiniteSurface(number, arrangement, points.ToArray());
-            }
-            
+            } 
         }
     }
 }
