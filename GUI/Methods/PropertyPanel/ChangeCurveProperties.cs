@@ -16,7 +16,7 @@ namespace BazisGUI
 
             if (obj.Header == "Алгоритм")
                 attributes[1] = obj.NewValue;
-            else if (obj.Header == "Колличество точек")
+            else if (obj.Header == "Количество точек")
                 attributes[0] = obj.NewValue;
             else
                 attributes[2] = obj.NewValue;
