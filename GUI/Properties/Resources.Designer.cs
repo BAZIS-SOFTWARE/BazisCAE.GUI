@@ -481,6 +481,16 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Point, аналогичного {X=17,Y=17}.
+        /// </summary>
+        public static System.Drawing.Point openFileDialog_TrayLocation {
+            get {
+                object obj = ResourceManager.GetObject("openFileDialog.TrayLocation", resourceCulture);
+                return ((System.Drawing.Point)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap OpenFolder {
@@ -647,6 +657,16 @@ namespace BazisGUI.Properties {
             get {
                 object obj = ResourceManager.GetObject("Stop", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Point, аналогичного {X=17,Y=55}.
+        /// </summary>
+        public static System.Drawing.Point toolStripEx1_TrayLocation {
+            get {
+                object obj = ResourceManager.GetObject("toolStripEx1.TrayLocation", resourceCulture);
+                return ((System.Drawing.Point)(obj));
             }
         }
         
