@@ -517,7 +517,7 @@ namespace BazisGUI.DataBases
                 var dbPath = string.Empty;
                 var name = string.Empty;
                 dbPath = Directory.GetFiles(Application.StartupPath, "materials_draft.txt", SearchOption.AllDirectories)[0];
-                name = "Новый_материал";
+                name = GetNextName("Новый_материал_", Materials.Keys);
 
                 var dataSet = Loader.LoadDataBase(dbPath);
                 var material = ConvertToMaterials(dataSet);
@@ -525,11 +525,10 @@ namespace BazisGUI.DataBases
                 var lastItem = material.Last();
                 var oldName = lastItem.Key;
                 var values = lastItem.Value;
-                var newName = oldName.Replace(name, $"{name}_{number}");
-                Materials.Remove(oldName);
-                values.Name = newName;
-                Materials.Add(newName, values);
 
+                Materials.Remove(oldName);
+                values.Name = name;
+                Materials.Add(name, values);
 
                 AddTreeNode(values);
             }

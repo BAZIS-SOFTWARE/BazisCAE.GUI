@@ -323,13 +323,14 @@ namespace BazisGUI.Console
                     var assembly = Assembly.GetExecutingAssembly();
                     var stream = assembly.GetManifestResourceStream("PrConsole.Resources.Stop.ico");
                     btnStartMacro.Image = new Bitmap(stream);
+                    btnStartMacro.Text = "Остановить";
                 }
                 else
                 {
                     var assembly = Assembly.GetExecutingAssembly();
                     var stream = assembly.GetManifestResourceStream("PrConsole.Resources.StartCheck.ico");
                     btnStartMacro.Image = new Bitmap(stream);
-
+                    btnStartMacro.Text = "Запустить";
                     trd.Abort();
 
                 }
