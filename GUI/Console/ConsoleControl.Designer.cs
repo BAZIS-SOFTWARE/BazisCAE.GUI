@@ -30,7 +30,7 @@ namespace BazisGUI.Console
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsoleControl));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsoleControl));
             openFileDialog = new System.Windows.Forms.OpenFileDialog();
             toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
@@ -115,7 +115,7 @@ namespace BazisGUI.Console
             // 
             tlscOut.ContentPanel.Controls.Add(rtxbField);
             tlscOut.ContentPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tlscOut.ContentPanel.Size = new System.Drawing.Size(793, 217);
+            tlscOut.ContentPanel.Size = new System.Drawing.Size(787, 217);
             tlscOut.Dock = System.Windows.Forms.DockStyle.Fill;
             tlscOut.LeftToolStripPanelVisible = false;
             tlscOut.Location = new System.Drawing.Point(0, 20);
@@ -144,7 +144,7 @@ namespace BazisGUI.Console
             rtxbField.Location = new System.Drawing.Point(0, 0);
             rtxbField.Margin = new System.Windows.Forms.Padding(1);
             rtxbField.Name = "rtxbField";
-            rtxbField.Size = new System.Drawing.Size(793, 217);
+            rtxbField.Size = new System.Drawing.Size(787, 217);
             rtxbField.TabIndex = 2;
             rtxbField.Text = "";
             rtxbField.WordWrap = false;
@@ -169,7 +169,7 @@ namespace BazisGUI.Console
             toolStripEx1.Location = new System.Drawing.Point(0, 0);
             toolStripEx1.Name = "toolStripEx1";
             toolStripEx1.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            toolStripEx1.Size = new System.Drawing.Size(31, 217);
+            toolStripEx1.Size = new System.Drawing.Size(37, 217);
             toolStripEx1.SplitButtonClickWidth = 13;
             toolStripEx1.SplitButtonHeight = 40;
             toolStripEx1.SplitButtonTriangleSize = 6;
@@ -189,6 +189,7 @@ namespace BazisGUI.Console
             spbDictionary.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
             spbDictionary.Name = "spbDictionary";
             spbDictionary.Size = new System.Drawing.Size(25, 25);
+            spbDictionary.Text = "Справка";
             spbDictionary.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             spbDictionary.Click += btnDictionary_Click;
             // 
@@ -202,7 +203,7 @@ namespace BazisGUI.Console
             toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             toolStripButton1.Name = "toolStripButton1";
             toolStripButton1.Size = new System.Drawing.Size(25, 25);
-            toolStripButton1.Text = "toolStripButton1";
+            toolStripButton1.Text = "Изменить фон";
             toolStripButton1.Click += btnBackGroundInfo_Click;
             // 
             // toolStripButton2
@@ -214,7 +215,7 @@ namespace BazisGUI.Console
             toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             toolStripButton2.Name = "toolStripButton2";
             toolStripButton2.Size = new System.Drawing.Size(25, 25);
-            toolStripButton2.Text = "toolStripButton2";
+            toolStripButton2.Text = "Очистить";
             toolStripButton2.Click += ClearAll_Click;
             // 
             // btnStartMacro
@@ -227,7 +228,7 @@ namespace BazisGUI.Console
             btnStartMacro.ImageTransparentColor = System.Drawing.Color.Magenta;
             btnStartMacro.Name = "btnStartMacro";
             btnStartMacro.Size = new System.Drawing.Size(25, 25);
-            btnStartMacro.Text = "toolStripButton4";
+            btnStartMacro.Text = "Запустить";
             btnStartMacro.Click += btnStartMacro_Click;
             // 
             // toolStripMenuItem32
