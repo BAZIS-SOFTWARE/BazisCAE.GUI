@@ -200,7 +200,6 @@ namespace BazisGUI.SettingsControls
             clslTransparency.LargeChange = 50U;
             clslTransparency.Location = new System.Drawing.Point(5, 719);
             clslTransparency.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            clslTransparency.Maximum = 99;
             clslTransparency.Name = "clslTransparency";
             clslTransparency.ShowTextValue = true;
             clslTransparency.Size = new System.Drawing.Size(393, 29);

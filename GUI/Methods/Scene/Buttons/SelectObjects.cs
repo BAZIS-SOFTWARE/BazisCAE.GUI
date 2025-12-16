@@ -58,7 +58,7 @@ namespace BazisGUI
             {
                 btn.Location =
                 new Point(
-                    btnSelect.Location.X - 1,
+                    btnSelect.Location.X,
                     btnSelect.Location.Y + btnSelect.Height - 2);
             }
             splitContainer2.Panel1.Controls.Add(btn);
@@ -145,23 +145,6 @@ namespace BazisGUI
 
             return btn;
         }
-
-        //private void btnSelectObjects_Click(object sender, EventArgs e)
-        //{
-        //    var btn = sender as ToolStripButton;
-
-        //    if (btn.Tag.ToString() == "1")
-        //        spbSelectObject.ToolTipText = "Узел";
-        //    else if (btn.Tag.ToString() == "2")
-        //        spbSelectObject.ToolTipText = "Элементы";
-        //    else
-        //        spbSelectObject.ToolTipText = "Фигуры";
-
-        //    spbSelectObject.Invalidate();
-
-        //    SetBackColorToAllObjects();
-
-        //}
 
         
 

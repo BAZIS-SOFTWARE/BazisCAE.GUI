@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MaterialDB.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.IO;
+using System.Linq;
 using System.Windows.Forms;
-using MaterialDB.Interfaces;
 using UserControlsEx;
 using UserControlsEx.Graph;
 
@@ -94,7 +94,6 @@ namespace BazisGUI.DataBases
         {
             LoadEvent?.Invoke();
         }
-
         public virtual void ConvertToDictionary(DataSet dataSet)
         {
             throw new Exception("Метод не реализован!");
@@ -104,7 +103,6 @@ namespace BazisGUI.DataBases
         {
             throw new Exception("Метод не реализован!");
         }
-
         public List<GraphData> SetGraphData(DataTable table, string header, Color color, string xUnit, string yUnit)
         {
 
@@ -195,18 +193,6 @@ namespace BazisGUI.DataBases
         {
             throw new Exception("Метод не реализован!");
         }
-
-        private void TreeView_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
-        {
-            if (!LabelEditFlag)
-                e.CancelEdit = true;
-        }
-
-        private void dataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            EditCell = dataGridView[e.ColumnIndex, e.RowIndex];
-            OldCellValue = dataGridView[e.ColumnIndex, e.RowIndex].Value;
-        }
         /// <summary>
         /// DataGridView_CellEndEdit
         /// </summary>
@@ -234,7 +220,34 @@ namespace BazisGUI.DataBases
             dtOut = dt.DefaultView.ToTable();
             return dtOut;
         }
+        public virtual void treeView_MouseDown(object sender, MouseEventArgs e)
+        {
+            throw new Exception("Метод не реализован!");
+        }
 
+        public string GetNextName(string basePrefix, IEnumerable<string> keys)
+        {
+            var numbers = keys
+                .Where(k => k.StartsWith(basePrefix))
+                .Select(k =>
+                {
+                    var suffix = k.Substring(basePrefix.Length);
+                    return int.TryParse(suffix, out int n) ? n : (int?)null;
+                })
+                .Where(n => n.HasValue)
+                .Select(n => n.Value)
+                .OrderBy(n => n)
+                .ToList();
+            int next = 1;
+            foreach (var n in numbers)
+            {
+                if (n == next)
+                    next++;
+                else
+                    break;
+            }
+            return $"{basePrefix}{next}";
+        }
         public virtual void AddDB_Click(object sender, EventArgs e)
         {
             LoadEvent?.Invoke();
@@ -244,7 +257,17 @@ namespace BazisGUI.DataBases
         {
             throw new Exception("Метод не реализован!");
         }
+        private void TreeView_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            if (!LabelEditFlag)
+                e.CancelEdit = true;
+        }
 
+        private void dataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            EditCell = dataGridView[e.ColumnIndex, e.RowIndex];
+            OldCellValue = dataGridView[e.ColumnIndex, e.RowIndex].Value;
+        }
         private void treePanel_Paint(object sender, PaintEventArgs e)
         {
             var loc_y = toolStripContainer2.Location.Y;
@@ -281,9 +304,5 @@ namespace BazisGUI.DataBases
             e.Graphics.DrawString("График", Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
 
-        public virtual void treeView_MouseDown(object sender, MouseEventArgs e)
-        {
-            throw new Exception("Метод не реализован!");
-        }
     }
 }

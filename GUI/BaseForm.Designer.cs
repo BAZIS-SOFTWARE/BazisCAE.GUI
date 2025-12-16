@@ -37,7 +37,7 @@ namespace BazisGUI
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             toolStripContainer = new ToolStripContainer();
             statusStrip = new StatusStrip();
             lblStatus = new ToolStripStatusLabel();
@@ -1299,14 +1299,14 @@ namespace BazisGUI
             // содержаниеToolStripMenuItem
             // 
             содержаниеToolStripMenuItem.Name = "содержаниеToolStripMenuItem";
-            содержаниеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            содержаниеToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             содержаниеToolStripMenuItem.Text = "&Содержание";
             содержаниеToolStripMenuItem.Click += содержаниеToolStripMenuItem_Click;
             // 
             // опрограммеToolStripMenuItem
             // 
             опрограммеToolStripMenuItem.Name = "опрограммеToolStripMenuItem";
-            опрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            опрограммеToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             опрограммеToolStripMenuItem.Text = "&О программе...";
             опрограммеToolStripMenuItem.Click += опрограммеToolStripMenuItem_Click;
             // 
