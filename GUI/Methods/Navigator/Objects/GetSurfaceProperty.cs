@@ -1,5 +1,7 @@
 ﻿using BazisGUI.PropertiesPanel;
+using GmshApi;
 using Model.Interfaces;
+using OperationalController.GmshController;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +15,7 @@ namespace BazisGUI
 
             rows.Add(new RowProperty("Номер", number, true));
 
-            var attributes = GmshController.GetTransfiniteSurface(number);//GmshController.Gmsh.Model.GetAttribute($"transfinite surface {number}");
+            var attributes = GmshController.GetTransfiniteSurface(number);
             var meshTypes = new List<string>() { "*", "регулярная" };
 
             if (attributes.Length == 0)
@@ -25,9 +27,12 @@ namespace BazisGUI
                 rows.Add(new RowProperty("Ориентация ребер", attributes[1]));
                 rows.Add(new RowProperty("Квадратизация", GmshController.GetRecombineSurface(number)));
             }
-            // TODO Продолжить после завершения работ Николая
-            // Если кривых нет , то поле пустое. Если есть то узнать список кривых и вывести через запятую
-            rows.Add(new RowProperty("Добавленные кривые", string.Empty));
+
+            var numbersCurves = GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number).Where((v, i) => (i & 1) == 1).ToArray();
+            var t = GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number);
+            var strCurvesNumber = string.Join(",", numbersCurves);
+            rows.Add(new RowProperty("Добавленные кривые", strCurvesNumber));
+
             rows.Add(new RowProperty("Номера точек", new ButtonPropertyValue("Показать",
             () => 
             {

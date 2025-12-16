@@ -32,7 +32,12 @@ namespace BazisGUI
             }
             else if (obj.Header == "Добавленные кривые")
             {
-                // TODO Добавить реализацию после завершения работ Николая
+                if(obj.OldValue != "")
+                    GmshController.Gmsh.Model.Mesh.RemoveEmbedded([2, number]);
+                
+                var tags = GetArray(obj.NewValue);
+                if ( tags != null)
+                    GmshController.Gmsh.Model.Mesh.Embed(1, tags, 2, number);
             }
             else
             {
@@ -62,6 +67,13 @@ namespace BazisGUI
                 project.GmshController.SetTransfiniteSurface(number, arrangement, points.ToArray());
             }
             
+
+            int[] GetArray(string data)
+            {
+                var arrayStr = data.Split(',');
+                int[] tags = arrayStr.Where(s => int.TryParse(s, out _)).Select(int.Parse).ToArray();
+                return tags;
+            }
         }
     }
 }
