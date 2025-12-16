@@ -134,39 +134,7 @@ namespace BazisGUI
 
             ResultDbPath = openDialog.FileName;
 
-            var loader = new LoadResultsFileDB();
-            var scheme = loader.GetTablesSchemes(openDialog.FileName).
-                FirstOrDefault(x => x.Key == ResultType.nodes.ToString());
-
-            List<TreeNode> results;
-
-            if (!navigator.TrySearchNodes(NodeName.результаты, out results))
-            {
-                var rn = navigator.CreateRealNode(NodeName.результаты, "Результаты");
-
-                //.SetContextMenu(rn);
-                navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
-                prNodes[0].Nodes.Add(rn);
-                results.Add(rn);
-            }
-            else
-                results[0].Nodes.Clear();
-
-            resultTimes = loader.GetValues(openDialog.FileName, scheme.Key, "Time");
-
-
-            foreach (var desc in scheme.Value)
-            {
-                var rn = navigator.CreateRealNode(NodeName.результат, $"{desc}");
-  
-                //var node = new TreeNode($"{desc}", 16, 16)
-                //{ Tag = "6.1", Name = desc };
-
-                var vn = navigator.CreateVirtualNode(NodeName.результат);
-                rn.Nodes.Add(vn);
-                results[0].Nodes.Add(rn);
-            }
-
+            FillingResultsData();
         }
 
         public void SortCharNumberStrings(string[] anArray)
@@ -196,7 +164,41 @@ namespace BazisGUI
             }
         }
 
+        private void FillingResultsData()
+        {
+            var loader = new LoadResultsFileDB();
+            var scheme = loader.GetTablesSchemes(ResultDbPath).
+                FirstOrDefault(x => x.Key == ResultType.nodes.ToString());
 
+            List<TreeNode> results;
+
+            if (!navigator.TrySearchNodes(NodeName.результаты, out results))
+            {
+                var rn = navigator.CreateRealNode(NodeName.результаты, "Результаты");
+
+                //.SetContextMenu(rn);
+                navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
+                prNodes[0].Nodes.Add(rn);
+                results.Add(rn);
+            }
+            else
+                results[0].Nodes.Clear();
+
+            resultTimes = loader.GetValues(ResultDbPath, scheme.Key, "Time");
+
+
+            foreach (var desc in scheme.Value)
+            {
+                var rn = navigator.CreateRealNode(NodeName.результат, $"{desc}");
+
+                //var node = new TreeNode($"{desc}", 16, 16)
+                //{ Tag = "6.1", Name = desc };
+
+                var vn = navigator.CreateVirtualNode(NodeName.результат);
+                rn.Nodes.Add(vn);
+                results[0].Nodes.Add(rn);
+            }
+        }
 
         private void PresentResultsField(Result result, string resName, string tableName)
         {

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 namespace BazisGUI
 {
@@ -18,7 +19,6 @@ namespace BazisGUI
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new BaseForm(args));
             ApplicationConfiguration.Initialize();
             Application.Run(new BaseForm(args));
         }
