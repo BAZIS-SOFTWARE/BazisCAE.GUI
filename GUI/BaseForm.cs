@@ -525,7 +525,9 @@ namespace BazisGUI
 
         private void webPageLabel_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(webPageLabel.Text); //где path это путь к сайту
+            var url = $"https://{webPageLabel.Text}";
+            if(Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                Process.Start(new ProcessStartInfo{ FileName = url, UseShellExecute = true });
         }
 
         private void сохранитькакToolStripMenuItem_Click(object sender, EventArgs e)
