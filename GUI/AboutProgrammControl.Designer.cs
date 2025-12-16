@@ -125,7 +125,7 @@
             tableLayoutPanel.SetRowSpan(richTextBox, 2);
             richTextBox.Size = new System.Drawing.Size(199, 192);
             richTextBox.TabIndex = 6;
-            richTextBox.Text = "ПО предназначено для инженерных расчетов термомеханических процессов.\nРазработанно коллективом авторов УрФУ имени первого Президента России Б.Н. Ельцина.";
+            richTextBox.Text = resources.GetString("richTextBox.Text");
             // 
             // AboutProgrammControl
             // 

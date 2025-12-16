@@ -2858,4 +2858,18 @@
         2Q==
 </value>
   </data>
+  <data name="richTextBox.Text" xml:space="preserve">
+    <value>ПО BAZISGUI предназначено для формирования расчетных моделей с целью проведения последующих инженерных расчетов.
+
+Разработанно коллективом авторов УрФУ имени первого Президента России Б.Н. Ельцина.
+
+Основные используемые лицензии открытого ПО, исключая компоненты платформы .Net:
+
+- Gmsh , GNU General Public License (GPL) v2 и выше
+- Open Cascade Technology (OCCT), GNU Lesser General Public License (GPL) v2.1
+- OpenTK, MIT
+
+
+</value>
+  </data>
 </root>

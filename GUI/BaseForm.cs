@@ -89,7 +89,7 @@ namespace BazisGUI
         private void BaseForm_Load(object sender, EventArgs e)
         {
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
+            var verStr = "Версия платформы" + $"{ver.Major}.{ver.Minor}.{ver.Build}";
             lblVersion.Text = verStr;
 
             var config = dataController.LoadConfig();
@@ -117,23 +117,6 @@ namespace BazisGUI
             //Gle.Load();//Это скорее всего больше не понадобится
             scene.Load += SceneInitialization;//Это конвертировалось в событие scene.Load!
             //ComponentsPainter.Font = this.Font; //попробуем не контролировать кегль вручную. Пусть кон-ет система
-
-
-            //результатыMenuItem.DropDown.Closing += DropDown_Closing;
-            //selectToolStrip.Location = new Point(10, 24);
-            //displayToolStrip.Location = new Point(310, 48);
-            //instrumentalToolStrip.Location = new Point(597, 48);
-            //viewToolStrip.Location = new Point(785, 48);
-
-
-            //var objs = project.ModelData.ObjectData.GetAllObjects();
-
-            //foreach (var obj in objs)
-            //{
-            //    var preColor = obj.Color;
-            //    var newColor = Color.FromArgb(TransparencyValue, preColor);
-            //    obj.Color = newColor;
-            //}
         }
 
         public async void HandleArgs(string[] args)
@@ -635,15 +618,6 @@ namespace BazisGUI
             {
                 if (project != null)
                 {
-                    string meshFilter =
-"All files(*.*)|*.*|" +
-"Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
-"GMSH(*.inp)|*.inp|" +
-"GMSH(*.inp_v2)|*.inp_v2|" +
-"ANSYS(*.cdb*)|*.cdb|" +
-"STL(*.stl*)|*.stl|" +
-"SOLOMIA(*.dat*)|*.dat";
-
                     OpenFileDialog dialog = new OpenFileDialog();
                     dialog.Filter = meshFilter;
                     if (dialog.ShowDialog() == DialogResult.Cancel)
