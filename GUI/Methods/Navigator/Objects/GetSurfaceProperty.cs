@@ -29,7 +29,6 @@ namespace BazisGUI
             }
 
             var numbersCurves = GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number).Where((v, i) => (i & 1) == 1).ToArray();
-            var t = GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number);
             var strCurvesNumber = string.Join(",", numbersCurves);
             rows.Add(new RowProperty("Добавленные кривые", strCurvesNumber));
 

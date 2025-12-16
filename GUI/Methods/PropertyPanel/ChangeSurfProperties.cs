@@ -32,7 +32,7 @@ namespace BazisGUI
             }
             else if (obj.Header == "Добавленные кривые")
             {
-                if(obj.OldValue != "")
+                if(GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number).Length > 0)
                     GmshController.Gmsh.Model.Mesh.RemoveEmbedded([2, number]);
                 
                 var tags = GetArray(obj.NewValue);
