@@ -6,7 +6,7 @@ event **Action<string[]>** SubmitParametrizedStringsEvent
 --
 event **Action** UpdateSceneEvent;
 --
-string Name { **get;** }
+string MasterName { **get;** }
 --
 **void** InitialMasterFilling(**IEnumerable<string>** materials, **IEnumerable<string>** functions, **Dictionary<ObjType, List<string>>** groupsByObjType)
 --

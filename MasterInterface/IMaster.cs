@@ -27,7 +27,7 @@ namespace MasterInterface
         /// Имя мастера.
         /// Используется для создания необходимой инфраструктуры и обращения к нему
         /// </summary>
-        string Name { get; }
+        string MasterName { get; }
 
         /// <summary>
         /// Начальное определение данных для мастера

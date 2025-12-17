@@ -13,6 +13,8 @@ namespace MasterInterface
         public event Action<string[]> SubmintParametrizedStringsEvent;
         public event Action UpdateSceneEvent;
 
+        public virtual string MasterName { get; }
+
         public virtual void AddGroup(ObjType type, string groupName)
         {
             throw new NotImplementedException();
