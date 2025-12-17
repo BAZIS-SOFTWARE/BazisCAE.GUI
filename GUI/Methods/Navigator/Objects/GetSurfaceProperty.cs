@@ -1,8 +1,7 @@
 ﻿using BazisGUI.PropertiesPanel;
-using BazisGUI.Utilities;
 using GmshApi;
 using Model.Interfaces;
-using OperationalController;
+using OperationalController.GmshController;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,50 +13,36 @@ namespace BazisGUI
         {
             var rows = new List<RowProperty>();
 
-            rows.Add(new RowProperty("Номер", number));
+            rows.Add(new RowProperty("Номер", number, true));
 
-            var attributes = GmshController.GetTransfiniteSurface(number);//GmshController.Gmsh.Model.GetAttribute($"transfinite surface {number}");
+            var attributes = GmshController.GetTransfiniteSurface(number);
             var meshTypes = new List<string>() { "*", "регулярная" };
 
-
-            
-
             if (attributes.Length == 0)
-                rows.Add(new RowProperty("Вид сетки",
-                    new DropDownPropertyValue("*", meshTypes)));
+                rows.Add(new RowProperty("Вид сетки",new DropDownPropertyValue("*", meshTypes)));
             else
             {
-                //gmshController.Gmsh.Model.SetAttribute($"transfinite vol {number}", 
-                //new string[] { "регулярная" });
-                rows.Add(new RowProperty("Вид сетки",
-                    new DropDownPropertyValue("регулярная", meshTypes)));
-
+                rows.Add(new RowProperty("Вид сетки", new DropDownPropertyValue("регулярная", meshTypes)));
                 rows.Add(new RowProperty("Угловые точки", attributes[0]));
                 rows.Add(new RowProperty("Ориентация ребер", attributes[1]));
                 rows.Add(new RowProperty("Квадратизация", GmshController.GetRecombineSurface(number)));
             }
 
-            // TODO Добавить свойство "Добавленные кривые" TextBox
-            // Если кривых нет , то поле пустое. Если есть то узнать список кривых и вывести через запятую
+            var numbersCurves = GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number).Where((v, i) => (i & 1) == 1).ToArray();
+            var strCurvesNumber = string.Join(",", numbersCurves);
+            rows.Add(new RowProperty("Добавленные кривые", strCurvesNumber));
 
             rows.Add(new RowProperty("Номера точек", new ButtonPropertyValue("Показать",
-    () => {
-        var all = GmshController.Gmsh.Model.GetAdjacencies(2, number).Item2
-        .Select(x => GmshController.Gmsh.Model.GetAdjacencies(1, x).Item2);
-
-        var distComb =  all.SelectMany(x => x).Distinct().ToArray();
-
-        ShowObjectsNumbers(ObjType.Точка, distComb);
-        DisplayObjects();
-    })));
-            //controller.Gmsh.Model.Mesh.SetTransfiniteSurface(1);
-
-            // TO DO добавть два свойства классу SurfaceFigure
-            // - IsTransfinite (опция)
-            // - Угловые точки (строка - редактируемая)
-            // - IsRecombine (checkBox)
-            // - снять все ограничения (если значение - *)
-
+            () => 
+            {
+                var all = GmshController.Gmsh.Model.GetAdjacencies(2, number).Item2
+                .Select(x => GmshController.Gmsh.Model
+                .GetAdjacencies(1, x).Item2);
+                
+                var distComb =  all.SelectMany(x => x).Distinct().ToArray();
+                ShowObjectsNumbers(ObjType.Точка, distComb);
+                DisplayObjects();
+            })));
             return rows;
         }
     }

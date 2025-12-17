@@ -1,9 +1,6 @@
 ﻿using BazisGUI.Extensions;
 using BazisGUI.PropertiesPanel;
-using BazisGUI.Utilities;
-using GmshApi;
 using Model.Interfaces;
-using Model.Interfaces.ObjectsCollections;
 using Model.MeshObjects;
 using System;
 using System.Collections.Generic;
@@ -33,7 +30,6 @@ namespace BazisGUI
 
                     //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
                     SetVBObjectAttribute(pres, "цвет");
-
                     DisplayObjects();
 
                     CreateObjectProperties(objType, number);
@@ -41,27 +37,20 @@ namespace BazisGUI
                 else
                 {
                     var set = project.GetModelSetsInfo(ObjType.Поверхность).First();
-
-                        set.SetBackColor();
-                        var pres = project.CreateModelObjectsPresentor(set);
-                        SetVBObjectAttribute(pres, "цвет");
+                    set.SetBackColor();
+                    var pres = project.CreateModelObjectsPresentor(set);
+                    SetVBObjectAttribute(pres, "цвет");
                     
                     var vol = project.GetModelVolumes().First(x => x.Number == number);
 
                     foreach (var item in vol.GetSurfaceFigures())
-                    {
                         item.Color = settingsConfig.SelectGroupColor;
-                    }
 
-   
                     SetVBObjectAttribute(pres, "цвет");
                     DisplayObjects();
 
                     CreateVolProperties(number);
                 }
-
-                
-
             }
             catch (Exception ex)
             {
@@ -76,7 +65,6 @@ namespace BazisGUI
             rows.Add(new RowProperty("Объект", "Объем", true));
 
             rows.AddRange(GetVolProperties(number));
-            
 
             rows.Add(new RowProperty("Связанные объекты", new ButtonPropertyValue("Показать",
                 new Action(() =>
@@ -97,42 +85,35 @@ namespace BazisGUI
 
         private void CreateObjectProperties(ObjType objType, int number)
         {
-
             var rows = new List<RowProperty>();
 
             rows.Add(new RowProperty("Объект", objType, true));
 
-            if (objType == ObjType.Точка)
+            if (objType == ObjType.Точка) 
+            {
                 rows.AddRange(GetPointProperty(number));
-
+            }
             else if (objType == ObjType.Узел)
             {
                 var node = (Node)project.GetModelObject(ObjType.Узел, number);
                 rows.AddRange(GetNodeProperty(node));
             }
-
-
-            else if (objType == ObjType.Элемент1D |
-                objType == ObjType.Элемент2D |
-                objType == ObjType.Элемент3D)
+            else if (objType == ObjType.Элемент1D | objType == ObjType.Элемент2D | objType == ObjType.Элемент3D)
             {
                 var element = project.GetAllModelElements().First(x => x.Number == number);
                 rows.AddRange(GetElementProperty(element));
             }
-
-
-            else if (objType == ObjType.Кривая)
+            else if (objType == ObjType.Кривая) 
+            {
                 rows.AddRange(GetCurveProperties(number));
-
+            }
             else if (objType == ObjType.Поверхность)
+            {
                 rows.AddRange(GetSurfaceProperties(number));
+            }
 
             rows.Add(new RowProperty("Связанные объекты", new ButtonPropertyValue("Показать", 
-                new Action(() => 
-                {
-                    ShowAdjacencies(objType, number);
-                })), true)); ;
-
+                new Action(() => { ShowAdjacencies(objType, number);}))));
             propertiesPanel.DrawTable(rows);
         }
     }

@@ -33,7 +33,6 @@
             label1 = new System.Windows.Forms.Label();
             lblVersion = new System.Windows.Forms.Label();
             pictureBox1 = new System.Windows.Forms.PictureBox();
-            label4 = new System.Windows.Forms.Label();
             richTextBox = new System.Windows.Forms.RichTextBox();
             tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -48,19 +47,17 @@
             tableLayoutPanel.Controls.Add(label1, 0, 0);
             tableLayoutPanel.Controls.Add(lblVersion, 0, 1);
             tableLayoutPanel.Controls.Add(pictureBox1, 1, 0);
-            tableLayoutPanel.Controls.Add(label4, 0, 2);
-            tableLayoutPanel.Controls.Add(richTextBox, 0, 4);
+            tableLayoutPanel.Controls.Add(richTextBox, 0, 2);
             tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel.Location = new System.Drawing.Point(1, 1);
             tableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel.Name = "tableLayoutPanel";
-            tableLayoutPanel.RowCount = 6;
-            tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.15254F));
-            tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.84746F));
-            tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
-            tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            tableLayoutPanel.RowCount = 4;
+            tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 56.91057F));
+            tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43.08943F));
             tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 162F));
             tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableLayoutPanel.Size = new System.Drawing.Size(710, 321);
             tableLayoutPanel.TabIndex = 0;
             // 
@@ -68,23 +65,24 @@
             // 
             label1.AutoSize = true;
             label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 204);
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
             label1.Location = new System.Drawing.Point(0, 0);
             label1.Margin = new System.Windows.Forms.Padding(0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(207, 29);
+            label1.Size = new System.Drawing.Size(207, 70);
             label1.TabIndex = 2;
-            label1.Text = "Bazis Software";
+            label1.Text = "ПО BAZISGUI предназначено для формирования расчетных моделей с целью проведения последующих инженерных расчетов.";
             // 
             // lblVersion
             // 
             lblVersion.AutoSize = true;
             lblVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-            lblVersion.Location = new System.Drawing.Point(0, 29);
+            lblVersion.Location = new System.Drawing.Point(0, 70);
             lblVersion.Margin = new System.Windows.Forms.Padding(0);
             lblVersion.Name = "lblVersion";
-            lblVersion.Size = new System.Drawing.Size(207, 30);
+            lblVersion.Size = new System.Drawing.Size(207, 53);
             lblVersion.TabIndex = 3;
+            lblVersion.Text = "Обратная связь \r\nInfo@bazisnet.ru";
             // 
             // pictureBox1
             // 
@@ -94,30 +92,18 @@
             pictureBox1.Location = new System.Drawing.Point(211, 3);
             pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pictureBox1.Name = "pictureBox1";
-            tableLayoutPanel.SetRowSpan(pictureBox1, 6);
+            tableLayoutPanel.SetRowSpan(pictureBox1, 4);
             pictureBox1.Size = new System.Drawing.Size(495, 315);
             pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            label4.Location = new System.Drawing.Point(0, 59);
-            label4.Margin = new System.Windows.Forms.Padding(0);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(207, 37);
-            label4.TabIndex = 5;
-            label4.Text = "Техническая поддержка\r\nInfo@bazisnet.ru";
             // 
             // richTextBox
             // 
             richTextBox.BackColor = System.Drawing.SystemColors.Control;
             richTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             richTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            richTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
+            richTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
             richTextBox.Location = new System.Drawing.Point(4, 126);
             richTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             richTextBox.Name = "richTextBox";
@@ -125,7 +111,7 @@
             tableLayoutPanel.SetRowSpan(richTextBox, 2);
             richTextBox.Size = new System.Drawing.Size(199, 192);
             richTextBox.TabIndex = 6;
-            richTextBox.Text = "ПО предназначено для инженерных расчетов термомеханических процессов.\nРазработанно коллективом авторов УрФУ имени первого Президента России Б.Н. Ельцина.";
+            richTextBox.Text = resources.GetString("richTextBox.Text");
             // 
             // AboutProgrammControl
             // 
@@ -148,7 +134,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblVersion;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RichTextBox richTextBox;
         private System.Windows.Forms.PictureBox pictureBox1;
     }

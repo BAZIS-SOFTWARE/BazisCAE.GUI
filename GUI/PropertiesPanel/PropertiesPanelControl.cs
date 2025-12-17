@@ -155,8 +155,9 @@ namespace BazisGUI.PropertiesPanel
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
                 var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-                var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-                
+                var cellValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
+                var newValue = cellValue?.ToString() ?? string.Empty;
+
                 if (header == "Цвет")
                 {
                     var color = ChangeColorCell(newValue);
@@ -218,7 +219,8 @@ namespace BazisGUI.PropertiesPanel
         {
             if (dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString() != ValidationType.None.ToString())
             {
-                var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                var cellValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
+                var newValue = cellValue?.ToString() ?? string.Empty;
                 var tag = dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString();
                 var corrected = newValue;
                 _isValid = ValidateValue?.Invoke(tag, newValue, out corrected) ?? true;

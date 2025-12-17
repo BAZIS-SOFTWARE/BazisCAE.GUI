@@ -10,7 +10,7 @@ namespace BazisGUI
     public partial class BaseForm
     {
         private void ChangeGeoProperties(PropertyChangedEventArgs obj)
-        {
+        {          
             if (obj.Header == "Мин.размер")
                 GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(obj.NewValue));
             else if (obj.Header == "Макс.размер")

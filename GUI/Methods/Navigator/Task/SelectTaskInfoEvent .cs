@@ -19,13 +19,16 @@ namespace BazisGUI
 
                 List<RowProperty> rows = new List<RowProperty>();
 
-                rows.Add(new RowProperty("Вид",new DropDownPropertyValue(project.ProjectType,
-           Converters.GetEnumNames<TaskType>())));
+                var type = Converters.GetEnumNames<TaskType>();
+                type.RemoveRange(0, 2); // пока уберем линейную и плоскую задачи (они не реализованы)
+
+                rows.Add(new RowProperty("Вид",new DropDownPropertyValue(project.ProjectType, type)));
 
                 var kinds = Converters.GetEnumNames<TaskKind>();
+                kinds.RemoveRange(0, 1);// пока уберем химическую задачу (она не реализована)
                 var term_mech = (TaskKind.термическая | TaskKind.механическая).ToString();
                 kinds.Add(term_mech);
-                rows.Add(new RowProperty("Тип", new DropDownPropertyValue(project.ProjectKind, kinds)));
+                rows.Add(new RowProperty("Тип",new DropDownPropertyValue(project.ProjectKind, kinds)));
 
                 if(project.MaterialsDB != null)
                     rows.Add(new RowProperty("Материалы", project.MaterialsDB.Name,true));

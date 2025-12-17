@@ -214,17 +214,16 @@ namespace BazisGUI.DataBases
                 var dbPath = string.Empty;
                 var name = string.Empty;
                 dbPath = Directory.GetFiles(Application.StartupPath, "functions_draft.txt", SearchOption.AllDirectories)[0];
-                name = "Новая_функция";
+                name = GetNextName("Новая_функция_", Functions.Keys);
 
                 var dataSet = Loader.LoadDataBase(dbPath);
                 var function = ConvertToFunctions(dataSet);
 
                 var oldName = function.Last().Key;
                 var values = function.Last().Value;
-                var newName = oldName.Replace(name, $"{name}_{number}");
  
-                values.Name = newName;
-                Functions.Add(newName, values);
+                values.Name = name;
+                Functions.Add(name, values);
 
                 AddTreeNode(values);
             }

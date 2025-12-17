@@ -103,7 +103,7 @@ namespace BazisGUI
         private void BaseForm_Load(object sender, EventArgs e)
         {
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
+            var verStr = "Версия платформы" + $"{ver.Major}.{ver.Minor}.{ver.Build}";
             lblVersion.Text = verStr;
 
             var config = dataController.LoadConfig();
@@ -130,24 +130,9 @@ namespace BazisGUI
             //scene.InitializeContexts();
             //Gle.Load();//Это скорее всего больше не понадобится
             scene.Load += SceneInitialization;//Это конвертировалось в событие scene.Load!
-                                              //ComponentsPainter.Font = this.Font; //попробуем не контролировать кегль вручную. Пусть кон-ет система
 
-            результатыMenuItem.DropDown.Closing += DropDown_Closing;
-            Shown += (arg1, arg2) => HandleArgs(args);
-            //selectToolStrip.Location = new Point(10, 24);
-            //displayToolStrip.Location = new Point(310, 48);
-            //instrumentalToolStrip.Location = new Point(597, 48);
-            //viewToolStrip.Location = new Point(785, 48);
-
-
-            //var objs = project.ModelData.ObjectData.GetAllObjects();
-
-            //foreach (var obj in objs)
-            //{
-            //    var preColor = obj.Color;
-            //    var newColor = Color.FromArgb(TransparencyValue, preColor);
-            //    obj.Color = newColor;
-            //}
+            // Обработка аргументов еще нужна?
+            //Shown += (arg1, arg2) => HandleArgs(args); 
         }
 
         public async void HandleArgs(string[] args)
@@ -284,6 +269,7 @@ namespace BazisGUI
             }
         }
 
+        [Obsolete("Пока не использовать")]
         private void DropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
         {
             if (e.CloseReason == ToolStripDropDownCloseReason.ItemClicked)
@@ -623,7 +609,9 @@ namespace BazisGUI
 
         private void webPageLabel_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(webPageLabel.Text); //где path это путь к сайту
+            var url = $"https://{webPageLabel.Text}";
+            if(Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                Process.Start(new ProcessStartInfo{ FileName = url, UseShellExecute = true });
         }
 
         private void сохранитькакToolStripMenuItem_Click(object sender, EventArgs e)
@@ -695,14 +683,14 @@ namespace BazisGUI
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            var splitContainer = (SplitContainer)navigator.Parent.Parent;
-            splitContainer.Panel1Collapsed = false;
+            //var splitContainer = (SplitContainer)navigator.Parent.Parent;
+            splitContainer3.Panel1Collapsed = !splitContainer3.Panel1Collapsed;
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
             var splitContainer = (SplitContainer)console.Parent.Parent;
-            splitContainer.Panel2Collapsed = false;
+            splitContainer.Panel2Collapsed = !splitContainer.Panel2Collapsed;
         }
 
 
