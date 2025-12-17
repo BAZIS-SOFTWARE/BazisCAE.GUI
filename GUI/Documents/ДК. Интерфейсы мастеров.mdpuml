@@ -1,0 +1,25 @@
+@startuml
+interface IMaster{
+event **Action<string, Color>** PrintInfoEvent
+--
+event **Action<string[]>** SubmitParametrizedStringsEvent
+--
+event **Action** UpdateSceneEvent;
+--
+**void** InitialMasterFilling(**IEnumerable<string>** materials, **IEnumerable<string>** functions, **Dictionary<ObjType, List<string>>** groupsByObjType)
+--
+**void** AddGroup(**Tuple<ObjType, string>** groupObjTypeName)
+--
+**void** RenameGroup(**Tuple<ObjType, string, string>** groupObjTypeOldNewName)
+--
+**void** DeleteGroup(**Tuple<ObjType, string>** groupdObjTypeName)
+--
+**void** ChangeMaterials(**IEnumerable<string>** materials)
+--
+**void** ChangeFunctions(**IEnumerable<string>** functions)
+}
+
+abstract Master
+Master <|.up.. IMaster
+
+@enduml
