@@ -212,7 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MasterInterface\MasterInterface.csproj" />
-    <ProjectReference Include="..\MasterInterface\MasterInterfaceOld.csproj" />
     <ProjectReference Include="..\UserControlEx\UserControlsEx.csproj" />
   </ItemGroup>
   <ItemGroup>
