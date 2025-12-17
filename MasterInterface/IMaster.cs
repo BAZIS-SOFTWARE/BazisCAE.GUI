@@ -24,6 +24,12 @@ namespace MasterInterface
         event Action UpdateSceneEvent;
 
         /// <summary>
+        /// Имя мастера.
+        /// Используется для создания необходимой инфраструктуры и обращения к нему
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
         /// Начальное определение данных для мастера
         /// </summary>
         /// <param name="materials">Названия материалов для определения их параметров в виде строк для формирования граничных условий</param>

@@ -6,13 +6,15 @@ event **Action<string[]>** SubmitParametrizedStringsEvent
 --
 event **Action** UpdateSceneEvent;
 --
+string Name { **get;** }
+--
 **void** InitialMasterFilling(**IEnumerable<string>** materials, **IEnumerable<string>** functions, **Dictionary<ObjType, List<string>>** groupsByObjType)
 --
-**void** AddGroup(**Tuple<ObjType, string>** groupObjTypeName)
+**void** AddGroup(**ObjType** type, **string** groupName)
 --
-**void** RenameGroup(**Tuple<ObjType, string, string>** groupObjTypeOldNewName)
+**void** RenameGroup(**ObjType** type, **string** oldName, **string** newName)
 --
-**void** DeleteGroup(**Tuple<ObjType, string>** groupdObjTypeName)
+**void** DeleteGroup(**ObjType** type, **string** groupName)
 --
 **void** ChangeMaterials(**IEnumerable<string>** materials)
 --
