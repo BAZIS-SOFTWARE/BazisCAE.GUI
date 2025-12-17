@@ -234,6 +234,20 @@ namespace BazisGUI
                 OnChangeFunctions += master.ChangeFunctions;
                 OnChangeMaterials += master.ChangeMaterials;
 
+                var dict = new Dictionary<ObjType, List<string>>();
+                foreach(var item in project.GetAllModelGroups())
+                {
+                    if (dict.ContainsKey(item.ObjType))
+                        dict[item.ObjType].Add(item.Name);
+                    else
+                        dict[item.ObjType] = new List<string> { item.Name };
+                }
+
+                master.InitialMasterFilling(
+                    project.MaterialsDB.Select(x => x.Key),
+                    project.FunctionsDB.Select(x => x.Key),
+                    dict);
+
                 var btn = new Button()
                 {
                     FlatStyle = FlatStyle.Flat,
@@ -610,8 +624,8 @@ namespace BazisGUI
         private void webPageLabel_Click(object sender, EventArgs e)
         {
             var url = $"https://{webPageLabel.Text}";
-            if(Uri.IsWellFormedUriString(url, UriKind.Absolute))
-                Process.Start(new ProcessStartInfo{ FileName = url, UseShellExecute = true });
+            if (Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
         }
 
         private void сохранитькакToolStripMenuItem_Click(object sender, EventArgs e)
@@ -768,14 +782,14 @@ namespace BazisGUI
         //        AddMaster(new TestMaster());
         //    else
         //    {
-                
+
         //        var masters = splitContainer3.Panel1.Controls.OfType<IMaster>().Cast<Master>();
         //        foreach(var master in masters)
         //        {
         //            splitContainer3.Panel1.Controls.Remove(master);
         //            HideTabButton($"btnTab{master.MasterName}");
         //        }
-                
+
         //    }
         //}
     }
