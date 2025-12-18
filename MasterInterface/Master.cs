@@ -45,6 +45,11 @@ namespace MasterInterface
             throw new NotImplementedException();
         }
 
+        public virtual void DeleteAllGroups()
+        {
+            groups.Clear();
+        }
+
         public virtual void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<ObjType, List<string>> groupsByObjType)
         {
             this.materials.Clear();

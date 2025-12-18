@@ -63,6 +63,11 @@ namespace MasterInterface
         void DeleteGroup(ObjType type, string groupName);
 
         /// <summary>
+        /// Обработка события удаления всех групп. Удаление из словаря всех названий и все сформированные строки мастера.
+        /// </summary>
+        void DeleteAllGroups();
+
+        /// <summary>
         /// Замена названий функций для создания строк формирования граничных условий
         /// </summary>
         /// <param name="materials">Названия материалова</param>
