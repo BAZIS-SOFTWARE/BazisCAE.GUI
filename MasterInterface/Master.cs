@@ -1,6 +1,4 @@
-﻿using Model.Interfaces;
-
-namespace MasterInterface
+﻿namespace MasterInterface
 {
     public abstract partial class Master : UserControl, IMaster
     {
@@ -17,7 +15,7 @@ namespace MasterInterface
         /// <summary>
         /// Сгруппированные по типу группы (их имена)
         /// </summary>
-        private Dictionary<ObjType, List<string>> groups = new Dictionary<ObjType, List<string>>();
+        private Dictionary<GroupType, List<string>> groups = new Dictionary<GroupType, List<string>>();
 
         public event Action<string, Color> PrintInfoEvent;
         public event Action<string[]> SubmintParametrizedStringsEvent;
@@ -25,24 +23,28 @@ namespace MasterInterface
 
         public virtual string MasterName { get; }
 
-        public virtual void AddGroup(ObjType type, string groupName)
+        public virtual void AddGroup(string type, string groupName)
         {
-            throw new NotImplementedException("В абстракном классе MasterInterface.Master данный метод не реализован.");
+            var convertedType = Converter.GetGroupTypeFromString(type);
+            groups[convertedType].Add(groupName);
         }
 
         public virtual void ChangeFunctions(IEnumerable<string> functions)
         {
-            throw new NotImplementedException("В абстракном классе MasterInterface.Master данный метод не реализован.");
+            this.functions.Clear();
+            this.functions.AddRange(functions);
         }
 
         public virtual void ChangeMaterials(IEnumerable<string> materials)
         {
-            throw new NotImplementedException("В абстракном классе MasterInterface.Master данный метод не реализован.");
+            this.materials.Clear();
+            this.materials.AddRange(materials);
         }
 
-        public virtual void DeleteGroup(ObjType type, string groupName)
+        public virtual void DeleteGroup(string type, string groupName)
         {
-            throw new NotImplementedException("В абстракном классе MasterInterface.Master данный метод не реализован.");
+            var convertedType = Converter.GetGroupTypeFromString(type);
+            groups[convertedType].Remove(groupName);
         }
 
         public virtual void DeleteAllGroups()
@@ -50,7 +52,7 @@ namespace MasterInterface
             groups.Clear();
         }
 
-        public virtual void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<ObjType, List<string>> groupsByObjType)
+        public virtual void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<GroupType, List<string>> groupsByObjType)
         {
             this.materials.Clear();
             foreach (var material in materials)
@@ -65,9 +67,11 @@ namespace MasterInterface
                 groups[key] = groupsByObjType[key].ToList();
         }
 
-        public virtual void RenameGroup(ObjType type, string oldName, string newName)
+        public virtual void RenameGroup(string type, string oldName, string newName)
         {
-            throw new NotImplementedException("В абстракном классе MasterInterface.Master данный метод не реализован.");
+            var convertedType = Converter.GetGroupTypeFromString(type);
+            var index = groups[convertedType].IndexOf(oldName);
+            groups[convertedType][index] = newName;
         }
     }
 }
