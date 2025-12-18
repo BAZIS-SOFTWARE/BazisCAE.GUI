@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace MasterInterface
 {
+    [Obsolete("Псоле тестирования данный контролл должен быть удален")]
     public partial class TestMaster : Master
     {
         public TestMaster()
