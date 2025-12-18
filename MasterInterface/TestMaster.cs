@@ -10,26 +10,26 @@ namespace MasterInterface
             InitializeComponent();
         }
 
-        public override void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<int, string> groups)
+        public override void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<GroupType, Dictionary<int, string>> groups)
         {
             base.InitialMasterFilling(materials, functions, groups);
         }
 
         public override string MasterName => "TestMaster";
 
-        public override void AddGroup(int number, string groupName)
+        public override void AddGroup(GroupType type, int number, string groupName)
         {
-            base.AddGroup(number, groupName);
+            base.AddGroup(type, number, groupName);
         }
 
-        public override void RenameGroup(int number, string newName)
+        public override void RenameGroup(GroupType type, int number, string newName)
         {
-            base.RenameGroup(number, newName);
+            base.RenameGroup(type, number, newName);
         }
 
-        public override void DeleteGroup(int number)
+        public override void DeleteGroup(GroupType type, int number)
         {
-            base.DeleteGroup(number);
+            base.DeleteGroup(type, number);
         }
 
         public override void DeleteAllGroups()
