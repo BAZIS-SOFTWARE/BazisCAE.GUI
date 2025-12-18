@@ -8,13 +8,13 @@ event **Action** UpdateSceneEvent;
 --
 string MasterName { **get;** }
 --
-**void** InitialMasterFilling(**IEnumerable<string>** materials, **IEnumerable<string>** functions, **Dictionary<int, string>** groups)
+**void** InitialMasterFilling(**IEnumerable<string>** materials, **IEnumerable<string>** functions, **Dictionary<string, Dictionary<int, string>>** groups)
 --
-**void** AddGroup(**int** number, **string** groupName)
+**void** AddGroup(**string** type, **int** number, **string** groupName)
 --
-**void** RenameGroup(**int** number, **string** groupName)
+**void** RenameGroup(**string** type, **int** number, **string** groupName)
 --
-**void** DeleteGroup(**int** number, **string** groupName)
+**void** DeleteGroup(**string** type, **int** number)
 --
 **void** ChangeMaterials(**IEnumerable<string>** materials)
 --
