@@ -118,7 +118,6 @@ namespace BazisGUI
                 {
                     try
                     {
-
                         master.DeleteGroup(arg1, arg2);
                     }
                     catch (Exception ex)
@@ -127,11 +126,10 @@ namespace BazisGUI
                     }
                 };
 
-                navigator.DelAllGroupsEvent += () =>
+                var deleteAllGroupsDelegate = () => 
                 {
                     try
                     {
-
                         master.DeleteAllGroups();
                     }
                     catch (Exception ex)
@@ -140,11 +138,13 @@ namespace BazisGUI
                     }
                 };
 
+                navigator.DelAllMeshEvent += deleteAllGroupsDelegate;
+                navigator.DelAllGroupsEvent += deleteAllGroupsDelegate;
+
                 OnChangeFunctions += (arg1) =>
                 {
                     try
                     {
-
                         master.ChangeFunctions(arg1);
                     }
                     catch (Exception ex)
