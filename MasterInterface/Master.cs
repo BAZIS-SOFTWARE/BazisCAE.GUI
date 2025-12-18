@@ -27,22 +27,22 @@ namespace MasterInterface
 
         public virtual void AddGroup(ObjType type, string groupName)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("В абстракном классе MasterInterface.Master данный метод не реализован.");
         }
 
         public virtual void ChangeFunctions(IEnumerable<string> functions)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("В абстракном классе MasterInterface.Master данный метод не реализован.");
         }
 
         public virtual void ChangeMaterials(IEnumerable<string> materials)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("В абстракном классе MasterInterface.Master данный метод не реализован.");
         }
 
         public virtual void DeleteGroup(ObjType type, string groupName)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("В абстракном классе MasterInterface.Master данный метод не реализован.");
         }
 
         public virtual void DeleteAllGroups()
@@ -67,7 +67,7 @@ namespace MasterInterface
 
         public virtual void RenameGroup(ObjType type, string oldName, string newName)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("В абстракном классе MasterInterface.Master данный метод не реализован.");
         }
     }
 }
