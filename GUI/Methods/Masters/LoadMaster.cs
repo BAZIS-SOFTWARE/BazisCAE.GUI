@@ -165,13 +165,14 @@ namespace BazisGUI
                     }
                 };
 
-                var dict = new Dictionary<ObjType, List<string>>();
+                var dict = new Dictionary<GroupType, List<string>>();
                 foreach (var item in project.GetAllModelGroups())
                 {
-                    if (dict.ContainsKey(item.ObjType))
-                        dict[item.ObjType].Add(item.Name);
+                    var convertedType = MasterInterface.Converter.GetGroupTypeFromString(item.ObjType.ToString());
+                    if (dict.ContainsKey(convertedType))
+                        dict[convertedType].Add(item.Name);
                     else
-                        dict[item.ObjType] = new List<string> { item.Name };
+                        dict[convertedType] = new List<string> { item.Name };
                 }
 
                 master.InitialMasterFilling(

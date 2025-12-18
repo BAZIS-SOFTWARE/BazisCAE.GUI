@@ -12,7 +12,7 @@ namespace BazisGUI
             var objType = group.ObjType;
 
             project.DeleteModelGroup(group.Name);
-            OnGroupDeleted?.Invoke(objType, name);
+            OnGroupDeleted?.Invoke(objType.ToString(), name);
 
             //удаляем узел
             node.Remove();

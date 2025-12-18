@@ -33,9 +33,9 @@ namespace BazisGUI
     public partial class BaseForm : Form
     {
         public event Action OnProjectLoaded;
-        public event Action<ObjType, string> OnGroupCreated;
-        public event Action<ObjType, string, string> OnGroupRenamed;
-        public event Action<ObjType, string> OnGroupDeleted;
+        public event Action<string, string> OnGroupCreated;
+        public event Action<string, string, string> OnGroupRenamed;
+        public event Action<string, string> OnGroupDeleted;
         public event Action<string[]> OnChangeMaterials;
         public event Action<string[]> OnChangeFunctions;
 
