@@ -13,7 +13,7 @@ namespace BazisGUI
             if (obj.Header == "Имя")
             {
                 _objectsGr.Name = obj.NewValue.ToString();
-                OnGroupRenamed?.Invoke(_objectsGr.Number, obj.NewValue);
+                OnGroupRenamed?.Invoke(_objectsGr.ObjType, _objectsGr.Number, obj.NewValue);
             }
 
 

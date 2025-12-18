@@ -8,10 +8,11 @@ namespace BazisGUI
         {
             var node = navigator.SelectedNode;
             var group = project.ModelData.GroupData[node.Index];
+            var objType = group.ObjType;
             var number = group.Number;
 
             project.DeleteModelGroup(group.Name);
-            OnGroupDeleted?.Invoke(number);
+            OnGroupDeleted?.Invoke(objType, number);
 
             //удаляем узел
             node.Remove();

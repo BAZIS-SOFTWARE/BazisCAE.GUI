@@ -90,11 +90,12 @@ namespace BazisGUI
                     }
                 };
 
-                OnGroupCreated += (arg1, arg2) =>
+                OnGroupCreated += (arg1, arg2, arg3) =>
                 {
                     try
                     {
-                        master.AddGroup(arg1, arg2);
+                        var type = Converter.GetGroupTypeFromString(arg1.ToString());
+                        master.AddGroup(type, arg2, arg3);
                     }
                     catch (Exception ex)
                     {
@@ -102,11 +103,12 @@ namespace BazisGUI
                     }
                 };
 
-                OnGroupRenamed += (arg1, arg2) =>
+                OnGroupRenamed += (arg1, arg2, arg3) =>
                 {
                     try
                     {
-                        master.RenameGroup(arg1, arg2);
+                        var type = Converter.GetGroupTypeFromString(arg1.ToString());
+                        master.RenameGroup(type, arg2, arg3);
                     }
                     catch (Exception ex)
                     {
@@ -114,11 +116,12 @@ namespace BazisGUI
                     }
                 };
 
-                OnGroupDeleted += (arg1) =>
+                OnGroupDeleted += (arg1, arg2) =>
                 {
                     try
                     {
-                        master.DeleteGroup(arg1);
+                        var type = Converter.GetGroupTypeFromString(arg1.ToString());
+                        master.DeleteGroup(type, arg2);
                     }
                     catch (Exception ex)
                     {
@@ -165,9 +168,15 @@ namespace BazisGUI
                     }
                 };
 
-                var dict = new Dictionary<int, string>();
+                var dict = new Dictionary<GroupType, Dictionary<int, string>>();
                 foreach (var item in project.GetAllModelGroups())
-                    dict[item.Number] = item.Name;
+                {
+                    var type = Converter.GetGroupTypeFromString(item.ObjType.ToString());
+                    if (!dict.ContainsKey(type))
+                        dict[type] = new Dictionary<int, string>();
+
+                    dict[type][item.Number] = item.Name;
+                }
 
                 master.InitialMasterFilling(
                     project.MaterialsDB.Select(x => x.Key),
