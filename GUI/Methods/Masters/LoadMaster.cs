@@ -69,6 +69,7 @@ namespace BazisGUI
                 OnGroupCreated += master.AddGroup;
                 OnGroupRenamed += master.RenameGroup;
                 OnGroupDeleted += master.DeleteGroup;
+                navigator.DelAllGroupsEvent += master.DeleteAllGroups;
                 OnChangeFunctions += master.ChangeFunctions;
                 OnChangeMaterials += master.ChangeMaterials;
 

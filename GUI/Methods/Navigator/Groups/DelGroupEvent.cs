@@ -1,4 +1,6 @@
-﻿namespace BazisGUI
+﻿using System.Linq;
+
+namespace BazisGUI
 {
     public partial class BaseForm
     {
@@ -6,7 +8,8 @@
         {
             var node = navigator.SelectedNode;
             var group = project.ModelData.GroupData[node.Index];
-            
+
+            OnGroupDeleted?.Invoke(group.ObjType, group.Name);
             project.DeleteModelGroup(group.Name);
 
             //удаляем узел

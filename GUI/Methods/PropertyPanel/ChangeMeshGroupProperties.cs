@@ -11,7 +11,10 @@ namespace BazisGUI
             var grName = navigator.SelectedNode.Text.Split(' ')[0];
             var _objectsGr = project.GetModelGroup(index);
             if (obj.Header == "Имя")
+            {
                 _objectsGr.Name = obj.NewValue.ToString();
+                OnGroupRenamed(_objectsGr.ObjType, obj.OldValue, obj.NewValue);
+            }
 
 
             //TODO добавить создание условий

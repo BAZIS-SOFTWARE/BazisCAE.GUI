@@ -366,7 +366,7 @@ namespace BazisGUI.Navigator
                     HideAllGroupsEvent?.Invoke();
                 else if (actIndex == 2)
                     DelAllGroupsEvent?.Invoke();
-                
+
             }
 
             else if (node.Name == NodeName.группаУзлов.ToString() |

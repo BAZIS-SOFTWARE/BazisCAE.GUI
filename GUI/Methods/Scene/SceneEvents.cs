@@ -40,7 +40,8 @@ namespace BazisGUI
 
                         console.PrintInfo(string.Format("Создана новая группа {0}", name), Color.Black);
 
-                        PresentGroupDataOnTree();                       
+                        PresentGroupDataOnTree();
+                        OnGroupCreated?.Invoke(objType, name);
                     }
                 }
             }
