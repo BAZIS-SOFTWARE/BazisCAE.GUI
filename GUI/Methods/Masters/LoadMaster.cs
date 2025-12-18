@@ -102,11 +102,11 @@ namespace BazisGUI
                     }
                 };
 
-                OnGroupRenamed += (arg1, arg2, arg3) =>
+                OnGroupRenamed += (arg1, arg2) =>
                 {
                     try
                     {
-                        master.RenameGroup(arg1, arg2, arg3);
+                        master.RenameGroup(arg1, arg2);
                     }
                     catch (Exception ex)
                     {
@@ -114,11 +114,11 @@ namespace BazisGUI
                     }
                 };
 
-                OnGroupDeleted += (arg1, arg2) =>
+                OnGroupDeleted += (arg1) =>
                 {
                     try
                     {
-                        master.DeleteGroup(arg1, arg2);
+                        master.DeleteGroup(arg1);
                     }
                     catch (Exception ex)
                     {
@@ -165,15 +165,9 @@ namespace BazisGUI
                     }
                 };
 
-                var dict = new Dictionary<GroupType, List<string>>();
+                var dict = new Dictionary<int, string>();
                 foreach (var item in project.GetAllModelGroups())
-                {
-                    var convertedType = MasterInterface.Converter.GetGroupTypeFromString(item.ObjType.ToString());
-                    if (dict.ContainsKey(convertedType))
-                        dict[convertedType].Add(item.Name);
-                    else
-                        dict[convertedType] = new List<string> { item.Name };
-                }
+                    dict[item.Number] = item.Name;
 
                 master.InitialMasterFilling(
                     project.MaterialsDB.Select(x => x.Key),

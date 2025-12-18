@@ -37,11 +37,12 @@ namespace BazisGUI
                         var objType = objTypeStr.ToEnum<ObjType>();
                         var name = $"newGroup{objType}";
                         project.ModelData.GroupData.Create(name, selObjs);
+                        var number = project.ModelData.GroupData.Where(x => x.ObjType == objType && x.Name == name).Max(x => x.Number);
 
                         console.PrintInfo(string.Format("Создана новая группа {0}", name), Color.Black);
 
                         PresentGroupDataOnTree();
-                        OnGroupCreated?.Invoke(objType.ToString(), name);
+                        OnGroupCreated?.Invoke(number, name);
                     }
                 }
             }
