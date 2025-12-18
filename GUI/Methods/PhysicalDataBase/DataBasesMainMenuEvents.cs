@@ -62,6 +62,7 @@ namespace BazisGUI
                 }
                 matBasePage.Materials = project.MaterialsDB;
                 matBasePage.PresentMaterials();
+                OnChangeMaterials?.Invoke(project.MaterialsDB.Keys.ToArray());
                 //matBasePage.Load($@"{project.Path}\{project.MaterialsDB.Name}", false);
             }
             catch (Exception ex)
@@ -120,6 +121,7 @@ namespace BazisGUI
                 }
                 funBasePage.Functions = project.FunctionsDB;
                 funBasePage.PresentFunctions();
+                OnChangeFunctions?.Invoke(project.FunctionsDB.Keys.ToArray());
             }
             catch (Exception ex)
             {

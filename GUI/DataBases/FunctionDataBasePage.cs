@@ -14,6 +14,7 @@ namespace BazisGUI.DataBases
 {
     public partial class FunctionDataBasePage : DataBasePage
     {
+        public event Action OnMutationEvent;
         public FunctionDataBasePage()
         {
             InitializeComponent();
@@ -37,6 +38,7 @@ namespace BazisGUI.DataBases
                 {
                     //MessageBox.Show("Данные удалены успешно");
                     TreeView.Nodes.Remove(TreeView.SelectedNode);
+                    OnMutationEvent?.Invoke();
                 }
 
                 else throw new Exception("Возникла ошибка при удалении данных!");
@@ -151,6 +153,7 @@ namespace BazisGUI.DataBases
                         if (!Functions.ContainsKey(function.Key))
                             Functions.Add(function.Key, function.Value);
                     }
+                    OnMutationEvent?.Invoke();
                 }
                 else
                 {
@@ -177,6 +180,7 @@ namespace BazisGUI.DataBases
         {
             LabelEditFlag = true;
             TreeView.SelectedNode.BeginEdit();
+            OnMutationEvent?.Invoke();
         }
 
         private void DeleteMaterialItem_Click(object sender, EventArgs e)
@@ -189,6 +193,7 @@ namespace BazisGUI.DataBases
 
             Functions.Remove(TreeView.SelectedNode.Text.Split(',')[0]);
             TreeView.Nodes.Remove(TreeView.SelectedNode);
+            OnMutationEvent?.Invoke();
         }
 /// <inheritdoc/>
 
@@ -226,6 +231,7 @@ namespace BazisGUI.DataBases
                 Functions.Add(name, values);
 
                 AddTreeNode(values);
+                OnMutationEvent?.Invoke();
             }
             catch (Exception ex)
             {
@@ -369,6 +375,7 @@ namespace BazisGUI.DataBases
                 newNod.Name = newFunction.Name + "," + TreeView.SelectedNode.Name.Split(',')[1];
                 newNod.Text = newFunction.Name + "," + TreeView.SelectedNode.Name.Split(',')[1];
                 TreeView.Nodes.Add(newNod);
+                OnMutationEvent?.Invoke();
             }
             else MessageBox.Show("Выберите функцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
