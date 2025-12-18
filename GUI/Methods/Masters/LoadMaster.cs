@@ -47,31 +47,123 @@ namespace BazisGUI
 
                 master.SubmintParametrizedStringsEvent += (taskStrings) =>
                 {
-                    project.TaskData.Clear();
-                    foreach (var item in taskStrings)
+                    try
                     {
-                        var args = item.Split(':');
-                        var kind = Enum.Parse<Project.Interfaces.Tasks.DataKind>(args[0]);
-                        var data = project.TaskData.Create(kind, args[1], project.ModelData.GroupData);
-                        project.TaskData.Add(data);
+                        project.TaskData.Clear();
+                        foreach (var item in taskStrings)
+                        {
+                            var args = item.Split(':');
+                            var kind = Enum.Parse<Project.Interfaces.Tasks.DataKind>(args[0]);
+                            var data = project.TaskData.Create(kind, args[1], project.ModelData.GroupData);
+                            project.TaskData.Add(data);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
                     }
                 };
 
                 master.UpdateSceneEvent += () =>
                 {
-                    ClearAllDataOnScene();
-                    foreach (var item in Enum.GetValues<ObjType>())
-                        CreateVBObjsByObjsType(item);
+                    try
+                    {
+                        ClearAllDataOnScene();
+                        foreach (var item in Enum.GetValues<ObjType>())
+                            CreateVBObjsByObjsType(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
+                    }
                 };
 
-                master.PrintInfoEvent += console.PrintInfo;
+                master.PrintInfoEvent += (arg1, arg2) =>
+                {
+                    try
+                    {
+                        console.PrintInfo(arg1, arg2);
+                    }
+                    catch (Exception ex)
+                    {
+                        console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
+                    }
+                };
 
-                OnGroupCreated += master.AddGroup;
-                OnGroupRenamed += master.RenameGroup;
-                OnGroupDeleted += master.DeleteGroup;
-                navigator.DelAllGroupsEvent += master.DeleteAllGroups;
-                OnChangeFunctions += master.ChangeFunctions;
-                OnChangeMaterials += master.ChangeMaterials;
+                OnGroupCreated += (arg1, arg2) =>
+                {
+                    try
+                    {
+                        master.AddGroup(arg1, arg2);
+                    }
+                    catch (Exception ex)
+                    {
+                        console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
+                    }
+                };
+
+                OnGroupRenamed += (arg1, arg2, arg3) =>
+                {
+                    try
+                    {
+                        master.RenameGroup(arg1, arg2, arg3);
+                    }
+                    catch (Exception ex)
+                    {
+                        console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
+                    }
+                };
+
+                OnGroupDeleted += (arg1, arg2) =>
+                {
+                    try
+                    {
+
+                        master.DeleteGroup(arg1, arg2);
+                    }
+                    catch (Exception ex)
+                    {
+                        console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
+                    }
+                };
+
+                navigator.DelAllGroupsEvent += () =>
+                {
+                    try
+                    {
+
+                        master.DeleteAllGroups();
+                    }
+                    catch (Exception ex)
+                    {
+                        console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
+                    }
+                };
+
+                OnChangeFunctions += (arg1) =>
+                {
+                    try
+                    {
+
+                        master.ChangeFunctions(arg1);
+                    }
+                    catch (Exception ex)
+                    {
+                        console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
+                    }
+                };
+
+                OnChangeMaterials += (arg1) =>
+                {
+                    try
+                    {
+                        master.ChangeMaterials(arg1);
+                    }
+                    catch (Exception ex)
+                    {
+                        console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
+                    }
+                };
 
                 var dict = new Dictionary<ObjType, List<string>>();
                 foreach (var item in project.GetAllModelGroups())
