@@ -25,7 +25,13 @@
 
         public virtual void AddGroup(GroupType type, int number, string groupName)
         {
-            groups[type][number] = groupName;
+            if (groups.ContainsKey(type))
+                groups[type][number] = groupName;
+            else
+            {
+                groups[type] = new Dictionary<int, string>();
+                groups[type][number] = groupName;
+            }
         }
 
         public virtual void ChangeFunctions(IEnumerable<string> functions)
@@ -62,8 +68,16 @@
 
             this.groups.Clear();
             foreach (var item in groups.Keys)
+            {
                 foreach (var group in groups[item])
+                {
+                    if (!this.groups.ContainsKey(item))
+                        this.groups[item] = new Dictionary<int, string>();
+
                     this.groups[item][group.Key] = group.Value;
+                }
+            }
+                
         }
 
         public virtual void RenameGroup(GroupType type, int number, string newName)
