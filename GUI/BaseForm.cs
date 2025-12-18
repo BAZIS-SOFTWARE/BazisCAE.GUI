@@ -32,7 +32,6 @@ namespace BazisGUI
 
     public partial class BaseForm : Form
     {
-        // TODO События ниже должны быть перенесены в ProjectController
         public event Action OnProjectLoaded;
         public event Action<ObjType, string> OnGroupCreated;
         public event Action<ObjType, string, string> OnGroupRenamed;
@@ -175,111 +174,6 @@ namespace BazisGUI
 
                     await OpenProject(Path.GetFullPath(args[resInd + 1]));
                 }
-            }
-        }
-
-        public void AddMaster(Master master)
-        {
-            try
-            {
-                if (project == null)
-                {
-                    MessageBox.Show("Не определен проект", "Ошибка");
-                    return;
-                }
-
-                else if (project.MaterialsDB == null)
-                {
-                    console.PrintInfo($"База данных материалов не загружена", Color.Red);
-                    return;
-                }
-
-                else if (project.FunctionsDB == null)
-                {
-                    console.PrintInfo($"База данных функций не загружена", Color.Red);
-                    return;
-                }
-
-                master.Dock = DockStyle.Fill;
-                master.Name = $"cntr{master.MasterName}";
-                master.Size = cntrНавигатор.Size;
-                master.Location = cntrНавигатор.Location;
-                master.Anchor = cntrНавигатор.Anchor;
-
-                master.SubmintParametrizedStringsEvent += (taskStrings) =>
-                {
-                    project.TaskData.Clear();
-                    foreach (var item in taskStrings)
-                    {
-                        var args = item.Split(':');
-                        var kind = Enum.Parse<DataKind>(args[0]);
-                        var data = project.TaskData.Create(kind, args[1], project.ModelData.GroupData);
-                        project.TaskData.Add(data);
-                    }
-                };
-
-                master.UpdateSceneEvent += () =>
-                {
-                    ClearAllDataOnScene();
-                    foreach (var item in Enum.GetValues<ObjType>())
-                        CreateVBObjsByObjsType(item);
-                };
-
-                master.PrintInfoEvent += console.PrintInfo;
-
-                // TODO События ниже должны быть перенесены в ProjectController
-                OnGroupCreated += master.AddGroup;
-                OnGroupRenamed += master.RenameGroup;
-                OnGroupDeleted += master.DeleteGroup;
-                OnChangeFunctions += master.ChangeFunctions;
-                OnChangeMaterials += master.ChangeMaterials;
-
-                var dict = new Dictionary<ObjType, List<string>>();
-                foreach(var item in project.GetAllModelGroups())
-                {
-                    if (dict.ContainsKey(item.ObjType))
-                        dict[item.ObjType].Add(item.Name);
-                    else
-                        dict[item.ObjType] = new List<string> { item.Name };
-                }
-
-                master.InitialMasterFilling(
-                    project.MaterialsDB.Select(x => x.Key),
-                    project.FunctionsDB.Select(x => x.Key),
-                    dict);
-
-                var btn = new Button()
-                {
-                    FlatStyle = FlatStyle.Flat,
-                    Margin = new Padding(0, 0, 3, 3),
-                    Name = $"btnTab{master.MasterName}",
-                    Size = new System.Drawing.Size(27, 130),
-                    TabIndex = 1,
-                    Tag = "True",
-                    UseVisualStyleBackColor = true,
-                    Visible = true,
-                };
-                btn.Paint += buttonTab_Paint;
-                btn.MouseDown += button_MouseDown;
-
-                OnProjectLoaded += () =>
-                {
-                    HideTabButton(btn.Name);
-                    splitContainer3.Panel1.Controls.Remove(btn);
-                    splitContainer3.Panel1.Controls.Remove(master);
-                    foreach (ToolStripMenuItem item in мастерToolStripMenuItem.DropDownItems)
-                        item.Checked = false;
-                };
-
-                splitContainer3.Panel1.Controls.Add(btn);
-                splitContainer3.Panel1.Controls.Add(master);
-
-                ShowTabButton(btn.Name);
-                master.BringToFront();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
             }
         }
 
@@ -774,24 +668,5 @@ namespace BazisGUI
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
         }
-
-        // Opening master example
-        //private void testToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    if (testToolStripMenuItem.Checked)
-        //        AddMaster(new TestMaster());
-        //    else
-        //    {
-
-        //        var masters = splitContainer3.Panel1.Controls.OfType<IMaster>().Cast<Master>();
-        //        foreach(var master in masters)
-        //        {
-        //            splitContainer3.Panel1.Controls.Remove(master);
-        //            HideTabButton($"btnTab{master.MasterName}");
-        //        }
-
-        //    }
-        //}
     }
-
 }
