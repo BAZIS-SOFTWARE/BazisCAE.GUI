@@ -1,4 +1,6 @@
-﻿namespace MasterInterface
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace MasterInterface
 {
     [Obsolete("Псоле тестирования данный контролл должен быть удален")]
     public partial class TestMaster : Master
@@ -8,26 +10,26 @@
             InitializeComponent();
         }
 
-        public override void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<GroupType, List<string>> groupsByObjType)
+        public override void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<int, string> groups)
         {
-            base.InitialMasterFilling(materials, functions, groupsByObjType);
+            base.InitialMasterFilling(materials, functions, groups);
         }
 
         public override string MasterName => "TestMaster";
 
-        public override void AddGroup(string type, string groupName)
+        public override void AddGroup(int number, string groupName)
         {
-            base.AddGroup(type, groupName);
+            base.AddGroup(number, groupName);
         }
 
-        public override void RenameGroup(string type, string oldName, string newName)
+        public override void RenameGroup(int number, string newName)
         {
-            base.RenameGroup(type, oldName, newName);
+            base.RenameGroup(number, newName);
         }
 
-        public override void DeleteGroup(string type, string groupName)
+        public override void DeleteGroup(int number)
         {
-            base.DeleteGroup(type, groupName);
+            base.DeleteGroup(number);
         }
 
         public override void DeleteAllGroups()

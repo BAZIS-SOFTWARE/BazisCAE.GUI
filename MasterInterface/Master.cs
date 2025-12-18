@@ -15,7 +15,7 @@
         /// <summary>
         /// Сгруппированные по типу группы (их имена)
         /// </summary>
-        private Dictionary<GroupType, List<string>> groups = new Dictionary<GroupType, List<string>>();
+        private Dictionary<int, string> groups = new Dictionary<int, string>();
 
         public event Action<string, Color> PrintInfoEvent;
         public event Action<string[]> SubmintParametrizedStringsEvent;
@@ -23,10 +23,9 @@
 
         public virtual string MasterName { get; }
 
-        public virtual void AddGroup(string type, string groupName)
+        public virtual void AddGroup(int number, string groupName)
         {
-            var convertedType = Converter.GetGroupTypeFromString(type);
-            groups[convertedType].Add(groupName);
+            groups[number] = groupName;
         }
 
         public virtual void ChangeFunctions(IEnumerable<string> functions)
@@ -41,10 +40,9 @@
             this.materials.AddRange(materials);
         }
 
-        public virtual void DeleteGroup(string type, string groupName)
+        public virtual void DeleteGroup(int number)
         {
-            var convertedType = Converter.GetGroupTypeFromString(type);
-            groups[convertedType].Remove(groupName);
+            groups.Remove(number);
         }
 
         public virtual void DeleteAllGroups()
@@ -52,7 +50,7 @@
             groups.Clear();
         }
 
-        public virtual void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<GroupType, List<string>> groupsByObjType)
+        public virtual void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<int, string> groups)
         {
             this.materials.Clear();
             foreach (var material in materials)
@@ -62,16 +60,14 @@
             foreach (var function in functions)
                 this.functions.Add(function);
 
-            groups.Clear();
-            foreach(var key in groupsByObjType.Keys)
-                groups[key] = groupsByObjType[key].ToList();
+            this.groups.Clear();
+            foreach (var item in groups)
+                groups[item.Key] = item.Value;
         }
 
-        public virtual void RenameGroup(string type, string oldName, string newName)
+        public virtual void RenameGroup(int number, string newName)
         {
-            var convertedType = Converter.GetGroupTypeFromString(type);
-            var index = groups[convertedType].IndexOf(oldName);
-            groups[convertedType][index] = newName;
+            groups[number] = newName;
         }
     }
 }
