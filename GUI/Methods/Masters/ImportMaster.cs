@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -23,7 +24,7 @@ namespace BazisGUI
         /// <param name="dllPath">путь к dll, в которой определен(-ы) пользовательские мастера</param>
         public void ImportMasterDLL(string dllPath)
         {
-            var assembly = Assembly.Load(dllPath);
+            var assembly = Assembly.LoadFrom(dllPath);
             var tempTypeCollection = new List<Type>();
 
             foreach(var type in assembly.GetTypes())
@@ -37,14 +38,20 @@ namespace BazisGUI
             }
 
             if (tempTypeCollection.Count == 0)
-                console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера постановки задач", Color.DarkOrange);
+                console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера постановки задач или реализация уже загружена", Color.DarkOrange);
 
             else
             {
                 foreach(var item in tempTypeCollection)
                 {
                     var temp = (IMaster)Activator.CreateInstance(item);
-                    var masterToolStripMenuItem = new ToolStripMenuItem { Text = temp.MasterName, Name = $"{temp.MasterName}ToolStripMenuItem" };
+                    var masterToolStripMenuItem = new ToolStripMenuItem
+                    {
+                        Text = temp.MasterName,
+                        Name = $"{temp.MasterName}ToolStripMenuItem",
+                        Checked = false,
+                        CheckOnClick = true
+                    };
                     masterToolStripMenuItem.Click += OpenImportedMasterMenuItem_Click;
 
                     мастерToolStripMenuItem.DropDownItems.Add(masterToolStripMenuItem);
