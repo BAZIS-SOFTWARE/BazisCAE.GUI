@@ -33,7 +33,7 @@ namespace BazisGUI
                     rows = GetHeatProperty((HeatData)data, groups, _funcs);
                 else if (data.Kind == DataKind.Закрепление)
                     rows = GetClampProperty((ClampData)data, groups);
-                else if (data.Kind == DataKind.Закрепление)
+                else if (data.Kind == DataKind.Нагрузка)
                     rows = GetLoadProperty((LoadData)data, _funcs, groups);
                 else throw new NotImplementedException("Вид условия не определен");
 

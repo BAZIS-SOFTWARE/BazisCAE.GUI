@@ -48,6 +48,7 @@ namespace BazisGUI
                         return;
 
                     project.MaterialsDB = matBasePage.Materials;
+                    console.PrintInfo($"База данных {matBasePage.Materials.Name} успешно добавлена", Color.Green);
                 };
 
                 if (project == null)
@@ -101,6 +102,7 @@ namespace BazisGUI
                         return;
 
                     project.FunctionsDB = funBasePage.Functions;
+                    console.PrintInfo($"База данных {funBasePage.Functions.Name} успешно добавлена", Color.Green);
                 };
 
                 ShowTabButton("btnTabФункции");

@@ -102,7 +102,7 @@ namespace BazisGUI
         private void BaseForm_Load(object sender, EventArgs e)
         {
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            var verStr = "Версия платформы" + $"{ver.Major}.{ver.Minor}.{ver.Build}";
+            var verStr = $"Версия {ver.Major}.{ver.Minor}.{ver.Build}";
             lblVersion.Text = verStr;
 
             var config = dataController.LoadConfig();
@@ -111,7 +111,6 @@ namespace BazisGUI
                 settingsConfig = config;
 
             SetGeneralSettings();
-
             DisplayObjects();
         }
 
