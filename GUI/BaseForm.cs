@@ -129,8 +129,7 @@ namespace BazisGUI
             //Gle.Load();//Это скорее всего больше не понадобится
             scene.Load += SceneInitialization;//Это конвертировалось в событие scene.Load!
 
-            // Обработка аргументов еще нужна?
-            //Shown += (arg1, arg2) => HandleArgs(args); 
+            Shown += (arg1, arg2) => HandleArgs(args);
         }
 
         public async void HandleArgs(string[] args)
