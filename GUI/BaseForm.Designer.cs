@@ -112,6 +112,7 @@ namespace BazisGUI
             toolStripMenuItem1 = new ToolStripMenuItem();
             трениемСПеремешиваниемToolStripMenuItem = new ToolStripMenuItem();
             термообработкаToolStripMenuItem = new ToolStripMenuItem();
+            свойМастерToolStripMenuItem = new ToolStripMenuItem();
             показатьНаДиаграммеToolStripMenuItem = new ToolStripMenuItem();
             расчетыToolStripMenuItem = new ToolStripMenuItem();
             открытьИнструкцииToolStripMenuItem = new ToolStripMenuItem();
@@ -129,6 +130,7 @@ namespace BazisGUI
             инструментыToolStripMenuItem = new ToolStripMenuItem();
             измеритьToolStripMenuItem = new ToolStripMenuItem();
             скрытьПлоскостьюToolStripMenuItem = new ToolStripMenuItem();
+            рассечьПлоскостьюToolStripMenuItem = new ToolStripMenuItem();
             настройкиToolStripMenuItem = new ToolStripMenuItem();
             справкаToolStripMenuItem = new ToolStripMenuItem();
             содержаниеToolStripMenuItem = new ToolStripMenuItem();
@@ -142,7 +144,6 @@ namespace BazisGUI
             menuItem_InfoSelectedObjects = new ToolStripMenuItem();
             menuItem_SetRotPoint = new ToolStripMenuItem();
             menuItem_DeleteSelectedObjects = new ToolStripMenuItem();
-            рассечьПлоскостьюToolStripMenuItem = new ToolStripMenuItem();
             toolStripContainer.BottomToolStripPanel.SuspendLayout();
             toolStripContainer.ContentPanel.SuspendLayout();
             toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -1131,7 +1132,7 @@ namespace BazisGUI
             // 
             // мастерToolStripMenuItem
             // 
-            мастерToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1, трениемСПеремешиваниемToolStripMenuItem, термообработкаToolStripMenuItem });
+            мастерToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1, трениемСПеремешиваниемToolStripMenuItem, термообработкаToolStripMenuItem, свойМастерToolStripMenuItem });
             мастерToolStripMenuItem.Enabled = false;
             мастерToolStripMenuItem.Name = "мастерToolStripMenuItem";
             мастерToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
@@ -1154,6 +1155,12 @@ namespace BazisGUI
             термообработкаToolStripMenuItem.Name = "термообработкаToolStripMenuItem";
             термообработкаToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
             термообработкаToolStripMenuItem.Text = "Термообработка";
+            // 
+            // свойМастерToolStripMenuItem
+            // 
+            свойМастерToolStripMenuItem.Name = "свойМастерToolStripMenuItem";
+            свойМастерToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            свойМастерToolStripMenuItem.Text = "Пользовательский мастер";
             // 
             // показатьНаДиаграммеToolStripMenuItem
             // 
@@ -1282,6 +1289,13 @@ namespace BazisGUI
             скрытьПлоскостьюToolStripMenuItem.Text = "Скрыть плоскостью";
             скрытьПлоскостьюToolStripMenuItem.Click += скрытьПлоскостьюToolStripMenuItem_Click;
             // 
+            // рассечьПлоскостьюToolStripMenuItem
+            // 
+            рассечьПлоскостьюToolStripMenuItem.Enabled = false;
+            рассечьПлоскостьюToolStripMenuItem.Name = "рассечьПлоскостьюToolStripMenuItem";
+            рассечьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            рассечьПлоскостьюToolStripMenuItem.Text = "Рассечь плоскостью";
+            // 
             // настройкиToolStripMenuItem
             // 
             настройкиToolStripMenuItem.CheckOnClick = true;
@@ -1317,11 +1331,12 @@ namespace BazisGUI
             лицензияToolStripMenuItem.Name = "лицензияToolStripMenuItem";
             лицензияToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             лицензияToolStripMenuItem.Text = "Лицензия";
+            лицензияToolStripMenuItem.Visible = false;
             // 
             // сведенияMenuItem
             // 
             сведенияMenuItem.Name = "сведенияMenuItem";
-            сведенияMenuItem.Size = new System.Drawing.Size(125, 22);
+            сведенияMenuItem.Size = new System.Drawing.Size(180, 22);
             сведенияMenuItem.Text = "Сведения";
             сведенияMenuItem.Click += сведенияMenuItem_Click;
             // 
@@ -1385,13 +1400,6 @@ namespace BazisGUI
             menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(203, 22);
             menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             menuItem_DeleteSelectedObjects.Click += menuItem_DeleteSelectedObjects_Click;
-            // 
-            // рассечьПлоскостьюToolStripMenuItem
-            // 
-            рассечьПлоскостьюToolStripMenuItem.Enabled = false;
-            рассечьПлоскостьюToolStripMenuItem.Name = "рассечьПлоскостьюToolStripMenuItem";
-            рассечьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            рассечьПлоскостьюToolStripMenuItem.Text = "Рассечь плоскостью";
             // 
             // BaseForm
             // 
@@ -1551,6 +1559,7 @@ namespace BazisGUI
         private Button btnTabНастройки;
         private ToolStripMenuItem toolStripMenuItem4;
         private ToolStripMenuItem рассечьПлоскостьюToolStripMenuItem;
+        private ToolStripMenuItem свойМастерToolStripMenuItem;
     }
 }
 
