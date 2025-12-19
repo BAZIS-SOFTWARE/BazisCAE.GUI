@@ -17,6 +17,8 @@ namespace BazisGUI.DataBases
 {
     public partial class MaterialsDataBasePage : DataBasePage
     {
+        public event Action OnMutationEvent;
+
         public MaterialsDataBasePage()
         {
             InitializeComponent();
@@ -118,6 +120,7 @@ namespace BazisGUI.DataBases
                         if (!Materials.ContainsKey(material.Key))
                             Materials.Add(material.Key, material.Value);
                     }
+                    OnMutationEvent?.Invoke();
                 }
                 else
                 {
@@ -330,6 +333,7 @@ namespace BazisGUI.DataBases
             }
             Materials.Remove(TreeView.SelectedNode.Text);
             TreeView.Nodes.Remove(TreeView.SelectedNode);
+            OnMutationEvent?.Invoke();
         }
 
         public MaterialDBData ConvertToMaterials(DataSet dataSet)
@@ -428,6 +432,7 @@ namespace BazisGUI.DataBases
             {
                 LabelEditFlag = true;
                 TreeView.SelectedNode.BeginEdit();
+                OnMutationEvent?.Invoke();
             }
             catch (Exception)
             {
@@ -531,6 +536,7 @@ namespace BazisGUI.DataBases
                 Materials.Add(name, values);
 
                 AddTreeNode(values);
+                OnMutationEvent?.Invoke();
             }
             catch (Exception ex)
             {
@@ -644,6 +650,7 @@ namespace BazisGUI.DataBases
                 {
                     MessageBox.Show("Данные удалены успешно");
                     TreeView.Nodes.Remove(TreeView.SelectedNode);
+                    OnMutationEvent?.Invoke();
                 }
 
                 else throw
@@ -800,6 +807,7 @@ namespace BazisGUI.DataBases
                 newNod.Name = copyName;
                 newNod.Text = copyName;
                 TreeView.Nodes.Add(newNod);
+                OnMutationEvent?.Invoke();
             }
             else MessageBox.Show("Выберите материал!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }

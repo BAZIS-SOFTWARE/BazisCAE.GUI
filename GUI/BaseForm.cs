@@ -1,17 +1,22 @@
-﻿using BazisGUI.Scene;
+﻿using BazisGUI.DataBases;
+using BazisGUI.Scene;
 using BazisGUI.Scene.VBO;
 using BazisGUI.SettingsControls;
 using ClientGUI;
 using ClientLogic;
 using LicenseInfo;
+using MasterInterface;
+using Model.Interfaces;
 using Newtonsoft.Json;
 using OperationalController;
 using OperationalController.GmshController;
 using OperationalController.ModelScenePresentator;
 using PostProc;
+using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -20,12 +25,20 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UserControlsEx;
 
 namespace BazisGUI
 {
 
     public partial class BaseForm : Form
     {
+        public event Action OnProjectLoaded;
+        public event Action<ObjType, int, string> OnGroupCreated;
+        public event Action<ObjType, int, string> OnGroupRenamed;
+        public event Action<ObjType, int> OnGroupDeleted;
+        public event Action<string[]> OnChangeMaterials;
+        public event Action<string[]> OnChangeFunctions;
+
         Point ScreenMousePosition { get; set; } = new Point(0, 0);
         bool MouseMoveFlag { get; set; }
 
@@ -115,7 +128,8 @@ namespace BazisGUI
             //scene.InitializeContexts();
             //Gle.Load();//Это скорее всего больше не понадобится
             scene.Load += SceneInitialization;//Это конвертировалось в событие scene.Load!
-            //ComponentsPainter.Font = this.Font; //попробуем не контролировать кегль вручную. Пусть кон-ет система
+
+            Shown += (arg1, arg2) => HandleArgs(args);
         }
 
         public async void HandleArgs(string[] args)
@@ -170,7 +184,7 @@ namespace BazisGUI
             }
         }
 
-      
+
 
         private void UnBlockGeneralMenuInterface(string moduleName, bool flag)
         {
@@ -206,7 +220,7 @@ namespace BazisGUI
             }
         }
 
-        
+
 
         private void SetGeneralSettings()
         {
@@ -272,7 +286,7 @@ namespace BazisGUI
 
             try
             {
-                if(TryServerConnection())
+                if (TryServerConnection())
                 {
                     serverConnection.RequestServer("CheckLicenseInfo");
                     var licInfo = JsonConvert.DeserializeObject<License>(serverConnection.Answer);
@@ -446,6 +460,7 @@ namespace BazisGUI
                 }
 
                 lblStatus.Text = filePath;
+                OnProjectLoaded?.Invoke();
 
                 ClearAllDataOnScene();
                 PresentProject();
@@ -463,13 +478,6 @@ namespace BazisGUI
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //OpenFileDialog dialog = new OpenFileDialog();
-            //dialog.Filter = "All files(*.*)|*.*|" +
-            //    projFilters + "|" +
-            //    geomFilter + "|" +
-            //    meshFilter;
-            //dialog.DefaultExt = "*.bpf2";
-
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = string.Join("|", "All files(*.*)|*.*", projFilter, geomFilter, meshFilter);
             dialog.DefaultExt = "*.bpf2";
@@ -508,8 +516,8 @@ namespace BazisGUI
         private void webPageLabel_Click(object sender, EventArgs e)
         {
             var url = $"https://{webPageLabel.Text}";
-            if(Uri.IsWellFormedUriString(url, UriKind.Absolute))
-                Process.Start(new ProcessStartInfo{ FileName = url, UseShellExecute = true });
+            if (Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
         }
 
         private void сохранитькакToolStripMenuItem_Click(object sender, EventArgs e)
@@ -659,5 +667,4 @@ namespace BazisGUI
             }
         }
     }
-
 }
