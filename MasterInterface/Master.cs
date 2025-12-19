@@ -18,7 +18,7 @@
         private Dictionary<GroupType, Dictionary<int, string>> groups = new Dictionary<GroupType, Dictionary<int, string>>();
 
         public event Action<string, Color> PrintInfoEvent;
-        public event Action<string[]> SubmintParametrizedStringsEvent;
+        public event Action<string[]> GenerateConditionsEvent;
         public event Action UpdateSceneEvent;
 
         public virtual string MasterName { get; }

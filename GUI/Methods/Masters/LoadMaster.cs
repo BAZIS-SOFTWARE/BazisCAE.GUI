@@ -45,7 +45,7 @@ namespace BazisGUI
                 uc.Location = cntrНавигатор.Location;
                 uc.Anchor = cntrНавигатор.Anchor;
 
-                master.SubmintParametrizedStringsEvent += (taskStrings) =>
+                master.GenerateConditionsEvent += (taskStrings) =>
                 {
                     try
                     {

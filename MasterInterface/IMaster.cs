@@ -13,7 +13,7 @@
         /// <summary>
         /// Событие подтвержденя завершения ввода пользователем строк для формирования граничных условий (ICondData).
         /// </summary>
-        event Action<string[]> SubmintParametrizedStringsEvent;
+        event Action<string[]> GenerateConditionsEvent;
 
         /// <summary>
         /// Событие для запроса обновления сцены.
