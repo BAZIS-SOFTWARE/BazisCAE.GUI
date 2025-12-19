@@ -5,17 +5,17 @@
         /// <summary>
         /// Названия материалов
         /// </summary>
-        private List<string> materials = new List<string>();
+        protected List<string> materials = new List<string>();
 
         /// <summary>
         /// Названия функций
         /// </summary>
-        private List<string> functions = new List<string>();
+        protected List<string> functions = new List<string>();
 
         /// <summary>
         /// Сгруппированные по типу группы (их имена)
         /// </summary>
-        private Dictionary<GroupType, Dictionary<int, string>> groups = new Dictionary<GroupType, Dictionary<int, string>>();
+        protected Dictionary<GroupType, Dictionary<int, string>> groups = new Dictionary<GroupType, Dictionary<int, string>>();
 
         public event Action<string, Color> PrintInfoEvent;
         public event Action<string[]> GenerateConditionsEvent;
