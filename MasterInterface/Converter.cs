@@ -14,5 +14,12 @@ namespace MasterInterface
                 return res;
             throw new ArgumentException($"Не удалось определить тип \"GroupType\" по строке \"{input}\"");
         }
+
+        public static ConditionType GetConditionTypeFromString(string input)
+        {
+            if (Enum.TryParse(input, out ConditionType res))
+                return res;
+            throw new ArgumentException($"Не удалось определить тип \"ConditionType\" по строке \"{input}\"");
+        }
     }
 }
