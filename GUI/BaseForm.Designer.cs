@@ -132,6 +132,7 @@ namespace BazisGUI
             инструментыToolStripMenuItem = new ToolStripMenuItem();
             измеритьToolStripMenuItem = new ToolStripMenuItem();
             скрытьПлоскостьюToolStripMenuItem = new ToolStripMenuItem();
+            рассечьПлоскостьюToolStripMenuItem = new ToolStripMenuItem();
             настройкиToolStripMenuItem = new ToolStripMenuItem();
             справкаToolStripMenuItem = new ToolStripMenuItem();
             содержаниеToolStripMenuItem = new ToolStripMenuItem();
@@ -145,7 +146,6 @@ namespace BazisGUI
             menuItem_InfoSelectedObjects = new ToolStripMenuItem();
             menuItem_SetRotPoint = new ToolStripMenuItem();
             menuItem_DeleteSelectedObjects = new ToolStripMenuItem();
-            рассечьПлоскостьюToolStripMenuItem = new ToolStripMenuItem();
             toolStripContainer.BottomToolStripPanel.SuspendLayout();
             toolStripContainer.ContentPanel.SuspendLayout();
             toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -1304,6 +1304,13 @@ namespace BazisGUI
             скрытьПлоскостьюToolStripMenuItem.Text = "Скрыть плоскостью";
             скрытьПлоскостьюToolStripMenuItem.Click += скрытьПлоскостьюToolStripMenuItem_Click;
             // 
+            // рассечьПлоскостьюToolStripMenuItem
+            // 
+            рассечьПлоскостьюToolStripMenuItem.Enabled = false;
+            рассечьПлоскостьюToolStripMenuItem.Name = "рассечьПлоскостьюToolStripMenuItem";
+            рассечьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            рассечьПлоскостьюToolStripMenuItem.Text = "Рассечь плоскостью";
+            // 
             // настройкиToolStripMenuItem
             // 
             настройкиToolStripMenuItem.CheckOnClick = true;
@@ -1339,11 +1346,12 @@ namespace BazisGUI
             лицензияToolStripMenuItem.Name = "лицензияToolStripMenuItem";
             лицензияToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             лицензияToolStripMenuItem.Text = "Лицензия";
+            лицензияToolStripMenuItem.Visible = false;
             // 
             // сведенияMenuItem
             // 
             сведенияMenuItem.Name = "сведенияMenuItem";
-            сведенияMenuItem.Size = new System.Drawing.Size(125, 22);
+            сведенияMenuItem.Size = new System.Drawing.Size(180, 22);
             сведенияMenuItem.Text = "Сведения";
             сведенияMenuItem.Click += сведенияMenuItem_Click;
             // 
@@ -1407,13 +1415,6 @@ namespace BazisGUI
             menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(203, 22);
             menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             menuItem_DeleteSelectedObjects.Click += menuItem_DeleteSelectedObjects_Click;
-            // 
-            // рассечьПлоскостьюToolStripMenuItem
-            // 
-            рассечьПлоскостьюToolStripMenuItem.Enabled = false;
-            рассечьПлоскостьюToolStripMenuItem.Name = "рассечьПлоскостьюToolStripMenuItem";
-            рассечьПлоскостьюToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            рассечьПлоскостьюToolStripMenuItem.Text = "Рассечь плоскостью";
             // 
             // BaseForm
             // 
