@@ -35,7 +35,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Name = "Master";
-            Size = new Size(800, 450);
+            Size = new Size(773, 587);
             ResumeLayout(false);
         }
 

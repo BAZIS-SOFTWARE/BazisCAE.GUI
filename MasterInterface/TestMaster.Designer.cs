@@ -30,17 +30,26 @@
         {
             TableLayoutPanel = new TableLayoutPanel();
             lbl1 = new Label();
+            TableLayoutPanel.SuspendLayout();
             SuspendLayout();
-            //
-            // TableLayoutPanel 
-            //
-            TableLayoutPanel.RowCount = 2;
+            // 
+            // TableLayoutPanel
+            // 
             TableLayoutPanel.ColumnCount = 2;
-            TableLayoutPanel.Dock = DockStyle.Fill;
             TableLayoutPanel.Controls.Add(lbl1, 0, 0);
-            //
+            TableLayoutPanel.Dock = DockStyle.Fill;
+            TableLayoutPanel.Location = new Point(0, 0);
+            TableLayoutPanel.Name = "TableLayoutPanel";
+            TableLayoutPanel.RowCount = 2;
+            TableLayoutPanel.Size = new Size(200, 100);
+            TableLayoutPanel.TabIndex = 0;
+            // 
             // lbl1
-            //
+            // 
+            lbl1.Location = new Point(3, 0);
+            lbl1.Name = "lbl1";
+            lbl1.Size = new Size(100, 23);
+            lbl1.TabIndex = 0;
             lbl1.Text = "TestMaster";
             // 
             // TestMaster
@@ -48,7 +57,8 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Name = "TestMaster";
-            Size = new Size(800, 450);
+            Size = new Size(600, 458);
+            TableLayoutPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace MasterInterface
 {
-    public abstract partial class Master : UserControl, IMaster
+    public partial class Master : UserControl, IMaster
     {
         /// <summary>
         /// Названия материалов

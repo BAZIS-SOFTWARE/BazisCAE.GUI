@@ -52,8 +52,8 @@ namespace BazisGUI
             cntrНавигатор = new UserControlsEx.SplitContainerEx();
             navigator = new NavigatorControl();
             tableLayoutPanel1 = new TableLayoutPanel();
-            checkPlayerControl = new BazisGUI.Player.PlayerControl();
-            propertiesPanel = new BazisGUI.PropertiesPanel.PropertiesPanelControl();
+            checkPlayerControl = new Player.PlayerControl();
+            propertiesPanel = new PropertiesPanel.PropertiesPanelControl();
             splitContainer2 = new UserControlsEx.SplitContainerEx();
             btnSelect = new Button();
             btnDisplayStates = new Button();
@@ -77,7 +77,7 @@ namespace BazisGUI
             btnMakeScreenShot = new Button();
             btnAdvSelection = new Button();
             scene = new OpenTK.GLControl.GLControl();
-            console = new BazisGUI.Console.ConsoleControl();
+            console = new Console.ConsoleControl();
             menuStrip = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem = new ToolStripMenuItem();
@@ -109,12 +109,9 @@ namespace BazisGUI
             tasksMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem1 = new ToolStripMenuItem();
             мастерToolStripMenuItem = new ToolStripMenuItem();
-            toolStripMenuItem1 = new ToolStripMenuItem();
-            трениемСПеремешиваниемToolStripMenuItem = new ToolStripMenuItem();
-            термообработкаToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator3 = new ToolStripSeparator();
-            toolStripSeparator4 = new ToolStripSeparator();
             загрузитьМастерToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator4 = new ToolStripSeparator();
             показатьНаДиаграммеToolStripMenuItem = new ToolStripMenuItem();
             расчетыToolStripMenuItem = new ToolStripMenuItem();
             открытьИнструкцииToolStripMenuItem = new ToolStripMenuItem();
@@ -996,7 +993,7 @@ namespace BazisGUI
             // 
             viewMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, toolStripMenuItem3 });
             viewMenuItem.Name = "viewMenuItem";
-            viewMenuItem.Size = new System.Drawing.Size(38, 20);
+            viewMenuItem.Size = new System.Drawing.Size(39, 20);
             viewMenuItem.Text = "Вид";
             // 
             // toolStripMenuItem2
@@ -1134,48 +1131,27 @@ namespace BazisGUI
             // 
             // мастерToolStripMenuItem
             // 
-            мастерToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1, трениемСПеремешиваниемToolStripMenuItem, термообработкаToolStripMenuItem, toolStripSeparator3, загрузитьМастерToolStripMenuItem, toolStripSeparator4 });
+            мастерToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator3, загрузитьМастерToolStripMenuItem, toolStripSeparator4 });
             мастерToolStripMenuItem.Name = "мастерToolStripMenuItem";
             мастерToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             мастерToolStripMenuItem.Text = "Мастер";
             // 
-            // toolStripMenuItem1
-            // 
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(228, 22);
-            toolStripMenuItem1.Text = "Сварка плавлением";
-            toolStripMenuItem1.Visible = false;
-            // 
-            // трениемСПеремешиваниемToolStripMenuItem
-            // 
-            трениемСПеремешиваниемToolStripMenuItem.Name = "трениемСПеремешиваниемToolStripMenuItem";
-            трениемСПеремешиваниемToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            трениемСПеремешиваниемToolStripMenuItem.Text = "Трением с перемешиванием";
-            трениемСПеремешиваниемToolStripMenuItem.Visible = false;
-            // 
-            // термообработкаToolStripMenuItem
-            // 
-            термообработкаToolStripMenuItem.Name = "термообработкаToolStripMenuItem";
-            термообработкаToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            термообработкаToolStripMenuItem.Text = "Термообработка";
-            термообработкаToolStripMenuItem.Visible = false;
-            // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(225, 6);
-            // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(225, 6);
+            toolStripSeparator3.Size = new System.Drawing.Size(210, 6);
             // 
             // загрузитьМастерToolStripMenuItem
             // 
             загрузитьМастерToolStripMenuItem.Name = "загрузитьМастерToolStripMenuItem";
-            загрузитьМастерToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            загрузитьМастерToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             загрузитьМастерToolStripMenuItem.Text = "Пользовательский мастер";
             загрузитьМастерToolStripMenuItem.Click += загрузитьМастерToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(210, 6);
             // 
             // показатьНаДиаграммеToolStripMenuItem
             // 
@@ -1351,7 +1327,7 @@ namespace BazisGUI
             // сведенияMenuItem
             // 
             сведенияMenuItem.Name = "сведенияMenuItem";
-            сведенияMenuItem.Size = new System.Drawing.Size(180, 22);
+            сведенияMenuItem.Size = new System.Drawing.Size(125, 22);
             сведенияMenuItem.Text = "Сведения";
             сведенияMenuItem.Click += сведенияMenuItem_Click;
             // 
@@ -1517,9 +1493,6 @@ namespace BazisGUI
         private TableLayoutPanel tableLayoutPanel1;
         private ToolStripMenuItem открытьToolStripMenuItem1;
         private ToolStripMenuItem мастерToolStripMenuItem;
-        private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripMenuItem трениемСПеремешиваниемToolStripMenuItem;
-        private ToolStripMenuItem термообработкаToolStripMenuItem;
         private ToolStripMenuItem расчетыToolStripMenuItem;
         private ToolStripMenuItem сформироватьИнструкцииToolStripMenuItem;
         private ToolStripMenuItem сеткаToolStripMenuItem;
