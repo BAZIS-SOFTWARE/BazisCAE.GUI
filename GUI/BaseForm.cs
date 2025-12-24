@@ -1,22 +1,18 @@
-﻿using BazisGUI.DataBases;
-using BazisGUI.Scene;
+﻿using BazisGUI.Scene;
 using BazisGUI.Scene.VBO;
 using BazisGUI.SettingsControls;
 using ClientGUI;
 using ClientLogic;
 using LicenseInfo;
-using MasterInterface;
 using Model.Interfaces;
 using Newtonsoft.Json;
 using OperationalController;
 using OperationalController.GmshController;
 using OperationalController.ModelScenePresentator;
 using PostProc;
-using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -25,7 +21,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UserControlsEx;
 
 namespace BazisGUI
 {

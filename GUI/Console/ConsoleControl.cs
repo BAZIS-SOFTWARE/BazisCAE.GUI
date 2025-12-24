@@ -311,7 +311,7 @@ namespace BazisGUI.Console
                 {
                     OpenFileDialog newDialog = new OpenFileDialog()
                     {
-                        Filter = "Bazis command file(*.bcf)|*.bcf|" +
+                        Filter = "Bazis command file(*.tcf)|*.tcf|" +
             "All files(*.*)|*.*"
                     };
                     if (newDialog.ShowDialog() == DialogResult.Cancel)
@@ -338,18 +338,6 @@ namespace BazisGUI.Console
             catch (Exception)
             {
                 trd = null;
-            }
-        }
-      
-
-        private void rtxbOut_LinkClicked(object sender, LinkClickedEventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process.Start(e.LinkText);
-            }
-            catch (Exception)
-            {
             }
         }
 

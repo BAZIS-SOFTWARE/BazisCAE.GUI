@@ -33,9 +33,13 @@ namespace BazisGUI
                         if (pRad > maxRad) maxRad = pRad;
                     }
 
-                    if (maxRad == 0)
-                        break;
+                    //if (maxRad == 0)
+                    //    break;
                 }
+
+                if (maxRad == 0) // защита от деления на ноль
+                   break;
+
                 if (Width > Height)
                     factor = 1 / (maxRad / (float)(Height / 3));
                 else { factor = 1 / (maxRad / (float)(Width / 3)); }

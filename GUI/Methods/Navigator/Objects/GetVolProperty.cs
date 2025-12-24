@@ -15,35 +15,32 @@ namespace BazisGUI
             var rows = new List<RowProperty>();
             rows.Add(new RowProperty("Номер", number));
 
-            var list = GmshController.Gmsh.Model.Mesh.Field.List();
+            //var list = GmshController.Gmsh.Model.Mesh.Field.List();
             var attributes = GmshController.GetTransfiniteVolume(number);
             //var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite vol {number}");
             var meshTypes = new List<string>() { "*", "градиентная", "регулярная" };
 
 
-            if (!list.Contains(number))
-            {
-                if(attributes.Length == 0)
-                    rows.Add(new RowProperty("Вид сетки", 
-                        new DropDownPropertyValue("*", meshTypes)));
-                else
-                {
-                    //gmshController.Gmsh.Model.SetAttribute($"transfinite vol {number}", 
-                        //new string[] { "регулярная" });
-                    rows.Add(new RowProperty("Вид сетки",
-                        new DropDownPropertyValue(attributes[0], meshTypes)));
-                }
-            }
+            //if (!list.Contains(number))
+            //{
+            if (attributes.Length == 0)
+                rows.Add(new RowProperty("Вид сетки",
+                    new DropDownPropertyValue("*", meshTypes)));
             else
             {
+                //gmshController.Gmsh.Model.SetAttribute($"transfinite vol {number}", 
+                //new string[] { "регулярная" });
                 rows.Add(new RowProperty("Вид сетки",
-                        new DropDownPropertyValue(attributes[0], meshTypes)));
-                rows.Add(new RowProperty("Степень градиента перехода", attributes[1]));
-                rows.Add(new RowProperty("Толщина слоя", attributes[2]));
-                rows.Add(new RowProperty("Размер элементов на поверхности", attributes[3]));
-                rows.Add(new RowProperty("Размер элементов в центре", attributes[4]));
+                    new DropDownPropertyValue(attributes[0], meshTypes)));
+                if (attributes[0] == meshTypes[1])
+                {
+                    rows.Add(new RowProperty("Степень градиента перехода", attributes[1]));
+                    rows.Add(new RowProperty("Толщина слоя", attributes[2]));
+                    rows.Add(new RowProperty("Размер элементов на поверхности", attributes[3]));
+                    rows.Add(new RowProperty("Размер элементов в центре", attributes[4]));
+                }
             }
-
+            
             return rows;
         }      
     }
