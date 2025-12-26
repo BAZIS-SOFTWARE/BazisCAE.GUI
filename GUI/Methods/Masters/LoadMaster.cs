@@ -1,5 +1,8 @@
 ﻿using MasterInterface;
+using Microsoft.Scripting.Utils;
 using Model.Interfaces;
+using Project.Interfaces.Tasks;
+using Project.Tasks.FrameCreators;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -41,6 +44,7 @@ namespace BazisGUI
                 var uc = (UserControl)master;
                 uc.Dock = DockStyle.Fill;
                 uc.Name = $"cntr{master.MasterName}";
+                uc.Text = $"cntr{master.MasterName}";
                 uc.Size = cntrНавигатор.Size;
                 uc.Location = cntrНавигатор.Location;
                 uc.Anchor = cntrНавигатор.Anchor;
@@ -52,11 +56,31 @@ namespace BazisGUI
                         project.TaskData.Clear();
                         foreach (var item in taskStrings)
                         {
-                            var args = item.Split(':');
-                            var kind = Enum.Parse<Project.Interfaces.Tasks.DataKind>(args[0]);
+                            var args = item.Split(':').Select(x => x.Trim()).ToArray();
+                            var kind = Enum.Parse<DataKind>(args[0]);
                             var data = project.TaskData.Create(kind, args[1], project.ModelData.GroupData);
+                            if (kind == DataKind.Нагрев)
+                            {
+                                var dataAr = args[1].Split(" ");
+                                var MrfArgs = dataAr[2].Split(";");
+                                var mrfIndex = MrfArgs.FindIndex(x => x == "MRF");
+                                var lines = MrfArgs[mrfIndex + 1].Split('|');
+
+                                var baseLine = project.ModelData.GroupData.Find(lines[0]);
+                                var refLine = project.ModelData.GroupData.Find(lines[1]);
+
+                                baseLine.SortByDistance();
+                                refLine.SortByDistance();
+
+                                var velocity = float.Parse(MrfArgs[mrfIndex + 2]);
+                                var movedFrame = new MovedFrame(baseLine, refLine, velocity);
+
+                                data.StopTime = data.StartTime + (float)Math.Round(movedFrame.CalcMotionTime(), 4);
+                            }
                             project.TaskData.Add(data);
                         }
+                        PresentCondDataOnTree();
+                        console.PrintInfo("Граничные условия сформированы", Color.Green);
                     }
                     catch (Exception ex)
                     {

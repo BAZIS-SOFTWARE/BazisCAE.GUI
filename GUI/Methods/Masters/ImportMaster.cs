@@ -50,7 +50,7 @@ namespace BazisGUI
                         Text = temp.MasterName,
                         Name = $"{temp.MasterName}ToolStripMenuItem",
                         Checked = false,
-                        CheckOnClick = true
+                        CheckOnClick = false
                     };
                     masterToolStripMenuItem.Click += OpenImportedMasterMenuItem_Click;
 
@@ -80,15 +80,28 @@ namespace BazisGUI
         {
             var master = (ToolStripMenuItem)sender;
             var ctrl = splitContainer3.Panel1.Controls.OfType<IMaster>().FirstOrDefault(x => x.MasterName == master.Text);
-            if (master.Checked)
+
+            if (project.FunctionsDB == null || project.MaterialsDB == null)
+            {
+                console.PrintInfo("Для открытия мастера необходимо загрузить БД материалов и функций", Color.Red);
+                return;
+            }
+
+            if (!master.Checked)
             {
                 if (ctrl == null)
                     LoadMaster((IMaster)Activator.CreateInstance(importedMastersTypes[master.Text]));
                 else
                     ((UserControl)ctrl).BringToFront();
+                master.Checked = true;
             }
             else
+            {
+                master.Checked = false;
                 HideTabButton($"btnTab{master.Text}");
+                splitContainer3.Panel1.Controls.Remove((UserControl)ctrl);
+                splitContainer3.Panel1.Controls.Remove(splitContainer3.Panel1.Controls.OfType<Button>().FirstOrDefault(x => x.Name == $"btnTab{master.Text}"));
+            }
         }
     }
 }
