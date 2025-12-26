@@ -89,7 +89,6 @@ namespace BazisGUI
             Lighting = true,
             BackRibbers = false,
             SolverPath = "?",
-            SolverFile = "BazisSolverConsole.exe"
         };
 
         private Thread serverConnectionPing;

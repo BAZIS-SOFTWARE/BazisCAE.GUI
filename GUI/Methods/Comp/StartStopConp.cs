@@ -70,11 +70,13 @@ namespace BazisGUI
                 if (!File.Exists($@"{lblStatus.Text}"))
                     throw new Exception($"В папке проекта {WorkingDir} отсутствует файл проекта {project.Name}.");
 
-                if (!File.Exists($@"{WorkingDir}\{project.MaterialsDB.Name}"))
-                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл материалов {project.MaterialsDB}.");
+                var mat = Path.Combine(WorkingDir, project.MaterialsDB.Name);
+                if (!File.Exists(mat))
+                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл материалов {project.MaterialsDB.Name}.");
 
-                if (!File.Exists($@"{WorkingDir}\{project.FunctionsDB.Name}"))
-                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл функций {project.FunctionsDB}.");
+                var func = Path.Combine(WorkingDir, project.FunctionsDB.Name);
+                if (!File.Exists(func))
+                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл функций {project.FunctionsDB.Name}.");
 
             }
             catch (Exception ex)
@@ -89,10 +91,9 @@ namespace BazisGUI
             {
                 var myProcess = new Process();
 
-                myProcess.StartInfo.FileName = $@"{settingsConfig.SolverPath}\{settingsConfig.SolverFile}";
+                myProcess.StartInfo.FileName = settingsConfig.SolverPath;
 
-                var compDir = $@"{WorkingDir}\ComputationData";
-                var cmdFile = $@"{compDir}\computation.tcf";
+                var cmdFile = Path.Combine(WorkingDir, "ComputationData", "computation.tcf");
 
                 var argStr = string.Join(" ", new string[] { cmdFile });
 
