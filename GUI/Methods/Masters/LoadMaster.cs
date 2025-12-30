@@ -53,6 +53,12 @@ namespace BazisGUI
                 {
                     try
                     {
+                        if (project.TaskData.Count > 0)
+                        {
+                            var res = MessageBox.Show("Генерация граничных условий приведет к удалению старых условий. Продолжить?", "Внимание", MessageBoxButtons.YesNo);
+                            if (res == DialogResult.No)
+                                return;
+                        }
                         project.TaskData.Clear();
                         foreach (var item in taskStrings)
                         {
