@@ -47,7 +47,7 @@ namespace BazisGUI
             }
 
             var temp = (IMaster)Activator.CreateInstance(typeSelection);
-            console.PrintInfo($"Определен и загружен мастер {temp.MasterName}", Color.Black);
+            console.PrintInfo($"Открыт мастер {temp.MasterName}", Color.Black);
             LoadMaster(temp);
         }
 
