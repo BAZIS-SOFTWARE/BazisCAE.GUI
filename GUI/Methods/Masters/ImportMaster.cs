@@ -25,7 +25,7 @@ namespace BazisGUI
         public void ImportMasterDLL(string dllPath)
         {
             var assembly = Assembly.LoadFrom(dllPath);
-            var tempTypeCollection = new List<Type>();
+            Type typeSelection = default;
 
             foreach(var type in assembly.GetTypes())
             {
@@ -34,32 +34,31 @@ namespace BazisGUI
                     && !type.IsAbstract
                     && !type.IsInterface
                     && !importedMastersTypes.ContainsValue(type))
-                    tempTypeCollection.Add(type);
-            }
-
-            if (tempTypeCollection.Count == 0)
-                console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера постановки задач или реализация уже загружена", Color.DarkOrange);
-
-            else
-            {
-                foreach(var item in tempTypeCollection)
                 {
-                    var temp = (IMaster)Activator.CreateInstance(item);
-                    var masterToolStripMenuItem = new ToolStripMenuItem
-                    {
-                        Text = temp.MasterName,
-                        Name = $"{temp.MasterName}ToolStripMenuItem",
-                        Checked = false,
-                        CheckOnClick = false
-                    };
-                    masterToolStripMenuItem.Click += OpenImportedMasterMenuItem_Click;
-
-                    мастерToolStripMenuItem.DropDownItems.Add(masterToolStripMenuItem);
-                    importedMastersTypes[temp.MasterName] = item; 
+                    typeSelection = type;
+                    break;
                 }
-
-                console.PrintInfo($"Определено и загружено мастеров: {tempTypeCollection.Count()}", Color.Black);
             }
+
+            if (typeSelection == default)
+            {
+                console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера постановки задач или реализация уже загружена", Color.DarkOrange);
+                return;
+            }
+
+            var temp = (IMaster)Activator.CreateInstance(typeSelection);
+            var masterToolStripMenuItem = new ToolStripMenuItem
+            {
+                Text = temp.MasterName,
+                Name = $"{temp.MasterName}ToolStripMenuItem",
+                Checked = false,
+                CheckOnClick = false,
+            };
+            masterToolStripMenuItem.Click += OpenImportedMasterMenuItem_Click;
+
+            мастерToolStripMenuItem.DropDownItems.Add(masterToolStripMenuItem);
+            importedMastersTypes[temp.MasterName] = typeSelection;
+            console.PrintInfo($"Определен и загружен мастер {temp.MasterName}", Color.Black);
         }
 
         private void загрузитьМастерToolStripMenuItem_Click(object sender, EventArgs e)
