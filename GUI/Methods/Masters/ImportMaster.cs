@@ -27,7 +27,7 @@ namespace BazisGUI
             var assembly = Assembly.LoadFrom(dllPath);
             Type typeSelection = default;
 
-            foreach(var type in assembly.GetTypes())
+            foreach (var type in assembly.GetTypes())
             {
                 if (typeof(IMaster).IsAssignableFrom(type)
                     && typeof(UserControl).IsAssignableFrom(type)
@@ -47,18 +47,8 @@ namespace BazisGUI
             }
 
             var temp = (IMaster)Activator.CreateInstance(typeSelection);
-            var masterToolStripMenuItem = new ToolStripMenuItem
-            {
-                Text = temp.MasterName,
-                Name = $"{temp.MasterName}ToolStripMenuItem",
-                Checked = false,
-                CheckOnClick = false,
-            };
-            masterToolStripMenuItem.Click += OpenImportedMasterMenuItem_Click;
-
-            мастерToolStripMenuItem.DropDownItems.Add(masterToolStripMenuItem);
-            importedMastersTypes[temp.MasterName] = typeSelection;
             console.PrintInfo($"Определен и загружен мастер {temp.MasterName}", Color.Black);
+            LoadMaster(temp);
         }
 
         private void загрузитьМастерToolStripMenuItem_Click(object sender, EventArgs e)
