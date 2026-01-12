@@ -53,7 +53,8 @@ namespace BazisGUI
                 {
                     try
                     {
-                        var res = MessageBox.Show("Генерация граничных условий приведет к удалению старых условий, если они есть. Продолжить?", "Внимание", MessageBoxButtons.YesNo);
+                        var res = MessageBox.Show("Генерация граничных условий приведет к удалению старых условий, если они есть. Продолжить?", 
+                            "Внимание", MessageBoxButtons.YesNo);
                         if (res == DialogResult.No)
                             return;
 
@@ -63,6 +64,8 @@ namespace BazisGUI
                             var args = item.Split(':').Select(x => x.Trim()).ToArray();
                             var kind = Enum.Parse<DataKind>(args[0]);
                             var data = project.TaskData.Create(kind, args[1], project.ModelData.GroupData);
+                            
+                            //TODO перенести в BazisCore
                             if (kind == DataKind.Нагрев)
                             {
                                 var dataAr = args[1].Split(" ");
