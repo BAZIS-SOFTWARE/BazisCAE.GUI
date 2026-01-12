@@ -21,7 +21,22 @@
         public event Action<string[]> GenerateConditionsEvent;
         public event Action UpdateSceneEvent;
 
-        public virtual string MasterName { get; }
+        public virtual string MasterName { get; } = "AbstractMaster";
+
+        protected void RaiseGenerateConditionsEvent(string[] strings)
+        {
+            GenerateConditionsEvent?.Invoke(strings);
+        }
+
+        protected void RaisePrintInfoEvent(string str, Color color)
+        {
+            PrintInfoEvent?.Invoke(str, color);
+        }
+
+        protected void RaiseUpdateSceneEvent()
+        {
+            UpdateSceneEvent?.Invoke();
+        }
 
         public virtual void AddGroup(GroupType type, int number, string groupName)
         {

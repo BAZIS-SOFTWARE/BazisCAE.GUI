@@ -2,11 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BazisGUI
@@ -25,40 +22,35 @@ namespace BazisGUI
         public void ImportMasterDLL(string dllPath)
         {
             var assembly = Assembly.LoadFrom(dllPath);
-            var tempTypeCollection = new List<Type>();
+            var importedMasters = new List<Type>();
 
-            foreach(var type in assembly.GetTypes())
+            foreach (var ctrl in assembly.GetTypes())
             {
-                if (typeof(IMaster).IsAssignableFrom(type)
-                    && typeof(UserControl).IsAssignableFrom(type)
-                    && !type.IsAbstract
-                    && !type.IsInterface
-                    && !importedMastersTypes.ContainsValue(type))
-                    tempTypeCollection.Add(type);
+                if (typeof(IMaster).IsAssignableFrom(ctrl)
+                    && typeof(UserControl).IsAssignableFrom(ctrl)
+                    && !ctrl.IsAbstract
+                    && !ctrl.IsInterface
+                    && !importedMastersTypes.ContainsValue(ctrl))
+                    importedMasters.Add(ctrl);
             }
 
-            if (tempTypeCollection.Count == 0)
-                console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера постановки задач или реализация уже загружена", Color.DarkOrange);
+            CreateImportedMasters(importedMasters);
+        }
 
-            else
+        private void CreateImportedMasters(List<Type> masterTypes)
+        {
+            if (masterTypes.Count == 0)
             {
-                foreach(var item in tempTypeCollection)
-                {
-                    var temp = (IMaster)Activator.CreateInstance(item);
-                    var masterToolStripMenuItem = new ToolStripMenuItem
-                    {
-                        Text = temp.MasterName,
-                        Name = $"{temp.MasterName}ToolStripMenuItem",
-                        Checked = false,
-                        CheckOnClick = true
-                    };
-                    masterToolStripMenuItem.Click += OpenImportedMasterMenuItem_Click;
+                console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера постановки задач или реализация уже загружена", Color.DarkOrange);
+                return;
+            }
 
-                    мастерToolStripMenuItem.DropDownItems.Add(masterToolStripMenuItem);
-                    importedMastersTypes[temp.MasterName] = item; 
-                }
-
-                console.PrintInfo($"Определено и загружено мастеров: {tempTypeCollection.Count()}", Color.Black);
+            foreach (var item in masterTypes)
+            {
+                var master = (IMaster)Activator.CreateInstance(item);
+                importedMastersTypes[master.MasterName] = item;
+                console.PrintInfo($"Открыт мастер {master.MasterName}", Color.Black);
+                LoadMaster(master);
             }
         }
 
@@ -80,15 +72,28 @@ namespace BazisGUI
         {
             var master = (ToolStripMenuItem)sender;
             var ctrl = splitContainer3.Panel1.Controls.OfType<IMaster>().FirstOrDefault(x => x.MasterName == master.Text);
-            if (master.Checked)
+
+            if (project.FunctionsDB == null || project.MaterialsDB == null)
+            {
+                console.PrintInfo("Для открытия мастера необходимо загрузить БД материалов и функций", Color.Red);
+                return;
+            }
+
+            if (!master.Checked)
             {
                 if (ctrl == null)
                     LoadMaster((IMaster)Activator.CreateInstance(importedMastersTypes[master.Text]));
                 else
                     ((UserControl)ctrl).BringToFront();
+                master.Checked = true;
             }
             else
+            {
+                master.Checked = false;
                 HideTabButton($"btnTab{master.Text}");
+                splitContainer3.Panel1.Controls.Remove((UserControl)ctrl);
+                splitContainer3.Panel1.Controls.Remove(splitContainer3.Panel1.Controls.OfType<Button>().FirstOrDefault(x => x.Name == $"btnTab{master.Text}"));
+            }
         }
     }
 }

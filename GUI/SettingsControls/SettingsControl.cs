@@ -91,12 +91,12 @@ namespace BazisGUI.SettingsControls
 
         private void btnSetSolverPath_Click(object sender, EventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
+            var dialog = new OpenFileDialog { Filter = "(*.exe)|*.exe" };
 
             if (dialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            lblSolverPath.Text = dialog.SelectedPath;
+            lblSolverPath.Text = dialog.FileName;
 
             SetSolverPathEvent?.Invoke(lblSolverPath.Text);
         }
