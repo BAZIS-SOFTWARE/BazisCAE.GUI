@@ -217,7 +217,7 @@ namespace BazisGUI
                 if (flag)
                 {
                     var rows = GetSurfaceProperties(number);
-                    propertiesPanel.DrawTable(rows);
+                    propertiesPanel.DrawTable(rows, obj.ObjInfo,obj.Tag);
                 }
             }
         }

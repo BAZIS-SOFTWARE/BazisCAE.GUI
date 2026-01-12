@@ -20,12 +20,12 @@ namespace BazisGUI
                 List<RowProperty> rows = new List<RowProperty>();
 
                 var type = Converters.GetEnumNames<TaskType>();
-                type.RemoveRange(0, 2); // пока уберем линейную и плоскую задачи (они не реализованы)
+                //type.RemoveRange(0, 2); // пока уберем линейную и плоскую задачи (они не реализованы)
 
                 rows.Add(new RowProperty("Вид",new DropDownPropertyValue(project.ProjectType, type)));
 
                 var kinds = Converters.GetEnumNames<TaskKind>();
-                kinds.RemoveRange(0, 1);// пока уберем химическую задачу (она не реализована)
+                //kinds.RemoveRange(0, 1);// пока уберем химическую задачу (она не реализована)
                 var term_mech = (TaskKind.термическая | TaskKind.механическая).ToString();
                 kinds.Add(term_mech);
                 rows.Add(new RowProperty("Тип",new DropDownPropertyValue(project.ProjectKind, kinds)));
