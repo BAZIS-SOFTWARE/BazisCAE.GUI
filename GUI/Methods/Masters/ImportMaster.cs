@@ -2,11 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BazisGUI
@@ -25,30 +22,36 @@ namespace BazisGUI
         public void ImportMasterDLL(string dllPath)
         {
             var assembly = Assembly.LoadFrom(dllPath);
-            Type typeSelection = default;
+            var importedMasters = new List<Type>();
 
-            foreach (var type in assembly.GetTypes())
+            foreach (var ctrl in assembly.GetTypes())
             {
-                if (typeof(IMaster).IsAssignableFrom(type)
-                    && typeof(UserControl).IsAssignableFrom(type)
-                    && !type.IsAbstract
-                    && !type.IsInterface
-                    && !importedMastersTypes.ContainsValue(type))
-                {
-                    typeSelection = type;
-                    break;
-                }
+                if (typeof(IMaster).IsAssignableFrom(ctrl)
+                    && typeof(UserControl).IsAssignableFrom(ctrl)
+                    && !ctrl.IsAbstract
+                    && !ctrl.IsInterface
+                    && !importedMastersTypes.ContainsValue(ctrl))
+                    importedMasters.Add(ctrl);
             }
 
-            if (typeSelection == default)
+            CreateImportedMasters(importedMasters);
+        }
+
+        private void CreateImportedMasters(List<Type> masterTypes)
+        {
+            if (masterTypes.Count == 0)
             {
                 console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера постановки задач или реализация уже загружена", Color.DarkOrange);
                 return;
             }
 
-            var temp = (IMaster)Activator.CreateInstance(typeSelection);
-            console.PrintInfo($"Открыт мастер {temp.MasterName}", Color.Black);
-            LoadMaster(temp);
+            foreach (var item in masterTypes)
+            {
+                var master = (IMaster)Activator.CreateInstance(item);
+                importedMastersTypes[master.MasterName] = item;
+                console.PrintInfo($"Открыт мастер {master.MasterName}", Color.Black);
+                LoadMaster(master);
+            }
         }
 
         private void загрузитьМастерToolStripMenuItem_Click(object sender, EventArgs e)
