@@ -49,7 +49,7 @@ namespace BazisGUI
                 uc.Location = cntrНавигатор.Location;
                 uc.Anchor = cntrНавигатор.Anchor;
 
-                master.GenerateConditionsEvent += (taskStrings) =>
+                master.GenerateConditionsEvent += (inputStrings) =>
                 {
                     try
                     {
@@ -58,7 +58,7 @@ namespace BazisGUI
                             return;
 
                         project.TaskData.Clear();
-                        foreach (var item in taskStrings)
+                        foreach (var item in inputStrings)
                         {
                             var args = item.Split(':').Select(x => x.Trim()).ToArray();
                             var kind = Enum.Parse<DataKind>(args[0]);
