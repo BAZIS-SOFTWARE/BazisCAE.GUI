@@ -56,31 +56,30 @@ namespace BazisGUI
             }
         }
 
-
         private void buttonTab_Paint(object sender, PaintEventArgs e)
         {
             var g = e.Graphics;
 
             var btn = sender as Button;
 
-            if (bool.Parse(btn.Tag.ToString()))
-                g.DrawRectangle(new Pen(Color.Black, 1.5f),
-                    1, 1, btn.Width - 3, btn.Height - 3);
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            // Создаем объект StringFormat
-            StringFormat sf = new StringFormat();
-            sf.Alignment = StringAlignment.Far;
-            sf.LineAlignment = StringAlignment.Center;
+            if (bool.Parse(btn.Tag.ToString()))
+            {
+                using var pen = new Pen(Color.Black, 1.5f);
+                g.DrawRectangle(pen, 1, 1, btn.Width, btn.Height);
+            }
 
             var text = btn.Name.Replace("btnTab", "");
+            var size = g.MeasureString(text, btn.Font);
 
-            var length = g.MeasureString(text, btn.Font);
-            // Создаем объект RotateTransform
-            g.RotateTransform(-90); // Поворачиваем на 45 градусов
-            
-            // Рисуем текст
-            g.DrawString(text, btn.Font, Brushes.Black, -length.Width/2, length.Height, sf);
+            var state = g.Save();
+
+            g.TranslateTransform(btn.Width / 2f, btn.Height / 2f);
+            g.RotateTransform(-90);
+
+            g.DrawString(text, btn.Font, Brushes.Black, -size.Width / 2f, -size.Height / 2f);
+            g.Restore(state);
         }
-        
     }
 }
