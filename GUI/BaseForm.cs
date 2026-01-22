@@ -445,12 +445,14 @@ namespace BazisGUI
                     if (GmshController.Gmsh == null)
                         project.GmshController = dataController.LoadGMSH();
                     project.ImportCAD(filePath);
+                    project.ChangeTaskKind(Project.Interfaces.Tasks.TaskKind.термическая);
                 }
 
                 else
                 {
                     project = await dataController.ImportMesh(filePath);
                     GmshController?.Gmsh?.Clear();
+                    project.ChangeTaskKind(Project.Interfaces.Tasks.TaskKind.термическая);
                 }
 
                 lblStatus.Text = filePath;
