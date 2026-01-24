@@ -143,6 +143,7 @@ namespace BazisGUI
             menuItem_InfoSelectedObjects = new ToolStripMenuItem();
             menuItem_SetRotPoint = new ToolStripMenuItem();
             menuItem_DeleteSelectedObjects = new ToolStripMenuItem();
+            показатьСопряженныеItem = new ToolStripMenuItem();
             toolStripContainer.BottomToolStripPanel.SuspendLayout();
             toolStripContainer.ContentPanel.SuspendLayout();
             toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -1334,16 +1335,16 @@ namespace BazisGUI
             // contextMenu
             // 
             contextMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
-            contextMenu.Items.AddRange(new ToolStripItem[] { создатьГруппуItem, скрытьВыбранноеItem, показатьСкрытыеItem, menuItem_InfoSelectedObjects, menuItem_SetRotPoint, menuItem_DeleteSelectedObjects });
+            contextMenu.Items.AddRange(new ToolStripItem[] { создатьГруппуItem, скрытьВыбранноеItem, показатьСкрытыеItem, menuItem_InfoSelectedObjects, menuItem_SetRotPoint, menuItem_DeleteSelectedObjects, показатьСопряженныеItem });
             contextMenu.Name = "sceneContextMenu";
-            contextMenu.Size = new System.Drawing.Size(204, 136);
+            contextMenu.Size = new System.Drawing.Size(205, 180);
             // 
             // создатьГруппуItem
             // 
             создатьГруппуItem.Image = (System.Drawing.Image)resources.GetObject("создатьГруппуItem.Image");
             создатьГруппуItem.ImageScaling = ToolStripItemImageScaling.None;
             создатьГруппуItem.Name = "создатьГруппуItem";
-            создатьГруппуItem.Size = new System.Drawing.Size(203, 22);
+            создатьГруппуItem.Size = new System.Drawing.Size(204, 22);
             создатьГруппуItem.Text = "Создать новую группу";
             создатьГруппуItem.Click += создатьГруппуItem_Click;
             // 
@@ -1352,7 +1353,7 @@ namespace BazisGUI
             скрытьВыбранноеItem.Image = Properties.Resources.hide_w;
             скрытьВыбранноеItem.ImageScaling = ToolStripItemImageScaling.None;
             скрытьВыбранноеItem.Name = "скрытьВыбранноеItem";
-            скрытьВыбранноеItem.Size = new System.Drawing.Size(203, 22);
+            скрытьВыбранноеItem.Size = new System.Drawing.Size(204, 22);
             скрытьВыбранноеItem.Text = "Скрыть выбранное";
             скрытьВыбранноеItem.Click += скрытьВыбранноеItem_Click;
             // 
@@ -1361,16 +1362,16 @@ namespace BazisGUI
             показатьСкрытыеItem.Image = Properties.Resources.show_w;
             показатьСкрытыеItem.ImageScaling = ToolStripItemImageScaling.None;
             показатьСкрытыеItem.Name = "показатьСкрытыеItem";
-            показатьСкрытыеItem.Size = new System.Drawing.Size(203, 22);
+            показатьСкрытыеItem.Size = new System.Drawing.Size(204, 22);
             показатьСкрытыеItem.Text = "Показать все скрытые";
-            показатьСкрытыеItem.Click += показатьСкрытыеItem_Click;
+            показатьСкрытыеItem.Click += this.показатьСкрытыеItem_Click;
             // 
             // menuItem_InfoSelectedObjects
             // 
             menuItem_InfoSelectedObjects.Image = Properties.Resources.info_w;
             menuItem_InfoSelectedObjects.ImageScaling = ToolStripItemImageScaling.None;
             menuItem_InfoSelectedObjects.Name = "menuItem_InfoSelectedObjects";
-            menuItem_InfoSelectedObjects.Size = new System.Drawing.Size(203, 22);
+            menuItem_InfoSelectedObjects.Size = new System.Drawing.Size(204, 22);
             menuItem_InfoSelectedObjects.Text = "Выбранные объекты";
             menuItem_InfoSelectedObjects.Click += menuItem_InfoSelectedObjects_Click;
             // 
@@ -1379,7 +1380,7 @@ namespace BazisGUI
             menuItem_SetRotPoint.Image = (System.Drawing.Image)resources.GetObject("menuItem_SetRotPoint.Image");
             menuItem_SetRotPoint.ImageScaling = ToolStripItemImageScaling.None;
             menuItem_SetRotPoint.Name = "menuItem_SetRotPoint";
-            menuItem_SetRotPoint.Size = new System.Drawing.Size(203, 22);
+            menuItem_SetRotPoint.Size = new System.Drawing.Size(204, 22);
             menuItem_SetRotPoint.Text = "Задать точку вращения";
             menuItem_SetRotPoint.Click += menuItem_SetRotPoint_Click;
             // 
@@ -1388,9 +1389,16 @@ namespace BazisGUI
             menuItem_DeleteSelectedObjects.Image = (System.Drawing.Image)resources.GetObject("menuItem_DeleteSelectedObjects.Image");
             menuItem_DeleteSelectedObjects.ImageScaling = ToolStripItemImageScaling.None;
             menuItem_DeleteSelectedObjects.Name = "menuItem_DeleteSelectedObjects";
-            menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(203, 22);
+            menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(204, 22);
             menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             menuItem_DeleteSelectedObjects.Click += menuItem_DeleteSelectedObjects_Click;
+            // 
+            // показатьСопряженныеItem
+            // 
+            показатьСопряженныеItem.Name = "показатьСопряженныеItem";
+            показатьСопряженныеItem.Size = new System.Drawing.Size(204, 22);
+            показатьСопряженныеItem.Text = "Показать сопряженные";
+            показатьСопряженныеItem.Click += показатьСопряженныеItem_Click;
             // 
             // BaseForm
             // 
@@ -1550,6 +1558,7 @@ namespace BazisGUI
         private ToolStripMenuItem toolStripMenuItem4;
         private ToolStripMenuItem загрузитьМастерToolStripMenuItem;
         private ToolStripMenuItem рассечьПлоскостьюToolStripMenuItem;
+        private ToolStripMenuItem показатьСопряженныеItem;
     }
 }
 

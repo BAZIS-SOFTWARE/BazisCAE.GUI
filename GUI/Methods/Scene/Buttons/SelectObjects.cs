@@ -1,7 +1,6 @@
 ﻿using BazisGUI.AdvanceSelection;
 using BazisGUI.Extensions;
 using BazisGUI.Properties;
-using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.MeshObjects;
 using Model.Utilities;
@@ -124,7 +123,7 @@ namespace BazisGUI
                 AddObjectsType("Объекты");
 
                 foreach (ObjType item in objTypes)
-                    AddObjectsType(item.ToString());              
+                    AddObjectsType(item.ToString());
             }
         }
 

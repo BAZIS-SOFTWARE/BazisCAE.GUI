@@ -22,6 +22,6 @@ string MasterName { **get;** }
 }
 
 abstract Master
-Master <|.up.. IMaster
+IMaster <|.up.. Master
 
 @enduml

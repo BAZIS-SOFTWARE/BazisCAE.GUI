@@ -1,76 +1,66 @@
 ﻿using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
+using System;
 using System.Linq;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void ShowAdjacencies(ObjType objType, int number)
+
+        //private void ShowVolAdg(int number)
+        //{
+        //    var vol = project.GetModelVolumes().First(x => x.Number == number);
+
+        //    foreach (var surfaceFigure in vol.GetSurfaceFigures())
+        //        ShowAdg(surfaceFigure.Number);      
+        //}
+
+        private void ShowAdg(int dim, int number, int dir)
         {
-            //TODO тут пишем метод который показывает все связанные объекты
-
-            ISetInfo set;
-
-            //var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
-            //var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
-
-            if (objType == ObjType.Поверхность)
+            try
             {
-                ShowSurfAdg(number);
-                set = project.GetModelSetsInfo(ObjType.Поверхность).First();
-                PresentSet(set);
-                set = project.GetModelSetsInfo(ObjType.Кривая).First();
-                PresentSet(set);
-                set = project.GetModelSetsInfo(ObjType.Точка).First();
-                PresentSet(set);
-            }
-            else if (objType == ObjType.Кривая)
+            //var objs = project.GetModelObject(objType,number);
+            //objs.ViewState = true;
+
+            int[] adgTags;
+            if (dir == 1)
+                adgTags = GmshController.Gmsh.Model.GetAdjacencies(dim, number).Item2;
+            else
+                adgTags = GmshController.Gmsh.Model.GetAdjacencies(dim, number).Item1;
+
+            ObjType adgType;
+            if (dir == 1)
+                dim--;
+            else
+                dim++;
+
+            adgType = (ObjType)dim;
+            // Выглядит как костыль для объемов. В будущем может это как-то
+            // по-другому делать
+
+            if (dim == 3)
             {
-                ShowCurvAdg(number);
-                set = project.GetModelSetsInfo(ObjType.Кривая).First();
-                PresentSet(set);
-                set = project.GetModelSetsInfo(ObjType.Точка).First();
-                PresentSet(set);
+                foreach (var item in adgTags)
+                {
+                    var vol = project.GetModelVolumes().FirstOrDefault(x => x.Number == item);
+
+                    foreach (var surfaceFigure in vol.GetSurfaceFigures())
+                        surfaceFigure.ViewState = true;
+                }
+
             }
+            else
+                foreach (var adgTag in adgTags)
+                {
+                    var obj = project.GetModelObject(adgType, adgTag);
+                    obj.ViewState = true;
+                }
 
-            DisplayObjects();
-        }
-
-        private void ShowVolAdg(int number)
-        {
-            var vol = project.GetModelVolumes().First(x => x.Number == number);
-
-            foreach (var surfaceFigure in vol.GetSurfaceFigures())
-                ShowSurfAdg(surfaceFigure.Number);      
-        }
-
-        private void ShowSurfAdg(int number)
-        {
-            var surfaceFigure = project.GetModelSurface(number);
-            surfaceFigure.ViewState = true;
-
-            var curvTags = GmshController.Gmsh.Model.GetAdjacencies(2, number).Item2;
-
-            foreach (var cNumber in curvTags)
-                ShowCurvAdg(cNumber);
-        }
-
-        private void ShowCurvAdg(int number)
-        {
-            var curve = project.GetModelCurve(number);
-            curve.ViewState = true;
-
-            var pointsTags = GmshController.Gmsh.Model.GetAdjacencies(1, number).Item2;
-
-            foreach (var pNumber in pointsTags)
-                ShowPointAdg(pNumber);
-        }
-
-        private void ShowPointAdg(int number)
-        {
-            var point = project.GetModelPoint(number);
-            point.ViewState = true;
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private void PresentSet(ISetInfo set)

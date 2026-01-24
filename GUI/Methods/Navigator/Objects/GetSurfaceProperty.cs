@@ -1,7 +1,9 @@
 ﻿using BazisGUI.PropertiesPanel;
 using GmshApi;
 using Model.Interfaces;
+using Model.Interfaces.ObjectsCollections;
 using OperationalController.GmshController;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,6 +45,7 @@ namespace BazisGUI
                 ShowObjectsNumbers(ObjType.Точка, distComb);
                 DisplayObjects();
             })));
+
             return rows;
         }
     }

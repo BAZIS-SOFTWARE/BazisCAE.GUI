@@ -60,27 +60,31 @@ namespace BazisGUI
 
         private void CreateVolProperties(int number)
         {
-            var rows = new List<RowProperty>();
+            try
+            {
+                var rows = new List<RowProperty>();
 
-            rows.Add(new RowProperty("Объект", "Объем", true));
+                rows.Add(new RowProperty("Объект", "Объем", true));
 
-            rows.AddRange(GetVolProperties(number));
+                rows.AddRange(GetVolProperties(number));
 
-            rows.Add(new RowProperty("Связанные объекты", new ButtonPropertyValue("Показать",
-                new Action(() =>
-                {
-                        ShowVolAdg(number);
-                        var set = project.GetModelSetsInfo(ObjType.Поверхность).First();
-                        PresentSet(set);
-                        set = project.GetModelSetsInfo(ObjType.Кривая).First();
-                        PresentSet(set);
-                        set = project.GetModelSetsInfo(ObjType.Точка).First();
-                        PresentSet(set);
-                    DisplayObjects();
-                    
-                })), true));
+                //rows.Add(new RowProperty("Поверхности", new ButtonPropertyValue("Показать",
+                //    new Action(() =>
+                //    {
+                //        ShowAdg(3, number, 1);
+                //        var set = project.GetModelSetsInfo(ObjType.Поверхность).First();
+                //        PresentSet(set);
+                //        DisplayObjects();
 
-            propertiesPanel.DrawTable(rows);
+                //    })), true));
+
+                propertiesPanel.DrawTable(rows);
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+ 
         }
 
         private void CreateObjectProperties(ObjType objType, int number)
@@ -112,8 +116,8 @@ namespace BazisGUI
                 rows.AddRange(GetSurfaceProperties(number));
             }
 
-            rows.Add(new RowProperty("Связанные объекты", new ButtonPropertyValue("Показать", 
-                new Action(() => { ShowAdjacencies(objType, number);}))));
+            //rows.Add(new RowProperty("Связанные объекты", new ButtonPropertyValue("Показать", 
+            //    new Action(() => { ShowAdjacencies(objType, number);}))));
             propertiesPanel.DrawTable(rows);
         }
     }
