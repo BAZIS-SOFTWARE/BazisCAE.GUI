@@ -142,8 +142,9 @@ namespace BazisGUI
             показатьСкрытыеItem = new ToolStripMenuItem();
             menuItem_InfoSelectedObjects = new ToolStripMenuItem();
             menuItem_SetRotPoint = new ToolStripMenuItem();
-            menuItem_DeleteSelectedObjects = new ToolStripMenuItem();
             показатьСопряженныеItem = new ToolStripMenuItem();
+            выбратьСопряженныеToolStripMenuItem = new ToolStripMenuItem();
+            menuItem_DeleteSelectedObjects = new ToolStripMenuItem();
             toolStripContainer.BottomToolStripPanel.SuspendLayout();
             toolStripContainer.ContentPanel.SuspendLayout();
             toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -1335,9 +1336,9 @@ namespace BazisGUI
             // contextMenu
             // 
             contextMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
-            contextMenu.Items.AddRange(new ToolStripItem[] { создатьГруппуItem, скрытьВыбранноеItem, показатьСкрытыеItem, menuItem_InfoSelectedObjects, menuItem_SetRotPoint, menuItem_DeleteSelectedObjects, показатьСопряженныеItem });
+            contextMenu.Items.AddRange(new ToolStripItem[] { создатьГруппуItem, скрытьВыбранноеItem, показатьСкрытыеItem, menuItem_InfoSelectedObjects, menuItem_SetRotPoint, показатьСопряженныеItem, выбратьСопряженныеToolStripMenuItem, menuItem_DeleteSelectedObjects });
             contextMenu.Name = "sceneContextMenu";
-            contextMenu.Size = new System.Drawing.Size(205, 180);
+            contextMenu.Size = new System.Drawing.Size(205, 202);
             // 
             // создатьГруппуItem
             // 
@@ -1364,11 +1365,11 @@ namespace BazisGUI
             показатьСкрытыеItem.Name = "показатьСкрытыеItem";
             показатьСкрытыеItem.Size = new System.Drawing.Size(204, 22);
             показатьСкрытыеItem.Text = "Показать все скрытые";
-            показатьСкрытыеItem.Click += this.показатьСкрытыеItem_Click;
+            показатьСкрытыеItem.Click += показатьСкрытыеItem_Click;
             // 
             // menuItem_InfoSelectedObjects
             // 
-            menuItem_InfoSelectedObjects.Image = Properties.Resources.info_w;
+            menuItem_InfoSelectedObjects.Image = Properties.Resources.н1;
             menuItem_InfoSelectedObjects.ImageScaling = ToolStripItemImageScaling.None;
             menuItem_InfoSelectedObjects.Name = "menuItem_InfoSelectedObjects";
             menuItem_InfoSelectedObjects.Size = new System.Drawing.Size(204, 22);
@@ -1384,6 +1385,20 @@ namespace BazisGUI
             menuItem_SetRotPoint.Text = "Задать точку вращения";
             menuItem_SetRotPoint.Click += menuItem_SetRotPoint_Click;
             // 
+            // показатьСопряженныеItem
+            // 
+            показатьСопряженныеItem.Name = "показатьСопряженныеItem";
+            показатьСопряженныеItem.Size = new System.Drawing.Size(204, 22);
+            показатьСопряженныеItem.Text = "Показать сопряженные";
+            показатьСопряженныеItem.Click += показатьСопряженныеItem_Click;
+            // 
+            // выбратьСопряженныеToolStripMenuItem
+            // 
+            выбратьСопряженныеToolStripMenuItem.Name = "выбратьСопряженныеToolStripMenuItem";
+            выбратьСопряженныеToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            выбратьСопряженныеToolStripMenuItem.Text = "Выбрать сопряженные";
+            выбратьСопряженныеToolStripMenuItem.Click += выбратьСопряженныеToolStripMenuItem_Click;
+            // 
             // menuItem_DeleteSelectedObjects
             // 
             menuItem_DeleteSelectedObjects.Image = (System.Drawing.Image)resources.GetObject("menuItem_DeleteSelectedObjects.Image");
@@ -1392,13 +1407,6 @@ namespace BazisGUI
             menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(204, 22);
             menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
             menuItem_DeleteSelectedObjects.Click += menuItem_DeleteSelectedObjects_Click;
-            // 
-            // показатьСопряженныеItem
-            // 
-            показатьСопряженныеItem.Name = "показатьСопряженныеItem";
-            показатьСопряженныеItem.Size = new System.Drawing.Size(204, 22);
-            показатьСопряженныеItem.Text = "Показать сопряженные";
-            показатьСопряженныеItem.Click += показатьСопряженныеItem_Click;
             // 
             // BaseForm
             // 
@@ -1559,6 +1567,7 @@ namespace BazisGUI
         private ToolStripMenuItem загрузитьМастерToolStripMenuItem;
         private ToolStripMenuItem рассечьПлоскостьюToolStripMenuItem;
         private ToolStripMenuItem показатьСопряженныеItem;
+        private ToolStripMenuItem выбратьСопряженныеToolStripMenuItem;
     }
 }
 

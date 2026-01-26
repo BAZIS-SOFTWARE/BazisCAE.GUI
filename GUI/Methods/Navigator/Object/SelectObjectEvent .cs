@@ -26,7 +26,7 @@ namespace BazisGUI
                     SetVBObjectAttribute(pres, "цвет");
 
                     var obj = project.GetModelObject(objType, number);
-                    obj.Color = settingsConfig.SelectGroupColor;
+                    obj.Color = settingsConfig.SelectObjectColor;
 
                     //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
                     SetVBObjectAttribute(pres, "цвет");
@@ -44,7 +44,7 @@ namespace BazisGUI
                     var vol = project.GetModelVolumes().First(x => x.Number == number);
 
                     foreach (var item in vol.GetSurfaceFigures())
-                        item.Color = settingsConfig.SelectGroupColor;
+                        item.Color = settingsConfig.SelectObjectColor;
 
                     SetVBObjectAttribute(pres, "цвет");
                     DisplayObjects();
