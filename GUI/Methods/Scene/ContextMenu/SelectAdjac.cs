@@ -1,10 +1,5 @@
-﻿using Model.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BazisGUI
 {
@@ -12,7 +7,21 @@ namespace BazisGUI
     {
         private void выбратьСопряженныеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TO DO
+            try
+            {
+                foreach (var item in GetModelObjects(SelectedObjects).Where(x => x.Color == settingsConfig.SelectObjectColor))
+                {
+                    var dim = (int)item.ObjType;
+                    SelectAdj(dim, item.Number);
+                }
+
+                // Обновить отображение после установки цвета у всех сопряжённых
+                DisplayObjects();
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, System.Drawing.Color.Red);
+            }
         }       
     }
 }
