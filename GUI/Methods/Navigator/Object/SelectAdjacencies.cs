@@ -13,30 +13,15 @@ namespace BazisGUI
             var (upperLevel, lowerLevel) = GmshController.Gmsh.Model.GetAdjacencies(dim, number);
             var dimUp = dim + 1;
             var dimLow = dim - 1;
-            var adgTypeUp = (ObjType)dimUp;
-            var adgTypeLow = (ObjType)dimLow;
             List<(ISetInfo, List<int> Numbers)> sets = new List<(ISetInfo, List<int> Numbers)>();
-            var setU = project.GetModelSetInfo(adgTypeUp, adgTypeUp.ToString());
-            if(setU != null)
-            {
-                List<int> numbers = new List<int>();
-                foreach (var set in setU.GetNumbers())
-                    if (Array.Exists(upperLevel, x => x == set))
-                        numbers.Add(set);
-                
-                sets.Add((setU, numbers));
-            }
 
-            var setL = project.GetModelSetInfo(adgTypeLow, adgTypeLow.ToString());
-            if(setL != null)
-            {
-                List<int> numbers = new List<int>();
+            var up = GetFilteredSet(dimUp, upperLevel);
+            if (up.Set != null)
+                sets.Add((up.Set, up.Numbers));
 
-                foreach (var set in setL.GetNumbers())
-                    if (Array.Exists(lowerLevel, x => x == set))
-                        numbers.Add(set);
-                sets.Add((setL, numbers));
-            }
+            var low = GetFilteredSet(dimLow, lowerLevel);
+            if (low.Set != null)
+                sets.Add((low.Set, low.Numbers));
 
             return sets;
         }
