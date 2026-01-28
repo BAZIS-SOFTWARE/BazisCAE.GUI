@@ -46,5 +46,10 @@ namespace MasterInterface
         {
             base.ChangeMaterials(materials);
         }
+
+        public override void SetStringsFromCondDataStrings(IEnumerable<string> strings)
+        {
+            base.SetStringsFromCondDataStrings(strings);
+        }
     }
 }

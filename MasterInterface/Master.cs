@@ -99,5 +99,10 @@
         {
             groups[type][number] = newName;
         }
+
+        public virtual void SetStringsFromCondDataStrings(IEnumerable<string> strings)
+        {
+
+        }
     }
 }
