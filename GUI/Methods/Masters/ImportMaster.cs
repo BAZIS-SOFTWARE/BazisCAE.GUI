@@ -51,9 +51,9 @@ namespace BazisGUI
                 foreach (var item in masterTypes)
                 {
                     var master = (IMaster)Activator.CreateInstance(item);
+                    OpenMaster(master);
                     importedMastersTypes[master.MasterName] = item;
                     console.PrintInfo($"Открыт мастер {master.MasterName}", Color.Black);
-                    OpenMaster(master);
                 }
             }
             catch(Exception ex)
