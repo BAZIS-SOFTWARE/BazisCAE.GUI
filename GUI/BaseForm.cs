@@ -454,10 +454,10 @@ namespace BazisGUI
                 }
 
                 lblStatus.Text = filePath;
-                OnProjectLoaded?.Invoke();
 
                 ClearAllDataOnScene();
                 PresentProject();
+                OnProjectLoaded?.Invoke();
 
                 UnblockInterface();
 
