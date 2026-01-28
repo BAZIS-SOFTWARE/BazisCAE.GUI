@@ -230,11 +230,16 @@ namespace BazisGUI
 
                 OnProjectLoaded += () =>
                 {
+                    // TODO переопределить данные в мастере - удалить старое и
+                    // попробовать загрузить новые
+
+                    /*
                     HideTabButton(btn.Name);
                     splitContainer3.Panel1.Controls.Remove(btn);
                     splitContainer3.Panel1.Controls.Remove(uc);
                     foreach (ToolStripMenuItem item in мастерToolStripMenuItem.DropDownItems)
                         item.Checked = false;
+                    */
                 };
 
                 splitContainer3.Panel1.Controls.Add(btn);
