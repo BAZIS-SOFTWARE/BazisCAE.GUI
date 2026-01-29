@@ -66,6 +66,12 @@
         void DeleteAllGroups();
 
         /// <summary>
+        /// Заполнение мастера данными граничных условий из проекта
+        /// </summary>
+        /// <param name="strings"></param>
+        void SetStringsFromCondDataStrings(IEnumerable<string> strings);
+
+        /// <summary>
         /// Замена названий функций для создания строк формирования граничных условий
         /// </summary>
         /// <param name="materials">Названия материалова</param>

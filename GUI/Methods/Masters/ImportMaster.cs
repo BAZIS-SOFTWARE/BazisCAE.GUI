@@ -39,19 +39,26 @@ namespace BazisGUI
 
         private void CreateImportedMasters(List<Type> masterTypes)
         {
-            if (masterTypes.Count == 0)
+            try
             {
-                console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера" +
-                    " постановки задач или реализация уже загружена", Color.DarkOrange);
-                return;
-            }
+                if (masterTypes.Count == 0)
+                {
+                    console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера" +
+                        " постановки задач или реализация этого мастера уже загружена", Color.DarkOrange);
+                    return;
+                }
 
-            foreach (var item in masterTypes)
+                foreach (var item in masterTypes)
+                {
+                    var master = (IMaster)Activator.CreateInstance(item);
+                    OpenMaster(master);
+                    importedMastersTypes[master.MasterName] = item;
+                    console.PrintInfo($"Открыт мастер {master.MasterName}", Color.Black);
+                }
+            }
+            catch(Exception ex)
             {
-                var master = (IMaster)Activator.CreateInstance(item);
-                importedMastersTypes[master.MasterName] = item;
-                console.PrintInfo($"Открыт мастер {master.MasterName}", Color.Black);
-                LoadMaster(master);
+                console.PrintInfo(ex.Message, Color.Red);
             }
         }
 
@@ -61,39 +68,6 @@ namespace BazisGUI
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                     ImportMasterDLL(dialog.FileName);
-            }
-        }
-
-        /// <summary>
-        /// Общее событие открытия импортированного мастера
-        /// </summary>
-        /// <param name="sender">Кнопка определения мастера</param>
-        /// <param name="e">События клика</param>
-        private void OpenImportedMasterMenuItem_Click(object sender, EventArgs e)
-        {
-            var master = (ToolStripMenuItem)sender;
-            var ctrl = splitContainer3.Panel1.Controls.OfType<IMaster>().FirstOrDefault(x => x.MasterName == master.Text);
-
-            if (project.FunctionsDB == null || project.MaterialsDB == null)
-            {
-                console.PrintInfo("Для открытия мастера необходимо загрузить БД материалов и функций", Color.Red);
-                return;
-            }
-
-            if (!master.Checked)
-            {
-                if (ctrl == null)
-                    LoadMaster((IMaster)Activator.CreateInstance(importedMastersTypes[master.Text]));
-                else
-                    ((UserControl)ctrl).BringToFront();
-                master.Checked = true;
-            }
-            else
-            {
-                master.Checked = false;
-                HideTabButton($"btnTab{master.Text}");
-                splitContainer3.Panel1.Controls.Remove((UserControl)ctrl);
-                splitContainer3.Panel1.Controls.Remove(splitContainer3.Panel1.Controls.OfType<Button>().FirstOrDefault(x => x.Name == $"btnTab{master.Text}"));
             }
         }
     }
