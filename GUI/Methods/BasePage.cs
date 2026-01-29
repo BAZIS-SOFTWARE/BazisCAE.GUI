@@ -28,7 +28,7 @@ namespace BazisGUI
             action.Invoke(process, new EventArgs());
         }
 
-        public async Task<Geometry.Plane> CreateSurfaceAsync(IModelData modelData, ObjType objType)
+        public async Task<object?> CreateSurfaceAsync(IModelData modelData, ObjType objType)
         {
             var actBreak = new Action(() =>
             {
@@ -75,12 +75,12 @@ namespace BazisGUI
             });
             var surfaceAwait = AsyncMethodContainer(actSurfaceConfirm, actBreak, message);
             await surfaceAwait;
-            return (Geometry.Plane)surfaceAwait.Result;
+            return surfaceAwait.Result;
         }        
 
-        public async Task<object> AsyncMethodContainer(Func<Tuple<bool,object>> actConfirm, Action actBreak, string cmdMessage)
+        public async Task<object?> AsyncMethodContainer(Func<Tuple<bool,object>> actConfirm, Action actBreak, string cmdMessage)
         {
-            var resObject = new object();
+            object resObject = null;
             PressedKey = Keys.None;
             Invoke(new Action(() => 
             {
