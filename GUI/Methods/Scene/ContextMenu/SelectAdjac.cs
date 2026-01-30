@@ -11,23 +11,20 @@ namespace BazisGUI
         {
             try
             {
-                List<List<(ISetInfo, List<int> Numbers)>> all = new List<List<(ISetInfo, List<int> Numbers)>>();
+                List<(ISetInfo, List<int> Numbers)> all = new List<(ISetInfo, List<int> Numbers)>();
 
                 foreach (var item in GetModelObjects(SelectedObjects).Where(x => x.Color == settingsConfig.SelectObjectColor))
                 {
                     var dim = (int)item.ObjType;
                     var sets = SelectAdj(dim, item.Number);
-                    all.Add(sets);
+                    all.AddRange(sets);
                 }
-                foreach (var sets in all)
+                foreach (var (set, numbers) in all)
                 {
-                    foreach(var (set, numbers) in sets)
-                    {
-                        foreach(var number in numbers)
-                            set.SetColor(settingsConfig.SelectObjectColor, number);
-                        var pres = project.CreateModelObjectsPresentor(set);
-                        SetVBObjectAttribute(pres, "цвет");
-                    }
+                    foreach (var number in numbers)
+                        set.SetColor(settingsConfig.SelectObjectColor, number);
+                    var pres = project.CreateModelObjectsPresentor(set);
+                    SetVBObjectAttribute(pres, "цвет");
                 }
                 DisplayObjects();
             }
