@@ -249,13 +249,10 @@ namespace BazisGUI
         private async void DistancePointToPlane(string objTypeStr)
         {
             var objType = objTypeStr.ToEnum<ObjType>();
-            Geometry.Plane plane;
 
-            var awaiting = await CreateSurfaceAsync(project.ModelData, objType);
-            if (awaiting is null)
+            var plane = await CreateSurfaceAsync(project.ModelData, objType);
+            if (plane is null)
                 return;
-            else
-                plane = (Geometry.Plane) awaiting;
 
                 project.SetModelObjectsBackColor(objType);
 
