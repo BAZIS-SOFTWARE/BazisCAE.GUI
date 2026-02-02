@@ -193,6 +193,20 @@ namespace BazisGUI.Console
 
         }
 
+        public void PrintHistory(string str)
+        {
+            int lastLineIndex = rtxbField.Lines.Length - 1;
+            int startIndex = rtxbField.GetFirstCharIndexFromLine(lastLineIndex);
+
+            rtxbField.SelectionStart = startIndex;
+            rtxbField.SelectionLength = rtxbField.TextLength - startIndex;
+
+            rtxbField.SelectedText = str;
+
+            rtxbField.SelectionStart = rtxbField.TextLength;
+            rtxbField.SelectionLength = 0;
+        }
+
         void HighlightPhrase(string phrase, Color color)
         {
             int pos = rtxbField.SelectionStart;
@@ -242,6 +256,8 @@ namespace BazisGUI.Console
                 if (subCmds[genCmds[cmds[0]]].Length !=  cmds.Count -1)
                     throw new Exception("Неверное колличество аргументов");
 
+                ConsoleHistory.AddComand(line);
+                
                 switch (genCmds[cmds[0]])
                 {
                     case GenCmd.FindObject:
@@ -361,7 +377,7 @@ namespace BazisGUI.Console
 
             rtxbField.BackColor = colorDialog.Color;
         }
- 
+
 
         private void rtxbField_KeyDown(object sender, KeyEventArgs e)
         {
@@ -369,7 +385,7 @@ namespace BazisGUI.Console
             {
                 var cmds = rtxbField.Lines[rtxbField.Lines.Count() - 1];
 
-                if(cmds.Length != 0)
+                if (cmds.Length != 0)
                 {
                     trd = new Thread(delegate ()
                     {
@@ -394,6 +410,14 @@ namespace BazisGUI.Console
 
                     rtxbField.AppendText($"\n < {cmds}");
                 }
+            }
+            else if (e.KeyCode == Keys.Up)
+            {
+                PrintHistory(ConsoleHistory.GetPreviousCommand());
+            }
+            else if (e.KeyCode == Keys.Down)
+            {
+                PrintHistory(ConsoleHistory.GetNextCommand());
             }
         }
     }
