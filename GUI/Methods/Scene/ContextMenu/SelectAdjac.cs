@@ -1,10 +1,7 @@
-﻿using Model.Interfaces;
+﻿using Model.Interfaces.ObjectsCollections;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BazisGUI
 {
@@ -12,22 +9,29 @@ namespace BazisGUI
     {
         private void выбратьСопряженныеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        // TO DO
+            try
+            {
+                List<(ISetInfo, List<int> Numbers)> all = new List<(ISetInfo, List<int> Numbers)>();
 
-        // Нужно чтобы по клику выбирались геометрические и сеточные объекты.
-        // Выбор должен быть вниз и вверх от объекта выделения.
-        // Приммер:
-        // кривая - вверх (поверхности куда она входит)
-        // кривая - вниз (точки по которым она построена)
-
-        // обрабатываемые сочетания
-        // точки - @кривая@ - поверхность
-        // @точка@ - кривые
-        // кривые - @поверхность@ - объемы
-        // узлы - @элемент@
-        // @узел@ - элементы
-
-        //пример как обращаться к геометрическим объектам \GUI\Methods\Scene\ContextMenu\ShowAdjac.cs
-        }
+                foreach (var item in GetModelObjects(SelectedObjects).Where(x => x.Color == settingsConfig.SelectObjectColor))
+                {
+                    var dim = (int)item.ObjType;
+                    var sets = SelectAdj(dim, item.Number);
+                    all.AddRange(sets);
+                }
+                foreach (var (set, numbers) in all)
+                {
+                    foreach (var number in numbers)
+                        set.SetColor(settingsConfig.SelectObjectColor, number);
+                    var pres = project.CreateModelObjectsPresentor(set);
+                    SetVBObjectAttribute(pres, "цвет");
+                }
+                DisplayObjects();
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, System.Drawing.Color.Red);
+            }
+        }       
     }
 }
