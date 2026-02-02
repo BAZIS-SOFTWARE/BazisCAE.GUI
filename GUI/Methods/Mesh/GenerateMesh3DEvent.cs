@@ -1,6 +1,7 @@
 ﻿using Model.Interfaces;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Security;
 
@@ -36,6 +37,12 @@ namespace BazisGUI
             PresentModelObjectsForSelection();
             FitObjectsToScreen();
             DisplayObjects();
+
+                console.PrintInfo($"Сгенерировано элементов" +
+                    $" 1D: {project.GetModelSetsInfo(ObjType.Элемент1D).Sum(x => x.NumberOfObjects)}," +
+                    $" 2D: {project.GetModelSetsInfo(ObjType.Элемент2D).Sum(x => x.NumberOfObjects)}," +
+                    $" 3D: {project.GetModelSetsInfo(ObjType.Элемент3D).Sum(x => x.NumberOfObjects)}." +
+                    $" Рекомендуется проверить порядок точности наборов перед началом расчета в панели свойств, выбрав его в навигаторе", Color.DarkOrange);
             }
             catch (Exception ex)
             {
