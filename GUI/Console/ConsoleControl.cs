@@ -75,7 +75,7 @@ namespace BazisGUI.Console
             { "Перенумерация сетки",GenCmd.RenumberMesh},
             { "Переместить узел",GenCmd.MoveNodes},
             { "Переместить сетку",GenCmd.MoveMesh},
-            { "Повернуть сетку",GenCmd.MoveMesh},
+            { "Повернуть сетку",GenCmd.RotateMesh},
             { "Найти свободные узлы",GenCmd.FindFreeNodes},
             { "Найти совпадающие",GenCmd.FindCoincident},
             { "Найти объемные элементы",GenCmd.FindVolElems},
@@ -275,10 +275,10 @@ namespace BazisGUI.Console
                         RenumberMeshEvent?.Invoke(this, new ModelRenumberEventArgs(cmds[1]));
                         break;
                     case GenCmd.MoveMesh:
-                        if(cmds[1] == "переместить")
-                            ModelShiftCoordinateEvent?.Invoke(this, new ModelShiftCoordinateEventArgs(cmds[2]));
-                        else
-                            ModelRotateEvent?.Invoke(this, new ModelRotateEventArgs(cmds[2]));
+                        ModelShiftCoordinateEvent?.Invoke(this, new ModelShiftCoordinateEventArgs(cmds[2]));
+                        break;
+                    case GenCmd.RotateMesh:
+                        ModelRotateEvent?.Invoke(this, new ModelRotateEventArgs(cmds[2]));
                         break;
                     case GenCmd.MoveNodes:
                         if (cmds[1] == "переместить")
