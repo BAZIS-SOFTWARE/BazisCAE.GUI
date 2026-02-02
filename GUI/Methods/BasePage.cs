@@ -28,7 +28,7 @@ namespace BazisGUI
             action.Invoke(process, new EventArgs());
         }
 
-        public async Task<object?> CreateSurfaceAsync(IModelData modelData, ObjType objType)
+        public async Task<Geometry.Plane?> CreateSurfaceAsync(IModelData modelData, ObjType objType)
         {
             var actBreak = new Action(() =>
             {
@@ -73,9 +73,10 @@ namespace BazisGUI
                     return new Tuple<bool, object>(true, plane);
                 }
             });
+            // TODO: придумать, как решить проблему upcast-а ниже (мб передан null)
             var surfaceAwait = AsyncMethodContainer(actSurfaceConfirm, actBreak, message);
             await surfaceAwait;
-            return surfaceAwait.Result;
+            return (Geometry.Plane)surfaceAwait.Result;
         }        
 
         public async Task<object?> AsyncMethodContainer(Func<Tuple<bool,object>> actConfirm, Action actBreak, string cmdMessage)
