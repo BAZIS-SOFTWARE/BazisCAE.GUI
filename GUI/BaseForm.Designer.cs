@@ -1338,7 +1338,7 @@ namespace BazisGUI
             contextMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
             contextMenu.Items.AddRange(new ToolStripItem[] { создатьГруппуItem, скрытьВыбранноеItem, показатьСкрытыеItem, menuItem_InfoSelectedObjects, menuItem_SetRotPoint, показатьСопряженныеItem, выбратьСопряженныеToolStripMenuItem, menuItem_DeleteSelectedObjects });
             contextMenu.Name = "sceneContextMenu";
-            contextMenu.Size = new System.Drawing.Size(205, 202);
+            contextMenu.Size = new System.Drawing.Size(205, 180);
             // 
             // создатьГруппуItem
             // 
@@ -1369,7 +1369,7 @@ namespace BazisGUI
             // 
             // menuItem_InfoSelectedObjects
             // 
-            menuItem_InfoSelectedObjects.Image = Properties.Resources.н1;
+            menuItem_InfoSelectedObjects.Image = Properties.Resources.info_w;
             menuItem_InfoSelectedObjects.ImageScaling = ToolStripItemImageScaling.None;
             menuItem_InfoSelectedObjects.Name = "menuItem_InfoSelectedObjects";
             menuItem_InfoSelectedObjects.Size = new System.Drawing.Size(204, 22);
