@@ -1,8 +1,10 @@
 ﻿using Model.Interfaces;
+using Model.Utilities;
 using System;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BazisGUI
@@ -18,11 +20,16 @@ namespace BazisGUI
             foreach (var iobj in group)
                 iobj.Color = settingsConfig.SelectObjectColor;
 
-            var pres = project.CreateModelObjectsPresentor(group.ObjType);
-            SetVBObjectAttribute(pres, "цвет");
+            foreach (var set in group.Select(x => project.
+            GetModelSetInfo(x.ObjType, x.Number)).
+            Distinct(new DefaultSetInfoComparer()))
+            {
+                var pres = project.CreateModelObjectsPresentor(set);
+                SetVBObjectAttribute(pres, "цвет");
+            }
 
             DisplayObjects();
-
+            //Thread.Sleep(100);
             await EditGroupAsync(group);
 
             // не очень безопасно, так как пользователь может поменять узел дерева

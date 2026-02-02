@@ -24,8 +24,8 @@ namespace BazisGUI
                 {
                     ChangeInsideObjects(false);
                     btnBorder.Tag = true;
-                    var surfElems = project.GetAllModelElements().Where(x => x is ISurfaceElement).
-            Select(x => (ISurfaceElement)x);
+            //        var surfElems = project.GetAllModelElements().Where(x => x is ISurfaceElement).
+            //Select(x => (ISurfaceElement)x);
                     var linesNodes = project.FindBoundaryEdges();
                     var edges = project.CreateBoundaryEdges(linesNodes);
                     var linePresenter = presentersCreator.CreateLineObjectsPresenter(edges);
