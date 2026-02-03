@@ -1,6 +1,7 @@
 ﻿using Model.Interfaces;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Security;
 
@@ -33,6 +34,11 @@ namespace BazisGUI
                 PresentModelObjectsForSelection();
                 FitObjectsToScreen();
                 DisplayObjects();
+
+                console.PrintInfo($"Сгенерировано элементов" +
+                    $" 1D: {project.GetModelObjects(ObjType.Элемент1D).Count()}," +
+                    $" 2D: {project.GetModelObjects(ObjType.Элемент2D).Count()}." +
+                    $" Рекомендуется проверить порядок точности наборов перед началом расчета в панели свойств, выбрав его в навигаторе", Color.Orange);
             }
             catch (Exception ex)
             {
