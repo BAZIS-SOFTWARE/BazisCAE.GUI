@@ -79,7 +79,14 @@ namespace BazisGUI
                         btn.Checked = false;
                         HideGeometryObj("DisplayReflectionPlane");
                         HideGeometryObj("DisplayBoundingBox");
-                        VBOController.DeleteAllVBObjects();
+                        if (VBOController.GetVBObjs().Count() > 0)
+                        {
+                            // TODO
+                            // определить: необходимо показывать все объекты или только нескрытые
+                            // скорректировать решение на основе выводов выше
+                            VBOController.DeleteAllVBObjects();
+                            CreateVBObjects("Объекты");
+                        }
                         DisplayObjects();
                     };
                     reflectForm.Show();
