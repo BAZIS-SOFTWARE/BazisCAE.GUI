@@ -78,7 +78,7 @@ namespace BazisGUI
                     VBOController.AddVbo(vbo);
 
                     DisplayObjects();
-                    console.PrintInfo($"Сгенерировано объектов {set.ObjType.ToString()}: {set.NumberOfObjects}. Рекомендуется проверить порядок точности набора в панели свойств", Color.DarkOrange);
+                    console.PrintInfo($"Сгенерировано объектов {set.ObjType.ToString()}: {set.NumberOfObjects}. Рекомендуется проверить порядок точности набора в панели свойств", Color.Orange);
                 }
             }
         }
