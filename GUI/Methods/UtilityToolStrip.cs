@@ -84,6 +84,11 @@ namespace BazisGUI
         }
         private async void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
         {
+            if (!Enum.TryParse(SelectedObjects, out ObjType res))
+            {
+                console.PrintInfo($"Нельзя произвести измерения для типа объектов \"{SelectedObjects}\" Выберите необходимый тип объектов", Color.Red);
+                return;
+            }
             try
             {
                 switch (arg2.Kind)
@@ -244,10 +249,12 @@ namespace BazisGUI
         private async void DistancePointToPlane(string objTypeStr)
         {
             var objType = objTypeStr.ToEnum<ObjType>();
-            var plane = CreateSurfaceAsync(project.ModelData, objType);
-            await plane;
 
-            project.SetModelObjectsBackColor(objType);
+            var plane = await CreateSurfaceAsync(project.ModelData, objType);
+            if (plane is null)
+                return;
+
+                project.SetModelObjectsBackColor(objType);
 
             var pres = project.CreateModelObjectsPresentor(objType);
 
@@ -259,7 +266,7 @@ namespace BazisGUI
 
             if (res.Result is IPoint point)
             {
-                var proj = point.Position.GetPointProectionOnPlane(plane.Result);
+                var proj = point.Position.GetPointProectionOnPlane(plane);
                 var line = new Segment3D(point.Position, proj);
                 console.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
                 DisplayDistance(line);
