@@ -1,4 +1,6 @@
-﻿using Model.Interfaces.ObjectsCollections;
+﻿using Model.Interfaces;
+using Model.Interfaces.ObjectsCollections;
+using Model.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,22 +13,38 @@ namespace BazisGUI
         {
             try
             {
-                List<(ISetInfo, List<int> Numbers)> all = new List<(ISetInfo, List<int> Numbers)>();
+                var objTypes = new HashSet<ObjType>();
+                // TODO подумать над улучшением производительности
+                var selObjs = GetModelObjects(SelectedObjects).
+                    Where(x => x.Color == settingsConfig.SelectObjectColor).ToList();
+                foreach (var item in selObjs)
+                {
+                    var down = project.GetAdjacentGeometryObjects(item, 1);
+                    var up = project.GetAdjacentGeometryObjects(item, 2);
 
-                foreach (var item in GetModelObjects(SelectedObjects).Where(x => x.Color == settingsConfig.SelectObjectColor))
-                {
-                    var dim = (int)item.ObjType;
-                    var sets = SelectAdj(dim, item.Number);
-                    all.AddRange(sets);
+                    if(down.Count() > 0)
+                        objTypes.Add(down.First().ObjType);
+                    if (up.Count() > 0)
+                        objTypes.Add(up.First().ObjType);
+
+                    var temp = up.Concat(down);
+
+                    foreach (var obj in temp)
+                        if(obj.ViewState)
+                            obj.Color = settingsConfig.SelectObjectColor;        
                 }
-                foreach (var (set, numbers) in all)
+
+                foreach (var objType in objTypes)
                 {
-                    foreach (var number in numbers)
-                        set.SetColor(settingsConfig.SelectObjectColor, number);
-                    var pres = project.CreateModelObjectsPresentor(set);
-                    SetVBObjectAttribute(pres, "цвет");
+                    foreach (var set in project.GetModelSetsInfo(objType))
+                    {
+                        var pres = project.CreateModelObjectsPresentor(set);
+                        SetVBObjectAttribute(pres, "цвет");
+                    }      
                 }
+
                 DisplayObjects();
+
             }
             catch (Exception ex)
             {

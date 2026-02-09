@@ -210,9 +210,9 @@ namespace BazisGUI
             IEnumerable<ISurfaceElement> elems;
 
             if (project.ProjectType == TaskType.Volume | project.ProjectType == TaskType.Volume_mixed)
-                elems = project.ModelData.ObjectData.E3DCollection.GetObjects();
+                elems = project.GetModelSurfaceElements(3);
             else
-                elems = project.ModelData.ObjectData.E2DCollection.GetObjects();
+                elems = project.GetModelSurfaceElements(2);
 
             var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, tableName, resName, elems);
             var pre = presentersCreator.CreateSurfaceObjectsPresenter(elsResults);
@@ -275,9 +275,9 @@ namespace BazisGUI
             IEnumerable<IModelObject> objs;
 
             if (resType == ResultType.nodes)
-                objs = project.ModelData.ObjectData.NodesSet.Values;
+                objs = project.GetAllModelNodes();
             else
-                objs = project.ModelData.ObjectData.GetAllElements();
+                objs = project.GetAllModelElements();
 
             foreach (var obj in objs)
             {

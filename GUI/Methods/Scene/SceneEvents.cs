@@ -36,8 +36,8 @@ namespace BazisGUI
                     {
                         var objType = objTypeStr.ToEnum<ObjType>();
                         var name = $"newGroup{objType}";
-                        project.ModelData.GroupData.Create(name, selObjs);
-                        var number = project.ModelData.GroupData.Where(x => x.ObjType == objType && x.Name == name).Max(x => x.Number);
+                        project.CreateGroup(name, selObjs);
+                        var number = project.GetAllModelGroups().Where(x => x.ObjType == objType && x.Name == name).Max(x => x.Number);
 
                         console.PrintInfo(string.Format("Создана новая группа {0}", name), Color.Black);
 
@@ -209,10 +209,15 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
 
                 DisplayObjects();
 
-                project.ModelData.ObjectData.ClearNotExisted();
-                project.ModelData.ObjectData.ClearEmptySet();
-                project.ModelData.GroupData.ClearNotExisted();
-                project.TaskData.ClearNotExisted(project.ModelData.GroupData);
+                project.ClearNotExistedModelData();
+                //project.ClearEmptySet();
+                //project.ClearNotExistedGroupData();
+                //project.ClearNotExistedCondData();
+
+                //project.ModelData.ObjectData.ClearNotExisted();
+                //project.ModelData.ObjectData.ClearEmptySet();
+                //project.ModelData.GroupData.ClearNotExisted();
+                //project.TaskData.ClearNotExisted(project.ModelData.GroupData);
 
                 PresentMeshData();
                 PresentGroupDataOnTree();

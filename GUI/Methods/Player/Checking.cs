@@ -28,7 +28,7 @@ namespace BazisGUI
                         DisplayGeometryObjectEvent = null;
 
                         var index = navigator.SelectedNode.Index;
-                        var data = project.TaskData[index];
+                        var data = project.GetCondData(index);
                         var refTime = arg2 + data.StartTime;
                         if (refTime >= data.StartTime & refTime <= data.StopTime)
                         {

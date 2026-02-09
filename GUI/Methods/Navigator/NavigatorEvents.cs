@@ -17,7 +17,7 @@ namespace BazisGUI
         {
             try
             {
-                project.TaskData?.Clear();
+                project.ClearTaskData();
                 navigator.SelectedNode.Nodes.Clear();
                 PresentCondDataOnTree();
             }
@@ -30,7 +30,7 @@ namespace BazisGUI
 
         public void navigator_RemoveConditionEvent(int index)
         {
-            project.TaskData.RemoveAt(index);
+            project.DeleteCond(index);
         }
 
         private void navigator_RemoveResultsEvent()

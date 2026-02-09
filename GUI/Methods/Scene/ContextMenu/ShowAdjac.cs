@@ -1,4 +1,6 @@
-﻿using Model.Interfaces;
+﻿using BazisGUI.Scene.VBO;
+using Model.Interfaces;
+using Model.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,43 +16,50 @@ namespace BazisGUI
         {
             try
             {
-                var objTypeStr = SelectedObjects;
-
-                foreach (var item in GetModelObjects(objTypeStr).
-            Where(x => x.Color == settingsConfig.SelectObjectColor))
+                var objTypes = new HashSet<ObjType>();
+                // TODO подумать над улучшением производительности
+                var selObjs = GetModelObjects(SelectedObjects).
+                    Where(x => x.Color == settingsConfig.SelectObjectColor).ToList();
+                foreach (var item in selObjs)
                 {
-                    // TO DO ввести понятие размерности объекта чтобы избежать
-                    // ненужных преобразований
+                    var down = project.GetAdjacentGeometryObjects(item, 1);
+                    var up = project.GetAdjacentGeometryObjects(item, 2);
 
-                    var dim = (int)item.ObjType;
-                    ShowAdg(dim, item.Number, 1);
-                    ShowAdg(dim, item.Number, 2);
+                    if (down.Count() > 0)
+                        objTypes.Add(down.First().ObjType);
+                    if (up.Count() > 0)
+                        objTypes.Add(up.First().ObjType);
 
-                    ObjType objType;
+                    var temp = up.Concat(down);
 
-                    if(dim + 1 == 3)
-                        objType = (ObjType)(dim);
-                    else
-                        objType = (ObjType)(dim + 1);
-
-                    var setU = project.GetModelSetInfo(objType, objType.ToString());
-                    PresentSet(setU);
-
-                    if (dim - 1 != -1)
-                    {
-                        objType = (ObjType)(dim - 1);
-                        var setD = project.GetModelSetInfo(objType, objType.ToString());
-                        PresentSet(setD);
-                    }
-
+                    foreach (var obj in temp)
+                        obj.ViewState = true;
                 }
+
+                foreach (var objType in objTypes)
+                {
+                    foreach (var set in project.GetModelSetsInfo(objType))
+                    {
+                        VBOController.DeleteVBObjects(set.Name);
+                        //set.SetBackColor();
+                        if (set.ViewState)
+                        {
+                            var pre = project.CreateModelObjectsPresentor(set);
+                            VBObject vb;
+                            if (TryCreateVBObject(pre, out vb))
+                                VBOController.AddVbo(vb);
+                        }
+                    }
+                }
+
                 DisplayObjects();
+
             }
             catch (Exception ex)
             {
-                console.PrintInfo(ex.Message, Color.Red);
+                console.PrintInfo(ex.Message, System.Drawing.Color.Red);
             }
-            
+
         }
     }
 }

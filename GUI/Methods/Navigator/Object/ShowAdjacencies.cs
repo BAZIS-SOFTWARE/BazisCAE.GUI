@@ -16,6 +16,14 @@ namespace BazisGUI
         //        ShowAdg(surfaceFigure.Number);      
         //}
 
+        private int[] GetAdg(int dim, int number, int dir)
+        {
+                if (dir == 1)
+                    return GmshController.Gmsh.Model.GetAdjacencies(dim, number).Item2;
+                else
+                    return GmshController.Gmsh.Model.GetAdjacencies(dim, number).Item1;
+        }
+
         private void ShowAdg(int dim, int number, int dir)
         {
             try
@@ -35,6 +43,7 @@ namespace BazisGUI
             else
                 dim++;
 
+            // очень странное преобразование. Врят ли тип связан с размерностью.
             adgType = (ObjType)dim;
             // Выглядит как костыль для объемов. В будущем может это как-то
             // по-другому делать
@@ -60,19 +69,6 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-            }
-        }
-
-        private void PresentSet(ISetInfo set)
-        {
-            set.SetBackColor();
-            VBOController.DeleteVBObjects(set.Name);
-
-            if (set.ViewState)
-            {
-                var pre = project.CreateModelObjectsPresentor(set);
-                var vbo = CreateVBObject(pre);
-                VBOController.AddVbo(vbo);
             }
         }
     }

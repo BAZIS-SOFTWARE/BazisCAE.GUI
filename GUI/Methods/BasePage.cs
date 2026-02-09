@@ -28,7 +28,7 @@ namespace BazisGUI
             action.Invoke(process, new EventArgs());
         }
 
-        public async Task<Geometry.Plane?> CreateSurfaceAsync(IModelData modelData, ObjType objType)
+        public async Task<Geometry.Plane?> CreateSurfaceAsync(ObjType objType)
         {
             var actBreak = new Action(() =>
             {
@@ -40,7 +40,7 @@ namespace BazisGUI
             var message = @"Задайте поверхность, выбрав три узла, и нажмите на клавишу ""E"" или нажмите кнопку ""ESC""";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var pointObjs = modelData.ObjectData.GetObjects(objType);
+                var pointObjs = project.GetModelObjects(objType);
                 var selObjs = pointObjs.Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
 
                 if (selObjs.Length < 3)

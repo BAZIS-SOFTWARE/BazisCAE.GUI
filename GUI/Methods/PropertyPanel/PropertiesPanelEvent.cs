@@ -88,7 +88,7 @@ namespace BazisGUI
                     _funcs.Add("*");
                     var _mats = project.MaterialsDB.Keys.ToList();
                     var groups = project.GetAllModelGroups();
-                    var cond = project.TaskData[index];
+                    var cond = project.GetCondData(index);
                     if (nodeName == NodeName.материал)
                     {
                         ChangeMatProperties(obj, (MatData)cond, ref flag);

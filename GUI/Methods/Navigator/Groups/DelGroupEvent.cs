@@ -7,7 +7,7 @@ namespace BazisGUI
         private void navigator_DelGroupEvent()
         {
             var node = navigator.SelectedNode;
-            var group = project.ModelData.GroupData[node.Index];
+            var group = project.GetModelGroup(node.Index);
             var objType = group.ObjType;
             var number = group.Number;
 

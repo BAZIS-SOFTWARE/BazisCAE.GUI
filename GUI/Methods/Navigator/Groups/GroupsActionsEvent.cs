@@ -9,7 +9,7 @@ namespace BazisGUI
         {
             try
             {
-                foreach (var group in project.ModelData.GroupData)
+                foreach (var group in project.GetAllModelGroups())
                 {
                     foreach (var iobj in group)
                     {
@@ -54,8 +54,8 @@ namespace BazisGUI
         {
             try
             {
-                project.ModelData.GroupData.Clear();
-                project.TaskData.Clear();
+                project.ClearGroupData();
+                project.ClearTaskData();
 
                 PresentGroupDataOnTree();
 

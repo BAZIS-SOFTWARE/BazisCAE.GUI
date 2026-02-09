@@ -111,7 +111,7 @@ namespace BazisGUI
 
         private void console_ModelShiftCoordinateEvent(object arg1, BazisGUI.Console.Events.ModelShiftCoordinateEventArgs arg2)
         {
-            project.ModelData.ObjectData.Move(ObjType.Узел, new Point3D(arg2.X, arg2.Y, arg2.Z));
+            project.MoveMesh(ObjType.Узел, new Point3D(arg2.X, arg2.Y, arg2.Z));
 
             DisplayGeometryObjectEvent = null;
             DisplayText2DEvent = null;
@@ -128,7 +128,7 @@ namespace BazisGUI
         private void console_ModelRotateEvent(object arg1, ModelRotateEventArgs arg2)
         {
             var axis = new Point3D(arg2.Axis.X, arg2.Axis.Y, arg2.Axis.Z);
-            project.ModelData.ObjectData.Rotate(ObjType.Узел, axis, arg2.Angle);
+            project.RotateMesh(ObjType.Узел, axis, arg2.Angle);
 
             DisplayGeometryObjectEvent = null;
             DisplayText2DEvent = null;

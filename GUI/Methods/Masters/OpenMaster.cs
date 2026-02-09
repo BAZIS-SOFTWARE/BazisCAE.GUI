@@ -47,33 +47,36 @@ namespace BazisGUI
                     if (res == DialogResult.No)
                         return;
 
-                    project.TaskData.Clear();
+                    project.ClearTaskData();
                     foreach (var item in inputStrings)
                     {
                         var args = item.Split(':').Select(x => x.Trim()).ToArray();
                         var kind = Enum.Parse<DataKind>(args[0]);
-                        var data = project.TaskData.Create(kind, args[1], project.ModelData.GroupData);
+                        var cond = project.Create(kind, args[1]);
+                        project.AddTaskData(cond);
+
+                        //var data = project.Add.TaskData.Create(kind, args[1], project.ModelData.GroupData);
 
                         //TODO перенести в BazisCore
-                        if (kind == DataKind.Нагрев)
-                        {
-                            var dataAr = args[1].Split(" ");
-                            var MrfArgs = dataAr[2].Split(";");
-                            var mrfIndex = MrfArgs.FindIndex(x => x == "MRF");
-                            var lines = MrfArgs[mrfIndex + 1].Split('|');
+                        //if (kind == DataKind.Нагрев)
+                        //{
+                        //    var dataAr = args[1].Split(" ");
+                        //    var MrfArgs = dataAr[2].Split(";");
+                        //    var mrfIndex = MrfArgs.FindIndex(x => x == "MRF");
+                        //    var lines = MrfArgs[mrfIndex + 1].Split('|');
 
-                            var baseLine = project.ModelData.GroupData.Find(lines[0]);
-                            var refLine = project.ModelData.GroupData.Find(lines[1]);
+                        //    var baseLine = project.GetModelGroup(lines[0]);
+                        //    var refLine = project.GetModelGroup(lines[1]);
 
-                            baseLine.SortByDistance();
-                            refLine.SortByDistance();
+                        //    baseLine.SortByDistance();
+                        //    refLine.SortByDistance();
 
-                            var velocity = float.Parse(MrfArgs[mrfIndex + 2]);
-                            var movedFrame = new MovedFrame(baseLine, refLine, velocity);
+                        //    var velocity = float.Parse(MrfArgs[mrfIndex + 2]);
+                        //    var movedFrame = new MovedFrame(baseLine, refLine, velocity);
 
-                            data.StopTime = data.StartTime + (float)Math.Round(movedFrame.CalcMotionTime(), 4);
-                        }
-                        project.TaskData.Add(data);
+                        //    data.StopTime = data.StartTime + (float)Math.Round(movedFrame.CalcMotionTime(), 4);
+                        //}
+                        
                     }
                     PresentCondDataOnTree();
                     console.PrintInfo("Граничные условия сформированы", Color.Green);
@@ -243,7 +246,7 @@ namespace BazisGUI
                 dict[type][item.Number] = item.Name;
             }
 
-            master.SetStringsFromCondDataStrings(project.TaskData.Select(x => x.ToString()));
+            master.SetStringsFromCondDataStrings(project.GetAllCondData().Select(x => x.ToString()));
 
             master.InitialMasterFilling(
                 project.MaterialsDB is null ? new string[0]: project.MaterialsDB.Select(x => x.Key),

@@ -71,7 +71,7 @@ namespace BazisGUI
                 var btn = (ToolStripButton)sender;
                 if (btn.Checked)
                 {
-                    var surfElems = project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement);
+                    var surfElems = project.GetModelSurfaceElements(2);// ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement);
                     if (surfElems.Count() > 0)
                     {
                         var elemsNormals = project.CalcElemsNormals(3);

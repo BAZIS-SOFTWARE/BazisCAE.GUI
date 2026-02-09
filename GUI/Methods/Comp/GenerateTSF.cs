@@ -16,8 +16,6 @@ namespace BazisGUI
         {
             try
             {
-                var data = project.TaskData.ToList();
-
                 //var pContr = (PinnedTaskPlannerControl)EmbeddedControls.Find("pinnedTaskPlannerControl", false)[0];
 
                 var inputDir = $@"{WorkingDir}\InputData";
@@ -34,6 +32,7 @@ namespace BazisGUI
                     CommonTaskType = ProcessType.Welding // убрать из препроцессора
                 };
 
+                var data = project.GetAllCondData();
                 preProc.CalcCompDataV2(data, procProp, inputDir);
 
                 var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");

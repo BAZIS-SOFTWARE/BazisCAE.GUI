@@ -119,7 +119,7 @@ namespace BazisGUI
                 settingsConfig.SelectObjectColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectObjectColor);
                 settingsConfig.SelectGroupColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectGroupColor);
 
-                var objs = project.ModelData.ObjectData.GetAllObjects();
+                var objs = project.GetAllModelObjects();
 
                 foreach (var obj in objs)
                 {

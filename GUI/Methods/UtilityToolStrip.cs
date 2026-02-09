@@ -250,7 +250,7 @@ namespace BazisGUI
         {
             var objType = objTypeStr.ToEnum<ObjType>();
 
-            var plane = await CreateSurfaceAsync(project.ModelData, objType);
+            var plane = await CreateSurfaceAsync(objType);
             if (plane is null)
                 return;
 

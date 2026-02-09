@@ -15,7 +15,7 @@ namespace BazisGUI
         {
             try
             {
-                var data = project.TaskData[arg1];
+                var data = project.GetCondData(arg1);
 
                 var _funcs = project.FunctionsDB.Keys.ToList();
                 _funcs.Add("*");

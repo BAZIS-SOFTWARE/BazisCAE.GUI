@@ -203,7 +203,7 @@ Distinct(new DefaultSetInfoComparer()))
 
         private void SelectNodeInPlane()
         {
-            var selObjs = project.ModelData.ObjectData.GetObjects(ObjType.Узел).
+            var selObjs = project.GetAllModelNodes().
 
     Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
             if (selObjs?.Count() > 2)
@@ -241,7 +241,7 @@ Distinct(new DefaultSetInfoComparer()))
         private void SelectInDirection(ObjType arg2, float angle, bool reverse)
         {
 
-            var selObjs = project.ModelData.ObjectData.GetObjects(arg2).
+            var selObjs = project.GetModelObjects(arg2).
     Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
             if (selObjs?.Count() > 1)
             {

@@ -44,7 +44,7 @@ namespace BazisGUI
                     cond = new LoadData(_objectsGr, 0, 1);
                 }
                 
-                project.TaskData.Add(cond);
+                project.AddTaskData(cond);
                 PresentCondDataOnTree();
             }    
         }
