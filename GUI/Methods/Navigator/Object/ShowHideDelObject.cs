@@ -31,7 +31,43 @@ namespace BazisGUI
         }
         private void navigator_DelObjectEvent()
         {
-            //TODO реализовать
+            var number = int.Parse(navigator.SelectedNode.Text.Split(' ')[0]);
+            var objInfo = navigator.SelectedNode.Text.Split(' ')[1];
+            if (objInfo.TryToEnum(out ObjType objType))
+            {
+                if (objInfo == ObjType.Точка.ToString() |
+                    objInfo == ObjType.Кривая.ToString() |
+                    objInfo == ObjType.Поверхность.ToString()) 
+                {
+                    console.PrintInfo("В настоящий момент невозможно удалить геометрию", Color.Black);
+                    return;
+                }
+
+                var obj = project.GetModelObject(objType, number);
+                obj.ExistState = false;
+
+                if (objInfo == ObjType.Узел.ToString())
+                {
+                    DeleteVBObjects("Элементы");
+                    CreateVBObjects("Элементы");
+                }
+
+                var set = project.GetModelSetInfo(objType, number);
+                VBOController.DeleteVBObjects(set.Name);
+                if (set.ViewState)
+                {
+                    var pre = project.CreateModelObjectsPresentor(set);
+                    var vbo = CreateVBObject(pre);
+                    VBOController.AddVbo(vbo);
+                }
+
+                DisplayObjects();
+
+                project.ClearNotExistedModelData();
+                PresentMeshData();
+                PresentGroupDataOnTree();
+                PresentCondDataOnTree();
+            }
         }
         public void ShowHideObject(string objInfo ,int number,bool flag)
         {
