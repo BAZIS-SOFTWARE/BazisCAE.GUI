@@ -17,7 +17,6 @@ namespace BazisGUI
             try
             {
                 ObjType objType;
-                // пока заглушим обработку объема
                 if (objInfo.TryToEnum(out objType))
                 {
                     var setIndo = project.GetModelSetInfo(objType, number);
@@ -54,6 +53,8 @@ namespace BazisGUI
 
                     foreach (var item in vol.GetSurfaceFigures())
                         item.Color = settingsConfig.SelectObjectColor;
+
+                    ApplyDim(ObjType.Поверхность);
 
                     SetVBObjectAttribute(pres, "цвет");
                     DisplayObjects();
