@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BazisGUI
 {
@@ -20,7 +21,10 @@ namespace BazisGUI
                 if (objInfo.TryToEnum(out objType))
                 {
                     var setIndo = project.GetModelSetInfo(objType, number);
-                    setIndo.SetBackColor();
+
+                    var setsInfo = project.GetModelSetsInfo(objType);
+                    foreach (var set in setsInfo)
+                        set.SetBackColor();
 
                     var pres = project.CreateModelObjectsPresentor(setIndo);
                     SetVBObjectAttribute(pres, "цвет");
@@ -28,8 +32,13 @@ namespace BazisGUI
                     var obj = project.GetModelObject(objType, number);
                     obj.Color = settingsConfig.SelectObjectColor;
 
-                    //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
-                    SetVBObjectAttribute(pres, "цвет");
+                    ApplyDim(objType);
+                    
+                    foreach (var set in setsInfo)
+                    {
+                        var setPres = project.CreateModelObjectsPresentor(set);
+                        SetVBObjectAttribute(setPres, "цвет");
+                    }
                     DisplayObjects();
 
                     CreateObjectProperties(objType, number);
@@ -56,6 +65,37 @@ namespace BazisGUI
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        private void ApplyDim(ObjType objType)
+        {
+            var modelObjs = project.GetModelObjects(objType).Where(obj => obj.Color != settingsConfig.SelectObjectColor);
+
+            foreach (var item in modelObjs)
+                item.Color = ApplyBrightness(item.Color, 0.6f, 0.85f);
+        }
+
+        private Color ApplyBrightness(Color color, float dimFactor, float desaturateFactor)
+        {
+            // затемнение
+            float r = color.R * dimFactor;
+            float g = color.G * dimFactor;
+            float b = color.B * dimFactor;
+
+            // лёгкая десатурация (смешивание с серым)
+            float gray = (r + g + b) / 3f;
+
+            r = r * (1 - desaturateFactor) + gray * desaturateFactor;
+            g = g * (1 - desaturateFactor) + gray * desaturateFactor;
+            b = b * (1 - desaturateFactor) + gray * desaturateFactor;
+
+            int Clamp(float v) => Math.Max(0, Math.Min(255, (int)v));
+
+            return Color.FromArgb(
+                color.A,
+                Clamp(r),
+                Clamp(g),
+                Clamp(b));
         }
 
         private void CreateVolProperties(int number)
