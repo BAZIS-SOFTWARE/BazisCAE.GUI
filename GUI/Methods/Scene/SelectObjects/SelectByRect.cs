@@ -1,9 +1,11 @@
 ﻿using BazisGUI.SettingsControls;
 using Geometry;
 using Geometry.Exteisions;
+using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,6 +19,8 @@ namespace BazisGUI
         {
             var creator = new Hull2DCreator();
             var counter = 0;
+            var tempObjTypes = new HashSet<ObjType>();
+            var tempSets = new HashSet<ISetInfo>();
             foreach (var set in sets)
             {
                 var changeFlag = false;
@@ -50,23 +54,41 @@ namespace BazisGUI
                             counter++;
                             changeFlag = true;
                             if (isSelected)
+                            {
+                                tempObjTypes.Add(set.ObjType);
                                 set.SetColor(settingsConfig.SelectObjectColor, numb);//  page.ScenePage.settingsConfig.SelectObjectColor;
+                            }
                             else
                                 set.SetBackColor(numb);
 
                         }
                     }
                 }
+                if (changeFlag)
+                {
+                    tempSets.Add(set);
 
-                if(changeFlag)
+                }
+            }
+
+            var objStr = Declination(counter);
+            if (isSelected) 
+            {
+                if (IsReduceBrightness) 
+                {
+                    foreach (var objType in tempObjTypes)
+                        ApplyDim(objType);
+                    IsReduceBrightness = false;
+                }
+
+                foreach (var set in tempSets)
                 {
                     var pres = project.CreateModelObjectsPresentor(set);
                     SetVBObjectAttribute(pres, "цвет");
                 }
-            }
-            var objStr = Declination(counter);
-            if (isSelected)
                 console.PrintInfo($"Выбрано {counter} {objStr}", Color.Black);
+            }
+
             else
                 console.PrintInfo($"Скрыто {counter} {objStr}", Color.Black);
             DisplayObjects();

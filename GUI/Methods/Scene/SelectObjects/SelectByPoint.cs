@@ -1,20 +1,17 @@
 ﻿using BazisGUI.PropertiesPanel;
 using Geometry;
-using Geometry.Exteisions;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using Model.MeshObjects;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
+        private bool IsReduceBrightness = true;
         public bool SelectByPoint(IEnumerable<ISetInfo> sets, Point2D selectionPoint, bool isSelected)
         {
             var selFlag = false;
@@ -76,16 +73,18 @@ namespace BazisGUI
                         }
                     }
                 }
-
             }
 
             if (selFlag)
             {
+                if (IsReduceBrightness)
+                {
+                    ApplyDim(tempSetInfo.ObjType);
+                    IsReduceBrightness = false;
+                }
                 console.PrintInfo($"Выбран объект : {tempSetInfo.ObjType} {tempNumb}", Color.Black);
                 CreateObjectProperties(tempSetInfo, tempNumb);
             }
-
-
             return selFlag;
         }
 

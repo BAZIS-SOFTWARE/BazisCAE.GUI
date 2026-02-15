@@ -262,7 +262,7 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
                 DisplayText3DEvent = null;
 
                 SelectedObjects = "_";
-
+                IsReduceBrightness = true;
                 SetBackColorToAllObjects();
                 DisplayObjects();
             }

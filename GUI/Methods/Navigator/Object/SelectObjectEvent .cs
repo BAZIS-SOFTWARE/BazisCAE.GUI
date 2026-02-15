@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BazisGUI
 {
@@ -84,11 +83,11 @@ namespace BazisGUI
             float b = color.B * dimFactor;
 
             // лёгкая десатурация (смешивание с серым)
-            float gray = (r + g + b) / 3f;
+            float gray = (r + g + b) * 0.33333334f;
 
-            r = r * (1 - desaturateFactor) + gray * desaturateFactor;
-            g = g * (1 - desaturateFactor) + gray * desaturateFactor;
-            b = b * (1 - desaturateFactor) + gray * desaturateFactor;
+            r += (gray - r) * desaturateFactor;
+            g += (gray - g) * desaturateFactor;
+            b += (gray - b) * desaturateFactor;
 
             int Clamp(float v) => Math.Max(0, Math.Min(255, (int)v));
 
