@@ -33,30 +33,6 @@ namespace BazisGUI
         //    DisplayObjects();
         //}
 
-        private void DeleteGMSHMeshObjects(ObjType type)
-        {
-            int[] dimTags = null;
-            var dim = 0;
-            if (type == ObjType.Узел) //удаляем всю сетку узлы,1d,2d,3d
-            {
-                dimTags = new int[0];
-            }
-            if (type == ObjType.Элемент1D)//удаляем все 1d элементы
-            {
-                dim = 1;
-                dimTags = GmshController.Gmsh.Model.GetEntities(dim);
-            }
-            else if (type == ObjType.Элемент2D)//удаляем все 2d элементы
-            {
-                dim = 2;
-                dimTags = GmshController.Gmsh.Model.GetEntities(dim);
-            }
-            else if (type == ObjType.Элемент3D)//удаляем все 3d элементы
-            {
-                dim = 3;
-                GmshController.Gmsh.Model.GetEntities(dim);
-            }
-            GmshController.Gmsh.Model.Mesh.Clear(dimTags);
-        }    
+   
     }
 }

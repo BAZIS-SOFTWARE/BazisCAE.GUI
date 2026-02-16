@@ -142,8 +142,13 @@ namespace BazisGUI
 
             if (settingsConfig.Lighting)
                 GL.Enable(EnableCap.Lighting);
+
+            // рассеяное освещение
             float[] global_ambient = new float[] { 0.2f, 0.2f, 0.2f, 1 };
+
             GL.LightModel(LightModelParameter.LightModelAmbient, global_ambient);
+
+            // цвет источника
             float[] diffuse = new float[] { 1, 1, 1, 1 };
             GL.Light(LightName.Light0, LightParameter.Diffuse, diffuse);
             //float[] light_position = new float[] { 1, 1, 1, 1 };

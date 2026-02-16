@@ -34,15 +34,19 @@ namespace BazisGUI
 
                     if (selObjs.Count() > 0)
                     {
-                        var objType = objTypeStr.ToEnum<ObjType>();
-                        var name = $"newGroup{objType}";
-                        project.CreateGroup(name, selObjs);
-                        var number = project.GetAllModelGroups().Where(x => x.ObjType == objType && x.Name == name).Max(x => x.Number);
+                        //var objType = objTypeStr.ToEnum<ObjType>();
+                        //var name = $"newGroup{objType}";
 
-                        console.PrintInfo(string.Format("Создана новая группа {0}", name), Color.Black);
+                        // TODO перейти на другой метод создания группы.
+                        // Вынести на уровень контроллера
+
+                        project.CreateGroup(selObjs);
+                        var gr = project.GetAllModelGroups().Last();
+
+                        console.PrintInfo(string.Format("Создана новая группа {0}", gr.Name), Color.Black);
 
                         PresentGroupDataOnTree();
-                        OnGroupCreated?.Invoke(objType, number, name);
+                        OnGroupCreated?.Invoke(gr.ObjType, gr.Number, gr.Name);
                     }
                 }
             }

@@ -27,7 +27,12 @@ namespace BazisGUI
                 settingsConfig.ShowNodesOnCurves = bool.Parse(obj.NewValue);
                 ShowNodesOnCurves(settingsConfig.ShowNodesOnCurves);
             }
-                
+
+            else if (obj.Header == "Отображать всю сетку при генерации")
+            {
+                settingsConfig.ShowAllMeshWhenGeneration = bool.Parse(obj.NewValue);
+            }
+
             /*
              * TO DO
              * Реализовать изменение свойств в ядре gmsh для построения сетки

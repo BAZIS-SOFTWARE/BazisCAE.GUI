@@ -560,9 +560,17 @@ namespace BazisGUI
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Path.GetDirectoryName
-            project?.Save(lblStatus.Text);
-            console.PrintInfo("Проект сохранен", Color.Black);
+            try
+            {
+                //Path.GetDirectoryName
+                project?.Save(lblStatus.Text);
+                console.PrintInfo("Проект сохранен", Color.Black);
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+
         }
 
         private void PresentProject()

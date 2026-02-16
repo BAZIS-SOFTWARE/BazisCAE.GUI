@@ -65,6 +65,7 @@ namespace BazisGUI
 ShowVolNumbers();
 DisplayObjects();
 })));
+                rows.Add(new RowProperty("Отображать всю сетку при генерации", settingsConfig.ShowAllMeshWhenGeneration));
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)

@@ -17,7 +17,7 @@ namespace BazisGUI
             {
                 DeleteGMSHMeshObjects(ObjType.Узел);
                 project.ClearModelCollection(ObjType.Узел);
-                project.GenerateMesh(2, GmshController);
+                project.GenerateMesh(2);
 
                 //gmshController.Gmsh.Model.Mesh.Generate(3);
                 //var nds = gmshController.GetNodes();
