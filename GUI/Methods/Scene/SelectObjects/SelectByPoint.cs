@@ -26,8 +26,8 @@ namespace BazisGUI
                     if (set.GetViewState(numb))
                     {
                         var coords = set.GetCoords(numb);
-                        var scrPoints = new List<Point2D>();//[coords.Count()];
-                        var scnPoints = new List<Point3D>();//[coords.Count()];
+                        var scrPoints = new List<Point2D>();
+                        var scnPoints = new List<Point3D>();
 
                         foreach (var point in coords)
                         {
@@ -41,52 +41,43 @@ namespace BazisGUI
                         if (IsObjectSelected(selectionPoint, set.ObjType, scrPoints))
                         {
                             selFlag = true;
-                            if (isSelected)
-                                set.SetColor(settingsConfig.SelectObjectColor, numb);
-                            else
-                                set.SetBackColor(numb);
 
-                            bool isObjectCloser;
+                            var temp_z_depth = scnPoints.Count == 1
+                                ? scnPoints[0]._z
+                                : scnPoints.Sum(x => x._z) / scnPoints.Count;
 
-                            var temp_z_depth = 0.0f;
-
-                            if (scnPoints.Count == 1)
-                                temp_z_depth = scnPoints[0]._z;
-                            else
-                                // вычисление центральной z координаты объекта
-                                temp_z_depth = scnPoints.Sum(x => x._z) / scnPoints.Count;
-
-                            if (cur_z_depth == 0)
-                                isObjectCloser = true;
-                            else
-                                isObjectCloser = temp_z_depth > cur_z_depth ? true : false;
+                            bool isObjectCloser = cur_z_depth == 0 || temp_z_depth > cur_z_depth;
 
                             if (isObjectCloser)
                             {
-                                tempSetInfo?.SetBackColor(tempNumb);
                                 tempSetInfo = set;
                                 tempNumb = numb;
                                 cur_z_depth = temp_z_depth;
                             }
-                            else
-                                set.SetBackColor(numb);
                         }
                     }
                 }
             }
 
-            if (selFlag)
+            if (selFlag && tempSetInfo != null)
             {
+                if (isSelected)
+                    tempSetInfo.SetColor(settingsConfig.SelectObjectColor, tempNumb);
+                else
+                    tempSetInfo.SetBackColor(tempNumb);
+
                 if (IsReduceBrightness)
                 {
                     ApplyDim(tempSetInfo.ObjType);
                     IsReduceBrightness = false;
                 }
+
                 console.PrintInfo($"Выбран объект : {tempSetInfo.ObjType} {tempNumb}", Color.Black);
                 CreateObjectProperties(tempSetInfo, tempNumb);
             }
             return selFlag;
         }
+
 
         private bool IsObjectSelected(Point2D selectionPoint, ObjType objType, List<Point2D> scrPoints)
         {
