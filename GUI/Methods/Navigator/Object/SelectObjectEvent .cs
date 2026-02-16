@@ -67,37 +67,6 @@ namespace BazisGUI
             }
         }
 
-        private void ApplyDim(ObjType objType)
-        {
-            var modelObjs = project.GetModelObjects(objType).Where(obj => obj.Color != settingsConfig.SelectObjectColor);
-
-            foreach (var item in modelObjs)
-                item.Color = ApplyBrightness(item.Color, 0.6f, 0.85f);
-        }
-
-        private Color ApplyBrightness(Color color, float dimFactor, float desaturateFactor)
-        {
-            // затемнение
-            float r = color.R * dimFactor;
-            float g = color.G * dimFactor;
-            float b = color.B * dimFactor;
-
-            // лёгкая десатурация (смешивание с серым)
-            float gray = (r + g + b) * 0.33333334f;
-
-            r += (gray - r) * desaturateFactor;
-            g += (gray - g) * desaturateFactor;
-            b += (gray - b) * desaturateFactor;
-
-            int Clamp(float v) => Math.Max(0, Math.Min(255, (int)v));
-
-            return Color.FromArgb(
-                color.A,
-                Clamp(r),
-                Clamp(g),
-                Clamp(b));
-        }
-
         private void CreateVolProperties(int number)
         {
             try

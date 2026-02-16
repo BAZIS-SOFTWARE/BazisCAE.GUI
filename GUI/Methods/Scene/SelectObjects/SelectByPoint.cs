@@ -62,9 +62,14 @@ namespace BazisGUI
             if (selFlag && tempSetInfo != null)
             {
                 if (isSelected)
+                {
                     tempSetInfo.SetColor(settingsConfig.SelectObjectColor, tempNumb);
-                else
+                }
+                else 
+                {
                     tempSetInfo.SetBackColor(tempNumb);
+                    ApplyDimElement(tempSetInfo.ObjType, tempNumb);
+                }
 
                 if (IsReduceBrightness)
                 {

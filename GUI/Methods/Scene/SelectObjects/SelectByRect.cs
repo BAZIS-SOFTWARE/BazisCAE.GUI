@@ -58,16 +58,16 @@ namespace BazisGUI
                                 tempObjTypes.Add(set.ObjType);
                                 set.SetColor(settingsConfig.SelectObjectColor, numb);//  page.ScenePage.settingsConfig.SelectObjectColor;
                             }
-                            else
+                            else 
+                            {
                                 set.SetBackColor(numb);
-
+                            }
                         }
                     }
                 }
                 if (changeFlag)
                 {
                     tempSets.Add(set);
-
                 }
             }
 
