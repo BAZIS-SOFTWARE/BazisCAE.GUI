@@ -400,6 +400,7 @@ namespace BazisGUI
             navigator.SelectObjectEvent += navigator_SelectObjectEvent;
             navigator.ShowObjectEvent += navigator_ShowObjectEvent;
             navigator.HideObjectEvent += navigator_HideObjectEvent;
+            navigator.DelObjectEvent += navigator_DelObjectEvent;
             navigator.SelectCondEvent += navigator_SelectCondEvent;
             navigator.SelectTaskEvent += navigator_SelectTaskEvent;
             navigator.SelectGeoEvent += navigator_SelectGeoEvent;
