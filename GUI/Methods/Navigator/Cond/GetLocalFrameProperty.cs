@@ -41,7 +41,9 @@ namespace BazisGUI
             rows.Add(new RowProperty("Смещение x", frame.Shifting._x));
             rows.Add(new RowProperty("Смещение y", frame.Shifting._y));
             rows.Add(new RowProperty("Смещение z", frame.Shifting._z));
-            rows.Add(new RowProperty("Поворот x", frame.Rotation));
+            rows.Add(new RowProperty("Поворот x", frame.Rotation_X));
+            rows.Add(new RowProperty("Поворот y", frame.Rotation_Y));
+            rows.Add(new RowProperty("Поворот z", frame.Rotation_Z));
 
             return rows;
         }

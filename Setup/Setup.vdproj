@@ -51,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_27DD7F11A8C247F09D63080375FA5297"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_31EFB92964A3455EA4E2E33E93E5EA61"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -202,12 +208,6 @@
         "Entry"
         {
         "MsmKey" = "8:_EC3F8D4759074ABEBCCF192F16F9C15E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_EC6C86824CF44854BAA9E7B6EBEF7E38"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -464,6 +464,26 @@
             "TargetName" = "8:Project.zip"
             "Tag" = "8:"
             "Folder" = "8:_61BC1FE226594F47811656A5600E4331"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_27DD7F11A8C247F09D63080375FA5297"
+            {
+            "SourcePath" = "8:..\\LICENSE.rtf"
+            "TargetName" = "8:LICENSE.rtf"
+            "Tag" = "8:"
+            "Folder" = "8:_048CF3E704B642F8B568ABADF7411C13"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -958,26 +978,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EC6C86824CF44854BAA9E7B6EBEF7E38"
-            {
-            "SourcePath" = "8:..\\LICENSE.rtf"
-            "TargetName" = "8:LICENSE.rtf"
-            "Tag" = "8:"
-            "Folder" = "8:_048CF3E704B642F8B568ABADF7411C13"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FCC5D432F1D14579A09799A7C1F6617D"
             {
             "SourcePath" = "8:C:\\BazisComponents\\Tutorials\\Tutorial_04.pdf"
@@ -1207,16 +1207,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisGUI5.2.39"
-        "ProductCode" = "8:{9EC0BA2A-1637-459C-9534-AE90ADEE3B2D}"
-        "PackageCode" = "8:{5F9F8CDF-4EF3-40F3-9CBF-A3DDF8D898C8}"
+        "ProductName" = "8:BazisGUI_5.2.41"
+        "ProductCode" = "8:{B4202CF0-A028-4143-BB73-C9D7FDA2D4D7}"
+        "PackageCode" = "8:{08FCCE31-3F10-4EAA-A63E-26FAD01F864E}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:5.2.39"
+        "ProductVersion" = "8:5.2.41"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
@@ -1568,7 +1568,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_EC6C86824CF44854BAA9E7B6EBEF7E38"
+                            "Value" = "8:_27DD7F11A8C247F09D63080375FA5297"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -1766,7 +1766,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_EC6C86824CF44854BAA9E7B6EBEF7E38"
+                            "Value" = "8:_27DD7F11A8C247F09D63080375FA5297"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"

@@ -122,7 +122,11 @@ namespace BazisGUI
             else if (obj.Header == "Смещение z")
                 cond.FrameFunction.LocalFrame.Shifting._z = float.Parse(obj.NewValue);
             else if (obj.Header == "Поворот x")
-                cond.FrameFunction.LocalFrame.Rotation = float.Parse(obj.NewValue);
+                cond.FrameFunction.LocalFrame.Rotation_X = float.Parse(obj.NewValue);
+            else if (obj.Header == "Поворот y")
+                cond.FrameFunction.LocalFrame.Rotation_Y = float.Parse(obj.NewValue);
+            else if (obj.Header == "Поворот z")
+                cond.FrameFunction.LocalFrame.Rotation_Z = float.Parse(obj.NewValue);
         }
 
         private void ChangeClampProperties(PropertyChangedEventArgs obj, ClampData clampCond, ref bool flag)

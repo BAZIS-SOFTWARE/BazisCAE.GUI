@@ -54,28 +54,6 @@ namespace BazisGUI
                         var kind = Enum.Parse<DataKind>(args[0]);
                         var cond = project.Create(kind, args[1]);
                         project.AddTaskData(cond);
-
-                        //var data = project.Add.TaskData.Create(kind, args[1], project.ModelData.GroupData);
-
-                        //TODO перенести в BazisCore
-                        //if (kind == DataKind.Нагрев)
-                        //{
-                        //    var dataAr = args[1].Split(" ");
-                        //    var MrfArgs = dataAr[2].Split(";");
-                        //    var mrfIndex = MrfArgs.FindIndex(x => x == "MRF");
-                        //    var lines = MrfArgs[mrfIndex + 1].Split('|');
-
-                        //    var baseLine = project.GetModelGroup(lines[0]);
-                        //    var refLine = project.GetModelGroup(lines[1]);
-
-                        //    baseLine.SortByDistance();
-                        //    refLine.SortByDistance();
-
-                        //    var velocity = float.Parse(MrfArgs[mrfIndex + 2]);
-                        //    var movedFrame = new MovedFrame(baseLine, refLine, velocity);
-
-                        //    data.StopTime = data.StartTime + (float)Math.Round(movedFrame.CalcMotionTime(), 4);
-                        //}
                         
                     }
                     PresentCondDataOnTree();
@@ -113,6 +91,7 @@ namespace BazisGUI
                 }
             };
 
+            // заставляем реагировать на создание групп
             OnGroupCreated += (arg1, arg2, arg3) =>
             {
                 try
@@ -125,7 +104,7 @@ namespace BazisGUI
                     console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
                 }
             };
-
+            // заставляем реагировать на переименование групп
             OnGroupRenamed += (arg1, arg2, arg3) =>
             {
                 try
@@ -138,7 +117,7 @@ namespace BazisGUI
                     console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
                 }
             };
-
+            // заставляем реагировать на удаление групп
             OnGroupDeleted += (arg1, arg2) =>
             {
                 try
@@ -151,7 +130,7 @@ namespace BazisGUI
                     console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
                 }
             };
-
+            // заставляем реагировать на удаление всех групп
             var deleteAllGroupsDelegate = () =>
             {
                 try
@@ -167,6 +146,8 @@ namespace BazisGUI
             navigator.DelAllMeshEvent += deleteAllGroupsDelegate;
             navigator.DelAllGroupsEvent += deleteAllGroupsDelegate;
 
+            // заставляем реагировать на изменение функций
+
             OnChangeFunctions += (arg1) =>
             {
                 try
@@ -178,6 +159,8 @@ namespace BazisGUI
                     console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
                 }
             };
+
+            // заставляем реагировать на изменение материалов
 
             OnChangeMaterials += (arg1) =>
             {
@@ -191,7 +174,7 @@ namespace BazisGUI
                 }
             };
 
-            FillMasterWithProject(master);
+            FillMasterByProject(master);
 
             var btnName = $"btnTab{master.MasterName}";
             if (!splitContainer3.Panel1.Controls.ContainsKey(btnName))
@@ -213,11 +196,13 @@ namespace BazisGUI
                 splitContainer3.Panel1.Controls.Add(btn);
             }
 
+            // заставляем реагировать на загрузку проекта
+
             OnProjectLoaded += () =>
             {
                 try
                 {
-                    FillMasterWithProject(master);
+                    FillMasterByProject(master);
                 }
                 catch (Exception ex)
                 {
@@ -231,7 +216,7 @@ namespace BazisGUI
             uc.BringToFront();
         }
 
-        private void FillMasterWithProject(IMaster master)
+        private void FillMasterByProject(IMaster master)
         {
             var dict = new Dictionary<GroupType, Dictionary<int, string>>
                 {
