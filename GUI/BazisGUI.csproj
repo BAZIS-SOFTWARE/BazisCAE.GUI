@@ -87,6 +87,9 @@
     <Compile Update="AdvanceSelection\AdvanceSelectionSet.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="AdvanceSelection\ControlsForSelect\GeomSelect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Animation\AnimationPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
