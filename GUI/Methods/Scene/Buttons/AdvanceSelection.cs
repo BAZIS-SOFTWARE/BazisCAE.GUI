@@ -1,15 +1,9 @@
-﻿using BazisGUI.Scene.Interfaces;
-using BazisGUI.Scene.Interfaces;
-using System;
-using Geometry;
-using System.Drawing;
-using MathNet.Numerics.LinearAlgebra;
-using BazisGUI;
-using System.Windows.Forms;
+﻿using BazisGUI.AdvanceSelection.ControlsForSelect;
 using Model.Interfaces;
+using System;
+using System.Drawing;
 using System.Linq;
-using BazisGUI.AdvanceSelection;
-using BazisGUI.AdvanceSelection.ControlsForSelect;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -50,15 +44,21 @@ namespace BazisGUI
                     btn.Invalidate();
                 };
 
-
-                var selectionControl = new UserControl();
                 if (SelectedObjects == ObjType.Элемент1D.ToString() ||
                     SelectedObjects == ObjType.Элемент2D.ToString() ||
                     SelectedObjects == ObjType.Элемент3D.ToString() ||
                     SelectedObjects == ObjType.Узел.ToString())
                 {
-                    selectionControl = new MeshSelect(SelectedObjects);
-                    OnChangeSelectedObjectsEvent += ((MeshSelect)selectionControl).SetAvailableModes;
+                    var selectionControl = new MeshSelect(SelectedObjects);
+
+                    OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
+                    selectionControl.CloseForm += RefreshForm;
+                    selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
+                    selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
+
+
+                    form.ClientSize = selectionControl.Size;
+                    form.Controls.Add(selectionControl);
                 }
 
                 else if (SelectedObjects == ObjType.Точка.ToString() ||
@@ -66,12 +66,14 @@ namespace BazisGUI
                     SelectedObjects == ObjType.Поверхность.ToString() ||
                     SelectedObjects == "Объекты")
                 {
-                    selectionControl = new GeomSelect(SelectedObjects);
-                    OnChangeSelectedObjectsEvent += ((GeomSelect)selectionControl).SetAvailableModes;
+                    var selectionControl = new GeomSelect(SelectedObjects);
+                    OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
+                    selectionControl.CloseForm += RefreshForm;
+                    
+                    form.ClientSize = selectionControl.Size;
+                    form.Controls.Add(selectionControl);
                 }
 
-                form.ClientSize = selectionControl.Size;
-                form.Controls.Add(selectionControl);
                 form.Show();
                 var location = PointToScreen(Point.Empty);
                 form.Location = location;
@@ -96,12 +98,37 @@ namespace BazisGUI
             }
             else
             {
-                var forms = Application.OpenForms.Cast<Form>().ToList();
-                var form = forms.Find(x => x.Name == "selectForm");
-                if (form != null)
+                CloseForm();
+            }
+        }
+
+        private void RefreshForm()
+        {
+            CloseForm();
+            btnAdvSelection_Click(btnAdvSelection, EventArgs.Empty);
+        }
+
+        private void CloseForm()
+        {
+            var forms = Application.OpenForms.Cast<Form>().ToList();
+            var form = forms.Find(x => x.Name == "selectForm");
+            if (form != null)
+            {
+                var mesh = form.Controls.OfType<MeshSelect>().FirstOrDefault();
+                if (mesh != null)
                 {
-                    form.Close();
+                    OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
+                    mesh.CloseForm -= RefreshForm;
+                    mesh.Dispose();
                 }
+                else
+                {
+                    var geom = form.Controls.OfType<GeomSelect>().FirstOrDefault();
+                    OnChangeSelectedObjectsEvent -= geom.SetAvailableModes;
+                    geom.CloseForm -= RefreshForm;
+                    geom.Dispose();
+                }
+                form.Close();
             }
         }
     }

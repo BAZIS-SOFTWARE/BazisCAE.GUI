@@ -38,107 +38,130 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtSurface = new RadioButton();
             rbtDirection = new RadioButton();
             lblAngle = new Label();
-            txbAngle = new TextBoxEx();
+            txbAngle = new TextBoxEx(components);
             chbChangeDirection = new CheckBox();
             generalPanel.SuspendLayout();
             SuspendLayout();
-
             // 
             // generalPanel
             // 
+            generalPanel.AutoSize = true;
             generalPanel.ColumnCount = 2;
-            generalPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30f));
-            generalPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70f));
-            generalPanel.RowCount = 5;
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
+            generalPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            generalPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
             generalPanel.Controls.Add(rbtSet, 0, 0);
             generalPanel.Controls.Add(rbtSurface, 0, 1);
-            generalPanel.Controls.Add(rbtDirection, 0 , 2);
+            generalPanel.Controls.Add(rbtDirection, 0, 2);
             generalPanel.Controls.Add(lblAngle, 0, 3);
             generalPanel.Controls.Add(txbAngle, 1, 3);
-            generalPanel.Controls.Add(chbChangeDirection, 0 , 4);
-            generalPanel.SetColumnSpan(rbtSet, 2);
-            generalPanel.SetColumnSpan(rbtSurface, 2);
-            generalPanel.SetColumnSpan(rbtDirection, 2);
-            generalPanel.SetColumnSpan(chbChangeDirection, 2);
-            generalPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            generalPanel.AutoSize = true;
-            generalPanel.Location = new System.Drawing.Point(0, 0);
+            generalPanel.Controls.Add(chbChangeDirection, 0, 4);
+            generalPanel.Dock = DockStyle.Fill;
+            generalPanel.Location = new Point(0, 0);
             generalPanel.Name = "generalPanel";
+            generalPanel.RowCount = 5;
+            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            generalPanel.Size = new Size(400, 150);
             generalPanel.TabIndex = 0;
-
-            //
+            // 
             // rbtSet
-            //
+            // 
             rbtSet.Anchor = AnchorStyles.Left;
             rbtSet.AutoSize = true;
-            rbtSet.Padding = new Padding(5,0,0,0);
+            generalPanel.SetColumnSpan(rbtSet, 2);
+            rbtSet.Location = new Point(3, 5);
             rbtSet.Name = "rbtSet";
+            rbtSet.Padding = new Padding(5, 0, 0, 0);
+            rbtSet.Size = new Size(75, 19);
             rbtSet.TabIndex = 8;
             rbtSet.TabStop = true;
             rbtSet.Text = "Наборы";
-            rbtSet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            rbtSet.TextAlign = ContentAlignment.MiddleCenter;
             rbtSet.UseVisualStyleBackColor = true;
-            //
+            // 
             // rbtSurface
-            //
+            // 
             rbtSurface.Anchor = AnchorStyles.Left;
             rbtSurface.AutoSize = true;
-            rbtSurface.Padding = new Padding(5, 0, 0, 0);
+            generalPanel.SetColumnSpan(rbtSurface, 2);
+            rbtSurface.Location = new Point(3, 35);
             rbtSurface.Name = "rbtSurface";
+            rbtSurface.Padding = new Padding(5, 0, 0, 0);
+            rbtSurface.Size = new Size(98, 19);
             rbtSurface.TabIndex = 8;
             rbtSurface.TabStop = true;
             rbtSurface.Text = "В плоскости";
-            rbtSurface.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            rbtSurface.TextAlign = ContentAlignment.MiddleCenter;
             rbtSurface.UseVisualStyleBackColor = true;
-            //
+            rbtSurface.CheckedChanged += rbtSurface_CheckedChanged;
+            // 
             // rbtDirection
-            //
+            // 
             rbtDirection.Anchor = AnchorStyles.Left;
             rbtDirection.AutoSize = true;
-            rbtDirection.Padding = new Padding(5, 0, 0, 0);
+            generalPanel.SetColumnSpan(rbtDirection, 2);
+            rbtDirection.Location = new Point(3, 65);
             rbtDirection.Name = "rbtDirection";
+            rbtDirection.Padding = new Padding(5, 0, 0, 0);
+            rbtDirection.Size = new Size(125, 19);
             rbtDirection.TabIndex = 8;
             rbtDirection.TabStop = true;
             rbtDirection.Text = "По направлению";
-            rbtDirection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            rbtDirection.TextAlign = ContentAlignment.MiddleCenter;
             rbtDirection.UseVisualStyleBackColor = true;
-            //
+            rbtDirection.CheckedChanged += rbtDirection_CheckedChanged;
+            // 
             // lblAngle
-            //
+            // 
             lblAngle.AutoSize = true;
-            lblAngle.Padding = new Padding(5, 3, 0, 0);
+            lblAngle.Location = new Point(3, 90);
             lblAngle.Name = "lblAngle";
+            lblAngle.Padding = new Padding(5, 3, 0, 0);
+            lblAngle.Size = new Size(38, 18);
             lblAngle.TabIndex = 7;
             lblAngle.Text = "Угол";
             // 
             // txbAngle
             // 
-            txbAngle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txbAngle.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txbAngle.Margin = new System.Windows.Forms.Padding(0, 0, 20, 0);
+            txbAngle.BorderStyle = BorderStyle.FixedSingle;
+            txbAngle.InputType = TXTBoxInputType.Text;
+            txbAngle.IsValidating = true;
+            txbAngle.Location = new Point(120, 93);
+            txbAngle.Margin = new Padding(0, 0, 20, 0);
             txbAngle.Name = "txbAngle";
+            txbAngle.Size = new Size(260, 23);
             txbAngle.TabIndex = 6;
+            txbAngle.Text = "5";
+            txbAngle.UserRegExCheck = null;
+            txbAngle.UserRegExCheckErrorMessage = null;
             // 
             // chbChangeDirection
             // 
             chbChangeDirection.AutoSize = true;
+            generalPanel.SetColumnSpan(chbChangeDirection, 2);
+            chbChangeDirection.Location = new Point(3, 123);
             chbChangeDirection.Name = "chbChangeDirection";
             chbChangeDirection.Padding = new Padding(5, 0, 0, 0);
+            chbChangeDirection.Size = new Size(154, 19);
             chbChangeDirection.TabIndex = 10;
             chbChangeDirection.Text = "Сменить направление";
             chbChangeDirection.UseVisualStyleBackColor = true;
-
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            // 
+            // MeshSelect
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(generalPanel);
-            Size = new System.Drawing.Size(400, 150);
+            Name = "MeshSelect";
+            Size = new Size(400, 150);
             generalPanel.ResumeLayout(false);
             generalPanel.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

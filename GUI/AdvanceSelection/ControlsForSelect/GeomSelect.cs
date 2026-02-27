@@ -1,4 +1,4 @@
-﻿using Model.MeshObjects;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -12,7 +12,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             { "Кривая", (true, true, false) },
             { "Поверхность", (true, false, false) }
         };
-
+        public event Action CloseForm;
         public GeomSelect(string selectedObjects)
         {
             InitializeComponent();
@@ -24,7 +24,8 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             if (_modes.TryGetValue(selectedObjects, out var mode))
                 SetApply(mode.volume, mode.surface, mode.curve);
             else
-                SetApply(false, false, false);
+                //SetApply(false, false, false);
+                CloseForm?.Invoke();
         }
 
         private void SetApply(bool volume, bool surface, bool curve)
