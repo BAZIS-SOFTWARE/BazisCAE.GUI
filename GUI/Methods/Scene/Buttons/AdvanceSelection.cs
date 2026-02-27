@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Model.Interfaces;
 using System.Linq;
 using BazisGUI.AdvanceSelection;
+using BazisGUI.AdvanceSelection.ControlsForSelect;
 
 namespace BazisGUI
 {
@@ -43,15 +44,44 @@ namespace BazisGUI
                     TopMost = true,
                     Owner = Application.OpenForms[0]
                 };
-
                 form.FormClosing += (s1, s2) => 
                 {
                     btn.Tag = false;
                     btn.Invalidate();
                 };
-                var selectionControl = new AdvanceSelectionSet() { Dock = DockStyle.Fill };
-                selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
-                selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
+
+
+                var selectionControl = new UserControl();
+                if (SelectedObjects == ObjType.Элемент1D.ToString() ||
+                    SelectedObjects == ObjType.Элемент2D.ToString() ||
+                    SelectedObjects == ObjType.Элемент3D.ToString() ||
+                    SelectedObjects == ObjType.Узел.ToString())
+                {
+                    selectionControl = new MeshSelect(SelectedObjects);
+                    OnChangeSelectedObjectsEvent += ((MeshSelect)selectionControl).SetAvailableModes;
+                }
+
+                else if (SelectedObjects == ObjType.Точка.ToString() ||
+                    SelectedObjects == ObjType.Кривая.ToString() ||
+                    SelectedObjects == ObjType.Поверхность.ToString() ||
+                    SelectedObjects == "Объекты")
+                {
+                    selectionControl = new GeomSelect(SelectedObjects);
+                    OnChangeSelectedObjectsEvent += ((GeomSelect)selectionControl).SetAvailableModes;
+                }
+
+                form.ClientSize = selectionControl.Size;
+                form.Controls.Add(selectionControl);
+                form.Show();
+                var location = PointToScreen(Point.Empty);
+                form.Location = location;
+
+
+
+
+
+                //selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
+                //selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
                 //selectionControl.SelectNodes += (s1, s2) =>
                 //{
                 //    spbSelectObject.ToolTipText = ObjType.Узел.ToString();
@@ -63,12 +93,6 @@ namespace BazisGUI
                 //    spbSelectObject.ToolTipText = ObjType.Элемент2D.ToString();
                 //    spbSelectObject.Invalidate();
                 //};
-
-                form.ClientSize = selectionControl.Size;
-                form.Controls.Add(selectionControl);
-                form.Show();
-                var location = PointToScreen(Point.Empty);
-                form.Location = location;
             }
             else
             {
