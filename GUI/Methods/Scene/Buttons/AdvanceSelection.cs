@@ -35,9 +35,11 @@ namespace BazisGUI
                 var form = new Form()
                 {
                     Name = "selectForm",
-                    Text = "Дополненный выбор",
+                    Text = "Расширенный выбор",
                     AutoSize = false,
                     ShowIcon = false,
+                    MinimizeBox = false,
+                    MaximizeBox = false,
                     TopMost = true,
                     Owner = Application.OpenForms[0]
                 };

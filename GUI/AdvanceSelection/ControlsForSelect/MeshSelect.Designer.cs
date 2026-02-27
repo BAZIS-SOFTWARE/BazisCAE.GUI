@@ -119,6 +119,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             // txbAngle
             // 
             txbAngle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txbAngle.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txbAngle.Margin = new System.Windows.Forms.Padding(0, 0, 20, 0);
             txbAngle.Name = "txbAngle";
             txbAngle.TabIndex = 6;
@@ -134,6 +135,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(generalPanel);
+            Size = new System.Drawing.Size(400, 150);
             generalPanel.ResumeLayout(false);
             generalPanel.PerformLayout();
             ResumeLayout(false);
