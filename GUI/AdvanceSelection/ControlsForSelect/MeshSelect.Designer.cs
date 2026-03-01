@@ -34,7 +34,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         {
             components = new System.ComponentModel.Container();
             generalPanel = new TableLayoutPanel();
-            rbtSet = new RadioButton();
+            rbtSet = new NullableRadioButton();
             rbtSurface = new RadioButton();
             rbtDirection = new RadioButton();
             lblAngle = new Label();
@@ -72,15 +72,15 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtSet.Anchor = AnchorStyles.Left;
             rbtSet.AutoSize = true;
             generalPanel.SetColumnSpan(rbtSet, 2);
-            rbtSet.Location = new Point(3, 5);
             rbtSet.Name = "rbtSet";
-            rbtSet.Padding = new Padding(5, 0, 0, 0);
-            rbtSet.Size = new Size(75, 19);
+            rbtSet.Margin = new Padding(8, 0, 0, 0);
             rbtSet.TabIndex = 8;
             rbtSet.TabStop = true;
             rbtSet.Text = "Наборы";
-            rbtSet.TextAlign = ContentAlignment.MiddleCenter;
-            rbtSet.UseVisualStyleBackColor = true;
+            //rbtSet.TextAlign = ContentAlignment.MiddleCenter;
+            //rbtSet.UseVisualStyleBackColor = true;
+            rbtSet.CheckedChanged += rbtSet_CheckedChanged;
+            rbtSet.Checked = false;
             // 
             // rbtSurface
             // 
@@ -97,6 +97,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtSurface.TextAlign = ContentAlignment.MiddleCenter;
             rbtSurface.UseVisualStyleBackColor = true;
             rbtSurface.CheckedChanged += rbtSurface_CheckedChanged;
+            rbtSurface.Checked = false;
             // 
             // rbtDirection
             // 
@@ -113,6 +114,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtDirection.TextAlign = ContentAlignment.MiddleCenter;
             rbtDirection.UseVisualStyleBackColor = true;
             rbtDirection.CheckedChanged += rbtDirection_CheckedChanged;
+            rbtDirection.Checked = false;
             // 
             // lblAngle
             // 
@@ -168,7 +170,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 
         private TableLayoutPanel generalPanel;
 
-        private RadioButton rbtSet;
+        private NullableRadioButton rbtSet;
         private RadioButton rbtSurface;
         private RadioButton rbtDirection;
 

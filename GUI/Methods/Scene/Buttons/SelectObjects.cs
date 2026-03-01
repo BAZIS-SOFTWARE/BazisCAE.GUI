@@ -265,5 +265,26 @@ Distinct(new DefaultSetInfoComparer()))
             else
                 console.PrintInfo("Выбранных объектов должно быть больше двух", Color.Red);
         }
+
+        private void SelectionControl_SelectInSet(ObjType selectType)
+        {
+            var selObjs = project.GetModelObjects(selectType).Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
+            if (selObjs?.Count() > 0)
+            {
+                foreach (var objSelect in selObjs) 
+                {
+                    var setInfo = project.GetModelSetInfo(selectType, objSelect.Number);
+                    var numberObjects = setInfo.GetNumbers();
+                    foreach (var number in numberObjects)
+                    {
+                        var element = project.GetModelObject(selectType, number);
+                        element.Color = settingsConfig.SelectObjectColor;
+                    }
+                    var pres = project.CreateModelObjectsPresentor(setInfo);
+                    SetVBObjectAttribute(pres, "цвет");
+                }
+            }
+            DisplayObjects();
+        }
     }
 }

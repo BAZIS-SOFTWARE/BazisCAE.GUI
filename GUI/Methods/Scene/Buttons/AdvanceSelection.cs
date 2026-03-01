@@ -26,6 +26,8 @@ namespace BazisGUI
 
             if (!bool.Parse(btn.Tag.ToString()))
             {
+                if(SelectedObjects == "Выбрать")
+                    return;
                 btn.Tag = true;
                 var form = new Form()
                 {
@@ -36,6 +38,7 @@ namespace BazisGUI
                     MinimizeBox = false,
                     MaximizeBox = false,
                     TopMost = true,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
                     Owner = Application.OpenForms[0]
                 };
                 form.FormClosing += (s1, s2) => 
@@ -55,7 +58,7 @@ namespace BazisGUI
                     selectionControl.CloseForm += RefreshForm;
                     selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
                     selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
-
+                    selectionControl.SelectInSet += SelectionControl_SelectInSet;
 
                     form.ClientSize = selectionControl.Size;
                     form.Controls.Add(selectionControl);
@@ -75,7 +78,7 @@ namespace BazisGUI
                 }
 
                 form.Show();
-                var location = PointToScreen(Point.Empty);
+                var location = GetPosition(form.Height);
                 form.Location = location;
 
 
@@ -130,6 +133,14 @@ namespace BazisGUI
                 }
                 form.Close();
             }
+        }
+
+        private Point GetPosition(int hightForm)
+        {
+            var scenePosition = scene.PointToScreen(Point.Empty);
+            var x = scenePosition.X;
+            var y = scenePosition.Y + scene.Height - hightForm;
+            return new Point(x, y);
         }
     }
 }

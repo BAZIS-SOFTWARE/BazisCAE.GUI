@@ -1,6 +1,7 @@
 ﻿using Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BazisGUI.AdvanceSelection.ControlsForSelect
@@ -17,6 +18,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         public event Action CloseForm;
         public event Action<object, SelectInDirectionEventArgs> SelectInDirection;
         public event Action<object, SelectInPlainEventArgs> SelectInPlain;
+        public event Action<ObjType> SelectInSet;
 
         private ObjType selectType;
         public MeshSelect(string selectedObjects)
@@ -31,7 +33,6 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             if (_modes.TryGetValue(selectedObjects, out var mode))
                 SetApply(mode.set, mode.surface, mode.direction, mode.other);
             else
-                //SetApply(false, false, false, false);
                 CloseForm?.Invoke();
         }
 
@@ -50,6 +51,8 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 
         private void rbtSurface_CheckedChanged(object sender, EventArgs e) =>
             SelectInPlain(this, new SelectInPlainEventArgs(selectType, float.Parse(txbAngle.Text)));
+        private void rbtSet_CheckedChanged(object sender, EventArgs e) => SelectInSet(selectType);
+
 
         private ObjType ConvertToObjsType(string objects)
         {
