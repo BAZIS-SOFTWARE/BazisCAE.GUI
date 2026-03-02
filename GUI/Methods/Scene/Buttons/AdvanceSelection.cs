@@ -26,7 +26,7 @@ namespace BazisGUI
 
             if (!bool.Parse(btn.Tag.ToString()))
             {
-                if(SelectedObjects == "Выбрать")
+                if(SelectedObjects == "Выбрать" || SelectedObjects == "Объекты")
                     return;
                 btn.Tag = true;
                 var form = new Form()
@@ -59,7 +59,7 @@ namespace BazisGUI
                     selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
                     selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
                     selectionControl.SelectInSet += SelectionControl_SelectInSet;
-
+                    AdvanceSelectionError += selectionControl.UnchekAllRadioButton;
                     form.ClientSize = selectionControl.Size;
                     form.Controls.Add(selectionControl);
                 }
@@ -72,7 +72,8 @@ namespace BazisGUI
                     var selectionControl = new GeomSelect(SelectedObjects);
                     OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
                     selectionControl.CloseForm += RefreshForm;
-                    
+                    selectionControl.SelectInCurve += SelectionControl_SelectInCurve;
+                    AdvanceSelectionError += selectionControl.UnchekAllRadioButton;
                     form.ClientSize = selectionControl.Size;
                     form.Controls.Add(selectionControl);
                 }
@@ -80,24 +81,6 @@ namespace BazisGUI
                 form.Show();
                 var location = GetPosition(form.Height);
                 form.Location = location;
-
-
-
-
-
-                //selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
-                //selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
-                //selectionControl.SelectNodes += (s1, s2) =>
-                //{
-                //    spbSelectObject.ToolTipText = ObjType.Узел.ToString();
-                //    spbSelectObject.Invalidate();
-                //};
-
-                //selectionControl.SelectElements += (s1, s2) =>
-                //{
-                //    spbSelectObject.ToolTipText = ObjType.Элемент2D.ToString();
-                //    spbSelectObject.Invalidate();
-                //};
             }
             else
             {

@@ -16,7 +16,7 @@ namespace BazisGUI
     {
         Dictionary<string, Button> objButtons = new Dictionary<string, Button>();
         public event Action<string> OnChangeSelectedObjectsEvent;
-
+        public event Action AdvanceSelectionError;
         /// <summary>
         /// Временный выбранный объект для работы со свойствами через сцену
         /// </summary>
@@ -145,8 +145,6 @@ namespace BazisGUI
             return btn;
         }
 
-        
-
         private void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
         {
             try
@@ -176,9 +174,7 @@ namespace BazisGUI
         private void SelectE2DInPlane(float angle)
         {
 
-            var selObjs = project.GetModelObjects(ObjType.Элемент2D).
-
-    Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
+            var selObjs = project.GetModelObjects(ObjType.Элемент2D).Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
 
             if (selObjs?.Count() > 0)
             {
@@ -188,8 +184,8 @@ namespace BazisGUI
 
                 // TO DO исправить метод
                 foreach (var set in objs.Select(x => project.
-GetModelSetInfo(ObjType.Элемент2D, x)).
-Distinct(new DefaultSetInfoComparer()))
+                GetModelSetInfo(ObjType.Элемент2D, x)).
+                Distinct(new DefaultSetInfoComparer()))
                 {
                     var pres = project.CreateModelObjectsPresentor(set);
                     SetVBObjectAttribute(pres, "цвет");
@@ -203,9 +199,7 @@ Distinct(new DefaultSetInfoComparer()))
 
         private void SelectNodeInPlane()
         {
-            var selObjs = project.GetAllModelNodes().
-
-    Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
+            var selObjs = project.GetAllModelNodes().Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
             if (selObjs?.Count() > 2)
             {
                 var n1 = (Node)selObjs.First();
@@ -235,14 +229,14 @@ Distinct(new DefaultSetInfoComparer()))
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
+                AdvanceSelectionError.Invoke();
             }
         }
 
         private void SelectInDirection(ObjType arg2, float angle, bool reverse)
         {
 
-            var selObjs = project.GetModelObjects(arg2).
-    Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
+            var selObjs = project.GetModelObjects(arg2).Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
             if (selObjs?.Count() > 1)
             {
                 if (!reverse)
@@ -262,18 +256,23 @@ Distinct(new DefaultSetInfoComparer()))
 
                 DisplayObjects();
             }
-            else
+            else 
+            {
                 console.PrintInfo("Выбранных объектов должно быть больше двух", Color.Red);
+                AdvanceSelectionError.Invoke();
+            }
         }
 
         private void SelectionControl_SelectInSet(ObjType selectType)
         {
             var selObjs = project.GetModelObjects(selectType).Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
-            if (selObjs?.Count() > 0)
+            if (selObjs?.Length > 0)
             {
-                foreach (var objSelect in selObjs) 
+                var uniqueSets = selObjs.Select(modelObject => project.GetModelSetInfo(selectType, modelObject.Number)).
+                    GroupBy(setInfo => setInfo.Name).Select(group => group.First()).ToList();
+
+                foreach(var setInfo in uniqueSets)
                 {
-                    var setInfo = project.GetModelSetInfo(selectType, objSelect.Number);
                     var numberObjects = setInfo.GetNumbers();
                     foreach (var number in numberObjects)
                     {
@@ -283,8 +282,41 @@ Distinct(new DefaultSetInfoComparer()))
                     var pres = project.CreateModelObjectsPresentor(setInfo);
                     SetVBObjectAttribute(pres, "цвет");
                 }
+                DisplayObjects();
             }
-            DisplayObjects();
+            else
+            {
+                console.PrintInfo("Нет выбранных объектов", Color.Red);
+                AdvanceSelectionError.Invoke();
+            }
+        }
+
+        private void SelectionControl_SelectInCurve(string searchArea)
+        {
+            var selObjs = GetModelObjects(SelectedObjects).Where(x => x.Color == settingsConfig.SelectObjectColor).ToList();
+            if (selObjs?.Count() > 0) 
+            {
+                var objTypes = new HashSet<ObjType>();
+                foreach (var item in selObjs)
+                {
+                    var up = project.GetAdjacentGeometryObjects(item, 2);
+
+                    if (up.Count() > 0)
+                        objTypes.Add(up.First().ObjType);
+
+                    var temp = up;
+                    //var setInfo = project.GetModelSetInfo(selectType, objSelect.Number);
+                    //var numberObjects = setInfo.GetNumbers();
+                    //foreach (var number in numberObjects)
+                    //{
+                    //    var element = project.GetModelObject(selectType, number);
+                    //    element.Color = settingsConfig.SelectObjectColor;
+                    //}
+                    //var pres = project.CreateModelObjectsPresentor(setInfo);
+                    //SetVBObjectAttribute(pres, "цвет");
+                }
+                DisplayObjects();
+            }
         }
     }
 }

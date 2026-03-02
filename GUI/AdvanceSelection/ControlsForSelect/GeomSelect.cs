@@ -13,6 +13,9 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             { "Поверхность", (true, false, false) }
         };
         public event Action CloseForm;
+        public event Action<string> SelectInCurve;
+        public event Action SelectInPlain;
+        public event Action SelectInVolume;
         public GeomSelect(string selectedObjects)
         {
             InitializeComponent();
@@ -24,15 +27,32 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             if (_modes.TryGetValue(selectedObjects, out var mode))
                 SetApply(mode.volume, mode.surface, mode.curve);
             else
-                //SetApply(false, false, false);
                 CloseForm?.Invoke();
         }
-
+        public void UnchekAllRadioButton()
+        {
+            foreach (Control control in generalPanel.Controls)
+                if (control is NullableRadioButton rbt)
+                    rbt.Checked = false;
+        }
         private void SetApply(bool volume, bool surface, bool curve)
         {
             rbtVolume.Enabled = volume;
             rbtSurface.Enabled = surface;
             rbtCurve.Enabled = curve;
         }
+
+        private void UncheckOtherRbt_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!(sender is NullableRadioButton rbtSelect) || !rbtSelect.Checked)
+                return;
+            foreach (Control control in generalPanel.Controls)
+                if (control is NullableRadioButton other && other != rbtSelect)
+                    other.Checked = false;
+        }
+
+        private void rbtCurve_CheckedChanged(object sender, EventArgs e) => SelectInCurve?.Invoke(rbtCurve.Text);
+        private void rbtSurface_CheckedChanged(object sender, EventArgs e) => SelectInPlain?.Invoke();
+        private void rbtVolume_CheckedChanged(object sender, EventArgs e) => SelectInVolume?.Invoke();
     }
 }

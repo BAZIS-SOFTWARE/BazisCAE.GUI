@@ -29,11 +29,20 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 
         public void SetAvailableModes(string selectedObjects)
         {
-            selectType = ConvertToObjsType(selectedObjects);
             if (_modes.TryGetValue(selectedObjects, out var mode))
+            {
                 SetApply(mode.set, mode.surface, mode.direction, mode.other);
+                selectType = ConvertToObjsType(selectedObjects);
+            }
             else
                 CloseForm?.Invoke();
+        }
+
+        public void UnchekAllRadioButton()
+        {
+            foreach (Control control in generalPanel.Controls)
+                if (control is NullableRadioButton rbt)
+                    rbt.Checked = false;
         }
 
         private void SetApply(bool set, bool surface, bool direction, bool other)
@@ -46,13 +55,14 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             chbChangeDirection.Enabled = other;
         }
 
-        private void rbtDirection_CheckedChanged(object sender, EventArgs e) =>
-            SelectInDirection(this, new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
-
-        private void rbtSurface_CheckedChanged(object sender, EventArgs e) =>
-            SelectInPlain(this, new SelectInPlainEventArgs(selectType, float.Parse(txbAngle.Text)));
-        private void rbtSet_CheckedChanged(object sender, EventArgs e) => SelectInSet(selectType);
-
+        private void UncheckOtherRbt_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!(sender is NullableRadioButton rbtSelect) || !rbtSelect.Checked)
+                return;
+            foreach (Control control in generalPanel.Controls)
+                if (control is NullableRadioButton other && other != rbtSelect)
+                    other.Checked = false;
+        }
 
         private ObjType ConvertToObjsType(string objects)
         {
@@ -60,5 +70,11 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             return Enum.TryParse(objects, out objType) ? objType :
                 throw new Exception($"Ошибка конвертации объектов {objects}");
         }
+
+        private void rbtDirection_CheckedChanged(object sender, EventArgs e) =>
+            SelectInDirection(this, new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
+        private void rbtSurface_CheckedChanged(object sender, EventArgs e) =>
+            SelectInPlain(this, new SelectInPlainEventArgs(selectType, float.Parse(txbAngle.Text)));
+        private void rbtSet_CheckedChanged(object sender, EventArgs e) => SelectInSet(selectType);
     }
 }

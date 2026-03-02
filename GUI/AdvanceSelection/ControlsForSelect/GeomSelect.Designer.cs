@@ -30,88 +30,92 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             generalPanel = new TableLayoutPanel();
-            rbtVolume = new RadioButton();
-            rbtSurface = new RadioButton();
-            rbtCurve = new RadioButton();
+            rbtVolume = new NullableRadioButton();
+            rbtSurface = new NullableRadioButton();
+            rbtCurve = new NullableRadioButton();
             generalPanel.SuspendLayout();
             SuspendLayout();
-
             // 
             // generalPanel
             // 
+            generalPanel.AutoSize = true;
             generalPanel.ColumnCount = 1;
-            generalPanel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-            generalPanel.RowCount = 3;
-            //generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.333f));
-            //generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.333f));
-            //generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.333f));
-
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30f));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30f));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30f));
+            generalPanel.ColumnStyles.Add(new ColumnStyle());
             generalPanel.Controls.Add(rbtVolume);
             generalPanel.Controls.Add(rbtSurface);
             generalPanel.Controls.Add(rbtCurve);
-            generalPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            generalPanel.AutoSize = true;
+            generalPanel.Dock = DockStyle.Fill;
             generalPanel.Location = new System.Drawing.Point(0, 0);
             generalPanel.Name = "generalPanel";
+            generalPanel.RowCount = 3;
+            generalPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            generalPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            generalPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            generalPanel.Size = new System.Drawing.Size(400, 90);
             generalPanel.TabIndex = 0;
-
-            //
-            // rbtSet
-            //
+            // 
+            // rbtVolume
+            // 
             rbtVolume.Anchor = AnchorStyles.Left;
             rbtVolume.AutoSize = true;
-            rbtVolume.Padding = new Padding(5,0,0,0);
-            rbtVolume.Name = "rbtSet";
+            rbtVolume.Location = new System.Drawing.Point(3, 5);
+            rbtVolume.Name = "rbtVolume";
+            rbtVolume.Padding = new Padding(5, 0, 0, 0);
+            rbtVolume.Size = new System.Drawing.Size(77, 19);
             rbtVolume.TabIndex = 8;
             rbtVolume.TabStop = true;
             rbtVolume.Text = "Объемы";
-            rbtVolume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            rbtVolume.UseVisualStyleBackColor = true;
-            //
+            rbtVolume.CheckedChanged += rbtVolume_CheckedChanged;
+            rbtVolume.CheckedChanged += UncheckOtherRbt_CheckedChanged;
+            // 
             // rbtSurface
-            //
+            // 
             rbtSurface.Anchor = AnchorStyles.Left;
             rbtSurface.AutoSize = true;
-            rbtSurface.Padding = new Padding(5, 0, 0, 0);
+            rbtSurface.Location = new System.Drawing.Point(3, 35);
             rbtSurface.Name = "rbtSurface";
+            rbtSurface.Padding = new Padding(5, 0, 0, 0);
+            rbtSurface.Size = new System.Drawing.Size(102, 19);
             rbtSurface.TabIndex = 8;
             rbtSurface.TabStop = true;
             rbtSurface.Text = "Поверхности";
-            rbtSurface.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            rbtSurface.UseVisualStyleBackColor = true;
-            //
-            // rbtDirection
-            //
+            rbtSurface.CheckedChanged += rbtSurface_CheckedChanged;
+            rbtSurface.CheckedChanged += UncheckOtherRbt_CheckedChanged;
+            // 
+            // rbtCurve
+            // 
             rbtCurve.Anchor = AnchorStyles.Left;
             rbtCurve.AutoSize = true;
+            rbtCurve.Location = new System.Drawing.Point(3, 65);
+            rbtCurve.Name = "rbtCurve";
             rbtCurve.Padding = new Padding(5, 0, 0, 0);
-            rbtCurve.Name = "rbtDirection";
+            rbtCurve.Size = new System.Drawing.Size(72, 19);
             rbtCurve.TabIndex = 8;
             rbtCurve.TabStop = true;
             rbtCurve.Text = "Кривые";
-            rbtCurve.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            rbtCurve.UseVisualStyleBackColor = true;
-
-
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            rbtCurve.CheckedChanged += rbtCurve_CheckedChanged;
+            rbtCurve.CheckedChanged += UncheckOtherRbt_CheckedChanged;
+            // 
+            // GeomSelect
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(generalPanel);
-            Size = new System.Drawing.Size(400, 90);
+            Name = "GeomSelect";
+            Size = new System.Drawing.Size(225, 90);
             generalPanel.ResumeLayout(false);
             generalPanel.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private TableLayoutPanel generalPanel;
 
-        private RadioButton rbtVolume;
-        private RadioButton rbtSurface;
-        private RadioButton rbtCurve;
+        private NullableRadioButton rbtVolume;
+        private NullableRadioButton rbtSurface;
+        private NullableRadioButton rbtCurve;
     }
 }

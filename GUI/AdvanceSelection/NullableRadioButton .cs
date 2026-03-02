@@ -23,11 +23,7 @@ namespace BazisGUI.AdvanceSelection
 
         private void NullableRadioButton_Click(object sender, EventArgs e)
         {
-            // Снимаем или ставим выбор
             Checked = !Checked;
-
-            // Если нужна логика "только один выбран", её можно сделать на форме,
-            // отслеживая событие CheckedChanged
             CheckedChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -49,28 +45,51 @@ namespace BazisGUI.AdvanceSelection
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
-            int radius = 6; // фиксированный радиус круга, как у стандартного RadioButton
+            float scale = DeviceDpi / 96f;
+            int radius = (int)(6 * scale); // фиксированный радиус круга, как у стандартного RadioButton
             var g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
+            // Цвета в зависимости от состояния
+            Color borderColor = Enabled ? Color.Black : SystemColors.GrayText;
+            Color fillColor = Enabled ? Color.Black : SystemColors.GrayText;
+            Color textColor = Enabled ? ForeColor : SystemColors.GrayText;
+
+            using var borderPen = new Pen(borderColor);
+            using var textBrush = new SolidBrush(textColor);
+            using var fillBrush = new SolidBrush(fillColor);
+
             // Нарисовать внешний круг
-            g.DrawEllipse(Pens.Black, 0, 0, radius * 2, radius * 2);
+            g.DrawEllipse(borderPen, 0, 0, radius * 2, radius * 2);
 
             // Если выбран — закрасить внутренний круг
             if (_checked)
-                g.FillEllipse(Brushes.Black, radius / 2, radius / 2, radius, radius);
+                g.FillEllipse(fillBrush, radius / 2, radius / 2, radius, radius);
 
             // Рисуем текст справа
             using var brush = new SolidBrush(ForeColor);
-            g.DrawString(Text, Font, brush, radius * 2 + 4, radius - Font.Height / 2);
+            g.DrawString(Text, Font, textBrush, radius * 2 + 4, radius - Font.Height / 2);
         }
 
         public override Size GetPreferredSize(Size proposedSize)
         {
+            float scale = DeviceDpi / 96f;
+            int radius = (int)(6 * scale);
+
             using var g = CreateGraphics();
             var textSize = g.MeasureString(Text, Font);
-            return new Size((int)textSize.Width + 24, Math.Max((int)textSize.Height, 20));
+
+            int width = radius * 2 + (int)(4 * scale) + (int)textSize.Width;
+            int height = Math.Max(radius * 2, (int)textSize.Height);
+
+            return new Size(width, height);
+        }
+
+        protected override void OnDpiChangedAfterParent(EventArgs e)
+        {
+            base.OnDpiChangedAfterParent(e);
+            Invalidate();
+            PerformLayout();
         }
     }
 }
