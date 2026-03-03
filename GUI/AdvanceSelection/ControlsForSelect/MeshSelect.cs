@@ -1,7 +1,6 @@
 ﻿using Model.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace BazisGUI.AdvanceSelection.ControlsForSelect
@@ -71,10 +70,20 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
                 throw new Exception($"Ошибка конвертации объектов {objects}");
         }
 
-        private void rbtDirection_CheckedChanged(object sender, EventArgs e) =>
-            SelectInDirection(this, new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
-        private void rbtSurface_CheckedChanged(object sender, EventArgs e) =>
-            SelectInPlain(this, new SelectInPlainEventArgs(selectType, float.Parse(txbAngle.Text)));
-        private void rbtSet_CheckedChanged(object sender, EventArgs e) => SelectInSet(selectType);
+        private void rbtDirection_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtDirection.Checked)
+                SelectInDirection(this, new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
+        }
+        private void rbtSurface_CheckedChanged(object sender, EventArgs e) 
+        {
+            if (rbtSurface.Checked)
+                SelectInPlain(this, new SelectInPlainEventArgs(selectType, float.Parse(txbAngle.Text)));
+        }
+        private void rbtSet_CheckedChanged(object sender, EventArgs e) 
+        { 
+            if(rbtSet.Checked)
+                SelectInSet(selectType);
+        } 
     }
 }

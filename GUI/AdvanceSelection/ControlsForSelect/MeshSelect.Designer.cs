@@ -116,11 +116,11 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             // lblAngle
             // 
             lblAngle.AutoSize = true;
-            lblAngle.Location = new Point(3, 90);
+            lblAngle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             lblAngle.Name = "lblAngle";
-            lblAngle.Padding = new Padding(5, 3, 0, 0);
+            lblAngle.Padding = new Padding(5, 3, 0, 5);
             lblAngle.Size = new Size(38, 18);
-            lblAngle.TabIndex = 7;
+            lblAngle.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Top;
             lblAngle.Text = "Угол";
             // 
             // txbAngle
