@@ -13,9 +13,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             { "Поверхность", (true, false, false) }
         };
         public event Action CloseForm;
-        public event Action<string> SelectInCurve;
-        public event Action SelectInPlain;
-        public event Action SelectInVolume;
+        public event Action<int> SelectInGeom;
         public GeomSelect(string selectedObjects)
         {
             InitializeComponent();
@@ -51,8 +49,23 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
                     other.Checked = false;
         }
 
-        private void rbtCurve_CheckedChanged(object sender, EventArgs e) => SelectInCurve?.Invoke(rbtCurve.Text);
-        private void rbtSurface_CheckedChanged(object sender, EventArgs e) => SelectInPlain?.Invoke();
-        private void rbtVolume_CheckedChanged(object sender, EventArgs e) => SelectInVolume?.Invoke();
+        private void rbt_CheckedChanged(object sender, EventArgs e) 
+        {
+            if(sender is NullableRadioButton rbtSelect && rbtSelect.Checked)
+            {
+                var dim = GetDimm(rbtSelect.Text);
+                SelectInGeom?.Invoke(dim);
+            }
+        } 
+
+        private int GetDimm(string rbtText) 
+        {
+            return rbtText switch
+            {
+                "Объемы" => 3,
+                "Поверхности" => 2,
+                "Кривые" => 1,
+            };
+        }
     }
 }

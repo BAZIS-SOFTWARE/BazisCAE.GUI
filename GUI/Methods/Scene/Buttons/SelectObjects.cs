@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static IronPython.Modules._ast;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BazisGUI
 {
@@ -176,23 +178,22 @@ namespace BazisGUI
 
             var selObjs = project.GetModelObjects(ObjType.Элемент2D).Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
 
-            if (selObjs?.Count() > 0)
+            if (selObjs?.Length > 0)
             {
-                var element = selObjs.Last();
-                var objs = project.SelectE2DInPlane(
-                    angle, element.Number, settingsConfig.SelectObjectColor);
-
-                // TO DO исправить метод
-                foreach (var set in objs.Select(x => project.
-                GetModelSetInfo(ObjType.Элемент2D, x)).
-                Distinct(new DefaultSetInfoComparer()))
+                foreach(var selObject in selObjs)
                 {
-                    var pres = project.CreateModelObjectsPresentor(set);
-                    SetVBObjectAttribute(pres, "цвет");
+                    var objs = project.SelectE2DInPlane(angle, selObject.Number, settingsConfig.SelectObjectColor);
+
+                    // TO DO исправить метод
+                    foreach (var set in objs.Select(x => project.
+                    GetModelSetInfo(ObjType.Элемент2D, x)).
+                    Distinct(new DefaultSetInfoComparer()))
+                    {
+                        var pres = project.CreateModelObjectsPresentor(set);
+                        SetVBObjectAttribute(pres, "цвет");
+                    }
                 }
-
                 DisplayObjects();
-
             }
             else console.PrintInfo("Выберите хотя бы один элемент", Color.Red);
         }
@@ -200,7 +201,7 @@ namespace BazisGUI
         private void SelectNodeInPlane()
         {
             var selObjs = project.GetAllModelNodes().Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
-            if (selObjs?.Count() > 2)
+            if (selObjs?.Length > 2)
             {
                 var n1 = (Node)selObjs.First();
                 var n2 = (Node)selObjs.Skip(1).First();
@@ -291,32 +292,122 @@ namespace BazisGUI
             }
         }
 
-        private void SelectionControl_SelectInCurve(string searchArea)
+        private void SelectionControl_SelectInCurve(int targetDim)
         {
             var selObjs = GetModelObjects(SelectedObjects).Where(x => x.Color == settingsConfig.SelectObjectColor).ToList();
-            if (selObjs?.Count() > 0) 
+            if (selObjs?.Count > 0) 
             {
-                var objTypes = new HashSet<ObjType>();
+                var objType = selObjs.Select(o => o.ObjType).First();
+                var startDim = selObjs.Select(o => o.Dim).First();
+                var numbers = new List<int>();
+                foreach (var item in selObjs)
+                    numbers.Add(item.Number);
+
+                var volumes = SelectByScope(startDim, numbers, targetDim);
+  
+                foreach (var number in volumes)
+                {
+                    var element = project.GetModelObject(objType, number);
+                    element.Color = settingsConfig.SelectObjectColor;
+                }
                 foreach (var item in selObjs)
                 {
-                    var up = project.GetAdjacentGeometryObjects(item, 2);
-
-                    if (up.Count() > 0)
-                        objTypes.Add(up.First().ObjType);
-
-                    var temp = up;
-                    //var setInfo = project.GetModelSetInfo(selectType, objSelect.Number);
-                    //var numberObjects = setInfo.GetNumbers();
-                    //foreach (var number in numberObjects)
-                    //{
-                    //    var element = project.GetModelObject(selectType, number);
-                    //    element.Color = settingsConfig.SelectObjectColor;
-                    //}
-                    //var pres = project.CreateModelObjectsPresentor(setInfo);
-                    //SetVBObjectAttribute(pres, "цвет");
+                    var setInfo = project.GetModelSetInfo(objType, item.Number);
+                    var pres = project.CreateModelObjectsPresentor(setInfo);
+                    SetVBObjectAttribute(pres, "цвет");
                 }
                 DisplayObjects();
             }
+        }
+
+        /// <summary>
+        /// Поднимает набор сущностей по иерархии размерностей Gmsh от <paramref name="startDim"/> до <paramref name="targetDim"/>.
+        /// Для каждой текущей размерности метод запрашивает верхние смежные элементы через
+        /// <c>GmshController.Gmsh.Model.GetAdjacencies</c> и собирает их в множество, исключая дубликаты.
+        /// В результате возвращается множество номеров сущностей размерности <paramref name="targetDim"/>,
+        /// достижимых из начичных номеров.
+        /// </summary>
+        /// <param name="startDim">
+        /// Исходная размерность сущностей (например: 0 — точки, 1 — кривые, 2 — поверхности, 3 — объемы).
+        /// </param>
+        /// <param name="startNumbers">Перечисление номеров сущностей на исходной размерности.</param>
+        /// <param name="targetDim">Целевая размерность, до которой нужно подняться. Ожидается, что <paramref name="targetDim"/> >= <paramref name="startDim"/>.</param>
+        /// <returns>
+        /// Множество уникальных номеров сущностей размерности <paramref name="targetDim"/>,
+        /// которые находятся "выше" заданных начальных сущностей по топологическим смежностям.
+        /// </returns>
+        private HashSet<int> ClimbUp(int startDim,IEnumerable<int> startNumbers,int targetDim)
+        {
+            var currentLevel = new HashSet<int>(startNumbers);
+            int currentDim = startDim;
+
+            while (currentDim < targetDim)
+            {
+                var nextLevel = new HashSet<int>();
+
+                foreach (var number in currentLevel)
+                {
+                    var (upper, _) = GmshController.Gmsh.Model.GetAdjacencies(currentDim, number);
+
+                    foreach (var up in upper)
+                        nextLevel.Add(up);
+                }
+
+                currentLevel = nextLevel;
+                currentDim++;
+            }
+
+            return currentLevel;
+        }
+
+        /// <summary>
+        /// Спускает набор сущностей по иерархии размерностей Gmsh от <paramref name="startDim"/> до <paramref name="targetDim"/>.
+        /// Для каждой текущей размерности метод запрашивает нижние смежные элементы через
+        /// <c>GmshController.Gmsh.Model.GetAdjacencies</c> и собирает их в множество, исключая дубликаты.
+        /// В результате возвращается множество номеров сущностей размерности <paramref name="targetDim"/>,
+        /// достижимых из начальных номеров.
+        /// </summary>
+        /// <param name="startDim">
+        /// Исходная размерность сущностей (например: 0 — точки, 1 — кривые, 2 — поверхности, 3 — объемы).
+        /// </param>
+        /// <param name="startNumbers">Перечисление номеров сущностей на исходной размерности.</param>
+        /// <param name="targetDim">Целевая размерность, до которой нужно спуститься. Ожидается, что <paramref name="targetDim"/> <= <paramref name="startDim"/>.</param>
+        private HashSet<int> DescendDown(int startDim,IEnumerable<int> startNumbers,int targetDim)
+        {
+            var currentLevel = new HashSet<int>(startNumbers);
+            int currentDim = startDim;
+
+            while (currentDim > targetDim)
+            {
+                var nextLevel = new HashSet<int>();
+
+                foreach (var number in currentLevel)
+                {
+                    var (_, lower) = GmshController.Gmsh.Model.GetAdjacencies(currentDim, number);
+
+                    foreach (var low in lower)
+                        nextLevel.Add(low);
+                }
+
+                currentLevel = nextLevel;
+                currentDim--;
+            }
+
+            return currentLevel;
+        }
+
+        private HashSet<int> SelectByScope(int startDim,IEnumerable<int> selectedNumbers,int targetDim)
+        {
+            if (startDim == targetDim)
+                return new HashSet<int>(selectedNumbers);
+
+            // 1. Поднялись один раз
+            var topLevel = ClimbUp(startDim, selectedNumbers, targetDim);
+
+            // 2. Спустились один раз
+            var result = DescendDown(targetDim, topLevel, startDim);
+
+            return result;
         }
     }
 }

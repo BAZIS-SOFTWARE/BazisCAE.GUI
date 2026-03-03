@@ -72,7 +72,7 @@ namespace BazisGUI
                     var selectionControl = new GeomSelect(SelectedObjects);
                     OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
                     selectionControl.CloseForm += RefreshForm;
-                    selectionControl.SelectInCurve += SelectionControl_SelectInCurve;
+                    selectionControl.SelectInGeom += SelectionControl_SelectInCurve;
                     AdvanceSelectionError += selectionControl.UnchekAllRadioButton;
                     form.ClientSize = selectionControl.Size;
                     form.Controls.Add(selectionControl);
@@ -84,17 +84,17 @@ namespace BazisGUI
             }
             else
             {
-                CloseForm();
+                CloseAdvancedSelectionForm();
             }
         }
 
         private void RefreshForm()
         {
-            CloseForm();
+            CloseAdvancedSelectionForm();
             btnAdvSelection_Click(btnAdvSelection, EventArgs.Empty);
         }
 
-        private void CloseForm()
+        private void CloseAdvancedSelectionForm()
         {
             var forms = Application.OpenForms.Cast<Form>().ToList();
             var form = forms.Find(x => x.Name == "selectForm");
