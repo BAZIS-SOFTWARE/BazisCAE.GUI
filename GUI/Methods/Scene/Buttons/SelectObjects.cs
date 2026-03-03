@@ -401,10 +401,7 @@ namespace BazisGUI
             if (startDim == targetDim)
                 return new HashSet<int>(selectedNumbers);
 
-            // 1. Поднялись один раз
             var topLevel = ClimbUp(startDim, selectedNumbers, targetDim);
-
-            // 2. Спустились один раз
             var result = DescendDown(targetDim, topLevel, startDim);
 
             return result;
