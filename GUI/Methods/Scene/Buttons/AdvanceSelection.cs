@@ -43,6 +43,7 @@ namespace BazisGUI
                 };
                 form.FormClosing += (s1, s2) => 
                 {
+                    CleanupSelectionControl(form);
                     btn.Tag = false;
                     btn.Invalidate();
                 };
@@ -100,20 +101,7 @@ namespace BazisGUI
             var form = forms.Find(x => x.Name == "selectForm");
             if (form != null)
             {
-                var mesh = form.Controls.OfType<MeshSelect>().FirstOrDefault();
-                if (mesh != null)
-                {
-                    OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
-                    mesh.CloseForm -= RefreshForm;
-                    mesh.Dispose();
-                }
-                else
-                {
-                    var geom = form.Controls.OfType<GeomSelect>().FirstOrDefault();
-                    OnChangeSelectedObjectsEvent -= geom.SetAvailableModes;
-                    geom.CloseForm -= RefreshForm;
-                    geom.Dispose();
-                }
+                CleanupSelectionControl(form);
                 form.Close();
             }
         }
@@ -124,6 +112,31 @@ namespace BazisGUI
             var x = scenePosition.X;
             var y = scenePosition.Y + scene.Height - hightForm;
             return new Point(x, y);
+        }
+        private void CleanupSelectionControl(Form form)
+        {
+            var mesh = form.Controls.OfType<MeshSelect>().FirstOrDefault();
+            if (mesh != null)
+            {
+                OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
+                mesh.CloseForm -= RefreshForm;
+                mesh.SelectInDirection -= SelectionControl_SelectInDirection;
+                mesh.SelectInPlain -= SelectionControl_SelectInPlain;
+                mesh.SelectInSet -= SelectionControl_SelectInSet;
+                AdvanceSelectionError -= mesh.UnchekAllRadioButton;
+                mesh.Dispose();
+                return;
+            }
+
+            var geom = form.Controls.OfType<GeomSelect>().FirstOrDefault();
+            if (geom != null)
+            {
+                OnChangeSelectedObjectsEvent -= geom.SetAvailableModes;
+                geom.CloseForm -= RefreshForm;
+                geom.SelectInGeom -= SelectionControl_SelectInCurve;
+                AdvanceSelectionError -= geom.UnchekAllRadioButton;
+                geom.Dispose();
+            }
         }
     }
 }
