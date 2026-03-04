@@ -1,6 +1,8 @@
-﻿namespace MasterInterface
+﻿using MasterInterface.Interfaces;
+
+namespace MasterInterface
 {
-    public partial class Master : UserControl, IMaster
+    public partial class AbstractMaster : BaseMaster, IFunctionsHandling, IMaterialsHandling, IGroupHandling, IPreparedDataLoader
     {
         /// <summary>
         /// Названия материалов
@@ -17,26 +19,7 @@
         /// </summary>
         protected Dictionary<GroupType, Dictionary<int, string>> groups = new Dictionary<GroupType, Dictionary<int, string>>();
 
-        public event Action<string, Color> PrintInfoEvent;
-        public event Action<string[]> GenerateConditionsEvent;
-        public event Action UpdateSceneEvent;
-
-        public virtual string MasterName { get; } = "AbstractMaster";
-
-        protected void RaiseGenerateConditionsEvent(string[] strings)
-        {
-            GenerateConditionsEvent?.Invoke(strings);
-        }
-
-        protected void RaisePrintInfoEvent(string str, Color color)
-        {
-            PrintInfoEvent?.Invoke(str, color);
-        }
-
-        protected void RaiseUpdateSceneEvent()
-        {
-            UpdateSceneEvent?.Invoke();
-        }
+        public override string MasterName { get; } = "AbstractMaster";
 
         public virtual void AddGroup(GroupType type, int number, string groupName)
         {
@@ -49,16 +32,9 @@
             }
         }
 
-        public virtual void ChangeFunctions(IEnumerable<string> functions)
+        public virtual void RenameGroup(GroupType type, int number, string newName)
         {
-            this.functions.Clear();
-            this.functions.AddRange(functions);
-        }
-
-        public virtual void ChangeMaterials(IEnumerable<string> materials)
-        {
-            this.materials.Clear();
-            this.materials.AddRange(materials);
+            groups[type][number] = newName;
         }
 
         public virtual void DeleteGroup(GroupType type, int number)
@@ -71,16 +47,8 @@
             groups.Clear();
         }
 
-        public virtual void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<GroupType, Dictionary<int, string>> groups)
+        public virtual void InitialGroupFilling(Dictionary<GroupType, Dictionary<int, string>> groups)
         {
-            this.materials.Clear();
-            foreach (var material in materials)
-                this.materials.Add(material);
-
-            this.functions.Clear();
-            foreach (var function in functions)
-                this.functions.Add(function);
-
             this.groups.Clear();
             foreach (var item in groups.Keys)
             {
@@ -92,15 +60,28 @@
                     this.groups[item][group.Key] = group.Value;
                 }
             }
-                
         }
 
-        public virtual void RenameGroup(GroupType type, int number, string newName)
+        public virtual void SetFunctions(IEnumerable<string> functions)
         {
-            groups[type][number] = newName;
+            this.functions.Clear();
+            this.functions.AddRange(functions);
         }
 
-        public virtual void SetStringsFromCondDataStrings(IEnumerable<string> strings)
+        public virtual void SetMaterials(IEnumerable<string> materials)
+        {
+            this.materials.Clear();
+            this.materials.AddRange(materials);
+        }
+
+        public virtual void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<GroupType, Dictionary<int, string>> groups)
+        {
+            InitialGroupFilling(groups);
+            SetMaterials(materials);
+            SetFunctions(functions);
+        }
+
+        public virtual void SetDataFromConditionsStrings(IEnumerable<string> strings)
         {
 
         }

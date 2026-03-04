@@ -1,6 +1,6 @@
 ﻿namespace MasterInterface
 {
-    partial class Master
+    partial class AbstractMaster
     {
         /// <summary>
         /// Required designer variable.
