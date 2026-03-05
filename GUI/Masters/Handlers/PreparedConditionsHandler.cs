@@ -26,7 +26,7 @@ namespace BazisGUI.Masters.Handlers
             if (instance == null)
                 throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
 
-            action.PreparedConditionsStringsAction += (args) => instance.SetDataFromConditionsStrings(args.ConditionStrings);
+            action.PreparedConditionsStringsAction += (sender, args) => instance.SetDataFromConditionsStrings(args.ConditionStrings);
         }
     }
 }

@@ -10,10 +10,10 @@ namespace BazisGUI.Masters.Actions
 {
     public class GroupAction : IHandlerAction
     {
-        public Action<GroupCreationEventArgs> GroupCreationAction { get; set; }
-        public Action<GroupRenameEventArgs> GroupRenameAction { get; set; }
-        public Action<GroupDeleteEventArgs> GroupDeleteAction { get; set; }
-        public Action<GroupDeleteAllEventArgs> GroupDeleteAllAction { get; set; }
-        public Action<GroupInitializeEventArgs> GroupInitializeAction { get; set; }
+        public EventHandler<GroupCreationEventArgs> GroupCreationAction { get; set; }
+        public EventHandler<GroupRenameEventArgs> GroupRenameAction { get; set; }
+        public EventHandler<GroupDeleteEventArgs> GroupDeleteAction { get; set; }
+        public EventHandler<GroupDeleteAllEventArgs> GroupDeleteAllAction { get; set; }
+        public EventHandler<GroupInitializeEventArgs> GroupInitializeAction { get; set; }
     }
 }

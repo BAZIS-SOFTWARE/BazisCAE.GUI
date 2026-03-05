@@ -28,11 +28,11 @@ namespace BazisGUI.Masters.Handlers
             if (instance == null)
                 throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
 
-            action.GroupCreationAction += (args) => instance.AddGroup(Converter.GetGroupTypeFromString(args.Type.ToString()), args.Index, args.Name);
-            action.GroupRenameAction += (args) => instance.RenameGroup(Converter.GetGroupTypeFromString(args.Type.ToString()), args.Index, args.Name);
-            action.GroupDeleteAction += (args) => instance.DeleteGroup(Converter.GetGroupTypeFromString(args.Type.ToString()), args.Index);
-            action.GroupDeleteAllAction += (args) => instance.DeleteAllGroups();
-            action.GroupInitializeAction += (args) =>
+            action.GroupCreationAction += (sender, args) => instance.AddGroup(Converter.GetGroupTypeFromString(args.Type.ToString()), args.Index, args.Name);
+            action.GroupRenameAction += (sender,args) => instance.RenameGroup(Converter.GetGroupTypeFromString(args.Type.ToString()), args.Index, args.Name);
+            action.GroupDeleteAction += (sender,args) => instance.DeleteGroup(Converter.GetGroupTypeFromString(args.Type.ToString()), args.Index);
+            action.GroupDeleteAllAction += (sender, args) => instance.DeleteAllGroups();
+            action.GroupInitializeAction += (sender, args) =>
             {
                 var dict = new Dictionary<GroupType, Dictionary<int, string>>();
                 foreach (var objType in args.Groups.Keys)

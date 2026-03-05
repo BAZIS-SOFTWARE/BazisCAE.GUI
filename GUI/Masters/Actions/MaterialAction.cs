@@ -10,6 +10,6 @@ namespace BazisGUI.Masters.Actions
 {
     public class MaterialAction : IHandlerAction
     {
-        public Action<ChangeMaterialsEventArgs> MaterialsAction { get; set; }
+        public EventHandler<ChangeMaterialsEventArgs> MaterialsAction { get; set; }
     }
 }

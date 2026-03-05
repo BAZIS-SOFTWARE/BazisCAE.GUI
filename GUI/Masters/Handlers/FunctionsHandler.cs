@@ -27,7 +27,7 @@ namespace BazisGUI.Masters.Handlers
             if (instance == null)
                 throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
 
-            action.FunctionsAct += (arg1) => instance.SetFunctions(arg1.Functions);
+            action.FunctionsAct += (sender, args) => instance.SetFunctions(args.Functions);
         }
     }
 }

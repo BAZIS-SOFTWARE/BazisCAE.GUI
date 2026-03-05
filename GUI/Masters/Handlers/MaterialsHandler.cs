@@ -26,7 +26,7 @@ namespace BazisGUI.Masters.Handlers
             if (instance == null)
                 throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
 
-            action.MaterialsAction += (materials) => instance.SetMaterials(materials.Materials);
+            action.MaterialsAction += (sender, materials) => instance.SetMaterials(materials.Materials);
         }
     }
 }

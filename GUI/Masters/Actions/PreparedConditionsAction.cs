@@ -10,6 +10,6 @@ namespace BazisGUI.Masters.Actions
 {
     public class PreparedConditionsAction : IHandlerAction
     {
-        public Action<PreparedConditionsEventArgs> PreparedConditionsStringsAction { get; set; }
+        public EventHandler<PreparedConditionsEventArgs> PreparedConditionsStringsAction { get; set; }
     }
 }

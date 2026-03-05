@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Masters.Actions;
+using BazisGUI.Masters.Args;
 using BazisGUI.Masters.Interfaces;
 using MasterInterface;
 using MasterInterface.Interfaces;
@@ -28,9 +29,9 @@ namespace BazisGUI.Masters.Handlers
             if (instance == null)
                 throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
 
-            instance.GenerateConditionsEvent += (condStrings) => action.GenerateConditionsAction(new Args.GenerateConditionsEventArgs(condStrings));
-            instance.PrintInfoEvent += (mes, col) => action.PrintInfoAction(mes, col);
-            instance.UpdateSceneEvent += () => action.UpdateSceneAction();
+            instance.GenerateConditionsEvent += (condStrings) => action.GenerateConditionsAction(this, new Args.GenerateConditionsEventArgs(condStrings));
+            instance.PrintInfoEvent += (mes, col) => action.PrintInfoAction(this, new PrintInfoEventArgs(mes, col));
+            instance.UpdateSceneEvent += () => action.UpdateSceneAction(this, new EventArgs());
         }
     }
 }
