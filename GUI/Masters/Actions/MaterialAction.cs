@@ -1,0 +1,15 @@
+﻿using BazisGUI.Args;
+using BazisGUI.Masters.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BazisGUI.Masters.Actions
+{
+    public class MaterialAction : IHandlerAction
+    {
+        public Action<ChangeMaterialsEventArgs> MaterialsAction { get; set; }
+    }
+}
