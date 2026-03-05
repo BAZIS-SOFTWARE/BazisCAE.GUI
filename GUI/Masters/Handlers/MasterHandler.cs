@@ -1,4 +1,5 @@
-﻿using BazisGUI.Masters.Interfaces;
+﻿using BazisGUI.Masters.Actions;
+using BazisGUI.Masters.Interfaces;
 using MasterInterface;
 using MasterInterface.Interfaces;
 using System;
@@ -10,27 +11,26 @@ using System.Threading.Tasks;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class MasterHandler<T> : IMasterInterfaceHandler<T> where T : IBaseMasterInterface
+    public class MasterHandler<T, U> : IMasterInterfaceHandler<T, U> 
+        where T : IBaseMasterInterface
+        where U : MasterAction
     {
-        public Action UpdatedScene;
-        public Action<string, Color> PrintedInfo;
-        public Action<string[]> GeneratedConditions;
-        
-        public MasterHandler(Action updatedScene, Action<string, Color> printedInfo, Action<string[]> generatedConditions)
-        {
-            UpdatedScene = updatedScene;
-            PrintedInfo = printedInfo;
-            GeneratedConditions = generatedConditions;
-        }
+        private U action;
 
-        public void Handle(T Instance)
+        public void SetHandlerAction(U act) => action = act;
+        public U GetHandlerAction() => action;
+
+        public void Handle(T instance)
         {
-            if (Instance == null)
+            if (action == null)
+                throw new NullReferenceException($"Не определено действие обработчика MasterHandler<{typeof(U)}>");
+
+            if (instance == null)
                 throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
 
-            Instance.GenerateConditionsEvent += GeneratedConditions;
-            Instance.PrintInfoEvent += PrintedInfo;
-            Instance.UpdateSceneEvent += UpdatedScene;
+            instance.GenerateConditionsEvent += (condStrings) => action.GenerateConditionsAction(new Args.GenerateConditionsEventArgs(condStrings));
+            instance.PrintInfoEvent += (mes, col) => action.PrintInfoAction(mes, col);
+            instance.UpdateSceneEvent += () => action.UpdateSceneAction();
         }
     }
 }

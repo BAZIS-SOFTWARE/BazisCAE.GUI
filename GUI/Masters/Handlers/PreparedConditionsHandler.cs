@@ -1,4 +1,5 @@
-﻿using BazisGUI.Masters.Interfaces;
+﻿using BazisGUI.Masters.Actions;
+using BazisGUI.Masters.Interfaces;
 using MasterInterface.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,17 +9,24 @@ using System.Threading.Tasks;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class PreparedConditionsHandler<T> : IMasterInterfaceHandler<T> where T : IPreparedDataLoader
+    public class PreparedConditionsHandler<T, U> : IMasterInterfaceHandler<T, U> 
+        where T : IPreparedDataLoader
+        where U : PreparedConditionsAction
     {
-        public Action<string[]> SetPreparedData;
-        public PreparedConditionsHandler(Action<string[]> setPreparedData) 
-        {
-            SetPreparedData = setPreparedData;
-        }
+        private U action;
+
+        public void SetHandlerAction(U act) => action = act;
+        public U GetHandlerAction() => action;
 
         public void Handle(T instance)
         {
-            SetPreparedData += instance.SetDataFromConditionsStrings;
+            if (action == null)
+                throw new NullReferenceException($"Не определено действие обработчика FunctionsHandler<{typeof(U)}>");
+
+            if (instance == null)
+                throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
+
+            action.PreparedConditionsStringsAction += (args) => instance.SetDataFromConditionsStrings(args.ConditionStrings);
         }
     }
 }

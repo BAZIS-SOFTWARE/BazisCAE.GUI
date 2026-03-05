@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace BazisGUI.Masters.Interfaces
 {
-    public interface IMasterInterfaceHandler<T> where T : IMasterInterface
+    public interface IMasterInterfaceHandler<T, U> 
+        where T : IMasterInterface
+        where U : IHandlerAction
     {
-        public void Handle(T instance);
+        void SetHandlerAction(U action);
+        U GetHandlerAction();
+        void Handle(T instance);
     }
 }

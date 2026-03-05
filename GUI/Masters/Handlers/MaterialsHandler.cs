@@ -1,4 +1,5 @@
-﻿using BazisGUI.Masters.Interfaces;
+﻿using BazisGUI.Masters.Actions;
+using BazisGUI.Masters.Interfaces;
 using MasterInterface.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,18 +9,24 @@ using System.Threading.Tasks;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class MaterialsHandler<T> : IMasterInterfaceHandler<T> where T : IMaterialsHandling
+    public class MaterialsHandler<T, U> : IMasterInterfaceHandler<T, U> 
+        where T : IMaterialsHandling
+        where U : MaterialAction
     {
-        public Action<string[]> SetMaterials;
+        private U action;
 
-        public MaterialsHandler(Action<string[]> setMaterials)
-        {
-            SetMaterials = setMaterials;
-        }
+        public void SetHandlerAction(U act) => action = act;
+        public U GetHandlerAction() => action;
 
         public void Handle(T instance)
         {
-            SetMaterials += instance.SetMaterials;
+            if (action == null)
+                throw new NullReferenceException($"Не определено действие обработчика MaterialHandler<{typeof(U)}>");
+
+            if (instance == null)
+                throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
+
+            action.MaterialsAction += (materials) => instance.SetMaterials(materials.Materials);
         }
     }
 }
