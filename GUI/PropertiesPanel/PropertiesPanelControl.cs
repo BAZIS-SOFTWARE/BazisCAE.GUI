@@ -19,11 +19,14 @@ namespace BazisGUI.PropertiesPanel
         private bool _isValid;
         private string objInfo; // возможно костыль, хранит инфо об объекте сво-ва которого представлены
         private int tag; // возможно костыль, хранит инфо об источнике, где были получены сво-ва объекта
+        private List<RowProperty> _rows;
         public PropertiesPanelControl()
         {
             InitializeComponent();
             dataGridView1.DataError += DataGridView1_DataError;
             dataGridView1.CurrentCellDirtyStateChanged += DataGridView1_CurrentCellDirtyStateChanged;
+            dataGridView1.EditingControlShowing += DataGridView1_EditingControlShowing;
+            dataGridView1.CellEndEdit += DataGridView1_CellEndEdit;
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Header",
@@ -45,6 +48,12 @@ namespace BazisGUI.PropertiesPanel
                 },
             });
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.Rows[e.RowIndex].Cells[1] is DataGridViewComboBoxCell)
+                SyncDropDownBackingObject(e.RowIndex);
         }
 
         private void DataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -73,6 +82,7 @@ namespace BazisGUI.PropertiesPanel
         /// <param name="_tag">дополнительная информация</param>
         public void DrawTable(List<RowProperty> rows, string _objInfo = null, int _tag = 0)
         {
+            _rows = rows;
             objInfo = _objInfo;
             tag = _tag;
             dataGridView1.Rows.Clear();
@@ -147,7 +157,6 @@ namespace BazisGUI.PropertiesPanel
                 if(dataGridView1.Rows[e.RowIndex].Cells[1].Value != null)
                     _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
             }
-
         }
 
         public void CellValueChanged(DataGridViewCell e)
@@ -213,8 +222,82 @@ namespace BazisGUI.PropertiesPanel
                 if(buttonSet != null)
                     buttonSet.OnClick?.Invoke();
             }
-
         }
+
+        private void DataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            // Проверяем, что редактируется ComboBox‑ячейка
+            if (dataGridView1.CurrentCell is DataGridViewComboBoxCell)
+            {
+                if (e.Control is ComboBox cb)
+                {
+                    // Разрешаем ввод текста
+                    cb.DropDownStyle = ComboBoxStyle.DropDown; // а не DropDownList
+
+                    // на всякий случай снимаем старый обработчик
+                    cb.SelectedIndexChanged -= ComboBox_SelectedIndexChanged;
+                    cb.Leave -= ComboBox_Leave;
+
+                    cb.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
+                    cb.Leave += ComboBox_Leave;
+                }
+            }
+        }
+        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var cb = (ComboBox)sender;
+            string text = cb.Text;                // здесь всегда актуальный введённый/выбранный текст
+            SaveComboText(text);                  // своя логика сохранения
+        }
+
+        private void ComboBox_Leave(object sender, EventArgs e)
+        {
+            var cb = (ComboBox)sender;
+            string text = cb.Text;                // пользователь мог напечатать, но не выбрать
+            SaveComboText(text);
+        }
+        private void SaveComboText(string text)
+        {
+            if (dataGridView1.CurrentCell == null) return;
+
+            int rowIndex = dataGridView1.CurrentCell.RowIndex;
+            int colIndex = dataGridView1.CurrentCell.ColumnIndex;
+
+            // записываем в ячейку
+            dataGridView1[colIndex, rowIndex].Value = text;
+
+            // здесь же можете обновить свой DropDownPropertyValue и AvailableValues
+            // SyncDropDownBackingObject(rowIndex);
+        }
+        private void SyncDropDownBackingObject(int rowIndex)
+        {
+            if (_rows == null || rowIndex < 0 || rowIndex >= _rows.Count)
+                return;
+
+            var rowProp = _rows[rowIndex];
+            var cell = dataGridView1.Rows[rowIndex].Cells[1];
+            var newText = cell.Value?.ToString() ?? string.Empty;
+
+            if (rowProp.Value is DropDownPropertyValue ddpv)
+            {
+                // обновляем текущее значение
+                ddpv.Value = newText;
+
+                // при необходимости добавляем в список доступных значений
+                if (!string.IsNullOrEmpty(newText) && !ddpv.AvailableValues.Contains(newText))
+                {
+                    ddpv.AvailableValues.Add(newText);
+
+                    // чтобы новые варианты появились в выпадающем списке этой ячейки
+                    if (cell is DataGridViewComboBoxCell comboCell)
+                    {
+                        comboCell.Items.Clear();
+                        comboCell.Items.AddRange(ddpv.AvailableValues.ToArray());
+                    }
+                }
+            }
+        }
+
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString() != ValidationType.None.ToString())
