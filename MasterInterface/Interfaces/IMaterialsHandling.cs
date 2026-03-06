@@ -9,9 +9,15 @@ namespace MasterInterface.Interfaces
     public interface IMaterialsHandling : IMasterInterface
     {
         /// <summary>
+        /// Событие запроса заполнения мастера материалами со стороны мастера для осуществуления инициализации
+        /// </summary>
+        event EventHandler<EventArgs> OnMaterialsRequested;
+
+        /// <summary>
         /// Заполнение материалов мастера
         /// </summary>
         /// <param name="materials">Имена материалов</param>
+        [Warning("Изменение набора материалов приведет к удалению уже созданных строк для формирования граничных условий")]
         void SetMaterials(IEnumerable<string> materials);
     }
 }

@@ -9,6 +9,11 @@ namespace MasterInterface.Interfaces
     public interface IPreparedDataLoader : IMasterInterface
     {
         /// <summary>
+        /// Событие, необходимое для заполнения мастера при его загрузке
+        /// </summary>
+        event EventHandler<EventArgs> PreparedDataLoaded;
+
+        /// <summary>
         /// Заполнение мастера данными условий из проекта
         /// </summary>
         /// <param name="conditions">Набор строковых представлений условий</param>

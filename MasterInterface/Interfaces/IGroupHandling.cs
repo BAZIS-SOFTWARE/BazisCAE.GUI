@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MasterInterface.Interfaces
+﻿namespace MasterInterface.Interfaces
 {
     public interface IGroupHandling : IMasterInterface
     {
+        /// <summary>
+        /// Событие, вызывающее заполнение мастера группами.
+        /// Должно срабатывать при запуске мастера
+        /// </summary>
+        event EventHandler<EventArgs> OnGroupsRequested;
+
         /// <summary>
         /// Обработка события добавления группы. Добавление в словарь группы, после ее создания при открытом мастере.
         /// Необходимо для корректного использования новой группы в процессе создания строк для формирования граничных условий
