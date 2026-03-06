@@ -1,4 +1,11 @@
-﻿using MasterInterface;
+﻿using BazisGUI.Args;
+using BazisGUI.Masters.Actions;
+using BazisGUI.Masters.Handlers;
+using BazisGUI.Masters.Interfaces;
+using MasterInterface;
+using MasterInterface.Interfaces;
+using Model.Interfaces;
+using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,9 +18,15 @@ namespace BazisGUI
     public partial class BaseForm
     {
         /// <summary>
-        /// Ассоциация названий мастеров и их типов
+        /// Ассоциация типов мастеров и их обработчиков
         /// </summary>
-        private readonly Dictionary<string, Type> importedMastersTypes = new Dictionary<string, Type>();
+        private readonly Dictionary<Type, List<IMasterInterfaceHandler>> importedMastersTypes = new();
+
+        /// <summary>
+        /// Существующие обработчики для мастеров постановки задач
+        /// </summary>
+        private readonly Dictionary<Type, IMasterInterfaceHandler> handlers = new();
+
 
         /// <summary>
         /// Добавление пользовательских мастеров постановки задач из определенной dll
@@ -22,22 +35,31 @@ namespace BazisGUI
         public void ImportMasterDLL(string dllPath)
         {
             var assembly = Assembly.LoadFrom(dllPath);
-            var importedMasters = new List<Type>();
+            var importedMasters = new List<(Type, List<IMasterInterfaceHandler>)>();
 
             foreach (var ctrl in assembly.GetTypes())
             {
-                if (typeof(IMaster).IsAssignableFrom(ctrl)
+                Type import;
+                if (typeof(BaseMaster).IsAssignableFrom(ctrl)
                     && typeof(UserControl).IsAssignableFrom(ctrl)
                     && !ctrl.IsAbstract
                     && !ctrl.IsInterface
-                    && !importedMastersTypes.ContainsValue(ctrl))
-                    importedMasters.Add(ctrl);
-            }
+                    && !importedMastersTypes.ContainsKey(ctrl))
+                    import = ctrl;
+                else
+                    continue;
 
+                var masterHandlers = new List<IMasterInterfaceHandler>();
+                foreach (var impInterface in import.GetInterfaces())
+                {
+                    if (typeof(IMasterInterface).IsAssignableFrom(impInterface))
+                        masterHandlers.Add(handlers[impInterface]);
+                }
+            }
             CreateImportedMasters(importedMasters);
         }
 
-        private void CreateImportedMasters(List<Type> masterTypes)
+        private void CreateImportedMasters(List<(Type, List<IMasterInterfaceHandler>)> masterTypes)
         {
             try
             {
@@ -50,13 +72,13 @@ namespace BazisGUI
 
                 foreach (var item in masterTypes)
                 {
-                    var master = (IMaster)Activator.CreateInstance(item);
+                    var master = (BaseMaster)Activator.CreateInstance(item.Item1);
                     OpenMaster(master);
-                    importedMastersTypes[master.MasterName] = item;
+                    importedMastersTypes[item.Item1] = item.Item2;
                     console.PrintInfo($"Открыт мастер {master.MasterName}", Color.Black);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
