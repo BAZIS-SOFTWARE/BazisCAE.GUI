@@ -1,4 +1,5 @@
-﻿using MasterInterface.Interfaces;
+﻿using BazisGUI.Masters.Args;
+using MasterInterface.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,25 +15,25 @@ namespace MasterInterface
     public partial class BaseMaster : UserControl, IBaseMasterInterface
     {
 
-        public event Action<string, Color> PrintInfoEvent;
-        public event Action<string[]> GenerateConditionsEvent;
-        public event Action UpdateSceneEvent;
+        public event EventHandler<PrintInfoEventArgs> PrintInfoEvent;
+        public event EventHandler<GenerateConditionsEventArgs> GenerateConditionsEvent;
+        public event EventHandler<UpdateSceneEventArgs> UpdateSceneEvent;
 
         public virtual string MasterName { get; } = "BaseMaster";
 
         protected void RaiseGenerateConditionsEvent(string[] strings)
         {
-            GenerateConditionsEvent?.Invoke(strings);
+            GenerateConditionsEvent(this, new GenerateConditionsEventArgs(strings));
         }
 
         protected void RaisePrintInfoEvent(string str, Color color)
         {
-            PrintInfoEvent?.Invoke(str, color);
+            PrintInfoEvent(this, new PrintInfoEventArgs(str, color));
         }
 
         protected void RaiseUpdateSceneEvent()
         {
-            UpdateSceneEvent?.Invoke();
+            UpdateSceneEvent(this, new UpdateSceneEventArgs());
         }
 
         public BaseMaster()
