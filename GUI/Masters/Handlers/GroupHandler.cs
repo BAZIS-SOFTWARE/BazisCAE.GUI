@@ -17,7 +17,7 @@ namespace BazisGUI.Masters.Handlers
         {
             if (act is GroupAction ga)
                 action = ga;
-            else throw new ArgumentException($"Передананное действие не соответствует обработчику. Вместо GroupAction, получено {action?.GetType()}");
+            else throw new ArgumentException($"Передананное действие не соответствует обработчику. Вместо GroupAction, получено {act?.GetType()}");
         }
 
         public override bool CanHandle(Type interfaceType) =>

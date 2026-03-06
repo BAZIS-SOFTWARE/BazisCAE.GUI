@@ -15,7 +15,7 @@ namespace BazisGUI.Masters.Handlers
         {
             if (act is PreparedConditionsAction pca)
                 action = pca;
-            else throw new ArgumentException("Передан некорректный параметр действия для обработчика");
+            else throw new ArgumentException($"Передананное действие не соответствует обработчику. Вместо GroupAction, получено {act?.GetType()}");
         }
 
         public override bool CanHandle(Type interfaceType) =>
