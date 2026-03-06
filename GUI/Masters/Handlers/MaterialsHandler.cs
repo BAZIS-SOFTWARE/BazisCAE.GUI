@@ -9,24 +9,28 @@ using System.Threading.Tasks;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class MaterialsHandler<T, U> : IMasterInterfaceHandler<T, U> 
-        where T : IMaterialsHandling
-        where U : MaterialAction
+    public class MaterialsHandler : MasterHandlerBase<IMaterialsHandling>
     {
-        private U action;
+        private MaterialAction action;
 
-        public void SetHandlerAction(U act) => action = act;
-        public U GetHandlerAction() => action;
+        public override IHandlerAction GetHandlerAction() => action;
 
-        public void Handle(T instance)
+        public override void SetHandlerAction(IHandlerAction act)
+        {
+            if (act is MaterialAction ma)
+                action = ma;
+            else throw new ArgumentException("Передан некорректный параметр действия для обработчика");
+        }
+
+        public override bool CanHandle(Type interfaceType) =>
+            typeof(IMaterialsHandling).IsAssignableFrom(interfaceType);
+
+        public override void Handle(IMaterialsHandling instance)
         {
             if (action == null)
-                throw new NullReferenceException($"Не определено действие обработчика MaterialHandler<{typeof(U)}>");
+                throw new NullReferenceException($"Не определено действие обработчика MaterialHandler<{typeof(MaterialAction)}>");
 
-            if (instance == null)
-                throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
-
-            action.MaterialsAction += (sender, materials) => instance.SetMaterials(materials.Materials);
+            action.MaterialsAction += (s, e) => container(() => instance.SetMaterials(e.Materials), e);
         }
     }
 }

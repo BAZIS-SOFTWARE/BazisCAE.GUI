@@ -9,24 +9,28 @@ using System.Threading.Tasks;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class PreparedConditionsHandler<T, U> : IMasterInterfaceHandler<T, U> 
-        where T : IPreparedDataLoader
-        where U : PreparedConditionsAction
+    public class PreparedConditionsHandler : MasterHandlerBase<IPreparedDataLoader>
     {
-        private U action;
+        private PreparedConditionsAction action;
 
-        public void SetHandlerAction(U act) => action = act;
-        public U GetHandlerAction() => action;
+        public override IHandlerAction GetHandlerAction() => action;
 
-        public void Handle(T instance)
+        public override void SetHandlerAction(IHandlerAction act)
+        {
+            if (act is PreparedConditionsAction pca)
+                action = pca;
+            else throw new ArgumentException("Передан некорректный параметр действия для обработчика");
+        }
+
+        public override bool CanHandle(Type interfaceType) =>
+            typeof(IPreparedDataLoader).IsAssignableFrom(interfaceType);
+
+        public override void Handle(IPreparedDataLoader instance)
         {
             if (action == null)
-                throw new NullReferenceException($"Не определено действие обработчика FunctionsHandler<{typeof(U)}>");
+                throw new NullReferenceException($"Не определено действие обработчика FunctionsHandler<{typeof(PreparedConditionsAction)}>");
 
-            if (instance == null)
-                throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
-
-            action.PreparedConditionsStringsAction += (sender, args) => instance.SetDataFromConditionsStrings(args.ConditionStrings);
+            action.PreparedConditionsStringsAction += (s, e) => container(() => instance.SetDataFromConditionsStrings(e.ConditionStrings), e);
         }
     }
 }

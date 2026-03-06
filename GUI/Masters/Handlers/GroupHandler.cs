@@ -11,36 +11,43 @@ using System.Threading.Tasks;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class GroupHandler<T, U> : IMasterInterfaceHandler<T, U> 
-        where T : IGroupHandling
-        where U : GroupAction
+    public class GroupHandler : MasterHandlerBase<IGroupHandling>
     {
-        private U action;
+        private GroupAction action;
 
-        public void SetHandlerAction(U act) => action = act;
-        public U GetHandlerAction() => action;
+        public override IHandlerAction GetHandlerAction() => action;
 
-        public void Handle(T instance)
+        public override void SetHandlerAction(IHandlerAction act)
+        {
+            if (act is GroupAction ga)
+                action = ga;
+            else throw new ArgumentException($"Передананное действие не соответствует обработчику. Вместо GroupAction, получено {action?.GetType()}");
+        }
+
+        public override bool CanHandle(Type interfaceType) =>
+            typeof(IGroupHandling).IsAssignableFrom(interfaceType);
+
+        public override void Handle(IGroupHandling instance)
         {
             if (action == null)
-                throw new NullReferenceException($"Не определено действие обработчика GroupHandler<{typeof(U)}>");
+                throw new NullReferenceException($"Не определено действие обработчика GroupHandler<{typeof(GroupAction)}>");
 
-            if (instance == null)
-                throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
-
-            action.GroupCreationAction += (sender, args) => instance.AddGroup(Converter.GetGroupTypeFromString(args.Type.ToString()), args.Index, args.Name);
-            action.GroupRenameAction += (sender,args) => instance.RenameGroup(Converter.GetGroupTypeFromString(args.Type.ToString()), args.Index, args.Name);
-            action.GroupDeleteAction += (sender,args) => instance.DeleteGroup(Converter.GetGroupTypeFromString(args.Type.ToString()), args.Index);
-            action.GroupDeleteAllAction += (sender, args) => instance.DeleteAllGroups();
-            action.GroupInitializeAction += (sender, args) =>
+            action.GroupCreationAction += (s, e) => container(() => instance.AddGroup(Converter.GetGroupTypeFromString(e.Type.ToString()), e.Index, e.Name), e);
+            action.GroupRenameAction += (s, e) => container(() => instance.RenameGroup(Converter.GetGroupTypeFromString(e.Type.ToString()), e.Index, e.Name), e);
+            action.GroupDeleteAction += (s, e) => container(() => instance.DeleteGroup(Converter.GetGroupTypeFromString(e.Type.ToString()), e.Index), e);
+            action.GroupDeleteAllAction += (s, e) => container(() => instance.DeleteAllGroups(), e);
+            action.GroupInitializeAction += (s, e) =>
             {
-                var dict = new Dictionary<GroupType, Dictionary<int, string>>();
-                foreach (var objType in args.Groups.Keys)
+                container(() =>
                 {
-                    var groupType = Converter.GetGroupTypeFromString(objType.ToString());
-                    dict[groupType] = args.Groups[objType];
-                }
-                instance.InitialGroupFilling(dict);
+                    var dict = new Dictionary<GroupType, Dictionary<int, string>>();
+                    foreach (var objType in e.Groups.Keys)
+                    {
+                        var groupType = Converter.GetGroupTypeFromString(objType.ToString());
+                        dict[groupType] = e.Groups[objType];
+                    }
+                    instance.InitialGroupFilling(dict);
+                }, e);
             };
         }
     }

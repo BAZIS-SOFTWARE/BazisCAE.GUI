@@ -10,24 +10,28 @@ using System.Threading.Tasks;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class FunctionsHandler<T, U> : IMasterInterfaceHandler<T, U> 
-        where T : IFunctionsHandling
-        where U : FunctionAction
+    public class FunctionsHandler : MasterHandlerBase<IFunctionsHandling> 
     {
-        private U action;
+        private FunctionAction action;
 
-        public U GetHandlerAction() => action;
-        public void SetHandlerAction(U act) => action = act;
+        public override IHandlerAction GetHandlerAction() => action;
 
-        public void Handle(T instance)
+        public override void SetHandlerAction(IHandlerAction act)
+        {
+            if (act is FunctionAction a)
+                action = a;
+            else throw new ArgumentException($"Передананное действие не соответствует обработчику. Вместо GroupAction, получено {action?.GetType()}");
+        }
+
+        public override bool CanHandle(Type interfaceType) =>
+            typeof(IFunctionsHandling).IsAssignableFrom(interfaceType);
+
+        public override void Handle(IFunctionsHandling instance)
         {
             if (action == null)
-                throw new NullReferenceException($"Не определено действие обработчика FunctionsHandler<{typeof(U)}>");
+                throw new NullReferenceException($"Не определено действие обработчика FunctionsHandler<{typeof(FunctionAction)}>");
 
-            if (instance == null)
-                throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
-
-            action.FunctionsAct += (sender, args) => instance.SetFunctions(args.Functions);
+            action.FunctionsAction += (s, e) => container(() => instance.SetFunctions(e.Functions), e);
         }
     }
 }

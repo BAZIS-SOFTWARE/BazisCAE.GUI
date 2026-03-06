@@ -1,37 +1,35 @@
 ﻿using BazisGUI.Masters.Actions;
 using BazisGUI.Masters.Args;
 using BazisGUI.Masters.Interfaces;
-using MasterInterface;
 using MasterInterface.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class MasterHandler<T, U> : IMasterInterfaceHandler<T, U> 
-        where T : IBaseMasterInterface
-        where U : MasterAction
+    public class MasterHandler : MasterHandlerBase<IBaseMasterInterface>
     {
-        private U action;
+        private MasterAction action;
+        
+        public override IHandlerAction GetHandlerAction() => action;
 
-        public void SetHandlerAction(U act) => action = act;
-        public U GetHandlerAction() => action;
+        public override void SetHandlerAction(IHandlerAction act)
+        {
+            if (act is MasterAction ma)
+                action = ma;
+            else throw new ArgumentException("Передан некорректный параметр действия для обработчика");
+        }
 
-        public void Handle(T instance)
+        public override bool CanHandle(Type interfaceType) =>
+            typeof(IBaseMasterInterface).IsAssignableFrom(interfaceType);
+
+        public override void Handle(IBaseMasterInterface instance)
         {
             if (action == null)
-                throw new NullReferenceException($"Не определено действие обработчика MasterHandler<{typeof(U)}>");
+                throw new NullReferenceException($"Не определено действие обработчика GroupHandler<{typeof(MasterAction)}>");
 
-            if (instance == null)
-                throw new ArgumentNullException($"Объект класса {typeof(T)} не определен до обработки");
-
-            instance.GenerateConditionsEvent += (condStrings) => action.GenerateConditionsAction(this, new Args.GenerateConditionsEventArgs(condStrings));
-            instance.PrintInfoEvent += (mes, col) => action.PrintInfoAction(this, new PrintInfoEventArgs(mes, col));
-            instance.UpdateSceneEvent += () => action.UpdateSceneAction(this, new EventArgs());
+            instance.GenerateConditionsEvent += (condStrirngs) => container(() => action.GenerateConditionsAction(this, new GenerateConditionsEventArgs(condStrirngs)), new EventArgs());
+            instance.PrintInfoEvent += (mes, col) => container(() => action.PrintInfoAction(this, new PrintInfoEventArgs(mes, col)), new EventArgs());
+            instance.UpdateSceneEvent += () => container(() => action.UpdateSceneAction(this, new EventArgs()), new EventArgs());
         }
     }
 }
