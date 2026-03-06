@@ -10,6 +10,6 @@ namespace BazisGUI.Masters.Actions
 {
     public class FunctionAction : IHandlerAction
     {
-        public EventHandler<ChangeFunctionsEventArgs> FunctionsAct { get; set; }
+        public EventHandler<ChangeFunctionsEventArgs> FunctionsAction { get; set; }
     }
 }
