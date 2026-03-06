@@ -1,4 +1,5 @@
-﻿using BazisGUI.Scene;
+﻿using BazisGUI.Args;
+using BazisGUI.Scene;
 using BazisGUI.Scene.VBO;
 using BazisGUI.SettingsControls;
 using ClientGUI;
@@ -31,8 +32,8 @@ namespace BazisGUI
         public event Action<ObjType, int, string> OnGroupCreated;
         public event Action<ObjType, int, string> OnGroupRenamed;
         public event Action<ObjType, int> OnGroupDeleted;
-        public event Action<string[]> OnChangeMaterials;
-        public event Action<string[]> OnChangeFunctions;
+        public event EventHandler<ChangeMaterialsEventArgs> OnChangeMaterials;
+        public event EventHandler<ChangeFunctionsEventArgs> OnChangeFunctions;
 
         Point ScreenMousePosition { get; set; } = new Point(0, 0);
         bool MouseMoveFlag { get; set; }
@@ -118,6 +119,7 @@ namespace BazisGUI
             splitContainer3.SplitterWidth = 8;
 
             SetPadding();
+            InitializeHandlers();
 
             //scene.InitializeContexts();
             //Gle.Load();//Это скорее всего больше не понадобится
