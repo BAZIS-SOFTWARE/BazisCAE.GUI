@@ -11,5 +11,6 @@ namespace BazisGUI.Masters.Actions
     public class PreparedConditionsAction : IHandlerAction
     {
         public EventHandler<PreparedConditionsEventArgs> PreparedConditionsStringsAction { get; set; }
+        public EventHandler<EventArgs> OnConditionsRequested { get; set; }
     }
 }

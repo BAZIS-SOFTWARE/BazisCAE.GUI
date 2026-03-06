@@ -15,5 +15,6 @@ namespace BazisGUI.Masters.Actions
         public EventHandler<GroupDeleteEventArgs> GroupDeleteAction { get; set; }
         public EventHandler<GroupDeleteAllEventArgs> GroupDeleteAllAction { get; set; }
         public EventHandler<GroupInitializeEventArgs> GroupInitializeAction { get; set; }
+        public EventHandler<EventArgs> OnGroupsFillingRequested { get; set; }
     }
 }

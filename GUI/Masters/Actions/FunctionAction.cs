@@ -11,5 +11,6 @@ namespace BazisGUI.Masters.Actions
     public class FunctionAction : IHandlerAction
     {
         public EventHandler<ChangeFunctionsEventArgs> FunctionsAction { get; set; }
+        public EventHandler<EventArgs> OnFunctionRequested { get; set; }
     }
 }

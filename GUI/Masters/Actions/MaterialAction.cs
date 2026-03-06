@@ -11,5 +11,6 @@ namespace BazisGUI.Masters.Actions
     public class MaterialAction : IHandlerAction
     {
         public EventHandler<ChangeMaterialsEventArgs> MaterialsAction { get; set; }
+        public EventHandler<EventArgs> OnMaterialsRequested { get; set; }
     }
 }
