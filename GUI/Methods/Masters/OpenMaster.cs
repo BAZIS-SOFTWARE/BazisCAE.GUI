@@ -34,6 +34,8 @@ namespace BazisGUI
             foreach(var implementation in importedMastersTypes[master.GetType()])
                 implementation.Handle(master);
 
+            OnProjectLoaded?.Invoke();
+
             var btnName = $"btnTab{master.MasterName}";
             if (!splitContainer3.Panel1.Controls.ContainsKey(btnName))
             {

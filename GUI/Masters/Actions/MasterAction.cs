@@ -9,5 +9,6 @@ namespace BazisGUI.Masters.Actions
         public EventHandler UpdateSceneAction { get; set; }
         public EventHandler<PrintInfoEventArgs> PrintInfoAction { get; set; }
         public EventHandler<GenerateConditionsEventArgs> GenerateConditionsAction { get; set;}
+        public EventHandler<EventArgs> OnMasterLoaded { get; set; }
     }
 }

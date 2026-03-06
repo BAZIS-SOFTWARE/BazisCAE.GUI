@@ -42,6 +42,8 @@ namespace BazisGUI
                 Type import;
                 if (typeof(BaseMaster).IsAssignableFrom(ctrl)
                     && typeof(UserControl).IsAssignableFrom(ctrl)
+                    && typeof(BaseMaster) != ctrl
+                    && typeof(AbstractMaster) != ctrl
                     && !ctrl.IsAbstract
                     && !ctrl.IsInterface
                     && !importedMastersTypes.ContainsKey(ctrl))
@@ -52,9 +54,10 @@ namespace BazisGUI
                 var masterHandlers = new List<IMasterInterfaceHandler>();
                 foreach (var impInterface in import.GetInterfaces())
                 {
-                    if (typeof(IMasterInterface).IsAssignableFrom(impInterface))
+                    if (typeof(IMasterInterface).IsAssignableFrom(impInterface) && typeof(IMasterInterface) != impInterface)
                         masterHandlers.Add(handlers[impInterface]);
                 }
+                importedMasters.Add((import, masterHandlers));
             }
             CreateImportedMasters(importedMasters);
         }
@@ -73,8 +76,8 @@ namespace BazisGUI
                 foreach (var item in masterTypes)
                 {
                     var master = (BaseMaster)Activator.CreateInstance(item.Item1);
-                    OpenMaster(master);
                     importedMastersTypes[item.Item1] = item.Item2;
+                    OpenMaster(master);
                     console.PrintInfo($"Открыт мастер {master.MasterName}", Color.Black);
                 }
             }

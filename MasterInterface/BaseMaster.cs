@@ -18,6 +18,7 @@ namespace MasterInterface
         public event EventHandler<PrintInfoEventArgs> PrintInfoEvent;
         public event EventHandler<GenerateConditionsEventArgs> GenerateConditionsEvent;
         public event EventHandler<UpdateSceneEventArgs> UpdateSceneEvent;
+        public event EventHandler<EventArgs> OnMasterLoaded;
 
         public virtual string MasterName { get; } = "BaseMaster";
 
@@ -39,6 +40,7 @@ namespace MasterInterface
         public BaseMaster()
         {
             InitializeComponent();
+            OnMasterLoaded?.Invoke(this, new EventArgs());
         }
     }
 }

@@ -12,6 +12,7 @@ namespace MasterInterface.Interfaces
         event EventHandler<PrintInfoEventArgs> PrintInfoEvent;
         event EventHandler<GenerateConditionsEventArgs> GenerateConditionsEvent;
         event EventHandler<UpdateSceneEventArgs> UpdateSceneEvent;
+        event EventHandler<EventArgs> OnMasterLoaded;
 
         string MasterName { get; }
     }

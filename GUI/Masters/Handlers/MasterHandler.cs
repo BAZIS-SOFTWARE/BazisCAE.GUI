@@ -26,9 +26,10 @@ namespace BazisGUI.Masters.Handlers
             if (action == null)
                 throw new NullReferenceException($"Не определено действие обработчика GroupHandler<{typeof(MasterAction)}>");
 
-            instance.GenerateConditionsEvent += (s, e) => container(() => action.GenerateConditionsAction(s, e), new EventArgs());
-            instance.PrintInfoEvent += (s, e) => container(() => action.PrintInfoAction(s, e), new EventArgs());
-            instance.UpdateSceneEvent += (s, e) => container(() => action.UpdateSceneAction(s, e), new EventArgs());
+            instance.GenerateConditionsEvent += (s, e) => container(() => action.GenerateConditionsAction(s, e), e);
+            instance.PrintInfoEvent += (s, e) => container(() => action.PrintInfoAction(s, e), e);
+            instance.UpdateSceneEvent += (s, e) => container(() => action.UpdateSceneAction(s, e), e);
+            instance.OnMasterLoaded += (s, e) => container(() => action.OnMasterLoaded(s, e), e);
         }
     }
 }

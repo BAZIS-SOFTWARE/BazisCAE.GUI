@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static IronPython.Modules._ast;
 
 namespace BazisGUI
 {
@@ -50,8 +51,9 @@ namespace BazisGUI
                 if (project.FunctionsDB == null)
                     throw new NullReferenceException("База данных функций не загружена");
             };
-            OnChangeFunctions += funcAct.FunctionsAction;
-            funcAct.OnFunctionRequested += (s, e) => OnChangeFunctions?.Invoke(s, new ChangeFunctionsEventArgs(project.FunctionsDB.Select(x => x.Key).ToArray()));
+            OnChangeFunctions += (s, e) => funcAct.FunctionsAction?.Invoke(s, e);
+            funcAct.OnFunctionRequested += (s, e) => funcAct.FunctionsAction?.Invoke(s, new ChangeFunctionsEventArgs(project.FunctionsDB.Select(x => x.Key).ToArray()));
+            OnProjectLoaded += () => OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Select(x => x.Key).ToArray()));
 
             return funcAct;
         }
@@ -64,36 +66,42 @@ namespace BazisGUI
                 if (project.MaterialsDB == null)
                     throw new NullReferenceException("База данных материалов не загружена");
             };
-            OnChangeMaterials += matAct.MaterialsAction;
-            matAct.OnMaterialsRequested += (s, e) => OnChangeMaterials?.Invoke(s, new ChangeMaterialsEventArgs(project.MaterialsDB.Select(x => x.Key).ToArray()));
-            
+            OnChangeMaterials += (s, e) => matAct.MaterialsAction?.Invoke(s, e);
+            matAct.OnMaterialsRequested += (s, e) => matAct.MaterialsAction?.Invoke(s, new ChangeMaterialsEventArgs(project.MaterialsDB.Select(x => x.Key).ToArray()));
+            OnProjectLoaded += () => OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Select(x => x.Key).ToArray()));
+
             return matAct;
         }
 
         private GroupAction InitGroupAction()
         {
             var groupAct = new GroupAction();
-            OnGroupCreated += (type, number, name) => groupAct.GroupCreationAction(this, new GroupCreationEventArgs(type, number, name));
-            OnGroupRenamed += (type, number, name) => groupAct.GroupRenameAction(this, new GroupRenameEventArgs(type, number, name));
-            OnGroupDeleted += (type, number) => groupAct.GroupDeleteAction(this, new GroupDeleteEventArgs(type, number));
-            navigator.DelAllMeshEvent += () => groupAct.GroupDeleteAllAction(this, new GroupDeleteAllEventArgs());
-            navigator.DelAllGroupsEvent += () => groupAct.GroupDeleteAllAction(this, new GroupDeleteAllEventArgs());
-            groupAct.OnGroupsFillingRequested += (s, e) =>
+            OnGroupCreated += (type, number, name) => groupAct.GroupCreationAction?.Invoke(this, new GroupCreationEventArgs(type, number, name));
+            OnGroupRenamed += (type, number, name) => groupAct.GroupRenameAction?.Invoke(this, new GroupRenameEventArgs(type, number, name));
+            OnGroupDeleted += (type, number) => groupAct.GroupDeleteAction?.Invoke(this, new GroupDeleteEventArgs(type, number));
+            navigator.DelAllMeshEvent += () => groupAct.GroupDeleteAllAction?.Invoke(this, new GroupDeleteAllEventArgs());
+            navigator.DelAllGroupsEvent += () => groupAct.GroupDeleteAllAction?.Invoke(this, new GroupDeleteAllEventArgs());
+
+            groupAct.OnGroupsFillingRequested += (s, e) => groupAct.GroupInitializeAction?.Invoke(s, new GroupInitializeEventArgs(FillingGroups()));
+            OnProjectLoaded += () =>  groupAct.GroupInitializeAction?.Invoke(this, new GroupInitializeEventArgs(FillingGroups()));
+
+            return groupAct;
+
+
+            Dictionary<ObjType, Dictionary<int, string>> FillingGroups()
             {
                 var dict = new Dictionary<ObjType, Dictionary<int, string>>
-                {
-                    { ObjType.Узел, new Dictionary<int, string>() },
-                    { ObjType.Элемент1D, new Dictionary<int, string>() },
-                    { ObjType.Элемент2D, new Dictionary<int, string>() },
-                    { ObjType.Элемент3D, new Dictionary<int, string>() }
-                };
+                    {
+                        { ObjType.Узел, new Dictionary<int, string>() },
+                        { ObjType.Элемент1D, new Dictionary<int, string>() },
+                        { ObjType.Элемент2D, new Dictionary<int, string>() },
+                        { ObjType.Элемент3D, new Dictionary<int, string>() }
+                    };
                 foreach (var item in project.GetAllModelGroups())
                     dict[item.ObjType][item.Number] = item.Name;
 
-                groupAct.GroupInitializeAction(s, new GroupInitializeEventArgs(dict));
-            };
-
-            return groupAct;
+                return dict;
+            }
         }
 
         private MasterAction InitMasterAction()
@@ -133,8 +141,8 @@ namespace BazisGUI
         private PreparedConditionsAction InitPreparedConditionsAction()
         {
             var preparedCondAct = new PreparedConditionsAction();
-            preparedCondAct.OnConditionsRequested += (s, e) => preparedCondAct.PreparedConditionsStringsAction(this, new PreparedConditionsEventArgs(project.GetAllCondData().Select(x => x.ToString()).ToArray()));
-            OnProjectLoaded += () => preparedCondAct.PreparedConditionsStringsAction(this, new PreparedConditionsEventArgs(project.GetAllCondData().Select(x => x.ToString()).ToArray()));
+            preparedCondAct.OnConditionsRequested += (s, e) => preparedCondAct.PreparedConditionsStringsAction?.Invoke(this, new PreparedConditionsEventArgs(project.GetAllCondData().Select(x => x.ToString()).ToArray()));
+            OnProjectLoaded += () => preparedCondAct.PreparedConditionsStringsAction?.Invoke(this, new PreparedConditionsEventArgs(project.GetAllCondData().Select(x => x.ToString()).ToArray()));
 
             return preparedCondAct;
         }
