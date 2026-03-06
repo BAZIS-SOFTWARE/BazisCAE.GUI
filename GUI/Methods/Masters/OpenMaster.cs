@@ -37,7 +37,6 @@ namespace BazisGUI
             var btnName = $"btnTab{master.MasterName}";
             if (!splitContainer3.Panel1.Controls.ContainsKey(btnName))
             {
-
                 var btn = new Button()
                 {
                     FlatStyle = FlatStyle.Flat,
