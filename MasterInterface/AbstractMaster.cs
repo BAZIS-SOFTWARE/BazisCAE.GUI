@@ -4,6 +4,10 @@ namespace MasterInterface
 {
     public partial class AbstractMaster : BaseMaster, IFunctionsHandling, IMaterialsHandling, IGroupHandling, IPreparedDataLoader
     {
+        public event EventHandler<EventArgs> OnFunctionsRequested;
+        public event EventHandler<EventArgs> OnMaterialsRequested;
+        public event EventHandler<EventArgs> OnGroupsRequested;
+        public event EventHandler<EventArgs> PreparedDataLoaded;
         /// <summary>
         /// Названия материалов
         /// </summary>
@@ -20,6 +24,15 @@ namespace MasterInterface
         protected Dictionary<GroupType, Dictionary<int, string>> groups = new Dictionary<GroupType, Dictionary<int, string>>();
 
         public override string MasterName { get; } = "AbstractMaster";
+
+        public AbstractMaster()
+        {
+            InitializeComponent();
+            OnFunctionsRequested?.Invoke(this, new EventArgs());
+            OnMaterialsRequested?.Invoke(this, new EventArgs());
+            OnGroupsRequested?.Invoke(this, new EventArgs());
+            PreparedDataLoaded?.Invoke(this, new EventArgs());
+        }
 
         public virtual void AddGroup(GroupType type, int number, string groupName)
         {
@@ -72,13 +85,6 @@ namespace MasterInterface
         {
             this.materials.Clear();
             this.materials.AddRange(materials);
-        }
-
-        public virtual void InitialMasterFilling(IEnumerable<string> materials, IEnumerable<string> functions, Dictionary<GroupType, Dictionary<int, string>> groups)
-        {
-            InitialGroupFilling(groups);
-            SetMaterials(materials);
-            SetFunctions(functions);
         }
 
         public virtual void SetDataFromConditionsStrings(IEnumerable<string> strings)
