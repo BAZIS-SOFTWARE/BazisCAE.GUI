@@ -4,7 +4,7 @@ using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.FrameCreators;
 using Project.Tasks.Functions;
-using Project.Tasks.Functions.Welding;
+using Project.Tasks.Functions.FrameFunctions;
 using Project.Tasks.Materials;
 using System;
 using System.Linq;
@@ -37,55 +37,79 @@ namespace BazisGUI
             else if (obj.Header == "Стоп, сек.")
                 cond.StopTime = float.Parse(obj.NewValue);
 
-            else if (obj.Header.Contains("Функция, F(v(x,y,z))"))
+            else if (obj.Header.Contains("Функция"))
             {
                 if (obj.NewValue == "*")
-                    cond.FrameFunction = null;
+                    cond.Function = null;
                 else if (obj.NewValue == "SPH")
-                    cond.FrameFunction = new SphereFunction();
+                    cond.Function = new SPH();
                 else if (obj.NewValue == "CIL")
-                    cond.FrameFunction = new CillindricalFunction();
+                    cond.Function = new CIL();
+                else if (obj.NewValue == "FHEX")
+                    cond.Function = new FHEX();
+                else if (obj.NewValue == "DHEX")
+                    cond.Function = new DHEX();
+                else if (obj.NewValue == "TT")
+                    cond.Function = new TT();
+                else if (obj.NewValue == "PT")
+                    cond.Function = new PT();
                 else
-                    cond.FrameFunction = new CustomFunction();
-                // TO DO добавить custom function
+                    cond.Function = new CustomFrameFunction();
+                
+                // TO DO добавить диалоговое окно выбора файла функции
+
+                refresh = true;
+            }
+
+            else if (obj.Header.Contains("Параметр"))
+            {
+                var ar = obj.Header.Split(" ");
+
+                if (obj.NewValue == "Constant")
+                    cond.Function[ar[1]] = new Parameter(ar[1], ParameterType.Constant, 0);
+                else if (obj.NewValue == "Table")
+                    cond.Function[ar[1]] = new TableParameter(project.FunctionsDB.First().Value,
+                        ar[1],
+                        cond.Function.GetParameters().
+                        First(x => x.ParameterType == ParameterType.Variable));
+                else
+                    cond.Function[ar[1]].SetValue(double.Parse(obj.NewValue));
+                refresh = true;
+            }
+            // подумать про регулярные выражения для поиска
+            else if (obj.Header.Contains("Таблица"))
+            {
+                var ar = obj.Header.Split(" ");
+
+                var tableParam = cond.Function.GetTableParameters().
+                    First(x => x.Table.Name == ar[1]);
+                var setParam = cond.Function.GetParameters().First(x => x.Name == obj.NewValue);
+
+                if(setParam.Name != tableParam.Name)
+                    tableParam.Parameter = setParam;
+                
                 refresh = true;
             }
 
             else if (obj.Header == "Система координат")
             {
                 if (obj.NewValue == "SRF")
-                    cond.FrameFunction.LocalFrame = new StaticFrame();
+                    cond.LocalFrame = new StaticFrame();
+                else if (obj.NewValue == "MRF")
+                    cond.LocalFrame = new MovedFrame();
                 else
-                    cond.FrameFunction.LocalFrame = new MovedFrame();
+                    cond.LocalFrame = null;
 
                 refresh = true;
             }
 
             else if (obj.Header == "Файл")
             {
-                var cf = cond.FrameFunction as CustomFunction;
+                var cf = cond.Function as CustomFrameFunction;
                 cf.CreateEngine(obj.NewValue);
             }
 
-            else if (obj.Header == "Ширина, мм.")
-            {
-                var func = cond.FrameFunction as SphereFunction;
-                func.Width = float.Parse(obj.NewValue);
-            }
-            else if (obj.Header == "Длина, мм." |
-                obj.Header == "Верхний диам., мм." |
-                obj.Header == "Нижний диам., мм.")
-            {
-                var func = cond.FrameFunction as CillindricalFunction;
-                if (obj.Header == "Длина, мм.")
-                    func.Length = float.Parse(obj.NewValue);
-                else if (obj.Header == "Верхний диам., мм.")
-                    func.UpperDiam = float.Parse(obj.NewValue);
-                else if (obj.Header == "Нижний диам., мм.")
-                    func.BottomDiam = float.Parse(obj.NewValue);
-            }
-
-            else if (obj.Header == "Плоскость" && cond.FrameFunction.LocalFrame is StaticFrame srf)
+            else if (obj.Header == "Плоскость" && cond.LocalFrame is StaticFrame srf)
             {
                 var group = project.GetAllModelGroups().First(x => x.Name == obj.NewValue);
                 srf.BaseGroup = group;
@@ -93,19 +117,19 @@ namespace BazisGUI
 
             else if (obj.Header == "Траектория")
             {
-                var mrf = cond.FrameFunction.LocalFrame as MovedFrame;
+                var mrf = cond.LocalFrame as MovedFrame;
                 var group = project.GetAllModelGroups().First(x => x.Name == obj.NewValue);
                 mrf.BaseLine = group;
             }
             else if (obj.Header == "Опорная линия")
             {
-                var mrf = cond.FrameFunction.LocalFrame as MovedFrame;
+                var mrf = cond.LocalFrame as MovedFrame;
                 var group = project.GetAllModelGroups().First(x => x.Name == obj.NewValue);
                 mrf.RefLine = group;
             }
             else if (obj.Header == "Скорость, мм./сек.")
             {
-                var mrf = cond.FrameFunction.LocalFrame as MovedFrame;
+                var mrf = cond.LocalFrame as MovedFrame;
                 mrf.Velocity = float.Parse(obj.NewValue);
 
                 // добавим корректировку времени остановки, если изменена скорость
@@ -116,17 +140,17 @@ namespace BazisGUI
             }
 
             else if (obj.Header == "Смещение x")
-                cond.FrameFunction.LocalFrame.Shifting._x = float.Parse(obj.NewValue);
+                cond.LocalFrame.Shifting._x = float.Parse(obj.NewValue);
             else if (obj.Header == "Смещение y")
-                cond.FrameFunction.LocalFrame.Shifting._y = float.Parse(obj.NewValue);
+                cond.LocalFrame.Shifting._y = float.Parse(obj.NewValue);
             else if (obj.Header == "Смещение z")
-                cond.FrameFunction.LocalFrame.Shifting._z = float.Parse(obj.NewValue);
+                cond.LocalFrame.Shifting._z = float.Parse(obj.NewValue);
             else if (obj.Header == "Поворот x")
-                cond.FrameFunction.LocalFrame.Rotation_X = float.Parse(obj.NewValue);
+                cond.LocalFrame.Rotation_X = float.Parse(obj.NewValue);
             else if (obj.Header == "Поворот y")
-                cond.FrameFunction.LocalFrame.Rotation_Y = float.Parse(obj.NewValue);
+                cond.LocalFrame.Rotation_Y = float.Parse(obj.NewValue);
             else if (obj.Header == "Поворот z")
-                cond.FrameFunction.LocalFrame.Rotation_Z = float.Parse(obj.NewValue);
+                cond.LocalFrame.Rotation_Z = float.Parse(obj.NewValue);
         }
 
         private void ChangeClampProperties(PropertyChangedEventArgs obj, ClampData clampCond, ref bool flag)
@@ -158,9 +182,9 @@ namespace BazisGUI
             //Мощность, Дж
             ChangeGeneralProperties(obj, heatCond, ref flag);
             if (obj.Header == "Мощность, Дж")
-                heatCond.Heat = float.Parse(obj.NewValue);
-            else if (obj.Header == "Функция, F(t), F - Дж.")
-                heatCond.TimeFunction = project.FunctionsDB[obj.NewValue];
+                heatCond.Value = float.Parse(obj.NewValue);
+            //else if (obj.Header == "Функция, F(t), F - Дж.")
+            //    heatCond.TimeFunction = project.FunctionsDB[obj.NewValue];
         }
 
         private void ChangeLoadProperties(PropertyChangedEventArgs obj, LoadData loadData, ref bool flag)
@@ -170,8 +194,8 @@ namespace BazisGUI
                 loadData.Direction = obj.NewValue.ToEnum<Direction>();
             else if (obj.Header == "Величина, Н")
                 loadData.Value = float.Parse(obj.NewValue);
-            else if (obj.Header == "Функция, F(t), F - Н.")
-                loadData.TimeFunction = project.FunctionsDB[obj.NewValue];
+            //else if (obj.Header == "Функция, F(t), F - Н.")
+            //    loadData.TimeFunction = project.FunctionsDB[obj.NewValue];
 
             else if (obj.Header == "Вид")
                 loadData.LoadKind = obj.NewValue.ToEnum<LoadKind>();
@@ -180,28 +204,6 @@ namespace BazisGUI
         private void ChangeMediaProperties(PropertyChangedEventArgs obj, MediaData mediaData, ref bool flag)
         {
             ChangeGeneralProperties(obj, mediaData, ref flag);
-
-            if (obj.Header == "Функция, F(t), F - Дж./мм.^2")
-            {
-                mediaData.HeatExchangeFunc = 
-                    obj.NewValue == "*" ?  null : project.FunctionsDB[obj.NewValue];
-                flag = true;
-            }
-
-            else if (obj.Header == "Коэф. теплоотдачи")
-            {
-                mediaData.HeatExchangeValue = float.Parse(obj.NewValue);
-                flag = true;
-            }
-                
-            else if (obj.Header == "Температура среды")
-                mediaData.TemperatureValue = float.Parse(obj.NewValue);
-            else if (obj.Header == "Функция, F(t), F - Град.")
-            {
-                mediaData.TemperatureFunc =
-                    obj.NewValue == "*" ? null : project.FunctionsDB[obj.NewValue];
-                flag = true;
-            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BazisGUI.PropertiesPanel.DataGridViewNumericUpDown;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace BazisGUI.PropertiesPanel
 {
@@ -21,6 +22,7 @@ namespace BazisGUI.PropertiesPanel
         public ValidationType ValidationType { get; set; } = ValidationType.None;
         
         public bool IsReadOnly { get; set; }
+        public Color Color { get; internal set; } = SystemColors.Control;
 
         //public bool IsNumericUpDown { get; set; }
 

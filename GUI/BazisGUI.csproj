@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Methods\MeshMainMenuEvents.cs" />
+    <Compile Remove="Methods\Navigator\Cond\GetHeatProperty.cs" />
     <Compile Remove="Methods\Navigator\Object\SelectAdjacencies.cs" />
     <Compile Remove="Methods\Navigator\Object\ShowAdjacencies.cs" />
   </ItemGroup>
@@ -63,9 +64,9 @@
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
-    <PackageReference Include="OperationalController" Version="4.2.4" />
+    <PackageReference Include="OperationalController" Version="4.3.2" />
     <PackageReference Include="PostProc" Version="2.1.4" />
-    <PackageReference Include="PreProc" Version="2.2.1" />
+    <PackageReference Include="PreProc" Version="2.2.9" />
     <PackageReference Include="PropertiesCalculator" Version="1.1.0" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
@@ -129,6 +130,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Methods\License\LicenseModule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Methods\Navigator\Cond\GetCondProperty.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Methods\Results\Reflect.cs">

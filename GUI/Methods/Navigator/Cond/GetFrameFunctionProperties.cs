@@ -1,12 +1,7 @@
 ﻿using BazisGUI.PropertiesPanel;
-using Model.Interfaces;
 using Project.Interfaces.Tasks;
-using Project.Tasks;
-using Project.Tasks.FrameCreators;
-using Project.Tasks.Functions;
-using Project.Tasks.Functions.Welding;
+using Project.Tasks.Functions.FrameFunctions;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BazisGUI
 {
@@ -16,11 +11,11 @@ namespace BazisGUI
         {
             var rows = new List<RowProperty>();
 
-            if (function is SphereFunction sph)
+            if (function is SPH sph)
             {
                 rows.Add(new RowProperty("Ширина, мм.", sph.Width));
             }
-            else if (function is CillindricalFunction cil)
+            else if (function is CIL cil)
             {
                 rows.Add(new RowProperty("Длина, мм.", cil.Length));
                 rows.Add(new RowProperty("Верхний диам., мм.", cil.UpperDiam));
@@ -28,7 +23,7 @@ namespace BazisGUI
             }
             else
             {
-                var cf = function as CustomFunction;
+                var cf = function as CustomFrameFunction;
                 rows.Add(new RowProperty("Файл", cf.ExecutedFile == null ? "*" : cf.ExecutedFile));
             }
 
