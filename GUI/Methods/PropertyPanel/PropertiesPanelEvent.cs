@@ -11,7 +11,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void propertiesPanel_OnPropertyUpdate(PropertyChangedEventArgs obj)
+        private void PropertiesPanel_OnPropertyUpdate(PropertyChangedEventArgs obj)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace BazisGUI
 
                         if (flag)
                         {
-                            var rows = GetMatProperty((MatData)cond, _mats, groups);
+                            var rows = GetMatProperty((MatData)cond, _mats, groups, _funcs);
                             propertiesPanel.DrawTable(rows);
                         }
                     }
@@ -105,7 +105,7 @@ namespace BazisGUI
 
                         if (flag)
                         {
-                            var rows = GetHeatProperty((HeatData)cond, groups, _funcs);
+                            var rows = GetCondProperty((HeatData)cond, groups, _funcs);
                             propertiesPanel.DrawTable(rows);
                         }
                     }
@@ -136,7 +136,7 @@ namespace BazisGUI
 
                         if (flag)
                         {
-                            var rows = GetClampProperty((ClampData)cond, groups);
+                            var rows = GetClampProperty((ClampData)cond, groups, _funcs);
                             propertiesPanel.DrawTable(rows);
                         }
                     }

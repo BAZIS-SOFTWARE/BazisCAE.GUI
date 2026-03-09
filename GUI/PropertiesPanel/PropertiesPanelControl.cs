@@ -66,6 +66,9 @@ namespace BazisGUI.PropertiesPanel
             foreach (var prop in rows)
             {
                 var row = new DataGridViewRow();
+                row.DefaultCellStyle.BackColor = prop.Color;
+
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); // Имя свойства
 
                 row.Cells.Add(new DataGridViewTextBoxCell
                 {

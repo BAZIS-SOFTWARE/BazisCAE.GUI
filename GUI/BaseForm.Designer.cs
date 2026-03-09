@@ -406,7 +406,7 @@ namespace BazisGUI
             navigator.ShowObjectEvent += navigator_ShowObjectEvent;
             navigator.HideObjectEvent += navigator_HideObjectEvent;
             navigator.DelObjectEvent += navigator_DelObjectEvent;
-            navigator.SelectCondEvent += navigator_SelectCondEvent;
+            navigator.SelectCondEvent += Navigator_SelectCondEvent;
             navigator.SelectTaskEvent += navigator_SelectTaskEvent;
             navigator.SelectGeoEvent += navigator_SelectGeoEvent;
             navigator.SelectMeshEvent += navigator_SelectMeshEvent;
@@ -460,9 +460,9 @@ namespace BazisGUI
             checkPlayerControl.StopValue = 100;
             checkPlayerControl.TabIndex = 2;
             checkPlayerControl.TextValueColor = System.Drawing.Color.Black;
-            checkPlayerControl.CheckingEvent += checkPlayerControl_CheckingEvent;
-            checkPlayerControl.StopCheckingEvent += checkPlayerControl_StopCheckingEvent;
-            checkPlayerControl.StartCheckingEvent += checkPlayerControl_StartCheckingEvent;
+            checkPlayerControl.CheckingEvent += CheckPlayerControl_CheckingEvent;
+            checkPlayerControl.StopCheckingEvent += CheckPlayerControl_StopCheckingEvent;
+            checkPlayerControl.StartCheckingEvent += CheckPlayerControl_StartCheckingEvent;
             // 
             // propertiesPanel
             // 
@@ -481,7 +481,7 @@ namespace BazisGUI
             propertiesPanel.Size = new System.Drawing.Size(274, 210);
             propertiesPanel.TabIndex = 0;
             propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
-            propertiesPanel.PropertyUpdateEvent += propertiesPanel_OnPropertyUpdate;
+            propertiesPanel.PropertyUpdateEvent += PropertiesPanel_OnPropertyUpdate;
             // 
             // splitContainer2
             // 

@@ -21,7 +21,7 @@ namespace BazisGUI
                 {
                     if (arg2.Time >= data.StartTime & arg2.Time <= data.StopTime)
                     {
-                        if (data.FrameFunction != null)
+                        if (data.LocalFrame != null)
                             DisplayMRF(arg2.Time, data);
 
                         var group = data.Group;
