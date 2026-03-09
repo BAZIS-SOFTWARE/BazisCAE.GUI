@@ -1,13 +1,12 @@
 ﻿using BazisGUI.PropertiesPanel;
 using Model.Interfaces;
+using OpenTK.Graphics.OpenGL;
+using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading;
-using OpenTK.Graphics.OpenGL;
-using static BazisGUI.Methods.PlatformSpecific.PlatformSpecific;
 using System.Linq;
-using Project.Interfaces.Tasks;
+using System.Threading.Tasks;
+using static BazisGUI.Methods.PlatformSpecific.PlatformSpecific;
 
 namespace BazisGUI
 {

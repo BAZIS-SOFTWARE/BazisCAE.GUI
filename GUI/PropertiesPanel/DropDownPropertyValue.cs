@@ -13,7 +13,7 @@ namespace BazisGUI.PropertiesPanel
 
         public bool IsEditable { get; set; }
 
-        public DropDownPropertyValue(object value, List<string>  _availableValues, bool isEditable = true)
+        public DropDownPropertyValue(object value, List<string>  _availableValues, bool isEditable = false)
         {
             AvailableValues = _availableValues;
 

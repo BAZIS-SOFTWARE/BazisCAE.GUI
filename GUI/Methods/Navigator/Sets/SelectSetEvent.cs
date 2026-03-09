@@ -34,16 +34,13 @@ namespace BazisGUI
 
                             if (objType != ObjType.Узел)
                             {
-                                rows.Add(new RowProperty("Порядок точности",
-                                new DropDownPropertyValue("",
-                                new List<string>() { "1", "2" })));
+                                rows.Add(new RowProperty("Порядок точности",new DropDownPropertyValue("", ["1", "2"])));
                                 rows.Add(new RowProperty("Смежные узлы", new ButtonPropertyValue("Показать",
                                 () => {
                                 ShowAdjacenciesSet(objType, setName);
                                 DisplayObjects();
                                 })));
                             }
-
 
                             propertiesPanel.DrawTable(rows);
                         }

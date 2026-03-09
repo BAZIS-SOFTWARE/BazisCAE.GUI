@@ -3,7 +3,9 @@ using BazisGUI.PropertiesPanel.DataGridViewNumericUpDown;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BazisGUI.PropertiesPanel
 {
@@ -50,6 +52,121 @@ namespace BazisGUI.PropertiesPanel
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
+        /// <summary>
+        /// Заполняет таблицу свойствами.
+        /// </summary>
+        public void DrawTable(List<RowProperty> rows, string objInfo = null, int tag = 0)
+        {
+            _rows = rows;
+            this.objInfo = objInfo;
+            this.tag = tag;
+
+            dataGridView1.Rows.Clear();
+
+            foreach (var prop in rows)
+            {
+                var row = new DataGridViewRow();
+
+                row.Cells.Add(new DataGridViewTextBoxCell
+                {
+                    Value = prop.Header
+                });
+
+                var cell = CreateValueCell(prop);
+
+                cell.Tag = prop.ValidationType.ToString();
+                cell.ReadOnly = prop.IsReadOnly;
+
+                row.Cells.Add(cell);
+
+                dataGridView1.Rows.Add(row);
+            }
+        }
+
+        private DataGridViewCell CreateValueCell(RowProperty prop)
+        {
+            DataGridViewCell cell;
+
+            switch (prop.Value)
+            {
+                case bool value:
+                    cell = new DataGridViewCheckBoxCell
+                    {
+                        Value = value
+                    };
+                    cell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    break;
+
+                case DropDownPropertyValue ddpv:
+                    var combo = new DataGridViewComboBoxCell();
+                    combo.Items.AddRange(ddpv.AvailableValues.ToArray());
+                    combo.Value = ddpv.Value?.ToString();
+                    cell = combo;
+                    break;
+
+                case NumericUpDownValue nudpv:
+                    cell = new DataGridViewNumericUpDownCell
+                    {
+                        Minimum = nudpv.Minimum,
+                        Maximum = nudpv.Maximum,
+                        Increment = nudpv.Increment,
+                        DecimalPlaces = nudpv.DecimalPlaces,
+                        Value = Convert.ToDecimal(nudpv.Value)
+                    };
+                    break;
+
+                case ButtonPropertyValue bpv:
+                    var button = new DataGridViewButtonCell
+                    {
+                        Value = bpv.Text
+                    };
+                    button.Style.Tag = bpv;
+                    cell = button;
+                    break;
+
+                default:
+                    cell = new DataGridViewTextBoxCell
+                    {
+                        Value = prop.Value?.ToString()
+                    };
+                    break;
+            }
+
+            if (prop.Header == "Цвет" && prop.Value is Color color)
+                cell.Style.BackColor = color;
+
+            return cell;
+        }
+
+        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex == 0)
+                return;
+
+            var grid = dataGridView1;
+            var row = grid.Rows[e.RowIndex];
+            var propertyName = row.Cells[0].Value?.ToString();
+
+            string value = GetValueFromDialog(propertyName);
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                row.Cells[e.ColumnIndex].Value = value;
+                grid.CurrentCell = row.Cells[0];
+            }
+
+            HandleButtonCellClick(row.Cells[e.ColumnIndex]);
+        }
+
+        private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 1)
+            {
+                if (dataGridView1.Rows[e.RowIndex].Cells[1].Value != null)
+                    _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            }
+        }
+
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.Rows[e.RowIndex].Cells[1] is DataGridViewComboBoxCell)
@@ -58,106 +175,13 @@ namespace BazisGUI.PropertiesPanel
 
         private void DataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-
             if (dataGridView1.CurrentCell is DataGridViewCheckBoxCell)
                 dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
             else if (dataGridView1.CurrentCell is DataGridViewComboBoxCell)
                 dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
 
-        private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            // Заглушка
-        }
-
-        public void ClearTable()
-        {
-            dataGridView1.Rows.Clear();
-        }
-        /// <summary>
-        /// DrawTable
-        /// </summary>
-        /// <param name="rows"></param>
-        /// <param name="_objInfo">дополнительная информация об объекте</param>
-        /// <param name="_tag">дополнительная информация</param>
-        public void DrawTable(List<RowProperty> rows, string _objInfo = null, int _tag = 0)
-        {
-            _rows = rows;
-            objInfo = _objInfo;
-            tag = _tag;
-            dataGridView1.Rows.Clear();
-            // Тут при создании строки таблицы должно происходить автоопределение типа элемента ячейки
-            // comboBox,TextBox, CheckBox etc.
-            foreach (var prop in rows)// Инициализация строк через RowProperty
-            {
-                var row = new DataGridViewRow();
-                row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); // Имя свойства
-
-                DataGridViewCell cell; // Значение свойства
-
-                if(prop.Value is bool chbv)
-                {
-                    cell = new DataGridViewCheckBoxCell();
-                    cell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                    cell.Value = chbv;
-                }
-
-                else if (prop.Value is DropDownPropertyValue ddpv)
-                {
-                    var comboCell = new DataGridViewComboBoxCell();
-                    comboCell.Items.AddRange(ddpv.AvailableValues.ToArray());
-                    comboCell.Value= ddpv.Value.ToString();
-                    cell = comboCell;
-                }
-
-                else if (prop.Value is NumericUpDownValue nudpv)
-                { 
-                    var numericUpDownCell = new DataGridViewNumericUpDownCell()
-                    {
-                        Minimum = nudpv.Minimum,
-                        Maximum = nudpv.Maximum,
-                        Increment = nudpv.Increment,
-                        DecimalPlaces = nudpv.DecimalPlaces,
-                    };
-                    numericUpDownCell.Value = Convert.ToDecimal(nudpv.Value);
-                    cell = numericUpDownCell;
-                }
-                else if (prop.Value is ButtonPropertyValue bv)
-                {
-                    var btnCell = new DataGridViewButtonCell();
-                    //btnCell
-                    btnCell.Style.Tag = bv;
-                    btnCell.Value = bv.Text;
-                    cell = btnCell;
-                }
-
-                else
-                {
-                    cell = new DataGridViewTextBoxCell();
-                    cell.Value= prop.Value.ToString() ;
-                }
-                    
-
-                if (prop.Header == "Цвет")
-                    cell.Style.BackColor = (Color)prop.Value;
-
-                cell.Tag = prop.ValidationType.ToString();
-
-                row.Cells.Add(cell);
-                cell.ReadOnly = prop.IsReadOnly;
-
-                row.Cells[1].ReadOnly = false;
-                dataGridView1.Rows.Add(row);
-            }
-        }
-        private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.ColumnIndex == 1)
-            {
-                if(dataGridView1.Rows[e.RowIndex].Cells[1].Value != null)
-                    _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            }
-        }
+        private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e){ /*Заглушка*/ }
 
         public void CellValueChanged(DataGridViewCell e)
         {
@@ -183,117 +207,24 @@ namespace BazisGUI.PropertiesPanel
             }
         }
 
-        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 0) return;
-
-            var value = "";
-            if (dataGridView1[0,e.RowIndex].Value.ToString() == "Цвет")
-            {
-                ColorDialog colorDialog = new ColorDialog();
-                if(colorDialog.ShowDialog() == DialogResult.OK)
-                {
-                    value = colorDialog.Color.ToString();
-                }
-            }
-
-            else if (dataGridView1[0, e.RowIndex].Value.ToString() == "Файл")
-            {
-                var fileDialog = new OpenFileDialog();
-                if (fileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    value = fileDialog.FileName;
-                }
-            }
-
-            if(value != "")
-            {
-                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = value;
-                dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[0];
-            }
-
-
-            var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-            if (cell is DataGridViewButtonCell bt)
-            {
-                var buttonSet = cell.Style.Tag as ButtonPropertyValue;
-               
-                if(buttonSet != null)
-                    buttonSet.OnClick?.Invoke();
-            }
-        }
-
+        /// <summary>
+        /// Настраивает <see cref="ComboBox"/> редактора для ячейки
+        /// <see cref="DataGridViewComboBoxCell"/> и обновляет подписки на события.
+        /// </summary>
         private void DataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            // Проверяем, что редактируется ComboBox‑ячейка
             if (dataGridView1.CurrentCell is DataGridViewComboBoxCell)
             {
                 if (e.Control is ComboBox cb)
                 {
-                    // Разрешаем ввод текста
-                    cb.DropDownStyle = ComboBoxStyle.DropDown; // а не DropDownList
+                    if(_rows[dataGridView1.CurrentCell.RowIndex].Value is DropDownPropertyValue ddpv)
+                        cb.DropDownStyle = ddpv.IsEditable ? ComboBoxStyle.DropDown : ComboBoxStyle.DropDownList;
 
-                    // на всякий случай снимаем старый обработчик
                     cb.SelectedIndexChanged -= ComboBox_SelectedIndexChanged;
                     cb.Leave -= ComboBox_Leave;
 
                     cb.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
                     cb.Leave += ComboBox_Leave;
-                }
-            }
-        }
-        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var cb = (ComboBox)sender;
-            string text = cb.Text;                // здесь всегда актуальный введённый/выбранный текст
-            SaveComboText(text);                  // своя логика сохранения
-        }
-
-        private void ComboBox_Leave(object sender, EventArgs e)
-        {
-            var cb = (ComboBox)sender;
-            string text = cb.Text;                // пользователь мог напечатать, но не выбрать
-            SaveComboText(text);
-        }
-        private void SaveComboText(string text)
-        {
-            if (dataGridView1.CurrentCell == null) return;
-
-            int rowIndex = dataGridView1.CurrentCell.RowIndex;
-            int colIndex = dataGridView1.CurrentCell.ColumnIndex;
-
-            // записываем в ячейку
-            dataGridView1[colIndex, rowIndex].Value = text;
-
-            // здесь же можете обновить свой DropDownPropertyValue и AvailableValues
-            // SyncDropDownBackingObject(rowIndex);
-        }
-        private void SyncDropDownBackingObject(int rowIndex)
-        {
-            if (_rows == null || rowIndex < 0 || rowIndex >= _rows.Count)
-                return;
-
-            var rowProp = _rows[rowIndex];
-            var cell = dataGridView1.Rows[rowIndex].Cells[1];
-            var newText = cell.Value?.ToString() ?? string.Empty;
-
-            if (rowProp.Value is DropDownPropertyValue ddpv)
-            {
-                // обновляем текущее значение
-                ddpv.Value = newText;
-
-                // при необходимости добавляем в список доступных значений
-                if (!string.IsNullOrEmpty(newText) && !ddpv.AvailableValues.Contains(newText))
-                {
-                    ddpv.AvailableValues.Add(newText);
-
-                    // чтобы новые варианты появились в выпадающем списке этой ячейки
-                    if (cell is DataGridViewComboBoxCell comboCell)
-                    {
-                        comboCell.Items.Clear();
-                        comboCell.Items.AddRange(ddpv.AvailableValues.ToArray());
-                    }
                 }
             }
         }
@@ -336,6 +267,71 @@ namespace BazisGUI.PropertiesPanel
                 color = Color.FromName(colorName.Replace("Color [", "").Replace("]", ""));
             }
             return color;
+        }
+
+        private string GetValueFromDialog(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "Цвет":
+                    using (var dialog = new ColorDialog())
+                        return dialog.ShowDialog() == DialogResult.OK ? dialog.Color.ToString() : null;
+
+                case "Файл":
+                    using (var dialog = new OpenFileDialog())
+                        return dialog.ShowDialog() == DialogResult.OK ? dialog.FileName : null;
+            }
+            return null;
+        }
+
+        private void HandleButtonCellClick(DataGridViewCell cell)
+        {
+            if (cell is not DataGridViewButtonCell)
+                return;
+
+            if (cell.Style.Tag is ButtonPropertyValue buttonSet)
+                buttonSet.OnClick?.Invoke();
+        }
+
+        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e) => SaveComboText(((ComboBox)sender).Text);
+        private void ComboBox_Leave(object sender, EventArgs e) => SaveComboText(((ComboBox)sender).Text);
+
+        private void SaveComboText(string text)
+        {
+            if (dataGridView1.CurrentCell == null) return;
+
+            int rowIndex = dataGridView1.CurrentCell.RowIndex;
+            int colIndex = dataGridView1.CurrentCell.ColumnIndex;
+
+            // записываем в ячейку
+            dataGridView1[colIndex, rowIndex].Value = text;
+        }
+
+        /// <summary>
+        /// Синхронизирует текущее текстовое значение ячейки ComboBox в <see cref="dataGridView1"/>
+        /// с соответствующим объектом данных <see cref="DropDownPropertyValue"/> в коллекции <see cref="_rows"/>.
+        /// </summary>
+        private void SyncDropDownBackingObject(int rowIndex)
+        {
+            if (_rows == null || rowIndex < 0 || rowIndex >= _rows.Count)
+                return;
+
+            if (_rows[rowIndex].Value is not DropDownPropertyValue ddpv)
+                return;
+
+            var cell = dataGridView1.Rows[rowIndex].Cells[1];
+            var newText = cell.Value?.ToString() ?? string.Empty;
+
+            ddpv.Value = newText;
+
+            if (cell is not DataGridViewComboBoxCell comboCell)
+                return;
+
+            comboCell.Items.Clear();
+            comboCell.Items.AddRange(ddpv.AvailableValues.ToArray());
+
+            if (!string.IsNullOrWhiteSpace(newText) && !ddpv.AvailableValues.Contains(newText))
+                comboCell.Items.Add(newText);
         }
     }
 }
