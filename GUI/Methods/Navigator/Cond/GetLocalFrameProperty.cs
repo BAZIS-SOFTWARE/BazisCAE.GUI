@@ -1,9 +1,7 @@
 ﻿using BazisGUI.PropertiesPanel;
 using Model.Interfaces;
-using Project.Tasks;
-using Project.Tasks.FrameCreators;
+using Project.Tasks.LocalFrames;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace BazisGUI

@@ -2,9 +2,9 @@
 using BazisGUI.PropertiesPanel;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
-using Project.Tasks.FrameCreators;
 using Project.Tasks.Functions;
 using Project.Tasks.Functions.FrameFunctions;
+using Project.Tasks.LocalFrames;
 using Project.Tasks.Materials;
 using System;
 using System.Linq;

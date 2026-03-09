@@ -1,15 +1,12 @@
 ﻿using BazisGUI.PropertiesPanel;
-using Geometry;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
-using Project.Tasks.FrameCreators;
 using Project.Tasks.Functions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace BazisGUI
 {
