@@ -5,18 +5,13 @@ using System;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class FunctionsHandler : MasterHandlerBase<IFunctionsHandling> 
+    public class FunctionsHandler : MasterHandlerBase<IFunctionsHandling, FunctionAction> 
     {
         private FunctionAction action;
 
-        public override IHandlerAction GetHandlerAction() => action;
+        public override FunctionAction GetHandlerAction() => action;
 
-        public override void SetHandlerAction(IHandlerAction act)
-        {
-            if (act is FunctionAction fa)
-                action = fa;
-            else throw new ArgumentException($"Передананное действие не соответствует обработчику. Вместо GroupAction, получено {act?.GetType()}");
-        }
+        public override void SetHandlerAction(FunctionAction act) => action = act;
 
         public override bool CanHandle(Type interfaceType) =>
             typeof(IFunctionsHandling).IsAssignableFrom(interfaceType);

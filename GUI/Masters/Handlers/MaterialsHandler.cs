@@ -5,18 +5,13 @@ using System;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class MaterialsHandler : MasterHandlerBase<IMaterialsHandling>
+    public class MaterialsHandler : MasterHandlerBase<IMaterialsHandling, MaterialAction>
     {
         private MaterialAction action;
 
-        public override IHandlerAction GetHandlerAction() => action;
+        public override MaterialAction GetHandlerAction() => action;
 
-        public override void SetHandlerAction(IHandlerAction act)
-        {
-            if (act is MaterialAction ma)
-                action = ma;
-            else throw new ArgumentException($"Передананное действие не соответствует обработчику. Вместо GroupAction, получено {act?.GetType()}");
-        }
+        public override void SetHandlerAction(MaterialAction act) => action = act;
 
         public override bool CanHandle(Type interfaceType) =>
             typeof(IMaterialsHandling).IsAssignableFrom(interfaceType);

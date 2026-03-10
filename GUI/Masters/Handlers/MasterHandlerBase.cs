@@ -8,8 +8,9 @@ namespace BazisGUI.Masters.Handlers
     /// Абстракция для определения обработчика интерфейса мастера
     /// </summary>
     /// <typeparam name="T">Интерфейс мастера, который будет обрабатываться обработчиком</typeparam>
-    public abstract class MasterHandlerBase<T> : IMasterInterfaceHandler
+    public abstract class MasterHandlerBase<T, U> : IMasterInterfaceHandler
         where T : IMasterInterface
+        where U : IHandlerAction
     {
         /// <summary>
         /// Контейнер внутри которого происходит запуск действий обработчика
@@ -28,6 +29,24 @@ namespace BazisGUI.Masters.Handlers
                 Handle(typed);
             else throw new ArgumentException($"Обрабатываемые объект не реализует интерфейс {typeof(T)}");
         }
+
+        /// <summary>
+        /// Базовый метод установки действия обработчика
+        /// </summary>
+        /// <param name="action">Действие обработчика</param>
+        /// <exception cref="ArgumentException">Ошибка при передаче объекта неверного типа</exception>
+        public void SetAction(object action)
+        {
+            if (action is U typed)
+                SetHandlerAction(typed);
+            else throw new ArgumentException($"Обрабатываемые объект не реализует интерфейс {typeof(U)}");
+        }
+
+        /// <summary>
+        /// Базовый метод получения действия обработчика
+        /// </summary>
+        /// <returns>Экземпляр класса действия обработчика приведенного к типу object</returns>
+        public object GetAction() => GetHandlerAction();
 
         /// <summary>
         /// Задание контейнера, внутри которого происходит обработка
@@ -54,13 +73,13 @@ namespace BazisGUI.Masters.Handlers
         /// Получить действие обработчика
         /// </summary>
         /// <returns>Абстракция действия обработчика</returns>
-        public abstract IHandlerAction GetHandlerAction();
+        public abstract U GetHandlerAction();
 
         /// <summary>
         /// Установка действия обработчика.
         /// принимаемое действие обработчика проверяется на соответствие типу обработчика
         /// </summary>
         /// <param name="action">Экземпляр абстракного действия обработчика</param>
-        public abstract void SetHandlerAction(IHandlerAction action);
+        public abstract void SetHandlerAction(U action);
     }
 }

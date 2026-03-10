@@ -27,13 +27,13 @@ namespace BazisGUI.Masters.Interfaces
         /// Внутри проводится проверка соответствия реализации IHandlerAction обработчику
         /// </summary>
         /// <param name="action">Назначаемое действие обработчику</param>
-        void SetHandlerAction(IHandlerAction action);
+        void SetAction(object action);
 
         /// <summary>
         /// Получение действия обработчика
         /// </summary>
         /// <returns>Обобщенное действие обработчика в виде IHandlerAction</returns>
-        IHandlerAction GetHandlerAction();
+        object GetAction();
 
         /// <summary>
         /// Базовый метод обработки мастера.

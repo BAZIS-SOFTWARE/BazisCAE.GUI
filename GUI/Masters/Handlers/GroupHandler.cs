@@ -7,18 +7,13 @@ using System.Collections.Generic;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class GroupHandler : MasterHandlerBase<IGroupHandling>
+    public class GroupHandler : MasterHandlerBase<IGroupHandling, GroupAction>
     {
         private GroupAction action;
 
-        public override IHandlerAction GetHandlerAction() => action;
+        public override GroupAction GetHandlerAction() => action;
 
-        public override void SetHandlerAction(IHandlerAction act)
-        {
-            if (act is GroupAction ga)
-                action = ga;
-            else throw new ArgumentException($"Передананное действие не соответствует обработчику. Вместо GroupAction, получено {act?.GetType()}");
-        }
+        public override void SetHandlerAction(GroupAction act) => action = act;
 
         public override bool CanHandle(Type interfaceType) =>
             typeof(IGroupHandling).IsAssignableFrom(interfaceType);

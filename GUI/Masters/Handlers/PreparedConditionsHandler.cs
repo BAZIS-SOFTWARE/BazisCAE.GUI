@@ -5,18 +5,13 @@ using System;
 
 namespace BazisGUI.Masters.Handlers
 {
-    public class PreparedConditionsHandler : MasterHandlerBase<IPreparedDataLoader>
+    public class PreparedConditionsHandler : MasterHandlerBase<IPreparedDataLoader, PreparedConditionsAction>
     {
         private PreparedConditionsAction action;
 
-        public override IHandlerAction GetHandlerAction() => action;
+        public override PreparedConditionsAction GetHandlerAction() => action;
 
-        public override void SetHandlerAction(IHandlerAction act)
-        {
-            if (act is PreparedConditionsAction pca)
-                action = pca;
-            else throw new ArgumentException($"Передананное действие не соответствует обработчику. Вместо GroupAction, получено {act?.GetType()}");
-        }
+        public override void SetHandlerAction(PreparedConditionsAction act) => action = act;
 
         public override bool CanHandle(Type interfaceType) =>
             typeof(IPreparedDataLoader).IsAssignableFrom(interfaceType);

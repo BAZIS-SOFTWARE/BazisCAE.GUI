@@ -38,7 +38,7 @@ namespace BazisGUI
             where T : IMasterInterfaceHandler, new()
         {
             var handler = new T();
-            handler.SetHandlerAction(act);
+            handler.SetAction(act);
             handler.SetExecuteContainer(container);
             return handler;
         }
