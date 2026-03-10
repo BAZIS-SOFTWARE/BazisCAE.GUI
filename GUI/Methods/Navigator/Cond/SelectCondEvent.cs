@@ -11,7 +11,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectCondEvent(int arg1)
+        private void Navigator_SelectCondEvent(int arg1)
         {
             try
             {
@@ -26,13 +26,13 @@ namespace BazisGUI
                 List<RowProperty> rows;
 
                 if (data.Kind == DataKind.Материал)
-                    rows = GetMatProperty((MatData)data, _mats, groups);
+                    rows = GetMatProperty((MatData)data, _mats, groups, _funcs);
                 else if (data.Kind == DataKind.Среда)
                     rows = GetMediaProperty((MediaData)data, groups, _funcs);
                 else if (data.Kind == DataKind.Нагрев)
-                    rows = GetHeatProperty((HeatData)data, groups, _funcs);
+                    rows = GetCondProperty((HeatData)data, groups, _funcs);
                 else if (data.Kind == DataKind.Закрепление)
-                    rows = GetClampProperty((ClampData)data, groups);
+                    rows = GetClampProperty((ClampData)data, groups, _funcs);
                 else if (data.Kind == DataKind.Нагрузка)
                     rows = GetLoadProperty((LoadData)data, _funcs, groups);
                 else throw new NotImplementedException("Вид условия не определен");

@@ -73,15 +73,15 @@ namespace BazisGUI
         {
             get { return project?.GmshController; }
         }
-        IODataController dataController = new IODataController();
-        PreProc.PreProc preProc = new PreProc.PreProc();
-        PostProcController resultsController = new PostProcController();
+        IODataController dataController = new();
+        PreProc.PreProc preProc = new();
+        PostProcController resultsController = new();
         IPresentersCreator presentersCreator = new PresentersCreator();
-        VBOController VBOController = new VBOController();
+        VBOController VBOController = new();
 
         ClientController serverConnection;
 
-        SettingsConfig settingsConfig = new SettingsConfig()
+        SettingsConfig settingsConfig = new()
         {
             BackGroundColor = Color.White,
             SelectObjectColor = Color.GreenYellow,
@@ -209,7 +209,7 @@ namespace BazisGUI
 
             var openForms = Application.OpenForms.Cast<Form>().ToArray();
 
-            foreach (Form form in openForms)
+            foreach (var form in openForms)
             {
                 if (!form.Name.Equals(this.Name))
                     form.Close();
@@ -474,7 +474,7 @@ namespace BazisGUI
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
+            var dialog = new OpenFileDialog();
             dialog.Filter = string.Join("|", "All files(*.*)|*.*", projFilter, geomFilter, meshFilter);
             dialog.DefaultExt = "*.bpf2";
             if (dialog.ShowDialog() == DialogResult.Cancel)

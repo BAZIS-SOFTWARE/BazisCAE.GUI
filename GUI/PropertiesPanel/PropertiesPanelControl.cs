@@ -81,6 +81,8 @@ namespace BazisGUI.PropertiesPanel
             foreach (var prop in rows)// Инициализация строк через RowProperty
             {
                 var row = new DataGridViewRow();
+                row.DefaultCellStyle.BackColor = prop.Color;
+
                 row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); // Имя свойства
 
                 DataGridViewCell cell; // Значение свойства
