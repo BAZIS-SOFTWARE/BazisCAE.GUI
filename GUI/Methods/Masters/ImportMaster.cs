@@ -4,6 +4,7 @@ using BazisGUI.Masters.Handlers;
 using BazisGUI.Masters.Interfaces;
 using MasterInterface;
 using MasterInterface.Interfaces;
+using Microsoft.Scripting.Utils;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
@@ -17,10 +18,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        /// <summary>
-        /// Ассоциация типов мастеров и их обработчиков
-        /// </summary>
-        private readonly Dictionary<Type, List<IMasterInterfaceHandler>> importedMastersTypes = new();
+        private readonly List<Type> importedMasters = new();
 
         /// <summary>
         /// Существующие обработчики для мастеров постановки задач
@@ -35,49 +33,39 @@ namespace BazisGUI
         public void ImportMasterDLL(string dllPath)
         {
             var assembly = Assembly.LoadFrom(dllPath);
-            var importedMasters = new List<(Type, List<IMasterInterfaceHandler>)>();
-
+            var tempImportedMasters = new List<Type>();
             foreach (var ctrl in assembly.GetTypes())
             {
-                Type import;
+                // проверка на соответствие типа ctrl BaseMaster типу,
+                // проверка типа ctrl на абстрактность,
+                // проверка ctrl в сохраненных (импортированных) типах мастеров
+                // при удовлетворении этих проверок, мастер будет добавлен на графике и в коллекцию мастеров
                 if (typeof(BaseMaster).IsAssignableFrom(ctrl)
-                    && typeof(UserControl).IsAssignableFrom(ctrl)
                     && typeof(BaseMaster) != ctrl
                     && typeof(AbstractMaster) != ctrl
                     && !ctrl.IsAbstract
-                    && !ctrl.IsInterface
-                    && !importedMastersTypes.ContainsKey(ctrl))
-                    import = ctrl;
-                else
-                    continue;
-
-                var masterHandlers = new List<IMasterInterfaceHandler>();
-                foreach (var impInterface in import.GetInterfaces())
-                {
-                    if (typeof(IMasterInterface).IsAssignableFrom(impInterface) && typeof(IMasterInterface) != impInterface)
-                        masterHandlers.Add(handlers[impInterface]);
-                }
-                importedMasters.Add((import, masterHandlers));
+                    && !importedMasters.Contains(ctrl))
+                    tempImportedMasters.Add(ctrl);
             }
-            CreateImportedMasters(importedMasters);
+            CreateImportedMasters(tempImportedMasters);
         }
 
-        private void CreateImportedMasters(List<(Type, List<IMasterInterfaceHandler>)> masterTypes)
+        private void CreateImportedMasters(List<Type> masterTypes)
         {
             try
             {
                 if (masterTypes.Count == 0)
                 {
-                    console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера" +
-                        " постановки задач или реализация этого мастера уже загружена", Color.DarkOrange);
+                    console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера " +
+                        "постановки задач или реализация этого мастера уже загружена", Color.DarkOrange);
                     return;
                 }
 
                 foreach (var item in masterTypes)
                 {
-                    var master = (BaseMaster)Activator.CreateInstance(item.Item1);
-                    importedMastersTypes[item.Item1] = item.Item2;
+                    var master = (BaseMaster)Activator.CreateInstance(item);
                     OpenMaster(master);
+                    importedMasters.Add(item);
                     console.PrintInfo($"Открыт мастер {master.MasterName}", Color.Black);
                 }
             }

@@ -119,7 +119,6 @@ namespace BazisGUI
             splitContainer3.SplitterWidth = 8;
 
             SetPadding();
-            InitializeHandlers();
 
             //scene.InitializeContexts();
             //Gle.Load();//Это скорее всего больше не понадобится

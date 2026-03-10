@@ -17,12 +17,10 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        /// <summary>
-        /// Загрузить реализацию мастера постановки задач
-        /// </summary>
-        /// <param name="master">Инициализированная реализация мастера постановки задач</param>
         public void OpenMaster(BaseMaster master)
         {
+            if (project == null) throw new Exception("Не определен проект");
+
             master.Dock = DockStyle.Fill;
             master.Name = $"cntr{master.MasterName}";
             master.Text = $"cntr{master.MasterName}";
@@ -30,10 +28,15 @@ namespace BazisGUI
             master.Location = cntrНавигатор.Location;
             master.Anchor = cntrНавигатор.Anchor;
 
-            foreach(var implementation in importedMastersTypes[master.GetType()])
-                implementation.Handle(master);
+            if (master is IFunctionsHandling fh) HandleFunctionsMaster(fh);
 
-            OnProjectLoaded?.Invoke();
+            else if (master is IMaterialsHandling mh) HandleMaterialsMaster(mh);
+
+            else if (master is IGroupHandling gh) HandleGroupsMaster(gh);
+
+            else if (master is IPreparedDataLoader pdlh) HandlePreparedDataMaster(pdlh);
+
+            else HandleBaseMaster(master);
 
             var btnName = $"btnTab{master.MasterName}";
             if (!splitContainer3.Panel1.Controls.ContainsKey(btnName))
