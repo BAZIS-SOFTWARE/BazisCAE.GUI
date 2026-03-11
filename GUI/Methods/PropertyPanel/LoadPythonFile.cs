@@ -13,12 +13,9 @@ namespace BazisGUI
                 fileDialog.Title = "Выберите Python файл";
 
                 if (fileDialog.ShowDialog() == DialogResult.OK)
-                {
                     return fileDialog.FileName;
-                }
             }
             return string.Empty;
-            //throw new OperationCanceledException("Отменено пользователем");
         }
     }
 }
