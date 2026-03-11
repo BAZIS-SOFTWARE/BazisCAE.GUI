@@ -3,6 +3,7 @@ using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.Functions;
+using Project.Tasks.Functions.FrameFunctions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -26,12 +27,21 @@ namespace BazisGUI
             var funcNames = Enum.GetNames(typeof(FuncName)).ToList();
             funcNames.Add("*");
 
+            string funcValue = "*";
+
+            if (obj.Function != null)
+            {
+                if (obj.Function is CustomFrameFunction)
+                    funcValue = FuncName.Custom.ToString();
+                else
+                    funcValue = obj.Function.Name;
+            }
+
             rows.Add(new RowProperty("Функция",
-          new DropDownPropertyValue(obj.Function == null ?
-          "*" : obj.Function.Name, funcNames))
+                new DropDownPropertyValue(funcValue, funcNames))
             { Color = Color.Gainsboro });
 
-            if(obj.Function != null)
+            if (obj.Function != null)
             {
                 //funcTables.Add("Constant");
                 var pars = obj.Function?.GetParameters();
