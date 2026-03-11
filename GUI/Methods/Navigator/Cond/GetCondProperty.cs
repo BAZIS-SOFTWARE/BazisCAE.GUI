@@ -32,9 +32,8 @@ namespace BazisGUI
             if (obj.Function != null)
             {
                 if (obj.Function is CustomFrameFunction)
-                    funcValue = FuncName.Custom.ToString();
-                else
-                    funcValue = obj.Function.Name;
+                    funcNames.Add(obj.Function.Name);
+                funcValue = obj.Function.Name;
             }
 
             rows.Add(new RowProperty("Функция",
