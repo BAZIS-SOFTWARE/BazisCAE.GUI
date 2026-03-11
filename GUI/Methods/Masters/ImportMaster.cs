@@ -27,7 +27,6 @@ namespace BazisGUI
                 // при удовлетворении этих проверок, мастер будет добавлен на графике и в коллекцию мастеров
                 if (typeof(BaseMaster).IsAssignableFrom(ctrl)
                     && typeof(BaseMaster) != ctrl
-                    && typeof(AbstractMaster) != ctrl
                     && !ctrl.IsAbstract
                     && !importedMasters.Contains(ctrl))
                     tempImportedMasters.Add(ctrl);
