@@ -24,17 +24,17 @@ namespace MasterInterface
 
         protected void RaiseGenerateConditionsEvent(string[] strings)
         {
-            GenerateConditionsEvent(this, new GenerateConditionsEventArgs(strings));
+            GenerateConditionsEvent?.Invoke(this, new GenerateConditionsEventArgs(strings));
         }
 
         protected void RaisePrintInfoEvent(string str, Color color)
         {
-            PrintInfoEvent(this, new PrintInfoEventArgs(str, color));
+            PrintInfoEvent?.Invoke(this, new PrintInfoEventArgs(str, color));
         }
 
         protected void RaiseUpdateSceneEvent()
         {
-            UpdateSceneEvent(this, new UpdateSceneEventArgs());
+            UpdateSceneEvent?.Invoke(this, new UpdateSceneEventArgs());
         }
 
         public BaseMaster()
