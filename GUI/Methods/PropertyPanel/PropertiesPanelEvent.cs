@@ -140,7 +140,16 @@ namespace BazisGUI
                             propertiesPanel.DrawTable(rows);
                         }
                     }
+
+                    // кажется что костыль, но работает с ним без мерцаний в левом углу
+                    navigator.DrawNodeFrozen = true;
+                    navigator.BeginUpdate();
+
                     navigator.SelectedNode.Text = cond.ToString();
+
+                    navigator.EndUpdate();
+                    navigator.DrawNodeFrozen = false;
+
                 }
                 else if (parentName == NodeName.расчеты)
                 {

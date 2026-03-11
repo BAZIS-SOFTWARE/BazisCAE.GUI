@@ -33,19 +33,26 @@ namespace BazisGUI
 
             if(obj.Function != null)
             {
-                funcTables.Add("Constant");
+                //funcTables.Add("Constant");
                 var pars = obj.Function?.GetParameters();
                 foreach (var item in pars)
                 {
                     var parAr = item.ToString().Split("=");
           
-                    rows.Add(new RowProperty($"Параметр {parAr[0]}",
-                        item.ParameterKind == ParameterKind.Table ? 
-                        new DropDownPropertyValue(parAr[1], funcTables) : parAr[1],
+                    rows.Add(new RowProperty($"Параметр {parAr[0]}", 
+                        new DropDownPropertyValue(item.ParameterKind, 
+                        Enum.GetNames(typeof(ParameterKind)).ToList()),
                         item.ParameterType == ParameterType.Variable ?
                         true : false));
 
-                    if(item.ParameterKind == ParameterKind.Table)
+                    rows.Add(new RowProperty($"Значение {parAr[0]}",
+                        item.ParameterKind == ParameterKind.Table ?          
+                        new DropDownPropertyValue((item as TableParameter).
+                        Table.Name, funcTables) : parAr[1],
+                        item.ParameterType == ParameterType.Variable ?
+                        true : false));
+
+                    if (item.ParameterKind == ParameterKind.Table)
                     {
                         var tablePar = item as TableParameter;
                         rows.Add(new RowProperty($"Таблица {tablePar.Table.Name}",

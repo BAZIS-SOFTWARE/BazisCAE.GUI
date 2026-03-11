@@ -65,15 +65,13 @@ namespace BazisGUI
             {
                 var ar = obj.Header.Split(" ");
 
-                if (obj.NewValue == "Constant")
+                if (obj.NewValue == ParameterKind.Digit.ToString())
                     cond.Function[ar[1]] = new Parameter(ar[1], ParameterType.Constant, 0);
                 else if (obj.NewValue == "Table")
                     cond.Function[ar[1]] = new TableParameter(project.FunctionsDB.First().Value,
                         ar[1],
                         cond.Function.GetParameters().
                         First(x => x.ParameterType == ParameterType.Variable));
-                else
-                    cond.Function[ar[1]].SetValue(double.Parse(obj.NewValue));
                 refresh = true;
             }
             // подумать про регулярные выражения для поиска
@@ -88,6 +86,21 @@ namespace BazisGUI
                 if(setParam.Name != tableParam.Name)
                     tableParam.Parameter = setParam;
                 
+                refresh = true;
+            }
+
+            else if (obj.Header.Contains("Значение"))
+            {
+                var ar = obj.Header.Split(" ");
+
+                if (cond.Function[ar[1]].ParameterKind == ParameterKind.Table)
+                    cond.Function[ar[1]] = new TableParameter(project.FunctionsDB[obj.NewValue],
+                                            ar[1],
+                                            cond.Function.GetParameters().
+                                            First(x => x.ParameterType == ParameterType.Variable));
+                else
+                    cond.Function[ar[1]].SetValue(double.Parse(obj.NewValue));
+
                 refresh = true;
             }
 
