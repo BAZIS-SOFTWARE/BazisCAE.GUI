@@ -417,6 +417,7 @@ namespace BazisGUI
                 PresentProject();
                 PresentCompDataOnTree(new List<string>());
                 UnblockInterface();
+                OnProjectLoaded?.Invoke();
 
                 DisplayObjects();
             }
