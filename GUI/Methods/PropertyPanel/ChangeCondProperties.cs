@@ -7,6 +7,7 @@ using Project.Tasks.Functions.FrameFunctions;
 using Project.Tasks.LocalFrames;
 using Project.Tasks.Materials;
 using System;
+using System.Drawing;
 using System.Linq;
 
 namespace BazisGUI
@@ -56,9 +57,13 @@ namespace BazisGUI
                 else
                 {
                     var file = LoadPythonFile();
-                    var pythonFunction = new CustomFrameFunction();
-                    pythonFunction.CreateEngine(file);
-                    cond.Function = pythonFunction;
+                    if(file != String.Empty)
+                    {
+                        var pythonFunction = new CustomFrameFunction();
+                        pythonFunction.CreateEngine(file);
+                        cond.Function = pythonFunction;
+                    }
+                    else { console.PrintInfo("Файл не выбран", Color.Red); }
                 }
                 refresh = true;
             }

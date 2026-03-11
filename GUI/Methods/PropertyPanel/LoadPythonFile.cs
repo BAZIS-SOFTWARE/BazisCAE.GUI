@@ -17,8 +17,8 @@ namespace BazisGUI
                     return fileDialog.FileName;
                 }
             }
-
-            throw new OperationCanceledException("Отменено пользователем");
+            return string.Empty;
+            //throw new OperationCanceledException("Отменено пользователем");
         }
     }
 }
