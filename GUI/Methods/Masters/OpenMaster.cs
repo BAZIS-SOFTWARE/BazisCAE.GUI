@@ -1,9 +1,12 @@
-﻿using MasterInterface;
+﻿using BazisGUI.Args;
+using MasterInterface;
+using MasterInterface.Interfaces;
 using Microsoft.Scripting.Utils;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,171 +17,30 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        /// <summary>
-        /// Загрузить реализацию мастера постановки задач
-        /// </summary>
-        /// <param name="master">Инициализированная реализация мастера постановки задач</param>
-        public void OpenMaster(IMaster master)
+        public void OpenMaster(BaseMaster master)
         {
-            if (project == null)
-                throw new NullReferenceException("Не определен проект");
+            if (project == null) throw new Exception("Не определен проект");
 
-            else if (project.MaterialsDB == null)
-                throw new NullReferenceException("База данных материалов не загружена");
+            master.Dock = DockStyle.Fill;
+            master.Name = $"cntr{master.MasterName}";
+            master.Text = $"cntr{master.MasterName}";
+            master.Size = cntrНавигатор.Size;
+            master.Location = cntrНавигатор.Location;
+            master.Anchor = cntrНавигатор.Anchor;
 
-            else if (project.FunctionsDB == null)
-                throw new NullReferenceException("База данных функций не загружена");
+            if (master is IFunctionsHandling fh) HandleFunctionsMaster(fh);
 
-            var uc = (UserControl)master;
-            uc.Dock = DockStyle.Fill;
-            uc.Name = $"cntr{master.MasterName}";
-            uc.Text = $"cntr{master.MasterName}";
-            uc.Size = cntrНавигатор.Size;
-            uc.Location = cntrНавигатор.Location;
-            uc.Anchor = cntrНавигатор.Anchor;
+            if (master is IMaterialsHandling mh) HandleMaterialsMaster(mh);
 
-            master.GenerateConditionsEvent += (inputStrings) =>
-            {
-                try
-                {
-                    var res = MessageBox.Show("Генерация граничных условий приведет к удалению старых условий, если они есть. Продолжить?",
-                        "Внимание", MessageBoxButtons.YesNo);
-                    if (res == DialogResult.No)
-                        return;
+            if (master is IGroupHandling gh) HandleGroupsMaster(gh);
 
-                    project.ClearTaskData();
-                    foreach (var item in inputStrings)
-                    {
-                        var args = item.Split(':').Select(x => x.Trim()).ToArray();
-                        var kind = Enum.Parse<DataKind>(args[0]);
-                        var cond = project.Create(kind, args[1]);
-                        project.AddTaskData(cond);
-                        
-                    }
-                    PresentCondDataOnTree();
-                    console.PrintInfo("Граничные условия сформированы", Color.Green);
-                }
-                catch (Exception ex)
-                {
-                    console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
-                }
-            };
+            if (master is IPreparedDataLoader pdlh) HandlePreparedDataMaster(pdlh);
 
-            master.UpdateSceneEvent += () =>
-            {
-                try
-                {
-                    ClearAllDataOnScene();
-                    foreach (var item in Enum.GetValues<ObjType>())
-                        CreateVBObjsByObjsType(item);
-                }
-                catch (Exception ex)
-                {
-                    console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
-                }
-            };
-
-            master.PrintInfoEvent += (arg1, arg2) =>
-            {
-                try
-                {
-                    console.PrintInfo(arg1, arg2);
-                }
-                catch (Exception ex)
-                {
-                    console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
-                }
-            };
-
-            // заставляем реагировать на создание групп
-            OnGroupCreated += (arg1, arg2, arg3) =>
-            {
-                try
-                {
-                    var type = Converter.GetGroupTypeFromString(arg1.ToString());
-                    master.AddGroup(type, arg2, arg3);
-                }
-                catch (Exception ex)
-                {
-                    console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
-                }
-            };
-            // заставляем реагировать на переименование групп
-            OnGroupRenamed += (arg1, arg2, arg3) =>
-            {
-                try
-                {
-                    var type = Converter.GetGroupTypeFromString(arg1.ToString());
-                    master.RenameGroup(type, arg2, arg3);
-                }
-                catch (Exception ex)
-                {
-                    console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
-                }
-            };
-            // заставляем реагировать на удаление групп
-            OnGroupDeleted += (arg1, arg2) =>
-            {
-                try
-                {
-                    var type = Converter.GetGroupTypeFromString(arg1.ToString());
-                    master.DeleteGroup(type, arg2);
-                }
-                catch (Exception ex)
-                {
-                    console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
-                }
-            };
-            // заставляем реагировать на удаление всех групп
-            var deleteAllGroupsDelegate = () =>
-            {
-                try
-                {
-                    master.DeleteAllGroups();
-                }
-                catch (Exception ex)
-                {
-                    console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
-                }
-            };
-
-            navigator.DelAllMeshEvent += deleteAllGroupsDelegate;
-            navigator.DelAllGroupsEvent += deleteAllGroupsDelegate;
-
-            // заставляем реагировать на изменение функций
-
-            OnChangeFunctions += (arg1) =>
-            {
-                try
-                {
-                    master.ChangeFunctions(arg1);
-                }
-                catch (Exception ex)
-                {
-                    console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
-                }
-            };
-
-            // заставляем реагировать на изменение материалов
-
-            OnChangeMaterials += (arg1) =>
-            {
-                try
-                {
-                    master.ChangeMaterials(arg1);
-                }
-                catch (Exception ex)
-                {
-                    console.PrintInfo($"В мастере произошла ошибка: {ex.Message}", Color.Red);
-                }
-            };
-
-            FillMasterByProject(master);
+            HandleBaseMaster(master);
 
             var btnName = $"btnTab{master.MasterName}";
             if (!splitContainer3.Panel1.Controls.ContainsKey(btnName))
             {
-
                 var btn = new Button()
                 {
                     FlatStyle = FlatStyle.Flat,
@@ -195,48 +57,10 @@ namespace BazisGUI
                 splitContainer3.Panel1.Controls.Add(btn);
             }
 
-            // заставляем реагировать на загрузку проекта
-
-            OnProjectLoaded += () =>
-            {
-                try
-                {
-                    FillMasterByProject(master);
-                }
-                catch (Exception ex)
-                {
-                    console.PrintInfo(ex.Message, Color.Red);
-                }
-            };
-
-            splitContainer3.Panel1.Controls.Add(uc);
+            splitContainer3.Panel1.Controls.Add(master);
 
             ShowTabButton(btnName);
-            uc.BringToFront();
-        }
-
-        private void FillMasterByProject(IMaster master)
-        {
-            var dict = new Dictionary<GroupType, Dictionary<int, string>>
-                {
-                    { GroupType.Узел, new Dictionary<int, string>() },
-                    { GroupType.Элемент1D, new Dictionary<int, string>() },
-                    { GroupType.Элемент2D, new Dictionary<int, string>() },
-                    { GroupType.Элемент3D, new Dictionary<int, string>() }
-                };
-            foreach (var item in project.GetAllModelGroups())
-            {
-                var type = Converter.GetGroupTypeFromString(item.ObjType.ToString());
-                dict[type][item.Number] = item.Name;
-            }
-
-            master.SetStringsFromCondDataStrings(project.GetAllCondData().Select(x => x.ToString()));
-
-            master.InitialMasterFilling(
-                project.MaterialsDB is null ? new string[0]: project.MaterialsDB.Select(x => x.Key),
-                project.FunctionsDB is null ? new string[0]: project.FunctionsDB.Select(x => x.Key),
-                dict);
-
+            master.BringToFront();
         }
     }
 }

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -10,10 +9,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        /// <summary>
-        /// Ассоциация названий мастеров и их типов
-        /// </summary>
-        private readonly Dictionary<string, Type> importedMastersTypes = new Dictionary<string, Type>();
+        private readonly List<Type> importedMasters = new();
 
         /// <summary>
         /// Добавление пользовательских мастеров постановки задач из определенной dll
@@ -22,19 +18,20 @@ namespace BazisGUI
         public void ImportMasterDLL(string dllPath)
         {
             var assembly = Assembly.LoadFrom(dllPath);
-            var importedMasters = new List<Type>();
-
+            var tempImportedMasters = new List<Type>();
             foreach (var ctrl in assembly.GetTypes())
             {
-                if (typeof(IMaster).IsAssignableFrom(ctrl)
-                    && typeof(UserControl).IsAssignableFrom(ctrl)
+                // проверка на соответствие типа ctrl BaseMaster типу,
+                // проверка типа ctrl на абстрактность,
+                // проверка ctrl в сохраненных (импортированных) типах мастеров
+                // при удовлетворении этих проверок, мастер будет добавлен на графике и в коллекцию мастеров
+                if (typeof(BaseMaster).IsAssignableFrom(ctrl)
+                    && typeof(BaseMaster) != ctrl
                     && !ctrl.IsAbstract
-                    && !ctrl.IsInterface
-                    && !importedMastersTypes.ContainsValue(ctrl))
-                    importedMasters.Add(ctrl);
+                    && !importedMasters.Contains(ctrl))
+                    tempImportedMasters.Add(ctrl);
             }
-
-            CreateImportedMasters(importedMasters);
+            CreateImportedMasters(tempImportedMasters);
         }
 
         private void CreateImportedMasters(List<Type> masterTypes)
@@ -43,20 +40,20 @@ namespace BazisGUI
             {
                 if (masterTypes.Count == 0)
                 {
-                    console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера" +
-                        " постановки задач или реализация этого мастера уже загружена", Color.DarkOrange);
+                    console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера " +
+                        "постановки задач или реализация этого мастера уже загружена", Color.DarkOrange);
                     return;
                 }
 
                 foreach (var item in masterTypes)
                 {
-                    var master = (IMaster)Activator.CreateInstance(item);
+                    var master = (BaseMaster)Activator.CreateInstance(item);
                     OpenMaster(master);
-                    importedMastersTypes[master.MasterName] = item;
+                    importedMasters.Add(item);
                     console.PrintInfo($"Открыт мастер {master.MasterName}", Color.Black);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
