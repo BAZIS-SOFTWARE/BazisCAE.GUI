@@ -30,13 +30,13 @@ namespace BazisGUI
 
             if (master is IFunctionsHandling fh) HandleFunctionsMaster(fh);
 
-            else if (master is IMaterialsHandling mh) HandleMaterialsMaster(mh);
+            if (master is IMaterialsHandling mh) HandleMaterialsMaster(mh);
 
-            else if (master is IGroupHandling gh) HandleGroupsMaster(gh);
+            if (master is IGroupHandling gh) HandleGroupsMaster(gh);
 
-            else if (master is IPreparedDataLoader pdlh) HandlePreparedDataMaster(pdlh);
+            if (master is IPreparedDataLoader pdlh) HandlePreparedDataMaster(pdlh);
 
-            else HandleBaseMaster(master);
+            HandleBaseMaster(master);
 
             var btnName = $"btnTab{master.MasterName}";
             if (!splitContainer3.Panel1.Controls.ContainsKey(btnName))

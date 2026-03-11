@@ -1,16 +1,7 @@
-﻿using BazisGUI.Args;
-using BazisGUI.Masters.Actions;
-using BazisGUI.Masters.Handlers;
-using BazisGUI.Masters.Interfaces;
-using MasterInterface;
-using MasterInterface.Interfaces;
-using Microsoft.Scripting.Utils;
-using Model.Interfaces;
-using Project.Interfaces.Tasks;
+﻿using MasterInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -19,12 +10,6 @@ namespace BazisGUI
     public partial class BaseForm
     {
         private readonly List<Type> importedMasters = new();
-
-        /// <summary>
-        /// Существующие обработчики для мастеров постановки задач
-        /// </summary>
-        private readonly Dictionary<Type, IMasterInterfaceHandler> handlers = new();
-
 
         /// <summary>
         /// Добавление пользовательских мастеров постановки задач из определенной dll
