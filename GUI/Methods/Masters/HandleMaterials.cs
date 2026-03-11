@@ -11,12 +11,12 @@ namespace BazisGUI
     {
         private void HandleMaterialsMaster(IMaterialsHandling mh)
         {
-            if (project?.FunctionsDB == null) throw new Exception("Не определена база материалов");
+            if (project?.MaterialsDB == null) throw new Exception("Не определена база материалов");
 
-            mh.SetMaterials(project?.FunctionsDB?.Keys?.ToArray() ?? Array.Empty<string>());
+            mh.SetMaterials(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>());
 
-            OnChangeFunctions += (s, e) => mh.SetMaterials(e.Functions ?? Array.Empty<string>());
-            OnProjectLoaded += () => mh.SetMaterials(project?.FunctionsDB?.Keys?.ToArray() ?? Array.Empty<string>());
+            OnChangeMaterials += (s, e) => mh.SetMaterials(e.Materials ?? Array.Empty<string>());
+            OnProjectLoaded += () => mh.SetMaterials(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>());
         }
     }
 }
