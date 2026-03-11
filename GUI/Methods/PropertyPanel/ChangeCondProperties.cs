@@ -7,6 +7,7 @@ using Project.Tasks.Functions.FrameFunctions;
 using Project.Tasks.LocalFrames;
 using Project.Tasks.Materials;
 using System;
+using System.Drawing;
 using System.Linq;
 
 namespace BazisGUI
@@ -54,10 +55,16 @@ namespace BazisGUI
                 else if (obj.NewValue == "PT")
                     cond.Function = new PT();
                 else
-                    cond.Function = new CustomFrameFunction();
-                
-                // TO DO добавить диалоговое окно выбора файла функции
-
+                {
+                    var file = LoadPythonFile();
+                    if(file != String.Empty)
+                    {
+                        var pythonFunction = new CustomFrameFunction();
+                        pythonFunction.CreateEngine(file);
+                        cond.Function = pythonFunction;
+                    }
+                    else { console.PrintInfo("Файл не выбран", Color.Red); }
+                }
                 refresh = true;
             }
 
