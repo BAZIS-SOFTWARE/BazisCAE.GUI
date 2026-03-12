@@ -1,4 +1,4 @@
-using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ProjectConverter
 {
@@ -20,10 +20,9 @@ namespace ProjectConverter
             var path = txbPath.Text; 
             if (path == string.Empty) 
             {
-                txbStatus.Text = "Не указан путь к проекту!";
+                PrintInfo("Не указан путь к проекту!", Color.Red) ;
                 return;
             }
-                
             var converter = new Converter();
             converter.ReadProject(path);
         }
@@ -38,6 +37,15 @@ namespace ProjectConverter
                     return fileDialog.FileName;
             }
             return string.Empty;
+        }
+
+        private void PrintInfo(string message, Color color) 
+        {
+            txbStatus.SelectionStart = txbStatus.TextLength; 
+            txbStatus.SelectionLength = 0;
+            txbStatus.SelectionColor = color;             
+            txbStatus.AppendText(Environment.NewLine + message);
+            txbStatus.SelectionColor = txbStatus.ForeColor;
         }
     }
 }
