@@ -36,6 +36,7 @@
             txbPath = new TextBox();
             btnConvert = new Button();
             btnSelect = new Button();
+            txbStatus = new RichTextBox();
             generalPanel.SuspendLayout();
             SuspendLayout();
             // 
