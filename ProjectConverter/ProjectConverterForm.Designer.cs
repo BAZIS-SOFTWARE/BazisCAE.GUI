@@ -100,6 +100,7 @@
             btnConvert.TabIndex = 2;
             btnConvert.Text = "Конвертировать";
             btnConvert.UseVisualStyleBackColor = false;
+            btnConvert.Click += btnConverter_Click;
             // 
             // btnSelect
             // 

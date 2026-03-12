@@ -13,9 +13,20 @@ namespace ProjectConverter
         {
             var path = GetPath();
             txbPath.Text = path;
-            //btnConvert.Enabled = path != string.Empty ? true : false;
         }
 
+        private void btnConverter_Click(object sender, EventArgs e) 
+        {
+            var path = txbPath.Text; 
+            if (path == string.Empty) 
+            {
+                txbStatus.Text = "Не указан путь к проекту!";
+                return;
+            }
+                
+            var converter = new Converter();
+            converter.ReadProject(path);
+        }
         private string GetPath()
         {
             using (var fileDialog = new OpenFileDialog())
