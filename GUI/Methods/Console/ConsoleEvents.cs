@@ -116,9 +116,9 @@ namespace BazisGUI
             DisplayGeometryObjectEvent = null;
             DisplayText2DEvent = null;
 
-            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+            foreach (var set in project.GetAllModelSetsInfo())
             {
-                var pres = project.CreateModelObjectsPresentor(item);
+                var pres = project.CreateModelObjectsPresentor(set);
                 SetVBObjectAttribute(pres, "координаты");
             }
 
