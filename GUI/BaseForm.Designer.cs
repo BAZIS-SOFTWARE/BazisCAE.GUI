@@ -909,6 +909,7 @@ namespace BazisGUI
             console.RenumberMeshEvent += console_RenumberMeshEvent;
             console.ModelShiftCoordinateEvent += console_ModelShiftCoordinateEvent;
             console.ModelRotateEvent += console_ModelRotateEvent;
+            console.MergeElementSetsEvent += MergeEventSetsEventHandler;
             // 
             // menuStrip
             // 
