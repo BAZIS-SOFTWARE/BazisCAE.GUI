@@ -24,8 +24,10 @@ namespace ProjectConverter
                 return;
             }
             var converter = new Converter();
+            converter.ConvertProcessInfo += PrintInfo;
             converter.ReadProject(path);
         }
+
         private string GetPath()
         {
             using (var fileDialog = new OpenFileDialog())

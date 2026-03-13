@@ -1,34 +1,29 @@
-﻿namespace ProjectConverter
+﻿using System.Globalization;
+
+namespace ProjectConverter
 {
     public class Converter()
     {
-        private string FilePath { get; set; }
-
-        public void ReadProject(string filePatch)
+        public event Action<string, Color> ConvertProcessInfo;
+        public void ReadProject(string filePath)
         {
-            FilePath = filePatch;
+            //string tempFile = filePath + ".tmp";
+            //temp
+            var fileName = filePath.Split('.')[0] + "13";
+            string tempFile = $"{fileName}.{filePath.Split('.')[1]}";
+            //temp
+            using (var reader = new StreamReader(filePath))
+            using (var writer = new StreamWriter(tempFile))
 
-            var textLines = File.ReadLines(filePatch).First();
-            var ver = string.Empty;
-            if (textLines.Contains("Версия"))
-                ver = textLines.Split(' ')[1];
-            else
-                ver = textLines;
-
-            if (IsActualVersion(ver))
+            while (!reader.EndOfStream)
             {
-                string tempFile = FilePath + ".tmp";
-                using (var reader = new StreamReader(FilePath))
-                using (var writer = new StreamWriter(tempFile))
-                {
-                    while (!reader.EndOfStream)
-                    {
-                        var line = reader.ReadLine();                        
-                        var newLine = ParseLine(line);
-                        writer.WriteLine(newLine);
-                    }
-                }
+                var line = reader.ReadLine();
+                var newLine = ParseLine(line);
+                writer.WriteLine(newLine);
             }
+
+            ConvertProcessInfo("Конвертация завершена", Color.Green);
+            //File.Replace(tempFile, filePath, null);
         }
 
         private string ParseLine(string line)
@@ -37,24 +32,18 @@
                 return line;
 
             var token = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            switch (token[0])
+            return token[0] switch
             {
-                case "Материал":
-                    return $"{token[0]} : 1 * {token[6]} None {token[2]} {token[4]} {token[5]} {token[3]}";
-                case "Среда":
-                    return $"{token[0]} : 1 * {token[7]} None ";
-                case "Нагрузка":
-                    return GetLoadString(token);
-                case "Нагрев":
-                    return GetHeatString(token);
-                case "Закрепление":
-                    return GetClampString(token);
-                default:
-                    return line;
-            }
+                "Материал" => $"{token[0]} : 1 * {token[6]} None {token[2]} {token[4]} {token[5]} {token[3]}",
+                "Среда" => GetMediaString(token),
+                "Нагрузка" => GetCondString(token),
+                "Нагрев" => GetHeatString(token),
+                "Закрепление" => GetCondString(token),
+                _ => line
+            };
         }
 
-        private string GetClampString(string[] data) 
+        private string GetCondString(string[] data) 
         {
             var value = data[5];
             var direction = data[4];
@@ -63,17 +52,29 @@
             var stop = data[8];
             var type = data[3];
             return $"{data[0]} : {value} * * {direction} {group} {start} {stop} {type}";
-            return string.Empty;
         }
-        private string GetLoadString(string[] data)
+
+        private string GetMediaString(string[] data)
         {
-            var value = data[5];
-            var direction = data[4];
+            string tempInfo;
+            if (float.TryParse(data[4], out float temp))
+                tempInfo = $"TEMPM={temp}";
+            else
+                tempInfo = $"TEMPM=Table({data[4]};TIME)";
+
+            string hexInfo;
+            if (float.TryParse(data[3], NumberStyles.Float, CultureInfo.InvariantCulture, out var hex))
+                hexInfo = $"HEX={hex}";
+            else if (data[3] == "*")
+                hexInfo = "HEX=2.5E-05";
+            else
+                hexInfo = $"HEX=Table({data[3]};TEMPS)";
+
             var group = data[2];
-            var start = data[7];
-            var stop = data[8];
-            var type = data[3];
-            return $"{data[0]} : {value} * * {direction} {group} {start} {stop} {type}";
+            var start = data[5];
+            var stop = data[6];
+
+            return $"{data[0]} : 1 FHEX,TIME=VAR,{tempInfo},{hexInfo} * None {group} {start} {stop} ConstantTemp";
         }
 
         private string GetHeatString(string[] data)
@@ -94,13 +95,13 @@
             {
                 var trajectory = funcData[indexReferenceFrame + 1];
                 var speed = funcData[indexReferenceFrame + 2];
-                var transform = funcData[indexReferenceFrame + 3];
+                var transform = ValidationTransformString(funcData[indexReferenceFrame + 3]);
                 referenceFrame += $"({trajectory},{speed},{transform})";
             }
             else if (referenceFrame == "SRF") 
             {
                 var trajectory = funcData[indexReferenceFrame + 1];
-                var transform = funcData[indexReferenceFrame + 2];
+                var transform = ValidationTransformString(funcData[indexReferenceFrame + 2]);
                 referenceFrame += $"({trajectory},{transform})";
             }
             var group = data[5];
@@ -112,31 +113,29 @@
 
         private int GetIndexCoordinatSystem(string[] data, out string reference)
         {
-            var indexCoordinatSystem = 0;
-            reference = string.Empty;
-            foreach (var frameFunc in data)
+            for (int i = 0; i < data.Length; i++)
             {
-                if (frameFunc == "SRF" || frameFunc == "MRF")
+                if (data[i] == "SRF" || data[i] == "MRF")
                 {
-                    reference = frameFunc;
-                    break;
+                    reference = data[i];
+                    return i;
                 }
-                    
-                indexCoordinatSystem++;
             }
-            return indexCoordinatSystem;
+            reference = string.Empty;
+            return -1;
         }
-        /// <summary>
-        /// Метод для проверки версии проекта
-        /// </summary>
-        /// <param name="ver">Текущая версия проекта</param>
-        /// <returns></returns>
-        private bool IsActualVersion(string ver) 
-        {
-            var version = Version.Parse(ver);
 
-            var minimalVersion = new Version(4, 9, 2 ,0);
-            return version <= minimalVersion;
+        private string ValidationTransformString(string transform)
+        {
+            var transformList = transform.Split('|');
+            if ( transformList.Count() != 6) 
+            {
+                var newLine = $"{transformList[0]}|{transformList[1]}|{transformList[2]}|0|0|0";
+                ConvertProcessInfo?.Invoke($"Конвертация {transform} вернуло {newLine}", Color.Orange);
+                return newLine;
+            }  
+            else
+                return transform; 
         }
     }
 }

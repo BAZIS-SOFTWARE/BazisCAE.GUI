@@ -33,7 +33,6 @@
             txbPath = new TextBox();
             btnConvert = new Button();
             btnSelect = new Button();
-            separatorLine = new Panel();
             lbStatus = new Label();
             txbStatus = new RichTextBox();
             generalPanel.SuspendLayout();
@@ -48,15 +47,12 @@
             generalPanel.Controls.Add(txbPath, 0, 1);
             generalPanel.Controls.Add(btnConvert, 0, 2);
             generalPanel.Controls.Add(btnSelect, 1, 1);
-            generalPanel.Controls.Add(separatorLine, 0, 3);
-            generalPanel.Controls.Add(lbStatus, 0, 4);
-            generalPanel.Controls.Add(txbStatus, 0, 5);
+            generalPanel.Controls.Add(lbStatus, 0, 3);
+            generalPanel.Controls.Add(txbStatus, 0, 4);
             generalPanel.Dock = DockStyle.Fill;
             generalPanel.Location = new Point(0, 0);
             generalPanel.Name = "generalPanel";
-            //generalPanel.Padding = new Padding(20);
-            generalPanel.RowCount = 6;
-            generalPanel.RowStyles.Add(new RowStyle());
+            generalPanel.RowCount = 5;
             generalPanel.RowStyles.Add(new RowStyle());
             generalPanel.RowStyles.Add(new RowStyle());
             generalPanel.RowStyles.Add(new RowStyle());
@@ -80,7 +76,7 @@
             txbPath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txbPath.BorderStyle = BorderStyle.FixedSingle;
             txbPath.Location = new Point(20, 43);
-            txbPath.Margin = new Padding(0, 8, 3, 0);
+            txbPath.Margin = new Padding(4, 8, 3, 0);
             txbPath.Multiline = true;
             txbPath.Name = "txbPath";
             txbPath.ReadOnly = true;
@@ -94,7 +90,7 @@
             generalPanel.SetColumnSpan(btnConvert, 2);
             btnConvert.FlatStyle = FlatStyle.Flat;
             btnConvert.Location = new Point(80, 83);
-            btnConvert.Margin = new Padding(0, 10, 60, 10);
+            btnConvert.Margin = new Padding(4, 10, 60, 10);
             btnConvert.Name = "btnConvert";
             btnConvert.Size = new Size(180, 30);
             btnConvert.TabIndex = 2;
@@ -115,17 +111,6 @@
             btnSelect.UseVisualStyleBackColor = true;
             btnSelect.Click += btnSelect_Click;
             // 
-            // separatorLine
-            // 
-            separatorLine.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            separatorLine.BackColor = Color.Gray;
-            generalPanel.SetColumnSpan(separatorLine, 2);
-            separatorLine.Location = new Point(20, 153);
-            separatorLine.Margin = new Padding(0);
-            separatorLine.Name = "separatorLine";
-            separatorLine.Size = new Size(410, 2);
-            separatorLine.TabIndex = 4;
-            // 
             // lbStatus
             // 
             lbStatus.AutoSize = true;
@@ -142,7 +127,7 @@
             txbStatus.BorderStyle = BorderStyle.FixedSingle;
             generalPanel.SetColumnSpan(txbStatus, 2);
             txbStatus.Location = new Point(20, 176);
-            txbStatus.Margin = new Padding(0, 3, 0, 0);
+            txbStatus.Margin = new Padding(4, 3, 0, 0);
             txbStatus.Name = "txbStatus";
             txbStatus.ReadOnly = true;
             txbStatus.Size = new Size(410, 71);
@@ -157,7 +142,7 @@
             Controls.Add(generalPanel);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
-            Padding = new Padding(20);
+            Padding = new Padding(16,20,20,20);
             Name = "ProjectConverterForm";
             Text = "Конвертер проектов";
             generalPanel.ResumeLayout(false);
@@ -168,7 +153,6 @@
         #endregion
 
         private TableLayoutPanel generalPanel;
-        private Panel separatorLine;
         private Label label1;
         private TextBox txbPath;
         private RichTextBox txbStatus;
