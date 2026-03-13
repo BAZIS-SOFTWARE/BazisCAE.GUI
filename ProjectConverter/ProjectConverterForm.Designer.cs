@@ -54,7 +54,7 @@
             generalPanel.Dock = DockStyle.Fill;
             generalPanel.Location = new Point(0, 0);
             generalPanel.Name = "generalPanel";
-            generalPanel.Padding = new Padding(20);
+            //generalPanel.Padding = new Padding(20);
             generalPanel.RowCount = 6;
             generalPanel.RowStyles.Add(new RowStyle());
             generalPanel.RowStyles.Add(new RowStyle());
@@ -89,14 +89,14 @@
             // 
             // btnConvert
             // 
-            btnConvert.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            
             btnConvert.BackColor = Color.Gainsboro;
             generalPanel.SetColumnSpan(btnConvert, 2);
             btnConvert.FlatStyle = FlatStyle.Flat;
             btnConvert.Location = new Point(80, 83);
-            btnConvert.Margin = new Padding(60, 10, 60, 10);
+            btnConvert.Margin = new Padding(0, 10, 60, 10);
             btnConvert.Name = "btnConvert";
-            btnConvert.Size = new Size(290, 50);
+            btnConvert.Size = new Size(180, 30);
             btnConvert.TabIndex = 2;
             btnConvert.Text = "Конвертировать";
             btnConvert.UseVisualStyleBackColor = false;
@@ -120,7 +120,7 @@
             separatorLine.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             separatorLine.BackColor = Color.Gray;
             generalPanel.SetColumnSpan(separatorLine, 2);
-            separatorLine.Location = new Point(20, 143);
+            separatorLine.Location = new Point(20, 153);
             separatorLine.Margin = new Padding(0);
             separatorLine.Name = "separatorLine";
             separatorLine.Size = new Size(410, 2);
@@ -129,7 +129,7 @@
             // lbStatus
             // 
             lbStatus.AutoSize = true;
-            lbStatus.Location = new Point(20, 148);
+            lbStatus.Location = new Point(20, 158);
             lbStatus.Margin = new Padding(0, 3, 0, 0);
             lbStatus.Name = "lbStatus";
             lbStatus.Size = new Size(46, 15);
@@ -141,8 +141,8 @@
             txbStatus.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txbStatus.BorderStyle = BorderStyle.FixedSingle;
             generalPanel.SetColumnSpan(txbStatus, 2);
-            txbStatus.Location = new Point(20, 166);
-            txbStatus.Margin = new Padding(0, 3, 0, 20);
+            txbStatus.Location = new Point(20, 176);
+            txbStatus.Margin = new Padding(0, 3, 0, 0);
             txbStatus.Name = "txbStatus";
             txbStatus.ReadOnly = true;
             txbStatus.Size = new Size(410, 71);
@@ -157,6 +157,7 @@
             Controls.Add(generalPanel);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
+            Padding = new Padding(20);
             Name = "ProjectConverterForm";
             Text = "Конвертер проектов";
             generalPanel.ResumeLayout(false);
