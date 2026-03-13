@@ -131,8 +131,20 @@ namespace BazisGUI
 
             else if (obj.Header == "Плоскость" && cond.LocalFrame is StaticFrame srf)
             {
-                var group = project.GetAllModelGroups().First(x => x.Name == obj.NewValue);
-                srf.BaseGroup = group;
+                var group = project.GetAllModelGroups().FirstOrDefault(x => x.Name == obj.NewValue);
+
+                if (group == null)
+                {
+                    var temp = new StaticFrame();
+                    temp.Rotation_X = srf.Rotation_X;
+                    temp.Rotation_Y = srf.Rotation_Y;
+                    temp.Rotation_Z = srf.Rotation_Z;
+                    temp.Shifting = srf.Shifting;
+
+                    cond.LocalFrame = temp;
+                }
+                else
+                    srf.BaseGroup = group;
             }
 
             else if (obj.Header == "Траектория")

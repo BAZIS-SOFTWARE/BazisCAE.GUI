@@ -84,7 +84,7 @@ namespace BazisGUI
             rows.Add(new RowProperty
 (
 "Система координат", new DropDownPropertyValue(
-obj.LocalFrame == null ? "*" : obj.LocalFrame,
+obj.LocalFrame == null ? "*" : obj.LocalFrame.Name,
 new List<string>() { "MRF", "SRF", "*" }
 ))
             { Color = Color.Gainsboro });

@@ -26,10 +26,12 @@ namespace BazisGUI
             }
             else
             {
+                var groupsEx = groups.Select(x => x.Name).ToList();
+                groupsEx.Add("*");
                 var sf = frame as StaticFrame;
                 rows.Add(new RowProperty("Плоскость", new DropDownPropertyValue
                     (sf.BaseGroup?.Name == null ? "*" : 
-                    sf.BaseGroup?.Name, groups.Select(x => x.Name).ToList())));
+                    sf.BaseGroup?.Name, groupsEx)));
             }
             rows.Add(new RowProperty("Смещение x", 
                 frame.Shifting._x));

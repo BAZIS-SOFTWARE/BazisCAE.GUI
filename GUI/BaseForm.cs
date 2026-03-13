@@ -523,7 +523,7 @@ namespace BazisGUI
             {
                 saveDialog.DefaultExt = "bpf2";
 
-                var filter = "(*.bpf)|*.bpf|(*.bpf2)|*.bpf2";
+                var filter = "(*.bpf2)|*.bpf2|(*.bpf)|*.bpf";
 
                 saveDialog.Filter = filter;
 
@@ -630,7 +630,7 @@ namespace BazisGUI
                 if (project != null)
                 {
                     OpenFileDialog dialog = new OpenFileDialog();
-                    dialog.Filter = meshFilter;
+                    dialog.Filter = meshFilter + "|" + projFilter;
                     if (dialog.ShowDialog() == DialogResult.Cancel)
                         return;
 
