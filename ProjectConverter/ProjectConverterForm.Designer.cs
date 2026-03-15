@@ -78,6 +78,7 @@
             txbPath.Location = new Point(20, 43);
             txbPath.Margin = new Padding(4, 8, 3, 0);
             txbPath.Multiline = true;
+            txbPath.WordWrap = false;
             txbPath.Name = "txbPath";
             txbPath.ReadOnly = true;
             txbPath.Size = new Size(284, 30);

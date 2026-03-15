@@ -7,11 +7,7 @@ namespace ProjectConverter
         public event Action<string, Color> ConvertProcessInfo;
         public void ReadProject(string filePath)
         {
-            //string tempFile = filePath + ".tmp";
-            //temp
-            var fileName = filePath.Split('.')[0] + "13";
-            string tempFile = $"{fileName}.{filePath.Split('.')[1]}";
-            //temp
+            string tempFile = filePath + ".tmp";
             using (var reader = new StreamReader(filePath))
             using (var writer = new StreamWriter(tempFile))
 
@@ -23,18 +19,17 @@ namespace ProjectConverter
             }
 
             ConvertProcessInfo("Конвертация завершена", Color.Green);
-            //File.Replace(tempFile, filePath, null);
+            File.Replace(tempFile, filePath, null);
         }
 
         private string ParseLine(string line)
         {
             if (string.IsNullOrWhiteSpace(line))
                 return line;
-
             var token = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             return token[0] switch
             {
-                "Материал" => $"{token[0]} : 1 * {token[6]} None {token[2]} {token[4]} {token[5]} {token[3]}",
+                "Материал" => GetMaterialString(token),
                 "Среда" => GetMediaString(token),
                 "Нагрузка" => GetCondString(token),
                 "Нагрев" => GetHeatString(token),
@@ -46,14 +41,22 @@ namespace ProjectConverter
         private string GetCondString(string[] data) 
         {
             var value = data[5];
+            var timeFunc = data[6] == "*" ? "*" : $"TT,TIME=VAR,TEMPS=Table({data[6]};TIME)";
             var direction = data[4];
             var group = data[2];
             var start = data[7];
             var stop = data[8];
             var type = data[3];
-            return $"{data[0]} : {value} * * {direction} {group} {start} {stop} {type}";
+            return $"{data[0]} : {value} {timeFunc} * {direction} {group} {start} {stop} {type}";
         }
 
+        private string GetMaterialString(string[] data)
+        {
+            if (data.Length == 9)
+                return $"{data[0]} : 1 * {data[8]} None {data[2]} {data[6]} {data[7]} {data[5]} {data[3]} {data[4]}";
+            else
+                return $"{data[0]} : 1 * {data[6]} None {data[2]} {data[4]} {data[5]} {data[3]}";
+        }
         private string GetMediaString(string[] data)
         {
             string tempInfo;
