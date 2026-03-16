@@ -98,9 +98,36 @@ namespace BazisGUI
 
             else if (obj.Header.Contains("Значение"))
             {
-                if(double.TryParse(obj.NewValue, out var val))
-                    cond.Value = val;
-                
+                var parts = obj.Header.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length == 1)
+                {
+                    if (double.TryParse(obj.NewValue, out var value))
+                        cond.Value = value;
+                }
+                else
+                {
+                    var paramName = parts[1];
+                    var parameter = cond.Function[paramName];
+                    if (parameter.ParameterKind == ParameterKind.Table)
+                    {
+                        var variable = cond.Function
+                            .GetParameters()
+                            .FirstOrDefault(x => x.ParameterType == ParameterType.Variable);
+
+                        if (variable != null)
+                        {
+                            cond.Function[paramName] = new TableParameter(
+                                project.FunctionsDB[obj.NewValue],
+                                paramName,
+                                variable);
+                        }
+                    }
+                    else
+                    {
+                        if (double.TryParse(obj.NewValue, out var value))
+                            parameter.SetValue(value);
+                    }
+                }
                 refresh = true;
             }
 
