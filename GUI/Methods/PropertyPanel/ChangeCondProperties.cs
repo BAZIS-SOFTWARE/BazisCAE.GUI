@@ -98,16 +98,9 @@ namespace BazisGUI
 
             else if (obj.Header.Contains("Значение"))
             {
-                var ar = obj.Header.Split(" ");
-
-                if (cond.Function[ar[1]].ParameterKind == ParameterKind.Table)
-                    cond.Function[ar[1]] = new TableParameter(project.FunctionsDB[obj.NewValue],
-                                            ar[1],
-                                            cond.Function.GetParameters().
-                                            First(x => x.ParameterType == ParameterType.Variable));
-                else
-                    cond.Function[ar[1]].SetValue(double.Parse(obj.NewValue));
-
+                if(double.TryParse(obj.NewValue, out var val))
+                    cond.Value = val;
+                
                 refresh = true;
             }
 
