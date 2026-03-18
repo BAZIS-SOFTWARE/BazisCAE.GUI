@@ -64,9 +64,9 @@
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
-    <PackageReference Include="OperationalController" Version="4.3.7" />
-    <PackageReference Include="PostProc" Version="2.1.5" />
-    <PackageReference Include="PreProc" Version="2.3.3" />
+    <PackageReference Include="OperationalController" Version="4.4.2" />
+    <PackageReference Include="PostProc" Version="2.1.6" />
+    <PackageReference Include="PreProc" Version="2.3.8" />
     <PackageReference Include="PropertiesCalculator" Version="1.1.0" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
@@ -125,6 +125,9 @@
     </Compile>
     <Compile Update="MessageBoxEx\MessageBoxEx.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Methods\Console\MergeElementSets.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="Methods\Console\NodesShiftCoordinate.cs">
       <SubType>Form</SubType>

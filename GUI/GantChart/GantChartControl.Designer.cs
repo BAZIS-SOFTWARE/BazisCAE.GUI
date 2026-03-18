@@ -47,6 +47,7 @@
             dataGridView.Size = new System.Drawing.Size(385, 373);
             dataGridView.TabIndex = 0;
             dataGridView.CellPainting += dataGridView_CellPainting;
+            dataGridView.SortCompare += dataGridView_SortCompare;
             // 
             // CondName
             // 

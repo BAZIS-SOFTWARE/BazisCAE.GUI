@@ -30,23 +30,10 @@ namespace BazisGUI.Console
         BeamConnection,
         SetLevel,
         RotateMesh,
-        MoveNodes
+        MoveNodes,
+        MergeElementSets
     }
 
-    public enum GeomCmd
-    {
-        Move,
-        Rotate,
-        Scale
-    }
-
-    public enum AtribCmd
-    {
-        Vector,
-        Angle,
-        Factor,
-        Path
-    }
     public partial class ConsoleControl : PinnedPage
     {
         public bool CheckPrintElemsInfo { get; set; }
@@ -60,6 +47,7 @@ namespace BazisGUI.Console
         public event Action<object, ModelRenumberEventArgs> RenumberMeshEvent;
         public event Action<object, ModelShiftCoordinateEventArgs> ModelShiftCoordinateEvent;
         public event Action<object, ModelRotateEventArgs> ModelRotateEvent;
+        public event Action<object, MergeElementSetsEventArgs> MergeElementSetsEvent;
 
         int SessionNumber
         {
@@ -82,6 +70,7 @@ namespace BazisGUI.Console
             { "Найти объект",GenCmd.FindObject},
             { "Соединить стержнями",GenCmd.BeamConnection},
             { "Задать порядок точности",GenCmd.SetLevel },
+            { "Слить наборы элементов",GenCmd.MergeElementSets },
             { "Выход",GenCmd.Exit }
         };
 
@@ -100,6 +89,7 @@ namespace BazisGUI.Console
             { GenCmd.FindObject,new string[]{ "тип,номер" }},
             { GenCmd.BeamConnection,new string[]{ "радиус поиска","макс. кол-во","группа#1","группа#2" }},
             { GenCmd.SetLevel,new string[]{ "тип","порядок точности" }},
+            { GenCmd.MergeElementSets,new string[]{ "тип","набор#1","набор#2" }},
             { GenCmd.Exit,new string[]{}}
         };
 
@@ -260,6 +250,9 @@ namespace BazisGUI.Console
                 
                 switch (genCmds[cmds[0]])
                 {
+                    case GenCmd.MergeElementSets:
+                        MergeElementSetsEvent?.Invoke(this, new MergeElementSetsEventArgs(cmds[1], cmds[2], cmds[3]));
+                        break;
                     case GenCmd.FindObject:
                         InEvent(this, new FindObjectEventArgs(cmds[1]));
                         break;

@@ -154,6 +154,25 @@ namespace BazisGUI
                     if (taskName.Contains(compType))
                     {
                         var temp = ReadTaskParametersFromFile(taskName.Split(' ')[1]);
+
+                        if(temp is TermalParameters term)
+                        {
+                            var _sample = sample as TermalParameters;
+                            term.TermalConvergence.Is_Switched_Tm = _sample.TermalConvergence.Is_Switched_Tm;
+                            term.TermalConvergence.Tm = _sample.TermalConvergence.Tm;
+                        }
+                        else if (temp is MechanicalParameters mech)
+                        {
+                            var _sample = sample as MechanicalParameters;
+                            mech.MechanicalConvergence.DUm = _sample.MechanicalConvergence.DUm;
+                            mech.MechanicalConvergence.Is_Physically_NonLinear = _sample.MechanicalConvergence.Is_Physically_NonLinear;
+                            mech.MechanicalConvergence.Is_Switched_Um = _sample.MechanicalConvergence.Is_Switched_Um;
+                            mech.MechanicalConvergence.MaterialPlasticityCoeff = _sample.MechanicalConvergence.MaterialPlasticityCoeff;
+                            mech.MechanicalConvergence.Um = _sample.MechanicalConvergence.Um;
+                            mech.MechanicalConvergence.PlasticityCriterion = _sample.MechanicalConvergence.PlasticityCriterion;
+                            mech.MechanicalConvergence.SiStm = _sample.MechanicalConvergence.SiStm;
+                        }
+
                         temp.InitTemp = sample.InitTemp;
                         temp.Iterations = sample.Iterations;
                         temp.MetallurgicalProcesses = sample.MetallurgicalProcesses;
