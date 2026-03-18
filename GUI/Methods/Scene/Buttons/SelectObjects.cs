@@ -18,7 +18,6 @@ namespace BazisGUI
     {
         Dictionary<string, Button> objButtons = new Dictionary<string, Button>();
         public event Action<string> OnChangeSelectedObjectsEvent;
-        public event Action AdvanceSelectionError;
         /// <summary>
         /// Временный выбранный объект для работы со свойствами через сцену
         /// </summary>
@@ -230,7 +229,6 @@ namespace BazisGUI
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
-                AdvanceSelectionError.Invoke();
             }
         }
 
@@ -257,11 +255,10 @@ namespace BazisGUI
 
                 DisplayObjects();
             }
-            else 
-            {
-                console.PrintInfo("Выбранных объектов должно быть больше двух", Color.Red);
-                AdvanceSelectionError.Invoke();
-            }
+            //else 
+            //{
+            //    console.PrintInfo("Выбранных объектов должно быть больше двух", Color.Red);
+            //}
         }
 
         private void SelectionControl_SelectInSet(ObjType selectType)
@@ -288,7 +285,6 @@ namespace BazisGUI
             else
             {
                 console.PrintInfo("Нет выбранных объектов", Color.Red);
-                AdvanceSelectionError.Invoke();
             }
         }
 

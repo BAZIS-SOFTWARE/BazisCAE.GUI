@@ -34,9 +34,9 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         {
             components = new System.ComponentModel.Container();
             generalPanel = new TableLayoutPanel();
-            rbtSet = new NullableRadioButton();
-            rbtSurface = new NullableRadioButton();
-            rbtDirection = new NullableRadioButton();
+            rbtSet = new RadioButton();
+            rbtSurface = new RadioButton();
+            rbtDirection = new RadioButton();
             lblAngle = new Label();
             txbAngle = new TextBoxEx(components);
             chbChangeDirection = new CheckBox();
@@ -64,64 +64,63 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            generalPanel.Size = new Size(400, 150);
+            generalPanel.Size = new Size(225, 150);
             generalPanel.TabIndex = 0;
             // 
             // rbtSet
             // 
             rbtSet.Anchor = AnchorStyles.Left;
             rbtSet.AutoSize = true;
+            rbtSet.Checked = true;
             generalPanel.SetColumnSpan(rbtSet, 2);
-            rbtSet.Name = "rbtSet";
+            rbtSet.Location = new Point(8, 5);
             rbtSet.Margin = new Padding(8, 0, 0, 0);
+            rbtSet.Name = "rbtSet";
+            rbtSet.Size = new Size(70, 19);
             rbtSet.TabIndex = 8;
             rbtSet.TabStop = true;
             rbtSet.Text = "Наборы";
-            rbtSet.CheckedChanged += rbtSet_CheckedChanged;
-            rbtSet.CheckedChanged += UncheckOtherRbt_CheckedChanged;
-            rbtSet.Checked = false;
+            rbtSet.CheckedChanged += rbtChange;
             // 
             // rbtSurface
             // 
             rbtSurface.Anchor = AnchorStyles.Left;
             rbtSurface.AutoSize = true;
             generalPanel.SetColumnSpan(rbtSurface, 2);
-            rbtSurface.Location = new Point(3, 35);
-            rbtSurface.Name = "rbtSurface";
+            rbtSurface.Location = new Point(8, 35);
             rbtSurface.Margin = new Padding(8, 0, 0, 0);
-            rbtSurface.Size = new Size(98, 19);
+            rbtSurface.Name = "rbtSurface";
+            rbtSurface.Size = new Size(93, 19);
             rbtSurface.TabIndex = 8;
             rbtSurface.TabStop = true;
             rbtSurface.Text = "В плоскости";
-            rbtSurface.CheckedChanged += rbtSurface_CheckedChanged;
-            rbtSurface.CheckedChanged += UncheckOtherRbt_CheckedChanged;
-            rbtSurface.Checked = false;
+            rbtSurface.CheckedChanged += rbtChange;
             // 
             // rbtDirection
             // 
             rbtDirection.Anchor = AnchorStyles.Left;
             rbtDirection.AutoSize = true;
             generalPanel.SetColumnSpan(rbtDirection, 2);
-            rbtDirection.Location = new Point(3, 65);
-            rbtDirection.Name = "rbtDirection";
+            rbtDirection.Location = new Point(8, 65);
             rbtDirection.Margin = new Padding(8, 0, 0, 0);
-            rbtDirection.Size = new Size(125, 19);
+            rbtDirection.Name = "rbtDirection";
+            rbtDirection.Size = new Size(120, 19);
             rbtDirection.TabIndex = 8;
             rbtDirection.TabStop = true;
             rbtDirection.Text = "По направлению";
-            rbtDirection.CheckedChanged += rbtDirection_CheckedChanged;
-            rbtDirection.CheckedChanged += UncheckOtherRbt_CheckedChanged;
-            rbtDirection.Checked = false;
+            rbtDirection.CheckedChanged += rbtChange;
             // 
             // lblAngle
             // 
+            lblAngle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             lblAngle.AutoSize = true;
-            lblAngle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblAngle.Location = new Point(3, 90);
             lblAngle.Name = "lblAngle";
             lblAngle.Padding = new Padding(5, 3, 0, 5);
-            lblAngle.Size = new Size(38, 18);
-            lblAngle.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Top;
+            lblAngle.Size = new Size(38, 30);
+            lblAngle.TabIndex = 9;
             lblAngle.Text = "Угол";
+            lblAngle.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // txbAngle
             // 
@@ -129,10 +128,10 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             txbAngle.BorderStyle = BorderStyle.FixedSingle;
             txbAngle.InputType = TXTBoxInputType.Text;
             txbAngle.IsValidating = true;
-            txbAngle.Location = new Point(120, 93);
+            txbAngle.Location = new Point(67, 93);
             txbAngle.Margin = new Padding(0, 0, 20, 0);
             txbAngle.Name = "txbAngle";
-            txbAngle.Size = new Size(260, 23);
+            txbAngle.Size = new Size(138, 23);
             txbAngle.TabIndex = 6;
             txbAngle.Text = "5";
             txbAngle.UserRegExCheck = null;
@@ -149,6 +148,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             chbChangeDirection.TabIndex = 10;
             chbChangeDirection.Text = "Сменить направление";
             chbChangeDirection.UseVisualStyleBackColor = true;
+            chbChangeDirection.CheckedChanged += chbChangeDirection_CheckedChanged;
             // 
             // MeshSelect
             // 
@@ -167,9 +167,9 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 
         private TableLayoutPanel generalPanel;
 
-        private NullableRadioButton rbtSet;
-        private NullableRadioButton rbtSurface;
-        private NullableRadioButton rbtDirection;
+        private RadioButton rbtSet;
+        private RadioButton rbtSurface;
+        private RadioButton rbtDirection;
 
         private Label lblAngle;
         private TextBoxEx txbAngle;

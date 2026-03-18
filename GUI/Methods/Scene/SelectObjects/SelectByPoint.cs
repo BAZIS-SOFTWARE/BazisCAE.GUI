@@ -81,6 +81,7 @@ namespace BazisGUI
 
             if (selFlag)
             {
+                SelectedObjectEvent?.Invoke();
                 console.PrintInfo($"Выбран объект : {tempSetInfo.ObjType} {tempNumb}", Color.Black);
                 CreateObjectProperties(tempSetInfo, tempNumb);
             }

@@ -31,9 +31,9 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         private void InitializeComponent()
         {
             generalPanel = new TableLayoutPanel();
-            rbtVolume = new NullableRadioButton();
-            rbtSurface = new NullableRadioButton();
-            rbtCurve = new NullableRadioButton();
+            rbtVolume = new RadioButton();
+            rbtSurface = new RadioButton();
+            rbtCurve = new RadioButton();
             generalPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -66,8 +66,8 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtVolume.TabIndex = 8;
             rbtVolume.TabStop = true;
             rbtVolume.Text = "Объемы";
-            rbtVolume.CheckedChanged += rbt_CheckedChanged;
-            rbtVolume.CheckedChanged += UncheckOtherRbt_CheckedChanged;
+            rbtVolume.Checked = true;
+            rbtVolume.CheckedChanged += rbtChange;
             // 
             // rbtSurface
             // 
@@ -80,8 +80,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtSurface.TabIndex = 8;
             rbtSurface.TabStop = true;
             rbtSurface.Text = "Поверхности";
-            rbtSurface.CheckedChanged += rbt_CheckedChanged;
-            rbtSurface.CheckedChanged += UncheckOtherRbt_CheckedChanged;
+            rbtSurface.CheckedChanged += rbtChange;
             // 
             // rbtCurve
             // 
@@ -94,8 +93,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtCurve.TabIndex = 8;
             rbtCurve.TabStop = true;
             rbtCurve.Text = "Кривые";
-            rbtCurve.CheckedChanged += rbt_CheckedChanged;
-            rbtCurve.CheckedChanged += UncheckOtherRbt_CheckedChanged;
+            rbtCurve.CheckedChanged += rbtChange;
             // 
             // GeomSelect
             // 
@@ -114,8 +112,8 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 
         private TableLayoutPanel generalPanel;
 
-        private NullableRadioButton rbtVolume;
-        private NullableRadioButton rbtSurface;
-        private NullableRadioButton rbtCurve;
+        private RadioButton rbtVolume;
+        private RadioButton rbtSurface;
+        private RadioButton rbtCurve;
     }
 }

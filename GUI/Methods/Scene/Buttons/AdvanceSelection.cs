@@ -9,6 +9,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        public event Action SelectedObjectEvent;
         private void btnSelection_Paint(object sender, PaintEventArgs e)
         {
             var gr = e.Graphics;
@@ -54,13 +55,14 @@ namespace BazisGUI
                     SelectedObjects == ObjType.Узел.ToString())
                 {
                     var selectionControl = new MeshSelect(SelectedObjects);
-
                     OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
                     selectionControl.CloseForm += RefreshForm;
+
+                    SelectedObjectEvent += selectionControl.SendSelectType;
                     selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
                     selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
                     selectionControl.SelectInSet += SelectionControl_SelectInSet;
-                    AdvanceSelectionError += selectionControl.UnchekAllRadioButton;
+                    selectionControl.ChangeRbt += BackColorToAllObjects;
                     form.ClientSize = selectionControl.Size;
                     form.Controls.Add(selectionControl);
                 }
@@ -73,8 +75,10 @@ namespace BazisGUI
                     var selectionControl = new GeomSelect(SelectedObjects);
                     OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
                     selectionControl.CloseForm += RefreshForm;
+
+                    SelectedObjectEvent += selectionControl.SendSelectDimension;
                     selectionControl.SelectInGeom += SelectionControl_SelectInCurve;
-                    AdvanceSelectionError += selectionControl.UnchekAllRadioButton;
+                    selectionControl.ChangeRbt += BackColorToAllObjects;
                     form.ClientSize = selectionControl.Size;
                     form.Controls.Add(selectionControl);
                 }
@@ -94,7 +98,11 @@ namespace BazisGUI
             CloseAdvancedSelectionForm();
             btnAdvSelection_Click(btnAdvSelection, EventArgs.Empty);
         }
-
+        private void BackColorToAllObjects()
+        {
+            SetBackColorToAllObjects();
+            DisplayObjects();
+        }
         private void CloseAdvancedSelectionForm()
         {
             var forms = Application.OpenForms.Cast<Form>().ToList();
@@ -119,11 +127,12 @@ namespace BazisGUI
             if (mesh != null)
             {
                 OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
+                SelectedObjectEvent -= mesh.SendSelectType;
                 mesh.CloseForm -= RefreshForm;
                 mesh.SelectInDirection -= SelectionControl_SelectInDirection;
                 mesh.SelectInPlain -= SelectionControl_SelectInPlain;
                 mesh.SelectInSet -= SelectionControl_SelectInSet;
-                AdvanceSelectionError -= mesh.UnchekAllRadioButton;
+                mesh.ChangeRbt -= BackColorToAllObjects;
                 mesh.Dispose();
                 return;
             }
@@ -132,9 +141,10 @@ namespace BazisGUI
             if (geom != null)
             {
                 OnChangeSelectedObjectsEvent -= geom.SetAvailableModes;
+                SelectedObjectEvent -= geom.SendSelectDimension;
                 geom.CloseForm -= RefreshForm;
                 geom.SelectInGeom -= SelectionControl_SelectInCurve;
-                AdvanceSelectionError -= geom.UnchekAllRadioButton;
+                geom.ChangeRbt -= BackColorToAllObjects;
                 geom.Dispose();
             }
         }

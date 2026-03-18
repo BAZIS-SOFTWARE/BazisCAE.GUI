@@ -66,7 +66,10 @@ namespace BazisGUI
             }
             var objStr = Declination(counter);
             if (isSelected)
+            {
+                SelectedObjectEvent?.Invoke();
                 console.PrintInfo($"Выбрано {counter} {objStr}", Color.Black);
+            }
             else
                 console.PrintInfo($"Скрыто {counter} {objStr}", Color.Black);
             DisplayObjects();

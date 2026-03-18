@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BazisGUI.AdvanceSelection.ControlsForSelect
@@ -14,12 +15,18 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         };
         public event Action CloseForm;
         public event Action<int> SelectInGeom;
+        public event Action ChangeRbt;
         public GeomSelect(string selectedObjects)
         {
             InitializeComponent();
             SetAvailableModes(selectedObjects);
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            SendSelectDimension();
+        }
         public void SetAvailableModes(string selectedObjects)
         {
             if (_modes.TryGetValue(selectedObjects, out var mode))
@@ -27,11 +34,17 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             else
                 CloseForm?.Invoke();
         }
-        public void UnchekAllRadioButton()
+
+        public void SendSelectDimension()
         {
-            foreach (Control control in generalPanel.Controls)
-                if (control is NullableRadioButton rbt)
-                    rbt.Checked = false;
+            foreach (var rb in generalPanel.Controls.OfType<RadioButton>())
+            {
+                if (rb.Checked)
+                {
+                    SelectInGeom?.Invoke(GetDimm(rb.Text));
+                    return;
+                }
+            }
         }
         private void SetApply(bool volume, bool surface, bool curve)
         {
@@ -40,23 +53,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtCurve.Enabled = curve;
         }
 
-        private void UncheckOtherRbt_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!(sender is NullableRadioButton rbtSelect) || !rbtSelect.Checked)
-                return;
-            foreach (Control control in generalPanel.Controls)
-                if (control is NullableRadioButton other && other != rbtSelect)
-                    other.Checked = false;
-        }
-
-        private void rbt_CheckedChanged(object sender, EventArgs e) 
-        {
-            if(sender is NullableRadioButton rbtSelect && rbtSelect.Checked)
-            {
-                var dim = GetDimm(rbtSelect.Text);
-                SelectInGeom?.Invoke(dim);
-            }
-        } 
+        private void rbtChange(object sender, EventArgs e) => ChangeRbt?.Invoke();
 
         private int GetDimm(string rbtText) 
         {
