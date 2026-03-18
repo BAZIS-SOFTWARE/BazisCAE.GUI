@@ -39,7 +39,6 @@ namespace BazisGUI
 
                         // TODO перейти на другой метод создания группы.
                         // Вынести на уровень контроллера
-
                         project.CreateGroup(selObjs);
                         var gr = project.GetAllModelGroups().Last();
 

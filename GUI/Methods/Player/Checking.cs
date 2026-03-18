@@ -11,7 +11,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void checkPlayerControl_CheckingEvent(object arg1, int arg2)
+        private void CheckPlayerControl_CheckingEvent(object arg1, int arg2)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace BazisGUI
                         var refTime = arg2 + data.StartTime;
                         if (refTime >= data.StartTime & refTime <= data.StopTime)
                         {
-                            if (data.FrameFunction != null)
+                            if (data.LocalFrame != null)
                                 DisplayMRF(refTime, data);
 
                             var group = data.Group;
@@ -81,7 +81,7 @@ namespace BazisGUI
             }
         }
 
-        private void checkPlayerControl_StopCheckingEvent(object obj)
+        private void CheckPlayerControl_StopCheckingEvent(object obj)
         {
             DisplayGeometryObjectEvent = null;
             DisplayText3DEvent = null;
@@ -89,7 +89,7 @@ namespace BazisGUI
             DisplayObjects();
         }
 
-        private void checkPlayerControl_StartCheckingEvent(object obj)
+        private void CheckPlayerControl_StartCheckingEvent(object obj)
         {
             var name = navigator.SelectedNode.Name;
 

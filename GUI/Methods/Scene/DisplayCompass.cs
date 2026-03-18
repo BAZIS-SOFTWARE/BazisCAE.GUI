@@ -30,9 +30,10 @@ namespace BazisGUI
 
                 float[] matrix = Matrix<float>.Build.DenseOfArray(viewMatrix).AsColumnMajorArray();
 
-                matrix[14] = -60;
-                matrix[12] = 70;
-                matrix[13] = 70;
+                
+                matrix[12] = scene.Width - 80; // x coord
+                matrix[13] = 70; // y coord
+                matrix[14] = -60; // z coord ??????
 
                 GL.LoadMatrix(matrix);
 

@@ -4,8 +4,8 @@ using Model.Interfaces;
 using Newtonsoft.Json;
 using Project.Interfaces.Tasks;
 using Project.TaskParameters;
-using Project.Tasks.FrameCreators;
-using Project.Tasks.Functions.Welding;
+using Project.Tasks.Functions.FrameFunctions;
+using Project.Tasks.LocalFrames;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -21,20 +21,20 @@ namespace BazisGUI
                
         private void DisplayMRF(float time, ICondData data)
         {
-            var mf = data.FrameFunction.LocalFrame as MovedFrame;
+            var mf = data.LocalFrame as MovedFrame;
             mf.Time = time - data.StartTime;
             mf.CalcPosition();
             DisplayLocalFrame(mf.Frame);
             var trajPoints = mf.BaseLine.Select(x => x.CalcCentr()).ToArray();
             DisplayPath(trajPoints);
 
-            if (data.FrameFunction is SphereFunction sphear)
+            if (data.Function is SPH sphear)
             {
-                DisplaySphere(sphear.Width, mf.Frame);
+                DisplaySphere((float)sphear.Width, mf.Frame);
             }
-            else if (data.FrameFunction is CillindricalFunction cilinder)
+            else if (data.Function is CIL cilinder)
             {
-                DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, mf.Frame);
+                DisplayConus((float)cilinder.UpperDiam, (float)cilinder.BottomDiam, (float)cilinder.Length, mf.Frame);
             }
         }
 

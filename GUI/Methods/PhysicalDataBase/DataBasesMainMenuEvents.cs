@@ -1,4 +1,5 @@
-﻿using BazisGUI.DataBases;
+﻿using BazisGUI.Args;
+using BazisGUI.DataBases;
 using System;
 using System.Drawing;
 using System.IO;
@@ -63,8 +64,8 @@ namespace BazisGUI
                 }
                 matBasePage.Materials = project.MaterialsDB;
                 matBasePage.PresentMaterials();
-                matBasePage.OnMutationEvent += () => OnChangeMaterials?.Invoke(project.MaterialsDB.Keys.ToArray());
-                OnChangeMaterials?.Invoke(project.MaterialsDB.Keys.ToArray());
+                matBasePage.OnMutationEvent += () => OnChangeMaterials(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
+                OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
                 //matBasePage.Load($@"{project.Path}\{project.MaterialsDB.Name}", false);
             }
             catch (Exception ex)
@@ -125,8 +126,8 @@ namespace BazisGUI
                 funBasePage.Functions = project.FunctionsDB;
                 funBasePage.PresentFunctions();
 
-                funBasePage.OnMutationEvent += () => OnChangeFunctions?.Invoke(project.FunctionsDB.Keys.ToArray());
-                OnChangeFunctions?.Invoke(project.FunctionsDB.Keys.ToArray());
+                funBasePage.OnMutationEvent += () => OnChangeFunctions(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
+                OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
             }
             catch (Exception ex)
             {
