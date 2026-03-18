@@ -54,12 +54,23 @@ namespace BazisGUI.GantChart
 
                 e.Graphics.FillRectangle(new SolidBrush(Color.White), e.CellBounds);
 
-                using (SolidBrush barBrush = new SolidBrush(Color.Blue)) // Example color
-                {
-                    
-                    e.Graphics.FillRectangle(barBrush, e.CellBounds.X + barStartPixel, e.CellBounds.Y + 5, 
-                        barWidthPixel - barStartPixel, e.CellBounds.Height - 10);
-                }
+                Color color;
+
+                if (currentCond.Kind == DataKind.Закрепление)
+                    color = Color.Black;
+                else if (currentCond.Kind == DataKind.Материал)
+                    color = Color.Green;
+                else if (currentCond.Kind == DataKind.Среда)
+                    color = Color.Yellow;
+                else if (currentCond.Kind == DataKind.Нагрев)
+                    color = Color.Red;
+                else
+                    color = Color.Blue;
+
+                var barBrush = new SolidBrush(color);
+
+                e.Graphics.FillRectangle(barBrush, e.CellBounds.X + barStartPixel, e.CellBounds.Y + 5,
+                    barWidthPixel - barStartPixel, e.CellBounds.Height - 10);
 
                 e.Handled = true; // Prevent default cell painting
 
