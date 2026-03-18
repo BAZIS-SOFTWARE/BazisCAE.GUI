@@ -65,5 +65,20 @@ namespace BazisGUI.GantChart
 
             }
         }
+
+        private void dataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            if (e.Column.Name == CondTime.Name)
+            {
+                var value1 = e.CellValue1?.ToString().Split(" : ")[1].Split(' ')[5];
+                var value2 = e.CellValue2?.ToString().Split(" : ")[1].Split(' ')[5];
+
+                if (float.TryParse(value1, out float floatValue1) && float.TryParse(value2, out float floatValue2)) 
+                {
+                    e.SortResult = floatValue1.CompareTo(floatValue2);
+                    e.Handled = true;
+                }
+            }
+        }
     }
 }
