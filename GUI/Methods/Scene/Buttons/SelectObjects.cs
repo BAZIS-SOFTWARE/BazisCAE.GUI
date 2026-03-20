@@ -9,8 +9,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static IronPython.Modules._ast;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BazisGUI
 {
@@ -88,20 +86,17 @@ namespace BazisGUI
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            //var btnSelect = sender as Button;
             var flag = bool.Parse(btnSelect.Tag.ToString());
             if (!flag)
             {
                 flag = true;
                 btnSelect.Image = Resources.arrow_d;
             }
-   
             else
             {
                 flag = false;
                 btnSelect.Image = Resources.arrow_r;
             }
-
 
             btnSelect.Tag = flag;
             foreach (var item in objButtons)
@@ -154,22 +149,14 @@ namespace BazisGUI
                 if (objsType == SelectedObjects.ToEnum<ObjType>())
                 {
                     if (objsType == ObjType.Узел)
-                    {
                         SelectNodeInPlane();
-                    }
                     else
-                    {
                         SelectE2DInPlane(arg2.Angle);
-                    }
 
                     DisplayObjects();
                 }
             }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
+            catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
         }
 
         private void SelectE2DInPlane(float angle)
@@ -221,15 +208,9 @@ namespace BazisGUI
             {
                 var objsType = arg2.Objects;
                 if (objsType == SelectedObjects.ToEnum<ObjType>())
-                {
                     SelectInDirection(objsType, arg2.Angle, arg2.Reverse);
-                }
-
             }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
+            catch (Exception ex){ console.PrintInfo(ex.Message, Color.Red); }
         }
 
         private void SelectInDirection(ObjType arg2, float angle, bool reverse)
@@ -239,26 +220,17 @@ namespace BazisGUI
             if (selObjs?.Count() > 1)
             {
                 if (!reverse)
-                {
                     project.SelectNodeInDirection(angle, selObjs.Skip(1).First().Number, 
                         selObjs.First().Number, settingsConfig.SelectObjectColor);
-                }
-
                 else
-                {
                     project.SelectNodeInDirection(angle, selObjs.First().Number, 
                         selObjs.Skip(1).First().Number, settingsConfig.SelectObjectColor);
-                }
 
                 var pres = project.CreateModelObjectsPresentor(arg2);
                 SetVBObjectAttribute(pres, "цвет");
 
                 DisplayObjects();
             }
-            //else 
-            //{
-            //    console.PrintInfo("Выбранных объектов должно быть больше двух", Color.Red);
-            //}
         }
 
         private void SelectionControl_SelectInSet(ObjType selectType)
@@ -283,9 +255,7 @@ namespace BazisGUI
                 DisplayObjects();
             }
             else
-            {
                 console.PrintInfo("Нет выбранных объектов", Color.Red);
-            }
         }
 
         private void SelectionControl_SelectInCurve(int targetDim)
