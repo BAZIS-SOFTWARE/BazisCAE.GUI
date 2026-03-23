@@ -270,7 +270,7 @@ namespace BazisGUI
                     numbers.Add(item.Number);
 
                 var volumes = project.SelectByScope(startDim, numbers, targetDim);
-  
+
                 foreach (var number in volumes)
                 {
                     var element = project.GetModelObject(objType, number);
