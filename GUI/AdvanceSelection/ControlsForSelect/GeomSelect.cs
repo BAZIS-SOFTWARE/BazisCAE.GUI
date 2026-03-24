@@ -7,7 +7,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 {
     public partial class GeomSelect : UserControl
     {
-        private static readonly Dictionary<string, (bool volume, bool surface, bool curve)> _modes = new()
+        private readonly Dictionary<string, (bool volume, bool surface, bool curve)> _modes = new()
         {
             { "Точка", (true, true, true) },
             { "Кривая", (true, true, false) },

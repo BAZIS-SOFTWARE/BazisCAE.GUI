@@ -7,7 +7,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 {
     public partial class MeshSelect : UserControl
     {
-        private static readonly Dictionary<string, (bool set, bool surface, bool direction, bool other)> _modes = new()
+        private readonly Dictionary<string, (bool set, bool surface, bool direction, bool other)> _modes = new()
         {
             { "Элемент1D", (true, false, false, false) },
             { "Элемент2D", (true, true, false, true) },

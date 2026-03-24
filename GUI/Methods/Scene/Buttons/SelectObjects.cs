@@ -6,6 +6,7 @@ using Model.MeshObjects;
 using Model.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -215,20 +216,20 @@ namespace BazisGUI
 
         private void SelectInDirection(ObjType arg2, float angle, bool reverse)
         {
-
+            var counter = 0;
             var selObjs = project.GetModelObjects(arg2).Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
             if (selObjs?.Count() > 1)
             {
                 if (!reverse)
-                    project.SelectNodeInDirection(angle, selObjs.Skip(1).First().Number, 
-                        selObjs.First().Number, settingsConfig.SelectObjectColor);
+                    counter = project.SelectNodeInDirection(angle, selObjs.Skip(1).First().Number, 
+                        selObjs.First().Number, settingsConfig.SelectObjectColor).Count;
                 else
-                    project.SelectNodeInDirection(angle, selObjs.First().Number, 
-                        selObjs.Skip(1).First().Number, settingsConfig.SelectObjectColor);
+                    counter = project.SelectNodeInDirection(angle, selObjs.First().Number, 
+                        selObjs.Skip(1).First().Number, settingsConfig.SelectObjectColor).Count;
 
                 var pres = project.CreateModelObjectsPresentor(arg2);
                 SetVBObjectAttribute(pres, "цвет");
-
+                console.PrintInfo($"Выбрано {counter} {arg2}", Color.Black);
                 DisplayObjects();
             }
         }
