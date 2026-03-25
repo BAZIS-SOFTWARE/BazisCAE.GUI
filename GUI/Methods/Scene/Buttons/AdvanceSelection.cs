@@ -80,7 +80,7 @@ namespace BazisGUI
                     selectionControl.CloseForm += RefreshForm;
 
                     SelectedObjectEvent += selectionControl.SendSelectDimension;
-                    selectionControl.SelectInGeom += SelectionControl_SelectInCurve;
+                    selectionControl.SelectInGeom += SelectionControl_SelectInGeom;
                     selectionControl.ChangeRbt += BackColorToAllObjects;
                     form.ClientSize = selectionControl.Size;
                     form.Controls.Add(selectionControl);
@@ -147,7 +147,7 @@ namespace BazisGUI
                 OnChangeSelectedObjectsEvent -= geom.SetAvailableModes;
                 SelectedObjectEvent -= geom.SendSelectDimension;
                 geom.CloseForm -= RefreshForm;
-                geom.SelectInGeom -= SelectionControl_SelectInCurve;
+                geom.SelectInGeom -= SelectionControl_SelectInGeom;
                 geom.ChangeRbt -= BackColorToAllObjects;
                 geom.Dispose();
             }

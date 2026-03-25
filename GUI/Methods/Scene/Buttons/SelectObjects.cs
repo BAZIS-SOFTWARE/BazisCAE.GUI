@@ -180,12 +180,8 @@ namespace BazisGUI
             {
                 var objs = project.SelectE2DInPlane(angle, selObject, settingsConfig.SelectObjectColor);
 
-                // только новые объекты
                 var newObjs = objs.Except(_selectedElement).ToArray();
-
-                // добавляем в кэш
                 _selectedElement.UnionWith(newObjs);
-
                 foreach (var set in newObjs.Select(x => project.GetModelSetInfo(ObjType.Элемент2D, x)).Distinct(new DefaultSetInfoComparer()))
                 {
                     var pres = project.CreateModelObjectsPresentor(set);
@@ -267,7 +263,10 @@ namespace BazisGUI
                     var pres = project.CreateModelObjectsPresentor(setInfo);
                     SetVBObjectAttribute(pres, "цвет");
                 }
-                var selectedCount = project.GetAllModelElements().Count(x => x.Color == settingsConfig.SelectObjectColor);
+                var selectedCount = 0;
+                if(selectType == ObjType.Узел)
+                    selectedCount = project.GetAllModelNodes().Count(x => x.Color == settingsConfig.SelectObjectColor);
+                else selectedCount  = project.GetAllModelElements().Count(x => x.Color == settingsConfig.SelectObjectColor);
                 PrintSelectedInfo(selectType, selectedCount);
                 DisplayObjects();
             }
@@ -275,7 +274,7 @@ namespace BazisGUI
                 console.PrintInfo("Нет выбранных объектов", Color.Red);
         }
 
-        private void SelectionControl_SelectInCurve(int targetDim)
+        private void SelectionControl_SelectInGeom(int targetDim)
         {
             var selObjs = GetModelObjects(SelectedObjects).Where(x => x.Color == settingsConfig.SelectObjectColor).ToList();
             if (selObjs?.Count > 0) 
