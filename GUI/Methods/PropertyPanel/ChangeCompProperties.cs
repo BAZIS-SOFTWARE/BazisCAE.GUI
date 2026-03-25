@@ -46,6 +46,9 @@ namespace BazisGUI
                 case "Коэф. релаксации (w)":
                     parameters.SolverSettings.Relaxation = ParseFloatValue(obj.NewValue);
                     break;
+                case "Max. коэф. релаксации (wm)":
+                    parameters.SolverSettings.MaxRelaxation = ParseFloatValue(obj.NewValue);
+                    break;
                 case "Приоритет":
                     parameters.SolverSettings.Priority = obj.NewValue;
                     break;

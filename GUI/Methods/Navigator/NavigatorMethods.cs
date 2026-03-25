@@ -22,7 +22,8 @@ namespace BazisGUI
         private void DisplayMRF(float time, ICondData data)
         {
             var mf = data.LocalFrame as MovedFrame;
-            mf.Time = time - data.StartTime;
+            mf.Time = time - data.StartTime;          
+
             mf.CalcPosition();
             DisplayLocalFrame(mf.Frame);
             var trajPoints = mf.BaseLine.Select(x => x.CalcCentr()).ToArray();
