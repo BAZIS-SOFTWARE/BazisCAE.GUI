@@ -54,6 +54,7 @@ namespace BazisGUI
                 new RowProperty("Кол-во итераций решения", parameters.SolverSettings.MaxIter),
                 new RowProperty("Точность решения, у.ед.", parameters.SolverSettings.Precision),
                 new RowProperty("Коэф. релаксации (w)", parameters.SolverSettings.Relaxation),
+                new RowProperty("Max. коэф. релаксации (wm)", parameters.SolverSettings.MaxRelaxation),
                 new RowProperty("Приоритет", 
                 new DropDownPropertyValue(parameters.SolverSettings.Priority, 
                 new List<string>() {"Низкий","НижеСреднего","Средний","ВышеСреднего","Высокий","Наивысший"}))            
