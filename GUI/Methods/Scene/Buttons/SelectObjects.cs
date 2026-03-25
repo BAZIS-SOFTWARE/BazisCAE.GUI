@@ -2,6 +2,7 @@
 using BazisGUI.Extensions;
 using BazisGUI.Properties;
 using Model.Interfaces;
+using Model.Interfaces.ObjectsCollections;
 using Model.MeshObjects;
 using Model.Utilities;
 using System;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace BazisGUI
@@ -160,29 +162,40 @@ namespace BazisGUI
             catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
         }
 
+        private HashSet<int> _selectedE2D = new HashSet<int>();
         private void SelectE2DInPlane(float angle)
         {
+            var selObjs = project
+                .GetModelObjects(ObjType.Элемент2D)
+                .Where(x => x.Color == settingsConfig.SelectObjectColor)
+                .Select(x => x.Number)
+                .Except(_selectedE2D)
+                .ToArray();
 
-            var selObjs = project.GetModelObjects(ObjType.Элемент2D).Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
-
-            if (selObjs?.Length > 0)
+            if (selObjs?.Length == 0)
             {
-                foreach(var selObject in selObjs)
-                {
-                    var objs = project.SelectE2DInPlane(angle, selObject.Number, settingsConfig.SelectObjectColor);
-
-                    // TO DO исправить метод
-                    foreach (var set in objs.Select(x => project.
-                    GetModelSetInfo(ObjType.Элемент2D, x)).
-                    Distinct(new DefaultSetInfoComparer()))
-                    {
-                        var pres = project.CreateModelObjectsPresentor(set);
-                        SetVBObjectAttribute(pres, "цвет");
-                    }
-                }
-                DisplayObjects();
+                console.PrintInfo("Выберите хотя бы один элемент", Color.Red);
             }
-            else console.PrintInfo("Выберите хотя бы один элемент", Color.Red);
+
+            foreach (var selObject in selObjs)
+            {
+                var objs = project.SelectE2DInPlane(angle, selObject, settingsConfig.SelectObjectColor);
+
+                // только новые объекты
+                var newObjs = objs.Except(_selectedE2D).ToArray();
+
+                // добавляем в кэш
+                _selectedE2D.UnionWith(newObjs);
+
+                foreach (var set in newObjs.Select(x => project.GetModelSetInfo(ObjType.Элемент2D, x)).Distinct(new DefaultSetInfoComparer()))
+                {
+                    var pres = project.CreateModelObjectsPresentor(set);
+                    SetVBObjectAttribute(pres, "цвет");
+                } 
+            }
+
+            PrintSelectedInfo(ObjType.Элемент2D, _selectedE2D.Count);
+            DisplayObjects();
         }
 
         private void SelectNodeInPlane()
@@ -197,6 +210,8 @@ namespace BazisGUI
                 var plane = new Geometry.Plane(n1.Position, n2.Position, n3.Position);
                 project.SelectNodeInPlane(plane, settingsConfig.SelectObjectColor);
 
+                var selectedCount = project.GetAllModelNodes().Count(x => x.Color == settingsConfig.SelectObjectColor);
+                PrintSelectedInfo(ObjType.Узел, selectedCount);
                 var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
                 SetVBObjectAttribute(pres, "цвет");
             }
@@ -229,7 +244,7 @@ namespace BazisGUI
 
                 var pres = project.CreateModelObjectsPresentor(arg2);
                 SetVBObjectAttribute(pres, "цвет");
-                console.PrintInfo($"Выбрано {counter} {arg2}", Color.Black);
+                PrintSelectedInfo(arg2, counter);
                 DisplayObjects();
             }
         }
@@ -253,6 +268,8 @@ namespace BazisGUI
                     var pres = project.CreateModelObjectsPresentor(setInfo);
                     SetVBObjectAttribute(pres, "цвет");
                 }
+                var selectedCount = project.GetAllModelElements().Count(x => x.Color == settingsConfig.SelectObjectColor);
+                PrintSelectedInfo(selectType, selectedCount);
                 DisplayObjects();
             }
             else
@@ -283,8 +300,15 @@ namespace BazisGUI
                     var pres = project.CreateModelObjectsPresentor(setInfo);
                     SetVBObjectAttribute(pres, "цвет");
                 }
+                var selectedCount = project.GetAllModelObjects().Count(x => x.Color == settingsConfig.SelectObjectColor);
+                PrintSelectedInfo(objType, selectedCount);
                 DisplayObjects();
             }
+        }
+
+        private void PrintSelectedInfo(ObjType obj, int count)
+        {
+            console.PrintInfo($"Количество выбранных элементов {count}, тип: {obj}", Color.Black);
         }
     }
 }

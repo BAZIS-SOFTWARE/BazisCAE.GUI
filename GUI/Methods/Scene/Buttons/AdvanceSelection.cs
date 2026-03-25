@@ -1,6 +1,9 @@
 ﻿using BazisGUI.AdvanceSelection.ControlsForSelect;
 using Model.Interfaces;
+using Model.Interfaces.ObjectsCollections;
+using Model.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -100,6 +103,7 @@ namespace BazisGUI
         }
         private void BackColorToAllObjects()
         {
+            _selectedE2D = new HashSet<int>();
             SetBackColorToAllObjects();
             DisplayObjects();
         }
