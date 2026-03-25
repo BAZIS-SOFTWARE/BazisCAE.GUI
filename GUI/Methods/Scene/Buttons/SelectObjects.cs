@@ -39,6 +39,7 @@ namespace BazisGUI
                 }
             }
         }
+        private HashSet<int> _selectedElement = new HashSet<int>();
 
         public void AddObjectsType(string objsType)
         {
@@ -161,15 +162,13 @@ namespace BazisGUI
             }
             catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
         }
-
-        private HashSet<int> _selectedE2D = new HashSet<int>();
         private void SelectE2DInPlane(float angle)
         {
             var selObjs = project
                 .GetModelObjects(ObjType.Элемент2D)
                 .Where(x => x.Color == settingsConfig.SelectObjectColor)
                 .Select(x => x.Number)
-                .Except(_selectedE2D)
+                .Except(_selectedElement)
                 .ToArray();
 
             if (selObjs?.Length == 0)
@@ -182,10 +181,10 @@ namespace BazisGUI
                 var objs = project.SelectE2DInPlane(angle, selObject, settingsConfig.SelectObjectColor);
 
                 // только новые объекты
-                var newObjs = objs.Except(_selectedE2D).ToArray();
+                var newObjs = objs.Except(_selectedElement).ToArray();
 
                 // добавляем в кэш
-                _selectedE2D.UnionWith(newObjs);
+                _selectedElement.UnionWith(newObjs);
 
                 foreach (var set in newObjs.Select(x => project.GetModelSetInfo(ObjType.Элемент2D, x)).Distinct(new DefaultSetInfoComparer()))
                 {
@@ -194,7 +193,7 @@ namespace BazisGUI
                 } 
             }
 
-            PrintSelectedInfo(ObjType.Элемент2D, _selectedE2D.Count);
+            PrintSelectedInfo(ObjType.Элемент2D, _selectedElement.Count);
             DisplayObjects();
         }
 

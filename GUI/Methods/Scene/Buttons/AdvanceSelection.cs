@@ -103,7 +103,7 @@ namespace BazisGUI
         }
         private void BackColorToAllObjects()
         {
-            _selectedE2D = new HashSet<int>();
+            _selectedElement = new HashSet<int>();
             SetBackColorToAllObjects();
             DisplayObjects();
         }
