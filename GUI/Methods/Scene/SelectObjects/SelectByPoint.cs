@@ -82,16 +82,14 @@ namespace BazisGUI
 
             if (selFlag)
             {
-                if (SelectedObjectEvent != null)
+                if (bool.Parse(btnAdvSelection.Tag.ToString()))
+                    DispatchSelection(tempSetInfo.ObjType, new List<int>() { tempNumb });
+                else 
                 {
-                    SelectedObjectEvent.Invoke();
-                    return selFlag;
+                    console.PrintInfo($"Выбран объект : {tempSetInfo.ObjType} {tempNumb}", Color.Black);
+                    CreateObjectProperties(tempSetInfo, tempNumb);
                 }
-                console.PrintInfo($"Выбран объект : {tempSetInfo.ObjType} {tempNumb}", Color.Black);
-                CreateObjectProperties(tempSetInfo, tempNumb);
             }
-
-
             return selFlag;
         }
 

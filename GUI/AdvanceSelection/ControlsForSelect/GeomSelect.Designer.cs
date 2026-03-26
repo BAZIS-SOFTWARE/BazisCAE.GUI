@@ -67,7 +67,6 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtVolume.TabStop = true;
             rbtVolume.Text = "Объемы";
             rbtVolume.Checked = true;
-            rbtVolume.CheckedChanged += rbtChange;
             // 
             // rbtSurface
             // 
@@ -80,7 +79,6 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtSurface.TabIndex = 8;
             rbtSurface.TabStop = true;
             rbtSurface.Text = "Поверхности";
-            rbtSurface.CheckedChanged += rbtChange;
             // 
             // rbtCurve
             // 
@@ -93,7 +91,6 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtCurve.TabIndex = 8;
             rbtCurve.TabStop = true;
             rbtCurve.Text = "Кривые";
-            rbtCurve.CheckedChanged += rbtChange;
             // 
             // GeomSelect
             // 

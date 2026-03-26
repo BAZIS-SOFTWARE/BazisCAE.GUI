@@ -1,7 +1,6 @@
-﻿using BazisGUI.AdvanceSelection.ControlsForSelect;
+﻿using BazisGUI.AdvanceSelection;
+using BazisGUI.AdvanceSelection.ControlsForSelect;
 using Model.Interfaces;
-using Model.Interfaces.ObjectsCollections;
-using Model.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,7 +11,6 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public event Action SelectedObjectEvent;
         private void btnSelection_Paint(object sender, PaintEventArgs e)
         {
             var gr = e.Graphics;
@@ -52,36 +50,22 @@ namespace BazisGUI
                     btn.Invalidate();
                 };
 
-                if (SelectedObjects == ObjType.Элемент1D.ToString() ||
-                    SelectedObjects == ObjType.Элемент2D.ToString() ||
-                    SelectedObjects == ObjType.Элемент3D.ToString() ||
-                    SelectedObjects == ObjType.Узел.ToString())
+                if (IsMesh())
                 {
                     var selectionControl = new MeshSelect(SelectedObjects);
                     OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
-                    selectionControl.CloseForm += RefreshForm;
-
-                    SelectedObjectEvent += selectionControl.SendSelectType;
-                    selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
-                    selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
-                    selectionControl.SelectInSet += SelectionControl_SelectInSet;
-                    selectionControl.ChangeRbt += BackColorToAllObjects;
+                    selectionControl.ChangeRadioButtonSelectEvent += ClearTuple_ChangeRadioButtonSelectEvent;
+                    selectionControl.SelectInDirection += OnReverseChanged;
                     form.ClientSize = selectionControl.Size;
                     form.Controls.Add(selectionControl);
                 }
 
-                else if (SelectedObjects == ObjType.Точка.ToString() ||
-                    SelectedObjects == ObjType.Кривая.ToString() ||
-                    SelectedObjects == ObjType.Поверхность.ToString() ||
-                    SelectedObjects == "Объекты")
+                else if (IsGeometry())
                 {
                     var selectionControl = new GeomSelect(SelectedObjects);
                     OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
                     selectionControl.CloseForm += RefreshForm;
 
-                    SelectedObjectEvent += selectionControl.SendSelectDimension;
-                    selectionControl.SelectInGeom += SelectionControl_SelectInGeom;
-                    selectionControl.ChangeRbt += BackColorToAllObjects;
                     form.ClientSize = selectionControl.Size;
                     form.Controls.Add(selectionControl);
                 }
@@ -96,17 +80,48 @@ namespace BazisGUI
             }
         }
 
+        private void ClearTuple_ChangeRadioButtonSelectEvent()
+        {
+            lastDirectionSelection = (null, null, null);
+        }
+
+        private void DispatchSelection(ObjType objType, List<int> numbers)
+        {
+            var forms = Application.OpenForms.Cast<Form>().ToList();
+            var form = forms.Find(x => x.Name == "selectForm");
+            if(form != null)
+            {
+                if (IsMesh())
+                {
+                    var mesh = form.Controls.OfType<MeshSelect>().FirstOrDefault();
+                    var additionalMode = mesh.GetSelectedAdditionalMode();
+                    if (additionalMode is SelectInDirectionEventArgs selectInDirectionEventArgs)
+                        SelectionControl_SelectInDirection(selectInDirectionEventArgs, numbers);
+                    else if (additionalMode is SelectInPlainEventArgs selectInPlain)
+                        SelectionControl_SelectInPlain(selectInPlain, objType, numbers);
+                    else if (additionalMode is ObjType setType)
+                        SelectionControl_SelectInSet(setType, numbers);
+                }
+                else if (IsGeometry())
+                {       
+                    var geom = form.Controls.OfType<GeomSelect>().FirstOrDefault();
+                    SelectionControl_SelectInGeom(geom.GetSelectDimension(), numbers);
+                }
+            }
+        }
+
         private void RefreshForm()
         {
             CloseAdvancedSelectionForm();
             btnAdvSelection_Click(btnAdvSelection, EventArgs.Empty);
         }
+
         private void BackColorToAllObjects()
         {
-            _selectedElement = new HashSet<int>();
             SetBackColorToAllObjects();
             DisplayObjects();
         }
+
         private void CloseAdvancedSelectionForm()
         {
             var forms = Application.OpenForms.Cast<Form>().ToList();
@@ -131,12 +146,6 @@ namespace BazisGUI
             if (mesh != null)
             {
                 OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
-                SelectedObjectEvent -= mesh.SendSelectType;
-                mesh.CloseForm -= RefreshForm;
-                mesh.SelectInDirection -= SelectionControl_SelectInDirection;
-                mesh.SelectInPlain -= SelectionControl_SelectInPlain;
-                mesh.SelectInSet -= SelectionControl_SelectInSet;
-                mesh.ChangeRbt -= BackColorToAllObjects;
                 mesh.Dispose();
                 return;
             }
@@ -145,12 +154,25 @@ namespace BazisGUI
             if (geom != null)
             {
                 OnChangeSelectedObjectsEvent -= geom.SetAvailableModes;
-                SelectedObjectEvent -= geom.SendSelectDimension;
                 geom.CloseForm -= RefreshForm;
-                geom.SelectInGeom -= SelectionControl_SelectInGeom;
-                geom.ChangeRbt -= BackColorToAllObjects;
                 geom.Dispose();
             }
+        }
+
+        private bool IsMesh()
+        {
+            return SelectedObjects == ObjType.Элемент1D.ToString() ||
+                   SelectedObjects == ObjType.Элемент2D.ToString() ||
+                   SelectedObjects == ObjType.Элемент3D.ToString() ||
+                   SelectedObjects == ObjType.Узел.ToString();
+        }
+
+        private bool IsGeometry()
+        {
+            return SelectedObjects == ObjType.Точка.ToString() ||
+                   SelectedObjects == ObjType.Кривая.ToString() ||
+                   SelectedObjects == ObjType.Поверхность.ToString() ||
+                   SelectedObjects == "Объекты";
         }
     }
 }

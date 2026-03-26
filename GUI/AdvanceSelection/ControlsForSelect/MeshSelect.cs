@@ -14,18 +14,13 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             { "Элемент3D", (true, false, false, false) },
             { "Узел",      (true, true, true, true) }
         };
-        public event Action CloseForm;
-        public event Action<object, SelectInDirectionEventArgs> SelectInDirection;
-        public event Action<object, SelectInPlainEventArgs> SelectInPlain;
-        public event Action<ObjType> SelectInSet;
-        public event Action ChangeRbt;
-
+        public event Action<bool, float, ObjType> SelectInDirection;
+        public event Action ChangeRadioButtonSelectEvent;
         private ObjType selectType;
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            SendSelectType();
         }
 
         public MeshSelect(string selectedObjects)
@@ -41,18 +36,18 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
                 SetApply(mode.set, mode.surface, mode.direction, mode.other);
                 selectType = ConvertToObjsType(selectedObjects);
             }
-            else
-                CloseForm?.Invoke();
+            //else
+            //    CloseForm?.Invoke();
         }
 
-        public void SendSelectType()
+        public object GetSelectedAdditionalMode()
         {
             if (rbtDirection.Checked)
-                SelectInDirection(this, new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
+                return new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text));
             else if (rbtSurface.Checked)
-                SelectInPlain(this, new SelectInPlainEventArgs(selectType, float.Parse(txbAngle.Text)));
-            else if (rbtSet.Checked)
-                SelectInSet(selectType);
+                return new SelectInPlainEventArgs(selectType, float.Parse(txbAngle.Text));
+            else
+                return selectType;
         }
 
         private void SetApply(bool set, bool surface, bool direction, bool other)
@@ -72,9 +67,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
                 throw new Exception($"Ошибка конвертации объектов {objects}");
         }
 
-        private void rbtChange(object sender, EventArgs e) => ChangeRbt?.Invoke();
-
         private void chbChangeDirection_CheckedChanged(object sender, EventArgs e) =>
-            SelectInDirection(this, new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
+            SelectInDirection(chbChangeDirection.Checked, float.Parse(txbAngle.Text), ObjType.Узел);
     }
 }

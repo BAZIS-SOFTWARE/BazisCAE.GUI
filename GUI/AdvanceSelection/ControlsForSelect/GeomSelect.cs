@@ -14,8 +14,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             { "Поверхность", (true, false, false) }
         };
         public event Action CloseForm;
-        public event Action<int> SelectInGeom;
-        public event Action ChangeRbt;
+
         public GeomSelect(string selectedObjects)
         {
             InitializeComponent();
@@ -25,7 +24,6 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            SendSelectDimension();
         }
         public void SetAvailableModes(string selectedObjects)
         {
@@ -35,25 +33,20 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
                 CloseForm?.Invoke();
         }
 
-        public void SendSelectDimension()
+        public int GetSelectDimension()
         {
             foreach (var rb in generalPanel.Controls.OfType<RadioButton>())
-            {
                 if (rb.Checked)
-                {
-                    SelectInGeom?.Invoke(GetDimm(rb.Text));
-                    return;
-                }
-            }
+                    return GetDimm(rb.Text);
+            return -1;
         }
+
         private void SetApply(bool volume, bool surface, bool curve)
         {
             rbtVolume.Enabled = volume;
             rbtSurface.Enabled = surface;
             rbtCurve.Enabled = curve;
         }
-
-        private void rbtChange(object sender, EventArgs e) => ChangeRbt?.Invoke();
 
         private int GetDimm(string rbtText) 
         {
