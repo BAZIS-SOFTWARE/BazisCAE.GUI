@@ -16,6 +16,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         };
         public event Action<bool, float, ObjType> SelectInDirection;
         public event Action ChangeRadioButtonSelectEvent;
+        public event Action CloseForm;
         private ObjType selectType;
 
         protected override void OnLoad(EventArgs e)
@@ -36,8 +37,8 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
                 SetApply(mode.set, mode.surface, mode.direction, mode.other);
                 selectType = ConvertToObjsType(selectedObjects);
             }
-            //else
-            //    CloseForm?.Invoke();
+            else
+                CloseForm?.Invoke();
         }
 
         public object GetSelectedAdditionalMode()

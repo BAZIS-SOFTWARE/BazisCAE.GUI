@@ -56,6 +56,8 @@ namespace BazisGUI
                     OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
                     selectionControl.ChangeRadioButtonSelectEvent += ClearTuple_ChangeRadioButtonSelectEvent;
                     selectionControl.SelectInDirection += OnReverseChanged;
+                    selectionControl.CloseForm += RefreshForm;
+
                     form.ClientSize = selectionControl.Size;
                     form.Controls.Add(selectionControl);
                 }
@@ -146,6 +148,9 @@ namespace BazisGUI
             if (mesh != null)
             {
                 OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
+                mesh.ChangeRadioButtonSelectEvent -= ClearTuple_ChangeRadioButtonSelectEvent;
+                mesh.SelectInDirection -= OnReverseChanged;
+                mesh.CloseForm -= RefreshForm;
                 mesh.Dispose();
                 return;
             }
