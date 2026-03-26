@@ -143,6 +143,7 @@ namespace BazisGUI
             var mbf = new Form()
             {
                 ShowIcon = false,
+                Name = "Загрузка",
                 Text = "Загрузка данных. Пожалуйста подождите...",
                 StartPosition = FormStartPosition.Manual,
                 Location = new System.Drawing.Point(Application.OpenForms[0].Width / 2, Application.OpenForms[0].Height / 2),

@@ -469,6 +469,7 @@ namespace BazisGUI
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+                Application.OpenForms["Загрузка"]?.Close();
             }
         }
 
@@ -668,6 +669,7 @@ namespace BazisGUI
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+                Application.OpenForms["Загрузка"]?.Close();
             }
         }
     }
