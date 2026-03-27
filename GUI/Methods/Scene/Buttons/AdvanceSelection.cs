@@ -84,7 +84,7 @@ namespace BazisGUI
 
         private void ClearTuple_ChangeRadioButtonSelectEvent()
         {
-            lastDirectionSelection = (null, null, null);
+            //lastDirectionSelection = (null, null, null);
         }
 
         private void DispatchSelection(ObjType objType, List<int> numbers)
@@ -97,9 +97,11 @@ namespace BazisGUI
                 {
                     var mesh = form.Controls.OfType<MeshSelect>().FirstOrDefault();
                     var additionalMode = mesh.GetSelectedAdditionalMode();
-                    if (additionalMode is SelectInDirectionEventArgs selectInDirectionEventArgs)
-                        SelectionControl_SelectInDirection(selectInDirectionEventArgs, numbers);
-                    else if (additionalMode is SelectInPlainEventArgs selectInPlain)
+                    if (additionalMode is SelectInDirectionConfig selectInDirectionEventArgs) 
+                    {
+                        mesh.SetDirectionConfig(SelectionControl_SelectInDirection(selectInDirectionEventArgs, numbers));
+                    }
+                    else if (additionalMode is SelectInPlainConfig selectInPlain)
                         SelectionControl_SelectInPlain(selectInPlain, objType, numbers);
                     else if (additionalMode is ObjType setType)
                         SelectionControl_SelectInSet(setType, numbers);

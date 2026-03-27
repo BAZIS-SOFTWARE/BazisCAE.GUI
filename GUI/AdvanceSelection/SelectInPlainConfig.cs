@@ -3,12 +3,12 @@ using System;
 
 namespace BazisGUI.AdvanceSelection
 {
-    public class SelectInPlainEventArgs : EventArgs
+    public class SelectInPlainConfig : EventArgs
     {
         public ObjType Objects { get; }
         public float Angle { get; }
 
-        public SelectInPlainEventArgs(ObjType objects, float angle)
+        public SelectInPlainConfig(ObjType objects, float angle)
         {
             Objects = objects;
             Angle = angle;

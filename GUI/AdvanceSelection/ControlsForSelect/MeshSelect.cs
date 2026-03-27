@@ -7,6 +7,8 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 {
     public partial class MeshSelect : UserControl
     {
+        private SelectInDirectionConfig directionConfig;
+
         private readonly Dictionary<string, (bool set, bool surface, bool direction, bool other)> _modes = new()
         {
             { "Элемент1D", (true, false, false, false) },
@@ -14,7 +16,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             { "Элемент3D", (true, false, false, false) },
             { "Узел",      (true, true, true, true) }
         };
-        public event Action<bool, float, ObjType> SelectInDirection;
+        public event Action<SelectInDirectionConfig> SelectInDirection;
         public event Action ChangeRadioButtonSelectEvent;
         public event Action CloseForm;
         private ObjType selectType;
@@ -28,6 +30,12 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         {
             InitializeComponent();
             SetAvailableModes(selectedObjects);
+            directionConfig = new SelectInDirectionConfig(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text));
+        }
+
+        public void SetDirectionConfig(SelectInDirectionConfig current)
+        {
+            directionConfig = current;
         }
 
         public void SetAvailableModes(string selectedObjects)
@@ -44,9 +52,9 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         public object GetSelectedAdditionalMode()
         {
             if (rbtDirection.Checked)
-                return new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text));
+                return directionConfig;
             else if (rbtSurface.Checked)
-                return new SelectInPlainEventArgs(selectType, float.Parse(txbAngle.Text));
+                return new SelectInPlainConfig(selectType, float.Parse(txbAngle.Text));
             else
                 return selectType;
         }
@@ -68,7 +76,10 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
                 throw new Exception($"Ошибка конвертации объектов {objects}");
         }
 
-        private void chbChangeDirection_CheckedChanged(object sender, EventArgs e) =>
-            SelectInDirection(chbChangeDirection.Checked, float.Parse(txbAngle.Text), ObjType.Узел);
+        private void chbChangeDirection_CheckedChanged(object sender, EventArgs e) 
+        {
+            directionConfig.Reverse = chbChangeDirection.Checked;
+            SelectInDirection(directionConfig);
+        }
     }
 }

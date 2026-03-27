@@ -18,7 +18,6 @@ namespace BazisGUI
     {
         Dictionary<string, Button> objButtons = new Dictionary<string, Button>();
         public event Action<string> OnChangeSelectedObjectsEvent;
-        private (int? first, int? second, int? third) lastDirectionSelection;
         /// <summary>
         /// Временный выбранный объект для работы со свойствами через сцену
         /// </summary>
@@ -144,7 +143,7 @@ namespace BazisGUI
             return btn;
         }
 
-        private void SelectionControl_SelectInPlain(SelectInPlainEventArgs arg2, ObjType objType, List<int> numbers)
+        private void SelectionControl_SelectInPlain(SelectInPlainConfig arg2, ObjType objType, List<int> numbers)
         {
             try
             {
@@ -199,48 +198,48 @@ namespace BazisGUI
 
         private void SelectNodeInPlane(List<int> numbers)
         {
-            var remainingSlots = new List<int?>();
-            if (lastDirectionSelection.first == null) remainingSlots.Add(0);
-            if (lastDirectionSelection.second == null) remainingSlots.Add(1);
-            if (lastDirectionSelection.third == null) remainingSlots.Add(2);
+            //var remainingSlots = new List<int?>();
+            //if (lastDirectionSelection.first == null) remainingSlots.Add(0);
+            //if (lastDirectionSelection.second == null) remainingSlots.Add(1);
+            //if (lastDirectionSelection.third == null) remainingSlots.Add(2);
 
-            for (int i = 0; i < numbers.Count && i < remainingSlots.Count; i++)
-            {
-                switch (remainingSlots[i])
-                {
-                    case 0: lastDirectionSelection.first = numbers[i]; break;
-                    case 1: lastDirectionSelection.second = numbers[i]; break;
-                    case 2: lastDirectionSelection.third = numbers[i]; break;
-                }
-            }
+            //for (int i = 0; i < numbers.Count && i < remainingSlots.Count; i++)
+            //{
+            //    switch (remainingSlots[i])
+            //    {
+            //        case 0: lastDirectionSelection.first = numbers[i]; break;
+            //        case 1: lastDirectionSelection.second = numbers[i]; break;
+            //        case 2: lastDirectionSelection.third = numbers[i]; break;
+            //    }
+            //}
 
-            var selectedNumbers = new[] { lastDirectionSelection.first, lastDirectionSelection.second, lastDirectionSelection.third }
-                                  .Where(n => n.HasValue)
-                                  .Select(n => n.Value)
-                                  .ToList();
+            //var selectedNumbers = new[] { lastDirectionSelection.first, lastDirectionSelection.second, lastDirectionSelection.third }
+            //                      .Where(n => n.HasValue)
+            //                      .Select(n => n.Value)
+            //                      .ToList();
 
-            if (selectedNumbers.Count < 3)
-            {
-                console.PrintInfo("Не выбрано три узла", Color.Red);
-                return;
-            }
+            //if (selectedNumbers.Count < 3)
+            //{
+            //    console.PrintInfo("Не выбрано три узла", Color.Red);
+            //    return;
+            //}
 
-            var nodes = project.GetAllModelNodes()
-                               .Join(selectedNumbers, node => node.Number, num => num, (node, num) => node)
-                               .ToArray();
+            //var nodes = project.GetAllModelNodes()
+            //                   .Join(selectedNumbers, node => node.Number, num => num, (node, num) => node)
+            //                   .ToArray();
 
-            var plane = new Geometry.Plane(nodes[0].Position, nodes[1].Position, nodes[2].Position);
-            project.SelectNodeInPlane(plane, settingsConfig.SelectObjectColor);
-            lastDirectionSelection = (null, null, null);
-            var selectedCount = project.GetAllModelNodes().Count(x => x.Color == settingsConfig.SelectObjectColor);
-            PrintSelectedInfo(ObjType.Узел, selectedCount);
+            //var plane = new Geometry.Plane(nodes[0].Position, nodes[1].Position, nodes[2].Position);
+            //project.SelectNodeInPlane(plane, settingsConfig.SelectObjectColor);
+            //lastDirectionSelection = (null, null, null);
+            //var selectedCount = project.GetAllModelNodes().Count(x => x.Color == settingsConfig.SelectObjectColor);
+            //PrintSelectedInfo(ObjType.Узел, selectedCount);
 
-            var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
-            SetVBObjectAttribute(pres, "цвет");
+            //var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
+            //SetVBObjectAttribute(pres, "цвет");
         }
 
 
-        private void SelectionControl_SelectInDirection(SelectInDirectionEventArgs arg2, List<int> numbers)
+        private SelectInDirectionConfig SelectionControl_SelectInDirection(SelectInDirectionConfig arg2, List<int> numbers)
         {
             try
             {
@@ -248,68 +247,79 @@ namespace BazisGUI
 
                 if (objsType == SelectedObjects.ToEnum<ObjType>()) 
                 {
+                    var temp = arg2;
                     if (numbers.Count >= 2)
                     {
-                        lastDirectionSelection = (numbers[0], numbers[1], null);
                         SelectInDirection(objsType, numbers, arg2.Angle, arg2.Reverse);
-                        return;
+                        temp.FirstNodeDirection = numbers[0];
+                        temp.SecondNodeDirection = numbers[1];
+                        return temp;
                     }
-                    if (lastDirectionSelection.second != null)
-                        lastDirectionSelection = (null, null, null);
+                    if (arg2.SecondNodeDirection != null)
+                    {
+                        temp.FirstNodeDirection = null;
+                        temp.SecondNodeDirection = null;
+                    }
 
                     var current = numbers[0];
 
-                    if (lastDirectionSelection.first == null)
+                    if (temp.FirstNodeDirection == null)
                     {
-                        lastDirectionSelection.first = current;
+                        temp.FirstNodeDirection = current;
                         console.PrintInfo("Выберите второй узел...", Color.Black);
-                        return;
+                        return temp;
                     }
-                    lastDirectionSelection.second = current;
+                    temp.SecondNodeDirection = current;
 
-                    var first = lastDirectionSelection.first.Value;
-                    var second = lastDirectionSelection.second.Value;
-                    SelectInDirection(objsType, [first, second], arg2.Angle, arg2.Reverse);
+                    SelectInDirection(objsType, [temp.FirstNodeDirection.Value, temp.SecondNodeDirection.Value], arg2.Angle, arg2.Reverse);
+                    return temp;
                 }
                     
             }
-            catch (Exception ex){ console.PrintInfo(ex.Message, Color.Red); }
+            catch (Exception ex)
+            { 
+                console.PrintInfo(ex.Message, Color.Red); 
+                return arg2; 
+            }
+            return arg2;
         }
 
-        private void OnReverseChanged(bool reverse, float angle, ObjType type)
+        private void OnReverseChanged(SelectInDirectionConfig config)
         {
-            if (!lastDirectionSelection.first.HasValue || !lastDirectionSelection.second.HasValue)
+            if (!config.FirstNodeDirection.HasValue || !config.SecondNodeDirection.HasValue)
             {
                 console.PrintInfo("Нет данных для перестроения", Color.Red);
                 return;
             }
+            //ToDo SelectInDirectionConfig перадавать последние
+            //закрашенные и снимать выделение при реверсе тут
+            var first = config.FirstNodeDirection.Value;
+            var second = config.SecondNodeDirection.Value;
 
-            var first = lastDirectionSelection.first.Value;
-            var second = lastDirectionSelection.second.Value;
-
-            SelectInDirection(type, new List<int> { first, second }, angle, reverse);
+            SelectInDirection(config.Objects, new List<int> { first, second }, config.Angle, config.Reverse);
         }
 
-        private void SelectInDirection(ObjType arg2, List<int> numbers, float angle, bool reverse)
+        private List<int> SelectInDirection(ObjType arg2, List<int> numbers, float angle, bool reverse)
         {
             if (numbers.Count < 2)
-                return;
+                return null;
 
             var first = numbers[0];
             var second = numbers[1];
 
-            int counter;
+            List<int> selectedNumbers;
 
             if (!reverse)
-                counter = project.SelectNodeInDirection(angle, second, first, settingsConfig.SelectObjectColor).Count;
+                selectedNumbers = project.SelectNodeInDirection(angle, second, first, settingsConfig.SelectObjectColor);
             else
-                counter = project.SelectNodeInDirection(angle, first, second, settingsConfig.SelectObjectColor).Count;
+                selectedNumbers = project.SelectNodeInDirection(angle, first, second, settingsConfig.SelectObjectColor);
 
             var pres = project.CreateModelObjectsPresentor(arg2);
             SetVBObjectAttribute(pres, "цвет");
-
-            PrintSelectedInfo(arg2, counter);
+            
+            PrintSelectedInfo(arg2, selectedNumbers.Count);
             DisplayObjects();
+            return selectedNumbers;
         }
         private void SelectionControl_SelectInSet(ObjType selectType, List<int> numbers)
         {
