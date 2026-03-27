@@ -62,7 +62,7 @@ namespace BazisGUI
             var objStr = Declination(counter);
             if (isSelected)
             {
-                if (bool.Parse(btnAdvSelection.Tag.ToString()))
+                if (bool.Parse(btnAdvSelection.Tag.ToString()) && counter != 0)
                     DispatchSelection(sets.First().ObjType, numbersSelevtedElement);
                 else
                     console.PrintInfo($"Выбрано {counter} {objStr}", Color.Black);
