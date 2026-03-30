@@ -1,6 +1,7 @@
 ﻿using BazisGUI.AdvanceSelection;
 using BazisGUI.Extensions;
 using BazisGUI.Properties;
+using MathNet.Numerics.RootFinding;
 using Model.Interfaces;
 using Model.MeshObjects;
 using Model.Utilities;
@@ -132,7 +133,6 @@ namespace BazisGUI
             var btn = new Button();
             btn.Anchor = btnSelect.Anchor;
             btn.AutoSize = btnSelect.AutoSize;
-            //lbl.Location = new System.Drawing.Point(4, 7);
             btn.Name = name;
             btn.Size = btnSelect.Size;
             btn.Text = name;
@@ -143,7 +143,7 @@ namespace BazisGUI
             return btn;
         }
 
-        private void SelectionControl_SelectInPlain(SelectInPlainConfig arg2, ObjType objType, List<int> numbers)
+        private SelectInPlainEventArgs SelectionControl_SelectInPlain(SelectInPlainEventArgs arg2, ObjType objType, List<int> numbers, bool isSelected)
         {
             try
             {
@@ -151,17 +151,18 @@ namespace BazisGUI
                 if (objsType == SelectedObjects.ToEnum<ObjType>())
                 {
                     if (objsType == ObjType.Узел)
-                        SelectNodeInPlane(numbers);
+                        arg2 = SelectNodeInPlane(arg2, numbers, isSelected);
                     else
-                        SelectE2DInPlane(arg2.Angle, objType, numbers);
+                        SelectE2DInPlane(arg2.Angle, objType, numbers, isSelected);
 
                     DisplayObjects();
                 }
             }
             catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
+            return arg2;
         }
 
-        private void SelectE2DInPlane(float angle, ObjType objType, List<int> numbers)
+        private void SelectE2DInPlane(float angle, ObjType objType, List<int> numbers, bool isSelected)
         {
             if (numbers == null || numbers.Count == 0)
             {
@@ -173,6 +174,9 @@ namespace BazisGUI
 
             foreach (var selObject in numbers)
             {
+                if (isSelected) { }
+
+                else { }
                 var objs = project.SelectE2DInPlane(angle, selObject, settingsConfig.SelectObjectColor);
 
                 if (objs == null)
@@ -196,50 +200,54 @@ namespace BazisGUI
             DisplayObjects();
         }
 
-        private void SelectNodeInPlane(List<int> numbers)
+        private SelectInPlainEventArgs SelectNodeInPlane(SelectInPlainEventArgs selectInPlainEvent, List<int> numbers, bool isSelected)
         {
-            //var remainingSlots = new List<int?>();
-            //if (lastDirectionSelection.first == null) remainingSlots.Add(0);
-            //if (lastDirectionSelection.second == null) remainingSlots.Add(1);
-            //if (lastDirectionSelection.third == null) remainingSlots.Add(2);
+            var remainingSlots = new List<int?>();
+            if (selectInPlainEvent.FirstNodeForPlane == null) remainingSlots.Add(0);
+            if (selectInPlainEvent.SecondNodeForPlane == null) remainingSlots.Add(1);
+            if (selectInPlainEvent.ThirdNodeForPlane == null) remainingSlots.Add(2);
 
-            //for (int i = 0; i < numbers.Count && i < remainingSlots.Count; i++)
-            //{
-            //    switch (remainingSlots[i])
-            //    {
-            //        case 0: lastDirectionSelection.first = numbers[i]; break;
-            //        case 1: lastDirectionSelection.second = numbers[i]; break;
-            //        case 2: lastDirectionSelection.third = numbers[i]; break;
-            //    }
-            //}
+            for (int i = 0; i < numbers.Count && i < remainingSlots.Count; i++)
+            {
+                switch (remainingSlots[i])
+                {
+                    case 0: selectInPlainEvent.FirstNodeForPlane = numbers[i]; break;
+                    case 1: selectInPlainEvent.SecondNodeForPlane = numbers[i]; break;
+                    case 2: selectInPlainEvent.ThirdNodeForPlane = numbers[i]; break;
+                }
+            }
 
-            //var selectedNumbers = new[] { lastDirectionSelection.first, lastDirectionSelection.second, lastDirectionSelection.third }
-            //                      .Where(n => n.HasValue)
-            //                      .Select(n => n.Value)
-            //                      .ToList();
+            var selectedNumbers = new[] { selectInPlainEvent.FirstNodeForPlane, selectInPlainEvent.SecondNodeForPlane, selectInPlainEvent.ThirdNodeForPlane }
+                                  .Where(n => n.HasValue)
+                                  .Select(n => n.Value)
+                                  .ToList();
 
-            //if (selectedNumbers.Count < 3)
-            //{
-            //    console.PrintInfo("Не выбрано три узла", Color.Red);
-            //    return;
-            //}
+            if (selectedNumbers.Count < 3)
+            {
+                console.PrintInfo("Не выбрано три узла", Color.Red);
+                return selectInPlainEvent;
+            }
 
-            //var nodes = project.GetAllModelNodes()
-            //                   .Join(selectedNumbers, node => node.Number, num => num, (node, num) => node)
-            //                   .ToArray();
+            var nodes = project.GetAllModelNodes()
+                               .Join(selectedNumbers, node => node.Number, num => num, (node, num) => node)
+                               .ToArray();
 
-            //var plane = new Geometry.Plane(nodes[0].Position, nodes[1].Position, nodes[2].Position);
-            //project.SelectNodeInPlane(plane, settingsConfig.SelectObjectColor);
-            //lastDirectionSelection = (null, null, null);
-            //var selectedCount = project.GetAllModelNodes().Count(x => x.Color == settingsConfig.SelectObjectColor);
-            //PrintSelectedInfo(ObjType.Узел, selectedCount);
+            var plane = new Geometry.Plane(nodes[0].Position, nodes[1].Position, nodes[2].Position);
+            project.SelectNodeInPlane(plane, settingsConfig.SelectObjectColor);
+            selectInPlainEvent.FirstNodeForPlane = null;
+            selectInPlainEvent.SecondNodeForPlane = null;
+            selectInPlainEvent.ThirdNodeForPlane = null;
+            
+            var selectedCount = project.GetAllModelNodes().Count(x => x.Color == settingsConfig.SelectObjectColor);
+            PrintSelectedInfo(ObjType.Узел, selectedCount);
 
-            //var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
-            //SetVBObjectAttribute(pres, "цвет");
+            var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
+            SetVBObjectAttribute(pres, "цвет");
+            return selectInPlainEvent;
         }
 
 
-        private SelectInDirectionConfig SelectionControl_SelectInDirection(SelectInDirectionConfig arg2, List<int> numbers)
+        private SelectInDirectionEventArgs SelectionControl_SelectInDirection(SelectInDirectionEventArgs arg2, List<int> numbers, bool isSelected)
         {
             try
             {
@@ -250,7 +258,7 @@ namespace BazisGUI
                     var temp = arg2;
                     if (numbers.Count >= 2)
                     {
-                        SelectInDirection(objsType, numbers, arg2.Angle, arg2.Reverse);
+                        arg2.SetNumbers(SelectInDirection(objsType, numbers, arg2.Angle, arg2.Reverse));
                         temp.FirstNodeDirection = numbers[0];
                         temp.SecondNodeDirection = numbers[1];
                         return temp;
@@ -271,10 +279,11 @@ namespace BazisGUI
                     }
                     temp.SecondNodeDirection = current;
 
-                    SelectInDirection(objsType, [temp.FirstNodeDirection.Value, temp.SecondNodeDirection.Value], arg2.Angle, arg2.Reverse);
+                    var tempSelectedNumbers = SelectInDirection(objsType, [temp.FirstNodeDirection.Value, temp.SecondNodeDirection.Value], arg2.Angle, arg2.Reverse);
+                    arg2.SetNumbers(tempSelectedNumbers);
+
                     return temp;
-                }
-                    
+                }       
             }
             catch (Exception ex)
             { 
@@ -284,19 +293,33 @@ namespace BazisGUI
             return arg2;
         }
 
-        private void OnReverseChanged(SelectInDirectionConfig config)
+        private void OnReverseChanged(SelectInDirectionEventArgs config)
         {
             if (!config.FirstNodeDirection.HasValue || !config.SecondNodeDirection.HasValue)
             {
                 console.PrintInfo("Нет данных для перестроения", Color.Red);
                 return;
             }
-            //ToDo SelectInDirectionConfig перадавать последние
-            //закрашенные и снимать выделение при реверсе тут
+
             var first = config.FirstNodeDirection.Value;
             var second = config.SecondNodeDirection.Value;
 
-            SelectInDirection(config.Objects, new List<int> { first, second }, config.Angle, config.Reverse);
+            if (config.SelectedNumbers.Count != 0)
+            {
+                var uniqueSets = config.SelectedNumbers.Select(number => project.GetModelSetInfo(config.Objects, number))
+                    .GroupBy(setInfo => setInfo.Name)
+                    .Select(g => g.First())
+                    .ToList();
+                foreach (var setInfo in uniqueSets)
+                {
+                    foreach (var number in config.SelectedNumbers)
+                        setInfo.SetBackColor(number);
+                    var pres = project.CreateModelObjectsPresentor(setInfo);
+                    SetVBObjectAttribute(pres, "цвет");
+                }
+            }
+            var tempSelectedNumbers = SelectInDirection(config.Objects, [first, second], config.Angle, config.Reverse);
+            config.SetNumbers(tempSelectedNumbers);
         }
 
         private List<int> SelectInDirection(ObjType arg2, List<int> numbers, float angle, bool reverse)
@@ -351,7 +374,7 @@ namespace BazisGUI
             DisplayObjects();
         }
 
-        private void SelectionControl_SelectInGeom(int targetDim, List<int> numbers)
+        private void SelectionControl_SelectInGeom(int targetDim, List<int> numbers, bool isSelected)
         {
 
             if (numbers == null || numbers.Count == 0)
@@ -367,7 +390,9 @@ namespace BazisGUI
             foreach (var number in volumes)
             {
                 var element = project.GetModelObject(objType, number);
-                element.Color = settingsConfig.SelectObjectColor;
+                if(isSelected)
+                    element.Color = settingsConfig.SelectObjectColor;
+                else project.GetModelSetInfo(objType, number).SetBackColor();
             }
 
             foreach (var number in numbers)

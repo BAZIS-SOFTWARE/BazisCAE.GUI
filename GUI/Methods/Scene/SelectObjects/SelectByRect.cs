@@ -63,7 +63,7 @@ namespace BazisGUI
             if (isSelected)
             {
                 if (bool.Parse(btnAdvSelection.Tag.ToString()) && counter != 0)
-                    DispatchSelection(sets.First().ObjType, numbersSelevtedElement);
+                    DispatchSelection(sets.First().ObjType, numbersSelevtedElement, isSelected);
                 else
                     console.PrintInfo($"Выбрано {counter} {objStr}", Color.Black);
             }

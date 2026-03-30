@@ -7,7 +7,8 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 {
     public partial class MeshSelect : UserControl
     {
-        private SelectInDirectionConfig directionConfig;
+        private SelectInDirectionEventArgs directionConfig;
+        private SelectInPlainEventArgs plainConfig;
 
         private readonly Dictionary<string, (bool set, bool surface, bool direction, bool other)> _modes = new()
         {
@@ -16,7 +17,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             { "Элемент3D", (true, false, false, false) },
             { "Узел",      (true, true, true, true) }
         };
-        public event Action<SelectInDirectionConfig> SelectInDirection;
+        public event Action<SelectInDirectionEventArgs> SelectInDirection;
         public event Action ChangeRadioButtonSelectEvent;
         public event Action CloseForm;
         private ObjType selectType;
@@ -30,10 +31,9 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         {
             InitializeComponent();
             SetAvailableModes(selectedObjects);
-            directionConfig = new SelectInDirectionConfig(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text));
         }
 
-        public void SetDirectionConfig(SelectInDirectionConfig current)
+        public void SetDirectionConfig(SelectInDirectionEventArgs current)
         {
             directionConfig = current;
         }
@@ -51,10 +51,19 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 
         public object GetSelectedAdditionalMode()
         {
-            if (rbtDirection.Checked)
+            if (rbtDirection.Checked) 
+            {
+                if(directionConfig ==  null)
+                    directionConfig = new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text));
                 return directionConfig;
+            }
+                
             else if (rbtSurface.Checked)
-                return new SelectInPlainConfig(selectType, float.Parse(txbAngle.Text));
+            {
+                if(plainConfig == null)
+                    plainConfig = new SelectInPlainEventArgs(selectType, float.Parse(txbAngle.Text));
+                return plainConfig;
+            }
             else
                 return selectType;
         }

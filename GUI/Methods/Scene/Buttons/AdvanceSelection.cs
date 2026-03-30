@@ -87,7 +87,7 @@ namespace BazisGUI
             //lastDirectionSelection = (null, null, null);
         }
 
-        private void DispatchSelection(ObjType objType, List<int> numbers)
+        private void DispatchSelection(ObjType objType, List<int> numbers, bool isSelected)
         {
             var forms = Application.OpenForms.Cast<Form>().ToList();
             var form = forms.Find(x => x.Name == "selectForm");
@@ -97,19 +97,22 @@ namespace BazisGUI
                 {
                     var mesh = form.Controls.OfType<MeshSelect>().FirstOrDefault();
                     var additionalMode = mesh.GetSelectedAdditionalMode();
-                    if (additionalMode is SelectInDirectionConfig selectInDirectionEventArgs) 
+                    if (additionalMode is SelectInDirectionEventArgs selectInDirectionEventArgs) 
                     {
-                        mesh.SetDirectionConfig(SelectionControl_SelectInDirection(selectInDirectionEventArgs, numbers));
+                        var tempSelectInDirection = SelectionControl_SelectInDirection(selectInDirectionEventArgs, numbers, isSelected);
+                        mesh.SetDirectionConfig(tempSelectInDirection);
                     }
-                    else if (additionalMode is SelectInPlainConfig selectInPlain)
-                        SelectionControl_SelectInPlain(selectInPlain, objType, numbers);
+                    else if (additionalMode is SelectInPlainEventArgs selectInPlain)
+                    {
+                        var tempSelectInPlain = SelectionControl_SelectInPlain(selectInPlain, objType, numbers, isSelected);
+                    }
                     else if (additionalMode is ObjType setType)
                         SelectionControl_SelectInSet(setType, numbers);
                 }
                 else if (IsGeometry())
                 {       
                     var geom = form.Controls.OfType<GeomSelect>().FirstOrDefault();
-                    SelectionControl_SelectInGeom(geom.GetSelectDimension(), numbers);
+                    SelectionControl_SelectInGeom(geom.GetSelectDimension(), numbers, isSelected);
                 }
             }
         }
