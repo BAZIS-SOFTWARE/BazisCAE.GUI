@@ -153,7 +153,7 @@ namespace BazisGUI
                     if (objsType == ObjType.Узел)
                         arg2 = SelectNodeInPlane(arg2, numbers, isSelected);
                     else
-                        SelectE2DInPlane(arg2.Angle, objType, numbers, isSelected);
+                        SelectE2DInPlane(arg2, objType, numbers, isSelected);
 
                     DisplayObjects();
                 }
@@ -162,7 +162,7 @@ namespace BazisGUI
             return arg2;
         }
 
-        private void SelectE2DInPlane(float angle, ObjType objType, List<int> numbers, bool isSelected)
+        private void SelectE2DInPlane(SelectInPlainEventArgs selectInPlainEvent, ObjType objType, List<int> numbers, bool isSelected)
         {
             if (numbers == null || numbers.Count == 0)
             {
@@ -174,28 +174,24 @@ namespace BazisGUI
 
             foreach (var selObject in numbers)
             {
-                if (isSelected) { }
-
-                else { }
-                var objs = project.SelectE2DInPlane(angle, selObject, settingsConfig.SelectObjectColor);
+                var color = GetColor(objType, selObject, isSelected);
+                var objs = project.SelectE2DInPlane(selectInPlainEvent.Angle, selObject, color);
 
                 if (objs == null)
                     continue;
 
-                var newObjs = objs.Where(x => localCache.Add(x)).ToArray();
+                var newObjs = objs.Where(x => localCache.Add(x)).ToList();
 
-                if (newObjs.Length == 0)
+                if (newObjs.Count == 0)
                     continue;
 
-                foreach (var set in newObjs
-                    .Select(x => project.GetModelSetInfo(objType, x))
-                    .Distinct(new DefaultSetInfoComparer()))
+                foreach (var set in newObjs.Select(x => project.GetModelSetInfo(objType, x)).Distinct(new DefaultSetInfoComparer()))
                 {
                     var pres = project.CreateModelObjectsPresentor(set);
                     SetVBObjectAttribute(pres, "цвет");
                 }
             }
-
+            selectInPlainEvent.SelectedNumbers = localCache.ToList();
             PrintSelectedInfo(objType, localCache.Count);
             DisplayObjects();
         }
@@ -233,16 +229,18 @@ namespace BazisGUI
                                .ToArray();
 
             var plane = new Geometry.Plane(nodes[0].Position, nodes[1].Position, nodes[2].Position);
-            project.SelectNodeInPlane(plane, settingsConfig.SelectObjectColor);
+
+            var color = GetColor(selectInPlainEvent.Objects, selectedNumbers[0], isSelected);
+            project.SelectNodeInPlane(plane, color);
             selectInPlainEvent.FirstNodeForPlane = null;
             selectInPlainEvent.SecondNodeForPlane = null;
             selectInPlainEvent.ThirdNodeForPlane = null;
             
-            var selectedCount = project.GetAllModelNodes().Count(x => x.Color == settingsConfig.SelectObjectColor);
-            PrintSelectedInfo(ObjType.Узел, selectedCount);
-
             var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
             SetVBObjectAttribute(pres, "цвет");
+            var selectedCount = project.GetAllModelNodes().Count(x => x.Color == settingsConfig.SelectObjectColor);
+            PrintSelectedInfo(ObjType.Узел, selectedCount);
+            selectInPlainEvent.SelectedNumbers = selectedNumbers;
             return selectInPlainEvent;
         }
 
@@ -258,7 +256,7 @@ namespace BazisGUI
                     var temp = arg2;
                     if (numbers.Count >= 2)
                     {
-                        arg2.SetNumbers(SelectInDirection(objsType, numbers, arg2.Angle, arg2.Reverse));
+                        arg2.SetNumbers(SelectInDirection(objsType, numbers, arg2.Angle, arg2.Reverse, isSelected));
                         temp.FirstNodeDirection = numbers[0];
                         temp.SecondNodeDirection = numbers[1];
                         return temp;
@@ -279,7 +277,7 @@ namespace BazisGUI
                     }
                     temp.SecondNodeDirection = current;
 
-                    var tempSelectedNumbers = SelectInDirection(objsType, [temp.FirstNodeDirection.Value, temp.SecondNodeDirection.Value], arg2.Angle, arg2.Reverse);
+                    var tempSelectedNumbers = SelectInDirection(objsType, [temp.FirstNodeDirection.Value, temp.SecondNodeDirection.Value], arg2.Angle, arg2.Reverse, isSelected);
                     arg2.SetNumbers(tempSelectedNumbers);
 
                     return temp;
@@ -322,7 +320,7 @@ namespace BazisGUI
             config.SetNumbers(tempSelectedNumbers);
         }
 
-        private List<int> SelectInDirection(ObjType arg2, List<int> numbers, float angle, bool reverse)
+        private List<int> SelectInDirection(ObjType arg2, List<int> numbers, float angle, bool reverse, bool isSelected = true)
         {
             if (numbers.Count < 2)
                 return null;
@@ -331,11 +329,11 @@ namespace BazisGUI
             var second = numbers[1];
 
             List<int> selectedNumbers;
-
+            var color = GetColor(arg2, first, isSelected);
             if (!reverse)
-                selectedNumbers = project.SelectNodeInDirection(angle, second, first, settingsConfig.SelectObjectColor);
+                selectedNumbers = project.SelectNodeInDirection(angle, second, first, color);
             else
-                selectedNumbers = project.SelectNodeInDirection(angle, first, second, settingsConfig.SelectObjectColor);
+                selectedNumbers = project.SelectNodeInDirection(angle, first, second, color);
 
             var pres = project.CreateModelObjectsPresentor(arg2);
             SetVBObjectAttribute(pres, "цвет");
@@ -344,12 +342,12 @@ namespace BazisGUI
             DisplayObjects();
             return selectedNumbers;
         }
-        private void SelectionControl_SelectInSet(ObjType selectType, List<int> numbers)
+        private List<int> SelectionControl_SelectInSet(ObjType selectType, List<int> numbers, bool isSelected)
         {
             if (numbers == null || numbers.Count == 0)
             {
                 console.PrintInfo("Нет выбранных объектов", Color.Red);
-                return;
+                return null;
             }
 
             var uniqueSets = numbers.Select(number => project.GetModelSetInfo(selectType, number)).GroupBy(setInfo => setInfo.Name).Select(g => g.First()).ToList();
@@ -359,7 +357,7 @@ namespace BazisGUI
                 foreach (var number in setInfo.GetNumbers())
                 {
                     var element = project.GetModelObject(selectType, number);
-                    element.Color = settingsConfig.SelectObjectColor;
+                    element.Color = GetColor(selectType, number, isSelected); 
                 }
 
                 var pres = project.CreateModelObjectsPresentor(setInfo);
@@ -367,11 +365,12 @@ namespace BazisGUI
             }
 
             var selectedCount = selectType == ObjType.Узел
-                ? project.GetAllModelNodes().Count(x => x.Color == settingsConfig.SelectObjectColor)
-                : project.GetAllModelElements().Count(x => x.Color == settingsConfig.SelectObjectColor);
+                ? project.GetAllModelNodes().Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x=>x.Number).ToList()
+                : project.GetAllModelElements().Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x=>x.Number).ToList();
 
-            PrintSelectedInfo(selectType, selectedCount);
+            PrintSelectedInfo(selectType, selectedCount.Count);
             DisplayObjects();
+            return selectedCount;
         }
 
         private void SelectionControl_SelectInGeom(int targetDim, List<int> numbers, bool isSelected)
@@ -390,9 +389,8 @@ namespace BazisGUI
             foreach (var number in volumes)
             {
                 var element = project.GetModelObject(objType, number);
-                if(isSelected)
-                    element.Color = settingsConfig.SelectObjectColor;
-                else project.GetModelSetInfo(objType, number).SetBackColor();
+
+                element.Color = GetColor(objType, number, isSelected);
             }
 
             foreach (var number in numbers)
@@ -410,6 +408,14 @@ namespace BazisGUI
         private void PrintSelectedInfo(ObjType obj, int count)
         {
             console.PrintInfo($"Количество выбранных элементов {count}, тип: {obj}", Color.Black);
+        }
+
+        private Color GetColor(ObjType objType, int number, bool isSelected)
+        {
+            var color = settingsConfig.SelectObjectColor;
+            if (!isSelected)
+                color = project.GetModelSetInfo(objType, number).Color;
+            return color;
         }
     }
 }

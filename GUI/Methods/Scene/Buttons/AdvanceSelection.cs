@@ -54,7 +54,6 @@ namespace BazisGUI
                 {
                     var selectionControl = new MeshSelect(SelectedObjects);
                     OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
-                    selectionControl.ChangeRadioButtonSelectEvent += ClearTuple_ChangeRadioButtonSelectEvent;
                     selectionControl.SelectInDirection += OnReverseChanged;
                     selectionControl.CloseForm += RefreshForm;
 
@@ -82,11 +81,6 @@ namespace BazisGUI
             }
         }
 
-        private void ClearTuple_ChangeRadioButtonSelectEvent()
-        {
-            //lastDirectionSelection = (null, null, null);
-        }
-
         private void DispatchSelection(ObjType objType, List<int> numbers, bool isSelected)
         {
             var forms = Application.OpenForms.Cast<Form>().ToList();
@@ -102,12 +96,12 @@ namespace BazisGUI
                         var tempSelectInDirection = SelectionControl_SelectInDirection(selectInDirectionEventArgs, numbers, isSelected);
                         mesh.SetDirectionConfig(tempSelectInDirection);
                     }
-                    else if (additionalMode is SelectInPlainEventArgs selectInPlain)
+                    else if (additionalMode is SelectInPlainEventArgs selectInPlain) 
                     {
                         var tempSelectInPlain = SelectionControl_SelectInPlain(selectInPlain, objType, numbers, isSelected);
                     }
                     else if (additionalMode is ObjType setType)
-                        SelectionControl_SelectInSet(setType, numbers);
+                        SelectionControl_SelectInSet(setType, numbers, isSelected);
                 }
                 else if (IsGeometry())
                 {       
@@ -153,7 +147,6 @@ namespace BazisGUI
             if (mesh != null)
             {
                 OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
-                mesh.ChangeRadioButtonSelectEvent -= ClearTuple_ChangeRadioButtonSelectEvent;
                 mesh.SelectInDirection -= OnReverseChanged;
                 mesh.CloseForm -= RefreshForm;
                 mesh.Dispose();

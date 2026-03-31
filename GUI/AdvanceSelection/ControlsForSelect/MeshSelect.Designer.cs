@@ -80,7 +80,6 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtSet.TabIndex = 8;
             rbtSet.TabStop = true;
             rbtSet.Text = "Наборы";
-            rbtSet.CheckedChanged += Rbt_CheckedChanged;
             // 
             // rbtSurface
             // 
@@ -94,7 +93,6 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtSurface.TabIndex = 8;
             rbtSurface.TabStop = true;
             rbtSurface.Text = "В плоскости";
-            rbtSurface.CheckedChanged += Rbt_CheckedChanged;
             // 
             // rbtDirection
             // 
@@ -108,7 +106,6 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtDirection.TabIndex = 8;
             rbtDirection.TabStop = true;
             rbtDirection.Text = "По направлению";
-            rbtDirection.CheckedChanged += Rbt_CheckedChanged;
             // 
             // lblAngle
             // 
@@ -163,8 +160,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             PerformLayout();
         }
 
-        private void Rbt_CheckedChanged(object sender, System.EventArgs e) =>
-            ChangeRadioButtonSelectEvent?.Invoke();
+
         
 
         #endregion

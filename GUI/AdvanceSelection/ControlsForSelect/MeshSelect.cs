@@ -18,7 +18,6 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             { "Узел",      (true, true, true, true) }
         };
         public event Action<SelectInDirectionEventArgs> SelectInDirection;
-        public event Action ChangeRadioButtonSelectEvent;
         public event Action CloseForm;
         private ObjType selectType;
 
@@ -44,7 +43,9 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             {
                 SetApply(mode.set, mode.surface, mode.direction, mode.other);
                 selectType = ConvertToObjsType(selectedObjects);
-            }
+                directionConfig = null;
+                plainConfig = null;
+    }
             else
                 CloseForm?.Invoke();
         }
