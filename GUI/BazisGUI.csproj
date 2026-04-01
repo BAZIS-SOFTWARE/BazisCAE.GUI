@@ -64,9 +64,9 @@
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
-    <PackageReference Include="OperationalController" Version="4.4.4" />
+    <PackageReference Include="OperationalController" Version="4.4.7" />
     <PackageReference Include="PostProc" Version="2.1.6" />
-    <PackageReference Include="PreProc" Version="2.3.9" />
+    <PackageReference Include="PreProc" Version="2.4.1" />
     <PackageReference Include="PropertiesCalculator" Version="1.1.0" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />

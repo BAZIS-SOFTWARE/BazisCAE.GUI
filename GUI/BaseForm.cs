@@ -5,6 +5,8 @@ using BazisGUI.SettingsControls;
 using ClientGUI;
 using ClientLogic;
 using LicenseInfo;
+using MaterialDB.FunctionData;
+using MaterialDB.MaterialData;
 using Model.Interfaces;
 using Newtonsoft.Json;
 using OperationalController;
@@ -413,6 +415,36 @@ namespace BazisGUI
 
                 lblStatus.Text = $"{folderName}\\{project.Name}";
 
+                var appDirName = Path.GetDirectoryName(Application.ExecutablePath);
+
+                string[] matfiles = Directory.GetFiles(appDirName, "*Materials*.jsf", SearchOption.AllDirectories);
+                string[] funfiles = Directory.GetFiles(appDirName, "*functions*.jsf", SearchOption.AllDirectories);
+
+                project.CreateTask();
+
+                if (matfiles.Length != 0)
+                {
+                    var matDirName = Path.GetDirectoryName(matfiles[0]);
+                    var matName = Path.GetFileName(matfiles[0]);
+                    if (IOFileController.CopyFile(matName, matDirName, folderName))
+                    {
+                        var matDB = new MaterialDBData(matName, folderName);
+                        project.MaterialsDB = matDB;
+                    }
+
+                }
+
+                if (funfiles.Length != 0)
+                {
+                    var funDirName = Path.GetDirectoryName(funfiles[0]);
+                    var funName = Path.GetFileName(funfiles[0]);
+                    if (IOFileController.CopyFile(funName, funDirName, folderName))
+                    {
+                        var funDB = new FunctionDBData(funName, folderName);
+                        project.FunctionsDB = funDB;
+                    }
+                }
+
                 ClearAllDataOnScene();
                 PresentProject();
                 PresentCompDataOnTree(new List<string>());
@@ -469,6 +501,7 @@ namespace BazisGUI
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+                Application.OpenForms["Загрузка"]?.Close();
             }
         }
 
@@ -668,6 +701,7 @@ namespace BazisGUI
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+                Application.OpenForms["Загрузка"]?.Close();
             }
         }
     }
