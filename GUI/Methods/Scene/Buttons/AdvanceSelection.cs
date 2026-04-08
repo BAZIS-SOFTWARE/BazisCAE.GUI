@@ -1,14 +1,11 @@
-﻿using BazisGUI.Scene.Interfaces;
-using BazisGUI.Scene.Interfaces;
-using System;
-using Geometry;
-using System.Drawing;
-using MathNet.Numerics.LinearAlgebra;
-using BazisGUI;
-using System.Windows.Forms;
+﻿using BazisGUI.AdvanceSelection;
+using BazisGUI.AdvanceSelection.ControlsForSelect;
 using Model.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using BazisGUI.AdvanceSelection;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -31,52 +28,154 @@ namespace BazisGUI
 
             if (!bool.Parse(btn.Tag.ToString()))
             {
+                if(SelectedObjects == "Выбрать" || SelectedObjects == "Объекты")
+                    return;
                 btn.Tag = true;
                 var form = new Form()
                 {
                     Name = "selectForm",
-                    Text = "Дополненный выбор",
+                    Text = "Расширенный выбор",
                     AutoSize = false,
                     ShowIcon = false,
+                    MinimizeBox = false,
+                    MaximizeBox = false,
                     TopMost = true,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
                     Owner = Application.OpenForms[0]
                 };
-
                 form.FormClosing += (s1, s2) => 
                 {
+                    CleanupSelectionControl(form);
                     btn.Tag = false;
                     btn.Invalidate();
                 };
-                var selectionControl = new AdvanceSelectionSet() { Dock = DockStyle.Fill };
-                selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
-                selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
-                //selectionControl.SelectNodes += (s1, s2) =>
-                //{
-                //    spbSelectObject.ToolTipText = ObjType.Узел.ToString();
-                //    spbSelectObject.Invalidate();
-                //};
 
-                //selectionControl.SelectElements += (s1, s2) =>
-                //{
-                //    spbSelectObject.ToolTipText = ObjType.Элемент2D.ToString();
-                //    spbSelectObject.Invalidate();
-                //};
+                if (IsMesh())
+                {
+                    var selectionControl = new MeshSelect(SelectedObjects);
+                    OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
+                    selectionControl.SelectInDirection += OnReverseChanged;
+                    selectionControl.CloseForm += RefreshForm;
 
-                form.ClientSize = selectionControl.Size;
-                form.Controls.Add(selectionControl);
+                    form.ClientSize = selectionControl.Size;
+                    form.Controls.Add(selectionControl);
+                }
+
+                else if (IsGeometry())
+                {
+                    var selectionControl = new GeomSelect(SelectedObjects);
+                    OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
+                    selectionControl.CloseForm += RefreshForm;
+
+                    form.ClientSize = selectionControl.Size;
+                    form.Controls.Add(selectionControl);
+                }
+
                 form.Show();
-                var location = PointToScreen(Point.Empty);
+                var location = GetPosition(form.Height);
                 form.Location = location;
             }
             else
             {
-                var forms = Application.OpenForms.Cast<Form>().ToList();
-                var form = forms.Find(x => x.Name == "selectForm");
-                if (form != null)
+                CloseAdvancedSelectionForm();
+            }
+        }
+
+        private void DispatchSelection(ObjType objType, List<int> numbers, bool isSelected)
+        {
+            var forms = Application.OpenForms.Cast<Form>().ToList();
+            var form = forms.Find(x => x.Name == "selectForm");
+            if(form != null)
+            {
+                if (IsMesh())
                 {
-                    form.Close();
+                    var mesh = form.Controls.OfType<MeshSelect>().FirstOrDefault();
+                    var additionalMode = mesh.GetSelectedAdditionalMode();
+                    if (additionalMode is SelectInDirectionEventArgs selectInDirectionEventArgs) 
+                    {
+                        var tempSelectInDirection = SelectionControl_SelectInDirection(selectInDirectionEventArgs, numbers, isSelected);
+                        mesh.SetDirectionConfig(tempSelectInDirection);
+                    }
+                    else if (additionalMode is SelectInPlainEventArgs selectInPlain) 
+                    {
+                        var tempSelectInPlain = SelectionControl_SelectInPlain(selectInPlain, objType, numbers, isSelected);
+                    }
+                    else if (additionalMode is ObjType setType)
+                        SelectionControl_SelectInSet(setType, numbers, isSelected);
+                }
+                else if (IsGeometry())
+                {       
+                    var geom = form.Controls.OfType<GeomSelect>().FirstOrDefault();
+                    SelectionControl_SelectInGeom(geom.GetSelectDimension(), numbers, isSelected);
                 }
             }
+        }
+
+        private void RefreshForm()
+        {
+            CloseAdvancedSelectionForm();
+            btnAdvSelection_Click(btnAdvSelection, EventArgs.Empty);
+        }
+
+        private void BackColorToAllObjects()
+        {
+            SetBackColorToAllObjects();
+            DisplayObjects();
+        }
+
+        private void CloseAdvancedSelectionForm()
+        {
+            var forms = Application.OpenForms.Cast<Form>().ToList();
+            var form = forms.Find(x => x.Name == "selectForm");
+            if (form != null)
+            {
+                CleanupSelectionControl(form);
+                form.Close();
+            }
+        }
+
+        private Point GetPosition(int hightForm)
+        {
+            var scenePosition = scene.PointToScreen(Point.Empty);
+            var x = scenePosition.X;
+            var y = scenePosition.Y + scene.Height - hightForm;
+            return new Point(x, y);
+        }
+        private void CleanupSelectionControl(Form form)
+        {
+            var mesh = form.Controls.OfType<MeshSelect>().FirstOrDefault();
+            if (mesh != null)
+            {
+                OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
+                mesh.SelectInDirection -= OnReverseChanged;
+                mesh.CloseForm -= RefreshForm;
+                mesh.Dispose();
+                return;
+            }
+
+            var geom = form.Controls.OfType<GeomSelect>().FirstOrDefault();
+            if (geom != null)
+            {
+                OnChangeSelectedObjectsEvent -= geom.SetAvailableModes;
+                geom.CloseForm -= RefreshForm;
+                geom.Dispose();
+            }
+        }
+
+        private bool IsMesh()
+        {
+            return SelectedObjects == ObjType.Элемент1D.ToString() ||
+                   SelectedObjects == ObjType.Элемент2D.ToString() ||
+                   SelectedObjects == ObjType.Элемент3D.ToString() ||
+                   SelectedObjects == ObjType.Узел.ToString();
+        }
+
+        private bool IsGeometry()
+        {
+            return SelectedObjects == ObjType.Точка.ToString() ||
+                   SelectedObjects == ObjType.Кривая.ToString() ||
+                   SelectedObjects == ObjType.Поверхность.ToString() ||
+                   SelectedObjects == "Объекты";
         }
     }
 }

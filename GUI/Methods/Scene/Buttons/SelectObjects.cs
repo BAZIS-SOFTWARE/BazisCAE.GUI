@@ -1,6 +1,7 @@
 ﻿using BazisGUI.AdvanceSelection;
 using BazisGUI.Extensions;
 using BazisGUI.Properties;
+using MathNet.Numerics.RootFinding;
 using Model.Interfaces;
 using Model.MeshObjects;
 using Model.Utilities;
@@ -8,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices.JavaScript;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BazisGUI
@@ -15,12 +18,11 @@ namespace BazisGUI
     public partial class BaseForm
     {
         Dictionary<string, Button> objButtons = new Dictionary<string, Button>();
-
-
+        public event Action<string> OnChangeSelectedObjectsEvent;
         /// <summary>
         /// Временный выбранный объект для работы со свойствами через сцену
         /// </summary>
-   
+
         public string SelectedObjects
         {
             get { return btnSelect.Text; }
@@ -70,7 +72,7 @@ namespace BazisGUI
         {
             var btn = sender as Button;
             SelectedObjects = btn.Text;
-
+            OnChangeSelectedObjectsEvent?.Invoke(SelectedObjects);
             btnSelect.Tag = false;
 
             foreach (var item in objButtons)
@@ -87,20 +89,17 @@ namespace BazisGUI
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            //var btnSelect = sender as Button;
             var flag = bool.Parse(btnSelect.Tag.ToString());
             if (!flag)
             {
                 flag = true;
                 btnSelect.Image = Resources.arrow_d;
             }
-   
             else
             {
                 flag = false;
                 btnSelect.Image = Resources.arrow_r;
             }
-
 
             btnSelect.Tag = flag;
             foreach (var item in objButtons)
@@ -134,7 +133,6 @@ namespace BazisGUI
             var btn = new Button();
             btn.Anchor = btnSelect.Anchor;
             btn.AutoSize = btnSelect.AutoSize;
-            //lbl.Location = new System.Drawing.Point(4, 7);
             btn.Name = name;
             btn.Size = btnSelect.Size;
             btn.Text = name;
@@ -145,9 +143,7 @@ namespace BazisGUI
             return btn;
         }
 
-        
-
-        private void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
+        private SelectInPlainEventArgs SelectionControl_SelectInPlain(SelectInPlainEventArgs arg2, ObjType objType, List<int> numbers, bool isSelected)
         {
             try
             {
@@ -155,115 +151,271 @@ namespace BazisGUI
                 if (objsType == SelectedObjects.ToEnum<ObjType>())
                 {
                     if (objsType == ObjType.Узел)
-                    {
-                        SelectNodeInPlane();
-                    }
+                        arg2 = SelectNodeInPlane(arg2, numbers, isSelected);
                     else
-                    {
-                        SelectE2DInPlane(arg2.Angle);
-                    }
+                        SelectE2DInPlane(arg2, objType, numbers, isSelected);
 
                     DisplayObjects();
                 }
             }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-
+            catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
+            return arg2;
         }
 
-        private void SelectE2DInPlane(float angle)
+        private void SelectE2DInPlane(SelectInPlainEventArgs selectInPlainEvent, ObjType objType, List<int> numbers, bool isSelected)
         {
-
-            var selObjs = project.GetModelObjects(ObjType.Элемент2D).
-
-    Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
-
-            if (selObjs?.Count() > 0)
+            if (numbers == null || numbers.Count == 0)
             {
-                var element = selObjs.Last();
-                var objs = project.SelectE2DInPlane(
-                    angle, element.Number, settingsConfig.SelectObjectColor);
+                console.PrintInfo("Выберите хотя бы один элемент", Color.Red);
+                return;
+            }
 
-                // TO DO исправить метод
-                foreach (var set in objs.Select(x => project.
-GetModelSetInfo(ObjType.Элемент2D, x)).
-Distinct(new DefaultSetInfoComparer()))
+            var localCache = new HashSet<int>();
+
+            foreach (var selObject in numbers)
+            {
+                var color = GetColor(objType, selObject, isSelected);
+                var objs = project.SelectE2DInPlane(selectInPlainEvent.Angle, selObject, color);
+
+                if (objs == null)
+                    continue;
+
+                var newObjs = objs.Where(x => localCache.Add(x)).ToList();
+
+                if (newObjs.Count == 0)
+                    continue;
+
+                foreach (var set in newObjs.Select(x => project.GetModelSetInfo(objType, x)).Distinct(new DefaultSetInfoComparer()))
                 {
                     var pres = project.CreateModelObjectsPresentor(set);
                     SetVBObjectAttribute(pres, "цвет");
                 }
-
-                DisplayObjects();
-
             }
-            else console.PrintInfo("Выберите хотя бы один элемент", Color.Red);
+            selectInPlainEvent.SelectedNumbers = localCache.ToList();
+            PrintSelectedInfo(objType, localCache.Count);
+            DisplayObjects();
         }
 
-        private void SelectNodeInPlane()
+        private SelectInPlainEventArgs SelectNodeInPlane(SelectInPlainEventArgs selectInPlainEvent, List<int> numbers, bool isSelected)
         {
-            var selObjs = project.GetAllModelNodes().
+            var remainingSlots = new List<int?>();
+            if (selectInPlainEvent.FirstNodeForPlane == null) remainingSlots.Add(0);
+            if (selectInPlainEvent.SecondNodeForPlane == null) remainingSlots.Add(1);
+            if (selectInPlainEvent.ThirdNodeForPlane == null) remainingSlots.Add(2);
 
-    Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
-            if (selObjs?.Count() > 2)
+            for (int i = 0; i < numbers.Count && i < remainingSlots.Count; i++)
             {
-                var n1 = (Node)selObjs.First();
-                var n2 = (Node)selObjs.Skip(1).First();
-                var n3 = (Node)selObjs.Skip(2).First();
-
-                var plane = new Geometry.Plane(n1.Position, n2.Position, n3.Position);
-                project.SelectNodeInPlane(plane, settingsConfig.SelectObjectColor);
-
-                var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
-                SetVBObjectAttribute(pres, "цвет");
+                switch (remainingSlots[i])
+                {
+                    case 0: selectInPlainEvent.FirstNodeForPlane = numbers[i]; break;
+                    case 1: selectInPlainEvent.SecondNodeForPlane = numbers[i]; break;
+                    case 2: selectInPlainEvent.ThirdNodeForPlane = numbers[i]; break;
+                }
             }
-            else console.PrintInfo("Не выбрано три узла", Color.Red);
+
+            var selectedNumbers = new[] { selectInPlainEvent.FirstNodeForPlane, selectInPlainEvent.SecondNodeForPlane, selectInPlainEvent.ThirdNodeForPlane }
+                                  .Where(n => n.HasValue)
+                                  .Select(n => n.Value)
+                                  .ToList();
+
+            if (selectedNumbers.Count < 3)
+            {
+                console.PrintInfo("Не выбрано три узла", Color.Red);
+                return selectInPlainEvent;
+            }
+
+            var nodes = project.GetAllModelNodes()
+                               .Join(selectedNumbers, node => node.Number, num => num, (node, num) => node)
+                               .ToArray();
+
+            var plane = new Geometry.Plane(nodes[0].Position, nodes[1].Position, nodes[2].Position);
+
+            var color = GetColor(selectInPlainEvent.Objects, selectedNumbers[0], isSelected);
+            project.SelectNodeInPlane(plane, color);
+            selectInPlainEvent.FirstNodeForPlane = null;
+            selectInPlainEvent.SecondNodeForPlane = null;
+            selectInPlainEvent.ThirdNodeForPlane = null;
+            
+            var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
+            SetVBObjectAttribute(pres, "цвет");
+            var selectedCount = project.GetAllModelNodes().Count(x => x.Color == settingsConfig.SelectObjectColor);
+            PrintSelectedInfo(ObjType.Узел, selectedCount);
+            selectInPlainEvent.SelectedNumbers = selectedNumbers;
+            return selectInPlainEvent;
         }
 
-        private void SelectionControl_SelectInDirection(object arg1, SelectInDirectionEventArgs arg2)
+
+        private SelectInDirectionEventArgs SelectionControl_SelectInDirection(SelectInDirectionEventArgs arg2, List<int> numbers, bool isSelected)
         {
             try
             {
                 var objsType = arg2.Objects;
-                if (objsType == SelectedObjects.ToEnum<ObjType>())
-                {
-                    SelectInDirection(objsType, arg2.Angle, arg2.Reverse);
-                }
 
+                if (objsType == SelectedObjects.ToEnum<ObjType>()) 
+                {
+                    var temp = arg2;
+                    if (numbers.Count >= 2)
+                    {
+                        arg2.SetNumbers(SelectInDirection(objsType, numbers, arg2.Angle, arg2.Reverse, isSelected));
+                        temp.FirstNodeDirection = numbers[0];
+                        temp.SecondNodeDirection = numbers[1];
+                        return temp;
+                    }
+                    if (arg2.SecondNodeDirection != null)
+                    {
+                        temp.FirstNodeDirection = null;
+                        temp.SecondNodeDirection = null;
+                    }
+
+                    var current = numbers[0];
+
+                    if (temp.FirstNodeDirection == null)
+                    {
+                        temp.FirstNodeDirection = current;
+                        console.PrintInfo("Выберите второй узел...", Color.Black);
+                        return temp;
+                    }
+                    temp.SecondNodeDirection = current;
+
+                    var tempSelectedNumbers = SelectInDirection(objsType, [temp.FirstNodeDirection.Value, temp.SecondNodeDirection.Value], arg2.Angle, arg2.Reverse, isSelected);
+                    arg2.SetNumbers(tempSelectedNumbers);
+
+                    return temp;
+                }       
             }
             catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
+            { 
+                console.PrintInfo(ex.Message, Color.Red); 
+                return arg2; 
             }
+            return arg2;
         }
 
-        private void SelectInDirection(ObjType arg2, float angle, bool reverse)
+        private void OnReverseChanged(SelectInDirectionEventArgs config)
+        {
+            if (!config.FirstNodeDirection.HasValue || !config.SecondNodeDirection.HasValue)
+            {
+                console.PrintInfo("Нет данных для перестроения", Color.Red);
+                return;
+            }
+
+            var first = config.FirstNodeDirection.Value;
+            var second = config.SecondNodeDirection.Value;
+
+            if (config.SelectedNumbers.Count != 0)
+            {
+                var uniqueSets = config.SelectedNumbers.Select(number => project.GetModelSetInfo(config.Objects, number))
+                    .GroupBy(setInfo => setInfo.Name)
+                    .Select(g => g.First())
+                    .ToList();
+                foreach (var setInfo in uniqueSets)
+                {
+                    foreach (var number in config.SelectedNumbers)
+                        setInfo.SetBackColor(number);
+                    var pres = project.CreateModelObjectsPresentor(setInfo);
+                    SetVBObjectAttribute(pres, "цвет");
+                }
+            }
+            var tempSelectedNumbers = SelectInDirection(config.Objects, [first, second], config.Angle, config.Reverse);
+            config.SetNumbers(tempSelectedNumbers);
+        }
+
+        private List<int> SelectInDirection(ObjType arg2, List<int> numbers, float angle, bool reverse, bool isSelected = true)
+        {
+            if (numbers.Count < 2)
+                return null;
+
+            var first = numbers[0];
+            var second = numbers[1];
+
+            List<int> selectedNumbers;
+            var color = GetColor(arg2, first, isSelected);
+            if (!reverse)
+                selectedNumbers = project.SelectNodeInDirection(angle, second, first, color);
+            else
+                selectedNumbers = project.SelectNodeInDirection(angle, first, second, color);
+
+            var pres = project.CreateModelObjectsPresentor(arg2);
+            SetVBObjectAttribute(pres, "цвет");
+            
+            PrintSelectedInfo(arg2, selectedNumbers.Count);
+            DisplayObjects();
+            return selectedNumbers;
+        }
+        private List<int> SelectionControl_SelectInSet(ObjType selectType, List<int> numbers, bool isSelected)
+        {
+            if (numbers == null || numbers.Count == 0)
+            {
+                console.PrintInfo("Нет выбранных объектов", Color.Red);
+                return null;
+            }
+
+            var uniqueSets = numbers.Select(number => project.GetModelSetInfo(selectType, number)).GroupBy(setInfo => setInfo.Name).Select(g => g.First()).ToList();
+
+            foreach (var setInfo in uniqueSets)
+            {
+                foreach (var number in setInfo.GetNumbers())
+                {
+                    var element = project.GetModelObject(selectType, number);
+                    element.Color = GetColor(selectType, number, isSelected); 
+                }
+
+                var pres = project.CreateModelObjectsPresentor(setInfo);
+                SetVBObjectAttribute(pres, "цвет");
+            }
+
+            var selectedCount = selectType == ObjType.Узел
+                ? project.GetAllModelNodes().Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x=>x.Number).ToList()
+                : project.GetAllModelElements().Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x=>x.Number).ToList();
+
+            PrintSelectedInfo(selectType, selectedCount.Count);
+            DisplayObjects();
+            return selectedCount;
+        }
+
+        private void SelectionControl_SelectInGeom(int targetDim, List<int> numbers, bool isSelected)
         {
 
-            var selObjs = project.GetModelObjects(arg2).
-    Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
-            if (selObjs?.Count() > 1)
+            if (numbers == null || numbers.Count == 0)
             {
-                if (!reverse)
-                {
-                    project.SelectNodeInDirection(angle, selObjs.Skip(1).First().Number, 
-                        selObjs.First().Number, settingsConfig.SelectObjectColor);
-                }
-
-                else
-                {
-                    project.SelectNodeInDirection(angle, selObjs.First().Number, 
-                        selObjs.Skip(1).First().Number, settingsConfig.SelectObjectColor);
-                }
-
-                var pres = project.CreateModelObjectsPresentor(arg2);
-                SetVBObjectAttribute(pres, "цвет");
-
-                DisplayObjects();
+                console.PrintInfo("Нет выбранных объектов", Color.Red);
+                return;
             }
-            else
-                console.PrintInfo("Выбранных объектов должно быть больше двух", Color.Red);
+
+            var startDim = GetModelObjects(SelectedObjects).Where(x => x.Number == numbers[0]).First().Dim;
+            var objType = SelectedObjects.ToEnum<ObjType>();
+            var volumes = project.SelectByScope(startDim, numbers, targetDim);
+
+            foreach (var number in volumes)
+            {
+                var element = project.GetModelObject(objType, number);
+
+                element.Color = GetColor(objType, number, isSelected);
+            }
+
+            foreach (var number in numbers)
+            {
+                var setInfo = project.GetModelSetInfo(objType, number);
+                var pres = project.CreateModelObjectsPresentor(setInfo);
+                SetVBObjectAttribute(pres, "цвет");
+            }
+
+            var selectedCount = project.GetAllModelObjects().Count(x => x.Color == settingsConfig.SelectObjectColor);
+            PrintSelectedInfo(objType, selectedCount);
+            DisplayObjects();
+        }
+
+        private void PrintSelectedInfo(ObjType obj, int count)
+        {
+            console.PrintInfo($"Количество выбранных элементов {count}, тип: {obj}", Color.Black);
+        }
+
+        private Color GetColor(ObjType objType, int number, bool isSelected)
+        {
+            var color = settingsConfig.SelectObjectColor;
+            if (!isSelected)
+                color = project.GetModelSetInfo(objType, number).Color;
+            return color;
         }
     }
 }

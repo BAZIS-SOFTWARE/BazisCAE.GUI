@@ -17,32 +17,25 @@ namespace BazisGUI
         {
             var creator = new Hull2DCreator();
             var counter = 0;
+            var numbersSelevtedElement = new List<int>();
             foreach (var set in sets)
             {
                 var changeFlag = false;
-                // TO DO добавить проверку состояния viewState набора
                 foreach (var numb in set.GetNumbers())
                 {
                     if (set.GetViewState(numb))
                     {
                         var coords = set.GetCoords(numb);
-                        var scrPoints = new HashSet<Point2D>();//[coords.Count()];
-                        //var scnPoints = new List<Point3D>();//[coords.Count()];
-
-                        //scnPoints.Add(scnPoint);
-                        //scrPoints.Add(scrPoint);
-
+                        var scrPoints = new HashSet<Point2D>();
+  
                         foreach (var point in coords)
                         {
                             var scnPoint = GetSceenCoord(point);
                             var scrPoint = GetScreenCoord(scnPoint);
 
-
-                            //scnPoints.Add(scnPoint);
                             scrPoints.Add(scrPoint);
                         }
 
-                        // тест выделения рамкой
                         var selectionFlag = ChechSelection(selectionBox, creator, scrPoints);
 
                         if (selectionFlag)
@@ -50,10 +43,12 @@ namespace BazisGUI
                             counter++;
                             changeFlag = true;
                             if (isSelected)
-                                set.SetColor(settingsConfig.SelectObjectColor, numb);//  page.ScenePage.settingsConfig.SelectObjectColor;
+                            {
+                                set.SetColor(settingsConfig.SelectObjectColor, numb);
+                                numbersSelevtedElement.Add(numb);
+                            }
                             else
                                 set.SetBackColor(numb);
-
                         }
                     }
                 }
@@ -66,7 +61,12 @@ namespace BazisGUI
             }
             var objStr = Declination(counter);
             if (isSelected)
-                console.PrintInfo($"Выбрано {counter} {objStr}", Color.Black);
+            {
+                if (bool.Parse(btnAdvSelection.Tag.ToString()) && counter != 0)
+                    DispatchSelection(sets.First().ObjType, numbersSelevtedElement, isSelected);
+                else
+                    console.PrintInfo($"Выбрано {counter} {objStr}", Color.Black);
+            }
             else
                 console.PrintInfo($"Скрыто {counter} {objStr}", Color.Black);
             DisplayObjects();

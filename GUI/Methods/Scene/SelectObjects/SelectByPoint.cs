@@ -6,6 +6,7 @@ using Model.Interfaces.ObjectsCollections;
 using Model.MeshObjects;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -81,11 +82,14 @@ namespace BazisGUI
 
             if (selFlag)
             {
-                console.PrintInfo($"Выбран объект : {tempSetInfo.ObjType} {tempNumb}", Color.Black);
-                CreateObjectProperties(tempSetInfo, tempNumb);
+                if (bool.Parse(btnAdvSelection.Tag.ToString()))
+                    DispatchSelection(tempSetInfo.ObjType, new List<int>() { tempNumb }, isSelected);
+                else 
+                {
+                    console.PrintInfo($"Выбран объект : {tempSetInfo.ObjType} {tempNumb}", Color.Black);
+                    CreateObjectProperties(tempSetInfo, tempNumb);
+                }
             }
-
-
             return selFlag;
         }
 
