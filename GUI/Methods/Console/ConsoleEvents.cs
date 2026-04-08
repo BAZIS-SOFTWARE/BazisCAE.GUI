@@ -8,11 +8,25 @@ using Geometry;
 using System.Drawing;
 using Model.Interfaces.MeshObjects;
 using Model.Utilities;
+using System.Collections.Generic;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
+        private void console_CreateMesh2DPoligonEvent(object arg1, CreateMesh2DPoligonEventArgs arg2)
+        {
+            project.CreateQuadMeshOnPoligon(new List<Point2D>() { arg2.p1, arg2.p2, arg2.p3, arg2.p4 }, arg2.NumberOfElems);
+            PresentMeshData();
+            PresentModelObjectsForSelection();
+
+            var set = project.GetModelSetsInfo(ObjType.Элемент2D).Last();
+            var pres = project.CreateModelObjectsPresentor(set);
+            var vbo = CreateVBObject(pres);
+
+            VBOController.AddVbo(vbo);
+            DisplayObjects();
+        }
         public async void console_InEvent(object arg1, EventArgs arg2)
         {
             try

@@ -31,7 +31,8 @@ namespace BazisGUI.Console
         SetLevel,
         RotateMesh,
         MoveNodes,
-        MergeElementSets
+        MergeElementSets,
+        CreateMesh2DPoligon
     }
 
     public partial class ConsoleControl : PinnedPage
@@ -48,7 +49,7 @@ namespace BazisGUI.Console
         public event Action<object, ModelShiftCoordinateEventArgs> ModelShiftCoordinateEvent;
         public event Action<object, ModelRotateEventArgs> ModelRotateEvent;
         public event Action<object, MergeElementSetsEventArgs> MergeElementSetsEvent;
-
+        public event Action<object, CreateMesh2DPoligonEventArgs> CreateMesh2DPoligonEvent;
         int SessionNumber
         {
             get;
@@ -71,6 +72,7 @@ namespace BazisGUI.Console
             { "Соединить стержнями",GenCmd.BeamConnection},
             { "Задать порядок точности",GenCmd.SetLevel },
             { "Слить наборы элементов",GenCmd.MergeElementSets },
+            { "Построить 2D сетку",GenCmd.CreateMesh2DPoligon },
             { "Выход",GenCmd.Exit }
         };
 
@@ -90,6 +92,7 @@ namespace BazisGUI.Console
             { GenCmd.BeamConnection,new string[]{ "радиус поиска","макс. кол-во","группа#1","группа#2" }},
             { GenCmd.SetLevel,new string[]{ "тип","порядок точности" }},
             { GenCmd.MergeElementSets,new string[]{ "тип","набор#1","набор#2" }},
+            { GenCmd.CreateMesh2DPoligon,new string[]{ "x1,y1", "x2,y2", "x3,y3","x4,y4","кол-во элементов" }},
             { GenCmd.Exit,new string[]{}}
         };
 
@@ -250,6 +253,9 @@ namespace BazisGUI.Console
                 
                 switch (genCmds[cmds[0]])
                 {
+                    case GenCmd.CreateMesh2DPoligon:
+                        CreateMesh2DPoligonEvent?.Invoke(this, new CreateMesh2DPoligonEventArgs(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5]));
+                        break;
                     case GenCmd.MergeElementSets:
                         MergeElementSetsEvent?.Invoke(this, new MergeElementSetsEventArgs(cmds[1], cmds[2], cmds[3]));
                         break;
