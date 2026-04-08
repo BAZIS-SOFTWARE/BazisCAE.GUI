@@ -12,24 +12,19 @@ namespace BazisGUI.AdvanceSelection
 
         public float Angle { get; }
 
-        public int? FirstNodeDirection { get; set; }
+        //public int FirstNodeDirection { get; set; }
 
-        public int? SecondNodeDirection { get; set; }
+        //public int SecondNodeDirection { get; set; }
 
-        public List<int> SelectedNumbers { get; protected set; }
+        public List<int> SelectedNumbers { get; protected set; } = new List<int>();
 
-        public SelectInDirectionEventArgs(ObjType objects, bool reverse, float angle, int? first = null, int? second = null)
+        public SelectInDirectionEventArgs(ObjType objects, bool reverse, float angle)
         {
             Objects = objects;
             Reverse = reverse;
             Angle = angle;
-            FirstNodeDirection = first;
-            SecondNodeDirection = second;
-        }
-
-        public void SetNumbers(List<int> numbers) 
-        {
-            SelectedNumbers = numbers;
+            //FirstNodeDirection = first;
+            //SecondNodeDirection = second;
         }
     }
 }

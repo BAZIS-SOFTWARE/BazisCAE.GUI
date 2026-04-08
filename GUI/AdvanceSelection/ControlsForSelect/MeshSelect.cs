@@ -89,7 +89,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         private void chbChangeDirection_CheckedChanged(object sender, EventArgs e) 
         {
             directionConfig.Reverse = chbChangeDirection.Checked;
-            SelectInDirection(directionConfig);
+            //SelectInDirection(directionConfig);
         }
     }
 }

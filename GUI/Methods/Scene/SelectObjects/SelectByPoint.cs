@@ -83,7 +83,7 @@ namespace BazisGUI
             if (selFlag)
             {
                 if (bool.Parse(btnAdvSelection.Tag.ToString()))
-                    DispatchSelection(tempSetInfo.ObjType, new List<int>() { tempNumb }, isSelected);
+                    DispatchSelection(new List<int>() { tempNumb }, isSelected);
                 else 
                 {
                     console.PrintInfo($"Выбран объект : {tempSetInfo.ObjType} {tempNumb}", Color.Black);

@@ -64,7 +64,7 @@
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
-    <PackageReference Include="OperationalController" Version="4.5.2" />
+    <PackageReference Include="OperationalController" Version="4.5.4" />
     <PackageReference Include="PostProc" Version="2.1.8" />
     <PackageReference Include="PreProc" Version="2.4.3" />
     <PackageReference Include="PropertiesCalculator" Version="1.1.1" />
@@ -85,7 +85,7 @@
     <Compile Update="AboutProgrammControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="AdvanceSelection\ControlsForSelect\GeomSelect.cs">
+    <Compile Update="AdvanceSelection\AdvanceSelectionSet.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Animation\AnimationPage.cs">
