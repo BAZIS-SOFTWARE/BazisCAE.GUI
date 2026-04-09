@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static Community.CsharpSqlite.Sqlite3;
 using static IronPython.Modules.PythonIterTools;
 
 namespace BazisGUI
@@ -97,52 +98,15 @@ namespace BazisGUI
                     var additionalMode = mesh.GetSelectedAdditionalMode();
                     var resFlag = false;
 
-                    if (additionalMode is SelectInDirectionEventArgs sdArgs) 
+                    if (additionalMode is SelectInDirectionEventArgs sdArgs)
                     {
                         sdArgs.SelectedNumbers.AddRange(numbers);
- 
-                        if (sdArgs.SelectedNumbers.Count() > 1)
-                        {
-                            if (SelectInPlain(sdArgs).Count > 0)
-                            {
-                                resFlag = true;
-                                sdArgs.SelectedNumbers.Clear();
-                            }    
-                        }
-                        else
-                            console.PrintInfo("Выбранных объектов должно быть больше двух", Color.Orange);
+                        resFlag = SelectInDirection(sdArgs);
                     }
-                    else if (additionalMode is SelectInPlainEventArgs spArgs) 
+                    else if (additionalMode is SelectInPlainEventArgs spArgs)
                     {
                         spArgs.SelectedNumbers.AddRange(numbers);
-                        if (spArgs.SelectedNumbers.Count > 2 && SelectedObjects.ToEnum<ObjType>() == ObjType.Узел)
-                        {
-   
-                            if (SelectNodeInPlane(spArgs.SelectedNumbers).Count > 0)
-                            {
-                                resFlag = true;
-                                // отчищаем список
-                                spArgs.SelectedNumbers.Clear();
-                            }
-
-                        }
-                        else
-                            console.PrintInfo("Не выбрано три узла", Color.Orange);
-
-                        if(spArgs.SelectedNumbers.Count > 1 && SelectedObjects.ToEnum<ObjType>() == ObjType.Элемент2D)
-                        {
-                            if(SelectE2DInPlane(spArgs.SelectedNumbers, spArgs.Angle).Count > 0)
-                            {
-                                resFlag = true;
-                                // отчищаем список
-                                spArgs.SelectedNumbers.Clear();
-                            }
-                        }
-                        else
-                            console.PrintInfo("Не выбрано ни одного элемента", Color.Orange);
-
-                        //DisplayObjects();
-
+                        resFlag = SelectInPlane(spArgs);
                     }
                     else if (additionalMode is ObjType setType)
                         SelectionControl_SelectInSet(setType, numbers, isSelected);
@@ -161,6 +125,90 @@ namespace BazisGUI
                     SelectionControl_SelectInGeom(geom.GetSelectDimension(), numbers, isSelected);
                 }
             }
+        }
+
+        private bool SelectInPlane(SelectInPlainEventArgs spArgs)
+        {
+            try
+            {
+                var objType = SelectedObjects.ToEnum<ObjType>();
+
+                if(objType == ObjType.Узел)
+                {
+                    if (spArgs.SelectedNumbers.Count > 2 && SelectedObjects.ToEnum<ObjType>() == ObjType.Узел)
+                    {
+
+                        if (SelectNodeInPlane(spArgs.SelectedNumbers).Count > 0)
+                        {
+                            // отчищаем список
+                            spArgs.SelectedNumbers.Clear();
+                            return true;
+                        }
+
+                    }
+                    else
+                        console.PrintInfo("Не выбрано три узла", Color.Orange);
+                }
+
+                else if(objType == ObjType.Элемент2D)
+                {
+                    if (spArgs.SelectedNumbers.Count > 0 && SelectedObjects.ToEnum<ObjType>() == ObjType.Элемент2D)
+                    {
+                        if (SelectE2DInPlane(spArgs.SelectedNumbers, spArgs.Angle).Count > 0)
+                        {
+                            // отчищаем список
+                            spArgs.SelectedNumbers.Clear();
+                            return true;
+                        }
+                    }
+                    else
+                        console.PrintInfo("Не выбрано ни одного элемента", Color.Orange);
+                }
+                
+                return false;
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+                spArgs.SelectedNumbers.RemoveAt(spArgs.SelectedNumbers.Count - 1);
+                return false;
+            }
+            
+        }
+
+        private bool SelectInDirection(SelectInDirectionEventArgs sdArgs)
+        {
+            try
+            {
+               
+                if (sdArgs.SelectedNumbers.Count() > 1)
+                {
+                    if (!sdArgs.Reverse)
+                    {
+                        if (project.SelectNodeInDirection(sdArgs.Angle, sdArgs.SelectedNumbers[0],
+                            sdArgs.SelectedNumbers[1], settingsConfig.SelectObjectColor).Count > 0)
+
+                            return true;
+                    }
+
+                    else
+                    {
+                        if (project.SelectNodeInDirection(sdArgs.Angle, sdArgs.SelectedNumbers[1],
+                            sdArgs.SelectedNumbers[0], settingsConfig.SelectObjectColor).Count > 0)
+                            return true;
+                    }
+  
+                }
+                else
+                    console.PrintInfo("Выбранных объектов должно быть больше двух", Color.Orange);
+                return false;
+            }
+            catch (Exception)
+            {
+                sdArgs.SelectedNumbers.RemoveAt(sdArgs.SelectedNumbers.Count - 1);
+                return false;
+            }
+
         }
 
         private List<int> SelectionControl_SelectInSet(ObjType selectType, List<int> numbers, bool isSelected)
@@ -250,21 +298,6 @@ namespace BazisGUI
 
                 var plane = new Geometry.Plane(n1.Position, n2.Position, n3.Position);
                 return project.SelectNodeInPlane(plane, settingsConfig.SelectObjectColor);
-        }
-
-        private List<int> SelectInPlain(SelectInDirectionEventArgs sdArgs)
-        {
-            if (!sdArgs.Reverse)
-            {
-                return project.SelectNodeInDirection(sdArgs.Angle, sdArgs.SelectedNumbers[0],
-                    sdArgs.SelectedNumbers[1], settingsConfig.SelectObjectColor);
-            }
-
-            else
-            {
-                return project.SelectNodeInDirection(sdArgs.Angle, sdArgs.SelectedNumbers[1],
-                    sdArgs.SelectedNumbers[0], settingsConfig.SelectObjectColor);
-            }
         }
 
         private void RefreshForm()

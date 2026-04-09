@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static IronPython.Modules._ast;
 
 namespace BazisGUI
 {
@@ -19,7 +20,7 @@ namespace BazisGUI
         public bool SelectByPoint(IEnumerable<ISetInfo> sets, Point2D selectionPoint, bool isSelected)
         {
             var selFlag = false;
-            var tempNumb = 0;
+            var tempNumbs = new List<int>();
             ISetInfo tempSetInfo = null;
             var cur_z_depth = 0.0f;
 
@@ -45,10 +46,6 @@ namespace BazisGUI
                         if (IsObjectSelected(selectionPoint, set.ObjType, scrPoints))
                         {
                             selFlag = true;
-                            if (isSelected)
-                                set.SetColor(settingsConfig.SelectObjectColor, numb);
-                            else
-                                set.SetBackColor(numb);
 
                             bool isObjectCloser;
 
@@ -67,13 +64,14 @@ namespace BazisGUI
 
                             if (isObjectCloser)
                             {
-                                tempSetInfo?.SetBackColor(tempNumb);
+                                tempNumbs.Add(numb);
+                                //tempSetInfo?.SetBackColor(tempNumb);
                                 tempSetInfo = set;
-                                tempNumb = numb;
+                                //tempNumb = numb;
                                 cur_z_depth = temp_z_depth;
                             }
                             else
-                                set.SetBackColor(numb);
+                                tempNumbs.Insert(0, numb);// set.SetBackColor(numb);
                         }
                     }
                 }
@@ -82,8 +80,14 @@ namespace BazisGUI
 
             if (selFlag)
             {
+                var tempNumb = tempNumbs.Last();
+                if (isSelected)
+                    tempSetInfo.SetColor(settingsConfig.SelectObjectColor, tempNumb);
+                else
+                    tempSetInfo.SetBackColor(tempNumb);
+
                 if (bool.Parse(btnAdvSelection.Tag.ToString()))
-                    DispatchSelection(new List<int>() { tempNumb }, isSelected);
+                    DispatchSelection(new List<int>() {tempNumb}, isSelected);
                 else 
                 {
                     console.PrintInfo($"Выбран объект : {tempSetInfo.ObjType} {tempNumb}", Color.Black);
