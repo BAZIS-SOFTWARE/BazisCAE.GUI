@@ -32,11 +32,6 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             SetAvailableModes(selectedObjects);
         }
 
-        public void SetDirectionConfig(SelectInDirectionEventArgs current)
-        {
-            directionConfig = current;
-        }
-
         public void SetAvailableModes(string selectedObjects)
         {
             if (_modes.TryGetValue(selectedObjects, out var mode))
@@ -45,23 +40,23 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
                 selectType = ConvertToObjsType(selectedObjects);
                 directionConfig = null;
                 plainConfig = null;
-    }
+            }
             else
                 CloseForm?.Invoke();
         }
 
         public object GetSelectedAdditionalMode()
         {
-            if (rbtDirection.Checked) 
+            if (rbtDirection.Checked)
             {
-                if(directionConfig ==  null)
+                if (directionConfig == null)
                     directionConfig = new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text));
                 return directionConfig;
             }
-                
+
             else if (rbtSurface.Checked)
             {
-                if(plainConfig == null)
+                if (plainConfig == null)
                     plainConfig = new SelectInPlainEventArgs(selectType, float.Parse(txbAngle.Text));
                 return plainConfig;
             }
@@ -86,10 +81,16 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
                 throw new Exception($"Ошибка конвертации объектов {objects}");
         }
 
-        private void chbChangeDirection_CheckedChanged(object sender, EventArgs e) 
+        private void chbChangeDirection_CheckedChanged(object sender, EventArgs e)
         {
             directionConfig.Reverse = chbChangeDirection.Checked;
             //SelectInDirection(directionConfig);
+        }
+
+        private void Rbt_CheckedChanged(object sender, EventArgs e)
+        {
+            directionConfig = null;
+            plainConfig = null;
         }
     }
 }

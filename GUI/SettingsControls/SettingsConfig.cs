@@ -47,5 +47,8 @@ namespace BazisGUI.SettingsControls
         internal bool ShowNodesOnCurves;
 
         public bool ShowAllMeshWhenGeneration;
+
+        //cond settings
+        public bool CheckCondValue;
     }
 }

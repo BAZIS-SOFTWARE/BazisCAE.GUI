@@ -42,23 +42,23 @@ namespace BazisGUI
 
                             foreach (var iobj in group)
                             {
-                                // добавим для проверки численных значений функции
-                                if (data.Function != null)
-                                {
-                                    if (data.Function.FunctionType == Project.Tasks.Functions.FuncType.CPF)
+                                if(settingsConfig.CheckCondValue)
+                                    if (data.Function != null)
                                     {
-                                        if (lf != null)
-                                        {
-                                            var pos = lf.Frame.GetCoordsInFrame(iobj.CalcCentr());
-                                            data.Function["X"].SetValue(pos._x);
-                                            data.Function["Y"].SetValue(pos._y);
-                                            data.Function["Z"].SetValue(pos._z);
+                                        //if (data.Function.FunctionType == Project.Tasks.Functions.FuncType.CPF)
+                                        //{
+                                            if (lf != null)
+                                            {
+                                                var pos = lf.Frame.GetCoordsInFrame(iobj.CalcCentr());
+                                                data.Function["X"].SetValue(pos._x);
+                                                data.Function["Y"].SetValue(pos._y);
+                                                data.Function["Z"].SetValue(pos._z);
 
-                                            var val = data.Value * data.Function.CalcValue();
-                                            DisplayText3D(val.ToString(), Color.Black, iobj.CalcCentr());
-                                        }
+                                                var val = data.Value * data.Function.CalcValue();
+                                                DisplayText3D(val.ToString(), Color.Black, iobj.CalcCentr());
+                                            }
+                                        //}
                                     }
-                                }
 
                                 if (data.Kind == DataKind.Материал)
                                     iobj.Color = Color.FromArgb(255, 255, 0);

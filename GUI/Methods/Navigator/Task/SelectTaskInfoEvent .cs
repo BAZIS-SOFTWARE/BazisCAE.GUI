@@ -35,6 +35,8 @@ namespace BazisGUI
                 if (project.FunctionsDB != null)
                     rows.Add(new RowProperty("Функции", project.FunctionsDB.Name,true));
 
+                rows.Add(new RowProperty("Проверка значений условий", settingsConfig.CheckCondValue));
+                
 
                 propertiesPanel.DrawTable(rows);
             }

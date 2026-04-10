@@ -18,24 +18,27 @@ namespace BazisGUI
     enum ResultType { nodes, elements }
     public partial class BaseForm
     {
-               
         private void DisplayMRF(float time, ICondData data)
         {
-            var mf = data.LocalFrame as MovedFrame;
-            mf.Time = time - data.StartTime;          
 
-            mf.CalcPosition();
-            DisplayLocalFrame(mf.Frame);
-            var trajPoints = mf.BaseLine.Select(x => x.CalcCentr()).ToArray();
-            DisplayPath(trajPoints);
+            if (data.LocalFrame is MovedFrame mf)
+            {
+                mf.Time = time - data.StartTime;
+                var trajPoints = mf.BaseLine.Select(x => x.CalcCentr()).ToArray();
+                DisplayPath(trajPoints);
+            }
+
+
+            data.LocalFrame.CalcPosition();
+            DisplayLocalFrame(data.LocalFrame.Frame);
 
             if (data.Function is SPH sphear)
             {
-                DisplaySphere((float)sphear.Width, mf.Frame);
+                DisplaySphere((float)sphear.Width, data.LocalFrame.Frame);
             }
             else if (data.Function is CIL cilinder)
             {
-                DisplayConus((float)cilinder.UpperDiam, (float)cilinder.BottomDiam, (float)cilinder.Length, mf.Frame);
+                DisplayConus((float)cilinder.UpperDiam, (float)cilinder.BottomDiam, (float)cilinder.Length, data.LocalFrame.Frame);
             }
         }
 

@@ -58,7 +58,7 @@ namespace BazisGUI
                 if (IsMesh())
                 {
                     var selectionControl = new MeshSelect(SelectedObjects);
-                    OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
+                    //OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
                     //selectionControl.SelectInDirection += OnReverseChanged;
                     selectionControl.CloseForm += RefreshForm;
 
@@ -69,7 +69,7 @@ namespace BazisGUI
                 else if (IsGeometry())
                 {
                     var selectionControl = new GeomSelect(SelectedObjects);
-                    OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
+                    //OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
                     selectionControl.CloseForm += RefreshForm;
 
                     form.ClientSize = selectionControl.Size;
@@ -187,20 +187,26 @@ namespace BazisGUI
                     {
                         if (project.SelectNodeInDirection(sdArgs.Angle, sdArgs.SelectedNumbers[0],
                             sdArgs.SelectedNumbers[1], settingsConfig.SelectObjectColor).Count > 0)
-
+                        {
+                            sdArgs.SelectedNumbers.Clear();
                             return true;
+                        }
+                            
                     }
 
                     else
                     {
                         if (project.SelectNodeInDirection(sdArgs.Angle, sdArgs.SelectedNumbers[1],
                             sdArgs.SelectedNumbers[0], settingsConfig.SelectObjectColor).Count > 0)
+                        {
+                            sdArgs.SelectedNumbers.Clear();
                             return true;
+                        }
                     }
   
                 }
                 else
-                    console.PrintInfo("Выбранных объектов должно быть больше двух", Color.Orange);
+                    console.PrintInfo("Должно быть два выбранных узла", Color.Orange);
                 return false;
             }
             catch (Exception)
@@ -335,7 +341,7 @@ namespace BazisGUI
             var mesh = form.Controls.OfType<MeshSelect>().FirstOrDefault();
             if (mesh != null)
             {
-                OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
+                //OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
                 //mesh.SelectInDirection -= OnReverseChanged;
                 mesh.CloseForm -= RefreshForm;
                 mesh.Dispose();
@@ -345,7 +351,7 @@ namespace BazisGUI
             var geom = form.Controls.OfType<GeomSelect>().FirstOrDefault();
             if (geom != null)
             {
-                OnChangeSelectedObjectsEvent -= geom.SetAvailableModes;
+                //OnChangeSelectedObjectsEvent -= geom.SetAvailableModes;
                 geom.CloseForm -= RefreshForm;
                 geom.Dispose();
             }

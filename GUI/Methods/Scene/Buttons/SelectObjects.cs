@@ -18,7 +18,7 @@ namespace BazisGUI
     public partial class BaseForm
     {
         Dictionary<string, Button> objButtons = new Dictionary<string, Button>();
-        public event Action<string> OnChangeSelectedObjectsEvent;
+        //public event Action<string> OnChangeSelectedObjectsEvent;
         /// <summary>
         /// Временный выбранный объект для работы со свойствами через сцену
         /// </summary>
@@ -72,7 +72,7 @@ namespace BazisGUI
         {
             var btn = sender as Button;
             SelectedObjects = btn.Text;
-            OnChangeSelectedObjectsEvent?.Invoke(SelectedObjects);
+            //OnChangeSelectedObjectsEvent?.Invoke(SelectedObjects);
             btnSelect.Tag = false;
 
             foreach (var item in objButtons)
