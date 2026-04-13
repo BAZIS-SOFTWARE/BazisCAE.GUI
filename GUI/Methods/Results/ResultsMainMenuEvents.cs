@@ -81,7 +81,11 @@ namespace BazisGUI
                 }));
             }
         }
-       
+
+        /// <summary>
+        /// Обработчик нажатия пункта меню "Объединить БД результатов".
+        /// Позволяет выбрать несколько файлов .db и последовательно объединяет их в один.
+        /// </summary>
         private void MergeDataBase_Click(object sender, EventArgs e)
         {
             using var openDialog = new OpenFileDialog()
@@ -123,6 +127,10 @@ namespace BazisGUI
                 console.PrintInfo($"Ошибка при объединении файлов: {ex.Message}", Color.Red);
             }
 
+            /// <summary>
+            /// Пытается удалить файл по указанному пути. Выполняет сборку мусора перед удалением,
+            /// чтобы освободить возможные блокировки файла.
+            /// </summary>
             void TryDeleteFile(string path)
             {
                 try
