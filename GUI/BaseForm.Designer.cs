@@ -37,7 +37,7 @@ namespace BazisGUI
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             toolStripContainer = new ToolStripContainer();
             statusStrip = new StatusStrip();
             lblStatus = new ToolStripStatusLabel();
@@ -52,8 +52,8 @@ namespace BazisGUI
             cntrНавигатор = new UserControlsEx.SplitContainerEx();
             navigator = new NavigatorControl();
             tableLayoutPanel1 = new TableLayoutPanel();
-            checkPlayerControl = new Player.PlayerControl();
-            propertiesPanel = new PropertiesPanel.PropertiesPanelControl();
+            checkPlayerControl = new BazisGUI.Player.PlayerControl();
+            propertiesPanel = new BazisGUI.PropertiesPanel.PropertiesPanelControl();
             splitContainer2 = new UserControlsEx.SplitContainerEx();
             btnSelect = new Button();
             btnDisplayStates = new Button();
@@ -77,7 +77,7 @@ namespace BazisGUI
             btnMakeScreenShot = new Button();
             btnAdvSelection = new Button();
             scene = new OpenTK.GLControl.GLControl();
-            console = new Console.ConsoleControl();
+            console = new BazisGUI.Console.ConsoleControl();
             menuStrip = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem = new ToolStripMenuItem();
@@ -1256,10 +1256,10 @@ namespace BazisGUI
             // 
             // объединитьToolStripMenuItem
             // 
-            объединитьToolStripMenuItem.Enabled = false;
             объединитьToolStripMenuItem.Name = "объединитьToolStripMenuItem";
             объединитьToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             объединитьToolStripMenuItem.Text = "Объединить";
+            объединитьToolStripMenuItem.Click += MergeDataBase_Click;
             // 
             // построитьГрафикToolStripMenuItem
             // 
