@@ -342,4 +342,7 @@
   <data name="AvailableCommands" xml:space="preserve">
     <value>Available commands</value>
   </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Console</value>
+  </data>
 </root>
