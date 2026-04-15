@@ -12,7 +12,7 @@ namespace BazisGUI.Console.Events
             if (double.TryParse(v, out volume))
                 Volume = volume;
             else
-                throw new ArgumentException("Значение параметра должно быть числом.", nameof(v));
+                throw new ArgumentException(Localization.Localization.GetStringResourceByName<ConsoleControl>("InvalidArgumentsNumberException"), nameof(v));
         }
     }
 }

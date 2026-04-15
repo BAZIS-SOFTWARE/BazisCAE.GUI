@@ -14,7 +14,7 @@ namespace BazisGUI.Console.Events
             var strAr = vector.Split(',');
 
             if (strAr.Length < 3)
-                throw new Exception("Вектор должен содержать три координаты!");
+                throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("ModelShiftCoordinateEventArgsVectorExc"));
             X = float.Parse(strAr[0], NumberStyles.Float, CultureInfo.InvariantCulture);
             Y = float.Parse(strAr[1], NumberStyles.Float, CultureInfo.InvariantCulture);
             Z = float.Parse(strAr[2], NumberStyles.Float, CultureInfo.InvariantCulture);

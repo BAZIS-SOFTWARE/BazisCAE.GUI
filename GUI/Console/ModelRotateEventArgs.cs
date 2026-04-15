@@ -15,12 +15,12 @@ namespace BazisGUI.Console
             var strAr = v.Split(':');
 
             if (strAr.Length < 2)
-                throw new Exception("Неправильный формат команды");
+                throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("InvalidCommandException"));
 
             var coords = strAr[0].Split(',');
 
             if (coords.Length < 3)
-                throw new Exception("Неправильно введены координаты");
+                throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("InvalidCoordinatesException"));
 
             var x = float.Parse(coords[0].Replace(" ",""), NumberStyles.Float);
             var y = float.Parse(coords[1].Replace(" ", ""), NumberStyles.Float);

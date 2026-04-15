@@ -995,4 +995,25 @@
   <data name="HeaderName" xml:space="preserve">
     <value>Console</value>
   </data>
+  <data name="FindVolElemsEventArgsArgExc" xml:space="preserve">
+    <value>The parameter value must be a number.</value>
+  </data>
+  <data name="UnknownTypeException" xml:space="preserve">
+    <value>Unknown object type!</value>
+  </data>
+  <data name="PositiveCellingNumberException" xml:space="preserve">
+    <value>The number must be a positive integer!</value>
+  </data>
+  <data name="ModelShiftCoordinateEventArgsVectorExc" xml:space="preserve">
+    <value>The vector must contain three coordinate components!</value>
+  </data>
+  <data name="BeamConnectionEventArgsArgNumExc" xml:space="preserve">
+    <value>The parameter value must be a number.</value>
+  </data>
+  <data name="InvalidCommandException" xml:space="preserve">
+    <value>Invalid command format</value>
+  </data>
+  <data name="InvalidCoordinatesException" xml:space="preserve">
+    <value>Invalid coordinates entered</value>
+  </data>
 </root>
