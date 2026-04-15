@@ -1,5 +1,7 @@
 ﻿using BazisGUI.Console.Events;
+using BazisGUI.Scene.VBO;
 using Model.Interfaces;
+using Model.MeshObjects;
 using System;
 
 namespace BazisGUI
@@ -32,16 +34,27 @@ namespace BazisGUI
                 default:
                     throw new NotSupportedException();
             }
-            GmshController.Gmsh.Model.Occ.Synchronize();
-            
+
+
+            //GmshController.CreateLines();
+            //ImportCAD;
+ 
             PresentGeoData();
             DisplayObjects();
         }
 
         private void AddPoint(double x, double y, double z, double meshSize = 0) 
         {
-            //GmshController.Gmsh.Model.Add("surface");
-            GmshController.Gmsh.Model.Occ.AddPoint(x,y,z);
+            var crpn = GmshController.Gmsh.Model.Occ.AddPoint(x,y,z);
+            GmshController.Gmsh.Model.Occ.Synchronize();
+            var points = GmshController.CreateControlPoints();// тут уже видим созданную точку
+            
+            project.CreateGeometryObject(1, crpn);
+            VBOController.DeleteVBObjects("Точка");
+            var points1 = project.GetModelObjects(ObjType.Точка);
+            var pre = project.CreateModelObjectsPresentor(ObjType.Точка);
+            var vb = CreateVBObject(pre);
+            VBOController.AddVbo(vb);
         }
 
         private void AddLine(int startTag, int endTag, int tag = -1)
