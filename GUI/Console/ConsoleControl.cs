@@ -1,14 +1,14 @@
-﻿using System;
+﻿using BazisGUI.Console.Events;
+using BazisGUI.PinnedControl;
+using BazisGUI.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using System.IO;
-using System.Threading;
+using System.Linq;
 using System.Reflection;
-using BazisGUI.Console.Events;
-using BazisGUI.Utilities;
-using BazisGUI.PinnedControl;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace BazisGUI.Console
 {
@@ -32,7 +32,10 @@ namespace BazisGUI.Console
         RotateMesh,
         MoveNodes,
         MergeElementSets,
-        CreateMesh2DPoligon
+        CreateMesh2DPoligon,
+        CreatePoint,
+        CreateCurve,
+        CreateSurface
     }
 
     public partial class ConsoleControl : PinnedPage
@@ -50,6 +53,7 @@ namespace BazisGUI.Console
         public event Action<object, ModelRotateEventArgs> ModelRotateEvent;
         public event Action<object, MergeElementSetsEventArgs> MergeElementSetsEvent;
         public event Action<object, CreateMesh2DPoligonEventArgs> CreateMesh2DPoligonEvent;
+        public event Action<CreateGeometryEventArgs> CreateGeometryEvent;
         int SessionNumber
         {
             get;
@@ -73,7 +77,10 @@ namespace BazisGUI.Console
             { "Задать порядок точности",GenCmd.SetLevel },
             { "Слить наборы элементов",GenCmd.MergeElementSets },
             { "Построить 2D сетку",GenCmd.CreateMesh2DPoligon },
-            { "Выход",GenCmd.Exit }
+            { "Выход",GenCmd.Exit },
+            { "Добавить точку", GenCmd.CreatePoint },
+            { "Добавить линию", GenCmd.CreateCurve },
+            { "Добавить поверхность", GenCmd.CreateSurface}
         };
 
         Dictionary<GenCmd, string[]> subCmds = new Dictionary<GenCmd, string[]>()
@@ -93,7 +100,10 @@ namespace BazisGUI.Console
             { GenCmd.SetLevel,new string[]{ "тип","порядок точности" }},
             { GenCmd.MergeElementSets,new string[]{ "тип","набор#1","набор#2" }},
             { GenCmd.CreateMesh2DPoligon,new string[]{ "x1,y1", "x2,y2", "x3,y3","x4,y4","кол-во элементов" }},
-            { GenCmd.Exit,new string[]{}}
+            { GenCmd.Exit,Array.Empty<string>()},
+            { GenCmd.CreatePoint, new string[]{ "x,y,z" } },
+            { GenCmd.CreateCurve, new string[]{ "точка#1", "точка#2" }},
+            { GenCmd.CreateSurface, new string[]{ "кривые формирующие контур", "кривая#1,кривая#2,..." } }
         };
 
 
@@ -306,6 +316,15 @@ namespace BazisGUI.Console
                         break;
                     case GenCmd.Exit:
                         InEvent(this, new ExitAppEventArgs());
+                        break;
+                    case GenCmd.CreatePoint:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(0, [cmds[1]]));
+                        break;   
+                    case GenCmd.CreateCurve:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(1, [cmds[1], cmds[2]]));
+                        break;
+                    case GenCmd.CreateSurface:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(2, [cmds[2]]));
                         break;
                 }
             }
