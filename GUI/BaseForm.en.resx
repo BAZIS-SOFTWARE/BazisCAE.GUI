@@ -908,4 +908,13 @@ Create variable?</value>
   <data name="ErrorCaption" xml:space="preserve">
     <value>Error!</value>
   </data>
+  <data name="CallBackFormName" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="SaveWithoutProjectMessage" xml:space="preserve">
+    <value>Firstly open exist project or create a new one</value>
+  </data>
+  <data name="ProjectSavedCaption" xml:space="preserve">
+    <value>Project saved</value>
+  </data>
 </root>

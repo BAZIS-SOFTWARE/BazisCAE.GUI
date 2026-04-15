@@ -561,7 +561,7 @@ namespace BazisGUI
                     return;
 
                 if (project == null)
-                    MessageBox.Show("Сначала откройте или создайте новый проект");
+                    MessageBox.Show(GetStringResourceByName("SaveWithoutProjectMessage"));
                 else
                 {
                     var newFolder = Path.GetDirectoryName(saveDialog.FileName);
@@ -582,7 +582,7 @@ namespace BazisGUI
 
                     project.Save(saveDialog.FileName);
 
-                    console.PrintInfo("Проект сохранен", Color.Black);
+                    console.PrintInfo(GetStringResourceByName("ProjectSavedCaption"), Color.Black);
                     lblStatus.Text = saveDialog.FileName;
                 }
             }
@@ -596,7 +596,7 @@ namespace BazisGUI
             {
                 //Path.GetDirectoryName
                 project?.Save(lblStatus.Text);
-                console.PrintInfo("Проект сохранен", Color.Black);
+                console.PrintInfo(GetStringResourceByName("ProjectSavedCaption"), Color.Black);
             }
             catch (Exception ex)
             {
@@ -649,7 +649,7 @@ namespace BazisGUI
 
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+                MessageBox.Show(GetErrorWithStackMessage(ex), GetErrorCaption());
             }
         }
 
@@ -697,7 +697,7 @@ namespace BazisGUI
 
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+                MessageBox.Show(GetErrorWithStackMessage(ex), GetErrorCaption());
                 Application.OpenForms["Загрузка"]?.Close();
             }
         }

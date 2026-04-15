@@ -695,4 +695,13 @@
   <data name="ErrorCaption" xml:space="preserve">
     <value>Ошибка!</value>
   </data>
+  <data name="CallBackFormName" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="SaveWithoutProjectMessage" xml:space="preserve">
+    <value>Сначала откройте существующий проект или создайте новый</value>
+  </data>
+  <data name="ProjectSavedCaption" xml:space="preserve">
+    <value>Проект сохранен</value>
+  </data>
 </root>
