@@ -704,4 +704,10 @@
   <data name="ProjectSavedCaption" xml:space="preserve">
     <value>Проект сохранен</value>
   </data>
+  <data name="StartCaption" xml:space="preserve">
+    <value>Старт</value>
+  </data>
+  <data name="StopCaption" xml:space="preserve">
+    <value>Стоп</value>
+  </data>
 </root>

@@ -72,5 +72,17 @@ namespace BazisGUI.Localization
             var resources = new ComponentResourceManager(typeof(BaseForm));
             return $"{ex.Message} {resources.GetString("StackTrace")}:{ex.StackTrace}";
         }
+
+        public static string GetStartCaption()
+        {
+            var resources = new ComponentResourceManager(typeof(BaseForm));
+            return resources.GetString("StartCaption");
+        }
+
+        public static string GetStopCaption()
+        {
+            var resources = new ComponentResourceManager(typeof(BaseForm));
+            return resources.GetString("StopCaption");
+        }
     }
 }

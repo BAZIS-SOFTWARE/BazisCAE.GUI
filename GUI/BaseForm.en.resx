@@ -917,4 +917,10 @@ Create variable?</value>
   <data name="ProjectSavedCaption" xml:space="preserve">
     <value>Project saved</value>
   </data>
+  <data name="StartCaption" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="StopCaption" xml:space="preserve">
+    <value>Stop</value>
+  </data>
 </root>
