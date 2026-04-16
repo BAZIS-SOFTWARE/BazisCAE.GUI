@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -83,6 +84,29 @@ namespace BazisGUI.Localization
         {
             var resources = new ComponentResourceManager(typeof(BaseForm));
             return resources.GetString("StopCaption");
+        }
+
+        public static string GetSelectionTypeLocalization(SelectionType select)
+        {
+            switch (select) 
+            {
+                case SelectionType.Points:
+                    return GetStringResourceByName("btnSelect.Text.Points");
+                case SelectionType.Curves:
+                    return GetStringResourceByName("btnSelect.Text.Curves");
+                case SelectionType.Surfaces:
+                    return GetStringResourceByName("btnSelect.Text.Serfaces");
+                case SelectionType.Nodes:
+                    return GetStringResourceByName("btnSelect.Text.Nodes");
+                case SelectionType.Elements1D:
+                    return GetStringResourceByName("btnSelect.Text.Elements1D");
+                case SelectionType.Elements2D:
+                    return GetStringResourceByName("btnSelect.Text.Elements2D");
+                case SelectionType.Elements3D:
+                    return GetStringResourceByName("btnSelect.Text.Elements3D");
+                default:
+                    return GetStringResourceByName("btnSelect.Text.Objects");
+            }
         }
     }
 }

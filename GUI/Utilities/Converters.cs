@@ -70,5 +70,36 @@ namespace BazisGUI.Utilities
         {
             return Enum.GetNames(typeof(T)).ToList();
         }
+
+        public static ObjType ConvertSelectionTypeToObjType(SelectionType st)
+        {
+            switch (st)
+            {
+                case SelectionType.Points: return ObjType.Точка;
+                case SelectionType.Curves: return ObjType.Кривая;
+                case SelectionType.Surfaces: return ObjType.Поверхность;
+                case SelectionType.Nodes: return ObjType.Узел;
+                case SelectionType.Elements1D: return ObjType.Элемент1D;
+                case SelectionType.Elements2D: return ObjType.Элемент2D;
+                case SelectionType.Elements3D: return ObjType.Элемент3D;
+                default:
+                    throw new Exception($"{Localization.Localization.GetStringResourceByName("ConvertFailCaption")}:{st.ToString()} -> ObjType");
+            }
+        }
+
+        public static SelectionType ConvertObjTypeToSelectionType(ObjType ot)
+        {
+            switch (ot)
+            {
+                case ObjType.Точка: return SelectionType.Points;
+                case ObjType.Кривая: return SelectionType.Curves;
+                case ObjType.Поверхность: return SelectionType.Surfaces;
+                case ObjType.Узел: return SelectionType.Nodes;
+                case ObjType.Элемент1D: return SelectionType.Elements1D;
+                case ObjType.Элемент2D: return SelectionType.Elements2D;
+                case ObjType.Элемент3D: return SelectionType.Elements3D;
+                default: return SelectionType.Objects;
+            }
+        }
     }
 }
