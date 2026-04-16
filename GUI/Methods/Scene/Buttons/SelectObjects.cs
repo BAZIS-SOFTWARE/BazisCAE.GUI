@@ -1,6 +1,7 @@
 ﻿using BazisGUI.AdvanceSelection;
 using BazisGUI.Extensions;
 using BazisGUI.Properties;
+using BazisGUI.Utilities;
 using MathNet.Numerics.RootFinding;
 using Model.Interfaces;
 using Model.MeshObjects;
@@ -12,37 +13,35 @@ using System.Linq;
 using System.Runtime.InteropServices.JavaScript;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UserControlsEx;
 
 namespace BazisGUI
 {
+    public enum SelectionType { Select, Objects, Figures, Points, Curves, Surfaces, Volumes, Nodes, Elements, Elements1D, Elements2D, Elements3D }
     public partial class BaseForm
     {
-        Dictionary<string, Button> objButtons = new Dictionary<string, Button>();
+        
+        Dictionary<SelectionType, Button> objButtons = new();
         //public event Action<string> OnChangeSelectedObjectsEvent;
         /// <summary>
         /// Временный выбранный объект для работы со свойствами через сцену
         /// </summary>
-
-        public string SelectedObjects
+        //public  SelectedType;
+        public SelectionType SelectedObjects
         {
-            get { return btnSelect.Text; }
+            get { return Enum.Parse<SelectionType>(btnSelect.AccessibleName.Split("SelectObjects.btnSelect.")[1]); }
             set 
             {
-                if(objButtons.ContainsKey(value) | value == "_")
-                {
-                    if(value == "_")
-                        btnSelect.Text = "Выбрать";
-                    else
-                        btnSelect.Text = value;
-                    SetBackColorToAllObjects();
-                    DisplayObjects();
-                }
+                btnSelect.AccessibleName = $"SelectObjects.btnSelect.{value.ToString()}";
+                btnSelect.Text = Localization.Localization.GetSelectionTypeLocalization(value);
+                SetBackColorToAllObjects();
+                DisplayObjects();
             }
         }
 
-        public void AddObjectsType(string objsType)
+        public void AddObjectsType(SelectionType select)
         {
-            var btn = CreateButton(objsType);
+            var btn = CreateButton(select);
 
             btn.MouseDown += Btn_MouseDown;
 
@@ -65,13 +64,13 @@ namespace BazisGUI
             splitContainer2.Panel1.Controls.Add(btn);
             btn.BringToFront();
 
-            objButtons.Add(objsType, btn);
+            objButtons.Add(select, btn);
         }
 
         private void Btn_MouseDown(object sender, MouseEventArgs e)
         {
             var btn = sender as Button;
-            SelectedObjects = btn.Text;
+            //SelectedObjects = Enum.Parse<SelectionType>(btn.Name);
             //OnChangeSelectedObjectsEvent?.Invoke(SelectedObjects);
             btnSelect.Tag = false;
 
@@ -119,23 +118,54 @@ namespace BazisGUI
 
             if (objTypes.Count() != 0)
             {
-                AddObjectsType("Объекты");
+                AddObjectsType(SelectionType.Objects);
 
                 foreach (ObjType item in objTypes)
-                    AddObjectsType(item.ToString());
+                    AddObjectsType(Converters.ConvertObjTypeToSelectionType(item));
             }
         }
 
-
-        public Button CreateButton(string name)
+        public Button CreateButton(SelectionType select)
         {
-            
+            string localization;
+
+            switch (select)
+            {
+                case SelectionType.Objects:
+                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Objects");
+                    break;
+                case SelectionType.Points:
+                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Points");
+                    break;
+                case SelectionType.Curves:
+                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Curves");
+                    break;
+                case SelectionType.Surfaces:
+                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Serfaces");
+                    break;
+                case SelectionType.Nodes:
+                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Nodes");
+                    break;
+                case SelectionType.Elements1D:
+                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Elements1D");
+                    break;
+                case SelectionType.Elements2D:
+                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Elements2D");
+                    break;
+                case SelectionType.Elements3D:
+                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Elements3D");
+                    break;
+                default:
+                    throw new ArgumentException($"{Localization.Localization.GetStringResourceByName("ConvertFailCaption")}: {select.ToString()} -> string");
+            }
+
             var btn = new Button();
             btn.Anchor = btnSelect.Anchor;
             btn.AutoSize = btnSelect.AutoSize;
-            btn.Name = name;
+            btn.Name = select.ToString();
+            btn.AccessibleName = select.ToString();
             btn.Size = btnSelect.Size;
-            btn.Text = name;
+            btn.Text = localization;
             btn.AutoSize = btnSelect.AutoSize;
             btn.FlatStyle = btnSelect.FlatStyle;
             btn.Margin = btnSelect.Margin;
