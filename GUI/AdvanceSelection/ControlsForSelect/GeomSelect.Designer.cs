@@ -30,6 +30,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GeomSelect));
             generalPanel = new TableLayoutPanel();
             rbtVolume = new RadioButton();
             rbtSurface = new RadioButton();
@@ -39,66 +40,39 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             // 
             // generalPanel
             // 
-            generalPanel.AutoSize = true;
-            generalPanel.ColumnCount = 1;
-            generalPanel.ColumnStyles.Add(new ColumnStyle());
+            resources.ApplyResources(generalPanel, "generalPanel");
             generalPanel.Controls.Add(rbtVolume);
             generalPanel.Controls.Add(rbtSurface);
             generalPanel.Controls.Add(rbtCurve);
-            generalPanel.Dock = DockStyle.Fill;
-            generalPanel.Location = new System.Drawing.Point(0, 0);
             generalPanel.Name = "generalPanel";
-            generalPanel.RowCount = 3;
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
-            generalPanel.Size = new System.Drawing.Size(400, 90);
-            generalPanel.TabIndex = 0;
             // 
             // rbtVolume
             // 
-            rbtVolume.Anchor = AnchorStyles.Left;
-            rbtVolume.AutoSize = true;
-            rbtVolume.Location = new System.Drawing.Point(3, 5);
-            rbtVolume.Name = "rbtVolume";
-            rbtVolume.Padding = new Padding(5, 0, 0, 0);
-            rbtVolume.Size = new System.Drawing.Size(77, 19);
-            rbtVolume.TabIndex = 8;
-            rbtVolume.TabStop = true;
-            rbtVolume.Text = "Объемы";
+            resources.ApplyResources(rbtVolume, "rbtVolume");
             rbtVolume.Checked = true;
+            rbtVolume.ForeColor = System.Drawing.SystemColors.ControlText;
+            rbtVolume.Name = "rbtVolume";
+            rbtVolume.TabStop = true;
+            rbtVolume.Tag = "";
             // 
             // rbtSurface
             // 
-            rbtSurface.Anchor = AnchorStyles.Left;
-            rbtSurface.AutoSize = true;
-            rbtSurface.Location = new System.Drawing.Point(3, 35);
+            resources.ApplyResources(rbtSurface, "rbtSurface");
             rbtSurface.Name = "rbtSurface";
-            rbtSurface.Padding = new Padding(5, 0, 0, 0);
-            rbtSurface.Size = new System.Drawing.Size(102, 19);
-            rbtSurface.TabIndex = 8;
             rbtSurface.TabStop = true;
-            rbtSurface.Text = "Поверхности";
             // 
             // rbtCurve
             // 
-            rbtCurve.Anchor = AnchorStyles.Left;
-            rbtCurve.AutoSize = true;
-            rbtCurve.Location = new System.Drawing.Point(3, 65);
+            resources.ApplyResources(rbtCurve, "rbtCurve");
             rbtCurve.Name = "rbtCurve";
-            rbtCurve.Padding = new Padding(5, 0, 0, 0);
-            rbtCurve.Size = new System.Drawing.Size(72, 19);
-            rbtCurve.TabIndex = 8;
             rbtCurve.TabStop = true;
-            rbtCurve.Text = "Кривые";
             // 
             // GeomSelect
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(generalPanel);
             Name = "GeomSelect";
-            Size = new System.Drawing.Size(225, 90);
             generalPanel.ResumeLayout(false);
             generalPanel.PerformLayout();
             ResumeLayout(false);

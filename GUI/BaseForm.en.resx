@@ -923,4 +923,55 @@ Create variable?</value>
   <data name="StopCaption" xml:space="preserve">
     <value>Stop</value>
   </data>
+  <data name="btnSelect.Text.Objects" xml:space="preserve">
+    <value>Objects</value>
+  </data>
+  <data name="btnSelect.Text.Nodes" xml:space="preserve">
+    <value>Node</value>
+  </data>
+  <data name="btnSelect.Text.Points" xml:space="preserve">
+    <value>Point</value>
+  </data>
+  <data name="btnSelect.Text.Curves" xml:space="preserve">
+    <value>Curve</value>
+  </data>
+  <data name="btnSelect.Text.Surfaces" xml:space="preserve">
+    <value>Surface</value>
+  </data>
+  <data name="btnSelect.Text.Elements1D" xml:space="preserve">
+    <value>Element1D</value>
+  </data>
+  <data name="btnSelect.Text.Elements2D" xml:space="preserve">
+    <value>Element2D</value>
+  </data>
+  <data name="btnSelect.Text.Elements3D" xml:space="preserve">
+    <value>Element3D</value>
+  </data>
+  <data name="ConvertFailCaption" xml:space="preserve">
+    <value>Failed to convert</value>
+  </data>
+  <data name="AdvanceSelectionForm.Text" xml:space="preserve">
+    <value>Advance selection</value>
+  </data>
+  <data name="AdvanceSelection3NodesWarning" xml:space="preserve">
+    <value>Three nodes must be selected</value>
+  </data>
+  <data name="AdvanceSelectionElemntsSelectionWarning" xml:space="preserve">
+    <value>An element must be selected</value>
+  </data>
+  <data name="AdvanceSelection2NodesWarning" xml:space="preserve">
+    <value>Two nodes must be selected</value>
+  </data>
+  <data name="AdvanceSelectionNoObjectSelectedWarning" xml:space="preserve">
+    <value>No objects selected</value>
+  </data>
+  <data name="AdvaneSelectionSelectedCaption" xml:space="preserve">
+    <value>Selected</value>
+  </data>
+  <data name="SceneEvents.CreateGroup.InvalidGroupTypeWarning" xml:space="preserve">
+    <value>A group of the selected type cannot be created</value>
+  </data>
+  <data name="SceneEvents.CreateGroup.SuccessCaption" xml:space="preserve">
+    <value>New group created</value>
+  </data>
 </root>
