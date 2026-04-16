@@ -2944,4 +2944,37 @@ Create variable?</value>
   <data name="SceneEvents.CreateGroup.SuccessCaption" xml:space="preserve">
     <value>New group created</value>
   </data>
+  <data name="SceneEvents.Info.Selected" xml:space="preserve">
+    <value>Objects are selected</value>
+  </data>
+  <data name="UtilityToolStrip.Measuring.InvalidSeletedTypeError" xml:space="preserve">
+    <value>Please select another required object type. Measurements cannot be taken for</value>
+  </data>
+  <data name="UtilityToolStrip.Distance.Output" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPoint.EmptySelectionErrorMessage" xml:space="preserve">
+    <value>Selected no objects of type</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPlane.InstructionPart1" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPlane.InstructionPart2" xml:space="preserve">
+    <value>and press the "E" to confirm or "ESC" to cancel</value>
+  </data>
+  <data name="UtilityToolStrip.CalcSquare.Output" xml:space="preserve">
+    <value>Square</value>
+  </data>
+  <data name="UtilityToolStrip.CalcVolume.Output" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="UtilityToolStrip.CrossSection.Text" xml:space="preserve">
+    <value>Build cross section</value>
+  </data>
+  <data name="UtilityToolStrip.CreateCrossSection.InvalidNodeNumerErrorMessage" xml:space="preserve">
+    <value>Error, incorrect number of nodes selected</value>
+  </data>
+  <data name="UtilityToolStip.ClipForm.Text" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

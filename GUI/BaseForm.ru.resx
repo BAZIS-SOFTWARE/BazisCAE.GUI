@@ -761,4 +761,34 @@
   <data name="SceneEvents.CreateGroup.SuccessCaption" xml:space="preserve">
     <value>Создана новая группа</value>
   </data>
+  <data name="SceneEvents.Info.Selected" xml:space="preserve">
+    <value>Выбраны объекты</value>
+  </data>
+  <data name="UtilityToolStrip.Measuring.InvalidSeletedTypeError" xml:space="preserve">
+    <value>Выберите другой необходимый тип объектов. Нельзя произвести измерения для типа объектов</value>
+  </data>
+  <data name="UtilityToolStrip.Distance.Output" xml:space="preserve">
+    <value>Расстояние</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPoint.EmptySelectionErrorMessage" xml:space="preserve">
+    <value>Не выбрано ни одного объекта типа</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPlane.InstructionPart1" xml:space="preserve">
+    <value>Выберите</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPlane.InstructionPart2" xml:space="preserve">
+    <value>и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены</value>
+  </data>
+  <data name="UtilityToolStrip.CalcSquare.Output" xml:space="preserve">
+    <value>Площадь</value>
+  </data>
+  <data name="UtilityToolStrip.CalcVolume.Output" xml:space="preserve">
+    <value>Объем</value>
+  </data>
+  <data name="UtilityToolStrip.CrossSection.Text" xml:space="preserve">
+    <value>Построить сечение</value>
+  </data>
+  <data name="UtilityToolStrip.CreateCrossSection.InvalidNodeNumerErrorMessage" xml:space="preserve">
+    <value>Ошибка, выбрано неверное количество узлов</value>
+  </data>
 </root>

@@ -1,20 +1,21 @@
 ﻿using Model.Interfaces;
 using System.Collections.Generic;
 using BazisGUI.Extensions;
+using BazisGUI.Utilities;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public IEnumerable<IModelObject> GetModelObjects(string objects)
+        public IEnumerable<IModelObject> GetModelObjects(SelectionType selection)
         {
-            if (objects == "Объекты")
+            if (selection == SelectionType.Objects)
                 return project.GetAllModelObjects();
-            else if (objects == "Элементы")
+            else if (selection == SelectionType.Elements)
                 return project.GetAllModelElements();
             else
             {
-                var objType = objects.ToEnum<ObjType>();
+                var objType = Converters.ConvertSelectionTypeToObjType(selection);
                 return project.GetModelObjects(objType);
             }
         }

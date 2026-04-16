@@ -83,7 +83,21 @@ namespace BazisGUI.Utilities
                 case SelectionType.Elements2D: return ObjType.Элемент2D;
                 case SelectionType.Elements3D: return ObjType.Элемент3D;
                 default:
-                    throw new Exception($"{Localization.Localization.GetStringResourceByName("ConvertFailCaption")}:{st.ToString()} -> ObjType");
+                    throw new ArgumentException($"{Localization.Localization.GetStringResourceByName("ConvertFailCaption")}:{st.ToString()} -> ObjType");
+            }
+        }
+
+        public static bool TryConvertSelectionTypeToObjType(SelectionType st, out ObjType res)
+        {
+            try
+            {
+                res = ConvertSelectionTypeToObjType(st);
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                res = ObjType.Узел;
+                return false;
             }
         }
 
