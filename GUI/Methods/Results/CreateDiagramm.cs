@@ -27,7 +27,7 @@ namespace BazisGUI
 
                 await SelectContainerAsync(@"Выберите время и нажмите на клавишу ""E"" для подтверждения");
 
-                if (navigator.SelectedNode.Name != NodeName.время.ToString())
+                if (navigator.SelectedNode.Name != NodeName.Time.ToString())
                     throw new Exception("Выберите время в разделе результаты");
 
                 var selNode = navigator.SelectedNode;

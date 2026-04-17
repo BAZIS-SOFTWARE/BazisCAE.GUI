@@ -68,8 +68,8 @@ namespace BazisGUI
                     if (set != null)
                     {
                         //var nodeName = Converters.ConvertToNavigatorNodeType(set.ObjType);
-                        var v = navigator.CreateVirtualNode(set.ObjType.ToString());
-                        navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> nodes);
+                        var v = navigator.CreateVirtualNode(NodeName.Sets);
+                        navigator.TrySearchNodes(NodeName.Mesh, out List<TreeNode> nodes);
                         nodes.First().Nodes.Add(v);
                     }
 

@@ -17,7 +17,6 @@ namespace BazisGUI
     {
         private void ChangeCompProperties(PropertyChangedEventArgs obj, string nodeText)
         {
-            var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
             var parameters = ReadTaskParametersFromFile(nodeText.Split(' ')[1]);
             if (parameters is ChemicalParameters cmp) 
                 ChangeChemicalTask(obj, cmp);
@@ -93,7 +92,7 @@ namespace BazisGUI
             {
                 var name = obj.Header.Split(' ')[1];
 
-                navigator.TrySearchNodes(NodeName.расчеты, out List<TreeNode> task);
+                navigator.TrySearchNodes(NodeName.Calculations, out List<TreeNode> task);
 
 
                 var selectedInstruction = task[0].Nodes.Cast<TreeNode>().FirstOrDefault(inst => inst.Text.Contains(name));
@@ -149,7 +148,7 @@ namespace BazisGUI
                 var sample = ReadTaskParametersFromFile(selectedNode.Text.Split(' ')[1]);
 
                 var tasks = new List<string>();
-                navigator.TrySearchNodes(NodeName.расчеты, out List<TreeNode> task);
+                navigator.TrySearchNodes(NodeName.Calculations, out List<TreeNode> task);
                 foreach (TreeNode item in task[0].Nodes)
                     tasks.Add(item.Text);
 

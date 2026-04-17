@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Localization;
 using BazisGUI.Navigator;
 using BazisGUI.PropertiesPanel;
 using Project.Interfaces.Tasks;
@@ -20,7 +21,7 @@ namespace BazisGUI
             try
             {
                 List<TreeNode> tasks;
-                var search = navigator.TrySearchNodes(NodeName.задача, out tasks);
+                var search = navigator.TrySearchNodes(NodeName.Task, out tasks);
 
                 if (project.GetAllCondData().Count() != 0)
                     if (search)
@@ -29,10 +30,10 @@ namespace BazisGUI
                     }
                     else
                     {
-                        var rn = navigator.CreateRealNode(NodeName.задача, "Задача");
+                        var rn = navigator.CreateRealNode(NodeName.Task);
                         //navigator.SetContextMenu(rn);
                         PresentConds(rn);
-                        navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
+                        navigator.TrySearchNodes(NodeName.Project, out List<TreeNode> prNodes);
                         prNodes[0].Nodes.Add(rn);
                     }
                 else
@@ -54,22 +55,22 @@ namespace BazisGUI
 
             foreach (var data in project.GetAllCondData())
             {
-                NodeName nodeNane;
+                NodeName nodeName;
 
                 if (data.Kind == DataKind.Материал)
-                    nodeNane = NodeName.материал;
+                    nodeName = NodeName.Material;
                 else if (data.Kind == DataKind.Среда)
-                    nodeNane = NodeName.среда;
+                    nodeName = NodeName.Media;
                 else if (data.Kind == DataKind.Нагрев)
-                    nodeNane = NodeName.нагрев;
+                    nodeName = NodeName.Heat;
                 else if (data.Kind == DataKind.Закрепление)
-                    nodeNane = NodeName.закрепление;
+                    nodeName = NodeName.Clamp;
                 else
-                    nodeNane = NodeName.нагрузка;
+                    nodeName = NodeName.Load;
 
                 //var imgIndex = navigator.GetObjectImageIndex(nodeType);
 
-                var child = navigator.CreateRealNode(nodeNane, $"{data}");
+                var child = navigator.CreateRealNode(nodeName);
                 //child.ImageIndex = imgIndex;
                 //child.SelectedImageIndex = imgIndex;
 

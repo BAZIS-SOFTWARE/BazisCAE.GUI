@@ -13,7 +13,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectSetEvent(NodeName arg1, string arg2)
+        private void navigator_SelectSetEvent(string arg2)
         {
             try
             {

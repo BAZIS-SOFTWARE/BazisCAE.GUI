@@ -257,4 +257,61 @@
   <data name="HeaderName" xml:space="preserve">
     <value>Navigator</value>
   </data>
+  <data name="Navigator.TreeView.Node.Text.Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Task" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Sets" xml:space="preserve">
+    <value>Sets</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Results" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Objects" xml:space="preserve">
+    <value>Objects</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.NodesGroup" xml:space="preserve">
+    <value>Node_Group</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Media" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Load" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Heat" xml:space="preserve">
+    <value>Heat</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Geometry" xml:space="preserve">
+    <value>Geometry</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.ElementsGroup" xml:space="preserve">
+    <value>Elements_Group</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Mesh" xml:space="preserve">
+    <value>Mesh</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Clamp" xml:space="preserve">
+    <value>Clamp</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Calculations" xml:space="preserve">
+    <value>Calculations</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Calculation" xml:space="preserve">
+    <value>Calculation</value>
+  </data>
 </root>

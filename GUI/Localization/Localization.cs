@@ -1,4 +1,5 @@
-﻿using Model.Interfaces;
+﻿using BazisGUI.Navigator;
+using Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -74,24 +75,41 @@ namespace BazisGUI.Localization
             return $"{ex.Message} {resources.GetString("StackTrace")}:{ex.StackTrace}";
         }
 
+        /// <summary>
+        /// Получение подписи-предупреждения об ошибке отсутствия реализации на текущей языковой культуре
+        /// </summary>
+        /// <returns>Сообщение об ошибке, вызванной отсутствием реализации на текущей языковой культуре</returns>
         public static string GetMethodIsNotImplementedExceptionCaption()
         {
             var resources = new ComponentResourceManager(typeof(BaseForm));
             return resources.GetString("MethodIsNotImplementedException");
         }
 
+        /// <summary>
+        /// Получение подписи "Старт" на текущей языковой культуре
+        /// </summary>
+        /// <returns>Строка с подписью "Старт" на текущей языковой культуре</returns>
         public static string GetStartCaption()
         {
             var resources = new ComponentResourceManager(typeof(BaseForm));
             return resources.GetString("StartCaption");
         }
 
+        /// <summary>
+        /// Получение подписи "Стоп" на текущей языковой культуре
+        /// </summary>
+        /// <returns>Строка с подписью "Стоп" на текущей языковой культуре</returns>
         public static string GetStopCaption()
         {
             var resources = new ComponentResourceManager(typeof(BaseForm));
             return resources.GetString("StopCaption");
         }
 
+        /// <summary>
+        /// Получение выбранного типа объектов на текущей языковой культуре
+        /// </summary>
+        /// <param name="select">Выбранный тип объектов</param>
+        /// <returns>Строковое представление выбранного типа объектов на текущей языковой культуре</returns>
         public static string GetSelectionTypeLocalization(SelectionType select)
         {
             switch (select) 
@@ -112,6 +130,51 @@ namespace BazisGUI.Localization
                     return GetStringResourceByName("btnSelect.Text.Elements3D");
                 default:
                     return GetStringResourceByName("btnSelect.Text.Objects");
+            }
+        }
+
+        public static string GetNavigatorNodeNameLocalization(NodeName nodeName)
+        {
+            switch (nodeName)
+            {
+                case NodeName.Geometry:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Geometry");
+                case NodeName.Mesh:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Mesh");
+                case NodeName.Sets:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Sets");
+                case NodeName.Objects:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Objects");
+                case NodeName.Groups:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Groups");
+                case NodeName.NodesGroup:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.NodesGroup");
+                case NodeName.ElementsGroup:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.ElementsGroup");
+                case NodeName.Task:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Task");
+                case NodeName.Material:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Material");
+                case NodeName.Media:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Media");
+                case NodeName.Heat:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Heat");
+                case NodeName.Clamp:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Clamp");
+                case NodeName.Load:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Load");
+                case NodeName.Calculations:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Calculations");
+                case NodeName.Calculation:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Calculation");
+                case NodeName.Results:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Results");
+                case NodeName.Result:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Result");
+                case NodeName.Time:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Time");
+                default:
+                    return GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Project");
             }
         }
     }

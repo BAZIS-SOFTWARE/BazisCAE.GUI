@@ -172,12 +172,12 @@ namespace BazisGUI
 
             List<TreeNode> results;
 
-            if (!navigator.TrySearchNodes(NodeName.результаты, out results))
+            if (!navigator.TrySearchNodes(NodeName.Results, out results))
             {
-                var rn = navigator.CreateRealNode(NodeName.результаты, "Результаты");
+                var rn = navigator.CreateRealNode(NodeName.Results);
 
                 //.SetContextMenu(rn);
-                navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
+                navigator.TrySearchNodes(NodeName.Project, out List<TreeNode> prNodes);
                 prNodes[0].Nodes.Add(rn);
                 results.Add(rn);
             }
@@ -189,12 +189,12 @@ namespace BazisGUI
 
             foreach (var desc in scheme.Value)
             {
-                var rn = navigator.CreateRealNode(NodeName.результат, $"{desc}");
+                var rn = navigator.CreateRealNode(NodeName.Result, $"{desc}");
 
                 //var node = new TreeNode($"{desc}", 16, 16)
                 //{ Tag = "6.1", Name = desc };
 
-                var vn = navigator.CreateVirtualNode(NodeName.результат);
+                var vn = navigator.CreateVirtualNode(NodeName.Result);
                 rn.Nodes.Add(vn);
                 results[0].Nodes.Add(rn);
             }

@@ -22,7 +22,7 @@ namespace BazisGUI
             {
                 //navigator.BeginUpdate();
 
-                var searchGeo = navigator.TrySearchNodes(NodeName.геометрия, out List<TreeNode> geo);
+                var searchGeo = navigator.TrySearchNodes(Localization.Localization.GetNavigatorNodeNameLocalization(NodeName.Geometry), out List<TreeNode> geo);
 
                 var points = project.GetModelObjects(ObjType.Точка);
 
@@ -38,13 +38,13 @@ namespace BazisGUI
                     //PresentObjects(geo.First(), types);
                     else
                     {
-                        var rn = navigator.CreateRealNode(NodeName.геометрия, "Геометрия");
+                        var rn = navigator.CreateRealNode(NodeName.Geometry);
 
                         //navigator.SetContextMenu(rn);
 
                         rn.Tag = "12,13,14";
 
-                        var imgIndex = navigator.GetObjectImageIndex(NodeName.геометрия);
+                        var imgIndex = navigator.GetObjectImageIndex(NodeName.Geometry);
 
                         rn.ImageIndex = imgIndex;
                         rn.SelectedImageIndex = imgIndex;
@@ -52,7 +52,7 @@ namespace BazisGUI
                         var v_node = navigator.CreateVirtualNode();
                         rn.Nodes.Add(v_node);
                         //PresentObjects(rn, types);
-                        navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
+                        navigator.TrySearchNodes(Localization.Localization.GetNavigatorNodeNameLocalization(NodeName.Project), out List<TreeNode> prNodes);
                         prNodes[0].Nodes.Add(rn);
                     }
                     //PresentVolumeInfo();

@@ -13,7 +13,7 @@ namespace BazisGUI
         public void PresentGroupDataOnTree()
         {
             List<TreeNode> nodes;
-            var search = navigator.TrySearchNodes(NodeName.группы, out nodes);
+            var search = navigator.TrySearchNodes(NodeName.Groups, out nodes);
 
             if (project.GetAllModelGroups().Count() != 0)
                 if (search)
@@ -22,10 +22,10 @@ namespace BazisGUI
                 }
                 else
                 {
-                    var rn = navigator.CreateRealNode(NodeName.группы, "Группы");
+                    var rn = navigator.CreateRealNode(NodeName.Groups);
                     //navigator.SetContextMenu(rn);
                     PresentGroups(rn);
-                    navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
+                    navigator.TrySearchNodes(Localization.Localization.GetNavigatorNodeNameLocalization(NodeName.Project), out List<TreeNode> prNodes);
                     prNodes[0].Nodes.Add(rn);
                 }
             else
@@ -46,9 +46,9 @@ namespace BazisGUI
                 NodeName nodeName;
 
                 if (item.ObjType == ObjType.Узел)
-                    nodeName = NodeName.группаУзлов;
+                    nodeName = NodeName.NodesGroup;
                 else
-                    nodeName = NodeName.группаЭлементов;
+                    nodeName = NodeName.ElementsGroup;
 
                 var r = navigator.CreateRealNode(nodeName, $"{item.Name} {item.Count}");
                 //var ind = navigator.GetObjectImageIndex(nodeName);
