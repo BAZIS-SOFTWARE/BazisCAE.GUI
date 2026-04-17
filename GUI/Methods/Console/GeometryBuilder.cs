@@ -3,6 +3,8 @@ using BazisGUI.Scene.VBO;
 using Model.Interfaces;
 using Model.MeshObjects;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BazisGUI
 {
@@ -27,31 +29,29 @@ namespace BazisGUI
                         AddPoint(x, y, z);
                     break;
                 case ObjType.Кривая:
-                    AddLine(1,2);
+                    var points = geomCreator.Parameters;
+                    if(int.TryParse(points[0], out int startTag) &&
+                       int.TryParse(points[1], out int endTag))
+                    AddLine(startTag, endTag);
                     break;
                 case ObjType.Поверхность:
+                    var lineNumbers = geomCreator.Parameters[0]
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(x => int.Parse(x.Trim()))
+                        .ToList();
+                    AddPlane(lineNumbers);
                     break;
                 default:
                     throw new NotSupportedException();
-            }
-
-
-            //GmshController.CreateLines();
-            //ImportCAD;
- 
+            } 
             PresentGeoData();
             DisplayObjects();
         }
 
         private void AddPoint(double x, double y, double z, double meshSize = 0) 
         {
-            var crpn = GmshController.Gmsh.Model.Occ.AddPoint(x,y,z);
-            GmshController.Gmsh.Model.Occ.Synchronize();
-            var points = GmshController.CreateControlPoints();// тут уже видим созданную точку
-            
-            project.CreateGeometryObject(1, crpn);
+            project.CreatePoint(x,y,z);
             VBOController.DeleteVBObjects("Точка");
-            var points1 = project.GetModelObjects(ObjType.Точка);
             var pre = project.CreateModelObjectsPresentor(ObjType.Точка);
             var vb = CreateVBObject(pre);
             VBOController.AddVbo(vb);
@@ -59,12 +59,20 @@ namespace BazisGUI
 
         private void AddLine(int startTag, int endTag, int tag = -1)
         {
-            GmshController.Gmsh.Model.Occ.AddLine(startTag, endTag);
+            project.CreateLine(startTag, endTag);
+            VBOController.DeleteVBObjects("Кривая");
+            var pre = project.CreateModelObjectsPresentor(ObjType.Кривая);
+            var vb = CreateVBObject(pre);
+            VBOController.AddVbo(vb);
         }
 
-        private void AddPlane()
+        private void AddPlane(List<int> linesNumber)
         {
-
+            project.CreateSurface(linesNumber.ToArray());
+            VBOController.DeleteVBObjects("Поверхность");
+            var pre = project.CreateModelObjectsPresentor(ObjType.Поверхность);
+            var vb = CreateVBObject(pre);
+            VBOController.AddVbo(vb);
         }
     }
 }
