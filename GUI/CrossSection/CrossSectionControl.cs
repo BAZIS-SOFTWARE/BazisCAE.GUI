@@ -66,7 +66,7 @@ namespace BazisGUI.CrossSection
         public void btnCreateCrossSection_Click_1(object sender, EventArgs e)
         {
             if (txbPoint1 == null || txbPoint2 == null || txbPoint3 == null || txbPoint1.Text == txbPoint2.Text || txbPoint2.Text == txbPoint3.Text || txbPoint1.Text == txbPoint3.Text)
-                throw new Exception("Неверно заданы координаты плоскости");
+                throw new Exception(Localization.Localization.GetStringResourceByName<CrossSectionControl>("CrossSectionControl.InvalidSurfaceCoordsSetException"));
         }
 
         public void btnCreatePlane_Click(object sender, EventArgs e)
