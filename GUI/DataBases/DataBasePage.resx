@@ -965,9 +965,12 @@
     <value>The downloaded database is corrupted</value>
   </data>
   <data name="AddBranch.ExceptionMessage" xml:space="preserve">
-    <value></value>
+    <value>Error adding node</value>
   </data>
   <data name="CopySuffics" xml:space="preserve">
     <value>_copy</value>
+  </data>
+  <data name="DeletingError" xml:space="preserve">
+    <value>Removal error</value>
   </data>
 </root>

@@ -265,4 +265,10 @@
   <data name="CopySuffics" xml:space="preserve">
     <value>_copy</value>
   </data>
+  <data name="AddBranch.ExceptionMessage" xml:space="preserve">
+    <value>Error adding node</value>
+  </data>
+  <data name="DeletingError" xml:space="preserve">
+    <value>Removal error</value>
+  </data>
 </root>
