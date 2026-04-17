@@ -12,7 +12,7 @@ namespace BazisGUI.Utilities
         {
             DataKind objType;
             return Enum.TryParse(dataKind, out objType) ? objType :
-                throw new Exception($"Ошибка конвертации объектов {dataKind}");
+                throw new Exception($"{Localization.Localization.GetStringResourceByName("ConvertFailCaption")}:{dataKind} -> DataKind");
         }
 
         //public static NodeName ConvertToNavigatorNodeType(ObjType objType)

@@ -159,7 +159,7 @@ namespace BazisGUI.Scene.VBO
         {
             var glObj = glObjs[objsName];
             if (glObj == null)
-                MessageEvent?.Invoke(this, new MessageEventArgs("Не найдены объекты указанного типа!"));
+                MessageEvent?.Invoke(this, new MessageEventArgs(Localization.Localization.GetStringResourceByName("VBObjectController.ChangeViewMode.Message")));
             else
                 glObj.ViewMode = objView;
         }
@@ -168,7 +168,7 @@ namespace BazisGUI.Scene.VBO
         {
             var glObj = glObjs[objsName];
             if (glObj == null)
-                MessageEvent?.Invoke(this, new MessageEventArgs("Не найдены объекты указанного типа!"));
+                MessageEvent?.Invoke(this, new MessageEventArgs(Localization.Localization.GetStringResourceByName("VBObjectController.ChangeViewMode.Message")));
             else
             {
                 glObj.Gl_PointSize = pointsSize;

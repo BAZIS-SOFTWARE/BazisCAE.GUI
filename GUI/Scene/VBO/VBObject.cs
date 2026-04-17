@@ -75,7 +75,7 @@ namespace BazisGUI.Scene.VBO
         public VBObject(string objName, int[] pointers, float[] glCoords)
         {
             if (pointers.Length == 0)
-                throw new ArgumentException("Длина набора индексов не может быть нулевой");
+                throw new ArgumentException(Localization.Localization.GetStringResourceByName("VBObjectCtor.EmptyArrayArgumentException"));
             ObjName = objName;
 
             PtrLength = pointers.Length;

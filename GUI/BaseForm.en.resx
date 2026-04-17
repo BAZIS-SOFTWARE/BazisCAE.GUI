@@ -1013,4 +1013,10 @@ Create variable?</value>
   <data name="StringEx.ToEnum.ArgumentException.Part1" xml:space="preserve">
     <value>Error: value</value>
   </data>
+  <data name="VBObjectCtor.EmptyArrayArgumentException" xml:space="preserve">
+    <value>VBObject Error: Index array length cannot be zero</value>
+  </data>
+  <data name="VBObjectController.ChangeViewMode.Message" xml:space="preserve">
+    <value>No objects of the specified type found!</value>
+  </data>
 </root>
