@@ -2980,4 +2980,10 @@ Create variable?</value>
   <data name="MethodIsNotImplementedException" xml:space="preserve">
     <value>Method is not implemented!</value>
   </data>
+  <data name="StringEx.ToEnum.ArgumentException.Part1" xml:space="preserve">
+    <value>Error: value</value>
+  </data>
+  <data name="StringEx.ToEnum.ArgumentException.Part2" xml:space="preserve">
+    <value>does not match any value.</value>
+  </data>
 </root>

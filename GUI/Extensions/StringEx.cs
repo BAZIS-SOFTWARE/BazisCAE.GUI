@@ -13,7 +13,10 @@ namespace BazisGUI.Extensions
         {
             if (Enum.TryParse(value, out T result))
                 return result;
-            else throw new ArgumentException($"Ошибка: значение '{value}' не соответствует ни одному значению.");
+            else throw new ArgumentException(
+                Localization.Localization.GetStringResourceByName("StringEx.ToEnum.ArgumentException.Part1") +
+                $" '{value}' " +
+                Localization.Localization.GetStringResourceByName("StringEx.ToEnum.ArgumentException.Part2"));
         }
 
         public static bool TryToEnum<T>(this string value, out T result) where T : struct, Enum

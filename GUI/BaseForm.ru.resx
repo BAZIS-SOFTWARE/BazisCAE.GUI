@@ -794,4 +794,10 @@
   <data name="MethodIsNotImplementedException" xml:space="preserve">
     <value>Метод не реализован!</value>
   </data>
+  <data name="StringEx.ToEnum.ArgumentException.Part1" xml:space="preserve">
+    <value>Ошибка: значение</value>
+  </data>
+  <data name="StringEx.ToEnum.ArgumentException.Part2" xml:space="preserve">
+    <value>не соответствует ни одному значению.</value>
+  </data>
 </root>
