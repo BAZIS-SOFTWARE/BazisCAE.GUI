@@ -35,7 +35,8 @@ namespace BazisGUI.Console
         CreateMesh2DPoligon,
         CreatePoint,
         CreateCurve,
-        CreateSurface
+        CreateSurface,
+        Extrude
     }
 
     public partial class ConsoleControl : PinnedPage
@@ -54,6 +55,7 @@ namespace BazisGUI.Console
         public event Action<object, MergeElementSetsEventArgs> MergeElementSetsEvent;
         public event Action<object, CreateMesh2DPoligonEventArgs> CreateMesh2DPoligonEvent;
         public event Action<CreateGeometryEventArgs> CreateGeometryEvent;
+        public event Action<CreateGeometryEventArgs> ExtrudeEvent;
         int SessionNumber
         {
             get;
@@ -80,7 +82,8 @@ namespace BazisGUI.Console
             { "Выход",GenCmd.Exit },
             { "Добавить точку", GenCmd.CreatePoint },
             { "Добавить линию", GenCmd.CreateCurve },
-            { "Добавить поверхность", GenCmd.CreateSurface}
+            { "Добавить поверхность", GenCmd.CreateSurface},
+            { "Экструзия", GenCmd.Extrude}
         };
 
         Dictionary<GenCmd, string[]> subCmds = new Dictionary<GenCmd, string[]>()
@@ -103,7 +106,8 @@ namespace BazisGUI.Console
             { GenCmd.Exit,Array.Empty<string>()},
             { GenCmd.CreatePoint, new string[]{ "x,y,z" } },
             { GenCmd.CreateCurve, new string[]{ "точка#1", "точка#2" }},
-            { GenCmd.CreateSurface, new string[]{ "кривые формирующие контур", "кривая#1,кривая#2,..." } }
+            { GenCmd.CreateSurface, new string[]{ "кривые формирующие контур", "кривая#1,кривая#2,..." } },
+            { GenCmd.Extrude, new string[]{ "Элемент 2Д", "Угол", "кол-во сегментов" }  }
         };
 
 
@@ -325,6 +329,9 @@ namespace BazisGUI.Console
                         break;
                     case GenCmd.CreateSurface:
                         CreateGeometryEvent(new CreateGeometryEventArgs(2, [cmds[2]]));
+                        break;
+                    case GenCmd.Extrude:
+                        ExtrudeEvent(new CreateGeometryEventArgs(2, [cmds[2]]));
                         break;
                 }
             }

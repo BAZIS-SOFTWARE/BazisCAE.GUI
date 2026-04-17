@@ -912,7 +912,7 @@ namespace BazisGUI
             console.MergeElementSetsEvent += MergeEventSetsEventHandler;
             console.CreateMesh2DPoligonEvent += console_CreateMesh2DPoligonEvent;
             console.CreateGeometryEvent += GeometryParser;
-            //console.Crate
+            console.ExtrudeEvent += ExtruderParser;
             // 
             // menuStrip
             // 

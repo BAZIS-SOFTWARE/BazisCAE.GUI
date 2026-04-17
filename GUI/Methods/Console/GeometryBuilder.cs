@@ -10,6 +10,10 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        private void ExtruderParser(CreateGeometryEventArgs geomCreator)
+        {
+
+        }
         private void GeometryParser(CreateGeometryEventArgs geomCreator)
         {
             if (GmshController == null)
@@ -50,19 +54,19 @@ namespace BazisGUI
 
         private void AddPoint(double x, double y, double z, double meshSize = 0)
         {
-            project.CreatePoint(x, y, z);
+            //project.CreatePoint(x, y, z);
             RefreshGeometry(ObjType.Точка, "Точка");
         }
 
         private void AddLine(int startTag, int endTag, int tag = -1)
         {
-            project.CreateLine(startTag, endTag);
+            //project.CreateLine(startTag, endTag);
             RefreshGeometry(ObjType.Кривая, "Кривая");
         }
 
         private void AddPlane(List<int> linesNumber)
         {
-            project.CreateSurface(linesNumber.ToArray());
+            //project.CreateSurface(linesNumber.ToArray());
             RefreshGeometry(ObjType.Поверхность, "Поверхность");
         }
 
