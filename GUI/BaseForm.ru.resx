@@ -791,4 +791,7 @@
   <data name="UtilityToolStrip.CreateCrossSection.InvalidNodeNumerErrorMessage" xml:space="preserve">
     <value>Ошибка, выбрано неверное количество узлов</value>
   </data>
+  <data name="MethodIsNotImplementedException" xml:space="preserve">
+    <value>Метод не реализован!</value>
+  </data>
 </root>

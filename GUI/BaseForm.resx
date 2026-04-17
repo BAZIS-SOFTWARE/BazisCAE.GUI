@@ -2977,4 +2977,7 @@ Create variable?</value>
   <data name="UtilityToolStip.ClipForm.Text" xml:space="preserve">
     <value></value>
   </data>
+  <data name="MethodIsNotImplementedException" xml:space="preserve">
+    <value>Method is not implemented!</value>
+  </data>
 </root>

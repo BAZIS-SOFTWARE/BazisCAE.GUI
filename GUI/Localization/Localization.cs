@@ -74,6 +74,12 @@ namespace BazisGUI.Localization
             return $"{ex.Message} {resources.GetString("StackTrace")}:{ex.StackTrace}";
         }
 
+        public static string GetMethodIsNotImplementedExceptionCaption()
+        {
+            var resources = new ComponentResourceManager(typeof(BaseForm));
+            return resources.GetString("MethodIsNotImplementedException");
+        }
+
         public static string GetStartCaption()
         {
             var resources = new ComponentResourceManager(typeof(BaseForm));

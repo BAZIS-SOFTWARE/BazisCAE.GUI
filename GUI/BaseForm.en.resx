@@ -1004,4 +1004,7 @@ Create variable?</value>
   <data name="UtilityToolStrip.CreateCrossSection.InvalidNodeNumerErrorMessage" xml:space="preserve">
     <value>Error, incorrect number of nodes selected</value>
   </data>
+  <data name="MethodIsNotImplementedException" xml:space="preserve">
+    <value>Method is not implemented!</value>
+  </data>
 </root>
