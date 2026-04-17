@@ -124,12 +124,12 @@ namespace BazisGUI.Console
             {
                 { GenCmd.LoadProject,resources.GetString("SubLoadProject").Split("<|>") },
                 { GenCmd.SaveProject,resources.GetString("SubSaveProject").Split("<|>")},
-                { GenCmd.SolveProject,resources.GetString("SubSolveProject").Split("<|>")},
+                { GenCmd.SolveProject,new string[] { } },
                 { GenCmd.RenumberMesh,resources.GetString("SubRenumberMesh").Split("<|>")},
                 { GenCmd.MoveMesh,resources.GetString("SubMoveMesh").Split("<|>")},
                 { GenCmd.MoveNodes,resources.GetString("SubMoveNodes").Split("<|>")},
                 { GenCmd.RotateMesh,resources.GetString("SubRotateMesh").Split("<|>")},
-                { GenCmd.FindFreeNodes,resources.GetString("SubFindFreeNodes").Split("<|>")},
+                { GenCmd.FindFreeNodes,new string[] { } },
                 { GenCmd.FindCoincident,resources.GetString("SubFindCoincident").Split("<|>")},
                 { GenCmd.FindVolElems,resources.GetString("SubFindVolElems").Split("<|>")},
                 { GenCmd.FindObject,resources.GetString("SubFindObject").Split("<|>")},
@@ -137,7 +137,7 @@ namespace BazisGUI.Console
                 { GenCmd.SetLevel,resources.GetString("SubSetLevel").Split("<|>")},
                 { GenCmd.MergeElementSets,resources.GetString("SubMergeElementSets").Split("<|>")},
                 { GenCmd.CreateMesh2DPoligon,resources.GetString("SubCreateMesh2DPoligon").Split("<|>")},
-                { GenCmd.Exit,resources.GetString("SubExit").Split("<|>")}
+                { GenCmd.Exit,new string[] { } }
             };
         }
 
