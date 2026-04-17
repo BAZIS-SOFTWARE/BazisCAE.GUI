@@ -955,4 +955,19 @@
   <metadata name="toolStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>122, 17</value>
   </metadata>
+  <data name="DelBranchException" xml:space="preserve">
+    <value>An error occurred while deleting data!</value>
+  </data>
+  <data name="LoadDBAddIntoMissingDBException" xml:space="preserve">
+    <value>Upload a database or create a new one</value>
+  </data>
+  <data name="LoadDBCorruptedException" xml:space="preserve">
+    <value>The downloaded database is corrupted</value>
+  </data>
+  <data name="AddBranch.ExceptionMessage" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="CopySuffics" xml:space="preserve">
+    <value>_copy</value>
+  </data>
 </root>

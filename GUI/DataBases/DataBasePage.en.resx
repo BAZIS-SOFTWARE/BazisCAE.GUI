@@ -253,4 +253,16 @@
   <data name="itmDelete.Text" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="DelBranchException" xml:space="preserve">
+    <value>An error occurred while deleting data!</value>
+  </data>
+  <data name="LoadDBAddIntoMissingDBException" xml:space="preserve">
+    <value>Upload a database or create a new one</value>
+  </data>
+  <data name="LoadDBCorruptedException" xml:space="preserve">
+    <value>The downloaded database is corrupted</value>
+  </data>
+  <data name="CopySuffics" xml:space="preserve">
+    <value>_copy</value>
+  </data>
 </root>

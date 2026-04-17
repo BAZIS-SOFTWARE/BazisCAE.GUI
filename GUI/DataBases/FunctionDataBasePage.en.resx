@@ -117,64 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="toolStripContainer2.Text" xml:space="preserve">
-    <value>toolStripContainer2</value>
+  <data name="PropertyTableIsMissingException" xml:space="preserve">
+    <value>Property table is missing!</value>
   </data>
-  <data name="btnOpenDB.Text" xml:space="preserve">
-    <value>Открыть файл</value>
+  <data name="FuncIsMissingException" xml:space="preserve">
+    <value>Select a function!</value>
   </data>
-  <data name="btnAddDB.Text" xml:space="preserve">
-    <value>Добавить материалы</value>
+  <data name="NewFunctionTemplate" xml:space="preserve">
+    <value>New_function_</value>
   </data>
-  <data name="btnSafeFile.Text" xml:space="preserve">
-    <value>Сохранить файл</value>
+  <data name="CreateCopy.FuncExistWarningMessagePart1" xml:space="preserve">
+    <value>Function</value>
   </data>
-  <data name="addBranchButton.Text" xml:space="preserve">
-    <value>Добавить раздел</value>
-  </data>
-  <data name="delBrachButton.Text" xml:space="preserve">
-    <value>Удалить раздел</value>
-  </data>
-  <data name="btnCreateCopy.Text" xml:space="preserve">
-    <value>Создать копию</value>
-  </data>
-  <data name="treePanel.Text" xml:space="preserve">
-    <value>Список</value>
-  </data>
-  <data name="graphPanel.Text" xml:space="preserve">
-    <value>График</value>
-  </data>
-  <data name="toolStripContainer1.Text" xml:space="preserve">
-    <value>toolStripContainer1</value>
-  </data>
-  <data name="btnAddNewRow.Text" xml:space="preserve">
-    <value>Добавить ряд</value>
-  </data>
-  <data name="btnDelRow.Text" xml:space="preserve">
-    <value>Удалить все ряды</value>
-  </data>
-  <data name="btnAscSort.Text" xml:space="preserve">
-    <value>Сортировать</value>
-  </data>
-  <data name="dataPanel.Text" xml:space="preserve">
-    <value>Данные</value>
-  </data>
-  <data name="itmRename.Text" xml:space="preserve">
-    <value>Переименовать</value>
-  </data>
-  <data name="itmDelete.Text" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
-  <data name="DelBranchException" xml:space="preserve">
-    <value>Возникла ошибка при удалении данных!</value>
-  </data>
-  <data name="LoadDBAddIntoMissingDBException" xml:space="preserve">
-    <value>Загрузите базу или создайте новую</value>
-  </data>
-  <data name="LoadDBCorruptedException" xml:space="preserve">
-    <value>Загружаемая база повреждена</value>
-  </data>
-  <data name="CopySuffics" xml:space="preserve">
-    <value>_копия</value>
+  <data name="CreateCopy.FuncExistWarningMessagePart2" xml:space="preserve">
+    <value>already exists! \nRename the function!</value>
   </data>
 </root>
