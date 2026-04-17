@@ -2992,4 +2992,13 @@ Create variable?</value>
   <data name="VBObjectController.ChangeViewMode.Message" xml:space="preserve">
     <value>No objects of the specified type found!</value>
   </data>
+  <data name="ImportMeshCaption" xml:space="preserve">
+    <value>Import mesh</value>
+  </data>
+  <data name="NewProjectNameTemplate" xml:space="preserve">
+    <value>new_project.bpf2</value>
+  </data>
+  <data name="LoadingForm.Text" xml:space="preserve">
+    <value>Loading. Please wait...</value>
+  </data>
 </root>

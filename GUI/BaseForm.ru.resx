@@ -806,4 +806,13 @@
   <data name="VBObjectController.ChangeViewMode.Message" xml:space="preserve">
     <value>Не найдены объекты указанного типа!</value>
   </data>
+  <data name="ImportMeshCaption" xml:space="preserve">
+    <value>Импорт сетки</value>
+  </data>
+  <data name="NewProjectNameTemplate" xml:space="preserve">
+    <value>новый_проект.bpf2</value>
+  </data>
+  <data name="LoadingForm.Text" xml:space="preserve">
+    <value>Загрузка данных. Пожалуйста подождите...</value>
+  </data>
 </root>

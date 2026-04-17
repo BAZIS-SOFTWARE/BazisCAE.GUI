@@ -66,7 +66,7 @@ namespace BazisGUI
 
             var mbf = CreateMessageBoxExForm(mb);
             mbf.Show();
-            mb.Message = "Импорт сетки...";
+            mb.Message = Localization.Localization.GetStringResourceByName("ImportMeshCaption");
             await Task.Run(new Action(() =>
             {
                 controller.MessageEvent += (ar1) =>
@@ -144,7 +144,7 @@ namespace BazisGUI
             {
                 ShowIcon = false,
                 Name = "Загрузка",
-                Text = "Загрузка данных. Пожалуйста подождите...",
+                Text = Localization.Localization.GetStringResourceByName("LoadingForm.Text"),
                 StartPosition = FormStartPosition.Manual,
                 Location = new System.Drawing.Point(Application.OpenForms[0].Width / 2, Application.OpenForms[0].Height / 2),
                 TopMost = true,
