@@ -136,4 +136,13 @@
   <data name="rbtCurve.Size" type="System.Drawing.Size, System.Drawing">
     <value>66, 19</value>
   </data>
+  <data name="rbtVolume.Text" xml:space="preserve">
+    <value>Volumes</value>
+  </data>
+  <data name="rbtSurface.Text" xml:space="preserve">
+    <value>Surfaces</value>
+  </data>
+  <data name="rbtCurve.Text" xml:space="preserve">
+    <value>Curves</value>
+  </data>
 </root>

@@ -70,7 +70,7 @@ namespace BazisGUI
         private void Btn_MouseDown(object sender, MouseEventArgs e)
         {
             var btn = sender as Button;
-            //SelectedObjects = Enum.Parse<SelectionType>(btn.Name);
+            SelectedObjects = Enum.Parse<SelectionType>(btn.AccessibleName.Split("SelectObjects.btnSelect.")[1]);
             //OnChangeSelectedObjectsEvent?.Invoke(SelectedObjects);
             btnSelect.Tag = false;
 
@@ -163,7 +163,7 @@ namespace BazisGUI
             btn.Anchor = btnSelect.Anchor;
             btn.AutoSize = btnSelect.AutoSize;
             btn.Name = select.ToString();
-            btn.AccessibleName = select.ToString();
+            btn.AccessibleName = $"SelectObjects.btnSelect.{select.ToString()}";
             btn.Size = btnSelect.Size;
             btn.Text = localization;
             btn.AutoSize = btnSelect.AutoSize;
