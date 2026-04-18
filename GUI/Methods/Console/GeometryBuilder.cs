@@ -1,7 +1,7 @@
 ﻿using BazisGUI.Console.Events;
 using BazisGUI.Scene.VBO;
+using Model;
 using Model.Interfaces;
-using Model.MeshObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +10,28 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void ExtruderParser(CreateGeometryEventArgs geomCreator)
+        private void ExtruderParser(CreateExtruderEventArgs createExtruderEvent)
         {
+            if(createExtruderEvent.Type == ExtruderType.Curve)
+            {
+                var valid =
+                    int.TryParse(createExtruderEvent.Parameters[0], out var numberSurface) &
+                    int.TryParse(createExtruderEvent.Parameters[1], out var numberCurve) &
+                    int.TryParse(createExtruderEvent.Parameters[2], out var numberStartPoint) &
+                    double.TryParse(createExtruderEvent.Parameters[3], out var step);
+                bool transfinite = createExtruderEvent.Parameters[4] == "1" ? true : false;
 
+                if (!valid)
+                    throw new ArgumentException("Введены неверные данные");
+
+                ExtrudeCurve(numberSurface, numberCurve, numberStartPoint, step, transfinite);
+            }
+            else
+            {
+
+            }
         }
+
         private void GeometryParser(CreateGeometryEventArgs geomCreator)
         {
             if (GmshController == null)
@@ -52,21 +70,29 @@ namespace BazisGUI
             DisplayObjects();
         }
 
+        private void ExtrudeCurve(int numberSurface, int numberCurve, int numberStartPoint, double step, bool transfinite)
+        {
+            project.ExtrudeElement3DAlongCurve(numberSurface, numberCurve, numberStartPoint, step, transfinite);
+            RefreshGeometry(ObjType.Узел, "Узел");
+            RefreshGeometry(ObjType.Элемент3D, "Элемент3D");
+            PresentMeshData();
+            DisplayObjects();
+        }
         private void AddPoint(double x, double y, double z, double meshSize = 0)
         {
-            //project.CreatePoint(x, y, z);
+            project.CreatePoint(x, y, z);
             RefreshGeometry(ObjType.Точка, "Точка");
         }
 
         private void AddLine(int startTag, int endTag, int tag = -1)
         {
-            //project.CreateLine(startTag, endTag);
+            project.CreateLine(startTag, endTag);
             RefreshGeometry(ObjType.Кривая, "Кривая");
         }
 
         private void AddPlane(List<int> linesNumber)
         {
-            //project.CreateSurface(linesNumber.ToArray());
+            project.CreateSurface(linesNumber.ToArray());
             RefreshGeometry(ObjType.Поверхность, "Поверхность");
         }
 

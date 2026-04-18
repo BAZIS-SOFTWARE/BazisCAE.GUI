@@ -36,7 +36,8 @@ namespace BazisGUI.Console
         CreatePoint,
         CreateCurve,
         CreateSurface,
-        Extrude
+        ExtrudeCurve,
+        ExtrudeRotate
     }
 
     public partial class ConsoleControl : PinnedPage
@@ -55,7 +56,7 @@ namespace BazisGUI.Console
         public event Action<object, MergeElementSetsEventArgs> MergeElementSetsEvent;
         public event Action<object, CreateMesh2DPoligonEventArgs> CreateMesh2DPoligonEvent;
         public event Action<CreateGeometryEventArgs> CreateGeometryEvent;
-        public event Action<CreateGeometryEventArgs> ExtrudeEvent;
+        public event Action<CreateExtruderEventArgs> ExtrudeEvent;
         int SessionNumber
         {
             get;
@@ -83,7 +84,8 @@ namespace BazisGUI.Console
             { "Добавить точку", GenCmd.CreatePoint },
             { "Добавить линию", GenCmd.CreateCurve },
             { "Добавить поверхность", GenCmd.CreateSurface},
-            { "Экструзия", GenCmd.Extrude}
+            { "Экструзия по кривой", GenCmd.ExtrudeCurve},
+            { "Экструзия по вращению", GenCmd.ExtrudeRotate}
         };
 
         Dictionary<GenCmd, string[]> subCmds = new Dictionary<GenCmd, string[]>()
@@ -105,9 +107,10 @@ namespace BazisGUI.Console
             { GenCmd.CreateMesh2DPoligon,new string[]{ "x1,y1", "x2,y2", "x3,y3","x4,y4","кол-во элементов" }},
             { GenCmd.Exit,Array.Empty<string>()},
             { GenCmd.CreatePoint, new string[]{ "x,y,z" } },
-            { GenCmd.CreateCurve, new string[]{ "точка#1", "точка#2" }},
-            { GenCmd.CreateSurface, new string[]{ "кривые формирующие контур", "кривая#1,кривая#2,..." } },
-            { GenCmd.Extrude, new string[]{ "Элемент 2Д", "Угол", "кол-во сегментов" }  }
+            { GenCmd.CreateCurve, new string[]{"точка#1", "точка#2"}},
+            { GenCmd.CreateSurface, new string[]{"кривые формирующие контур", "кривая#1,кривая#2,..."} },
+            { GenCmd.ExtrudeCurve, new string[]{"Элемент 2Д", "кривая", "точка", "шаг", "трансфинитная сетка 1-да, 0-нет"} },
+            { GenCmd.ExtrudeRotate, new string[]{"Элемент 2Д", "угол", "точка", "ось вращения", "кол-во сегментов"} }
         };
 
 
@@ -131,8 +134,6 @@ namespace BazisGUI.Console
                 GetItemCmd(menuItem, ref info);
             }
             info = info + " " + "\"" + toolStripItem.Text + "\"";
-
-
         }
 
         int LineIndex { get; set; }
@@ -330,8 +331,11 @@ namespace BazisGUI.Console
                     case GenCmd.CreateSurface:
                         CreateGeometryEvent(new CreateGeometryEventArgs(2, [cmds[2]]));
                         break;
-                    case GenCmd.Extrude:
-                        ExtrudeEvent(new CreateGeometryEventArgs(2, [cmds[2]]));
+                    case GenCmd.ExtrudeCurve:
+                        ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
+                        break;
+                    case GenCmd.ExtrudeRotate:
+                        //ExtrudeEvent(new CreateGeometryEventArgs(3, [cmds[2]]));
                         break;
                 }
             }
