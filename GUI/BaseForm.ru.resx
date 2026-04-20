@@ -815,4 +815,7 @@
   <data name="LoadingForm.Text" xml:space="preserve">
     <value>Загрузка данных. Пожалуйста подождите...</value>
   </data>
+  <data name="PanelConverter.UndefinedConverterTypeException" xml:space="preserve">
+    <value>Тип конвертера не определен</value>
+  </data>
 </root>
