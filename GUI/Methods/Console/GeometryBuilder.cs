@@ -4,7 +4,9 @@ using Model;
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Numerics;
 
 namespace BazisGUI
 {
@@ -14,11 +16,12 @@ namespace BazisGUI
         {
             if(createExtruderEvent.Type == ExtruderType.Curve)
             {
+                string input = createExtruderEvent.Parameters[3].Replace(',', '.');
                 var valid =
                     int.TryParse(createExtruderEvent.Parameters[0], out var numberSurface) &
                     int.TryParse(createExtruderEvent.Parameters[1], out var numberCurve) &
                     int.TryParse(createExtruderEvent.Parameters[2], out var numberStartPoint) &
-                    double.TryParse(createExtruderEvent.Parameters[3], out var step);
+                    double.TryParse(input, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture , out var step);
                 bool transfinite = createExtruderEvent.Parameters[4] == "1" ? true : false;
 
                 if (!valid)
@@ -28,7 +31,24 @@ namespace BazisGUI
             }
             else
             {
+                var valid =
+                    int.TryParse(createExtruderEvent.Parameters[0], out var numberSurface) &
+                    float.TryParse(createExtruderEvent.Parameters[1], out var angle) &
+                    int.TryParse(createExtruderEvent.Parameters[2], out var numberStartPoint);
+                bool transfinite = createExtruderEvent.Parameters[4] == "1" ? true : false;
 
+                var rotAxis = createExtruderEvent.Parameters[3].Trim().ToUpper() switch
+                {
+                    "X" => Vector3.UnitX,
+                    "Y" => Vector3.UnitY,
+                    "Z" => Vector3.UnitZ,
+                    _ => throw new ArgumentException("Ось поворота указана не верно")
+                };
+
+                if (!valid)
+                    throw new ArgumentException("Введены неверные данные");
+
+                ExtrudeRotate(numberSurface, angle, numberStartPoint, rotAxis, transfinite);
             }
         }
 
@@ -73,8 +93,21 @@ namespace BazisGUI
         private void ExtrudeCurve(int numberSurface, int numberCurve, int numberStartPoint, double step, bool transfinite)
         {
             project.ExtrudeElement3DAlongCurve(numberSurface, numberCurve, numberStartPoint, step, transfinite);
-            RefreshGeometry(ObjType.Узел, "Узел");
-            RefreshGeometry(ObjType.Элемент3D, "Элемент3D");
+
+            VBOController.DeleteAllVBObjects();
+            CreateVBObjects("Объекты");
+            PresentMeshData();
+            DisplayObjects();
+        }
+
+        private void ExtrudeRotate(int numberSurface, float angle, int originPoint, Vector3 rotAxis, bool transfinite)
+        {
+            var point = project.GetModelPoint(originPoint);
+            Vector3 origin = new Vector3(point._x, point._y, point._z);
+            project.ExtrudeElement3DRotate(numberSurface, angle, origin, rotAxis, transfinite);
+
+            VBOController.DeleteAllVBObjects();
+            CreateVBObjects("Объекты");
             PresentMeshData();
             DisplayObjects();
         }

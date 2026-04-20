@@ -110,7 +110,7 @@ namespace BazisGUI.Console
             { GenCmd.CreateCurve, new string[]{"точка#1", "точка#2"}},
             { GenCmd.CreateSurface, new string[]{"кривые формирующие контур", "кривая#1,кривая#2,..."} },
             { GenCmd.ExtrudeCurve, new string[]{"Элемент 2Д", "кривая", "точка", "шаг", "трансфинитная сетка 1-да, 0-нет"} },
-            { GenCmd.ExtrudeRotate, new string[]{"Элемент 2Д", "угол", "точка", "ось вращения", "кол-во сегментов"} }
+            { GenCmd.ExtrudeRotate, new string[]{"Элемент 2Д", "угол", "точка", "ось вращения XYZ","трансфинитная сетка 1-да, 0-нет"} }
         };
 
 
@@ -335,7 +335,7 @@ namespace BazisGUI.Console
                         ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
                         break;
                     case GenCmd.ExtrudeRotate:
-                        //ExtrudeEvent(new CreateGeometryEventArgs(3, [cmds[2]]));
+                        ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
                         break;
                 }
             }
