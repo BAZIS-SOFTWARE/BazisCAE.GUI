@@ -144,8 +144,14 @@ namespace BazisGUI.Navigator
                 SetValue(treeView, true, null);
 
             //SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-
-
+            
+            var node = new TreeNode 
+            { 
+                Text = Localization.Localization.GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Project"),
+                Name = NodeName.Project.ToString()
+            };
+            treeView.Nodes.Clear();
+            treeView.Nodes.Add(node);
             //8 - 
 
             genImgDict = new Dictionary<NodeName, int>()
@@ -289,7 +295,8 @@ namespace BazisGUI.Navigator
 
         public void ActionMenu(TreeNode node, int actIndex)
         {
-            if (node.Name == NodeName.Results.ToString())
+            var nodeName = node.Name.ToEnum<NodeName>();
+            if (nodeName == NodeName.Results)
             {
                 if (actIndex == 0)
                     HideResultsEvent?.Invoke();
@@ -299,22 +306,22 @@ namespace BazisGUI.Navigator
             }
 
             //node.ContextMenuStrip = resultsMenuStrip;
-            else if (node.Name == NodeName.Task.ToString())
+            else if (nodeName == NodeName.Task)
             {
                 if (actIndex == 0)
                     RemoveAllConditionsEvent?.Invoke();
             }
-            else if (node.Name == NodeName.Material.ToString() |
-                    node.Name == NodeName.Media.ToString() |
-                    node.Name == NodeName.Heat.ToString() |
-                    node.Name == NodeName.Clamp.ToString() |
-                    node.Name == NodeName.Load.ToString())
+            else if (nodeName == NodeName.Material |
+                    nodeName == NodeName.Media |
+                    nodeName == NodeName.Heat |
+                    nodeName == NodeName.Clamp |
+                    nodeName == NodeName.Load)
                 {
                 if (actIndex == 0)
                     DelCondEvent?.Invoke();
             }
             //node.ContextMenuStrip = taskMenuStrip;
-            else if (node.Name == NodeName.Geometry.ToString())
+            else if (nodeName == NodeName.Geometry)
             {
                 if (actIndex == 0)
                     ChangeAllGeoViewStateEvent?.Invoke(true);
@@ -325,7 +332,7 @@ namespace BazisGUI.Navigator
                 
             }
                 //node.ContextMenuStrip = geoMenuStrip;
-            else if (node.Name == NodeName.Mesh.ToString())
+            else if (nodeName == NodeName.Mesh)
             {
                 // TODO подключить
                 if (actIndex == 0)
@@ -337,7 +344,7 @@ namespace BazisGUI.Navigator
                 
             }
 
-            else if (node.Name == NodeName.Sets.ToString())
+            else if (nodeName == NodeName.Sets)
             {
                 if (actIndex == 0)
                     ShowSetEvent?.Invoke();
@@ -346,7 +353,7 @@ namespace BazisGUI.Navigator
                 else if (actIndex == 2)
                     DelSetEvent?.Invoke();
             }
-            else if (node.Name == NodeName.Objects.ToString())
+            else if (nodeName == NodeName.Objects)
             {
                 if (actIndex == 0)
                     ShowObjectEvent?.Invoke();
@@ -356,7 +363,7 @@ namespace BazisGUI.Navigator
                     DelObjectEvent?.Invoke();
             }
             //node.ContextMenuStrip = meshMenuStrip;
-            else if (node.Name == NodeName.Groups.ToString())
+            else if (nodeName == NodeName.Groups)
             {
                 if (actIndex == 0)
                     ShowAllGroupsEvent?.Invoke();
@@ -367,8 +374,8 @@ namespace BazisGUI.Navigator
 
             }
 
-            else if (node.Name == NodeName.NodesGroup.ToString() |
-                    node.Name == NodeName.ElementsGroup.ToString())
+            else if (nodeName == NodeName.NodesGroup |
+                    nodeName == NodeName.ElementsGroup)
             {
                 if (actIndex == 0)
                     InfoGroupEvent?.Invoke();

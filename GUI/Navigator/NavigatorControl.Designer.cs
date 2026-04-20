@@ -88,7 +88,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Gainsboro;
             Controls.Add(treeView);
-            HeaderName = resources.GetString("HeaderName");
+            HeaderName = "Навигатор";
             Name = "NavigatorControl";
             ResumeLayout(false);
 

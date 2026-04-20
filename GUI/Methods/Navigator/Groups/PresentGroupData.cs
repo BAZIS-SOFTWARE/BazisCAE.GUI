@@ -25,7 +25,7 @@ namespace BazisGUI
                     var rn = navigator.CreateRealNode(NodeName.Groups);
                     //navigator.SetContextMenu(rn);
                     PresentGroups(rn);
-                    navigator.TrySearchNodes(Localization.Localization.GetNavigatorNodeNameLocalization(NodeName.Project), out List<TreeNode> prNodes);
+                    navigator.TrySearchNodes(NodeName.Project, out List<TreeNode> prNodes);
                     prNodes[0].Nodes.Add(rn);
                 }
             else

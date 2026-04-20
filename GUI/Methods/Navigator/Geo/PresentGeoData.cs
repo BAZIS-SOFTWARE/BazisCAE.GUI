@@ -22,7 +22,7 @@ namespace BazisGUI
             {
                 //navigator.BeginUpdate();
 
-                var searchGeo = navigator.TrySearchNodes(Localization.Localization.GetNavigatorNodeNameLocalization(NodeName.Geometry), out List<TreeNode> geo);
+                var searchGeo = navigator.TrySearchNodes(NodeName.Geometry, out List<TreeNode> geo);
 
                 var points = project.GetModelObjects(ObjType.Точка);
 
@@ -52,7 +52,7 @@ namespace BazisGUI
                         var v_node = navigator.CreateVirtualNode();
                         rn.Nodes.Add(v_node);
                         //PresentObjects(rn, types);
-                        navigator.TrySearchNodes(Localization.Localization.GetNavigatorNodeNameLocalization(NodeName.Project), out List<TreeNode> prNodes);
+                        navigator.TrySearchNodes(NodeName.Project, out List<TreeNode> prNodes);
                         prNodes[0].Nodes.Add(rn);
                     }
                     //PresentVolumeInfo();
