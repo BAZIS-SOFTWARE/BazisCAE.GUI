@@ -911,8 +911,8 @@ namespace BazisGUI
             console.ModelRotateEvent += console_ModelRotateEvent;
             console.MergeElementSetsEvent += MergeEventSetsEventHandler;
             console.CreateMesh2DPoligonEvent += console_CreateMesh2DPoligonEvent;
-            console.CreateGeometryEvent += GeometryParser;
-            console.ExtrudeEvent += ExtruderParser;
+            console.CreateGeometryEvent += GeometryParserEventHandler;
+            console.ExtrudeEvent += ExtruderParserEventHandler;
             // 
             // menuStrip
             // 

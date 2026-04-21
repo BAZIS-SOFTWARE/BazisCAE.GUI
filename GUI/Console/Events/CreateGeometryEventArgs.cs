@@ -5,12 +5,19 @@ namespace BazisGUI.Console.Events
 {
     public class CreateGeometryEventArgs : EventArgs
     {
-        public int Type { get; }
+        public GeometryType Type { get; }
         public List<string> Parameters { get; }
-        public CreateGeometryEventArgs(int type, List<string> parameters)
+        public CreateGeometryEventArgs(GeometryType type, List<string> parameters)
         {
             Type = type;
             Parameters = parameters;
         }
+    }
+
+    public enum GeometryType
+    {
+        Point = 0,
+        Curve = 1,
+        Surface = 2
     }
 }

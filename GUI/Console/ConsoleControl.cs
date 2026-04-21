@@ -108,7 +108,7 @@ namespace BazisGUI.Console
             { GenCmd.Exit,Array.Empty<string>()},
             { GenCmd.CreatePoint, new string[]{ "x,y,z" } },
             { GenCmd.CreateCurve, new string[]{"точка#1", "точка#2"}},
-            { GenCmd.CreateSurface, new string[]{"кривые формирующие контур", "кривая#1,кривая#2,..."} },
+            { GenCmd.CreateSurface, new string[]{"кривые формирующие контур", "кривая#1,кривая#2,кривая#N" } },
             { GenCmd.ExtrudeCurve, new string[]{"Элемент 2Д", "кривая", "точка", "шаг", "трансфинитная сетка 1-да, 0-нет"} }
             //{ GenCmd.ExtrudeRotate, new string[]{"Элемент 2Д", "угол", "точка", "ось вращения XYZ","трансфинитная сетка 1-да, 0-нет"} }
         };
@@ -323,13 +323,13 @@ namespace BazisGUI.Console
                         InEvent(this, new ExitAppEventArgs());
                         break;
                     case GenCmd.CreatePoint:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(0, [cmds[1]]));
+                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Point, [cmds[1]]));
                         break;   
                     case GenCmd.CreateCurve:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(1, [cmds[1], cmds[2]]));
+                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Curve, [cmds[1], cmds[2]]));
                         break;
                     case GenCmd.CreateSurface:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(2, [cmds[2]]));
+                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Surface, [cmds[2]]));
                         break;
                     case GenCmd.ExtrudeCurve:
                         ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
