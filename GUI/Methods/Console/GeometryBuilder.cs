@@ -21,7 +21,7 @@ namespace BazisGUI
                     int.TryParse(createExtruderEvent.Parameters[0], out var numberSurface) &
                     int.TryParse(createExtruderEvent.Parameters[1], out var numberCurve) &
                     int.TryParse(createExtruderEvent.Parameters[2], out var numberStartPoint) &
-                    double.TryParse(input, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out var step);
+                    double.TryParse(input, out var step);
                 bool transfinite = createExtruderEvent.Parameters[4] == "1";
 
                 if (!valid)
