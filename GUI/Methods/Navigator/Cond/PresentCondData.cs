@@ -70,7 +70,7 @@ namespace BazisGUI
 
                 //var imgIndex = navigator.GetObjectImageIndex(nodeType);
 
-                var child = navigator.CreateRealNode(nodeName);
+                var child = navigator.CreateRealNode(nodeName, $"{Localization.Localization.GetNavigatorNodeNameLocalization(nodeName)} : {data.ToString().Split(" : ")[1]}");
                 //child.ImageIndex = imgIndex;
                 //child.SelectedImageIndex = imgIndex;
 
