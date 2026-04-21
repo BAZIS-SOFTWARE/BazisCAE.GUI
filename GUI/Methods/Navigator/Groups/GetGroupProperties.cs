@@ -95,13 +95,24 @@ namespace BazisGUI
 
         private void CreateNodesConditionsProperties(IGroup obj, List<RowProperty> rows)
         {
-                    rows.Add(new RowProperty("Создать условие",
-        new DropDownPropertyValue("*",
-        new List<string>() {
+            if (project.ProjectKind == TaskKind.термическая)
+            {
+                rows.Add(new RowProperty("Создать условие",
+new DropDownPropertyValue("*",
+new List<string>() {
+            DataKind.Нагрев.ToString(),
+            DataKind.Среда.ToString()
+})));
+            }
+            else
+            {
+                rows.Add(new RowProperty("Создать условие",
+new DropDownPropertyValue("*",
+new List<string>() {
             DataKind.Закрепление.ToString(),
-            DataKind.Среда.ToString(),
             DataKind.Нагрузка.ToString()
-        })));                          
+})));
+            }
         }
 
         private void CreateElementsConditionsProperties(IGroup obj, List<RowProperty> rows)
