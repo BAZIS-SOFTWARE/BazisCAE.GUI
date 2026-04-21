@@ -1,11 +1,7 @@
 ﻿using BazisGUI.Navigator;
-using Model.Interfaces;
+using BazisGUI.PropertiesPanel;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BazisGUI.Localization
 {
@@ -25,7 +21,7 @@ namespace BazisGUI.Localization
         /// <summary>
         /// Получение строкового ресурса из файла ресурсов типа T на текущей языковой культуре
         /// </summary>
-        /// <typeparam name="T">Тип, ресурсы которого обозреваются в поисках нужного ресурса с именем name</typeparam>
+        /// <typeparam name="T">Тип графического компонента, ресурсы которого обозреваются в поисках нужной строки с именем name</typeparam>
         /// <param name="name">Имя искомого строкового ресурса</param>
         /// <returns>Строковый ресурс из T.resx файла на текущей языковой культуре</returns>
         public static string GetStringResourceByName<T>(string name)

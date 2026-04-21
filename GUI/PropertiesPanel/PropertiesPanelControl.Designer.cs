@@ -61,7 +61,7 @@ namespace BazisGUI.PropertiesPanel
             BackColor = SystemColors.ControlLight;
             BorderStyle = BorderStyle.FixedSingle;
             Controls.Add(dataGridView1);
-            HeaderName = "Свойства";
+            HeaderName = Localization.Localization.GetStringResourceByName<PropertiesPanelControl>("HeaderName");
             Name = "PropertiesPanelControl";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

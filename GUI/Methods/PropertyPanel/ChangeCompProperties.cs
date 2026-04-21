@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Localization;
 using BazisGUI.Navigator;
 using BazisGUI.PropertiesPanel;
 using Newtonsoft.Json;
@@ -24,10 +25,10 @@ namespace BazisGUI
                 ChangeMechanicalTask(obj, mhp);
             else if (parameters is TermalParameters tmp)
                 ChangeTermalTask(obj, tmp);
-
+            var kkk = new[] { "ar", Localization.Localization.GetErrorCaption() };
             switch (obj.Header)
             {
-                case "Выполнить":
+                case $"{Localization.Localization.GetStringResourceByName<PropertiesPanelControl>("")}":
                     var isExe = bool.Parse(obj.NewValue);
                     var selectedInstruction = navigator.SelectedNode;
                     selectedInstruction.Text = selectedInstruction.Text.Replace(isExe ? "пропустить" : "выполнить", isExe ? "выполнить" : "пропустить");

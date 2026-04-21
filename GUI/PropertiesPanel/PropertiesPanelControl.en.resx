@@ -135,7 +135,241 @@
   <data name="DataBase.Functions.NoDataException" xml:space="preserve">
     <value>The function base is empty</value>
   </data>
-  <data name="Header.CompData.Execute" xml:space="preserve">
+  <data name="HeaderName" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="Comp.General.Header.Execute" xml:space="preserve">
     <value>Execute</value>
+  </data>
+  <data name="Comp.Value.Execute" xml:space="preserve">
+    <value>Execute</value>
+  </data>
+  <data name="Comp.Value.Skip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="Comp.GeneralHeader.Algorithm" xml:space="preserve">
+    <value>Solution algorithm</value>
+  </data>
+  <data name="Comp.General.Header.IterationQuantity" xml:space="preserve">
+    <value>Number of iterations</value>
+  </data>
+  <data name="Comp.General.Header.Accuracy" xml:space="preserve">
+    <value>Solution accuracy, CU</value>
+  </data>
+  <data name="Comp.General.Header.RelaxCoef" xml:space="preserve">
+    <value>Relaxation coef (w)</value>
+  </data>
+  <data name="Comp.General.HeaderMaxRelaxCoef" xml:space="preserve">
+    <value>Max relaxation coef (wm)</value>
+  </data>
+  <data name="Comp.General.Header.Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="Comp.General.Header.IterationsPerStep" xml:space="preserve">
+    <value>Iterations per step</value>
+  </data>
+  <data name="Comp.General.Header.SaveFrequency" xml:space="preserve">
+    <value>Save frequency, step</value>
+  </data>
+  <data name="Comp.General.Header.InitialTemp" xml:space="preserve">
+    <value>Initial temperature, C°</value>
+  </data>
+  <data name="Comp.General.Header.StartTime" xml:space="preserve">
+    <value>Start time, sec</value>
+  </data>
+  <data name="Comp.General.Header.StopTime" xml:space="preserve">
+    <value>Stop time, sec</value>
+  </data>
+  <data name="Comp.General.Header.InitialStep" xml:space="preserve">
+    <value>Initial calculation step, sec</value>
+  </data>
+  <data name="Comp.General.Header.MinCalcStep" xml:space="preserve">
+    <value>Min calculation step, sec</value>
+  </data>
+  <data name="Comp.General.Header.MaxCalcStep" xml:space="preserve">
+    <value>Max calculation step, sec</value>
+  </data>
+  <data name="Comp.General.Header.Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Comp.Chem.Header.MaxConcentration" xml:space="preserve">
+    <value>Max concentration. (dCt max), %</value>
+  </data>
+  <data name="Comp.Chem.Header.MaxConcentrationValue" xml:space="preserve">
+    <value>Max concentration value</value>
+  </data>
+  <data name="Comp.Chem.Header.InitialConcentration" xml:space="preserve">
+    <value>Initial concentration, %</value>
+  </data>
+  <data name="Comp.Term.Header.MaxTemperture" xml:space="preserve">
+    <value>Max temp. (dTt max), C°</value>
+  </data>
+  <data name="Comp.Term.Header.MaxTempertureValue" xml:space="preserve">
+    <value>Max temp. value</value>
+  </data>
+  <data name="Comp.Mech.Header.MaxDifference" xml:space="preserve">
+    <value>Max difference dU,&gt;0</value>
+  </data>
+  <data name="Comp.Mech.Header.MaxDisplacement" xml:space="preserve">
+    <value>Max displacement U, &gt;0</value>
+  </data>
+  <data name="Comp.Mech.Header.MaxDisplacementValue" xml:space="preserve">
+    <value>Max displacement value U</value>
+  </data>
+  <data name="Comp.Mech.Header.PlasticDeformation" xml:space="preserve">
+    <value>Plastic deformation Si/St, &gt;1</value>
+  </data>
+  <data name="Comp.Mech.Header.PlasticDeformationValue" xml:space="preserve">
+    <value>Plastic deformation value Si/St</value>
+  </data>
+  <data name="Cond.General.Header.Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Cond.General.Header.StartTime" xml:space="preserve">
+    <value>Start time, sec</value>
+  </data>
+  <data name="Cond.General.Header.StopTime" xml:space="preserve">
+    <value>Stop time, sec</value>
+  </data>
+  <data name="Cond.General.Header.Function" xml:space="preserve">
+    <value>Function</value>
+  </data>
+  <data name="Cond.General.Header.Parameter" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="Cond.General.Header.Table" xml:space="preserve">
+    <value>Table</value>
+  </data>
+  <data name="Cond.General.Header.Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Cond.General.Header.CoordinateSystem" xml:space="preserve">
+    <value>Coordinate system</value>
+  </data>
+  <data name="Cond.General.Header.File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Cond.General.Header.Plane" xml:space="preserve">
+    <value>Plane</value>
+  </data>
+  <data name="Cond.General.Header.Trajectory" xml:space="preserve">
+    <value>Trajectory</value>
+  </data>
+  <data name="Cond.General.Header.ReferenceLine" xml:space="preserve">
+    <value>Reference line</value>
+  </data>
+  <data name="Cond.General.Header.Speed" xml:space="preserve">
+    <value>Speed, mm/sec</value>
+  </data>
+  <data name="Cond.General.Header.ShiftingX" xml:space="preserve">
+    <value>Shifting X</value>
+  </data>
+  <data name="Cond.General.Header.RotationX" xml:space="preserve">
+    <value>Rotation X</value>
+  </data>
+  <data name="Cond.Clamp.Header.Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Cond.Clamp.Header.Direction" xml:space="preserve">
+    <value>Direction</value>
+  </data>
+  <data name="Cond.Material.Header.Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Cond.Material.Header.Diameter" xml:space="preserve">
+    <value>Diameter</value>
+  </data>
+  <data name="Cond.Material.Header.Thickness" xml:space="preserve">
+    <value>Thickness</value>
+  </data>
+  <data name="Cond.Heat.Header.Power" xml:space="preserve">
+    <value>Power, J/sec</value>
+  </data>
+  <data name="Cond.Load.Header.Direction" xml:space="preserve">
+    <value>Direction</value>
+  </data>
+  <data name="Cond.Load.Header.Value" xml:space="preserve">
+    <value>Value, N</value>
+  </data>
+  <data name="Cond.Load.Header.Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Geo.Curve.Header.Algorithm" xml:space="preserve">
+    <value>Algorithm</value>
+  </data>
+  <data name="Geo.Curve.Header.PointQuantity" xml:space="preserve">
+    <value>Number of points</value>
+  </data>
+  <data name="Geo.Curve.Header.Coefficient" xml:space="preserve">
+    <value>Coefficient</value>
+  </data>
+  <data name="Geo.General.Header.MinSize" xml:space="preserve">
+    <value>Min size</value>
+  </data>
+  <data name="Geo.General.Header.MaxSize" xml:space="preserve">
+    <value>Max size</value>
+  </data>
+  <data name="Geo.General.Header.Algorithm2D" xml:space="preserve">
+    <value>Algorithm 2D</value>
+  </data>
+  <data name="Geo.General.Header.Algorithm3D" xml:space="preserve">
+    <value>Algorithm 3D</value>
+  </data>
+  <data name="Geo.General.Header.MeshSizeFactor" xml:space="preserve">
+    <value>Mesh size factor</value>
+  </data>
+  <data name="Geo.General.Header.ShowPointsOnCurves" xml:space="preserve">
+    <value>Show points on curves</value>
+  </data>
+  <data name="Geo.General.ShowAllMeshOnGeneration" xml:space="preserve">
+    <value>Show all mesh on generation</value>
+  </data>
+  <data name="Groups.Header.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Groups.Header.CreateCondition" xml:space="preserve">
+    <value>Create condition</value>
+  </data>
+  <data name="Cond.General.Header.ShiftingY" xml:space="preserve">
+    <value>Shifting Y</value>
+  </data>
+  <data name="Cond.General.Header.ShiftingZ" xml:space="preserve">
+    <value>Shifting Z</value>
+  </data>
+  <data name="Cond.General.Header.RotationY" xml:space="preserve">
+    <value>Rotation Y</value>
+  </data>
+  <data name="Cond.General.Header.RotationZ" xml:space="preserve">
+    <value>Rotation Z</value>
+  </data>
+  <data name="MeshObj.General.Header.CoordinateX" xml:space="preserve">
+    <value>Coordinate X</value>
+  </data>
+  <data name="MeshObj.General.Header.CoordinateY" xml:space="preserve">
+    <value>Coordinate Y</value>
+  </data>
+  <data name="MeshObj.General.Header.CoordinateZ" xml:space="preserve">
+    <value>Coordinate Z</value>
+  </data>
+  <data name="MeshSet.General.Header.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="MeshSet.General.Header.Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="MeshSet.General.Header.View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="MeshSet.General.Header.AccuracyLevel" xml:space="preserve">
+    <value>Accuracy level</value>
+  </data>
+  <data name="Geo.Point.Header.ElementsSize" xml:space="preserve">
+    <value>Elements size</value>
+  </data>
+  <data name="Geo.Surface.Header.MeshType" xml:space="preserve">
+    <value>Mesh type</value>
+  </data>
+  <data name="Geo.Surface.Header.MeshType.Regular" xml:space="preserve">
+    <value>Regular</value>
   </data>
 </root>
