@@ -379,4 +379,85 @@
   <data name="Geo.Surface.Header.MeshType.Regular" xml:space="preserve">
     <value>Регулярная</value>
   </data>
+  <data name="Geo.Surface.Header.AddedCurves" xml:space="preserve">
+    <value>Добавленные кривые</value>
+  </data>
+  <data name="Geo.Surface.Header.Squaring" xml:space="preserve">
+    <value>Квадратизация</value>
+  </data>
+  <data name="Geo.Surface.Header.CornerPoints" xml:space="preserve">
+    <value>Угловые точки</value>
+  </data>
+  <data name="Geo.Surface.Header.RibbersOrientation" xml:space="preserve">
+    <value>Ориентация ребер</value>
+  </data>
+  <data name="Task.General.Header.Type" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Task.General.Header.Kind" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Task.General.Header.CheckConditionValues" xml:space="preserve">
+    <value>Проверка значений условий</value>
+  </data>
+  <data name="Geo.Volume.Header.MeshType" xml:space="preserve">
+    <value>Вид сетки</value>
+  </data>
+  <data name="Geo.Volume.Header.MeshType.Regulare" xml:space="preserve">
+    <value>Регулярная</value>
+  </data>
+  <data name="Geo.Volume.Header.MeshType.Gradient" xml:space="preserve">
+    <value>Градиентная</value>
+  </data>
+  <data name="Geo.Volume.Header.TransitionGradientDegree" xml:space="preserve">
+    <value>Степень градиента перехода</value>
+  </data>
+  <data name="Geo.Volume.Header.LayerThickness" xml:space="preserve">
+    <value>Толщина слоя</value>
+  </data>
+  <data name="Geo.Volume.Header.SurfaceElementsSize" xml:space="preserve">
+    <value>Размер элементов поверхности</value>
+  </data>
+  <data name="Geo.Volume.Header.SizeOfElementsInCenter" xml:space="preserve">
+    <value>Размер элементов в центре</value>
+  </data>
+  <data name="Result.General.Header.Scale" xml:space="preserve">
+    <value>Масштаб</value>
+  </data>
+  <data name="Result.General.Header.MaxValue" xml:space="preserve">
+    <value>Макс. значение</value>
+  </data>
+  <data name="Result.General.Header.MinValue" xml:space="preserve">
+    <value>Мин. значение</value>
+  </data>
+  <data name="Result.General.Header.ShowScale" xml:space="preserve">
+    <value>Показать шкалу</value>
+  </data>
+  <data name="Result.General.Header.RefineValues" xml:space="preserve">
+    <value>Уточнить значения</value>
+  </data>
+  <data name="Result.General.Header.ShowFields" xml:space="preserve">
+    <value>Показывать поле</value>
+  </data>
+  <data name="Result.General.Header.ShowValuesInNodes" xml:space="preserve">
+    <value>Показать значения в узлах</value>
+  </data>
+  <data name="Result.General.Header.ShowValuesInElements" xml:space="preserve">
+    <value>Показать значения в элементах</value>
+  </data>
+  <data name="Result.General.Header.AverageValues" xml:space="preserve">
+    <value>Усреднять значения</value>
+  </data>
+  <data name="Result.General.Header.Accuracy" xml:space="preserve">
+    <value>Точность</value>
+  </data>
+  <data name="Result.General.Header.Intervals" xml:space="preserve">
+    <value>Интервалы</value>
+  </data>
+  <data name="Result.General.Header.ScaleScreenPositionX" xml:space="preserve">
+    <value>Положение шкалы по Х</value>
+  </data>
+  <data name="Result.General.Header.ScaleScreenPositionY" xml:space="preserve">
+    <value>Положение шкалы по Y</value>
+  </data>
 </root>

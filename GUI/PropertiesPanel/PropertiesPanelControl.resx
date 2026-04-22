@@ -427,4 +427,85 @@
   <data name="Geo.Surface.Header.MeshType.Regular" xml:space="preserve">
     <value>Regular</value>
   </data>
+  <data name="Geo.Surface.Header.AddedCurves" xml:space="preserve">
+    <value>Added curves</value>
+  </data>
+  <data name="Geo.Surface.Header.Squaring" xml:space="preserve">
+    <value>Squaring</value>
+  </data>
+  <data name="Geo.Surface.Header.CornerPoints" xml:space="preserve">
+    <value>Corner points</value>
+  </data>
+  <data name="Geo.Surface.Header.RibbersOrientation" xml:space="preserve">
+    <value>Ribbers orientation</value>
+  </data>
+  <data name="Task.General.Header.Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Task.General.Header.Kind" xml:space="preserve">
+    <value>Kind</value>
+  </data>
+  <data name="Task.General.Header.CheckConditionValues" xml:space="preserve">
+    <value>Checking condition values</value>
+  </data>
+  <data name="Geo.Volume.Header.MeshType" xml:space="preserve">
+    <value>Mesh type</value>
+  </data>
+  <data name="Geo.Volume.Header.MeshType.Regulare" xml:space="preserve">
+    <value>Regular</value>
+  </data>
+  <data name="Geo.Volume.Header.MeshType.Gradient" xml:space="preserve">
+    <value>Gradient</value>
+  </data>
+  <data name="Geo.Volume.Header.TransitionGradientDegree" xml:space="preserve">
+    <value>Transition gradient degree</value>
+  </data>
+  <data name="Geo.Volume.Header.LayerThickness" xml:space="preserve">
+    <value>Layer thickness</value>
+  </data>
+  <data name="Geo.Volume.Header.SurfaceElementsSize" xml:space="preserve">
+    <value>SurfaceElementsSize</value>
+  </data>
+  <data name="Geo.Volume.Header.SizeOfElementsInCenter" xml:space="preserve">
+    <value>Size of elements in the center</value>
+  </data>
+  <data name="Result.General.Header.Scale" xml:space="preserve">
+    <value>Scale</value>
+  </data>
+  <data name="Result.General.Header.MaxValue" xml:space="preserve">
+    <value>Max value</value>
+  </data>
+  <data name="Result.General.Header.MinValue" xml:space="preserve">
+    <value>Min value</value>
+  </data>
+  <data name="Result.General.Header.ShowScale" xml:space="preserve">
+    <value>Show scale</value>
+  </data>
+  <data name="Result.General.Header.RefineValues" xml:space="preserve">
+    <value>Refine values</value>
+  </data>
+  <data name="Result.General.Header.ShowFields" xml:space="preserve">
+    <value>Show fields</value>
+  </data>
+  <data name="Result.General.Header.ShowValuesInNodes" xml:space="preserve">
+    <value>Show values in nodes</value>
+  </data>
+  <data name="Result.General.Header.ShowValuesInElements" xml:space="preserve">
+    <value>Show values in elements</value>
+  </data>
+  <data name="Result.General.Header.AverageValues" xml:space="preserve">
+    <value>Average values</value>
+  </data>
+  <data name="Result.General.Header.Accuracy" xml:space="preserve">
+    <value>Accuracy</value>
+  </data>
+  <data name="Result.General.Header.Intervals" xml:space="preserve">
+    <value>Intervals</value>
+  </data>
+  <data name="Result.General.Header.ScaleScreenPositionX" xml:space="preserve">
+    <value>Position of the scale along X</value>
+  </data>
+  <data name="Result.General.Header.ScaleScreenPositionY" xml:space="preserve">
+    <value>Position of the scale along Y</value>
+  </data>
 </root>
