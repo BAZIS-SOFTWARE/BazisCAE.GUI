@@ -65,9 +65,9 @@ namespace BazisGUI
             }
 
             if (!flag)
-                console.PrintInfo("Скрыты внутренние объекты", Color.Black);
+                console.PrintInfo(Localization.Localization.GetStringResourceByName("ShowInsideObjects.HideInnerObjects.Message"), Color.Black);
             else
-                console.PrintInfo("Показаны все объекты", Color.Black);
+                console.PrintInfo(Localization.Localization.GetStringResourceByName("ShowInsideObjects.ShowAllObjects.Message"), Color.Black);
 
             DisplayObjects();
         }

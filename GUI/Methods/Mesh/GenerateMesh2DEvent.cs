@@ -35,10 +35,10 @@ namespace BazisGUI
                 FitObjectsToScreen();
                 DisplayObjects();
 
-                console.PrintInfo($"Сгенерировано элементов" +
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("GenerateMesh2DEvent.GenerateOnGeometry.GenElements.Message")}"+
                     $" 1D: {project.GetModelObjects(ObjType.Элемент1D).Count()}," +
                     $" 2D: {project.GetModelObjects(ObjType.Элемент2D).Count()}." +
-                    $" Рекомендуется проверить порядок точности наборов перед началом расчета в панели свойств, выбрав его в навигаторе", Color.Orange);
+                    Localization.Localization.GetStringResourceByName("GenerateMesh2DEvent.GenerateOnGeometry.Recomendation.Message"), Color.Orange);
             }
             catch (Exception ex)
             {

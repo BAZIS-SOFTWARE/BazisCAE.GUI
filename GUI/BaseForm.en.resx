@@ -1130,4 +1130,40 @@ Create variable?</value>
   <data name="ResultsMainMenuEvents.MergeResults.Recalculated.Message" xml:space="preserve">
     <value>Recalculation completed</value>
   </data>
+  <data name="MakeScreenShot.Message" xml:space="preserve">
+    <value>ScreenShot taken</value>
+  </data>
+  <data name="ShowInsideObjects.HideInnerObjects.Message" xml:space="preserve">
+    <value>Hidden internal objects</value>
+  </data>
+  <data name="ShowInsideObjects.ShowAllObjects.Message" xml:space="preserve">
+    <value>All objects shown</value>
+  </data>
+  <data name="SelectByPoint.ObjectSelected.Message" xml:space="preserve">
+    <value>Object selected</value>
+  </data>
+  <data name="SelectByRect.Selected.Message" xml:space="preserve">
+    <value>Selected</value>
+  </data>
+  <data name="SelectByRect.Hidden.Message" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="SelectByRect.Declination.Type1" xml:space="preserve">
+    <value>objects</value>
+  </data>
+  <data name="SelectByRect.Declination.Type2" xml:space="preserve">
+    <value>objects</value>
+  </data>
+  <data name="SelectByRect.Declination.Type3" xml:space="preserve">
+    <value>objects</value>
+  </data>
+  <data name="ColorObjects.ObjectConversion.Exception" xml:space="preserve">
+    <value>Object conversion error</value>
+  </data>
+  <data name="GenerateMesh2DEvent.GenerateOnGeometry.Recomendation.Message" xml:space="preserve">
+    <value>Recommended to check the level of accuracy of the sets before starting the calculation in the properties panel by selecting it in the navigator</value>
+  </data>
+  <data name="GenerateMesh2DEvent.GenerateOnGeometry.GenElements.Message" xml:space="preserve">
+    <value>Items generated</value>
+  </data>
 </root>

@@ -917,4 +917,40 @@
   <data name="ResultsMainMenuEvents.MergeResults.Recalculated.Message" xml:space="preserve">
     <value>Пересчет завершен</value>
   </data>
+  <data name="MakeScreenShot.Message" xml:space="preserve">
+    <value>Сделан снимок экрана</value>
+  </data>
+  <data name="ShowInsideObjects.HideInnerObjects.Message" xml:space="preserve">
+    <value>Скрыты внутренние объекты</value>
+  </data>
+  <data name="ShowInsideObjects.ShowAllObjects.Message" xml:space="preserve">
+    <value>Показаны все объекты</value>
+  </data>
+  <data name="SelectByPoint.ObjectSelected.Message" xml:space="preserve">
+    <value>Выбран объект</value>
+  </data>
+  <data name="SelectByRect.Selected.Message" xml:space="preserve">
+    <value>Выбрано</value>
+  </data>
+  <data name="SelectByRect.Hidden.Message" xml:space="preserve">
+    <value>Скрыто</value>
+  </data>
+  <data name="SelectByRect.Declination.Type1" xml:space="preserve">
+    <value>объектов</value>
+  </data>
+  <data name="SelectByRect.Declination.Type2" xml:space="preserve">
+    <value>объект</value>
+  </data>
+  <data name="SelectByRect.Declination.Type3" xml:space="preserve">
+    <value>объекта</value>
+  </data>
+  <data name="ColorObjects.ObjectConversion.Exception" xml:space="preserve">
+    <value>Ошибка конвертации объектов</value>
+  </data>
+  <data name="GenerateMesh2DEvent.GenerateOnGeometry.GenElements.Message" xml:space="preserve">
+    <value>Сгенерировано элементов</value>
+  </data>
+  <data name="GenerateMesh2DEvent.GenerateOnGeometry.Recomendation.Message" xml:space="preserve">
+    <value>Рекомендуется проверить порядок точности наборов перед началом расчета в панели свойств, выбрав его в навигаторе</value>
+  </data>
 </root>
