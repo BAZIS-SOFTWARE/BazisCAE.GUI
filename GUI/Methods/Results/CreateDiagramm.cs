@@ -23,12 +23,12 @@ namespace BazisGUI
                 var objs = await CreatePathAsync();
 
                 if (objs.Count() == 0)
-                    throw new Exception("Не выбран ни один узел");
+                    throw new Exception(Localization.Localization.GetStringResourceByName("Result.BuildDiagram.NoNodesSelectedException"));
 
-                await SelectContainerAsync(@"Выберите время и нажмите на клавишу ""E"" для подтверждения");
+                await SelectContainerAsync(Localization.Localization.GetStringResourceByName("Result.BuildDiagram.SelectContaimerAsync.SelectTime.Message"));
 
                 if (navigator.SelectedNode.Name != NodeName.Time.ToString())
-                    throw new Exception("Выберите время в разделе результаты");
+                    throw new Exception(Localization.Localization.GetStringResourceByName("Result.BuildDiagram.SelectTime.Exception"));
 
                 var selNode = navigator.SelectedNode;
                 var resDes = selNode.Parent.Text;
@@ -67,16 +67,16 @@ namespace BazisGUI
 
                 if (grPoints.Count != 0)
                 {
-                    var grData = new GraphData(resDes, Color.Orange, "мм", resDes, grPoints.ToArray());
+                    var grData = new GraphData(resDes, Color.Orange, Localization.Localization.GetStringResourceByName("Result.BuildDiagram.GraphData.XUnit"), resDes, grPoints.ToArray());
                     var grContainer = new GraphContainer();
 
-                    grContainer.CreateGraphData("Набор результатов по расстоянию", new List<GraphData>() { grData }, new AxisFormat(), new AxisFormat());
+                    grContainer.CreateGraphData(Localization.Localization.GetStringResourceByName("Result.BuildDiagram.DistanceResultSet.Header"), new List<GraphData>() { grData }, new AxisFormat(), new AxisFormat());
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {
                         Owner = Application.OpenForms[0],
                         TopMost = true,
-                        Text = $"График {resDes} - координата",
+                        Text = $"{Localization.Localization.GetStringResourceByName("Result.BuildDiagram.Text_Part1")} {resDes} - {Localization.Localization.GetStringResourceByName("Result.BuildDiagram.Text_Part2")}",
                         ShowIcon = false,
                         ClientSize = grContainer.Size
                     };

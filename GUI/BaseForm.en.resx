@@ -646,4 +646,488 @@
         AAAAABAAAAAQAAAAEAAAADAAAABwAAAB8AA=
 </value>
   </data>
+  <data name="мастерToolStripMenuItem.Text" xml:space="preserve">
+    <value>Master</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPoint.EmptySelectionErrorMessage" xml:space="preserve">
+    <value>Selected no objects of type</value>
+  </data>
+  <data name="StopCaption" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="VBObjectController.ChangeViewMode.Message" xml:space="preserve">
+    <value>No objects of the specified type found!</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPlane.InstructionPart2" xml:space="preserve">
+    <value>and press the "E" to confirm or "ESC" to cancel</value>
+  </data>
+  <data name="остановитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="инструментыToolStripMenuItem.Text" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="btnSelect.Text.Nodes" xml:space="preserve">
+    <value>Node</value>
+  </data>
+  <data name="SaveWithoutProjectMessage" xml:space="preserve">
+    <value>Firstly open exist project or create a new one</value>
+  </data>
+  <data name="измеритьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Measure</value>
+  </data>
+  <data name="UtilityToolStrip.CalcSquare.Output" xml:space="preserve">
+    <value>Measure</value>
+  </data>
+  <data name="показатьСопряженныеItem.Text" xml:space="preserve">
+    <value>Show paired</value>
+  </data>
+  <data name="лицензияToolStripMenuItem.Text" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="PanelConverter.UndefinedConverterTypeException" xml:space="preserve">
+    <value>Converter type is not defined</value>
+  </data>
+  <data name="уплотнитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Densify exist mesh</value>
+  </data>
+  <data name="расчетыToolStripMenuItem.Text" xml:space="preserve">
+    <value>Calculations</value>
+  </data>
+  <data name="FileAbsenceCaption" xml:space="preserve">
+    <value>File missing!</value>
+  </data>
+  <data name="сведенияMenuItem.Text" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="ConnectionEstablishedAnswer" xml:space="preserve">
+    <value>Connection established</value>
+  </data>
+  <data name="открытьToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="HandleArgsResultsAbsenceException" xml:space="preserve">
+    <value>Required arguments for -res file are missing</value>
+  </data>
+  <data name="AdvanceSelectionElemntsSelectionWarning" xml:space="preserve">
+    <value>An element must be selected</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPlane.InstructionPart1" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="создатьЛиниюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create a line</value>
+  </data>
+  <data name="опрограммеToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;About...</value>
+  </data>
+  <data name="AdvanceSelectionNoObjectSelectedWarning" xml:space="preserve">
+    <value>No object selected</value>
+  </data>
+  <data name="UtilityToolStrip.CreateCrossSection.InvalidNodeNumerErrorMessage" xml:space="preserve">
+    <value>Error, incorrect number of nodes selected</value>
+  </data>
+  <data name="создатьОбъемToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create a volume</value>
+  </data>
+  <data name="ProjectSavedCaption" xml:space="preserve">
+    <value>Project saved</value>
+  </data>
+  <data name="геометрияToolStripMenuItem.Text" xml:space="preserve">
+    <value>Geometry</value>
+  </data>
+  <data name="загрузитьМастерToolStripMenuItem.Text" xml:space="preserve">
+    <value>User master</value>
+  </data>
+  <data name="StringEx.ToEnum.ArgumentException.Part2" xml:space="preserve">
+    <value>does not match any value.</value>
+  </data>
+  <data name="сеткаToolStripMenuItem.Text" xml:space="preserve">
+    <value>Mesh</value>
+  </data>
+  <data name="AdvanceSelection3NodesWarning" xml:space="preserve">
+    <value>Three nodes must be selected</value>
+  </data>
+  <data name="dToolStripMenuItem1.Text" xml:space="preserve">
+    <value>2D</value>
+  </data>
+  <data name="lblStatus.Text" xml:space="preserve">
+    <value>Create or load a project or mesh</value>
+  </data>
+  <data name="наToolStripMenuItem.Text" xml:space="preserve">
+    <value>On the boundaries of 2D elements</value>
+  </data>
+  <data name="btnSelect.Text.Elements1D" xml:space="preserve">
+    <value>Element1D</value>
+  </data>
+  <data name="материалыMenuItem.Text" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="Licensing" xml:space="preserve">
+    <value>Licensing</value>
+  </data>
+  <data name="рассечьПлоскостьюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Cut with a plane</value>
+  </data>
+  <data name="показатьНаДиаграммеToolStripMenuItem.Text" xml:space="preserve">
+    <value>Show on diagram</value>
+  </data>
+  <data name="файлToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="результатыMenuItem.Text" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="сформироватьgeoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create *.gscript</value>
+  </data>
+  <data name="UtilityToolStrip.Distance.Output" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="выбратьСопряженныеToolStripMenuItem.Text" xml:space="preserve">
+    <value>Select paired</value>
+  </data>
+  <data name="объединитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Merge</value>
+  </data>
+  <data name="LoadingForm.Text" xml:space="preserve">
+    <value>Loading. Please wait...</value>
+  </data>
+  <data name="StartCaption" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="UtilityToolStrip.CalcVolume.Output" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="создатьТочкуToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create a point</value>
+  </data>
+  <data name="VBObjectCtor.EmptyArrayArgumentException" xml:space="preserve">
+    <value>VBObject Error: Index array length cannot be zero</value>
+  </data>
+  <data name="сохранитькакToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save &amp;as</value>
+  </data>
+  <data name="MethodIsNotImplementedException" xml:space="preserve">
+    <value>Method is not implemented!</value>
+  </data>
+  <data name="открытьИнструкцииToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="btnSelect.Text.Elements2D" xml:space="preserve">
+    <value>Element2D</value>
+  </data>
+  <data name="toolStripMenuItem4.Text" xml:space="preserve">
+    <value>Reflect results</value>
+  </data>
+  <data name="btnSelect.Text.Curves" xml:space="preserve">
+    <value>Curve</value>
+  </data>
+  <data name="экспортироватьРезультатыToolStripMenuItem.Text" xml:space="preserve">
+    <value>Export results</value>
+  </data>
+  <data name="menuStrip.Text" xml:space="preserve">
+    <value>menuStrip</value>
+  </data>
+  <data name="VersionNews" xml:space="preserve">
+    <value>Version news</value>
+  </data>
+  <data name="SceneEvents.CreateGroup.SuccessCaption" xml:space="preserve">
+    <value>New group created</value>
+  </data>
+  <data name="tasksMenuItem.Text" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="UtilityToolStrip.Measuring.InvalidSeletedTypeError" xml:space="preserve">
+    <value>Please select another required object type. Measurements cannot be taken for</value>
+  </data>
+  <data name="AdvanceSelection2NodesWarning" xml:space="preserve">
+    <value>Two nodes must be selected</value>
+  </data>
+  <data name="toolStripMenuItem2.Text" xml:space="preserve">
+    <value>Navigator</value>
+  </data>
+  <data name="открытьToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Open</value>
+  </data>
+  <data name="HandleArgsProjectAbsenceException" xml:space="preserve">
+    <value>Required arguments for -proj path file are missing</value>
+  </data>
+  <data name="NewProjectNameTemplate" xml:space="preserve">
+    <value>new_project.bpf2</value>
+  </data>
+  <data name="BazisServerPathMissingMessage" xml:space="preserve">
+    <value>Connection failed. Environment variable "BazisServerPath" not found.
+Create variable?</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Bazis. Engineering Analysis System</value>
+  </data>
+  <data name="toolStripContainer.Text" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="скрытьВыбранноеItem.Text" xml:space="preserve">
+    <value>Hide selected</value>
+  </data>
+  <data name="добавитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Append</value>
+  </data>
+  <data name="btnSelect.Text.Surfaces" xml:space="preserve">
+    <value>Surface</value>
+  </data>
+  <data name="создатьПлоскостьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create a plane</value>
+  </data>
+  <data name="создатьГруппуItem.Text" xml:space="preserve">
+    <value>Create a new group</value>
+  </data>
+  <data name="HandleArgsCADAbsenceException" xml:space="preserve">
+    <value>Required arguments for -cad file are missing</value>
+  </data>
+  <data name="viewMenuItem.Text" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="создатьToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Create</value>
+  </data>
+  <data name="btnSelect.Text.Points" xml:space="preserve">
+    <value>Point</value>
+  </data>
+  <data name="построитьГрафикToolStripMenuItem.Text" xml:space="preserve">
+    <value>Build a graph</value>
+  </data>
+  <data name="LicenseInfo" xml:space="preserve">
+    <value>License info</value>
+  </data>
+  <data name="скрытьПлоскостьюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Hide with plane</value>
+  </data>
+  <data name="toolStripMenuItem3.Text" xml:space="preserve">
+    <value>Console</value>
+  </data>
+  <data name="настройкиToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Settings</value>
+  </data>
+  <data name="построитьДиаграммуToolStripMenuItem.Text" xml:space="preserve">
+    <value>Build a diagram</value>
+  </data>
+  <data name="AdvaneSelectionSelectedCaption" xml:space="preserve">
+    <value>Selected</value>
+  </data>
+  <data name="наПоверхности3DToolStripMenuItem.Text" xml:space="preserve">
+    <value>On open 3D elements</value>
+  </data>
+  <data name="ConvertFailCaption" xml:space="preserve">
+    <value>Failed to convert</value>
+  </data>
+  <data name="versionWordPrefix" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="webPageLabel.Text" xml:space="preserve">
+    <value>www.bazisnet.ru</value>
+  </data>
+  <data name="AttentionCaption" xml:space="preserve">
+    <value>Attention!</value>
+  </data>
+  <data name="HandleArgsResultsLoadingWithoutProjectException" xml:space="preserve">
+    <value>To load the results, you must first load the project</value>
+  </data>
+  <data name="показатьСкрытыеItem.Text" xml:space="preserve">
+    <value>Show all hidden</value>
+  </data>
+  <data name="создатьToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Create Task</value>
+  </data>
+  <data name="создатьАнимациюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create an animation</value>
+  </data>
+  <data name="содержаниеToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Content</value>
+  </data>
+  <data name="запуститьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="StringEx.ToEnum.ArgumentException.Part1" xml:space="preserve">
+    <value>Error: value</value>
+  </data>
+  <data name="квадратизацияСуществующейToolStripMenuItem.Text" xml:space="preserve">
+    <value>Squaring the exist mesh</value>
+  </data>
+  <data name="сохранитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="LicenseAllowedAnswer" xml:space="preserve">
+    <value>Licensing has been completed</value>
+  </data>
+  <data name="справкаToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Reference</value>
+  </data>
+  <data name="dToolStripMenuItem.Text" xml:space="preserve">
+    <value>1D</value>
+  </data>
+  <data name="menuItem_DeleteSelectedObjects.Text" xml:space="preserve">
+    <value>Remove selected</value>
+  </data>
+  <data name="StackTrace" xml:space="preserve">
+    <value>Stack trace</value>
+  </data>
+  <data name="dToolStripMenuItem2.Text" xml:space="preserve">
+    <value>3D</value>
+  </data>
+  <data name="SceneEvents.CreateGroup.InvalidGroupTypeWarning" xml:space="preserve">
+    <value>A group of the selected type cannot be created</value>
+  </data>
+  <data name="dataBasesMenuItem.Text" xml:space="preserve">
+    <value>Databases</value>
+  </data>
+  <data name="menuItem_SetRotPoint.Text" xml:space="preserve">
+    <value>Set rotation point</value>
+  </data>
+  <data name="menuItem_InfoSelectedObjects.Text" xml:space="preserve">
+    <value>Selected objects</value>
+  </data>
+  <data name="ImportMeshCaption" xml:space="preserve">
+    <value>Import mesh</value>
+  </data>
+  <data name="btnDisplayViews.Text" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="GetLicenseInfoException" xml:space="preserve">
+    <value>Error requesting license information</value>
+  </data>
+  <data name="btnSelect.Text" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="ErrorCaption" xml:space="preserve">
+    <value>Error!</value>
+  </data>
+  <data name="btnSelect.Text.Objects" xml:space="preserve">
+    <value>Objects</value>
+  </data>
+  <data name="выходToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Exit</value>
+  </data>
+  <data name="загрузитьgeoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Load *.gscript</value>
+  </data>
+  <data name="AdvanceSelectionForm.Text" xml:space="preserve">
+    <value>Advance selection</value>
+  </data>
+  <data name="сформироватьИнструкцииToolStripMenuItem.Text" xml:space="preserve">
+    <value>Form</value>
+  </data>
+  <data name="CallBackFormName" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="функцииMenuItem.Text" xml:space="preserve">
+    <value>Functions</value>
+  </data>
+  <data name="btnSelect.Text.Elements3D" xml:space="preserve">
+    <value>Element3D</value>
+  </data>
+  <data name="UtilityToolStrip.CrossSection.Text" xml:space="preserve">
+    <value>Build cross section</value>
+  </data>
+  <data name="наПоверхностиГеометрииToolStripMenuItem.Text" xml:space="preserve">
+    <value>On the geometry surfaces</value>
+  </data>
+  <data name="SceneEvents.Info.Selected" xml:space="preserve">
+    <value>Objects are selected</value>
+  </data>
+  <data name="AnimationForm.Text" xml:space="preserve">
+    <value>Animation</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.SelectContainerAsync.SelectResult.Message" xml:space="preserve">
+    <value>Select the result and press the "E" key to confirm</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.Exception" xml:space="preserve">
+    <value>Select the result in the results section</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.CreateGIFAnimationInfo" xml:space="preserve">
+    <value>Creating GIF animation</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.AnimationCreated" xml:space="preserve">
+    <value>GIF animation created</value>
+  </data>
+  <data name="Result.BuildDiagram.NoNodesSelectedException" xml:space="preserve">
+    <value>No nodes selected</value>
+  </data>
+  <data name="Result.BuildDiagram.SelectContaimerAsync.SelectTime.Message" xml:space="preserve">
+    <value>Select the time and press the "E" key to confirm</value>
+  </data>
+  <data name="Result.BuildDiagram.SelectTime.Exception" xml:space="preserve">
+    <value>Select the time in the results section</value>
+  </data>
+  <data name="Result.BuildDiagram.GraphData.XUnit" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="Result.BuildDiagram.DistanceResultSet.Header" xml:space="preserve">
+    <value>Distance result set</value>
+  </data>
+  <data name="Result.BuildDiagram.Text_Part1" xml:space="preserve">
+    <value>Graph</value>
+  </data>
+  <data name="Result.BuildDiagram.Text_Part2" xml:space="preserve">
+    <value>Coordinate</value>
+  </data>
+  <data name="CreatePlot.SelectContainerAsync.CancelOperation.Message" xml:space="preserve">
+    <value>Operation canceled</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.SelectContainerAsync.SelectNodes.Message" xml:space="preserve">
+    <value>Select the nodes and press the "E" key to confirm</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.NoNodesSelected.Exception" xml:space="preserve">
+    <value>No nodes selected</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.SelectContainerAsync.SelectResult.Message" xml:space="preserve">
+    <value>Select the result and press the "E" key to confirm</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.SelectResult.Exception" xml:space="preserve">
+    <value>Select the result in the results section</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.BuildingGraph.Text_Part1" xml:space="preserve">
+    <value>The graph for the object is being built</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.BuildingGraph.Text_Part2" xml:space="preserve">
+    <value>wait a little</value>
+  </data>
+  <data name="CreatePlot.DisplayText3D.Text" xml:space="preserve">
+    <value>Node</value>
+  </data>
+  <data name="CreatePlot.GraphData.Header_Part1" xml:space="preserve">
+    <value>Node</value>
+  </data>
+  <data name="CreatePlot.GraphData.XUnit" xml:space="preserve">
+    <value>Sec.</value>
+  </data>
+  <data name="CreatePlot.CreateGraphData.Header" xml:space="preserve">
+    <value>Result set by time</value>
+  </data>
+  <data name="CreatePlot.GraphForm.Text_Part1" xml:space="preserve">
+    <value>Graph</value>
+  </data>
+  <data name="CreatePlot.GraphForm.Text_Part2" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Reflect.Form.Text" xml:space="preserve">
+    <value>Reflection</value>
+  </data>
+  <data name="Reflect.CreateReflectedVBObject.Exception_Part1" xml:space="preserve">
+    <value>Object with name</value>
+  </data>
+  <data name="Reflect.CreateReflectedVBObject.Exception_Part2" xml:space="preserve">
+    <value>already exists</value>
+  </data>
+  <data name="Reflect.CreateReflectedVBObject.Exception_Part3" xml:space="preserve">
+    <value>not exists</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.RecalculationOnNodes.Message" xml:space="preserve">
+    <value>Recalculation is performed on nodes, time</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.RecalculationOnNodesResNames.Message" xml:space="preserve">
+    <value>Recalculation for nodes has been performed for</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.Recalculated.Message" xml:space="preserve">
+    <value>Recalculation completed</value>
+  </data>
 </root>

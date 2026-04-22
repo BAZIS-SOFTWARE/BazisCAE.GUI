@@ -23,7 +23,7 @@ namespace BazisGUI
                     var form = new Form()
                     {
                         Name = "animationForm",
-                        Text = "Анимация",
+                        Text = Localization.Localization.GetStringResourceByName("AnimationForm.Text"),
                         Icon = this.Icon,
                         ShowIcon = true,
                         Owner = Application.OpenForms[0],
@@ -67,15 +67,15 @@ namespace BazisGUI
 
         public async void CreateGIFAnimation(CreateAnimationEventArgs args)
         {
-            var outputFilePath = $@"{WorkingDir}\results.gif";
+            var outputFilePath = Path.Combine(WorkingDir, "results.gif");
             var stream = new FileStream(outputFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
             try
             {
                 //выбрать узел в дереве асинхронно
-                await SelectContainerAsync(@"Выберите результат и нажмите на клавишу ""E"" для подтверждения");
+                await SelectContainerAsync(Localization.Localization.GetStringResourceByName("Result.CreateGIFAnimation.SelectContainerAsync.SelectResult.Message"));
 
                 if (navigator.SelectedNode.Name != NodeName.Result.ToString())
-                    throw new Exception("Выберите результат в разделе результаты");
+                    throw new Exception(Localization.Localization.GetStringResourceByName("Result.CreateGIFAnimation.Exception"));
 
                 var selNode = navigator.SelectedNode;
                 var resName = selNode.Text;
@@ -123,13 +123,13 @@ namespace BazisGUI
                     //    //var bmpImage = Image.FromFile(imagesPaths[i]);
                     //    e.AddFrame(bmpImage);
                     var total = ((i + 1) / (float)list.Count * 100).ToString("#.##");
-                    console.PrintInfo($@"Создание GIF анимации {total}%", Color.Black);
+                    console.PrintInfo($@"{Localization.Localization.GetStringResourceByName("Result.CreateGIFAnimation.CreateGIFAnimationInfo")} {total}%", Color.Black);
                     //}
                     //File.Delete(imagePath);
                 }
                 e.Dispose();
                 //e.Finish();
-                console.PrintInfo("GIF анимация создана", Color.Green);
+                console.PrintInfo(Localization.Localization.GetStringResourceByName("Result.CreateGIFAnimation.AnimationCreated"), Color.Green);
             }
             catch (Exception ex)
             {

@@ -818,4 +818,103 @@
   <data name="PanelConverter.UndefinedConverterTypeException" xml:space="preserve">
     <value>Тип конвертера не определен</value>
   </data>
+  <data name="AnimationForm.Text" xml:space="preserve">
+    <value>Анимация</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.SelectContainerAsync.SelectResult.Message" xml:space="preserve">
+    <value>Выберите результат и нажмите на клавишу ""E"" для подтверждения</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.Exception" xml:space="preserve">
+    <value>Выберите результат в разделе результаты</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.CreateGIFAnimationInfo" xml:space="preserve">
+    <value>Создание GIF анимации</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.AnimationCreated" xml:space="preserve">
+    <value>GIF анимация создана</value>
+  </data>
+  <data name="Result.BuildDiagram.NoNodesSelectedException" xml:space="preserve">
+    <value>Не выбран ни один узел</value>
+  </data>
+  <data name="Result.BuildDiagram.SelectContaimerAsync.SelectTime.Message" xml:space="preserve">
+    <value>Выберите время и нажмите на клавишу ""E"" для подтверждения</value>
+  </data>
+  <data name="Result.BuildDiagram.SelectTime.Exception" xml:space="preserve">
+    <value>Выберите время в разделе результаты</value>
+  </data>
+  <data name="Result.BuildDiagram.GraphData.XUnit" xml:space="preserve">
+    <value>мм</value>
+  </data>
+  <data name="Result.BuildDiagram.DistanceResultSet.Header" xml:space="preserve">
+    <value>Набор результатов по расстоянию</value>
+  </data>
+  <data name="btnSelect.AccessibleName" xml:space="preserve">
+    <value>SelectObjects.btnSelect.Select</value>
+  </data>
+  <data name="Result.BuildDiagram.Text_Part1" xml:space="preserve">
+    <value>График</value>
+  </data>
+  <data name="Result.BuildDiagram.Text_Part2" xml:space="preserve">
+    <value>Координата</value>
+  </data>
+  <data name="CreatePlot.SelectContainerAsync.CancelOperation.Message" xml:space="preserve">
+    <value>Операция отменена</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.SelectContainerAsync.SelectNodes.Message" xml:space="preserve">
+    <value>Выберите узлы и нажмите на клавишу ""E"" для подтверждения</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.NoNodesSelected.Exception" xml:space="preserve">
+    <value>Не выбран ни один узел</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.SelectContainerAsync.SelectResult.Message" xml:space="preserve">
+    <value>Выберите результат и нажмите на клавишу ""E"" для подтверждения</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.SelectResult.Exception" xml:space="preserve">
+    <value>Выберите результат в разделе результаты</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.BuildingGraph.Text_Part1" xml:space="preserve">
+    <value>Идет построение графика для объекта</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.BuildingGraph.Text_Part2" xml:space="preserve">
+    <value>подождите немного</value>
+  </data>
+  <data name="CreatePlot.DisplayText3D.Text" xml:space="preserve">
+    <value>Узел</value>
+  </data>
+  <data name="CreatePlot.GraphData.Header_Part1" xml:space="preserve">
+    <value>Узел</value>
+  </data>
+  <data name="CreatePlot.GraphData.XUnit" xml:space="preserve">
+    <value>Сек.</value>
+  </data>
+  <data name="CreatePlot.CreateGraphData.Header" xml:space="preserve">
+    <value>Набор результатов по времени</value>
+  </data>
+  <data name="CreatePlot.GraphForm.Text_Part1" xml:space="preserve">
+    <value>График</value>
+  </data>
+  <data name="CreatePlot.GraphForm.Text_Part2" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="Reflect.Form.Text" xml:space="preserve">
+    <value>Отражение</value>
+  </data>
+  <data name="Reflect.CreateReflectedVBObject.Exception_Part1" xml:space="preserve">
+    <value>Объект с именем</value>
+  </data>
+  <data name="Reflect.CreateReflectedVBObject.Exception_Part2" xml:space="preserve">
+    <value>уже существует</value>
+  </data>
+  <data name="Reflect.CreateReflectedVBObject.Exception_Part3" xml:space="preserve">
+    <value>не существует</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.RecalculationOnNodes.Message" xml:space="preserve">
+    <value>Выполняется пересчет на узлы, время</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.RecalculationOnNodesResNames.Message" xml:space="preserve">
+    <value>Выполнен пересчет на узлы для</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.Recalculated.Message" xml:space="preserve">
+    <value>Пересчет завершен</value>
+  </data>
 </root>

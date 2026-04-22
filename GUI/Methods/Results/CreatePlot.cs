@@ -28,10 +28,7 @@ namespace BazisGUI
                         break;
                     if (PressedKey == Keys.Escape)
                     {
-                        Invoke(new Action(() =>
-                        {
-                            console.PrintInfo("Операция отменена", Color.Black);
-                        }));
+                        Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("CreatePlot.SelectContainerAsync.CancelOperation.Message"), Color.Black)));
                         break;
                     }
                 }
@@ -49,18 +46,18 @@ namespace BazisGUI
                 CreateVBObjects("Объекты");
                 DisplayObjects();
                 // выбор объектов
-                await SelectContainerAsync(@"Выберите узлы и нажмите на клавишу ""E"" для подтверждения");
+                await SelectContainerAsync(Localization.Localization.GetStringResourceByName("CreatePlot.BuildGraph.SelectContainerAsync.SelectNodes.Message"));
 
                 var nodes = project.GetModelObjects(ObjType.Узел).
                     Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 if (nodes.Count() == 0)
-                    throw new Exception("Не выбран ни один узел");
+                    throw new Exception(Localization.Localization.GetStringResourceByName("CreatePlot.BuildDiagram.NoNodesSelected.Exception"));
 
-                await SelectContainerAsync(@"Выберите результат и нажмите на клавишу ""E"" для подтверждения");
+                await SelectContainerAsync(Localization.Localization.GetStringResourceByName("CreatePlot.BuildGraph.SelectContainerAsync.SelectResult.Message"));
 
                 if (navigator.SelectedNode.Name != NodeName.Result.ToString())
-                    throw new Exception("Выберите результат в разделе результаты");
+                    throw new Exception(Localization.Localization.GetStringResourceByName("CreatePlot.BuildGraph.SelectResult.Exception"));
 
                 var selNode = navigator.SelectedNode;
                 var resDes = selNode.Text;
@@ -78,7 +75,7 @@ namespace BazisGUI
                 {
                     var grPoints = new List<GraphPoint>();
 
-                    console.PrintInfo($"Идет построение графика для объекта {obj.ObjType} {obj.Number}, подождите немного...", Color.Orange); ;
+                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("CreatePlot.BuildGraph.BuildingGraph.Text_Part1")} {obj.ObjType} {obj.Number}, {Localization.Localization.GetStringResourceByName("CreatePlot.BuildGraph.BuildingGraph.Text_Part2")}...", Color.Orange); ;
 
                     foreach (var time in times)
                     {
@@ -92,9 +89,9 @@ namespace BazisGUI
                         grPoints.Add(grPoint);
                     }
 
-                    DisplayText3D($"Узел_{obj.Number}", Color.Black, obj.CalcCentr());
+                    DisplayText3D($"{Localization.Localization.GetStringResourceByName("CreatePlot.DisplayText3D.Text")}_{obj.Number}", Color.Black, obj.CalcCentr());
                     var color = Color.FromArgb(random.Next(255), random.Next(255), random.Next(255));
-                    var grData = new GraphData($"Узел_{obj.Number}", color, "Сек.", resDes, grPoints.ToArray());
+                    var grData = new GraphData($"{Localization.Localization.GetStringResourceByName("CreatePlot.GraphData.Header_Part1")}_{obj.Number}", color, Localization.Localization.GetStringResourceByName("CreatePlot.GraphData.XUnit"), resDes, grPoints.ToArray());
                     grDataAr.Add(grData);
                 }
                 DisplayObjects();
@@ -102,13 +99,13 @@ namespace BazisGUI
 
                 if (grDataAr.Count != 0)
                 {
-                    grContainer.CreateGraphData("Набор результатов по времени", grDataAr, new AxisFormat(), new AxisFormat());
+                    grContainer.CreateGraphData(Localization.Localization.GetStringResourceByName("CreatePlot.CreateGraphData.Header"), grDataAr, new AxisFormat(), new AxisFormat());
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {
                         Owner = Application.OpenForms[0],
                         TopMost = true,
-                        Text = $"График {resDes} - время",
+                        Text = $"{Localization.Localization.GetStringResourceByName("CreatePlot.GraphForm.Text_Part1")} {resDes} - {Localization.Localization.GetStringResourceByName("CreatePlot.GraphForm.Text_Part2")}",
                         ShowIcon = false,
                         ClientSize = grContainer.Size
                     };

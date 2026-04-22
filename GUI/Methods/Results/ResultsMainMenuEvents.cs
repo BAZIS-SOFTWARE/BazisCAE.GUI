@@ -243,7 +243,7 @@ namespace BazisGUI
                 else
                     interfaceNodes = project.FindInterfacedNodes(2);
 
-                console.PrintInfo($"Выполняется пересчет на узлы, время {result.Time}", Color.Black);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("ResultsMainMenuEvents.MergeResults.RecalculationOnNodes.Message")} {result.Time}", Color.Black);
                 console.PrintInfo("", Color.Black);
 
                 var resNames = result.Data.Tables[(int)ResultType.elements].GetTableSchema();
@@ -252,21 +252,15 @@ namespace BazisGUI
                 {
                     resultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], result);
 
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
-                    }));
+                    Invoke(new Action(() => console.PrintInfo($"{Localization.Localization.GetStringResourceByName("ResultsMainMenuEvents.MergeResults.RecalculationOnNodesResNames.Message")} {resNames[i]}", Color.Black)));
                 }
 
-                console.PrintInfo("Пересчет завершен", Color.Green);
+                console.PrintInfo(Localization.Localization.GetStringResourceByName("ResultsMainMenuEvents.MergeResults.Recalculated.Message"), Color.Green);
 
             }
             catch (Exception ex)
             {
-                Invoke(new Action(() =>
-                {
-                    console.PrintInfo($"В ходе пересчета возникла ошибка: {ex.Message}", Color.Red);
-                }));
+                Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetErrorWithStackMessage(ex), Color.Red)));
             }
         }
 
