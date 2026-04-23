@@ -3320,6 +3320,6 @@ Create variable?</value>
     <value>Selected object of type</value>
   </data>
   <data name="UtilityTiilStrip.SelectObjectAsync.WithNumber.Message" xml:space="preserve">
-    <value>with number</value>
+    <value>under number</value>
   </data>
 </root>
