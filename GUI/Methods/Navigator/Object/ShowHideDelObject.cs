@@ -39,7 +39,7 @@ namespace BazisGUI
                     objInfo == ObjType.Кривая.ToString() |
                     objInfo == ObjType.Поверхность.ToString()) 
                 {
-                    console.PrintInfo("В настоящий момент невозможно удалить геометрию", Color.Orange);
+                    console.PrintInfo(Localization.Localization.GetStringResourceByName("ShowHideDelObjects.DelObjectEvent.TryToDelGeom.Message"), Color.Orange);
                     return;
                 }
 

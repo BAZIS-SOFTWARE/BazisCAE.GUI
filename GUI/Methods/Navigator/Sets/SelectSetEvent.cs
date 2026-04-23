@@ -42,7 +42,7 @@ namespace BazisGUI
                                     var objects = set.GetNumbers().Select(num => project.GetModelObject(objType, num)).ToList();
                                     project.CreateGroup(set.Name, objects);
                                     var group = project.GetAllModelGroups().Last();
-                                    console.PrintInfo(string.Format("Создана новая группа {0}", group.Name), Color.Black);
+                                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("SelectSetEvent.CreateGroupBySet.Message")}: {group.Name}", Color.Black);
 
                                     PresentGroupDataOnTree();
                                     OnGroupCreated?.Invoke(group.ObjType, group.Number, group.Name);

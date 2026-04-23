@@ -76,7 +76,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                console.PrintInfo($@"Ошибка : {ex.Message},\n Источник : {ex.Source}", Color.Red);
+                console.PrintInfo(Localization.Localization.GetErrorWithSource(ex), Color.Red);
             }
         }
     }

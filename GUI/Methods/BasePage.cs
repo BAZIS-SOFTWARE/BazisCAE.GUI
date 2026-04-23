@@ -1,4 +1,5 @@
-﻿using Geometry;
+﻿using BazisGUI.Localization;
+using Geometry;
 using Model.Interfaces;
 using System;
 using System.ComponentModel;
@@ -32,12 +33,9 @@ namespace BazisGUI
         {
             var actBreak = new Action(() =>
             {
-                Invoke(new Action(() =>
-                {
-                    console.PrintInfo("Операция отменена", Color.Black);
-                }));
+                Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("BasePage.CreateSurfaceAync.OperationCanceled.Message"), Color.Black)));
             });
-            var message = @"Задайте поверхность, выбрав три узла, и нажмите на клавишу ""E"" или нажмите кнопку ""ESC""";
+            var message = @$"{Localization.Localization.GetStringResourceByName("BasePage.CreateSurfaceAsync.AsyncContainer.Message")}";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
                 var pointObjs = project.GetModelObjects(objType);
@@ -45,18 +43,12 @@ namespace BazisGUI
 
                 if (selObjs.Length < 3)
                 {
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo("Выберите три узла или точки!", Color.Orange);
-                    }));
+                    Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("BasePage.CreateSurfaceAsync.SelectThreeNodes.Message"), Color.Orange)));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else if (objType != ObjType.Узел & objType != ObjType.Точка)
                 {
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo("Выберите или узлы или точки!", Color.Orange);
-                    }));
+                    Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("BasePage.CreateSurfaceAsync.SelectNodeType.Message"), Color.Orange)));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else
@@ -66,10 +58,7 @@ namespace BazisGUI
                     var p2 = selObjs[2];
 
                     var plane = new Geometry.Plane(p0.CalcCentr(), p1.CalcCentr(), p2.CalcCentr());
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo("Задана плоскость", Color.Green);
-                    }));
+                    Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("BasePage.CreateSurfaceAsync.SurfaceSet.Message"), Color.Green)));
                     return new Tuple<bool, object>(true, plane);
                 }
             });

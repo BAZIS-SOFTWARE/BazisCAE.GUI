@@ -953,4 +953,187 @@
   <data name="GenerateMesh2DEvent.GenerateOnGeometry.Recomendation.Message" xml:space="preserve">
     <value>Рекомендуется проверить порядок точности наборов перед началом расчета в панели свойств, выбрав его в навигаторе</value>
   </data>
+  <data name="BasePage.CreateSurfaceAync.OperationCanceled.Message" xml:space="preserve">
+    <value>Операция отменена</value>
+  </data>
+  <data name="BasePage.CreateSurfaceAsync.AsyncContainer.Message" xml:space="preserve">
+    <value>Задайте поверхность, выберите три узла и нажмите на кнопку «E» или нажмите кнопку «ESC»</value>
+  </data>
+  <data name="BasePage.CreateSurfaceAsync.SelectThreeNodes.Message" xml:space="preserve">
+    <value>Выберите три узла или точки!</value>
+  </data>
+  <data name="BasePage.CreateSurfaceAsync.SelectNodeType.Message" xml:space="preserve">
+    <value>Выберите или узлы или точки!</value>
+  </data>
+  <data name="BasePage.CreateSurfaceAsync.SurfaceSet.Message" xml:space="preserve">
+    <value>Плоскость задана</value>
+  </data>
+  <data name="GenerateTSF.InstructionsFormed.Message" xml:space="preserve">
+    <value>Инструкции задачи сгенерированы в</value>
+  </data>
+  <data name="OpenTSF.OpenInstructions.Message" xml:space="preserve">
+    <value>Инструкции задачи открыты из</value>
+  </data>
+  <data name="StartStopConp.SaveProjectInto.Message" xml:space="preserve">
+    <value>Проект сохранен в директории</value>
+  </data>
+  <data name="StartStopConp.FormCommandFile.Message" xml:space="preserve">
+    <value>Сформирован командный файл по пути:</value>
+  </data>
+  <data name="StartStopConp.ProjectDirectoryCheck.Message_Part1" xml:space="preserve">
+    <value>В папке проекта</value>
+  </data>
+  <data name="StartStopConp.ProjectDataCheck.LackOfProjFile.Message" xml:space="preserve">
+    <value>отсутствует файл проекта</value>
+  </data>
+  <data name="StartStopConp.ProjectDataCheck.LackOfMaterials.Message" xml:space="preserve">
+    <value>отсутствует файл материалов</value>
+  </data>
+  <data name="StartStopConp.ProjectDataCheck.LackOfFunctions.Message" xml:space="preserve">
+    <value>отсутствует файл функций</value>
+  </data>
+  <data name="BeamConnection.BeamConnection.ObjectsCreated.Message" xml:space="preserve">
+    <value>Созданы объекты</value>
+  </data>
+  <data name="ConsoleEvents.ConsoleInEvent.ObjectNotFound.Message" xml:space="preserve">
+    <value>Объект не найден</value>
+  </data>
+  <data name="ConsoleEvents.ConsoleInEvent.ObjectFound.Message" xml:space="preserve">
+    <value>Найдено</value>
+  </data>
+  <data name="ConsoleEvents.ConsoleInEvents.VolumeElements.Message" xml:space="preserve">
+    <value>объемных элементов</value>
+  </data>
+  <data name="FindCoincidentNodes.Action.Message" xml:space="preserve">
+    <value>Выполняется поиск совпадающих узлов сетки...</value>
+  </data>
+  <data name="FindCoincidentNodes.Action.Found.Message" xml:space="preserve">
+    <value>Найдено</value>
+  </data>
+  <data name="FindCoincidentNodes.Action.Matches.Message" xml:space="preserve">
+    <value>совпадений</value>
+  </data>
+  <data name="FindCoincidentNodes.ActionConfirm.MergeNodes.Message" xml:space="preserve">
+    <value>Узлы объединены</value>
+  </data>
+  <data name="FindCoincidentNodes.Action.OperationCanceled.Message" xml:space="preserve">
+    <value>Операция отменена</value>
+  </data>
+  <data name="FindCoincidentNodes.AsyncContainer.Message" xml:space="preserve">
+    <value>Нажмите ""E"" для слияния, ""Esc"" для отмены</value>
+  </data>
+  <data name="EditGroup.EditGroupAsync.NoObjectsSelected.Message" xml:space="preserve">
+    <value>Не выбран ни один объект!</value>
+  </data>
+  <data name="EditGroup.EditGroupAsync.GroupChanged.Message" xml:space="preserve">
+    <value>Группа изменена успешно</value>
+  </data>
+  <data name="EditGroup.EditGroupAsync.OperationCanceled.Message" xml:space="preserve">
+    <value>Операция отменена</value>
+  </data>
+  <data name="EditGroup.EditGroupAsync.Preamble.Message" xml:space="preserve">
+    <value>Измените группу, добавив или удалив объекты. Нажмите ""E"", чтобы применить изменения или ""ESC"" для отмены</value>
+  </data>
+  <data name="FindFreeNodesEvent.Found.Message" xml:space="preserve">
+    <value>Найдено</value>
+  </data>
+  <data name="FindFreeNodesEvent.FreeNodes.Message" xml:space="preserve">
+    <value>свободных узлов</value>
+  </data>
+  <data name="HandleBaseMaster.Handle.CondCreation.Message" xml:space="preserve">
+    <value>Генерация граничных условий приведет к удалению старых условий данного мастера, если они есть. Продолжить?</value>
+  </data>
+  <data name="HandleBaseMaster.Success.Message" xml:space="preserve">
+    <value>Граничные условия сформированы</value>
+  </data>
+  <data name="ImportMaster.CreateImportedMasters.MasterNotFoundOrAlreadyLoaded.Message" xml:space="preserve">
+    <value>В загруженной библиотеке не определены реализации интерфейса мастера постановки задач или реализация этого мастера уже загружена</value>
+  </data>
+  <data name="ImportMaster.CreateImportedMasters.MasterOpened.Message" xml:space="preserve">
+    <value>Открыт мастер</value>
+  </data>
+  <data name="GenerateMesh3DEvents.Generate3D.GeneratedElements.Message" xml:space="preserve">
+    <value>Сгенерировано элементов</value>
+  </data>
+  <data name="GenerateMesh3DEvents.Generate3D.CheckRecommendation.Message" xml:space="preserve">
+    <value>Перед началом вычислений рекомендуется проверить порядок точности наборов данных в панели свойств, выбрав её в навигаторе.</value>
+  </data>
+  <data name="GenerateMesh3DEvents.Generate3D.GMSHNull.Exception" xml:space="preserve">
+    <value>Ошибка построения сетки. Возможно, геометрия не загружена</value>
+  </data>
+  <data name="GenerateBoundaryMesh.Generate2DOn3DSurfaces.NoObjects.Message" xml:space="preserve">
+    <value>Модель не содержит</value>
+  </data>
+  <data name="GenerateBoundaryMesh.Generate2DOn3DSurfaces.Elements.Message" xml:space="preserve">
+    <value>элементов!</value>
+  </data>
+  <data name="GenerateBoundaryMesh.CreateBoundaryMeh.ObjectsGenerated.Message" xml:space="preserve">
+    <value>Сгенерировано объектов</value>
+  </data>
+  <data name="GenerateBoundaryMesh.CreateBoundaryMeh.CheckRecommendation.Message" xml:space="preserve">
+    <value>Рекомендуется проверить порядок точности набора в панели свойств</value>
+  </data>
+  <data name="ShowHideDelObjects.DelObjectEvent.TryToDelGeom.Message" xml:space="preserve">
+    <value>В настоящий момент невозможно удалить геометрию</value>
+  </data>
+  <data name="SelectSetEvent.CreateGroupBySet.Message" xml:space="preserve">
+    <value>Создана новая группа</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="DataBaseMainMenuEvents.OpenDB.Message" xml:space="preserve">
+    <value>База данных</value>
+  </data>
+  <data name="DataBaseMainMenuEvents.OpenDB.SuccessfullyAdded.Message" xml:space="preserve">
+    <value>Успешно добавлена</value>
+  </data>
+  <data name="DataBaseMainMenuEvents.OpenMatDB.DBNotLoaded.Message" xml:space="preserve">
+    <value>База данных материалов не загружена</value>
+  </data>
+  <data name="DataBaseMainMenuEvents.OpenFuncDB.DBNotLoaded.Message" xml:space="preserve">
+    <value>База данных функций не загружена</value>
+  </data>
+  <data name="GetDAtaBase.FindFileByPath.DBNotFound.Message_Part1" xml:space="preserve">
+    <value>База данных</value>
+  </data>
+  <data name="GetDAtaBase.FindFileByPath.DBNotFound.Message_Part2" xml:space="preserve">
+    <value>не найдена в папке</value>
+  </data>
+  <data name="Checking.StartCheckingEvent.SelectedDataIsNotCheckable.Message" xml:space="preserve">
+    <value>Выбранные данные не проверяются</value>
+  </data>
+  <data name="ChangeCondProperties.ChangeGeneralProperties.FileNotSelected.Message" xml:space="preserve">
+    <value>Файл не выбран</value>
+  </data>
+  <data name="MakeScreenShot.ScreenShotTaken.Message" xml:space="preserve">
+    <value>Сделан снимок экрана</value>
+  </data>
+  <data name="SaveLoadScript.GeoScript.Message" xml:space="preserve">
+    <value>Скрипт</value>
+  </data>
+  <data name="SaveLoadScript.GeoScript.Executed.Message" xml:space="preserve">
+    <value>выполнен</value>
+  </data>
+  <data name="SaveLoadScript.GeoScript.Formed.Message" xml:space="preserve">
+    <value>сформирован</value>
+  </data>
+  <data name="UtilityToolStrip.SelectObjectAsync.OperationCanceled.Message" xml:space="preserve">
+    <value>Операция отменена</value>
+  </data>
+  <data name="UtilityTiilStrip.SelectObjectAsync.NoObjectSelected.Message" xml:space="preserve">
+    <value>Не выбран ни один</value>
+  </data>
+  <data name="UtilityTiilStrip.SelectObjectAsync.SelectOne.Message" xml:space="preserve">
+    <value>Выберите один</value>
+  </data>
+  <data name="UtilityTiilStrip.SelectObjectAsync.Selected.Message" xml:space="preserve">
+    <value>Выбран</value>
+  </data>
+  <data name="UtilityTiilStrip.SelectObjectAsync.WithNumber.Message" xml:space="preserve">
+    <value>с номером</value>
+  </data>
 </root>

@@ -71,6 +71,12 @@ namespace BazisGUI.Localization
             return $"{ex.Message} {resources.GetString("StackTrace")}:{ex.StackTrace}";
         }
 
+        public static string GetErrorWithSource(Exception ex)
+        {
+            var resources = new ComponentResourceManager(typeof(BaseForm));
+            return $"{resources.GetString("Error")}: {ex.Message}.\n{resources.GetString("Source")}: {ex.Source}";
+        }
+
         /// <summary>
         /// Получение подписи-предупреждения об ошибке отсутствия реализации на текущей языковой культуре
         /// </summary>

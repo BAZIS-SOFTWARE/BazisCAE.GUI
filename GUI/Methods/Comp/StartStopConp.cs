@@ -20,11 +20,11 @@ namespace BazisGUI
             try
             {
                 project.Save(lblStatus.Text);
-                console.PrintInfo("Проект сохранен в " + WorkingDir, Color.Black);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("StartStopConp.SaveProjectInto.Message")} {WorkingDir}", Color.Black);
 
                 CheckProjectDataBeforeCreationTCF();
 
-                var compDir = $@"{WorkingDir}\ComputationData";
+                var compDir = Path.Combine(WorkingDir, "ComputationData");
 
                 if (!Directory.Exists(compDir))
                     Directory.CreateDirectory(compDir);
@@ -49,11 +49,11 @@ namespace BazisGUI
 
                 result.AddRange(tasks);
 
-                var cmdFile = $@"{compDir}\computation.tcf";
+                var cmdFile = Path.Combine(compDir, "computation.tcf");
 
                 File.WriteAllLines(cmdFile, result);
 
-                console.PrintInfo($"Сформирован командный файл {cmdFile}", Color.Green);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("StartStopConp.FormCommandFile.Message")} {cmdFile}", Color.Green);
 
                 StartComputation();
             }
@@ -68,15 +68,15 @@ namespace BazisGUI
             try
             {
                 if (!File.Exists($@"{lblStatus.Text}"))
-                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл проекта {project.Name}.");
+                    throw new Exception($"{Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDirectoryCheck.Message_Part1")}: {WorkingDir} {Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDataCheck.LackOfProjFile.Message")}: {project.Name}.");
 
                 var mat = Path.Combine(WorkingDir, project.MaterialsDB.Name);
                 if (!File.Exists(mat))
-                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл материалов {project.MaterialsDB.Name}.");
+                    throw new Exception($"{Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDirectoryCheck.Message_Part1")}: {WorkingDir} {Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDataCheck.LackOfMaterials.Message")}: {project.MaterialsDB.Name}.");
 
                 var func = Path.Combine(WorkingDir, project.FunctionsDB.Name);
                 if (!File.Exists(func))
-                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл функций {project.FunctionsDB.Name}.");
+                    throw new Exception($"{Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDirectoryCheck.Message_Part1")}: {WorkingDir} {Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDataCheck.LackOfFunctions.Message")}: {project.FunctionsDB.Name}.");
 
             }
             catch (Exception ex)

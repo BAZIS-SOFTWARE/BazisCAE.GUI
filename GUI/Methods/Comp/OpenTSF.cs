@@ -29,7 +29,7 @@ namespace BazisGUI
 
                 PresentCompDataOnTree(sortedFiles);
 
-                console.PrintInfo($"Инструкции задачи открыты из {inputDir}", Color.Green);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("OpenTSF.OpenInstructions.Message")} {inputDir}", Color.Green);
 
             }
             catch (Exception ex)

@@ -47,7 +47,7 @@ namespace BazisGUI
                 return;
             var els = project.GetModelObjects(objType);
             if (els.Count() == 0)
-                console.PrintInfo($"Модель не содержит {dim + 1}D элементов!", Color.Red);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("GenerateBoundaryMesh.Generate2DOn3DSurfaces.NoObjects.Message")} {dim + 1}D {Localization.Localization.GetStringResourceByName("GenerateBoundaryMesh.Generate2DOn3DSurfaces.Elements.Message")}", Color.Red);
             else
             {
                 if (dim == 2)
@@ -78,7 +78,7 @@ namespace BazisGUI
                     VBOController.AddVbo(vbo);
 
                     DisplayObjects();
-                    console.PrintInfo($"Сгенерировано объектов {set.ObjType.ToString()}: {set.NumberOfObjects}. Рекомендуется проверить порядок точности набора в панели свойств", Color.Orange);
+                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("GenerateBoundaryMesh.CreateBoundaryMeh.ObjectsGenerated.Message")} {set.ObjType.ToString()}: {set.NumberOfObjects}. {Localization.Localization.GetStringResourceByName("GenerateBoundaryMesh.CreateBoundaryMeh.CheckRecommendation.Message")}", Color.Orange);
                 }
             }
         }

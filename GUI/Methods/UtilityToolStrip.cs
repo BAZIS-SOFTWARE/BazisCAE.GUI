@@ -175,10 +175,7 @@ namespace BazisGUI
         {
             var actBreak = new Action(() =>
             {
-                Invoke(new Action(() =>
-                {
-                    console.PrintInfo("Операция отменена", Color.Black);
-                }));
+                Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("UtilityToolStrip.SelectObjectAsync.OperationCanceled.Message"), Color.Black)));
             });
 
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
@@ -189,27 +186,18 @@ namespace BazisGUI
 
                 if (selObjs.Count() == 0)
                 {
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo($"Не выбран ни один {objType}!", Color.Orange);
-                    }));
+                    Invoke(new Action(() => console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityTiilStrip.SelectObjectAsync.NoObjectSelected.Message")} {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(objType))}!", Color.Orange)));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else if (selObjs.Count() > 1)
                 {
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo($"Выберите один {objType}!", Color.Orange);
-                    }));
+                    Invoke(new Action(() => console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityTiilStrip.SelectObjectAsync.SelectOne.Message")} {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(objType))}!", Color.Orange)));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else
                 {
                     var node = selObjs.First();
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo($"Выбран {objType} с номером {node.Number}", Color.Green);
-                    }));
+                    Invoke(new Action(() => console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityTiilStrip.SelectObjectAsync.Selected.Message")} {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(objType))} {Localization.Localization.GetStringResourceByName("UtilityTiilStrip.SelectObjectAsync.WithNumber.Message")} {node.Number}", Color.Green)));
                     return new Tuple<bool, object>(true, node);
                 }
             });

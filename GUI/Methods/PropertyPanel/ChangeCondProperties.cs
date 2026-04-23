@@ -63,7 +63,7 @@ namespace BazisGUI
                         pythonFunction.CreateEngine(file);
                         cond.Function = pythonFunction;
                     }
-                    else { console.PrintInfo("Файл не выбран", Color.Red); }
+                    else { console.PrintInfo(Localization.Localization.GetStringResourceByName("ChangeCondProperties.ChangeGeneralProperties.FileNotSelected.Message"), Color.Red); }
                 }
                 refresh = true;
             }

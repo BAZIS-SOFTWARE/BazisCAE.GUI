@@ -30,7 +30,7 @@ namespace BazisGUI
 
                 PresentMeshData();
             }
-            Invoke(new Action(() => { console.PrintInfo($"Созданы объекты {beams.ObjType}", Color.Black); }));
+            Invoke(new Action(() => { console.PrintInfo($"{Localization.Localization.GetStringResourceByName("BeamConnection.BeamConnection.ObjectsCreated.Message")} {beams.ObjType}", Color.Black); }));
         }
     }
 }

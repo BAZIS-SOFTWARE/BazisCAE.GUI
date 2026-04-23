@@ -22,7 +22,7 @@ namespace BazisGUI
                 var image = CreateScreenShot();
                 var path = Path.Combine(WorkingDir, "screenShot.bmp");
                 image.Save(path, System.Drawing.Imaging.ImageFormat.Bmp);
-                console.PrintInfo($"Сделан снимок экрана {path}", Color.Black);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("MakeScreenShot.ScreenShotTaken.Message")}: {path}", Color.Black);
             }
             catch (Exception ex)
             {

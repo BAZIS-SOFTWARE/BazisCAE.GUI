@@ -169,7 +169,7 @@ namespace BazisGUI.Console
                 return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
                      "\\" + SessionNumber.ToString() + "bazis.session.txt";
             }
-        }
+        } 
 
         public void PrintInfo(string str, Color color)
         {

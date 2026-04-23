@@ -125,7 +125,7 @@ namespace BazisGUI
                     )
             {
                 checkPlayerControl.Cancelation = true;
-                console.PrintInfo("Выбранные данные не проверяются", Color.Orange);
+                console.PrintInfo(Localization.Localization.GetStringResourceByName("Checking.StartCheckingEvent.SelectedDataIsNotCheckable.Message"), Color.Orange);
             }
 
         }

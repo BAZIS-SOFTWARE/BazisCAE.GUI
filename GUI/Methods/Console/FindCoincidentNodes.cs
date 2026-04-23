@@ -13,11 +13,11 @@ namespace BazisGUI
         {
             if (project == null)
                 return;
-            Invoke(new Action(() => { console.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
+            Invoke(new Action(() => { console.PrintInfo(Localization.Localization.GetStringResourceByName("FindCoincidentNodes.Action.Message"), Color.Black); }));
 
             var coincidentNodes = project.FindCoincidentObjects(ObjType.Узел, distance);
 
-            Invoke(new Action(() => { console.PrintInfo($"Найдено {coincidentNodes.Count()} совпадений", Color.Black); }));
+            Invoke(new Action(() => { console.PrintInfo($"{Localization.Localization.GetStringResourceByName("FindCoincidentNodes.Action.Found.Message")} {coincidentNodes.Count()} {Localization.Localization.GetStringResourceByName("FindCoincidentNodes.Action.Matches.Message")}", Color.Black); }));
             Invoke(new Action(() =>
             {
                 ClearAllDataOnScene();
@@ -45,7 +45,7 @@ namespace BazisGUI
 
                     //navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> objects);
                     //objects[0].Nodes[0].Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
-                    console.PrintInfo("Узлы слиты", Color.Green);
+                    console.PrintInfo(Localization.Localization.GetStringResourceByName("FindCoincidentNodes.ActionConfirm.MergeNodes.Message"), Color.Green);
                     PresentMeshData();
                     PresentCondDataOnTree();
 
@@ -59,12 +59,9 @@ namespace BazisGUI
 
             var actBreak = new Action(() =>
             {
-                Invoke(new Action(() =>
-                {
-                    console.PrintInfo("Операция отменена", Color.Black);
-                }));
+                Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("FindCoincidentNodes.Action.OperationCanceled.Message"), Color.Black)));
             });
-            await AsyncMethodContainer(actConfirm, actBreak, $"Нажмите {"E"} для слияния, {"Esc"} для отмены");
+            await AsyncMethodContainer(actConfirm, actBreak, $@"{Localization.Localization.GetStringResourceByName("FindCoincidentNodes.AsyncContainer.Message")}");
         }
     }
 }

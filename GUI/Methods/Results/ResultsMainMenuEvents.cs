@@ -260,7 +260,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetErrorWithStackMessage(ex), Color.Red)));
+                Invoke(new Action(() => console.PrintInfo(ex.Message, Color.Red)));
             }
         }
 
