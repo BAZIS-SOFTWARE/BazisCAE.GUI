@@ -25,10 +25,10 @@ namespace BazisGUI
                 ChangeMechanicalTask(obj, mhp);
             else if (parameters is TermalParameters tmp)
                 ChangeTermalTask(obj, tmp);
-            var kkk = new[] { "ar", Localization.Localization.GetErrorCaption() };
+
             switch (obj.Header)
             {
-                case $"{Localization.Localization.GetStringResourceByName<PropertiesPanelControl>("")}":
+                case "Выполнить":
                     var isExe = bool.Parse(obj.NewValue);
                     var selectedInstruction = navigator.SelectedNode;
                     selectedInstruction.Text = selectedInstruction.Text.Replace(isExe ? "пропустить" : "выполнить", isExe ? "выполнить" : "пропустить");
