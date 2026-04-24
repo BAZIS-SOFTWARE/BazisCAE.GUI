@@ -1136,4 +1136,7 @@
   <data name="UtilityTiilStrip.SelectObjectAsync.WithNumber.Message" xml:space="preserve">
     <value>с номером</value>
   </data>
+  <data name="MainMenuEvents.ChangeLanguage.Message" xml:space="preserve">
+    <value>Для применения изменений откройте приложение занова</value>
+  </data>
 </root>

@@ -180,4 +180,10 @@
   <data name="tbScene.Text" xml:space="preserve">
     <value>Scene</value>
   </data>
+  <data name="lblLanguage.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
 </root>
