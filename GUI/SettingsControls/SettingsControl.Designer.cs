@@ -63,6 +63,10 @@ namespace BazisGUI.SettingsControls
             tbSolver = new System.Windows.Forms.TabPage();
             tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             label3 = new System.Windows.Forms.Label();
+            tabPage1 = new System.Windows.Forms.TabPage();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            lblLanguage = new System.Windows.Forms.Label();
+            cmbLanguage = new System.Windows.Forms.ComboBox();
             tabControlEx1.SuspendLayout();
             tbScene.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -70,6 +74,8 @@ namespace BazisGUI.SettingsControls
             tableLayoutPanel4.SuspendLayout();
             tbSolver.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // lblSolverPath
@@ -118,20 +124,15 @@ namespace BazisGUI.SettingsControls
             // 
             // clslLigthingIntensity
             // 
-            resources.ApplyResources(clslLigthingIntensity, "clslLigthingIntensity");
             clslLigthingIntensity.BackColor = System.Drawing.Color.Transparent;
-            clslLigthingIntensity.BarPenColor = System.Drawing.Color.Black;
             clslLigthingIntensity.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            tableLayoutPanel1.SetColumnSpan(clslLigthingIntensity, 2);
             clslLigthingIntensity.LargeChange = 5U;
+            resources.ApplyResources(clslLigthingIntensity, "clslLigthingIntensity");
             clslLigthingIntensity.Name = "clslLigthingIntensity";
             clslLigthingIntensity.ShowTextValue = true;
             clslLigthingIntensity.SmallChange = 1U;
             clslLigthingIntensity.TextValueColor = System.Drawing.Color.Black;
-            clslLigthingIntensity.ThumbPenColor = System.Drawing.Color.Black;
-            clslLigthingIntensity.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
-            clslLigthingIntensity.ThumbSize = 12;
-            clslLigthingIntensity.Scroll += clslLigthingIntensity_Scroll;
+            clslLigthingIntensity.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
             // 
             // label2
             // 
@@ -167,6 +168,7 @@ namespace BazisGUI.SettingsControls
             tabControlEx1.Controls.Add(tbScene);
             tabControlEx1.Controls.Add(tbObjects);
             tabControlEx1.Controls.Add(tbSolver);
+            tabControlEx1.Controls.Add(tabPage1);
             resources.ApplyResources(tabControlEx1, "tabControlEx1");
             tabControlEx1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             tabControlEx1.FontColor = System.Drawing.Color.Black;
@@ -331,6 +333,32 @@ namespace BazisGUI.SettingsControls
             resources.ApplyResources(label3, "label3");
             label3.Name = "label3";
             // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(tableLayoutPanel2);
+            resources.ApplyResources(tabPage1, "tabPage1");
+            tabPage1.Name = "tabPage1";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            resources.ApplyResources(tableLayoutPanel2, "tableLayoutPanel2");
+            tableLayoutPanel2.Controls.Add(lblLanguage, 0, 0);
+            tableLayoutPanel2.Controls.Add(cmbLanguage, 1, 0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            // 
+            // lblLanguage
+            // 
+            resources.ApplyResources(lblLanguage, "lblLanguage");
+            lblLanguage.Name = "lblLanguage";
+            // 
+            // cmbLanguage
+            // 
+            resources.ApplyResources(cmbLanguage, "cmbLanguage");
+            cmbLanguage.FormattingEnabled = true;
+            cmbLanguage.Name = "cmbLanguage";
+            cmbLanguage.TextChanged += cmbLanguage_TextChanged;
+            // 
             // SettingsControl
             // 
             resources.ApplyResources(this, "$this");
@@ -346,6 +374,9 @@ namespace BazisGUI.SettingsControls
             tbSolver.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
+            tabPage1.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -382,5 +413,9 @@ namespace BazisGUI.SettingsControls
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox chbOrtoProjection;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label lblLanguage;
+        private System.Windows.Forms.ComboBox cmbLanguage;
     }
 }

@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -102,10 +103,10 @@ namespace BazisGUI
             var verStr = $"{Localization.Localization.GetStringResourceByName("versionWordPrefix")} {ver.Major}.{ver.Minor}.{ver.Build}";
             lblVersion.Text = verStr;
 
-            var config = dataController.LoadConfig();
+            //var config = dataController.LoadConfig();
 
-            if (config != null)
-                settingsConfig = config;
+            //if (config != null)
+            //    settingsConfig = config;
 
             SetGeneralSettings();
             DisplayObjects();
@@ -114,6 +115,13 @@ namespace BazisGUI
 
         public BaseForm(string[] args)
         {
+            var datacontroller = new IODataController();
+            var config = datacontroller.LoadConfig();
+
+            if (config != null)
+                settingsConfig = config;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(settingsConfig.Language);
+
             InitializeComponent();
 
             cntrНавигатор.SplitterWidth = 8;
@@ -235,6 +243,7 @@ namespace BazisGUI
                 var transpVal = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
                 settingsConfig.SelectObjectColor = Color.FromArgb(transpVal, settingsConfig.SelectObjectColor);
                 settingsConfig.SelectGroupColor = Color.FromArgb(transpVal, settingsConfig.SelectGroupColor);
+                
 
                 //module.ScenePage.NodeColor = settingsConfig.NodeColor;
                 //module.ScenePage.E2DColor = settingsConfig.Elem2DColor;

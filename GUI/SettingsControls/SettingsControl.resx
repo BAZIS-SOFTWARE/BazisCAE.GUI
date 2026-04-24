@@ -161,13 +161,13 @@
     <value>True</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 680</value>
+    <value>99, 680</value>
   </data>
   <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 15</value>
+    <value>76, 15</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -194,13 +194,13 @@
     <value>True</value>
   </data>
   <data name="chbLighting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>297, 189</value>
+    <value>306, 189</value>
   </data>
   <data name="chbLighting.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
   <data name="chbLighting.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 19</value>
+    <value>64, 19</value>
   </data>
   <data name="chbLighting.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -227,13 +227,13 @@
     <value>True</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 134</value>
+    <value>75, 134</value>
   </data>
   <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 15</value>
+    <value>124, 15</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -260,13 +260,13 @@
     <value>True</value>
   </data>
   <data name="chbBackRibbers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>297, 132</value>
+    <value>306, 132</value>
   </data>
   <data name="chbBackRibbers.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
   <data name="chbBackRibbers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 19</value>
+    <value>64, 19</value>
   </data>
   <data name="chbBackRibbers.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -352,20 +352,26 @@
   <data name="&gt;&gt;panelBackGroundColor.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="clslLigthingIntensity.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
+  <data name="clslLigthingIntensity.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 622</value>
   </data>
-  <data name="tableLayoutPanel1.AutoScroll" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="clslLigthingIntensity.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 30</value>
   </data>
-  <data name="tableLayoutPanel1.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 735</value>
+  <data name="clslLigthingIntensity.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
   </data>
-  <data name="tableLayoutPanel1.CellBorderStyle" type="System.Windows.Forms.TableLayoutPanelCellBorderStyle, System.Windows.Forms">
-    <value>Single</value>
+  <data name="&gt;&gt;clslLigthingIntensity.Name" xml:space="preserve">
+    <value>clslLigthingIntensity</value>
   </data>
-  <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;clslLigthingIntensity.Type" xml:space="preserve">
+    <value>UserControlsEx.ColorSlider, UserControlsEx, Culture=neutral, PublicKeyToken=16903e6a4b8fab01</value>
+  </data>
+  <data name="&gt;&gt;clslLigthingIntensity.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;clslLigthingIntensity.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
   <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -374,13 +380,13 @@
     <value>True</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 191</value>
+    <value>111, 191</value>
   </data>
   <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 15</value>
+    <value>51, 15</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -400,6 +406,21 @@
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="clslTransparency.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="tableLayoutPanel1.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tableLayoutPanel1.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 735</value>
+  </data>
+  <data name="tableLayoutPanel1.CellBorderStyle" type="System.Windows.Forms.TableLayoutPanelCellBorderStyle, System.Windows.Forms">
+    <value>Single</value>
+  </data>
+  <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
   <data name="chbTransparency.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -407,13 +428,13 @@
     <value>True</value>
   </data>
   <data name="chbTransparency.Location" type="System.Drawing.Point, System.Drawing">
-    <value>297, 678</value>
+    <value>306, 678</value>
   </data>
   <data name="chbTransparency.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
   <data name="chbTransparency.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 19</value>
+    <value>64, 19</value>
   </data>
   <data name="chbTransparency.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -460,36 +481,6 @@
   <data name="&gt;&gt;lightingControl.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="clslTransparency.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
-  </data>
-  <data name="clslTransparency.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 719</value>
-  </data>
-  <data name="clslTransparency.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 6, 4, 6</value>
-  </data>
-  <data name="clslTransparency.Size" type="System.Drawing.Size, System.Drawing">
-    <value>393, 29</value>
-  </data>
-  <data name="clslTransparency.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="clslTransparency.Text" xml:space="preserve">
-    <value>colorSlider1</value>
-  </data>
-  <data name="&gt;&gt;clslTransparency.Name" xml:space="preserve">
-    <value>clslTransparency</value>
-  </data>
-  <data name="&gt;&gt;clslTransparency.Type" xml:space="preserve">
-    <value>UserControlsEx.ColorSlider, UserControlsEx, Culture=neutral, PublicKeyToken=16903e6a4b8fab01</value>
-  </data>
-  <data name="&gt;&gt;clslTransparency.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;clslTransparency.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
   <data name="chbOrtoProjection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -497,13 +488,13 @@
     <value>True</value>
   </data>
   <data name="chbOrtoProjection.Location" type="System.Drawing.Point, System.Drawing">
-    <value>297, 770</value>
+    <value>306, 770</value>
   </data>
   <data name="chbOrtoProjection.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
   <data name="chbOrtoProjection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 19</value>
+    <value>64, 19</value>
   </data>
   <data name="chbOrtoProjection.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -530,13 +521,13 @@
     <value>True</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>56, 772</value>
+    <value>69, 772</value>
   </data>
   <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 15</value>
+    <value>135, 15</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
@@ -587,34 +578,34 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label4" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label2" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="chbTransparency" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lightingControl" Row="3" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="chbLighting" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnBackGroundColor" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panelBackGroundColor" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="chbBackRibbers" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="clslLigthingIntensity" Row="4" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="clslTransparency" Row="6" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="chbOrtoProjection" Row="7" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label5" Row="7" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,Absolute,128" /&gt;&lt;Rows Styles="Percent,50,Percent,25,Percent,25,Absolute,390,Absolute,45,Absolute,45,Absolute,45,Absolute,45" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label4" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label2" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="chbTransparency" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lightingControl" Row="3" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="chbLighting" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnBackGroundColor" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panelBackGroundColor" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="chbBackRibbers" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="clslLigthingIntensity" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="clslTransparency" Row="6" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="chbOrtoProjection" Row="7" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label5" Row="7" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,Absolute,128" /&gt;&lt;Rows Styles="Percent,50,Percent,25,Percent,25,Absolute,390,Absolute,45,Absolute,45,Absolute,45,Absolute,45" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="clslLigthingIntensity.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 628</value>
+  <data name="clslTransparency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 719</value>
   </data>
-  <data name="clslLigthingIntensity.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="clslTransparency.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 6, 4, 6</value>
   </data>
-  <data name="clslLigthingIntensity.Size" type="System.Drawing.Size, System.Drawing">
-    <value>393, 27</value>
+  <data name="clslTransparency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>393, 29</value>
   </data>
-  <data name="clslLigthingIntensity.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+  <data name="clslTransparency.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
   </data>
-  <data name="clslLigthingIntensity.Text" xml:space="preserve">
-    <value>colorSlider</value>
+  <data name="clslTransparency.Text" xml:space="preserve">
+    <value>colorSlider1</value>
   </data>
-  <data name="&gt;&gt;clslLigthingIntensity.Name" xml:space="preserve">
-    <value>clslLigthingIntensity</value>
+  <data name="&gt;&gt;clslTransparency.Name" xml:space="preserve">
+    <value>clslTransparency</value>
   </data>
-  <data name="&gt;&gt;clslLigthingIntensity.Type" xml:space="preserve">
+  <data name="&gt;&gt;clslTransparency.Type" xml:space="preserve">
     <value>UserControlsEx.ColorSlider, UserControlsEx, Culture=neutral, PublicKeyToken=16903e6a4b8fab01</value>
   </data>
-  <data name="&gt;&gt;clslLigthingIntensity.Parent" xml:space="preserve">
+  <data name="&gt;&gt;clslTransparency.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;clslLigthingIntensity.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="&gt;&gt;clslTransparency.ZOrder" xml:space="preserve">
+    <value>10</value>
   </data>
   <data name="tbScene.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 34</value>
@@ -1122,6 +1113,117 @@
   </data>
   <data name="&gt;&gt;tbSolver.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="tableLayoutPanel2.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lblLanguage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="lblLanguage.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 394</value>
+  </data>
+  <data name="lblLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 15</value>
+  </data>
+  <data name="lblLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblLanguage.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="&gt;&gt;lblLanguage.Name" xml:space="preserve">
+    <value>lblLanguage</value>
+  </data>
+  <data name="&gt;&gt;lblLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblLanguage.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;lblLanguage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cmbLanguage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="cmbLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>164, 390</value>
+  </data>
+  <data name="cmbLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 23</value>
+  </data>
+  <data name="cmbLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;cmbLanguage.Name" xml:space="preserve">
+    <value>cmbLanguage</value>
+  </data>
+  <data name="&gt;&gt;cmbLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbLanguage.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;cmbLanguage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tableLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tableLayoutPanel2.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>403, 803</value>
+  </data>
+  <data name="tableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Name" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lblLanguage" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="cmbLanguage" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,40,Percent,60" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 34</value>
+  </data>
+  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>403, 803</value>
+  </data>
+  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
+    <value>tabControlEx1</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="tabControlEx1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
