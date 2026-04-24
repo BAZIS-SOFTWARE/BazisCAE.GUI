@@ -79,7 +79,7 @@ namespace BazisGUI
             }
 
             var loader = new LoadResultsFileDB();
-            string currentResultPath = null;
+            var currentResultPath = string.Empty;
 
             try
             {
@@ -91,6 +91,7 @@ namespace BazisGUI
                     var newResultPath = loader.Merge(currentResultPath, nextPath);
                     TryDeleteFile(currentResultPath);
                     currentResultPath = newResultPath;
+                    console.PrintInfo($"Объединено файлов {i + 1} из {paths.Length}", Color.Black);
                 }
 
                 console.PrintInfo("Объединение файлов завершено", Color.Green);
