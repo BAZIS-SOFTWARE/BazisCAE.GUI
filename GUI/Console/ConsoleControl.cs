@@ -35,6 +35,9 @@ namespace BazisGUI.Console
         CreateMesh2DPoligon,
         CreatePoint,
         CreateCurve,
+        CreatePointByVector,
+        CreatePointProjectionOntoCurve,
+        CreatePointProjectionOntoPlane,
         CreateSurface,
         ExtrudeCurve,
         ExtrudeRotate
@@ -82,6 +85,9 @@ namespace BazisGUI.Console
             { "Построить 2D сетку",GenCmd.CreateMesh2DPoligon },
             { "Выход",GenCmd.Exit },
             { "Добавить точку", GenCmd.CreatePoint },
+            { "Добавить точку по вектору", GenCmd.CreatePointByVector },
+            { "Добавить точку проекцией на кривую", GenCmd.CreatePointProjectionOntoCurve },
+            { "Добавить точку проекцией на плоскость", GenCmd.CreatePointProjectionOntoPlane },
             { "Добавить линию", GenCmd.CreateCurve },
             { "Добавить поверхность", GenCmd.CreateSurface},
             { "Экструзия по кривой", GenCmd.ExtrudeCurve}
@@ -107,6 +113,9 @@ namespace BazisGUI.Console
             { GenCmd.CreateMesh2DPoligon,new string[]{ "x1,y1", "x2,y2", "x3,y3","x4,y4","кол-во элементов" }},
             { GenCmd.Exit,Array.Empty<string>()},
             { GenCmd.CreatePoint, new string[]{ "x,y,z" } },
+            { GenCmd.CreatePointByVector, new string[]{ "точка_копирования#1", "точка_направления#2", "смещение" } },
+            { GenCmd.CreatePointProjectionOntoCurve, new string[]{ "точка", "кривая" } },
+            { GenCmd.CreatePointProjectionOntoPlane, new string[]{ "точка", "поверхность" } },
             { GenCmd.CreateCurve, new string[]{"точка#1", "точка#2"}},
             { GenCmd.CreateSurface, new string[]{"кривые формирующие контур", "кривая#1,кривая#2,кривая#N" } },
             { GenCmd.ExtrudeCurve, new string[]{"Элемент 2Д", "кривая", "точка", "шаг", "трансфинитная сетка 1-да, 0-нет"} }
@@ -323,13 +332,13 @@ namespace BazisGUI.Console
                         InEvent(this, new ExitAppEventArgs());
                         break;
                     case GenCmd.CreatePoint:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Point, [cmds[1]]));
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPoint, [cmds[1]]));
                         break;   
                     case GenCmd.CreateCurve:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Curve, [cmds[1], cmds[2]]));
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddCurve, [cmds[1], cmds[2]]));
                         break;
                     case GenCmd.CreateSurface:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Surface, [cmds[2]]));
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddSurface, [cmds[2]]));
                         break;
                     case GenCmd.ExtrudeCurve:
                         ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
@@ -337,6 +346,15 @@ namespace BazisGUI.Console
                     //case GenCmd.ExtrudeRotate:
                     //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
                     //    break;
+                    case GenCmd.CreatePointByVector:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]));
+                        break;
+                    case GenCmd.CreatePointProjectionOntoPlane:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]));
+                        break;
+                    case GenCmd.CreatePointProjectionOntoCurve:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]));
+                        break;
                 }
             }
         }

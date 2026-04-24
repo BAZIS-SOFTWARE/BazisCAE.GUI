@@ -63,7 +63,7 @@ namespace BazisGUI
             switch (type)
             {
                 // "TODO: подобрать другой разделитель, чтобы не было конфликта культур"
-                case GeometryType.Point:
+                case CreateCommandType.AddPoint:
                     var prm = geomCreator.Parameters;
                     var coord = prm[0].Split(',');
 
@@ -72,18 +72,37 @@ namespace BazisGUI
                        double.TryParse(coord[2], out double z))
                         AddPoint(x, y, z);
                     break;
-                case GeometryType.Curve:
+                case CreateCommandType.AddCurve:
                     var points = geomCreator.Parameters;
                     if (int.TryParse(points[0], out int startTag) &&
                        int.TryParse(points[1], out int endTag))
                         AddLine(startTag, endTag);
                     break;
-                case GeometryType.Surface:
+                case CreateCommandType.AddSurface:
                     var lineNumbers = geomCreator.Parameters[0]
                         .Split(',', StringSplitOptions.RemoveEmptyEntries)
                         .Select(x => int.Parse(x.Trim()))
                         .ToList();
                     AddPlane(lineNumbers);
+                    break;
+                case CreateCommandType.AddPointByVector:
+                    var prmByVector = geomCreator.Parameters;
+                    if (int.TryParse(prmByVector[0], out int basePointTag) &&
+                        int.TryParse(prmByVector[1], out int directionPointTag) &&
+                        double.TryParse(prmByVector[2], out double offset))
+                        AddPointByVector(basePointTag, directionPointTag, offset);
+                    break;
+                case CreateCommandType.AddPointProjectToSurface:
+                    var prmProjectToSurface = geomCreator.Parameters;
+                    if (int.TryParse(prmProjectToSurface[0], out int pointTag) &&
+                        int.TryParse(prmProjectToSurface[1], out int surfaceTag))
+                        AddPointProjectionOntoPlane(pointTag, 2, surfaceTag);
+                    break;
+                case CreateCommandType.AddPointProjectToCurve:
+                    var prmProjectToCurve = geomCreator.Parameters;
+                    if (int.TryParse(prmProjectToCurve[0], out int pointTag1) &&
+                        int.TryParse(prmProjectToCurve[1], out int curveTag))
+                        AddPointProjectionOntoCurve(pointTag1, 1, curveTag);
                     break;
                 default:
                     throw new NotSupportedException();
@@ -119,6 +138,23 @@ namespace BazisGUI
             RefreshGeometry(ObjType.Поверхность);
         }
 
+        private void AddPointByVector(int startTag, int endTag, double step)
+        {
+            project.CreatePointByVector(startTag, endTag, step);
+            RefreshGeometry(ObjType.Точка);
+        }
+
+        private void AddPointProjectionOntoPlane(int pointTag, int dim, int surfaceTag)
+        {
+            project.CreatePointProjectionOntoGeometry(pointTag, dim, surfaceTag);
+            RefreshGeometry(ObjType.Точка);
+        }
+
+        private void AddPointProjectionOntoCurve(int pointTag, int dim, int curveTag)
+        {
+            project.CreatePointProjectionOntoGeometry(pointTag, dim, curveTag);
+            RefreshGeometry(ObjType.Точка);
+        }
         private void RefreshGeometry(ObjType objType)
         {
             VBOController.DeleteVBObjects(objType.ToString());
