@@ -160,7 +160,7 @@ namespace BazisGUI
             {
                 if (settingsConfig.Language != ar)
                 {
-                    MessageBox.Show("Для применения изменений откройте приложение занова", Localization.Localization.GetAttentionCaption());
+                    MessageBox.Show(Localization.Localization.GetStringResourceByName("MainMenuEvents.ChangeLanguage.Message"), Localization.Localization.GetAttentionCaption());
                     settingsConfig.Language = ar;
                 }
             };

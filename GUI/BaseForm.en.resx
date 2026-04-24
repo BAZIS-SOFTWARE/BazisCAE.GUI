@@ -1349,4 +1349,7 @@ Create variable?</value>
   <data name="UtilityTiilStrip.SelectObjectAsync.WithNumber.Message" xml:space="preserve">
     <value>under number</value>
   </data>
+  <data name="MainMenuEvents.ChangeLanguage.Message" xml:space="preserve">
+    <value>To apply the changes, open the application again</value>
+  </data>
 </root>
