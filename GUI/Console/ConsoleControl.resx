@@ -1016,4 +1016,34 @@
   <data name="InvalidCoordinatesException" xml:space="preserve">
     <value>Invalid coordinates entered</value>
   </data>
+  <data name="GenCreatePoint" xml:space="preserve">
+    <value>Create point</value>
+  </data>
+  <data name="GenCreateCurve" xml:space="preserve">
+    <value>Create curve</value>
+  </data>
+  <data name="GenCreateSurface" xml:space="preserve">
+    <value>Create surface</value>
+  </data>
+  <data name="GenExtrudeCurve" xml:space="preserve">
+    <value>Extrude curve</value>
+  </data>
+  <data name="GenExtrudeByRotation" xml:space="preserve">
+    <value>Extrusion by rotation</value>
+  </data>
+  <data name="SubCreatePoint" xml:space="preserve">
+    <value>x,y,z</value>
+  </data>
+  <data name="SubCreateCurve" xml:space="preserve">
+    <value>point#1&lt;|&gt;point#2</value>
+  </data>
+  <data name="SubCreateSurface" xml:space="preserve">
+    <value>curves forming the contour&lt;|&gt;curve#1,curve#2,curve#3</value>
+  </data>
+  <data name="SubExtrudeCurve" xml:space="preserve">
+    <value>Element 2D&lt;|&gt;curve&lt;|&gt;point&lt;|&gt;step&lt;|&gt;transfinite mesh 1-yes, 0-no</value>
+  </data>
+  <data name="SubExtrudeRotation" xml:space="preserve">
+    <value>Element 2D&lt;|&gt;angle in degrees&lt;|&gt;point&lt;|&gt;XYZ rotation axis&lt;|&gt;transfinite mesh 1-yes, 0-no</value>
+  </data>
 </root>

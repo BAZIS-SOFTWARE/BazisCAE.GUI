@@ -366,4 +366,34 @@
   <data name="InvalidCoordinatesException" xml:space="preserve">
     <value>Неправильно введены координаты</value>
   </data>
+  <data name="GenCreatePoint" xml:space="preserve">
+    <value>Создать точку</value>
+  </data>
+  <data name="GenCreateCurve" xml:space="preserve">
+    <value>Создать кривую</value>
+  </data>
+  <data name="GenCreateSurface" xml:space="preserve">
+    <value>Создать поверхность</value>
+  </data>
+  <data name="GenExtrudeCurve" xml:space="preserve">
+    <value>Экструзия кривой</value>
+  </data>
+  <data name="GenExtrudeByRotation" xml:space="preserve">
+    <value>Экструзия по вращению</value>
+  </data>
+  <data name="SubCreatePoint" xml:space="preserve">
+    <value>x,y,z</value>
+  </data>
+  <data name="SubCreateCurve" xml:space="preserve">
+    <value>точка#1&lt;|&gt;точка#2</value>
+  </data>
+  <data name="SubCreateSurface" xml:space="preserve">
+    <value>кривые формирующие контур&lt;|&gt;кривая#1,кривая#2,кривая#3</value>
+  </data>
+  <data name="SubExtrudeCurve" xml:space="preserve">
+    <value>Элемент 2D&lt;|&gt;кривая&lt;/&gt;точка&lt;|&gt;шаг&lt;|&gt;трансфинитная сетка 1-да, 0-нет</value>
+  </data>
+  <data name="SubExtrudeRotation" xml:space="preserve">
+    <value>Элемент 2D&lt;|&gt;угол в градусах&lt;|&gt;точка&lt;|&gt;ось вращения XYZ&lt;|&gt;трансфинитная сетка 1-да, 0-нет</value>
+  </data>
 </root>

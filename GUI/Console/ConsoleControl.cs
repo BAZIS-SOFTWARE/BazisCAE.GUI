@@ -1,15 +1,15 @@
-﻿using System;
+﻿using BazisGUI.Console.Events;
+using BazisGUI.PinnedControl;
+using BazisGUI.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using System.IO;
-using System.Threading;
+using System.Linq;
 using System.Reflection;
-using BazisGUI.Console.Events;
-using BazisGUI.Utilities;
-using BazisGUI.PinnedControl;
 using System.ComponentModel;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace BazisGUI.Console
 {
@@ -33,7 +33,12 @@ namespace BazisGUI.Console
         RotateMesh,
         MoveNodes,
         MergeElementSets,
-        CreateMesh2DPoligon
+        CreateMesh2DPoligon,
+        CreatePoint,
+        CreateCurve,
+        CreateSurface,
+        ExtrudeCurve,
+        ExtrudeRotate
     }
 
     public partial class ConsoleControl : PinnedPage
@@ -51,14 +56,69 @@ namespace BazisGUI.Console
         public event Action<object, ModelRotateEventArgs> ModelRotateEvent;
         public event Action<object, MergeElementSetsEventArgs> MergeElementSetsEvent;
         public event Action<object, CreateMesh2DPoligonEventArgs> CreateMesh2DPoligonEvent;
+        public event Action<CreateGeometryEventArgs> CreateGeometryEvent;
+        public event Action<CreateExtruderEventArgs> ExtrudeEvent;
         int SessionNumber
         {
             get;
             set;
         }
 
+//<<<<<<< HEAD
         Dictionary<string, GenCmd> genCmds;
         Dictionary<GenCmd, string[]> subCmds;
+//=======
+//        Dictionary<string, GenCmd> genCmds = new Dictionary<string, GenCmd>()
+//        {
+//            { "Загрузить проект",GenCmd.LoadProject},
+//            { "Сохранить проект",GenCmd.SaveProject},
+//            { "Рассчитать проект",GenCmd.SolveProject},
+//            { "Перенумерация сетки",GenCmd.RenumberMesh},
+//            { "Переместить узел",GenCmd.MoveNodes},
+//            { "Переместить сетку",GenCmd.MoveMesh},
+//            { "Повернуть сетку",GenCmd.RotateMesh},
+//            { "Найти свободные узлы",GenCmd.FindFreeNodes},
+//            { "Найти совпадающие",GenCmd.FindCoincident},
+//            { "Найти объемные элементы",GenCmd.FindVolElems},
+//            { "Найти объект",GenCmd.FindObject},
+//            { "Соединить стержнями",GenCmd.BeamConnection},
+//            { "Задать порядок точности",GenCmd.SetLevel },
+//            { "Слить наборы элементов",GenCmd.MergeElementSets },
+//            { "Построить 2D сетку",GenCmd.CreateMesh2DPoligon },
+//            { "Выход",GenCmd.Exit },
+//            { "Добавить точку", GenCmd.CreatePoint },
+//            { "Добавить линию", GenCmd.CreateCurve },
+//            { "Добавить поверхность", GenCmd.CreateSurface},
+//            { "Экструзия по кривой", GenCmd.ExtrudeCurve}
+//            //{ "Экструзия по вращению", GenCmd.ExtrudeRotate}
+//        };
+
+//        Dictionary<GenCmd, string[]> subCmds = new Dictionary<GenCmd, string[]>()
+//        {
+//            { GenCmd.LoadProject,new string[]{"путь"} },
+//            { GenCmd.SaveProject,new string[]{"путь"}},
+//            { GenCmd.SolveProject,new string[]{}},
+//            { GenCmd.RenumberMesh,new string[]{"тип:начальный номер"}},
+//            { GenCmd.MoveMesh,new string[]{ "переместить","x,y,z" }},
+//            { GenCmd.MoveNodes,new string[]{ "переместить" }},
+//            { GenCmd.RotateMesh,new string[]{ "повернуть","x,y,z:угол" }},
+//            { GenCmd.FindFreeNodes,new string[]{}},
+//            { GenCmd.FindCoincident,new string[]{ "узлы","расстояние" }},
+//            { GenCmd.FindVolElems,new string[]{ "величина" }},
+//            { GenCmd.FindObject,new string[]{ "тип,номер" }},
+//            { GenCmd.BeamConnection,new string[]{ "радиус поиска","макс. кол-во","группа#1","группа#2" }},
+//            { GenCmd.SetLevel,new string[]{ "тип","порядок точности" }},
+//            { GenCmd.MergeElementSets,new string[]{ "тип","набор#1","набор#2" }},
+//            { GenCmd.CreateMesh2DPoligon,new string[]{ "x1,y1", "x2,y2", "x3,y3","x4,y4","кол-во элементов" }},
+//            { GenCmd.Exit,Array.Empty<string>()},
+//            { GenCmd.CreatePoint, new string[]{ "x,y,z" } },
+//            { GenCmd.CreateCurve, new string[]{"точка#1", "точка#2"}},
+//            { GenCmd.CreateSurface, new string[]{"кривые формирующие контур", "кривая#1,кривая#2,кривая#N" } },
+//            { GenCmd.ExtrudeCurve, new string[]{"Элемент 2Д", "кривая", "точка", "шаг", "трансфинитная сетка 1-да, 0-нет"} }
+//            //{ GenCmd.ExtrudeRotate, new string[]{"Элемент 2Д", "угол", "точка", "ось вращения XYZ","трансфинитная сетка 1-да, 0-нет"} }
+//        };
+
+//>>>>>>> origin/Master_Dev_2
 
         private Thread trd;
 
@@ -101,6 +161,11 @@ namespace BazisGUI.Console
         private void InitGenCubCommandsDictionaries()
         {
             var resources = new ComponentResourceManager(typeof(ConsoleControl));
+            //{ GenCmd.CreatePoint, new string[]{ "x,y,z" } },
+            //{ GenCmd.CreateCurve, new string[] { "точка#1", "точка#2" }},
+            //{ GenCmd.CreateSurface, new string[] { "кривые формирующие контур", "кривая#1,кривая#2,кривая#N" } },
+            //{ GenCmd.ExtrudeCurve, new string[] { "Элемент 2Д", "кривая", "точка", "шаг", "трансфинитная сетка 1-да, 0-нет" } }
+            //{ GenCmd.ExtrudeRotate, new string[]{"Элемент 2Д", "угол", "точка", "ось вращения XYZ","трансфинитная сетка 1-да, 0-нет"} }
             genCmds = new Dictionary<string, GenCmd>()
             {
                 { resources.GetString("GenLoadProject"),GenCmd.LoadProject},
@@ -118,6 +183,11 @@ namespace BazisGUI.Console
                 { resources.GetString("GenSetLevel"),GenCmd.SetLevel },
                 { resources.GetString("GenMergeElementSets"),GenCmd.MergeElementSets },
                 { resources.GetString("GenCreateMesh2DPoligon"),GenCmd.CreateMesh2DPoligon },
+                { resources.GetString("GenCreatePoint"),GenCmd.CreatePoint },
+                { resources.GetString("GenCreateCurve"),GenCmd.CreateCurve },
+                { resources.GetString("GenCreateSurface"),GenCmd.CreateSurface },
+                { resources.GetString("GenExtrudeCurve"),GenCmd.ExtrudeCurve },
+                { resources.GetString("GenExtrudeByRotation"),GenCmd.ExtrudeRotate },
                 { resources.GetString("GenExit"),GenCmd.Exit }
             };
             subCmds = new Dictionary<GenCmd, string[]>()
@@ -137,6 +207,11 @@ namespace BazisGUI.Console
                 { GenCmd.SetLevel,resources.GetString("SubSetLevel").Split("<|>")},
                 { GenCmd.MergeElementSets,resources.GetString("SubMergeElementSets").Split("<|>")},
                 { GenCmd.CreateMesh2DPoligon,resources.GetString("SubCreateMesh2DPoligon").Split("<|>")},
+                { GenCmd.CreatePoint,resources.GetString("SubCreatePoint").Split("<|>") },
+                { GenCmd.CreateCurve,resources.GetString("SubCreateCurve").Split("<|>") },
+                { GenCmd.CreateSurface,resources.GetString("SubCreateSurface").Split("<|>") },
+                { GenCmd.ExtrudeCurve,resources.GetString("SubExtrudeCurve").Split("<|>") },
+                { GenCmd.ExtrudeRotate,resources.GetString("SubExtrudeRotation").Split("<|>") },
                 { GenCmd.Exit,new string[] { } }
             };
         }
@@ -310,6 +385,21 @@ namespace BazisGUI.Console
                     case GenCmd.Exit:
                         InEvent(this, new ExitAppEventArgs());
                         break;
+                    case GenCmd.CreatePoint:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Point, [cmds[1]]));
+                        break;   
+                    case GenCmd.CreateCurve:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Curve, [cmds[1], cmds[2]]));
+                        break;
+                    case GenCmd.CreateSurface:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Surface, [cmds[2]]));
+                        break;
+                    case GenCmd.ExtrudeCurve:
+                        ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
+                        break;
+                    //case GenCmd.ExtrudeRotate:
+                    //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
+                    //    break;
                 }
             }
         }
