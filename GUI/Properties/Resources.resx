@@ -121,9 +121,6 @@
   <data name="Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AddDB" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AddDB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="arrow_d" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow_d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -181,11 +178,23 @@
   <data name="вп_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\вп 12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Закрыто" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Закрыто.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Инфо" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Инфо.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Инфо_со_сцены" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Инфо_со_сцены.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="к 38" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\к 38.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="к 39" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\к 39.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Карандаш" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Карандаш.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="м_34" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\м 34.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -207,5 +216,20 @@
   </data>
   <data name="н_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\н 5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Открыто" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Открыто.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Показать все скрытые" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Показать все скрытые.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Показать сопряженные" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Показать сопряженные.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Скрыть выбранное" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Скрыть выбранное.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Удалить раздел" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Удалить раздел.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

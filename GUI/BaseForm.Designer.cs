@@ -52,8 +52,8 @@ namespace BazisGUI
             cntrНавигатор = new UserControlsEx.SplitContainerEx();
             navigator = new NavigatorControl();
             tableLayoutPanel1 = new TableLayoutPanel();
-            checkPlayerControl = new Player.PlayerControl();
-            propertiesPanel = new PropertiesPanel.PropertiesPanelControl();
+            checkPlayerControl = new BazisGUI.Player.PlayerControl();
+            propertiesPanel = new BazisGUI.PropertiesPanel.PropertiesPanelControl();
             splitContainer2 = new UserControlsEx.SplitContainerEx();
             btnSelect = new Button();
             btnDisplayStates = new Button();
@@ -77,7 +77,7 @@ namespace BazisGUI
             btnMakeScreenShot = new Button();
             btnAdvSelection = new Button();
             scene = new OpenTK.GLControl.GLControl();
-            console = new Console.ConsoleControl();
+            console = new BazisGUI.Console.ConsoleControl();
             menuStrip = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem = new ToolStripMenuItem();
@@ -148,7 +148,6 @@ namespace BazisGUI
             menuItem_InfoSelectedObjects = new ToolStripMenuItem();
             menuItem_SetRotPoint = new ToolStripMenuItem();
             показатьСопряженныеItem = new ToolStripMenuItem();
-            выбратьСопряженныеToolStripMenuItem = new ToolStripMenuItem();
             menuItem_DeleteSelectedObjects = new ToolStripMenuItem();
             toolStripContainer.BottomToolStripPanel.SuspendLayout();
             toolStripContainer.ContentPanel.SuspendLayout();
@@ -1378,9 +1377,9 @@ namespace BazisGUI
             // contextMenu
             // 
             contextMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
-            contextMenu.Items.AddRange(new ToolStripItem[] { создатьГруппуItem, скрытьВыбранноеItem, показатьСкрытыеItem, menuItem_InfoSelectedObjects, menuItem_SetRotPoint, показатьСопряженныеItem, выбратьСопряженныеToolStripMenuItem, menuItem_DeleteSelectedObjects });
+            contextMenu.Items.AddRange(new ToolStripItem[] { создатьГруппуItem, скрытьВыбранноеItem, показатьСкрытыеItem, menuItem_InfoSelectedObjects, menuItem_SetRotPoint, показатьСопряженныеItem, menuItem_DeleteSelectedObjects });
             contextMenu.Name = "sceneContextMenu";
-            contextMenu.Size = new System.Drawing.Size(205, 180);
+            contextMenu.Size = new System.Drawing.Size(205, 158);
             // 
             // создатьГруппуItem
             // 
@@ -1393,7 +1392,7 @@ namespace BazisGUI
             // 
             // скрытьВыбранноеItem
             // 
-            скрытьВыбранноеItem.Image = Properties.Resources.hide_w;
+            скрытьВыбранноеItem.Image = (System.Drawing.Image)resources.GetObject("скрытьВыбранноеItem.Image");
             скрытьВыбранноеItem.ImageScaling = ToolStripItemImageScaling.None;
             скрытьВыбранноеItem.Name = "скрытьВыбранноеItem";
             скрытьВыбранноеItem.Size = new System.Drawing.Size(204, 22);
@@ -1402,7 +1401,7 @@ namespace BazisGUI
             // 
             // показатьСкрытыеItem
             // 
-            показатьСкрытыеItem.Image = Properties.Resources.show_w;
+            показатьСкрытыеItem.Image = (System.Drawing.Image)resources.GetObject("показатьСкрытыеItem.Image");
             показатьСкрытыеItem.ImageScaling = ToolStripItemImageScaling.None;
             показатьСкрытыеItem.Name = "показатьСкрытыеItem";
             показатьСкрытыеItem.Size = new System.Drawing.Size(204, 22);
@@ -1411,7 +1410,7 @@ namespace BazisGUI
             // 
             // menuItem_InfoSelectedObjects
             // 
-            menuItem_InfoSelectedObjects.Image = Properties.Resources.info_w;
+            menuItem_InfoSelectedObjects.Image = (System.Drawing.Image)resources.GetObject("menuItem_InfoSelectedObjects.Image");
             menuItem_InfoSelectedObjects.ImageScaling = ToolStripItemImageScaling.None;
             menuItem_InfoSelectedObjects.Name = "menuItem_InfoSelectedObjects";
             menuItem_InfoSelectedObjects.Size = new System.Drawing.Size(204, 22);
@@ -1429,17 +1428,12 @@ namespace BazisGUI
             // 
             // показатьСопряженныеItem
             // 
+            показатьСопряженныеItem.Image = Properties.Resources.Показать_сопряженные;
+            показатьСопряженныеItem.ImageScaling = ToolStripItemImageScaling.None;
             показатьСопряженныеItem.Name = "показатьСопряженныеItem";
             показатьСопряженныеItem.Size = new System.Drawing.Size(204, 22);
             показатьСопряженныеItem.Text = "Показать сопряженные";
             показатьСопряженныеItem.Click += показатьСопряженныеItem_Click;
-            // 
-            // выбратьСопряженныеToolStripMenuItem
-            // 
-            выбратьСопряженныеToolStripMenuItem.Name = "выбратьСопряженныеToolStripMenuItem";
-            выбратьСопряженныеToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            выбратьСопряженныеToolStripMenuItem.Text = "Выбрать сопряженные";
-            выбратьСопряженныеToolStripMenuItem.Click += выбратьСопряженныеToolStripMenuItem_Click;
             // 
             // menuItem_DeleteSelectedObjects
             // 
@@ -1609,7 +1603,6 @@ namespace BazisGUI
         private ToolStripMenuItem загрузитьМастерToolStripMenuItem;
         private ToolStripMenuItem рассечьПлоскостьюToolStripMenuItem;
         private ToolStripMenuItem показатьСопряженныеItem;
-        private ToolStripMenuItem выбратьСопряженныеToolStripMenuItem;
         private ToolStripMenuItem геометрияToolStripMenuItem;
         private ToolStripMenuItem создатьТочкуToolStripMenuItem;
         private ToolStripMenuItem создатьЛиниюToolStripMenuItem;

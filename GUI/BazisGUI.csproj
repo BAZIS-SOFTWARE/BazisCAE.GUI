@@ -141,9 +141,6 @@
     <Compile Update="Methods\Results\Reflect.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Methods\Scene\ContextMenu\SelectAdjac.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Methods\Scene\DisplayBoundingBox.cs">
       <SubType>Form</SubType>
     </Compile>
