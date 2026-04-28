@@ -1428,7 +1428,7 @@ namespace BazisGUI
             // 
             // показатьСопряженныеItem
             // 
-            показатьСопряженныеItem.Image = Properties.Resources.Показать_сопряженные;
+            //показатьСопряженныеItem.Image = Properties.Resources.Показать_сопряженные;
             показатьСопряженныеItem.ImageScaling = ToolStripItemImageScaling.None;
             показатьСопряженныеItem.Name = "показатьСопряженныеItem";
             показатьСопряженныеItem.Size = new System.Drawing.Size(204, 22);
