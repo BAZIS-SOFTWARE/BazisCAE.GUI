@@ -19,15 +19,17 @@ namespace BazisGUI
                 string input = createExtruderEvent.Parameters[3].Replace(',', '.');
                 var valid =
                     int.TryParse(createExtruderEvent.Parameters[0], out var numberSurface) &
-                    int.TryParse(createExtruderEvent.Parameters[1], out var numberCurve) &
                     int.TryParse(createExtruderEvent.Parameters[2], out var numberStartPoint) &
                     double.TryParse(input, out var step);
                 bool transfinite = createExtruderEvent.Parameters[4] == "1";
-
+                var curveNumbers = createExtruderEvent.Parameters[1]
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => int.Parse(x.Trim()))
+                    .ToList();
                 if (!valid)
                     throw new ArgumentException("Введены неверные данные");
 
-                ExtrudeCurve(numberSurface, numberCurve, numberStartPoint, step, transfinite);
+                ExtrudeCurve(numberSurface, curveNumbers.ToArray(), numberStartPoint, step, transfinite);
             }
             else
             {
@@ -111,8 +113,8 @@ namespace BazisGUI
             DisplayObjects();
         }
 
-        private void ExtrudeCurve(int numberSurface, int numberCurve, int numberStartPoint, double step, bool transfinite)
-            => project.ExtrudeElement3DAlongCurve(numberSurface, numberCurve, numberStartPoint, step, transfinite);
+        private void ExtrudeCurve(int numberSurface, int[] numbersCurve, int numberStartPoint, double step, bool transfinite)
+            => project.ExtrudeElement3DAlongCurve(numberSurface, numbersCurve, numberStartPoint, step, transfinite);
         
         private void ExtrudeRotate(int numberSurface, float angle, int originPoint, Vector3 rotAxis, bool transfinite)
         {
@@ -167,7 +169,8 @@ namespace BazisGUI
 
         private void PresentExtrude()
         {
-            var set = project.GetModelSetsInfo(ObjType.Элемент3D).Where(x => x.Name.Contains("append")).Last();
+            var set = project.GetModelSetsInfo(ObjType.Элемент3D).Where(x => x.Name.Contains("extrude")).Last();
+            var s = project.GetModelSetsInfo;
             var pre = project.CreateModelObjectsPresentor(set);
             var vbo = CreateVBObject(pre);
             VBOController.AddVbo(vbo);

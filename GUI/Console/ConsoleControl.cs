@@ -118,7 +118,7 @@ namespace BazisGUI.Console
             { GenCmd.CreatePointProjectionOntoPlane, new string[]{ "точка", "поверхность" } },
             { GenCmd.CreateCurve, new string[]{"точка#1", "точка#2"}},
             { GenCmd.CreateSurface, new string[]{"кривые формирующие контур", "кривая#1,кривая#2,кривая#N" } },
-            { GenCmd.ExtrudeCurve, new string[]{"Элемент 2Д", "кривая", "точка", "шаг", "трансфинитная сетка 1-да, 0-нет"} }
+            { GenCmd.ExtrudeCurve, new string[]{"поверхность", "кривая#1,кривая#2,кривая#N", "точка", "шаг", "трансфинитная сетка 1-да, 0-нет"} }
             //{ GenCmd.ExtrudeRotate, new string[]{"Элемент 2Д", "угол", "точка", "ось вращения XYZ","трансфинитная сетка 1-да, 0-нет"} }
         };
 
