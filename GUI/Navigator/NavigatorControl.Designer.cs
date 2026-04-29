@@ -77,11 +77,11 @@
             treeView.Location = new System.Drawing.Point(0, 20);
             treeView.Margin = new System.Windows.Forms.Padding(0);
             treeView.Name = "treeView";
-            treeNode2.ImageIndex = 7;
-            treeNode2.Name = "проект";
-            treeNode2.SelectedImageIndex = 7;
-            treeNode2.Text = "Проект";
-            treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode2 });
+            //treeNode2.ImageIndex = 7;
+            //treeNode2.Name = "проект";
+            //treeNode2.SelectedImageIndex = 7;
+            //treeNode2.Text = "Проект";
+            //treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode2 });
             treeView.SelectedImageIndex = 9;
             treeView.ShowLines = false;
             treeView.Size = new System.Drawing.Size(299, 619);
