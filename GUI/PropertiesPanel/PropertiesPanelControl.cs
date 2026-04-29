@@ -130,7 +130,7 @@ namespace BazisGUI.PropertiesPanel
                 }
                     
 
-                if (prop.Header == "Цвет")
+                if (prop.Header == Localization.Localization.GetStringResourceByName<PropertiesPanelControl>("Header.Color"))
                     cell.Style.BackColor = (Color)prop.Value;
 
                 cell.Tag = prop.ValidationType.ToString();
@@ -160,7 +160,7 @@ namespace BazisGUI.PropertiesPanel
                 var cellValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
                 var newValue = cellValue?.ToString() ?? string.Empty;
 
-                if (header == "Цвет")
+                if (header == Localization.Localization.GetStringResourceByName<PropertiesPanelControl>("Header.Color"))
                 {
                     var color = ChangeColorCell(newValue);
                     dataGridView1.Rows[e.RowIndex].Cells[1].Style.BackColor = color;
@@ -181,7 +181,7 @@ namespace BazisGUI.PropertiesPanel
             if (e.ColumnIndex == 0) return;
 
             var value = "";
-            if (dataGridView1[0,e.RowIndex].Value.ToString() == "Цвет")
+            if (dataGridView1[0,e.RowIndex].Value.ToString() == Localization.Localization.GetStringResourceByName<PropertiesPanelControl>("Header.Color"))
             {
                 ColorDialog colorDialog = new ColorDialog();
                 if(colorDialog.ShowDialog() == DialogResult.OK)
@@ -190,7 +190,7 @@ namespace BazisGUI.PropertiesPanel
                 }
             }
 
-            else if (dataGridView1[0, e.RowIndex].Value.ToString() == "Файл")
+            else if (dataGridView1[0, e.RowIndex].Value.ToString() == Localization.Localization.GetStringResourceByName<PropertiesPanelControl>("Header.File"))
             {
                 var fileDialog = new OpenFileDialog();
                 if (fileDialog.ShowDialog() == DialogResult.OK)

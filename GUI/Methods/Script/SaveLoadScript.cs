@@ -16,7 +16,7 @@ namespace BazisGUI
 
                 project.LoadSMF(changed);
 
-                console.PrintInfo($"скрипт {changed} выполнен", Color.Green);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("SaveLoadScript.GeoScript.Message")} {changed} {Localization.Localization.GetStringResourceByName("SaveLoadScript.GeoScript.Executed.Message")}", Color.Green);
             }
             catch (Exception ex)
             {
@@ -35,7 +35,7 @@ namespace BazisGUI
                 
                 project.SaveSMF(changed);
 
-                console.PrintInfo($"скрипт {changed} сформирован", Color.Green);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("SaveLoadScript.GeoScript.Message")} {changed} {Localization.Localization.GetStringResourceByName("SaveLoadScript.GeoScript.Formed.Message")}", Color.Green);
             }
             catch (Exception ex)
             {

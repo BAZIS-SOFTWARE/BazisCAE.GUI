@@ -28,61 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.message = new System.Windows.Forms.Label();
-            this.title = new System.Windows.Forms.Label();
-            this.messagePanel = new System.Windows.Forms.Panel();
-            this.messagePanel.SuspendLayout();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageBoxEx));
+            message = new System.Windows.Forms.Label();
+            title = new System.Windows.Forms.Label();
+            messagePanel = new System.Windows.Forms.Panel();
+            messagePanel.SuspendLayout();
+            SuspendLayout();
             // 
             // message
             // 
-            this.message.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.message.AutoSize = true;
-            this.message.Location = new System.Drawing.Point(20, 29);
-            this.message.Margin = new System.Windows.Forms.Padding(20, 0, 3, 20);
-            this.message.Name = "message";
-            this.message.Size = new System.Drawing.Size(49, 13);
-            this.message.TabIndex = 0;
-            this.message.Text = "message";
+            resources.ApplyResources(message, "message");
+            message.Name = "message";
             // 
             // title
             // 
-            this.title.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.title.AutoSize = true;
-            this.title.BackColor = System.Drawing.Color.Transparent;
-            this.title.Location = new System.Drawing.Point(3, -1);
-            this.title.Margin = new System.Windows.Forms.Padding(3);
-            this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(229, 13);
-            this.title.TabIndex = 0;
-            this.title.Text = "Загрузка данных. Пожалуйста подождите...";
+            resources.ApplyResources(title, "title");
+            title.BackColor = System.Drawing.Color.Transparent;
+            title.Name = "title";
             // 
             // messagePanel
             // 
-            this.messagePanel.BackColor = System.Drawing.SystemColors.Control;
-            this.messagePanel.Controls.Add(this.message);
-            this.messagePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.messagePanel.Location = new System.Drawing.Point(0, 15);
-            this.messagePanel.Margin = new System.Windows.Forms.Padding(0);
-            this.messagePanel.Name = "messagePanel";
-            this.messagePanel.Size = new System.Drawing.Size(288, 61);
-            this.messagePanel.TabIndex = 1;
+            resources.ApplyResources(messagePanel, "messagePanel");
+            messagePanel.BackColor = System.Drawing.SystemColors.Control;
+            messagePanel.Controls.Add(message);
+            messagePanel.Name = "messagePanel";
             // 
             // MessageBoxEx
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.messagePanel);
-            this.Controls.Add(this.title);
-            this.Name = "MessageBoxEx";
-            this.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.Size = new System.Drawing.Size(288, 76);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.MessageBoxEx_Paint);
-            this.messagePanel.ResumeLayout(false);
-            this.messagePanel.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            resources.ApplyResources(this, "$this");
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            Controls.Add(messagePanel);
+            Controls.Add(title);
+            Name = "MessageBoxEx";
+            Paint += MessageBoxEx_Paint;
+            messagePanel.ResumeLayout(false);
+            messagePanel.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

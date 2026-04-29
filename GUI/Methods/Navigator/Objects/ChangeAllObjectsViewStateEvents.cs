@@ -17,7 +17,7 @@ namespace BazisGUI
             {
                 var node = navigator.SelectedNode.Name.ToEnum<NodeName>();
                 var types = new List<ObjType>();
-                if (node == NodeName.геометрия)
+                if (node == NodeName.Geometry)
                 {
                     types = new List<ObjType>()
                     {
@@ -27,7 +27,7 @@ namespace BazisGUI
                     };
                 }
 
-                else if (node == NodeName.сетка)
+                else if (node == NodeName.Mesh)
                 {
                     types = new List<ObjType>()
                     {

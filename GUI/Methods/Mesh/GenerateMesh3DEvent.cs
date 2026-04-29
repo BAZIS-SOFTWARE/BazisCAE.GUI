@@ -17,7 +17,7 @@ namespace BazisGUI
             {
                 // заглушка
                 if (GmshController.Gmsh == null)
-                    throw new Exception("Ошибка построения сетки. Вероятно геометрия не загружена");
+                    throw new NullReferenceException(Localization.Localization.GetStringResourceByName("GenerateMesh3DEvents.Generate3D.GMSHNull.Exception"));
                 DeleteGMSHMeshObjects(ObjType.Узел);
                 project.ClearModelCollection(ObjType.Узел);
                 project.GenerateMesh(3);
@@ -45,11 +45,11 @@ namespace BazisGUI
             FitObjectsToScreen();
             DisplayObjects();
 
-                console.PrintInfo($"Сгенерировано элементов" +
+                console.PrintInfo(Localization.Localization.GetStringResourceByName("GenerateMesh3DEvents.Generate3D.GeneratedElements.Message") +
                     $" 1D: {project.GetModelObjects(ObjType.Элемент1D).Count()}," +
                     $" 2D: {project.GetModelObjects(ObjType.Элемент2D).Count()}," +
                     $" 3D: {project.GetModelObjects(ObjType.Элемент3D).Count()}." +
-                    $" Рекомендуется проверить порядок точности наборов перед началом расчета в панели свойств, выбрав его в навигаторе", Color.Orange);
+                    $" {Localization.Localization.GetStringResourceByName("GenerateMesh3DEvents.Generate3D.CheckRecommendation.Message")}", Color.Orange);
             }
             catch (Exception ex)
             {

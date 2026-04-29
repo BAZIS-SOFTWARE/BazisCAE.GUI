@@ -1,8 +1,10 @@
-﻿using BazisGUI.Console.Events;
+﻿using BasicControls.OpenFileDialogEx;
+using BazisGUI.Console.Events;
 using BazisGUI.PinnedControl;
 using BazisGUI.Utilities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -66,62 +68,8 @@ namespace BazisGUI.Console
             set;
         }
 
-        Dictionary<string, GenCmd> genCmds = new Dictionary<string, GenCmd>()
-        {
-            { "Загрузить проект",GenCmd.LoadProject},
-            { "Сохранить проект",GenCmd.SaveProject},
-            { "Рассчитать проект",GenCmd.SolveProject},
-            { "Перенумерация сетки",GenCmd.RenumberMesh},
-            { "Переместить узел",GenCmd.MoveNodes},
-            { "Переместить сетку",GenCmd.MoveMesh},
-            { "Повернуть сетку",GenCmd.RotateMesh},
-            { "Найти свободные узлы",GenCmd.FindFreeNodes},
-            { "Найти совпадающие",GenCmd.FindCoincident},
-            { "Найти объемные элементы",GenCmd.FindVolElems},
-            { "Найти объект",GenCmd.FindObject},
-            { "Соединить стержнями",GenCmd.BeamConnection},
-            { "Задать порядок точности",GenCmd.SetLevel },
-            { "Слить наборы элементов",GenCmd.MergeElementSets },
-            { "Построить 2D сетку",GenCmd.CreateMesh2DPoligon },
-            { "Выход",GenCmd.Exit },
-            { "Добавить точку", GenCmd.CreatePoint },
-            { "Добавить точку по вектору", GenCmd.CreatePointByVector },
-            { "Добавить точку проекцией на кривую", GenCmd.CreatePointProjectionOntoCurve },
-            { "Добавить точку проекцией на плоскость", GenCmd.CreatePointProjectionOntoPlane },
-            { "Добавить линию", GenCmd.CreateCurve },
-            { "Добавить поверхность", GenCmd.CreateSurface},
-            { "Экструзия по кривой", GenCmd.ExtrudeCurve}
-            //{ "Экструзия по вращению", GenCmd.ExtrudeRotate}
-        };
-
-        Dictionary<GenCmd, string[]> subCmds = new Dictionary<GenCmd, string[]>()
-        {
-            { GenCmd.LoadProject,new string[]{"путь"} },
-            { GenCmd.SaveProject,new string[]{"путь"}},
-            { GenCmd.SolveProject,new string[]{}},
-            { GenCmd.RenumberMesh,new string[]{"тип:начальный номер"}},
-            { GenCmd.MoveMesh,new string[]{ "переместить","x,y,z" }},
-            { GenCmd.MoveNodes,new string[]{ "переместить" }},
-            { GenCmd.RotateMesh,new string[]{ "повернуть","x,y,z:угол" }},
-            { GenCmd.FindFreeNodes,new string[]{}},
-            { GenCmd.FindCoincident,new string[]{ "узлы","расстояние" }},
-            { GenCmd.FindVolElems,new string[]{ "величина" }},
-            { GenCmd.FindObject,new string[]{ "тип,номер" }},
-            { GenCmd.BeamConnection,new string[]{ "радиус поиска","макс. кол-во","группа#1","группа#2" }},
-            { GenCmd.SetLevel,new string[]{ "тип","порядок точности" }},
-            { GenCmd.MergeElementSets,new string[]{ "тип","набор#1","набор#2" }},
-            { GenCmd.CreateMesh2DPoligon,new string[]{ "x1,y1", "x2,y2", "x3,y3","x4,y4","кол-во элементов" }},
-            { GenCmd.Exit,Array.Empty<string>()},
-            { GenCmd.CreatePoint, new string[]{ "x,y,z" } },
-            { GenCmd.CreatePointByVector, new string[]{ "точка_копирования#1", "точка_направления#2", "смещение" } },
-            { GenCmd.CreatePointProjectionOntoCurve, new string[]{ "точка", "кривая" } },
-            { GenCmd.CreatePointProjectionOntoPlane, new string[]{ "точка", "поверхность" } },
-            { GenCmd.CreateCurve, new string[]{"точка#1", "точка#2"}},
-            { GenCmd.CreateSurface, new string[]{"кривые формирующие контур", "кривая#1,кривая#2,кривая#N" } },
-            { GenCmd.ExtrudeCurve, new string[]{"поверхность", "кривая#1,кривая#2,кривая#N", "точка", "шаг", "трансфинитная сетка 1-да, 0-нет"} }
-            //{ GenCmd.ExtrudeRotate, new string[]{"Элемент 2Д", "угол", "точка", "ось вращения XYZ","трансфинитная сетка 1-да, 0-нет"} }
-        };
-
+        Dictionary<string, GenCmd> genCmds;
+        Dictionary<GenCmd, string[]> subCmds;
 
         private Thread trd;
 
@@ -145,21 +93,72 @@ namespace BazisGUI.Console
             info = info + " " + "\"" + toolStripItem.Text + "\"";
         }
 
-        int LineIndex { get; set; }
-
         public ConsoleControl()
         {
             InitializeComponent();
+            InitGenCubCommandsDictionaries();
 
             typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic |
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
                 SetValue(tlscOut, true, null);
 
-            var path = " > Текущая сессия ";
+            var path = $" > {Localization.Localization.GetStringResourceByName<ConsoleControl>("CurrentSession")} ";
 
             rtxbField.AppendText(path);
             rtxbField.AppendText("\n");
             HighlightPhrase(path, System.Drawing.Color.Green);
+        }
+
+        private void InitGenCubCommandsDictionaries()
+        {
+            genCmds = new Dictionary<string, GenCmd>()
+            {
+                { "Load project",GenCmd.LoadProject},
+                { "Save project",GenCmd.SaveProject},
+                { "Solve project",GenCmd.SolveProject},
+                { "Renumber mesh",GenCmd.RenumberMesh},
+                { "Move node",GenCmd.MoveNodes},
+                { "Move mesh",GenCmd.MoveMesh},
+                { "Rotate mesh",GenCmd.RotateMesh},
+                { "Find free nodes",GenCmd.FindFreeNodes},
+                { "Find Coincident",GenCmd.FindCoincident},
+                { "Find 3D elements",GenCmd.FindVolElems},
+                { "Find object",GenCmd.FindObject},
+                { "Connect with beams",GenCmd.BeamConnection},
+                { "Set precision level",GenCmd.SetLevel },
+                { "Merge elements sets",GenCmd.MergeElementSets },
+                { "Build 2D mesh",GenCmd.CreateMesh2DPoligon },
+                { "Create point",GenCmd.CreatePoint },
+                { "Create curve",GenCmd.CreateCurve },
+                { "Create surface",GenCmd.CreateSurface },
+                { "Extrude along curve",GenCmd.ExtrudeCurve },
+                { "Extrusion by rotation",GenCmd.ExtrudeRotate },
+                { "Quit",GenCmd.Exit }
+            };
+            subCmds = new Dictionary<GenCmd, string[]>()
+            {
+                { GenCmd.LoadProject, new[] { "path" } },
+                { GenCmd.SaveProject, new[] { "path" } },
+                { GenCmd.SolveProject,new string[] { } },
+                { GenCmd.RenumberMesh, new[] { "type:initial number" } },
+                { GenCmd.MoveMesh, new[] { "move", "x,y,z" } },
+                { GenCmd.MoveNodes, new[] { "move" } },
+                { GenCmd.RotateMesh, new[] { "rotate", "x,y,z:angle" } },
+                { GenCmd.FindFreeNodes,new string[] { } },
+                { GenCmd.FindCoincident, new[] { "nodes", "distance" } },
+                { GenCmd.FindVolElems, new[] { "measure" } },
+                { GenCmd.FindObject, new[] { "type,number" } },
+                { GenCmd.BeamConnection, new [] { "search radius", "max quantity", "group#1", "group#2" } },
+                { GenCmd.SetLevel, new[] { "type", "precision level" } },
+                { GenCmd.MergeElementSets, new[] { "type", "set#1", "set#2" } },
+                { GenCmd.CreateMesh2DPoligon, new[] { "x1,y1", "x2,y2", "x3,y3", "x4,y4", "number of elements" } },
+                { GenCmd.CreatePoint, new [] { "x,y,z" } },
+                { GenCmd.CreateCurve, new [] { "point#1","point#2" } },
+                { GenCmd.CreateSurface, new[] { "curves forming the contour", "curve#1,curve#2,curve#3" } },
+                { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve", "point", "step", "transfinite mesh 1-yes, 0-no" } },
+                { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
+                { GenCmd.Exit,new string[] { } }
+            };
         }
 
 
@@ -190,7 +189,7 @@ namespace BazisGUI.Console
                 return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
                      "\\" + SessionNumber.ToString() + "bazis.session.txt";
             }
-        }
+        } 
 
         public void PrintInfo(string str, Color color)
         {
@@ -259,7 +258,7 @@ namespace BazisGUI.Console
                 trd.Abort();
 
             }
-            else throw new Exception("\n > Указанный коммандный файл не найден!");
+            else throw new Exception($"\n > {Localization.Localization.GetStringResourceByName<ConsoleControl>("ExecuteCMDFileMissing)")}");
         }
 
         private void ExecuteCommand(string line)
@@ -269,9 +268,9 @@ namespace BazisGUI.Console
             if (cmds.Count != 0)
             {
                 if (!this.genCmds.ContainsKey(cmds[0])) 
-                    throw new Exception("Не является командой");
+                    throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("NotACommandException"));
                 if (subCmds[genCmds[cmds[0]]].Length !=  cmds.Count -1)
-                    throw new Exception("Неверное колличество аргументов");
+                    throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("InvalidArgumentsNumberException"));
 
                 ConsoleHistory.AddComand(line);
                 
@@ -304,7 +303,7 @@ namespace BazisGUI.Console
                         ModelRotateEvent?.Invoke(this, new ModelRotateEventArgs(cmds[2]));
                         break;
                     case GenCmd.MoveNodes:
-                        if (cmds[1] == "переместить")
+                        if (cmds[1] == Localization.Localization.GetStringResourceByName<ConsoleControl>("MoveRotNodesOption"))
                             InEvent?.Invoke(this, new NodesShiftCoordinateEventArgs());
                         else
                             InEvent?.Invoke(this, new NodesRotateCoordinateEventArgs());
@@ -316,7 +315,7 @@ namespace BazisGUI.Console
                         InEvent(this, new FindVolElemsEventArgs(cmds[1]));
                         break;
                     case GenCmd.FindCoincident:
-                        if (cmds[1] == "узлы")
+                        if (cmds[1] == Localization.Localization.GetStringResourceByName<ConsoleControl>("FindCoincidentOption"))
                             InEvent(this, new ModelFindCoincidentsNodesEventArgs(cmds[2]));
                         break;
                     case GenCmd.BeamConnection:
@@ -386,14 +385,14 @@ namespace BazisGUI.Console
                     var assembly = Assembly.GetExecutingAssembly();
                     var stream = assembly.GetManifestResourceStream("PrConsole.Resources.Stop.ico");
                     btnStartMacro.Image = new Bitmap(stream);
-                    btnStartMacro.Text = "Остановить";
+                    btnStartMacro.Text = Localization.Localization.GetStopCaption();
                 }
                 else
                 {
                     var assembly = Assembly.GetExecutingAssembly();
                     var stream = assembly.GetManifestResourceStream("PrConsole.Resources.StartCheck.ico");
                     btnStartMacro.Image = new Bitmap(stream);
-                    btnStartMacro.Text = "Запустить";
+                    btnStartMacro.Text = Localization.Localization.GetStartCaption();
                     trd.Abort();
 
                 }
@@ -406,7 +405,7 @@ namespace BazisGUI.Console
 
         private void btnDictionary_Click(object sender, EventArgs e)
         {
-            PrintInfo("Доступные команды:", Color.Black);
+            PrintInfo($"{Localization.Localization.GetStringResourceByName<ConsoleControl>("AvailableCommands")}:", Color.Black);
 
             foreach (var item in genCmds)
             {
@@ -438,19 +437,11 @@ namespace BazisGUI.Console
                     {
                         try
                         {
-                            Invoke(new Action(() =>
-                            {
-                                ExecuteCommand(cmds);
-                            }));
+                            Invoke(new Action(() => ExecuteCommand(cmds)));
                         }
                         catch (Exception ex)
                         {
-                            Invoke(new Action(() =>
-                            {
-                                PrintInfo(ex.Message, Color.Red);
-                            }
-                                ));
-
+                            Invoke(new Action(() => PrintInfo(ex.Message, Color.Red)));
                         }
                     });
                     trd.Start();
@@ -459,13 +450,9 @@ namespace BazisGUI.Console
                 }
             }
             else if (e.KeyCode == Keys.Up)
-            {
                 PrintHistory(ConsoleHistory.GetPreviousCommand());
-            }
             else if (e.KeyCode == Keys.Down)
-            {
                 PrintHistory(ConsoleHistory.GetNextCommand());
-            }
         }
     }
 }

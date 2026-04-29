@@ -19,12 +19,12 @@ namespace BazisGUI.Console
             if (double.TryParse(_radius, out radius))
                 Radius = radius;
             else
-                throw new ArgumentException("Значение параметра должно быть числом.", nameof(_radius));
+                throw new ArgumentException(Localization.Localization.GetStringResourceByName<ConsoleControl>("BeamConnectionEventArgsArgNumExc"), nameof(_radius));
             int maxBeams;
             if (int.TryParse(_maxBeams, out maxBeams))
                 MaxBeams = maxBeams;
             else
-                throw new ArgumentException("Значение параметра должно быть числом.", nameof(_maxBeams));
+                throw new ArgumentException(Localization.Localization.GetStringResourceByName<ConsoleControl>("BeamConnectionEventArgsArgNumExc"), nameof(_maxBeams));
         }
     }
 }

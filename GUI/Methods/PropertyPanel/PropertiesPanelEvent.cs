@@ -40,13 +40,13 @@ namespace BazisGUI
             if (navigator.SelectedNode.Level == 1)
             {
                 var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
-                if (nodeName == NodeName.задача)
+                if (nodeName == NodeName.Task)
                     ChangeTaskProperties(obj);
-                else if (nodeName == NodeName.геометрия)
+                else if (nodeName == NodeName.Geometry)
                     ChangeGeoProperties(obj);
-                else if (nodeName == NodeName.расчеты)
+                else if (nodeName == NodeName.Calculations)
                     ChangeCompProperties(obj);
-                else if (nodeName == NodeName.результаты)
+                else if (nodeName == NodeName.Results)
                 {
                     ChangeResultsProperty(obj);
                     var rows = GetResultsProperties();
@@ -60,10 +60,10 @@ namespace BazisGUI
                 var index = navigator.SelectedNode.Index;
                 var parentName = navigator.SelectedNode.Parent.Name.ToEnum<NodeName>();
                 var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
-                if (parentName == NodeName.группы)
+                if (parentName == NodeName.Groups)
                 {
-                    if (nodeName == NodeName.группаЭлементов |
-                        nodeName == NodeName.группаУзлов
+                    if (nodeName == NodeName.ElementsGroup |
+                        nodeName == NodeName.NodesGroup
                         )
                     {
                         ChangeMeshGroupProperties(obj, index);
@@ -71,17 +71,17 @@ namespace BazisGUI
                         PresentCondDataOnTree();
                     }
                 }
-                else if (parentName == NodeName.сетка)
+                else if (parentName == NodeName.Mesh)
                 {
                     var objType = navigator.SelectedNode.Text.Split(' ')[0].ToEnum<ObjType>();
-                    if (nodeName == NodeName.набор & objType == ObjType.Элемент3D)
+                    if (nodeName == NodeName.Sets & objType == ObjType.Элемент3D)
                         ChangeMeshSetProperties(obj, 3);
-                    else if (nodeName == NodeName.набор & objType == ObjType.Элемент2D)
+                    else if (nodeName == NodeName.Sets & objType == ObjType.Элемент2D)
                         ChangeMeshSetProperties(obj, 2);
                     else
                         ChangeMeshSetProperties(obj, 1);
                 }
-                else if (parentName == NodeName.задача)
+                else if (parentName == NodeName.Task)
                 {
                     var flag = false;
                     var _funcs = project.FunctionsDB.Keys.ToList();
@@ -89,7 +89,7 @@ namespace BazisGUI
                     var _mats = project.MaterialsDB.Keys.ToList();
                     var groups = project.GetAllModelGroups();
                     var cond = project.GetCondData(index);
-                    if (nodeName == NodeName.материал)
+                    if (nodeName == NodeName.Material)
                     {
                         ChangeMatProperties(obj, (MatData)cond, ref flag);
 
@@ -99,7 +99,7 @@ namespace BazisGUI
                             propertiesPanel.DrawTable(rows);
                         }
                     }
-                    else if (nodeName == NodeName.нагрев)
+                    else if (nodeName == NodeName.Heat)
                     {
                         ChangeHeatProperties(obj, (HeatData)cond, ref flag);
 
@@ -109,7 +109,7 @@ namespace BazisGUI
                             propertiesPanel.DrawTable(rows);
                         }
                     }
-                    else if (nodeName == NodeName.нагрузка)
+                    else if (nodeName == NodeName.Load)
                     {
                         ChangeLoadProperties(obj, (LoadData)cond, ref flag);
 
@@ -119,7 +119,7 @@ namespace BazisGUI
                             propertiesPanel.DrawTable(rows);
                         }
                     }
-                    else if (nodeName == NodeName.среда)
+                    else if (nodeName == NodeName.Media)
                     {
                         ChangeMediaProperties(obj, (MediaData)cond, ref flag);
 
@@ -130,7 +130,7 @@ namespace BazisGUI
                         }
 
                     }
-                    else if (nodeName == NodeName.закрепление)
+                    else if (nodeName == NodeName.Clamp)
                     {
                         ChangeClampProperties(obj, (ClampData)cond, ref flag);
 
@@ -151,7 +151,7 @@ namespace BazisGUI
                     navigator.DrawNodeFrozen = false;
 
                 }
-                else if (parentName == NodeName.расчеты)
+                else if (parentName == NodeName.Calculations)
                 {
                     var s = navigator.SelectedNode.Text;
                     ChangeCompProperties(obj, s);

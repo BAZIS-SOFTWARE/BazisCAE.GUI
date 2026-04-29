@@ -1,4 +1,5 @@
 ﻿using BazisGUI.PropertiesPanel;
+using BazisGUI.Utilities;
 using Geometry;
 using Geometry.Exteisions;
 using Model.Interfaces;
@@ -90,7 +91,7 @@ namespace BazisGUI
                     DispatchSelection(new List<int>() {tempNumb}, isSelected);
                 else 
                 {
-                    console.PrintInfo($"Выбран объект : {tempSetInfo.ObjType} {tempNumb}", Color.Black);
+                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("SelectByPoint.ObjectSelected.Message")} : {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(tempSetInfo.ObjType))} {tempNumb}", Color.Black);
                     CreateObjectProperties(tempSetInfo, tempNumb);
                 }
             }

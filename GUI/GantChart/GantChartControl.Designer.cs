@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(cntrГант));
             dataGridView = new System.Windows.Forms.DataGridView();
             CondName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             CondTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -36,41 +37,36 @@
             // 
             // dataGridView
             // 
+            resources.ApplyResources(dataGridView, "dataGridView");
             dataGridView.AllowUserToAddRows = false;
             dataGridView.AllowUserToDeleteRows = false;
             dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { CondName, CondTime });
-            dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            dataGridView.Location = new System.Drawing.Point(0, 0);
             dataGridView.Name = "dataGridView";
             dataGridView.ReadOnly = true;
-            dataGridView.Size = new System.Drawing.Size(385, 373);
-            dataGridView.TabIndex = 0;
             dataGridView.CellPainting += dataGridView_CellPainting;
             dataGridView.SortCompare += dataGridView_SortCompare;
             // 
             // CondName
             // 
             CondName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            CondName.HeaderText = "Условие";
+            resources.ApplyResources(CondName, "CondName");
             CondName.Name = "CondName";
             CondName.ReadOnly = true;
-            CondName.Width = 78;
             // 
             // CondTime
             // 
             CondTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            CondTime.HeaderText = "Время";
+            resources.ApplyResources(CondTime, "CondTime");
             CondTime.Name = "CondTime";
             CondTime.ReadOnly = true;
             // 
             // cntrГант
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(dataGridView);
             Name = "cntrГант";
-            Size = new System.Drawing.Size(385, 373);
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
         }

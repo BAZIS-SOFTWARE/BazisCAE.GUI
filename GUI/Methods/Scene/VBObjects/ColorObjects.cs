@@ -26,7 +26,7 @@ namespace BazisGUI
             {
                 ObjType objType;
                 var res = Enum.TryParse(objTypeStr, out objType) ? objType :
-                    throw new Exception($"Ошибка конвертации объектов {objTypeStr}");
+                    throw new Exception($"{Localization.Localization.GetStringResourceByName("ColorObjects.ObjectConversion.Exception")} {objTypeStr}");
                 ColorVBObjsByObjsType(objType);
             }
 

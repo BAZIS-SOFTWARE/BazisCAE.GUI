@@ -263,5 +263,17 @@ namespace BazisGUI.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Показать_сопряженные
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("Показать_сопряженные", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
