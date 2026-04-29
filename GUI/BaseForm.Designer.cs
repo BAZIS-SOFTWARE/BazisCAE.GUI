@@ -973,8 +973,10 @@ namespace BazisGUI
             // 
             // объединитьToolStripMenuItem
             // 
-            resources.ApplyResources(объединитьToolStripMenuItem, "объединитьToolStripMenuItem");
             объединитьToolStripMenuItem.Name = "объединитьToolStripMenuItem";
+            объединитьToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            объединитьToolStripMenuItem.Text = "Объединить";
+            объединитьToolStripMenuItem.Click += MergeDataBase_Click;
             // 
             // построитьГрафикToolStripMenuItem
             // 
