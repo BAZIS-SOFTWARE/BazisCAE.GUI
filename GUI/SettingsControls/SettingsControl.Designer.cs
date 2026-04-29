@@ -139,23 +139,6 @@ namespace BazisGUI.SettingsControls
             resources.ApplyResources(label2, "label2");
             label2.Name = "label2";
             // 
-            // clslTransparency
-            // 
-            resources.ApplyResources(clslTransparency, "clslTransparency");
-            clslTransparency.BackColor = System.Drawing.Color.Transparent;
-            clslTransparency.BarPenColor = System.Drawing.Color.Black;
-            clslTransparency.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            tableLayoutPanel1.SetColumnSpan(clslTransparency, 2);
-            clslTransparency.LargeChange = 50U;
-            clslTransparency.Name = "clslTransparency";
-            clslTransparency.ShowTextValue = true;
-            clslTransparency.SmallChange = 1U;
-            clslTransparency.TextValueColor = System.Drawing.Color.Black;
-            clslTransparency.ThumbPenColor = System.Drawing.Color.Black;
-            clslTransparency.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
-            clslTransparency.ThumbSize = 12;
-            clslTransparency.Scroll += clslTransparency_Scroll;
-            // 
             // chbTransparency
             // 
             resources.ApplyResources(chbTransparency, "chbTransparency");

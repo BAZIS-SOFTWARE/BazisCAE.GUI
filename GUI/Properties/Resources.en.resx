@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="выбратьСопряженныеToolStripMenuItem.Text" xml:space="preserve">
+    <value>Select paired</value>
+  </data>
+  <data name="webPageLabel.Text" xml:space="preserve">
+    <value>www.bazisnet.ru</value>
+  </data>
+  <data name="versionWordPrefix" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="VersionNews" xml:space="preserve">
+    <value>Version news</value>
+  </data>
+  <data name="VBObjectCtor.EmptyArrayArgumentException" xml:space="preserve">
+    <value>VBObject Error: Index array length cannot be zero</value>
+  </data>
+  <data name="VBObjectController.ChangeViewMode.Message" xml:space="preserve">
+    <value>No objects of the specified type found!</value>
+  </data>
+  <data name="UtilityToolStrip.SelectObjectAsync.OperationCanceled.Message" xml:space="preserve">
+    <value>Operation canceled</value>
+  </data>
+  <data name="UtilityToolStrip.Measuring.InvalidSeletedTypeError" xml:space="preserve">
+    <value>Please select another required object type. Measurements cannot be taken for</value>
+  </data>
+  <data name="UtilityTiilStrip.SelectObjectAsync.WithNumber.Message" xml:space="preserve">
+    <value>under number</value>
+  </data>
+  <data name="StopCaption" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="btnSelect.Text.Elements2D" xml:space="preserve">
+    <value>Element2D</value>
+  </data>
+  <data name="rbtVolume.AccessibleName" xml:space="preserve">
+    <value>GeomSelect.Volumes</value>
+  </data>
+  <data name="rbtSurface.AccessibleName" xml:space="preserve">
+    <value>GeomSelect.Surfaces</value>
+  </data>
+  <data name="rbtCurve.AccessibleName" xml:space="preserve">
+    <value>GeomSelect.Curves</value>
+  </data>
+  <data name="textBox2.Text" xml:space="preserve">
+    <value>1.0</value>
+  </data>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radioButton6.Text" xml:space="preserve">
+    <value>YX</value>
+  </data>
+  <data name="radioButton5.Text" xml:space="preserve">
+    <value>XY</value>
+  </data>
+  <data name="radioButton4.Text" xml:space="preserve">
+    <value>XZ</value>
+  </data>
+  <data name="radioButton3.Text" xml:space="preserve">
+    <value>ZX</value>
+  </data>
+  <data name="radioButton2.Text" xml:space="preserve">
+    <value>ZY</value>
+  </data>
+  <data name="radioButton1.Text" xml:space="preserve">
+    <value>YZ</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>D:</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>C: -1</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>B: 0</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>A: 0</value>
+  </data>
+  <data name="domainUpDown1.Text" xml:space="preserve">
+    <value>0.01</value>
+  </data>
+  <data name="domainUpDown1.Items3" xml:space="preserve">
+    <value>0.001</value>
+  </data>
+  <data name="domainUpDown1.Items2" xml:space="preserve">
+    <value>0.01</value>
+  </data>
+  <data name="domainUpDown1.Items1" xml:space="preserve">
+    <value>0.1</value>
+  </data>
+  <data name="domainUpDown1.Items" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="colorSlider3.Text" xml:space="preserve">
+    <value>colorSlider3</value>
+  </data>
+  <data name="colorSlider2.Text" xml:space="preserve">
+    <value>colorSlider2</value>
+  </data>
+  <data name="colorSlider1.Text" xml:space="preserve">
+    <value>colorSlider1</value>
+  </data>
+  <data name="UnknownTypeException" xml:space="preserve">
+    <value>Unknown object type!</value>
+  </data>
+  <data name="SubSetLevel" xml:space="preserve">
+    <value>type&lt;|&gt;precision level</value>
+  </data>
+  <data name="SubSaveProject" xml:space="preserve">
+    <value>path</value>
+  </data>
+  <data name="SubRotateMesh" xml:space="preserve">
+    <value>rotate&lt;|&gt;x,y,z:angle</value>
+  </data>
+  <data name="SubRenumberMesh" xml:space="preserve">
+    <value>type:initial number</value>
+  </data>
+  <data name="SubMoveNodes" xml:space="preserve">
+    <value>move</value>
+  </data>
+  <data name="SubMoveMesh" xml:space="preserve">
+    <value>move&lt;|&gt;x,y,z</value>
+  </data>
+  <data name="SubMergeElementSets" xml:space="preserve">
+    <value>type&lt;|&gt;set#1&lt;|&gt;set#2</value>
+  </data>
+  <data name="SubLoadProject" xml:space="preserve">
+    <value>path</value>
+  </data>
+  <data name="SubFindVolElems" xml:space="preserve">
+    <value>value</value>
+  </data>
+  <data name="SubFindObject" xml:space="preserve">
+    <value>type,number</value>
+  </data>
+  <data name="SubFindCoincident" xml:space="preserve">
+    <value>nodes&lt;|&gt;distance</value>
+  </data>
+  <data name="SubExtrudeRotation" xml:space="preserve">
+    <value>Element 2D&lt;|&gt;angle in degrees&lt;|&gt;point&lt;|&gt;XYZ rotation axis&lt;|&gt;transfinite mesh 1-yes, 0-no</value>
+  </data>
+  <data name="SubExtrudeCurve" xml:space="preserve">
+    <value>Element 2D&lt;|&gt;curve&lt;|&gt;point&lt;|&gt;step&lt;|&gt;transfinite mesh 1-yes, 0-no</value>
+  </data>
+  <data name="SubCreateSurface" xml:space="preserve">
+    <value>curves forming the contour&lt;|&gt;curve#1,curve#2,curve#3</value>
+  </data>
+  <data name="SubCreatePoint" xml:space="preserve">
+    <value>x,y,z</value>
+  </data>
+  <data name="SubCreateMesh2DPoligon" xml:space="preserve">
+    <value>x1,y1&lt;|&gt;x2,y2&lt;|&gt;x3,y3&lt;|&gt;x4,y4&lt;|&gt;number of elements</value>
+  </data>
+  <data name="SubCreateCurve" xml:space="preserve">
+    <value>point#1&lt;|&gt;point#2</value>
+  </data>
+  <data name="SubBeamConnection" xml:space="preserve">
+    <value>search radius&lt;|&gt;max quantity&lt;|&gt;group#1&lt;|&gt;group#2</value>
+  </data>
+  <data name="PositiveCellingNumberException" xml:space="preserve">
+    <value>The number must be a positive integer!</value>
+  </data>
+  <data name="NotACommandException" xml:space="preserve">
+    <value>Entered line is not a command</value>
+  </data>
+  <data name="MoveRotNodesOption" xml:space="preserve">
+    <value>move</value>
+  </data>
+  <data name="ModelShiftCoordinateEventArgsVectorExc" xml:space="preserve">
+    <value>The vector must contain three coordinate components!</value>
+  </data>
+  <data name="InvalidCoordinatesException" xml:space="preserve">
+    <value>Invalid coordinates entered</value>
+  </data>
+  <data name="InvalidCommandException" xml:space="preserve">
+    <value>Invalid command format</value>
+  </data>
+  <data name="InvalidArgumentsNumberException" xml:space="preserve">
+    <value>Invalid arguments number</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Navigator</value>
+  </data>
+  <data name="GenSolveProject" xml:space="preserve">
+    <value>Solve project</value>
+  </data>
+  <data name="GenSetLevel" xml:space="preserve">
+    <value>Set precision level</value>
+  </data>
+  <data name="GenSaveProject" xml:space="preserve">
+    <value>Save project</value>
+  </data>
+  <data name="GenRotateMesh" xml:space="preserve">
+    <value>Rotate mesh</value>
+  </data>
+  <data name="GenRenumberMesh" xml:space="preserve">
+    <value>Renumber mesh</value>
+  </data>
+  <data name="GenMoveNodes" xml:space="preserve">
+    <value>Move node</value>
+  </data>
+  <data name="GenMoveMesh" xml:space="preserve">
+    <value>Move mesh</value>
+  </data>
+  <data name="GenMergeElementSets" xml:space="preserve">
+    <value>Merge elements sets</value>
+  </data>
+  <data name="GenLoadProject" xml:space="preserve">
+    <value>Load project</value>
+  </data>
+  <data name="GenFindVolElems" xml:space="preserve">
+    <value>Find 3D elements</value>
+  </data>
+  <data name="GenFindObject" xml:space="preserve">
+    <value>Find object</value>
+  </data>
+  <data name="GenFindFreeNodes" xml:space="preserve">
+    <value>Find free nodes</value>
+  </data>
+  <data name="GenFindCoincident" xml:space="preserve">
+    <value>Find Coincident</value>
+  </data>
+  <data name="GenExtrudeCurve" xml:space="preserve">
+    <value>Extrude curve</value>
+  </data>
+  <data name="GenExtrudeByRotation" xml:space="preserve">
+    <value>Extrusion by rotation</value>
+  </data>
+  <data name="GenExit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="GenCreateSurface" xml:space="preserve">
+    <value>Create surface</value>
+  </data>
+  <data name="GenCreatePoint" xml:space="preserve">
+    <value>Create point</value>
+  </data>
+  <data name="GenCreateMesh2DPoligon" xml:space="preserve">
+    <value>Build 2D mesh</value>
+  </data>
+  <data name="GenCreateCurve" xml:space="preserve">
+    <value>Create curve</value>
+  </data>
+  <data name="GenBeamConnection" xml:space="preserve">
+    <value>Connect with beams</value>
+  </data>
+  <data name="FindVolElemsEventArgsArgExc" xml:space="preserve">
+    <value>The parameter value must be a number.</value>
+  </data>
+  <data name="FindCoincidentOption" xml:space="preserve">
+    <value>nodes</value>
+  </data>
+  <data name="ExecuteCMDFileMissing" xml:space="preserve">
+    <value>The specified command file is missing!</value>
+  </data>
+  <data name="CurrentSession" xml:space="preserve">
+    <value>Current session</value>
+  </data>
+  <data name="BeamConnectionEventArgsArgNumExc" xml:space="preserve">
+    <value>The parameter value must be a number.</value>
+  </data>
+  <data name="AvailableCommands" xml:space="preserve">
+    <value>Available commands</value>
+  </data>
+  <data name="txbPoint3.Text" xml:space="preserve">
+    <value>0;0;0</value>
+  </data>
+  <data name="txbPoint2.Text" xml:space="preserve">
+    <value>0;0;0</value>
+  </data>
+  <data name="txbPoint1.Text" xml:space="preserve">
+    <value>0;0;0</value>
+  </data>
+  <data name="rbtYZ.Text" xml:space="preserve">
+    <value>YZ</value>
+  </data>
+  <data name="rbtXZ.Text" xml:space="preserve">
+    <value>XZ</value>
+  </data>
+  <data name="rbtXY.Text" xml:space="preserve">
+    <value>XY</value>
+  </data>
+  <data name="CrossSectionControl.InvalidSurfaceCoordsSetException" xml:space="preserve">
+    <value>Incorrectly specified plane coordinates</value>
+  </data>
+  <data name="toolStripContainer2.Text" xml:space="preserve">
+    <value>toolStripContainer2</value>
+  </data>
+  <data name="toolStripContainer1.Text" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="LoadDBCorruptedException" xml:space="preserve">
+    <value>The downloaded database is corrupted</value>
+  </data>
+  <data name="LoadDBAddIntoMissingDBException" xml:space="preserve">
+    <value>Upload a database or create a new one</value>
+  </data>
+  <data name="DeletingError" xml:space="preserve">
+    <value>Removal error</value>
+  </data>
+  <data name="DelBranchException" xml:space="preserve">
+    <value>An error occurred while deleting data!</value>
+  </data>
+  <data name="CopySuffics" xml:space="preserve">
+    <value>_copy</value>
+  </data>
+  <data name="AddBranch.ExceptionMessage" xml:space="preserve">
+    <value>Error adding node</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Task" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Sets" xml:space="preserve">
+    <value>Sets</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Results" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Objects" xml:space="preserve">
+    <value>Objects</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.NodesGroup" xml:space="preserve">
+    <value>Node_Group</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Mesh" xml:space="preserve">
+    <value>Mesh</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Media" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Load" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Heat" xml:space="preserve">
+    <value>Heat</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Geometry" xml:space="preserve">
+    <value>Geometry</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.ElementsGroup" xml:space="preserve">
+    <value>Elements_Group</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Clamp" xml:space="preserve">
+    <value>Clamp</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Calculations" xml:space="preserve">
+    <value>Calculations</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Calculation" xml:space="preserve">
+    <value>Calculation</value>
+  </data>
+  <data name="clslTransparency.Text" xml:space="preserve">
+    <value>colorSlider1</value>
+  </data>
+  <data name="clslLigthingIntensity.Text" xml:space="preserve">
+    <value>colorSlider</value>
+  </data>
+  <data name="toolStripContainer.Text" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+</root>

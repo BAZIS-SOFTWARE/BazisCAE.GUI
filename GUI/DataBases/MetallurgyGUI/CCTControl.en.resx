@@ -136,37 +136,4 @@
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 15</value>
   </data>
-  <data name="txbMinVel.Text" xml:space="preserve">
-    <value>-0.01</value>
-  </data>
-  <data name="txbMaxVel.Text" xml:space="preserve">
-    <value>-100</value>
-  </data>
-  <data name="txbFinTemp.Text" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="txbIniTemp.Text" xml:space="preserve">
-    <value>800</value>
-  </data>
-  <data name="cmbPhases.AccessibleName" xml:space="preserve">
-    <value>InitialPhase</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Quentity</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Final temperture</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Max speed</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>min speed</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Initial temperture</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Initial phase</value>
-  </data>
 </root>
