@@ -49,7 +49,7 @@ namespace BazisGUI
                         return;
 
                     project.MaterialsDB = matBasePage.Materials;
-                    console.PrintInfo($"База данных {matBasePage.Materials.Name} успешно добавлена", Color.Green);
+                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenDB.Message")} {matBasePage.Materials.Name} {Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenDB.SuccessfullyAdded.Message")}", Color.Green);
                 };
 
                 if (project == null)
@@ -59,7 +59,7 @@ namespace BazisGUI
 
                 if (project.MaterialsDB == null)
                 {
-                    console.PrintInfo($"База данных материалов не загружена", Color.Red);
+                    console.PrintInfo(Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenMatDB.DBNotLoaded.Message"), Color.Red);
                     return;
                 }
                 matBasePage.Materials = project.MaterialsDB;
@@ -103,7 +103,7 @@ namespace BazisGUI
                         return;
 
                     project.FunctionsDB = funBasePage.Functions;
-                    console.PrintInfo($"База данных {funBasePage.Functions.Name} успешно добавлена", Color.Green);
+                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenDB.Message")} {funBasePage.Functions.Name} {Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenDB.SuccessfullyAdded.Message")}", Color.Green);
                 };
 
                 ShowTabButton("btnTabФункции");
@@ -120,7 +120,7 @@ namespace BazisGUI
 
                 if (project.FunctionsDB == null)
                 {
-                    console.PrintInfo($"База данных функций не загружена", Color.Red);
+                    console.PrintInfo(Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenFuncDB.DBNotLoaded.Message"), Color.Red);
                     return;
                 }
                 funBasePage.Functions = project.FunctionsDB;

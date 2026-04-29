@@ -12,10 +12,8 @@ namespace BazisGUI
         {
             try
             {
-                var nodeName = navigator.SelectedNode.Name.ToEnum<NodeName>();
-
                 // TODO Подумать над очисткой данных геометрии
-                if (nodeName == NodeName.сетка)
+                if (navigator.SelectedNode.Name == NodeName.Mesh.ToString())
                 {
                     project.ClearModelCollection(ObjType.Узел);
 

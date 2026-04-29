@@ -1,4 +1,5 @@
-﻿using BazisGUI.PropertiesPanel;
+﻿using BazisGUI.Navigator;
+using BazisGUI.PropertiesPanel;
 using ResultDB.IO;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectResultEvent(Navigator.NodeName arg1, string arg2)
+        private void navigator_SelectResultEvent(string arg2)
         {
             try
             {

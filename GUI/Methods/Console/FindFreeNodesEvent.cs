@@ -13,7 +13,7 @@ namespace BazisGUI
 
             Invoke(new Action(() =>
             {
-                console.PrintInfo($"Найдено {freeNodes.Count()} свободных узлов", Color.Black);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("FindFreeNodesEvent.Found.Message")} {freeNodes.Count()} {Localization.Localization.GetStringResourceByName("FindFreeNodesEvent.FreeNodes.Message")}", Color.Black);
 
                 if(freeNodes.Count() != 0)
                 {

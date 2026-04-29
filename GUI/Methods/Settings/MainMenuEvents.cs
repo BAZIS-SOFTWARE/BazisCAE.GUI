@@ -155,6 +155,15 @@ namespace BazisGUI
 
                 DisplayObjects();
             };
+
+            settings.SetLanguageEvent += (ar) => 
+            {
+                if (settingsConfig.Language != ar)
+                {
+                    MessageBox.Show(Localization.Localization.GetStringResourceByName("MainMenuEvents.ChangeLanguage.Message"), Localization.Localization.GetAttentionCaption());
+                    settingsConfig.Language = ar;
+                }
+            };
         }
     }
 }

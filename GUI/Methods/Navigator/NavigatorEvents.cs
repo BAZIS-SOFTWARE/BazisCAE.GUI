@@ -37,7 +37,7 @@ namespace BazisGUI
         {
             try
             {
-                navigator.TrySearchNodes(NodeName.результаты, out List<TreeNode> nodes);
+                navigator.TrySearchNodes(NodeName.Results, out List<TreeNode> nodes);
                 //nodes[0].Nodes["ПоУзлам"].Nodes.Clear();
                 //nodes[0].Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
                 nodes[0].Remove();
@@ -103,7 +103,7 @@ namespace BazisGUI
                 foreach (var item in project.GetModelVolumes())
                 {
                     //var text = $"{item.Number} {item.Name} {item.NumberOfSides}";
-                    var r_node = navigator.CreateRealNode(NodeName.объект, item.ToString());
+                    var r_node = navigator.CreateRealNode(NodeName.Objects, item.ToString());
 
                     //navigator.SetContextMenu(r_node);
 
@@ -120,7 +120,7 @@ namespace BazisGUI
                 }
 
                 var setInfo = project.GetModelSetInfo(objType, setName);
-                var childs = navigator.CreateRealNodes(NodeName.объект, setInfo.GetObjectsInfo());
+                var childs = navigator.CreateRealNodes(NodeName.Objects, setInfo.GetObjectsInfo());
 
                 // Кажется что это костыль, но без него происходит
                 // вывод текста узлов в верхний левый угол вякий раз, когда добавляются
@@ -145,7 +145,7 @@ namespace BazisGUI
             //var sets = project.GetModelSetsInfo(objType);
 
             List<ObjType> objTypes;
-            if (nodeType == NodeName.сетка)
+            if (nodeType == NodeName.Mesh)
                 objTypes = new List<ObjType>()
                 {
                     ObjType.Узел,
@@ -167,17 +167,17 @@ namespace BazisGUI
                 {
                     //var nodeName = Converters.ConvertToNavigatorNodeType(set.ObjType);
                     var text = $"{set.ObjType} {set.Name} {set.NumberOfObjects}";
-                    var r_node = navigator.CreateRealNode(NodeName.набор, text);
+                    var r_node = navigator.CreateRealNode(NodeName.Sets, text);
                     var v_node = navigator.CreateVirtualNode();
                     r_node.Nodes.Add(v_node);
                     node.Nodes.Add(r_node);
                     //navigator.SetContextMenu(r_node);
                 }
             // загрузка объемов
-            if (nodeType == NodeName.геометрия)
+            if (nodeType == NodeName.Geometry)
             {
                 var text = $"Объемы Объем {project.GetModelVolumes().Count()}";
-                var r_node = navigator.CreateRealNode(NodeName.набор, text);
+                var r_node = navigator.CreateRealNode(NodeName.Sets, text);
 
                 var v_node = navigator.CreateVirtualNode();
                 r_node.Nodes.Add(v_node);
@@ -197,7 +197,7 @@ namespace BazisGUI
         {
             var times = resultTimes.Select(x => x.ToString());
 
-            var childs = navigator.CreateRealNodes(NodeName.время, times);
+            var childs = navigator.CreateRealNodes(NodeName.Time, times);
             node.Nodes.AddRange(childs);
         }
     }

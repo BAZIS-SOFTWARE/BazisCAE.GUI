@@ -1,13 +1,15 @@
-﻿using BazisGUI.Scene.Interfaces;
+﻿using BazisGUI;
 using BazisGUI.Scene.Interfaces;
-using System;
+using BazisGUI.Scene.Interfaces;
 using Geometry;
-using System.Drawing;
 using MathNet.Numerics.LinearAlgebra;
-using BazisGUI;
-using System.Windows.Forms;
 using Model.Interfaces;
+using System;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
+using static IronPython.Modules._ast;
 
 namespace BazisGUI
 {
@@ -18,8 +20,9 @@ namespace BazisGUI
             try
             {
                 var image = CreateScreenShot();
-                image.Save(WorkingDir + "\\screenShot.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
-                console.PrintInfo($"Сделан снимок экрана {WorkingDir}\\screenShot.bmp", Color.Black);
+                var path = Path.Combine(WorkingDir, "screenShot.bmp");
+                image.Save(path, System.Drawing.Imaging.ImageFormat.Bmp);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("MakeScreenShot.ScreenShotTaken.Message")}: {path}", Color.Black);
             }
             catch (Exception ex)
             {

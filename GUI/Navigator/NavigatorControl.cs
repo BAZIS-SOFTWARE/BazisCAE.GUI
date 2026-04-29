@@ -1,5 +1,6 @@
 ﻿using BazisGUI.Extensions;
 using BazisGUI.PinnedControl;
+using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,37 +20,34 @@ namespace BazisGUI.Navigator
 {
     //public enum ViewRegime : int { ribbers, surfaces, ribbersSurfaces };
 
-    public enum NodeKind : int { real,virt}
-    
-    public enum NodeName : int 
+    public enum NodeKind : int { real,virt }
+    public enum NodeName : int
     {
-        проект,
-        геометрия,
-        сетка,
+        Project,
+        Geometry,
+        Mesh,
 
-        набор,
-        объект,
+        Sets,
+        Objects,
 
-        группы,
-        //Виды групп
-        группаУзлов,
-        группаЭлементов,
+        Groups,
+        NodesGroup,
+        ElementsGroup,
 
-        задача,
-        //условия
-        материал,
-        среда,
-        нагрев,
-        закрепление,
-        нагрузка,
+        Task,
+        Material,
+        Media,
+        Heat,
+        Clamp,
+        Load,
 
-        расчеты,
-        расчет,
+        Calculations,
+        Calculation,
 
-        результаты,
-        результат,
-        время
-    };
+        Results,
+        Result,
+        Time
+    }
 
     public partial class NavigatorControl : PinnedPage
     {
@@ -102,7 +100,7 @@ namespace BazisGUI.Navigator
         public event Action ShowSetEvent;
         public event Action HideSetEvent;
         public event Action DelSetEvent;
-        public event Action<NodeName, string> SelectSetEvent;
+        public event Action<string> SelectSetEvent;
         public event Action<TreeNode> GetSetsInfoEvent;
 
         public event Action<int> SelectGroupEvent;
@@ -132,7 +130,7 @@ namespace BazisGUI.Navigator
         public event Action SelectCompsEvent;
         public event Action SelectGeneralInfoEvent;
         public event Action<string, double> SelectTimeEvent;
-        public event Action<NodeName, string> SelectResultEvent;
+        public event Action<string> SelectResultEvent;
 
         public event Action<TreeNode> GetResultInfoEvent;
         public event Action DelCondEvent;
@@ -146,52 +144,58 @@ namespace BazisGUI.Navigator
                 SetValue(treeView, true, null);
 
             //SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-
-
+            
+            var node = new TreeNode 
+            { 
+                Text = Localization.Localization.GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Project"),
+                Name = NodeName.Project.ToString()
+            };
+            treeView.Nodes.Clear();
+            treeView.Nodes.Add(node);
             //8 - 
 
             genImgDict = new Dictionary<NodeName, int>()
             {
-                { NodeName.сетка,7},
-                { NodeName.геометрия,7},
-                { NodeName.материал,2},
-                { NodeName.среда,3},
-                { NodeName.нагрев,4},
-                { NodeName.закрепление,5},
-                { NodeName.нагрузка,6},
-                { NodeName.результаты,7},
-                { NodeName.расчеты,7},
-                { NodeName.расчет,9},
-                { NodeName.результат,7},
-                { NodeName.время,9},
-                { NodeName.задача,7},
-                { NodeName.группы,7},
-                { NodeName.группаУзлов,0},
-                { NodeName.группаЭлементов,1},
-                { NodeName.набор,7},
-                { NodeName.объект,9}
+                { NodeName.Mesh,7},
+                { NodeName.Geometry,7},
+                { NodeName.Material,2},
+                { NodeName.Media,3},
+                { NodeName.Heat,4},
+                { NodeName.Clamp,5},
+                { NodeName.Load,6},
+                { NodeName.Results,7},
+                { NodeName.Calculations,7},
+                { NodeName.Calculation,9},
+                { NodeName.Result,7},
+                { NodeName.Time,9},
+                { NodeName.Task,7},
+                { NodeName.Groups,7},
+                { NodeName.NodesGroup,0},
+                { NodeName.ElementsGroup,1},
+                { NodeName.Sets,7},
+                { NodeName.Objects,9}
             };
 
             helpImgDict = new Dictionary<NodeName, int[]>()
             {
-                { NodeName.сетка,new []{ 2,3,4} },
-                { NodeName.геометрия,new []{ 2, 3, 4 } },
-                { NodeName.материал,new []{ 4} },
-                { NodeName.среда,new []{ 4}},
-                { NodeName.нагрев,new []{ 4}},
-                { NodeName.закрепление,new []{ 4}},
-                { NodeName.нагрузка,new []{ 4}},
-                { NodeName.результаты,new []{ 3,4}},
-                { NodeName.результат,new int[0]},
-                { NodeName.время,new int[0]},
-                { NodeName.расчеты,new int [0]},
-                { NodeName.расчет,new int [0]},
-                { NodeName.задача,new []{4} },
-                { NodeName.группы,new []{ 2,3,4}},
-                { NodeName.группаУзлов,new []{ 0,1,2,3,4}},
-                { NodeName.группаЭлементов,new []{ 0,1,2,3,4}},
-                { NodeName.объект,new []{ 2,3,4}},
-                { NodeName.набор,new []{ 2,3,4}},
+                { NodeName.Mesh,new []{ 2,3,4} },
+                { NodeName.Geometry,new []{ 2, 3, 4 } },
+                { NodeName.Material,new []{ 4} },
+                { NodeName.Media,new []{ 4}},
+                { NodeName.Heat,new []{ 4}},
+                { NodeName.Clamp,new []{ 4}},
+                { NodeName.Load,new []{ 4}},
+                { NodeName.Results,new []{ 3,4}},
+                { NodeName.Result,new int[0]},
+                { NodeName.Time,new int[0]},
+                { NodeName.Calculations,new int [0]},
+                { NodeName.Calculation,new int [0]},
+                { NodeName.Task,new []{4} },
+                { NodeName.Groups,new []{ 2,3,4}},
+                { NodeName.NodesGroup,new []{ 0,1,2,3,4}},
+                { NodeName.ElementsGroup,new []{ 0,1,2,3,4}},
+                { NodeName.Objects,new []{ 2,3,4}},
+                { NodeName.Sets,new []{ 2,3,4}},
             };
 
             treeView.Nodes[0].Expand();
@@ -207,9 +211,9 @@ namespace BazisGUI.Navigator
             return genImgDict[nodeType];
         }
 
-        public TreeNode CreateRealNode(string name, string text)
+        public TreeNode CreateRealNode(NodeName nodeName)
         {
-            return new TreeNode(text) { Name = name };
+            return new TreeNode(Localization.Localization.GetNavigatorNodeNameLocalization(nodeName)) { Name = nodeName.ToString() };
         }
 
         public TreeNode CreateRealNode(NodeName nodeName, string text)
@@ -232,14 +236,14 @@ namespace BazisGUI.Navigator
             return tVirt;
         }
 
-        public TreeNode CreateVirtualNode(string name)
-        {
-            var tVirt = new TreeNode("Loading...") { Name = name };
-            tVirt.Name = VIRTUALNODE;
-            tVirt.ForeColor = Color.Blue;
-            //tVirt.NodeFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Underline);
-            return tVirt;
-        }
+        //public TreeNode CreateVirtualNode(string name)
+        //{
+        //    var tVirt = new TreeNode("Loading...") { Name = name };
+        //    tVirt.Name = VIRTUALNODE;
+        //    tVirt.ForeColor = Color.Blue;
+        //    //tVirt.NodeFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Underline);
+        //    return tVirt;
+        //}
 
         public TreeNode CreateVirtualNode()
         {
@@ -269,29 +273,30 @@ namespace BazisGUI.Navigator
             return childs;
         }
 
-        public void TryCreateNode(string root, string name,string text, NodeKind kind)
-        {
+        //public void TryCreateNode(string root, string name,string text, NodeKind kind)
+        //{
     
-            if (TrySearchNodes(root,out List<TreeNode>nodes))
-            {
-                if (kind == NodeKind.virt)
-                {
-                    var v = CreateVirtualNode(name);
-                    nodes.First().Nodes.Add(v);
-                }
+        //    if (TrySearchNodes(root,out List<TreeNode>nodes))
+        //    {
+        //        if (kind == NodeKind.virt)
+        //        {
+        //            var v = CreateVirtualNode(name);
+        //            nodes.First().Nodes.Add(v);
+        //        }
 
-                else
-                {
-                    var r = CreateRealNode(name, text);
-                    nodes.First().Nodes.Add(r);
-                }
-            }
+        //        else
+        //        {
+        //            var r = CreateRealNode(name, text);
+        //            nodes.First().Nodes.Add(r);
+        //        }
+        //    }
 
-        }
+        //}
 
         public void ActionMenu(TreeNode node, int actIndex)
         {
-            if (node.Name == NodeName.результаты.ToString())
+            var nodeName = node.Name.ToEnum<NodeName>();
+            if (nodeName == NodeName.Results)
             {
                 if (actIndex == 0)
                     HideResultsEvent?.Invoke();
@@ -301,22 +306,22 @@ namespace BazisGUI.Navigator
             }
 
             //node.ContextMenuStrip = resultsMenuStrip;
-            else if (node.Name == NodeName.задача.ToString())
+            else if (nodeName == NodeName.Task)
             {
                 if (actIndex == 0)
                     RemoveAllConditionsEvent?.Invoke();
             }
-            else if (node.Name == NodeName.материал.ToString() |
-                    node.Name == NodeName.среда.ToString() |
-                    node.Name == NodeName.нагрев.ToString() |
-                    node.Name == NodeName.закрепление.ToString() |
-                    node.Name == NodeName.нагрузка.ToString())
+            else if (nodeName == NodeName.Material |
+                    nodeName == NodeName.Media |
+                    nodeName == NodeName.Heat |
+                    nodeName == NodeName.Clamp |
+                    nodeName == NodeName.Load)
                 {
                 if (actIndex == 0)
                     DelCondEvent?.Invoke();
             }
             //node.ContextMenuStrip = taskMenuStrip;
-            else if (node.Name == NodeName.геометрия.ToString())
+            else if (nodeName == NodeName.Geometry)
             {
                 if (actIndex == 0)
                     ChangeAllGeoViewStateEvent?.Invoke(true);
@@ -327,7 +332,7 @@ namespace BazisGUI.Navigator
                 
             }
                 //node.ContextMenuStrip = geoMenuStrip;
-            else if (node.Name == NodeName.сетка.ToString())
+            else if (nodeName == NodeName.Mesh)
             {
                 // TODO подключить
                 if (actIndex == 0)
@@ -339,7 +344,7 @@ namespace BazisGUI.Navigator
                 
             }
 
-            else if (node.Name == NodeName.набор.ToString())
+            else if (nodeName == NodeName.Sets)
             {
                 if (actIndex == 0)
                     ShowSetEvent?.Invoke();
@@ -348,7 +353,7 @@ namespace BazisGUI.Navigator
                 else if (actIndex == 2)
                     DelSetEvent?.Invoke();
             }
-            else if (node.Name == NodeName.объект.ToString())
+            else if (nodeName == NodeName.Objects)
             {
                 if (actIndex == 0)
                     ShowObjectEvent?.Invoke();
@@ -358,7 +363,7 @@ namespace BazisGUI.Navigator
                     DelObjectEvent?.Invoke();
             }
             //node.ContextMenuStrip = meshMenuStrip;
-            else if (node.Name == NodeName.группы.ToString())
+            else if (nodeName == NodeName.Groups)
             {
                 if (actIndex == 0)
                     ShowAllGroupsEvent?.Invoke();
@@ -369,8 +374,8 @@ namespace BazisGUI.Navigator
 
             }
 
-            else if (node.Name == NodeName.группаУзлов.ToString() |
-                    node.Name == NodeName.группаЭлементов.ToString())
+            else if (nodeName == NodeName.NodesGroup |
+                    nodeName == NodeName.ElementsGroup)
             {
                 if (actIndex == 0)
                     InfoGroupEvent?.Invoke();
@@ -506,58 +511,58 @@ namespace BazisGUI.Navigator
 
                 if (e.Node.Level == 0)
                 {
-                    if (node.Name == NodeName.проект.ToString())
+                    if (node.Name == NodeName.Project.ToString())
                         SelectGeneralInfoEvent?.Invoke();
-                    else if (node.Name == NodeName.результаты.ToString())
+                    else if (node.Name == NodeName.Results.ToString())
                         SelectResultsEvent?.Invoke();
                 }
 
                 else if (e.Node.Level == 1)
                 {
-                    if (node.Name == NodeName.геометрия.ToString())
+                    if (node.Name == NodeName.Geometry.ToString())
                         SelectGeoEvent?.Invoke();
-                    else if (node.Name == NodeName.сетка.ToString())
+                    else if (node.Name == NodeName.Mesh.ToString())
                         SelectMeshEvent?.Invoke();
-                    else if (node.Name == NodeName.задача.ToString())
+                    else if (node.Name == NodeName.Task.ToString())
                         SelectTaskEvent?.Invoke();
-                    else if (node.Name == NodeName.результаты.ToString())
+                    else if (node.Name == NodeName.Results.ToString())
                         SelectResultsEvent?.Invoke();
-                    else if (node.Name == NodeName.расчеты.ToString())
+                    else if (node.Name == NodeName.Calculations.ToString())
                         SelectCompsEvent?.Invoke();
                 }
 
                 else if (e.Node.Level == 2)
                 {
-                    if (e.Node.Name == NodeName.материал.ToString() |
-                        e.Node.Name == NodeName.среда.ToString() |
-                        e.Node.Name == NodeName.нагрев.ToString() |
-                        e.Node.Name == NodeName.закрепление.ToString() |
-                        e.Node.Name == NodeName.нагрузка.ToString())
+                    if (e.Node.Name == NodeName.Material.ToString() |
+                        e.Node.Name == NodeName.Media.ToString() |
+                        e.Node.Name == NodeName.Heat.ToString() |
+                        e.Node.Name == NodeName.Clamp.ToString() |
+                        e.Node.Name == NodeName.Load.ToString())
                         SelectCondEvent?.Invoke(e.Node.Index);
-                    else if (e.Node.Name == NodeName.расчет.ToString())
+                    else if (e.Node.Name == NodeName.Calculation.ToString())
                     {
                         SelectCompEvent?.Invoke(e.Node.Text);
                     }
 
-                    else if (e.Node.Name == NodeName.группаУзлов.ToString() |
-                        e.Node.Name == NodeName.группаЭлементов.ToString())
+                    else if (e.Node.Name == NodeName.NodesGroup.ToString() |
+                        e.Node.Name == NodeName.ElementsGroup.ToString())
                         SelectGroupEvent?.Invoke(e.Node.Index);
 
-                    else if (e.Node.Name == NodeName.результат.ToString())
-                        SelectResultEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
+                    else if (e.Node.Name == NodeName.Result.ToString())
+                        SelectResultEvent?.Invoke(e.Node.Text);
                     else
-                        SelectSetEvent?.Invoke(e.Node.Name.ToEnum<NodeName>(), e.Node.Text);
+                        SelectSetEvent?.Invoke( e.Node.Text);
                 }
 
                 else if (e.Node.Level == 3)
                 {
-                    if (e.Node.Name == NodeName.объект.ToString())
+                    if (e.Node.Name == NodeName.Objects.ToString())
                     {
                         var number = int.Parse(node.Text.Split(' ')[0]);
                         var objType = node.Text.Split(' ')[1];
                         SelectObjectEvent?.Invoke(objType, number);
                     }
-                    else if (e.Node.Name == NodeName.время.ToString())
+                    else if (e.Node.Name == NodeName.Time.ToString())
                         SelectTimeEvent?.Invoke(e.Node.Parent.Text, double.Parse(e.Node.Text));
                 }
             }
@@ -582,13 +587,13 @@ namespace BazisGUI.Navigator
 
                     if(e.Node.Level == 1)
                     {
-                        if(e.Node.Name == NodeName.сетка.ToString() |
-                            e.Node.Name == NodeName.геометрия.ToString())
+                        if(e.Node.Name == NodeName.Mesh.ToString() |
+                            e.Node.Name == NodeName.Geometry.ToString())
                             GetSetsInfoEvent?.Invoke(e.Node);
                     } 
 
                     else if(e.Node.Level == 2)
-                        if (e.Node.Name == NodeName.результат.ToString())
+                        if (e.Node.Name == NodeName.Result.ToString())
                             GetResultInfoEvent?.Invoke(e.Node);
                         else
                             GetObjectsInfoEvent?.Invoke(e.Node);
@@ -685,33 +690,33 @@ namespace BazisGUI.Navigator
 
         // Returns the bounds of the specified node, including the region 
         // occupied by the node label and any node tag displayed.
-        private Rectangle NodeBounds(TreeNode node)
-        {
-            // Set the return value to the normal node bounds.
-            Rectangle bounds = node.Bounds;
-            if (node.Tag != null)
-            {
-                // Retrieve a Graphics object from the TreeView handle
-                // and use it to calculate the display width of the tag.
-                Graphics g = CreateGraphics();
-                int tagWidth = (int)g.MeasureString
-                    (node.Tag.ToString(), Font).Width + 6;
+        //private Rectangle NodeBounds(TreeNode node)
+        //{
+        //    // Set the return value to the normal node bounds.
+        //    Rectangle bounds = node.Bounds;
+        //    if (node.Tag != null)
+        //    {
+        //        // Retrieve a Graphics object from the TreeView handle
+        //        // and use it to calculate the display width of the tag.
+        //        Graphics g = CreateGraphics();
+        //        int tagWidth = (int)g.MeasureString
+        //            (node.Tag.ToString(), Font).Width + 6;
 
-                // Adjust the node bounds using the calculated value.
-                bounds.Offset(tagWidth / 2, 0);
-                bounds = Rectangle.Inflate(bounds, tagWidth / 2, 0);
-                g.Dispose();
-            }
+        //        // Adjust the node bounds using the calculated value.
+        //        bounds.Offset(tagWidth / 2, 0);
+        //        bounds = Rectangle.Inflate(bounds, tagWidth / 2, 0);
+        //        g.Dispose();
+        //    }
 
-            return bounds;
-        }   
+        //    return bounds;
+        //}   
 
-        private void SplitButton_Closing(object sender, ToolStripDropDownClosingEventArgs e)
-        {
-            if (e.CloseReason == ToolStripDropDownCloseReason.ItemClicked)
-            {
-                e.Cancel = true;
-            }
-        }
+        //private void SplitButton_Closing(object sender, ToolStripDropDownClosingEventArgs e)
+        //{
+        //    if (e.CloseReason == ToolStripDropDownCloseReason.ItemClicked)
+        //    {
+        //        e.Cancel = true;
+        //    }
+        //}
     }
 }

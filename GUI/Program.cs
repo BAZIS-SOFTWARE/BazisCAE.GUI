@@ -16,6 +16,7 @@ namespace BazisGUI
         [STAThread]
         static void Main(string[] args)
         {
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);

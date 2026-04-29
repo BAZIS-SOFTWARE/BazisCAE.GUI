@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-    Microsoft ResX Schema 
+    Microsoft ResX Schema
 
     Version 2.0
 
@@ -48,7 +48,7 @@
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
@@ -117,32 +117,441 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&gt;&gt;cmbFinalPhase.Name" xml:space="preserve">
+    <value>cmbFinalPhase</value>
+  </data>
+  <data name="chbTimeDependent.Text" xml:space="preserve">
+    <value>The reaction depends on time</value>
+  </data>
+  <data name="cmbInitialPhase.AccessibleName" xml:space="preserve">
+    <value>InitialPhase</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnDelPhaseValue.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 15</value>
+  </data>
+  <data name="&gt;&gt;btnChangePhaseValue.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;dgv.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmbFinalPhase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>139, 35</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnAddPhaseValue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="&gt;&gt;txbPhaseValue.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="dgv.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 158</value>
+  </data>
+  <data name="&gt;&gt;chbTimeDependent.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="cmbInitialPhase.Size" type="System.Drawing.Size, System.Drawing">
+    <value>549, 23</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cmbFinalPhase.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;btnChangePhaseValue.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="cmbInitialPhase.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;txbPhaseValue.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="&gt;&gt;btnDelPhaseValue.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cmbInitialPhase.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmbPhaseName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>549, 23</value>
+  </data>
+  <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cmbPhaseName.Items1" xml:space="preserve">
+    <value>Heating</value>
+  </data>
+  <data name="&gt;&gt;btnAddPhaseValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnAddPhaseValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 29</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnChangePhaseValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 29</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Reaction name</value>
+  </data>
+  <data name="txbPhaseValue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>139, 122</value>
+  </data>
+  <data name="cmbPhaseName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="&gt;&gt;btnAddPhaseValue.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;btnDelPhaseValue.Name" xml:space="preserve">
+    <value>btnDelPhaseValue</value>
+  </data>
+  <data name="btnDelPhaseValue.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;cmbFinalPhase.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 7</value>
+  </data>
+  <data name="chbTimeDependent.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Final phase</value>
+  </data>
+  <data name="&gt;&gt;dgv.Name" xml:space="preserve">
+    <value>dgv</value>
+  </data>
+  <data name="cmbFinalPhase.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="dgv.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="btnDelPhaseValue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>66, 122</value>
+  </data>
+  <data name="txbPhaseValue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 15</value>
+  </data>
+  <data name="btnAddPhaseValue.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;dgv.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <data name="btnChangePhaseValue.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABEAAAAQCAYAAADwMZRfAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAF5IAABeSAUKsXsEAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
-        AAABjElEQVQ4T31TzytEURT+/NjZIMkSZYel8gcoylqUpVjIysJ2Fv4DJZp3z60p+ZUd2VlIQkkjkjJz
-        zzWNGWXBhkIe776ZN+/dec9XZ3PO9333nnPuBWwIHgPxHohLIHZB/ALBhyA9jR23yaZH4RTafbIRJsUl
-        SPfaUh9StYL4NkYUFyWkuce2AIh3LeIVBM9D6hEQz4D4KFRjpPODprX1pw7fQPCwZbAS27vgRZA6Ruah
-        E5lyCwSfwOFlvyjZCRmcIuU22voAXk2qLhDfgPSX4RsIvg9MhJ6wdRFkHvshOB86NAfXbfDm8R4kYwdW
-        gb/6otV6GTLX55l81JIJ6yM9HjmsGpK/4eg5z+SullSTtj6ALAxAqk1IfgPxK4h/KroD75S1kPvZv4Ml
-        vVXjqhykypq5wMkPWddcRcpttvWQeinKU1Mmv6HbfAKp7QhBcBZSL/jD1LPmfYTrUp/X39j7N6SurRsl
-        RRFSdUcNqvCesDekelEo1EXiBiOQarTSXgHEnyB+huR9s7m47/CHX4emk5d7FjGPAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABEAAAAQCAYAAADwMZRfAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAX
+        kAAAF5ABPVKdSAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGQSURBVDhPfVTN
+        KwVRFD8+djZIskTZYan8AYqyFmUpFrKysLXwHyjRm7m3puQrO7KzkOQp6YmkzLv3mp73lAUbChnnfpiv
+        N9evfs2dc36/M3PPuTNQB5ePAeH7yCoyRL5g7AiImIbdsMmoLHCCdi1WRhsvsVivcWRAWSsKbjMGG6tQ
+        4D3GmQDhexnhFb7VPFAxgusZ5HEix6FQHlRb23jq0AVcPpwQSK7m7t3li0DYCXgPneDVWvD+FBy+opOU
+        O4kCZ7AcNupEDmSOsi7U3WBvvpReweX3URFXTOigBd5jP+rLkZ5wH8KwQfbjPQrmNsxAj74SaTVrQP0+
+        WeQjDlrGR8Q45uOH/ZHyb3DEnCxyFwfZpLHVgwYDmN9C4xtqX5E/xncon7JubiTP/20sEduxlvlYtIRr
+        H09qeShOKK5hoWZji0HFUlrHplR8U7SpKwZ2UgKXl9C0oJspZtX5SOapKNa/sfxuCLtOCe2s4Da6jTMD
+        eYRlk/KNhuzCOsEUKBs12wuQn8hnnMiBmlzurwDgF4emk5eGjyBzAAAAAElFTkSuQmCC
 </value>
+  </data>
+  <data name="btnAddPhaseValue.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="cmbPhaseName.Items" xml:space="preserve">
+    <value>Cooling</value>
+  </data>
+  <data name="cmbFinalPhase.Size" type="System.Drawing.Size, System.Drawing">
+    <value>549, 23</value>
+  </data>
+  <data name="&gt;&gt;dgv.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;chbTimeDependent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dgv.Size" type="System.Drawing.Size, System.Drawing">
+    <value>685, 399</value>
+  </data>
+  <data name="cmbFinalPhase.AccessibleName" xml:space="preserve">
+    <value>FinalPhase</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;cmbPhaseName.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="cmbPhaseName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;chbTimeDependent.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cmbFinalPhase.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Начальная фаза</value>
+  </data>
+  <data name="&gt;&gt;cmbFinalPhase.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbInitialPhase.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="btnChangePhaseValue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 122</value>
+  </data>
+  <data name="chbTimeDependent.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 38</value>
+  </data>
+  <data name="dgv.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="btnChangePhaseValue.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="txbPhaseValue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="txbPhaseValue.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 11.75pt</value>
+  </data>
+  <data name="&gt;&gt;cmbPhaseName.Name" xml:space="preserve">
+    <value>cmbPhaseName</value>
+  </data>
+  <data name="txbPhaseValue.Text" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 15</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="txbPhaseValue.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 69</value>
+  </data>
+  <data name="&gt;&gt;cmbPhaseName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnChangePhaseValue.Name" xml:space="preserve">
+    <value>btnChangePhaseValue</value>
+  </data>
+  <data name="&gt;&gt;cmbInitialPhase.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="btnDelPhaseValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 29</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;chbTimeDependent.Name" xml:space="preserve">
+    <value>chbTimeDependent</value>
+  </data>
+  <data name="cmbPhaseName.AccessibleName" xml:space="preserve">
+    <value>PhaseName</value>
+  </data>
+  <data name="&gt;&gt;btnChangePhaseValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnAddPhaseValue.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="&gt;&gt;btnDelPhaseValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmbPhaseName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>139, 66</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 15</value>
   </data>
   <data name="btnDelPhaseValue.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wgAADsIBFShKgAAAAFVJREFUOE/NjEEKACAIBP3/D3qtUSDUlOYhqIG9uLOKfIUW0RbejbC30pNO/SKM
-        Eu/pB1G471Dywt0EZYb+Fo6ujFNPKHvhrkPpFO63DzLdRFgm+jdUPKYIOroK8iQAAAAASUVORK5CYII=
+        wAAADsABataJCQAAAFtJREFUOE/Ni8ENwCAMxLL/Bp2WgnSURLjHs7V0j8hO/It2RRvTuWH9lG/RyW9B
+        jpx7oMhNbxUKacoZeshT5qHHMWkPPeYpY+iBprxCoZveFi5yrmBl5+S/IOIGPKYIOujdzLMAAAAASUVO
+        RK5CYII=
 </value>
+  </data>
+  <data name="cmbInitialPhase.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="dgv.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="&gt;&gt;btnDelPhaseValue.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chbTimeDependent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>139, 97</value>
+  </data>
+  <data name="&gt;&gt;btnAddPhaseValue.Name" xml:space="preserve">
+    <value>btnAddPhaseValue</value>
+  </data>
+  <data name="btnDelPhaseValue.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="&gt;&gt;btnAddPhaseValue.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="btnAddPhaseValue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 122</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ReactionControl</value>
+  </data>
+  <data name="btnChangePhaseValue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="cmbPhaseName.Items2" xml:space="preserve">
+    <value>Excerpt</value>
+  </data>
+  <data name="&gt;&gt;txbPhaseValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chbTimeDependent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 19</value>
+  </data>
+  <data name="&gt;&gt;cmbInitialPhase.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnDelPhaseValue.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="cmbPhaseName.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>692, 561</value>
+  </data>
+  <data name="cmbInitialPhase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>139, 3</value>
+  </data>
+  <data name="txbPhaseValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>549, 25</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;cmbInitialPhase.Name" xml:space="preserve">
+    <value>cmbInitialPhase</value>
+  </data>
+  <data name="&gt;&gt;cmbFinalPhase.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="btnAddPhaseValue.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnChangePhaseValue.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="&gt;&gt;txbPhaseValue.Name" xml:space="preserve">
+    <value>txbPhaseValue</value>
+  </data>
+  <data name="btnDelPhaseValue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="btnChangePhaseValue.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="chbTimeDependent.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="btnChangePhaseValue.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="&gt;&gt;cmbPhaseName.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="btnAddPhaseValue.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wgAADsIBFShKgAAAAClJREFUOE9jYKAVcDjA8B8Zo8sTBCPNAHTFxOLhZAA2QJJibGDUAOIBABBrv6Eu
-        ctv/AAAAAElFTkSuQmCC
+        wAAADsABataJCQAAACxJREFUOE9joBlwOMDwHxlDhYkHI80AdMXEYqj2YWEANkCSYmxg1ABiAQMDABBr
+        v6G/1Jc4AAAAAElFTkSuQmCC
 </value>
+  </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>en</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="InvalidRegexPhaseMatchWarning" xml:space="preserve">
+    <value>The mass fraction value must be specified in the following format: A.BB, where A=0...1, B=0...9. The fractional number separator is a period. The mass fraction value must not exceed 1!\nFor example: 0.01; 0.5; 1</value>
+  </data>
+  <data name="EnteredDataDeletingWarning" xml:space="preserve">
+    <value>After click the "OK" button, the entered data will be deleted.</value>
   </data>
 </root>

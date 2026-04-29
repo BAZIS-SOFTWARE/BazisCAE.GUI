@@ -48,7 +48,7 @@ namespace BazisGUI
                     PresentCondDataOnTree();
                     PresentMeshData();
                     PresentModelObjectsForSelection();
-                    if (navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> nodes))
+                    if (navigator.TrySearchNodes(NodeName.Mesh, out List<TreeNode> nodes))
                     {
                         nodes.First().Collapse();
                         nodes.First().Expand();

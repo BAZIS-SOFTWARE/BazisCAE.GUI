@@ -13,12 +13,12 @@ namespace BazisGUI.Console
 
             ObjType objType;
             if(!Enum.TryParse(str.Split(',')[0].Replace(" ",""), out objType))
-                throw new Exception("Неизвестный тип объекта!");
+                throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("UnknownTypeException"));
 
             ObjType = objType;
 
             if (!uint.TryParse(str.Split(',')[1].Replace(" ", ""), out number))
-                throw new Exception("Номер должен быть целым положительным числом!");
+                throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("PositiveCellingNumberException"));
             Number = number;
         }
     }

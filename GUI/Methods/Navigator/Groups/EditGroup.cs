@@ -45,10 +45,7 @@ namespace BazisGUI
 
                 if (selObj.Count() == 0)
                 {
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo("Не выбран ни один объект!", Color.Black);
-                    }));
+                    Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("EditGroup.EditGroupAsync.NoObjectsSelected.Message"), Color.Black)));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else
@@ -57,23 +54,17 @@ namespace BazisGUI
 
                     group.AddRange(selObj);
 
-                    Invoke(new Action(() =>
-                    {
-                        console.PrintInfo("Группа изменена успешно", Color.Green);
-                    }));
+                    Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("EditGroup.EditGroupAsync.GroupChanged.Message"), Color.Green)));
                     return new Tuple<bool, object>(true, new object());
                 }
             });
 
             var actBreak = new Action(() =>
             {
-                Invoke(new Action(() =>
-                {
-                    console.PrintInfo("Операция отменена", Color.Black);
-                }));
+                Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("EditGroup.EditGroupAsync.OperationCanceled.Message"), Color.Black)));
             });
 
-            var message = "Измените группу, добавив или удалив объекты, и нажмите на кнопку E или нажмите кнопку ESC";
+            var message = $@"{Localization.Localization.GetStringResourceByName("EditGroup.EditGroupAsync.Preamble.Message")}";
 
             await AsyncMethodContainer(actConfirm, actBreak, message);
         }

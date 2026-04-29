@@ -11,7 +11,7 @@ namespace BazisGUI
             var filePath = FindFileByPath(dbPath, dbName);
             if (filePath == null)
             {
-                console.PrintInfo($"Не найдена база {dbName} в папке {dbPath}", Color.Orange);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("GetDAtaBase.FindFileByPath.DBNotFound.Message_Part1")} {dbName} {Localization.Localization.GetStringResourceByName("GetDAtaBase.FindFileByPath.DBNotFound.Message_Part2")} {dbPath}", Color.Orange);
                 return default;
             }
 
@@ -24,7 +24,7 @@ namespace BazisGUI
                 };
 
                 return JsonConvert.DeserializeObject<T>
-    (File.ReadAllText($@"{dbPath}\{dbName}"), settingsSerializer);
+    (File.ReadAllText(Path.Combine(dbPath, dbName)), settingsSerializer);
             }
         }
     }

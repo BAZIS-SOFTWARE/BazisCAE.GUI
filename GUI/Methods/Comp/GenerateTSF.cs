@@ -18,7 +18,7 @@ namespace BazisGUI
             {
                 //var pContr = (PinnedTaskPlannerControl)EmbeddedControls.Find("pinnedTaskPlannerControl", false)[0];
 
-                var inputDir = $@"{WorkingDir}\InputData";
+                var inputDir = Path.Combine(WorkingDir, "InputData");
 
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
@@ -41,7 +41,7 @@ namespace BazisGUI
 
                 PresentCompDataOnTree(sortedFiles);
 
-                console.PrintInfo($"Инструкции задачи сгенерированы в {inputDir}", Color.Green);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("GenerateTSF.InstructionsFormed.Message")} {inputDir}", Color.Green);
 
             }
             catch (Exception ex)

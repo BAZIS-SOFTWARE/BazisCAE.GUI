@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-    Microsoft ResX Schema 
+    Microsoft ResX Schema
 
     Version 2.0
 
@@ -48,7 +48,7 @@
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
@@ -117,4 +117,257 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="rbtSet.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 0, 0</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="chbChangeDirection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 123</value>
+  </data>
+  <data name="&gt;&gt;lblAngle.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="rbtDirection.Text" xml:space="preserve">
+    <value>In direction</value>
+  </data>
+  <data name="&gt;&gt;rbtSurface.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="rbtSurface.Text" xml:space="preserve">
+    <value>In plane</value>
+  </data>
+  <data name="lblAngle.Text" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="rbtSet.Text" xml:space="preserve">
+    <value>Sets</value>
+  </data>
+  <data name="txbAngle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 23</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.Name" xml:space="preserve">
+    <value>generalPanel</value>
+  </data>
+  <data name="lblAngle.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 3, 0, 5</value>
+  </data>
+  <data name="&gt;&gt;rbtDirection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="rbtSet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 19</value>
+  </data>
+  <data name="lblAngle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 30</value>
+  </data>
+  <data name="&gt;&gt;rbtDirection.Parent" xml:space="preserve">
+    <value>generalPanel</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="rbtDirection.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbtDirection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 65</value>
+  </data>
+  <data name="rbtSurface.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="generalPanel.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;rbtDirection.Name" xml:space="preserve">
+    <value>rbtDirection</value>
+  </data>
+  <data name="rbtSurface.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 19</value>
+  </data>
+  <data name="&gt;&gt;txbAngle.Name" xml:space="preserve">
+    <value>txbAngle</value>
+  </data>
+  <data name="&gt;&gt;chbChangeDirection.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="txbAngle.Text" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lblAngle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;rbtSurface.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;txbAngle.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 150</value>
+  </data>
+  <data name="generalPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="generalPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="rbtSet" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="rbtSurface" Row="1" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="rbtDirection" Row="2" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="lblAngle" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="txbAngle" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="chbChangeDirection" Row="4" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,30,Percent,70" /&gt;&lt;Rows Styles="Percent,20,Percent,20,Percent,20,Percent,20,Percent,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;rbtSet.Parent" xml:space="preserve">
+    <value>generalPanel</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="rbtSet.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="generalPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="rbtDirection.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;lblAngle.Name" xml:space="preserve">
+    <value>lblAngle</value>
+  </data>
+  <data name="rbtSurface.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;rbtSet.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="rbtSurface.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 0, 0</value>
+  </data>
+  <data name="chbChangeDirection.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;txbAngle.Type" xml:space="preserve">
+    <value>UserControlsEx.TextBoxEx, UserControlsEx, Culture=neutral, PublicKeyToken=16903e6a4b8fab01</value>
+  </data>
+  <data name="lblAngle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 90</value>
+  </data>
+  <data name="rbtDirection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 19</value>
+  </data>
+  <data name="lblAngle.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="rbtSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 5</value>
+  </data>
+  <data name="&gt;&gt;chbChangeDirection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="txbAngle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 20, 0</value>
+  </data>
+  <data name="chbChangeDirection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 19</value>
+  </data>
+  <data name="&gt;&gt;rbtSurface.Name" xml:space="preserve">
+    <value>rbtSurface</value>
+  </data>
+  <data name="rbtDirection.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 0, 0, 0</value>
+  </data>
+  <data name="rbtSet.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;rbtSet.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="txbAngle.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="lblAngle.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="rbtSurface.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 35</value>
+  </data>
+  <data name="&gt;&gt;rbtSet.Name" xml:space="preserve">
+    <value>rbtSet</value>
+  </data>
+  <data name="txbAngle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>67, 93</value>
+  </data>
+  <data name="&gt;&gt;lblAngle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblAngle.Parent" xml:space="preserve">
+    <value>generalPanel</value>
+  </data>
+  <data name="rbtSet.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbtSurface.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="&gt;&gt;chbChangeDirection.Name" xml:space="preserve">
+    <value>chbChangeDirection</value>
+  </data>
+  <data name="chbChangeDirection.Text" xml:space="preserve">
+    <value>Change direction</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MeshSelect</value>
+  </data>
+  <data name="&gt;&gt;txbAngle.Parent" xml:space="preserve">
+    <value>generalPanel</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 15</value>
+  </data>
+  <data name="&gt;&gt;rbtDirection.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="chbChangeDirection.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="txbAngle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="rbtDirection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="generalPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 150</value>
+  </data>
+  <data name="&gt;&gt;rbtSurface.Parent" xml:space="preserve">
+    <value>generalPanel</value>
+  </data>
+  <data name="&gt;&gt;chbChangeDirection.Parent" xml:space="preserve">
+    <value>generalPanel</value>
+  </data>
+  <data name="lblAngle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
+  </data>
+  <data name="generalPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="chbChangeDirection.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 0, 0, 0</value>
+  </data>
+  <data name="generalPanel.RowCount" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="generalPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>en</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>
