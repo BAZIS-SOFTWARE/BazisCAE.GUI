@@ -1,13 +1,14 @@
-﻿using BazisGUI.Console.Events;
+﻿using BasicControls.OpenFileDialogEx;
+using BazisGUI.Console.Events;
 using BazisGUI.PinnedControl;
 using BazisGUI.Utilities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -107,60 +108,54 @@ namespace BazisGUI.Console
 
         private void InitGenCubCommandsDictionaries()
         {
-            var tempUICultureName = Thread.CurrentThread.CurrentUICulture.Name;
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
-
-            var resources = new ComponentResourceManager(typeof(ConsoleControl));
             genCmds = new Dictionary<string, GenCmd>()
             {
-                { resources.GetString("GenLoadProject"),GenCmd.LoadProject},
-                { resources.GetString("GenSaveProject"),GenCmd.SaveProject},
-                { resources.GetString("GenSolveProject"),GenCmd.SolveProject},
-                { resources.GetString("GenRenumberMesh"),GenCmd.RenumberMesh},
-                { resources.GetString("GenMoveNodes"),GenCmd.MoveNodes},
-                { resources.GetString("GenMoveMesh"),GenCmd.MoveMesh},
-                { resources.GetString("GenRotateMesh"),GenCmd.RotateMesh},
-                { resources.GetString("GenFindFreeNodes"),GenCmd.FindFreeNodes},
-                { resources.GetString("GenFindCoincident"),GenCmd.FindCoincident},
-                { resources.GetString("GenFindVolElems"),GenCmd.FindVolElems},
-                { resources.GetString("GenFindObject"),GenCmd.FindObject},
-                { resources.GetString("GenBeamConnection"),GenCmd.BeamConnection},
-                { resources.GetString("GenSetLevel"),GenCmd.SetLevel },
-                { resources.GetString("GenMergeElementSets"),GenCmd.MergeElementSets },
-                { resources.GetString("GenCreateMesh2DPoligon"),GenCmd.CreateMesh2DPoligon },
-                { resources.GetString("GenCreatePoint"),GenCmd.CreatePoint },
-                { resources.GetString("GenCreateCurve"),GenCmd.CreateCurve },
-                { resources.GetString("GenCreateSurface"),GenCmd.CreateSurface },
-                { resources.GetString("GenExtrudeCurve"),GenCmd.ExtrudeCurve },
-                { resources.GetString("GenExtrudeByRotation"),GenCmd.ExtrudeRotate },
-                { resources.GetString("GenExit"),GenCmd.Exit }
+                { "Load project",GenCmd.LoadProject},
+                { "Save project",GenCmd.SaveProject},
+                { "Solve project",GenCmd.SolveProject},
+                { "Renumber mesh",GenCmd.RenumberMesh},
+                { "Move node",GenCmd.MoveNodes},
+                { "Move mesh",GenCmd.MoveMesh},
+                { "Rotate mesh",GenCmd.RotateMesh},
+                { "Find free nodes",GenCmd.FindFreeNodes},
+                { "Find Coincident",GenCmd.FindCoincident},
+                { "Find 3D elements",GenCmd.FindVolElems},
+                { "Find object",GenCmd.FindObject},
+                { "Connect with beams",GenCmd.BeamConnection},
+                { "Set precision level",GenCmd.SetLevel },
+                { "Merge elements sets",GenCmd.MergeElementSets },
+                { "Build 2D mesh",GenCmd.CreateMesh2DPoligon },
+                { "Create point",GenCmd.CreatePoint },
+                { "Create curve",GenCmd.CreateCurve },
+                { "Create surface",GenCmd.CreateSurface },
+                { "Extrude along curve",GenCmd.ExtrudeCurve },
+                { "Extrusion by rotation",GenCmd.ExtrudeRotate },
+                { "Quit",GenCmd.Exit }
             };
             subCmds = new Dictionary<GenCmd, string[]>()
             {
-                { GenCmd.LoadProject,resources.GetString("SubLoadProject").Split("<|>") },
-                { GenCmd.SaveProject,resources.GetString("SubSaveProject").Split("<|>")},
+                { GenCmd.LoadProject, new[] { "path" } },
+                { GenCmd.SaveProject, new[] { "path" } },
                 { GenCmd.SolveProject,new string[] { } },
-                { GenCmd.RenumberMesh,resources.GetString("SubRenumberMesh").Split("<|>")},
-                { GenCmd.MoveMesh,resources.GetString("SubMoveMesh").Split("<|>")},
-                { GenCmd.MoveNodes,resources.GetString("SubMoveNodes").Split("<|>")},
-                { GenCmd.RotateMesh,resources.GetString("SubRotateMesh").Split("<|>")},
+                { GenCmd.RenumberMesh, new[] { "type:initial number" } },
+                { GenCmd.MoveMesh, new[] { "move", "x,y,z" } },
+                { GenCmd.MoveNodes, new[] { "move" } },
+                { GenCmd.RotateMesh, new[] { "rotate", "x,y,z:angle" } },
                 { GenCmd.FindFreeNodes,new string[] { } },
-                { GenCmd.FindCoincident,resources.GetString("SubFindCoincident").Split("<|>")},
-                { GenCmd.FindVolElems,resources.GetString("SubFindVolElems").Split("<|>")},
-                { GenCmd.FindObject,resources.GetString("SubFindObject").Split("<|>")},
-                { GenCmd.BeamConnection,resources.GetString("SubBeamConnection").Split("<|>")},
-                { GenCmd.SetLevel,resources.GetString("SubSetLevel").Split("<|>")},
-                { GenCmd.MergeElementSets,resources.GetString("SubMergeElementSets").Split("<|>")},
-                { GenCmd.CreateMesh2DPoligon,resources.GetString("SubCreateMesh2DPoligon").Split("<|>")},
-                { GenCmd.CreatePoint,resources.GetString("SubCreatePoint").Split("<|>") },
-                { GenCmd.CreateCurve,resources.GetString("SubCreateCurve").Split("<|>") },
-                { GenCmd.CreateSurface,resources.GetString("SubCreateSurface").Split("<|>") },
-                { GenCmd.ExtrudeCurve,resources.GetString("SubExtrudeCurve").Split("<|>") },
-                { GenCmd.ExtrudeRotate,resources.GetString("SubExtrudeRotation").Split("<|>") },
+                { GenCmd.FindCoincident, new[] { "nodes", "distance" } },
+                { GenCmd.FindVolElems, new[] { "measure" } },
+                { GenCmd.FindObject, new[] { "type,number" } },
+                { GenCmd.BeamConnection, new [] { "search radius", "max quantity", "group#1", "group#2" } },
+                { GenCmd.SetLevel, new[] { "type", "precision level" } },
+                { GenCmd.MergeElementSets, new[] { "type", "set#1", "set#2" } },
+                { GenCmd.CreateMesh2DPoligon, new[] { "x1,y1", "x2,y2", "x3,y3", "x4,y4", "number of elements" } },
+                { GenCmd.CreatePoint, new [] { "x,y,z" } },
+                { GenCmd.CreateCurve, new [] { "point#1","point#2" } },
+                { GenCmd.CreateSurface, new[] { "curves forming the contour", "curve#1,curve#2,curve#3" } },
+                { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve", "point", "step", "transfinite mesh 1-yes, 0-no" } },
+                { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
                 { GenCmd.Exit,new string[] { } }
             };
-
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(tempUICultureName);
         }
 
 
