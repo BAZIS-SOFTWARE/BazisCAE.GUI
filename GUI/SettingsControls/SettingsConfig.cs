@@ -51,6 +51,6 @@ namespace BazisGUI.SettingsControls
         //cond settings
         public bool CheckCondValue;
 
-        public string Language;
+        public string Language = "en";
     }
 }
