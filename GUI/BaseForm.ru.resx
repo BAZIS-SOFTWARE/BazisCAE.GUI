@@ -117,18 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblStatus.Text" xml:space="preserve">
-    <value>Создайте или загрузите проект или сетку</value>
-  </data>
-  <data name="btnSelect.Text" xml:space="preserve">
-    <value>Выбрать</value>
-  </data>
   <data name="sceneImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAARCsAAAJNU0Z0AUkBTAIBARIB
-        AAFQAQQBUAEEARQBAAEUAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAVADAAFkAwABAQEAAQgF
+        AAFYAQQBWAEEARQBAAEUAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAVADAAFkAwABAQEAAQgF
         AAFAAR8YAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHAAQAB8AHKAaYBAAEzBQAB
         MwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5AQABgAF8Af8BAAJQAf8B
         AAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMAAWYDAAGZAwABzAIAATMD
@@ -315,263 +309,75 @@
         Dwf/AgAB/gEAAQ8H/wIAAf8BAwj/AgAL
 </value>
   </data>
-  <data name="btnDisplayViews.Text" xml:space="preserve">
-    <value>Вид</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="создатьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAERSURBVDhPrZDbSgJRGIXnpewd6jXsjSQvIrwoI0RQMChU
-        0iiDPCGiE3ZCRkvR8VzTeBhnyR5/ccaZNnPhB4t9sdf6Ln5hb8QeathNJFVFKF5C8DqL4ksDVHWGDf7j
-        LHyPg6NjviSaFqlu5yQYR+KpupaIkrMknCxT3Y7v/NYYb0ITK1c3BarbWWhLQ7IR0cTKReyZ6lZ0XYei
-        ztHpK4bAc+h1FgQijzSxMptrGIxVSO0xX3AaStFki7bUMVFmaMm/eJMGfIH/MkGzLep0AXn4h/r3CJV3
-        mS9gn2bY4UY/UzQ7E9TqfeTFtnuB+XAfzSHKr11kSl/uBebDiZ89ZCst3OUkdwL28sIVsE83ock+EIQV
-        2Mz2wxeg6/UAAAAASUVORK5CYII=
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAENSURBVDhPrZHbSgJRGEZ9KX2HfI18I9ELkS5KCREMDBSN
+        VLRA0xDREQ+FTJai47mm8TDOF7NlhulHNwO14LvarHXxb4fjv4jnW6CLZRqIpKoI3Zbw3HwDdX6hC6cI
+        RnNwuT38yE1WoJ6JL5RC+rFxiAji8Uj0rkY9E+9lksnGqMu4TlSoZ7JT9yxihKjLuIoXqcfQNA2yssVo
+        KrOA8+z8eOAiVqAuY7NVMVsqEIdLfiAQyVAX6l7DSt5gIH2hI874AX84TX0o6x2k+Td6HwvUuxI/oD9a
+        0Q+3+FyjP1qh1ZuiLAztB6yHe+nPUWuP8VB9tx+wHk54naBUH+D+SbQXMP771LgB/dHOqPsnfgDYzPbD
+        7s5C8AAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="создатьToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Создать</value>
   </data>
   <data name="открытьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJHSURBVDhPxZBdSNNhFMb/F110ZZEVhVBgeeHNICiiuggp
-        olAUyyxI0oSaH1QYC3N+tKnp5ubm1JUua5uuqdNKMwr7kApFItTUkWZqVhSVYmao5Nevvy7UoYR3HXh4
-        4XCe33nOKyy3lAY7l9RWMo0O/raWXxEyo5spVYTNvOGyfIRPfW+ptOkXqaPl6T83hcRmExSdgzAz3NVm
-        YWyoYla/B+1M9JtxWLPpaH22JORIjI6gKAMB0jyEimIdo4OlbuaprwVMOOMovammpDADc34qppwUrmnl
-        5Kni3aFlFg2j3y1z5mnRTJccnNIltQhwq0jFry+mOXNtpWZWDx1Z1NhV3C3JwGFOw25SYjVe5oYhiUKd
-        HKMmwQUrMWUw/CF3NnZvvYKqUh1TvUroS3fXe7HXkwidMngTS2t5KLbregSzMY2f3Wr4qKW6LJvGR1rX
-        0MLor8OhKYTJBn/GHvvxrliCTBrsOqXIoOBHh5K+hmSq7FqmexTQHuUytkaKxuNMNgYyVneA4Qd7GKjc
-        hjLaRzxH7gIU6JIZaEvgtk1D8wsxSWecCDgNzWFMvwxm/PkhRmr3Mli1nW9lvjRdWc0Jf+/5jzRmyWmv
-        S+GOLQu6U6BFjPvqKOP1AYw88WOoZif9DgmfLVtxaj1RSLdwNvrkPCA3M54KqxrnvRia9MKcGrUrqFOt
-        5H7qKsqT1mGO9+Lqhc2ELdw+U/r0i+gVZ8hMiCDx3DHORwZyKnQ/hw/uYt9uCTskPvh6e7Fp41rWr/Fg
-        g6eHO+A/lyD8ARfG3mk9fv1YAAAAAElFTkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJGSURBVDhPxZJdSJNhGIa/gw46ssiKQiiwPPBkEBRRHYQU
+        USiKZRYkaULNHyqMhTl/2tR0c3Nz6le6rG26pk4ryyjsRyoUiZimjjRTs6KwFDNDJf+ucAN1KdVZN9wH
+        L89zX8/zvryC8I9SGmxcUFvIFu38XvuromSiRyjdYHOdI2WFCB/73lBt1S9yR8uTP04Ki88lJDYPYba5
+        q83M+HCVyz+HbEwOmLBbculofbok5FCcjpAYA0HSAoSqUh1jQ+Ue4en+IiadCZRfV1NWnIWpMB1jXhpX
+        tHIKVIme0AqzhrGv5rnwTH8RdMnBKV3SiwA3SlT8+GycC9dVa1x+YM+h1qbidlkWdlMGNqMSi3iRa4YU
+        inVyRE2SG1ZmzGLkfb5r7d4GBTXlOqZ7ldCX6el3SuhJhk4ZvI6ntTIc61U9gknM4Hu3Gj5ouVORS9ND
+        rbtp4eqvIsERxlRjIOOPAnhbKkEmDXVfpcSg4FuHkr7GVGpsWmZ6FNAe4w62RoPjKFNNwYzX72Pk/i4G
+        q7egjPXDIsrdgCJdKoNtSdy0amh+robOBGg/Cc0RzLwIZeLZAUbrdjNUs5UvFf44Lq3kWKDv/EOKOXLa
+        69O4Zc2B7jRoiYSXh5loCGL0cQDDtdsZsEv4ZN6MU+uNQrqJ07HH5wH52YlUWdQ478bh0AtzbtIuo161
+        nHvpK6hMWYMp0YfL5zYSsXD6rPSZ59ErTpGdFEXymSOcjQ7mRPheDu7fwZ6dErZJ/PD39WHD+tWsXeXF
+        Om+vJX/n/9MvF8beaWm1d4MAAAAASUVORK5CYII=
 </value>
-  </data>
-  <data name="открытьToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Открыть</value>
-  </data>
-  <data name="добавитьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Добавить</value>
   </data>
   <data name="сохранитьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIySURBVDhPrZLfS5NRGMfff6H7boIuuq2pMZyL1eAt11CW
-        DcOKsB9vpFmaLtNExco0av6CbIVLJ61Wk3BSkT/AFCkRZSpZmrmiJQ41xSaCwdfznL15XEUX0Reem5f3
-        8znnec4j/Zc8fxYGla91CS3eRTx0z6OpMYS7jmnU1X6B/VYA18snUVoyjsKCt8jLHcH5c36ouCQR2NUJ
-        1Nas4G9ZXlmFKbULh1Kf8lJxSfI+WeCCyopv6q+/h+DQ/DJ2WV5Ao1FgPegRAveDOS4oLfmq/h6dn/DH
-        4AJizD4UXJrCAUuzEDgbZrjgou2DiohshIcnQtgme5GTPYbkJKcQ1N8OckHW2REVi+RXuM8fxGaDG4oy
-        ALPZIQQ11Z+5QDk1oKJ/hjv7P2FTfCMOH3mFxMQ6IbhROYWOdrCnBI4dfwPr0V4+bRoY9UzXppMjcDdS
-        rC8hy3YhuFI2gTYf2A4Aza4f7N2/o/zaLB8qDYx6zszwr8P7k1thNFYIweXCMXgeAfedq2xxwjClZUeV
-        Jd2GtDNFETiJwfs8MBjKhMCWN8pgoLoqzE8miH1GjE7G4PsZjE7OQsm9ij2mFg7rdrug1xcJAa2l4w7W
-        r00Cgk/n38S7wBwC04u4UGxHrMHF4CbEJtyDLj5fCDIzhljfSxzeavRgyw4Zj9t64GvvQ0d3P3pfD2Kv
-        2QqNvgFxDN6urYdWmyMElJMnevh60obRktA701PRtGlg1DOdSkXwzrisaMG/RZLWAE60OMW5fNhvAAAA
-        AElFTkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAInSURBVDhPrZLfS5NhFMfff8H7boIuuq2pMZyL6eAt11BW
+        DcOK6NcbaZamyzRJsTKN9qYbaFOcOmm12ohNNPIHmCIlokwlKzNXtMShpthEMPjGeaT3YbvYRXTgXH4+
+        5znf5wjC/6jeniioA/4N+LzreOpeRWdHBC2ORdht3yFbQ7hfO4/qqk+oKH+P0pJpXLsahCIgcHAAsDVu
+        IVFtbm3DkDuIE7kvWSsC74s1Jqiv+xnPKEVwZHUTB02voFJJMB/3cIH7yQoTVFf9iOdY/YW/hNeQbAyg
+        /OYCjpq6uMDZtsQENyyf49kYeGougr2iF8VFs8jJdnJBc1OYCQqvTCeER4Nh7NK5IUnjMBodXNDY8I0J
+        pIvjCeGBsa9ISuvAyVNvkJVl54IH9Qvo7wN6e4Az597BfHqEpU2B0c70bJq8Aw/hmPk1RFHmgjs1c+gO
+        AD4v0OX6Ddn6C7X3llmoFBjtXJAfVOAjOX7o9XVccKtiFp5nQLtzG3ZbFIa8opg2nbUg73LlDpzth/6w
+        BzpdDRdYSmfQ7gQaHkXZZIIEQUCyRsTExyXMzC9DKrmLTIOPwZoMF7TaSi6gs3Q8hvJsEhB8qewhPoRW
+        EFpcx/XbMlJ0LmgyOpGS3gpNWhkXFORPQrZuMHiP3oPd+0U87x5GoG8U/UNjGHk7gUNGM1TaNqSmt2Kf
+        uhlqdTEXUF04P8zOky6MjoT+mb6K0qbAaGeaSk3wgdTCWMG/1h9OtDjF55RJfQAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="сохранитьToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Сохранить</value>
-  </data>
-  <data name="сохранитькакToolStripMenuItem.Text" xml:space="preserve">
-    <value>Сохранить &amp;как</value>
-  </data>
-  <data name="выходToolStripMenuItem.Text" xml:space="preserve">
-    <value>Вы&amp;ход</value>
-  </data>
-  <data name="файлToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Файл</value>
-  </data>
-  <data name="toolStripMenuItem2.Text" xml:space="preserve">
-    <value>Навигатор</value>
-  </data>
-  <data name="toolStripMenuItem3.Text" xml:space="preserve">
-    <value>Консоль</value>
-  </data>
-  <data name="viewMenuItem.Text" xml:space="preserve">
-    <value>Вид</value>
-  </data>
-  <data name="создатьТочкуToolStripMenuItem.Text" xml:space="preserve">
-    <value>Создать точку</value>
-  </data>
-  <data name="создатьЛиниюToolStripMenuItem.Text" xml:space="preserve">
-    <value>Создать линию</value>
-  </data>
-  <data name="создатьПлоскостьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Создать плоскость</value>
-  </data>
-  <data name="создатьОбъемToolStripMenuItem.Text" xml:space="preserve">
-    <value>Создать объем</value>
-  </data>
-  <data name="геометрияToolStripMenuItem.Text" xml:space="preserve">
-    <value>Геометрия</value>
-  </data>
-  <data name="загрузитьgeoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Загрузить *.gscript</value>
-  </data>
-  <data name="сформироватьgeoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Сформировать *.gscript</value>
-  </data>
-  <data name="наToolStripMenuItem.Text" xml:space="preserve">
-    <value>На границах 2D элементов</value>
-  </data>
-  <data name="уплотнитьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Уплотнить существующую</value>
-  </data>
-  <data name="наПоверхности3DToolStripMenuItem.Text" xml:space="preserve">
-    <value>На открытых 3D элементах</value>
-  </data>
-  <data name="наПоверхностиГеометрииToolStripMenuItem.Text" xml:space="preserve">
-    <value>На поверхностях геометрии</value>
-  </data>
-  <data name="квадратизацияСуществующейToolStripMenuItem.Text" xml:space="preserve">
-    <value>Квадратизация существующей</value>
-  </data>
-  <data name="сеткаToolStripMenuItem.Text" xml:space="preserve">
-    <value>Сетка</value>
-  </data>
-  <data name="материалыMenuItem.Text" xml:space="preserve">
-    <value>Материалы</value>
-  </data>
-  <data name="функцииMenuItem.Text" xml:space="preserve">
-    <value>Функции</value>
-  </data>
-  <data name="dataBasesMenuItem.Text" xml:space="preserve">
-    <value>Базы данных</value>
-  </data>
-  <data name="создатьToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Создать</value>
-  </data>
-  <data name="загрузитьМастерToolStripMenuItem.Text" xml:space="preserve">
-    <value>Пользовательский мастер</value>
-  </data>
-  <data name="мастерToolStripMenuItem.Text" xml:space="preserve">
-    <value>Мастер</value>
-  </data>
-  <data name="показатьНаДиаграммеToolStripMenuItem.Text" xml:space="preserve">
-    <value>Показать на диаграмме</value>
-  </data>
-  <data name="tasksMenuItem.Text" xml:space="preserve">
-    <value>Задача</value>
-  </data>
-  <data name="открытьИнструкцииToolStripMenuItem.Text" xml:space="preserve">
-    <value>Открыть</value>
-  </data>
-  <data name="сформироватьИнструкцииToolStripMenuItem.Text" xml:space="preserve">
-    <value>Сформировать</value>
-  </data>
-  <data name="запуститьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Запустить</value>
-  </data>
-  <data name="остановитьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Остановить</value>
-  </data>
-  <data name="расчетыToolStripMenuItem.Text" xml:space="preserve">
-    <value>Расчеты</value>
-  </data>
-  <data name="открытьToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Открыть</value>
-  </data>
-  <data name="объединитьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Объединить</value>
-  </data>
-  <data name="построитьГрафикToolStripMenuItem.Text" xml:space="preserve">
-    <value>Построить график</value>
-  </data>
-  <data name="построитьДиаграммуToolStripMenuItem.Text" xml:space="preserve">
-    <value>Построить диаграмму</value>
-  </data>
-  <data name="создатьАнимациюToolStripMenuItem.Text" xml:space="preserve">
-    <value>Создать анимацию</value>
-  </data>
-  <data name="toolStripMenuItem4.Text" xml:space="preserve">
-    <value>Отразить результаты</value>
-  </data>
-  <data name="результатыMenuItem.Text" xml:space="preserve">
-    <value>Результаты</value>
-  </data>
-  <data name="измеритьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Измерить</value>
-  </data>
-  <data name="скрытьПлоскостьюToolStripMenuItem.Text" xml:space="preserve">
-    <value>Скрыть плоскостью</value>
-  </data>
-  <data name="рассечьПлоскостьюToolStripMenuItem.Text" xml:space="preserve">
-    <value>Рассечь плоскостью</value>
-  </data>
-  <data name="инструментыToolStripMenuItem.Text" xml:space="preserve">
-    <value>Инструменты</value>
-  </data>
-  <data name="настройкиToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Настройки</value>
-  </data>
-  <data name="содержаниеToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Содержание</value>
-  </data>
-  <data name="опрограммеToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;О программе...</value>
-  </data>
-  <data name="справкаToolStripMenuItem.Text" xml:space="preserve">
-    <value>Спра&amp;вка</value>
-  </data>
-  <data name="сведенияMenuItem.Text" xml:space="preserve">
-    <value>Сведения</value>
-  </data>
-  <data name="лицензияToolStripMenuItem.Text" xml:space="preserve">
-    <value>Лицензия</value>
   </data>
   <data name="создатьГруппуItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAACxJREFUOE9joBlwOMDwHxlDhYkHI80AdMXEYqj2YWEANkCSYmxg1ABiAQMDABBr
-        v6G/1Jc4AAAAAElFTkSuQmCC
+        vAAADrwBlbxySQAAAClJREFUOE9jYKAVcDjA8B8Zo8sTBCPNAHTFxOLhZAA2QJJibGDUAOIBABBrv6Eu
+        ctv/AAAAAElFTkSuQmCC
 </value>
-  </data>
-  <data name="создатьГруппуItem.Text" xml:space="preserve">
-    <value>Создать новую группу</value>
-  </data>
-  <data name="скрытьВыбранноеItem.Text" xml:space="preserve">
-    <value>Скрыть выбранное</value>
-  </data>
-  <data name="показатьСкрытыеItem.Text" xml:space="preserve">
-    <value>Показать все скрытые</value>
-  </data>
-  <data name="menuItem_InfoSelectedObjects.Text" xml:space="preserve">
-    <value>Выбранные объекты</value>
   </data>
   <data name="menuItem_SetRotPoint.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAU
-        bAAAFGwB1KVOXwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAF0SURBVDhPpZM9
-        T8JQFIb5JRoHjShG4qKuxL9AHEF3dVIHxIm4qCOIMy6IGKE1QAETwAEKIhIJDiyElqRdISwkvHIPrQmx
-        RNQnObnnnvY+9yvXpChqo9PpyH8JNtbEEvwRNnYqgaoouPL50G63tcqIqQS5XBZ3oRB4jsPx0aFWHTEm
-        kCQJqWSSIpGIU/+lVKJgfNTrONjfo1xnTCAICSoyBoPBcOYczjwevFUqVLsNBnHqdlOu820FhUKBPjAi
-        kQdqm80mikUROw4H7sNhqumMCRiiKKJWe6dZ2UAdnucwNzsz3SF2u11w0ajWG7Fls2HZbEYsFkM6ldKq
-        EwStVgvVahW7TicsS2ZkMxlcXpx/bc/n9UJVVcoNBfF4jA7xJhDA6ooFiwvzOHG5aFv9fh/Pw8O99vvp
-        X0PBUzpNba/XgzRczSPP0/VtbqxjzWrFtt1Oq2QYCpKCQG0+n8druUz5JAwFsiyThF3rTxgKfgMJ/vec
-        1cYnR0KlOMsRpzwAAAAASUVORK5CYII=
+        bAAAFGwB1KVOXwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFpSURBVDhPpZM7
+        TwJBFIX5JRoLjShGYqO2xL9ALEF7tVILxIrYqCWINTaIGGHXLCxgAmMBCyISCRY2ZHdJdlsIDQnHzCQu
+        D9mIeJKbO3NvzjevjEXT9M9Wq6VOE9RroQNMKeqdCKBrGq4CATSbzaH6RABCcriLRMBzHI6PDod6QwBF
+        UZBOpVgkkwk2fymVWFB91Os42N8zB4hi0mj0ej0QQnDm8+GtUmG123AYp15v3z0KoCsWCgWjGYs9sNxo
+        NFAsSthxuXAfjfbdowAqSZJQq72zVanxWzzPYW52ZrJLbLfb4OLxwRK2HA4sW60QBAGZdNqojwXIsoxq
+        tYpdtxu2JSty2SwuL86N4wX8fui6bg5IJAR2iTehEFZXbFhcmMeJx8OO1e128UwIroNBc8BTJsNyp9OB
+        Ist45Hn2fJsb61iz27HtdLJdmgJSoshyPp/Ha7k82PqhsQBVVRmEPutvGgv4ixjgv9/5C0dCpThzSPFz
+        AAAAAElFTkSuQmCC
 </value>
-  </data>
-  <data name="menuItem_SetRotPoint.Text" xml:space="preserve">
-    <value>Задать точку вращения</value>
-  </data>
-  <data name="показатьСопряженныеItem.Text" xml:space="preserve">
-    <value>Показать сопряженные</value>
-  </data>
-  <data name="выбратьСопряженныеToolStripMenuItem.Text" xml:space="preserve">
-    <value>Выбрать сопряженные</value>
   </data>
   <data name="menuItem_DeleteSelectedObjects.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAFtJREFUOE/Ni8ENwCAMxLL/Bp2WgnSURLjHs7V0j8hO/It2RRvTuWH9lG/RyW9B
-        jpx7oMhNbxUKacoZeshT5qHHMWkPPeYpY+iBprxCoZveFi5yrmBl5+S/IOIGPKYIOujdzLMAAAAASUVO
-        RK5CYII=
+        vAAADrwBlbxySQAAAFVJREFUOE/NjEEKACAIBP3/D3qtUSDUlOYhqIG9uLOKfIUW0RbejbC30pNO/SKM
+        Eu/pB1G471Dywt0EZYb+Fo6ujFNPKHvhrkPpFO63DzLdRFgm+jdUPKYIOroK8iQAAAAASUVORK5CYII=
 </value>
-  </data>
-  <data name="menuItem_DeleteSelectedObjects.Text" xml:space="preserve">
-    <value>Удалить выбранное</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -621,522 +427,5 @@
         AAAAYAAAAGAAAAAAAAAAAAAAAAAQAAAAMAAAADAAAAAQAAAAEAAAAAAAAEAAAABAAAAAQAAAAAAAAAAA
         AAAAABAAAAAQAAAAEAAAADAAAABwAAAB8AA=
 </value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Bazis. Система инженерного анализа</value>
-  </data>
-  <data name="webPageLabel.Text" xml:space="preserve">
-    <value>www.bazisnet.ru</value>
-  </data>
-  <data name="toolStripContainer.Text" xml:space="preserve">
-    <value>toolStripContainer1</value>
-  </data>
-  <data name="menuStrip.Text" xml:space="preserve">
-    <value>menuStrip</value>
-  </data>
-  <data name="dToolStripMenuItem.Text" xml:space="preserve">
-    <value>1D</value>
-  </data>
-  <data name="dToolStripMenuItem1.Text" xml:space="preserve">
-    <value>2D</value>
-  </data>
-  <data name="dToolStripMenuItem2.Text" xml:space="preserve">
-    <value>3D</value>
-  </data>
-  <data name="экспортироватьРезультатыToolStripMenuItem.Text" xml:space="preserve">
-    <value>Экспортировать результаты</value>
-  </data>
-  <data name="versionWordPrefix" xml:space="preserve">
-    <value>Версия</value>
-  </data>
-  <data name="HandleArgsProjectAbsenceException" xml:space="preserve">
-    <value>Отсутствуют необходимые аргументы для -proj path file</value>
-  </data>
-  <data name="HandleArgsResultsAbsenceException" xml:space="preserve">
-    <value>Отсутствуют необходимые аргументы для -res file</value>
-  </data>
-  <data name="HandleArgsResultsLoadingWithoutProjectException" xml:space="preserve">
-    <value>Для загрузки результатов требуется сперва загрузить проект</value>
-  </data>
-  <data name="HandleArgsCADAbsenceException" xml:space="preserve">
-    <value>Отсутствуют необходимые аргументы для -cad file</value>
-  </data>
-  <data name="FileAbsenceCaption" xml:space="preserve">
-    <value>Отсутствует файл!</value>
-  </data>
-  <data name="LicenseInfo" xml:space="preserve">
-    <value>Информация о лицензии</value>
-  </data>
-  <data name="BazisServerPathMissingMessage" xml:space="preserve">
-    <value>Соединение не установлено. Не найдена переменная среды ""BazisServerPath""
-                    Создать переменную?</value>
-  </data>
-  <data name="AttentionCaption" xml:space="preserve">
-    <value>Внимание!</value>
-  </data>
-  <data name="GetLicenseInfoException" xml:space="preserve">
-    <value>Ошибка запроса информации о лицензии</value>
-  </data>
-  <data name="Licensing" xml:space="preserve">
-    <value>Лицензирование</value>
-  </data>
-  <data name="LicenseAllowedAnswer" xml:space="preserve">
-    <value>Лицензирование проведено</value>
-  </data>
-  <data name="ConnectionEstablishedAnswer" xml:space="preserve">
-    <value>Соединение установлено</value>
-  </data>
-  <data name="VersionNews" xml:space="preserve">
-    <value>Новости версии</value>
-  </data>
-  <data name="StackTrace" xml:space="preserve">
-    <value>Стек вызовов</value>
-  </data>
-  <data name="ErrorCaption" xml:space="preserve">
-    <value>Ошибка!</value>
-  </data>
-  <data name="CallBackFormName" xml:space="preserve">
-    <value>Загрузка</value>
-  </data>
-  <data name="SaveWithoutProjectMessage" xml:space="preserve">
-    <value>Сначала откройте существующий проект или создайте новый</value>
-  </data>
-  <data name="ProjectSavedCaption" xml:space="preserve">
-    <value>Проект сохранен</value>
-  </data>
-  <data name="StartCaption" xml:space="preserve">
-    <value>Старт</value>
-  </data>
-  <data name="StopCaption" xml:space="preserve">
-    <value>Стоп</value>
-  </data>
-  <data name="btnSelect.Text.Objects" xml:space="preserve">
-    <value>Объекты</value>
-  </data>
-  <data name="btnSelect.Text.Nodes" xml:space="preserve">
-    <value>Узел</value>
-  </data>
-  <data name="btnSelect.Text.Points" xml:space="preserve">
-    <value>Точка</value>
-  </data>
-  <data name="btnSelect.Text.Curves" xml:space="preserve">
-    <value>Кривая</value>
-  </data>
-  <data name="btnSelect.Text.Surfaces" xml:space="preserve">
-    <value>Поверхность</value>
-  </data>
-  <data name="btnSelect.Text.Elements1D" xml:space="preserve">
-    <value>Элемент1D</value>
-  </data>
-  <data name="btnSelect.Text.Elements2D" xml:space="preserve">
-    <value>Элемент2D</value>
-  </data>
-  <data name="btnSelect.Text.Elements3D" xml:space="preserve">
-    <value>Элемент3D</value>
-  </data>
-  <data name="ConvertFailCaption" xml:space="preserve">
-    <value>Не удалось конвертировать</value>
-  </data>
-  <data name="AdvanceSelectionForm.Text" xml:space="preserve">
-    <value>Расширенный выбор</value>
-  </data>
-  <data name="AdvanceSelection3NodesWarning" xml:space="preserve">
-    <value>Должно быть выбрано три узла</value>
-  </data>
-  <data name="AdvanceSelectionElemntsSelectionWarning" xml:space="preserve">
-    <value>Должен быть выбран элемент</value>
-  </data>
-  <data name="AdvanceSelection2NodesWarning" xml:space="preserve">
-    <value>Должно быть выбрано два узла</value>
-  </data>
-  <data name="AdvanceSelectionNoObjectSelectedWarning" xml:space="preserve">
-    <value>Нет выбранных объектов</value>
-  </data>
-  <data name="AdvaneSelectionSelectedCaption" xml:space="preserve">
-    <value>Выбрано</value>
-  </data>
-  <data name="SceneEvents.CreateGroup.InvalidGroupTypeWarning" xml:space="preserve">
-    <value>Нельзя создать группу выбранного типа</value>
-  </data>
-  <data name="SceneEvents.CreateGroup.SuccessCaption" xml:space="preserve">
-    <value>Создана новая группа</value>
-  </data>
-  <data name="SceneEvents.Info.Selected" xml:space="preserve">
-    <value>Выбраны объекты</value>
-  </data>
-  <data name="UtilityToolStrip.Measuring.InvalidSeletedTypeError" xml:space="preserve">
-    <value>Выберите другой необходимый тип объектов. Нельзя произвести измерения для типа объектов</value>
-  </data>
-  <data name="UtilityToolStrip.Distance.Output" xml:space="preserve">
-    <value>Расстояние</value>
-  </data>
-  <data name="UtilityToolStrip.DistancePointToPoint.EmptySelectionErrorMessage" xml:space="preserve">
-    <value>Не выбрано ни одного объекта типа</value>
-  </data>
-  <data name="UtilityToolStrip.DistancePointToPlane.InstructionPart1" xml:space="preserve">
-    <value>Выберите</value>
-  </data>
-  <data name="UtilityToolStrip.DistancePointToPlane.InstructionPart2" xml:space="preserve">
-    <value>и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены</value>
-  </data>
-  <data name="UtilityToolStrip.CalcSquare.Output" xml:space="preserve">
-    <value>Площадь</value>
-  </data>
-  <data name="UtilityToolStrip.CalcVolume.Output" xml:space="preserve">
-    <value>Объем</value>
-  </data>
-  <data name="UtilityToolStrip.CrossSection.Text" xml:space="preserve">
-    <value>Построить сечение</value>
-  </data>
-  <data name="UtilityToolStrip.CreateCrossSection.InvalidNodeNumerErrorMessage" xml:space="preserve">
-    <value>Ошибка, выбрано неверное количество узлов</value>
-  </data>
-  <data name="MethodIsNotImplementedException" xml:space="preserve">
-    <value>Метод не реализован!</value>
-  </data>
-  <data name="StringEx.ToEnum.ArgumentException.Part1" xml:space="preserve">
-    <value>Ошибка: значение</value>
-  </data>
-  <data name="StringEx.ToEnum.ArgumentException.Part2" xml:space="preserve">
-    <value>не соответствует ни одному значению.</value>
-  </data>
-  <data name="VBObjectCtor.EmptyArrayArgumentException" xml:space="preserve">
-    <value>Ошибка VBObject: длина набора индексов не может быть нулевой</value>
-  </data>
-  <data name="VBObjectController.ChangeViewMode.Message" xml:space="preserve">
-    <value>Не найдены объекты указанного типа!</value>
-  </data>
-  <data name="ImportMeshCaption" xml:space="preserve">
-    <value>Импорт сетки</value>
-  </data>
-  <data name="NewProjectNameTemplate" xml:space="preserve">
-    <value>новый_проект.bpf2</value>
-  </data>
-  <data name="LoadingForm.Text" xml:space="preserve">
-    <value>Загрузка данных. Пожалуйста подождите...</value>
-  </data>
-  <data name="PanelConverter.UndefinedConverterTypeException" xml:space="preserve">
-    <value>Тип конвертера не определен</value>
-  </data>
-  <data name="AnimationForm.Text" xml:space="preserve">
-    <value>Анимация</value>
-  </data>
-  <data name="Result.CreateGIFAnimation.SelectContainerAsync.SelectResult.Message" xml:space="preserve">
-    <value>Выберите результат и нажмите на клавишу ""E"" для подтверждения</value>
-  </data>
-  <data name="Result.CreateGIFAnimation.Exception" xml:space="preserve">
-    <value>Выберите результат в разделе результаты</value>
-  </data>
-  <data name="Result.CreateGIFAnimation.CreateGIFAnimationInfo" xml:space="preserve">
-    <value>Создание GIF анимации</value>
-  </data>
-  <data name="Result.CreateGIFAnimation.AnimationCreated" xml:space="preserve">
-    <value>GIF анимация создана</value>
-  </data>
-  <data name="Result.BuildDiagram.NoNodesSelectedException" xml:space="preserve">
-    <value>Не выбран ни один узел</value>
-  </data>
-  <data name="Result.BuildDiagram.SelectContaimerAsync.SelectTime.Message" xml:space="preserve">
-    <value>Выберите время и нажмите на клавишу ""E"" для подтверждения</value>
-  </data>
-  <data name="Result.BuildDiagram.SelectTime.Exception" xml:space="preserve">
-    <value>Выберите время в разделе результаты</value>
-  </data>
-  <data name="Result.BuildDiagram.GraphData.XUnit" xml:space="preserve">
-    <value>мм</value>
-  </data>
-  <data name="Result.BuildDiagram.DistanceResultSet.Header" xml:space="preserve">
-    <value>Набор результатов по расстоянию</value>
-  </data>
-  <data name="btnSelect.AccessibleName" xml:space="preserve">
-    <value>SelectObjects.btnSelect.Select</value>
-  </data>
-  <data name="Result.BuildDiagram.Text_Part1" xml:space="preserve">
-    <value>График</value>
-  </data>
-  <data name="Result.BuildDiagram.Text_Part2" xml:space="preserve">
-    <value>Координата</value>
-  </data>
-  <data name="CreatePlot.SelectContainerAsync.CancelOperation.Message" xml:space="preserve">
-    <value>Операция отменена</value>
-  </data>
-  <data name="CreatePlot.BuildGraph.SelectContainerAsync.SelectNodes.Message" xml:space="preserve">
-    <value>Выберите узлы и нажмите на клавишу ""E"" для подтверждения</value>
-  </data>
-  <data name="CreatePlot.BuildGraph.NoNodesSelected.Exception" xml:space="preserve">
-    <value>Не выбран ни один узел</value>
-  </data>
-  <data name="CreatePlot.BuildGraph.SelectContainerAsync.SelectResult.Message" xml:space="preserve">
-    <value>Выберите результат и нажмите на клавишу ""E"" для подтверждения</value>
-  </data>
-  <data name="CreatePlot.BuildGraph.SelectResult.Exception" xml:space="preserve">
-    <value>Выберите результат в разделе результаты</value>
-  </data>
-  <data name="CreatePlot.BuildGraph.BuildingGraph.Text_Part1" xml:space="preserve">
-    <value>Идет построение графика для объекта</value>
-  </data>
-  <data name="CreatePlot.BuildGraph.BuildingGraph.Text_Part2" xml:space="preserve">
-    <value>подождите немного</value>
-  </data>
-  <data name="CreatePlot.DisplayText3D.Text" xml:space="preserve">
-    <value>Узел</value>
-  </data>
-  <data name="CreatePlot.GraphData.Header_Part1" xml:space="preserve">
-    <value>Узел</value>
-  </data>
-  <data name="CreatePlot.GraphData.XUnit" xml:space="preserve">
-    <value>Сек.</value>
-  </data>
-  <data name="CreatePlot.CreateGraphData.Header" xml:space="preserve">
-    <value>Набор результатов по времени</value>
-  </data>
-  <data name="CreatePlot.GraphForm.Text_Part1" xml:space="preserve">
-    <value>График</value>
-  </data>
-  <data name="CreatePlot.GraphForm.Text_Part2" xml:space="preserve">
-    <value>Время</value>
-  </data>
-  <data name="Reflect.Form.Text" xml:space="preserve">
-    <value>Отражение</value>
-  </data>
-  <data name="Reflect.CreateReflectedVBObject.Exception_Part1" xml:space="preserve">
-    <value>Объект с именем</value>
-  </data>
-  <data name="Reflect.CreateReflectedVBObject.Exception_Part2" xml:space="preserve">
-    <value>уже существует</value>
-  </data>
-  <data name="Reflect.CreateReflectedVBObject.Exception_Part3" xml:space="preserve">
-    <value>не существует</value>
-  </data>
-  <data name="ResultsMainMenuEvents.MergeResults.RecalculationOnNodes.Message" xml:space="preserve">
-    <value>Выполняется пересчет на узлы, время</value>
-  </data>
-  <data name="ResultsMainMenuEvents.MergeResults.RecalculationOnNodesResNames.Message" xml:space="preserve">
-    <value>Выполнен пересчет на узлы для</value>
-  </data>
-  <data name="ResultsMainMenuEvents.MergeResults.Recalculated.Message" xml:space="preserve">
-    <value>Пересчет завершен</value>
-  </data>
-  <data name="MakeScreenShot.Message" xml:space="preserve">
-    <value>Сделан снимок экрана</value>
-  </data>
-  <data name="ShowInsideObjects.HideInnerObjects.Message" xml:space="preserve">
-    <value>Скрыты внутренние объекты</value>
-  </data>
-  <data name="ShowInsideObjects.ShowAllObjects.Message" xml:space="preserve">
-    <value>Показаны все объекты</value>
-  </data>
-  <data name="SelectByPoint.ObjectSelected.Message" xml:space="preserve">
-    <value>Выбран объект</value>
-  </data>
-  <data name="SelectByRect.Selected.Message" xml:space="preserve">
-    <value>Выбрано</value>
-  </data>
-  <data name="SelectByRect.Hidden.Message" xml:space="preserve">
-    <value>Скрыто</value>
-  </data>
-  <data name="SelectByRect.Declination.Type1" xml:space="preserve">
-    <value>объектов</value>
-  </data>
-  <data name="SelectByRect.Declination.Type2" xml:space="preserve">
-    <value>объект</value>
-  </data>
-  <data name="SelectByRect.Declination.Type3" xml:space="preserve">
-    <value>объекта</value>
-  </data>
-  <data name="ColorObjects.ObjectConversion.Exception" xml:space="preserve">
-    <value>Ошибка конвертации объектов</value>
-  </data>
-  <data name="GenerateMesh2DEvent.GenerateOnGeometry.GenElements.Message" xml:space="preserve">
-    <value>Сгенерировано элементов</value>
-  </data>
-  <data name="GenerateMesh2DEvent.GenerateOnGeometry.Recomendation.Message" xml:space="preserve">
-    <value>Рекомендуется проверить порядок точности наборов перед началом расчета в панели свойств, выбрав его в навигаторе</value>
-  </data>
-  <data name="BasePage.CreateSurfaceAync.OperationCanceled.Message" xml:space="preserve">
-    <value>Операция отменена</value>
-  </data>
-  <data name="BasePage.CreateSurfaceAsync.AsyncContainer.Message" xml:space="preserve">
-    <value>Задайте поверхность, выберите три узла и нажмите на кнопку «E» или нажмите кнопку «ESC»</value>
-  </data>
-  <data name="BasePage.CreateSurfaceAsync.SelectThreeNodes.Message" xml:space="preserve">
-    <value>Выберите три узла или точки!</value>
-  </data>
-  <data name="BasePage.CreateSurfaceAsync.SelectNodeType.Message" xml:space="preserve">
-    <value>Выберите или узлы или точки!</value>
-  </data>
-  <data name="BasePage.CreateSurfaceAsync.SurfaceSet.Message" xml:space="preserve">
-    <value>Плоскость задана</value>
-  </data>
-  <data name="GenerateTSF.InstructionsFormed.Message" xml:space="preserve">
-    <value>Инструкции задачи сгенерированы в</value>
-  </data>
-  <data name="OpenTSF.OpenInstructions.Message" xml:space="preserve">
-    <value>Инструкции задачи открыты из</value>
-  </data>
-  <data name="StartStopConp.SaveProjectInto.Message" xml:space="preserve">
-    <value>Проект сохранен в директории</value>
-  </data>
-  <data name="StartStopConp.FormCommandFile.Message" xml:space="preserve">
-    <value>Сформирован командный файл по пути:</value>
-  </data>
-  <data name="StartStopConp.ProjectDirectoryCheck.Message_Part1" xml:space="preserve">
-    <value>В папке проекта</value>
-  </data>
-  <data name="StartStopConp.ProjectDataCheck.LackOfProjFile.Message" xml:space="preserve">
-    <value>отсутствует файл проекта</value>
-  </data>
-  <data name="StartStopConp.ProjectDataCheck.LackOfMaterials.Message" xml:space="preserve">
-    <value>отсутствует файл материалов</value>
-  </data>
-  <data name="StartStopConp.ProjectDataCheck.LackOfFunctions.Message" xml:space="preserve">
-    <value>отсутствует файл функций</value>
-  </data>
-  <data name="BeamConnection.BeamConnection.ObjectsCreated.Message" xml:space="preserve">
-    <value>Созданы объекты</value>
-  </data>
-  <data name="ConsoleEvents.ConsoleInEvent.ObjectNotFound.Message" xml:space="preserve">
-    <value>Объект не найден</value>
-  </data>
-  <data name="ConsoleEvents.ConsoleInEvent.ObjectFound.Message" xml:space="preserve">
-    <value>Найдено</value>
-  </data>
-  <data name="ConsoleEvents.ConsoleInEvents.VolumeElements.Message" xml:space="preserve">
-    <value>объемных элементов</value>
-  </data>
-  <data name="FindCoincidentNodes.Action.Message" xml:space="preserve">
-    <value>Выполняется поиск совпадающих узлов сетки...</value>
-  </data>
-  <data name="FindCoincidentNodes.Action.Found.Message" xml:space="preserve">
-    <value>Найдено</value>
-  </data>
-  <data name="FindCoincidentNodes.Action.Matches.Message" xml:space="preserve">
-    <value>совпадений</value>
-  </data>
-  <data name="FindCoincidentNodes.ActionConfirm.MergeNodes.Message" xml:space="preserve">
-    <value>Узлы объединены</value>
-  </data>
-  <data name="FindCoincidentNodes.Action.OperationCanceled.Message" xml:space="preserve">
-    <value>Операция отменена</value>
-  </data>
-  <data name="FindCoincidentNodes.AsyncContainer.Message" xml:space="preserve">
-    <value>Нажмите ""E"" для слияния, ""Esc"" для отмены</value>
-  </data>
-  <data name="EditGroup.EditGroupAsync.NoObjectsSelected.Message" xml:space="preserve">
-    <value>Не выбран ни один объект!</value>
-  </data>
-  <data name="EditGroup.EditGroupAsync.GroupChanged.Message" xml:space="preserve">
-    <value>Группа изменена успешно</value>
-  </data>
-  <data name="EditGroup.EditGroupAsync.OperationCanceled.Message" xml:space="preserve">
-    <value>Операция отменена</value>
-  </data>
-  <data name="EditGroup.EditGroupAsync.Preamble.Message" xml:space="preserve">
-    <value>Измените группу, добавив или удалив объекты. Нажмите ""E"", чтобы применить изменения или ""ESC"" для отмены</value>
-  </data>
-  <data name="FindFreeNodesEvent.Found.Message" xml:space="preserve">
-    <value>Найдено</value>
-  </data>
-  <data name="FindFreeNodesEvent.FreeNodes.Message" xml:space="preserve">
-    <value>свободных узлов</value>
-  </data>
-  <data name="HandleBaseMaster.Handle.CondCreation.Message" xml:space="preserve">
-    <value>Генерация граничных условий приведет к удалению старых условий данного мастера, если они есть. Продолжить?</value>
-  </data>
-  <data name="HandleBaseMaster.Success.Message" xml:space="preserve">
-    <value>Граничные условия сформированы</value>
-  </data>
-  <data name="ImportMaster.CreateImportedMasters.MasterNotFoundOrAlreadyLoaded.Message" xml:space="preserve">
-    <value>В загруженной библиотеке не определены реализации интерфейса мастера постановки задач или реализация этого мастера уже загружена</value>
-  </data>
-  <data name="ImportMaster.CreateImportedMasters.MasterOpened.Message" xml:space="preserve">
-    <value>Открыт мастер</value>
-  </data>
-  <data name="GenerateMesh3DEvents.Generate3D.GeneratedElements.Message" xml:space="preserve">
-    <value>Сгенерировано элементов</value>
-  </data>
-  <data name="GenerateMesh3DEvents.Generate3D.CheckRecommendation.Message" xml:space="preserve">
-    <value>Перед началом вычислений рекомендуется проверить порядок точности наборов данных в панели свойств, выбрав её в навигаторе.</value>
-  </data>
-  <data name="GenerateMesh3DEvents.Generate3D.GMSHNull.Exception" xml:space="preserve">
-    <value>Ошибка построения сетки. Возможно, геометрия не загружена</value>
-  </data>
-  <data name="GenerateBoundaryMesh.Generate2DOn3DSurfaces.NoObjects.Message" xml:space="preserve">
-    <value>Модель не содержит</value>
-  </data>
-  <data name="GenerateBoundaryMesh.Generate2DOn3DSurfaces.Elements.Message" xml:space="preserve">
-    <value>элементов!</value>
-  </data>
-  <data name="GenerateBoundaryMesh.CreateBoundaryMeh.ObjectsGenerated.Message" xml:space="preserve">
-    <value>Сгенерировано объектов</value>
-  </data>
-  <data name="GenerateBoundaryMesh.CreateBoundaryMeh.CheckRecommendation.Message" xml:space="preserve">
-    <value>Рекомендуется проверить порядок точности набора в панели свойств</value>
-  </data>
-  <data name="ShowHideDelObjects.DelObjectEvent.TryToDelGeom.Message" xml:space="preserve">
-    <value>В настоящий момент невозможно удалить геометрию</value>
-  </data>
-  <data name="SelectSetEvent.CreateGroupBySet.Message" xml:space="preserve">
-    <value>Создана новая группа</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Ошибка</value>
-  </data>
-  <data name="Source" xml:space="preserve">
-    <value>Источник</value>
-  </data>
-  <data name="DataBaseMainMenuEvents.OpenDB.Message" xml:space="preserve">
-    <value>База данных</value>
-  </data>
-  <data name="DataBaseMainMenuEvents.OpenDB.SuccessfullyAdded.Message" xml:space="preserve">
-    <value>Успешно добавлена</value>
-  </data>
-  <data name="DataBaseMainMenuEvents.OpenMatDB.DBNotLoaded.Message" xml:space="preserve">
-    <value>База данных материалов не загружена</value>
-  </data>
-  <data name="DataBaseMainMenuEvents.OpenFuncDB.DBNotLoaded.Message" xml:space="preserve">
-    <value>База данных функций не загружена</value>
-  </data>
-  <data name="GetDAtaBase.FindFileByPath.DBNotFound.Message_Part1" xml:space="preserve">
-    <value>База данных</value>
-  </data>
-  <data name="GetDAtaBase.FindFileByPath.DBNotFound.Message_Part2" xml:space="preserve">
-    <value>не найдена в папке</value>
-  </data>
-  <data name="Checking.StartCheckingEvent.SelectedDataIsNotCheckable.Message" xml:space="preserve">
-    <value>Выбранные данные не проверяются</value>
-  </data>
-  <data name="ChangeCondProperties.ChangeGeneralProperties.FileNotSelected.Message" xml:space="preserve">
-    <value>Файл не выбран</value>
-  </data>
-  <data name="MakeScreenShot.ScreenShotTaken.Message" xml:space="preserve">
-    <value>Сделан снимок экрана</value>
-  </data>
-  <data name="SaveLoadScript.GeoScript.Message" xml:space="preserve">
-    <value>Скрипт</value>
-  </data>
-  <data name="SaveLoadScript.GeoScript.Executed.Message" xml:space="preserve">
-    <value>выполнен</value>
-  </data>
-  <data name="SaveLoadScript.GeoScript.Formed.Message" xml:space="preserve">
-    <value>сформирован</value>
-  </data>
-  <data name="UtilityToolStrip.SelectObjectAsync.OperationCanceled.Message" xml:space="preserve">
-    <value>Операция отменена</value>
-  </data>
-  <data name="UtilityTiilStrip.SelectObjectAsync.NoObjectSelected.Message" xml:space="preserve">
-    <value>Не выбран ни один</value>
-  </data>
-  <data name="UtilityTiilStrip.SelectObjectAsync.SelectOne.Message" xml:space="preserve">
-    <value>Выберите один</value>
-  </data>
-  <data name="UtilityTiilStrip.SelectObjectAsync.Selected.Message" xml:space="preserve">
-    <value>Выбран</value>
-  </data>
-  <data name="UtilityTiilStrip.SelectObjectAsync.WithNumber.Message" xml:space="preserve">
-    <value>с номером</value>
-  </data>
-  <data name="MainMenuEvents.ChangeLanguage.Message" xml:space="preserve">
-    <value>Для применения изменений откройте приложение занова</value>
   </data>
 </root>
