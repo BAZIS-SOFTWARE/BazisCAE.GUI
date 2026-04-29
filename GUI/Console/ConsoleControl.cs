@@ -64,61 +64,8 @@ namespace BazisGUI.Console
             set;
         }
 
-//<<<<<<< HEAD
         Dictionary<string, GenCmd> genCmds;
         Dictionary<GenCmd, string[]> subCmds;
-//=======
-//        Dictionary<string, GenCmd> genCmds = new Dictionary<string, GenCmd>()
-//        {
-//            { "Загрузить проект",GenCmd.LoadProject},
-//            { "Сохранить проект",GenCmd.SaveProject},
-//            { "Рассчитать проект",GenCmd.SolveProject},
-//            { "Перенумерация сетки",GenCmd.RenumberMesh},
-//            { "Переместить узел",GenCmd.MoveNodes},
-//            { "Переместить сетку",GenCmd.MoveMesh},
-//            { "Повернуть сетку",GenCmd.RotateMesh},
-//            { "Найти свободные узлы",GenCmd.FindFreeNodes},
-//            { "Найти совпадающие",GenCmd.FindCoincident},
-//            { "Найти объемные элементы",GenCmd.FindVolElems},
-//            { "Найти объект",GenCmd.FindObject},
-//            { "Соединить стержнями",GenCmd.BeamConnection},
-//            { "Задать порядок точности",GenCmd.SetLevel },
-//            { "Слить наборы элементов",GenCmd.MergeElementSets },
-//            { "Построить 2D сетку",GenCmd.CreateMesh2DPoligon },
-//            { "Выход",GenCmd.Exit },
-//            { "Добавить точку", GenCmd.CreatePoint },
-//            { "Добавить линию", GenCmd.CreateCurve },
-//            { "Добавить поверхность", GenCmd.CreateSurface},
-//            { "Экструзия по кривой", GenCmd.ExtrudeCurve}
-//            //{ "Экструзия по вращению", GenCmd.ExtrudeRotate}
-//        };
-
-//        Dictionary<GenCmd, string[]> subCmds = new Dictionary<GenCmd, string[]>()
-//        {
-//            { GenCmd.LoadProject,new string[]{"путь"} },
-//            { GenCmd.SaveProject,new string[]{"путь"}},
-//            { GenCmd.SolveProject,new string[]{}},
-//            { GenCmd.RenumberMesh,new string[]{"тип:начальный номер"}},
-//            { GenCmd.MoveMesh,new string[]{ "переместить","x,y,z" }},
-//            { GenCmd.MoveNodes,new string[]{ "переместить" }},
-//            { GenCmd.RotateMesh,new string[]{ "повернуть","x,y,z:угол" }},
-//            { GenCmd.FindFreeNodes,new string[]{}},
-//            { GenCmd.FindCoincident,new string[]{ "узлы","расстояние" }},
-//            { GenCmd.FindVolElems,new string[]{ "величина" }},
-//            { GenCmd.FindObject,new string[]{ "тип,номер" }},
-//            { GenCmd.BeamConnection,new string[]{ "радиус поиска","макс. кол-во","группа#1","группа#2" }},
-//            { GenCmd.SetLevel,new string[]{ "тип","порядок точности" }},
-//            { GenCmd.MergeElementSets,new string[]{ "тип","набор#1","набор#2" }},
-//            { GenCmd.CreateMesh2DPoligon,new string[]{ "x1,y1", "x2,y2", "x3,y3","x4,y4","кол-во элементов" }},
-//            { GenCmd.Exit,Array.Empty<string>()},
-//            { GenCmd.CreatePoint, new string[]{ "x,y,z" } },
-//            { GenCmd.CreateCurve, new string[]{"точка#1", "точка#2"}},
-//            { GenCmd.CreateSurface, new string[]{"кривые формирующие контур", "кривая#1,кривая#2,кривая#N" } },
-//            { GenCmd.ExtrudeCurve, new string[]{"Элемент 2Д", "кривая", "точка", "шаг", "трансфинитная сетка 1-да, 0-нет"} }
-//            //{ GenCmd.ExtrudeRotate, new string[]{"Элемент 2Д", "угол", "точка", "ось вращения XYZ","трансфинитная сетка 1-да, 0-нет"} }
-//        };
-
-//>>>>>>> origin/Master_Dev_2
 
         private Thread trd;
 
@@ -160,12 +107,10 @@ namespace BazisGUI.Console
 
         private void InitGenCubCommandsDictionaries()
         {
+            var tempUICultureName = Thread.CurrentThread.CurrentUICulture.Name;
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
+
             var resources = new ComponentResourceManager(typeof(ConsoleControl));
-            //{ GenCmd.CreatePoint, new string[]{ "x,y,z" } },
-            //{ GenCmd.CreateCurve, new string[] { "точка#1", "точка#2" }},
-            //{ GenCmd.CreateSurface, new string[] { "кривые формирующие контур", "кривая#1,кривая#2,кривая#N" } },
-            //{ GenCmd.ExtrudeCurve, new string[] { "Элемент 2Д", "кривая", "точка", "шаг", "трансфинитная сетка 1-да, 0-нет" } }
-            //{ GenCmd.ExtrudeRotate, new string[]{"Элемент 2Д", "угол", "точка", "ось вращения XYZ","трансфинитная сетка 1-да, 0-нет"} }
             genCmds = new Dictionary<string, GenCmd>()
             {
                 { resources.GetString("GenLoadProject"),GenCmd.LoadProject},
@@ -214,6 +159,8 @@ namespace BazisGUI.Console
                 { GenCmd.ExtrudeRotate,resources.GetString("SubExtrudeRotation").Split("<|>") },
                 { GenCmd.Exit,new string[] { } }
             };
+
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(tempUICultureName);
         }
 
 
