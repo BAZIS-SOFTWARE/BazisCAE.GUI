@@ -37,6 +37,9 @@ namespace BazisGUI.Console
         CreateMesh2DPoligon,
         CreatePoint,
         CreateCurve,
+        CreatePointByVector,
+        CreatePointProjectionOntoCurve,
+        CreatePointProjectionOntoPlane,
         CreateSurface,
         ExtrudeCurve,
         ExtrudeRotate
@@ -328,13 +331,13 @@ namespace BazisGUI.Console
                         InEvent(this, new ExitAppEventArgs());
                         break;
                     case GenCmd.CreatePoint:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Point, [cmds[1]]));
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPoint, [cmds[1]]));
                         break;   
                     case GenCmd.CreateCurve:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Curve, [cmds[1], cmds[2]]));
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddCurve, [cmds[1], cmds[2]]));
                         break;
                     case GenCmd.CreateSurface:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(GeometryType.Surface, [cmds[2]]));
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddSurface, [cmds[2]]));
                         break;
                     case GenCmd.ExtrudeCurve:
                         ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
@@ -342,6 +345,15 @@ namespace BazisGUI.Console
                     //case GenCmd.ExtrudeRotate:
                     //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
                     //    break;
+                    case GenCmd.CreatePointByVector:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]));
+                        break;
+                    case GenCmd.CreatePointProjectionOntoPlane:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]));
+                        break;
+                    case GenCmd.CreatePointProjectionOntoCurve:
+                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]));
+                        break;
                 }
             }
         }

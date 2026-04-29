@@ -56,24 +56,36 @@
             helpImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             helpImageList.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("helpImageList.ImageStream");
             helpImageList.TransparentColor = System.Drawing.Color.Transparent;
-            helpImageList.Images.SetKeyName(0, "info_w.png");
-            helpImageList.Images.SetKeyName(1, "Edit.png");
-            helpImageList.Images.SetKeyName(2, "show_w.png");
-            helpImageList.Images.SetKeyName(3, "hide_w.png");
-            helpImageList.Images.SetKeyName(4, "Del.ico");
+            helpImageList.Images.SetKeyName(0, "Инфо.png");
+            helpImageList.Images.SetKeyName(1, "Карандаш.png");
+            helpImageList.Images.SetKeyName(2, "Открыто.png");
+            helpImageList.Images.SetKeyName(3, "Закрыто.png");
+            helpImageList.Images.SetKeyName(4, "Удалить раздел.png");
             // 
             // treeView
             // 
-            resources.ApplyResources(treeView, "treeView");
             treeView.BackColor = System.Drawing.SystemColors.Control;
             treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             treeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            treeView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
             treeView.FullRowSelect = true;
+            treeView.ImageIndex = 9;
             treeView.ImageList = genImageList;
+            treeView.Indent = 19;
             treeView.ItemHeight = 18;
+            treeView.Location = new System.Drawing.Point(0, 20);
+            treeView.Margin = new System.Windows.Forms.Padding(0);
             treeView.Name = "treeView";
-            treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { (System.Windows.Forms.TreeNode)resources.GetObject("treeView.Nodes") });
+            treeNode2.ImageIndex = 7;
+            treeNode2.Name = "проект";
+            treeNode2.SelectedImageIndex = 7;
+            treeNode2.Text = "Проект";
+            treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode2 });
+            treeView.SelectedImageIndex = 9;
             treeView.ShowLines = false;
+            treeView.Size = new System.Drawing.Size(299, 619);
+            treeView.TabIndex = 5;
             treeView.AfterCollapse += treeView_AfterCollapse;
             treeView.BeforeExpand += treeView_BeforeExpand;
             treeView.AfterExpand += treeView_AfterExpand;
