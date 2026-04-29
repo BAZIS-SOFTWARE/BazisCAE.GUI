@@ -28,143 +28,89 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rbtnDistance = new System.Windows.Forms.RadioButton();
-            this.rbtnPath = new System.Windows.Forms.RadioButton();
-            this.rbtSquare = new System.Windows.Forms.RadioButton();
-            this.rbtVolume = new System.Windows.Forms.RadioButton();
-            this.cmbMeasureObjects = new System.Windows.Forms.ComboBox();
-            this.btnMeasure = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeasuringSet));
+            rbtnDistance = new System.Windows.Forms.RadioButton();
+            rbtnPath = new System.Windows.Forms.RadioButton();
+            rbtSquare = new System.Windows.Forms.RadioButton();
+            rbtVolume = new System.Windows.Forms.RadioButton();
+            cmbMeasureObjects = new System.Windows.Forms.ComboBox();
+            btnMeasure = new System.Windows.Forms.Button();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            panel1 = new System.Windows.Forms.Panel();
+            tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // rbtnDistance
             // 
-            this.rbtnDistance.AutoSize = true;
-            this.rbtnDistance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtnDistance.Location = new System.Drawing.Point(12, 15);
-            this.rbtnDistance.Name = "rbtnDistance";
-            this.rbtnDistance.Size = new System.Drawing.Size(107, 17);
-            this.rbtnDistance.TabIndex = 0;
-            this.rbtnDistance.Text = "Расстояние, мм";
-            this.rbtnDistance.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.rbtnDistance.UseVisualStyleBackColor = true;
-            this.rbtnDistance.Click += new System.EventHandler(this.Rbtn_Click);
+            resources.ApplyResources(rbtnDistance, "rbtnDistance");
+            rbtnDistance.Name = "rbtnDistance";
+            rbtnDistance.UseVisualStyleBackColor = true;
+            rbtnDistance.Click += Rbtn_Click;
             // 
             // rbtnPath
             // 
-            this.rbtnPath.AutoSize = true;
-            this.rbtnPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtnPath.Location = new System.Drawing.Point(12, 84);
-            this.rbtnPath.Margin = new System.Windows.Forms.Padding(0);
-            this.rbtnPath.Name = "rbtnPath";
-            this.rbtnPath.Size = new System.Drawing.Size(71, 17);
-            this.rbtnPath.TabIndex = 1;
-            this.rbtnPath.Text = "Путь, мм";
-            this.rbtnPath.UseVisualStyleBackColor = true;
-            this.rbtnPath.Click += new System.EventHandler(this.Rbtn_Click);
+            resources.ApplyResources(rbtnPath, "rbtnPath");
+            rbtnPath.Name = "rbtnPath";
+            rbtnPath.UseVisualStyleBackColor = true;
+            rbtnPath.Click += Rbtn_Click;
             // 
             // rbtSquare
             // 
-            this.rbtSquare.AutoSize = true;
-            this.rbtSquare.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtSquare.Location = new System.Drawing.Point(12, 62);
-            this.rbtSquare.Name = "rbtSquare";
-            this.rbtSquare.Size = new System.Drawing.Size(106, 17);
-            this.rbtSquare.TabIndex = 2;
-            this.rbtSquare.Text = "Площадь, мм^2";
-            this.rbtSquare.UseVisualStyleBackColor = true;
-            this.rbtSquare.Click += new System.EventHandler(this.Rbtn_Click);
+            resources.ApplyResources(rbtSquare, "rbtSquare");
+            rbtSquare.Name = "rbtSquare";
+            rbtSquare.UseVisualStyleBackColor = true;
+            rbtSquare.Click += Rbtn_Click;
             // 
             // rbtVolume
             // 
-            this.rbtVolume.AutoSize = true;
-            this.rbtVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtVolume.Location = new System.Drawing.Point(12, 38);
-            this.rbtVolume.Name = "rbtVolume";
-            this.rbtVolume.Size = new System.Drawing.Size(94, 17);
-            this.rbtVolume.TabIndex = 3;
-            this.rbtVolume.Text = "Объем, мм^3";
-            this.rbtVolume.UseVisualStyleBackColor = true;
-            this.rbtVolume.Click += new System.EventHandler(this.Rbtn_Click);
+            resources.ApplyResources(rbtVolume, "rbtVolume");
+            rbtVolume.Name = "rbtVolume";
+            rbtVolume.UseVisualStyleBackColor = true;
+            rbtVolume.Click += Rbtn_Click;
             // 
             // cmbMeasureObjects
             // 
-            this.cmbMeasureObjects.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.cmbMeasureObjects.Enabled = false;
-            this.cmbMeasureObjects.FormattingEnabled = true;
-            this.cmbMeasureObjects.Items.AddRange(new object[] {
-            "Между двумя точками",
-            "Между точкой и плоскостью"});
-            this.cmbMeasureObjects.Location = new System.Drawing.Point(155, 56);
-            this.cmbMeasureObjects.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.cmbMeasureObjects.Name = "cmbMeasureObjects";
-            this.cmbMeasureObjects.Size = new System.Drawing.Size(131, 21);
-            this.cmbMeasureObjects.TabIndex = 4;
-            this.cmbMeasureObjects.SelectedIndexChanged += new System.EventHandler(this.cmbMeasureObjects_SelectedIndexChanged);
+            resources.ApplyResources(cmbMeasureObjects, "cmbMeasureObjects");
+            cmbMeasureObjects.FormattingEnabled = true;
+            cmbMeasureObjects.Items.AddRange(new object[] { resources.GetString("cmbMeasureObjects.Items"), resources.GetString("cmbMeasureObjects.Items1") });
+            cmbMeasureObjects.Name = "cmbMeasureObjects";
+            cmbMeasureObjects.SelectedIndexChanged += cmbMeasureObjects_SelectedIndexChanged;
             // 
             // btnMeasure
             // 
-            this.btnMeasure.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnMeasure.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMeasure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMeasure.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMeasure.Location = new System.Drawing.Point(155, 139);
-            this.btnMeasure.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.btnMeasure.Name = "btnMeasure";
-            this.btnMeasure.Size = new System.Drawing.Size(131, 27);
-            this.btnMeasure.TabIndex = 5;
-            this.btnMeasure.Text = "Измерить";
-            this.btnMeasure.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnMeasure.UseVisualStyleBackColor = true;
-            this.btnMeasure.Click += new System.EventHandler(this.btnMeasure_Click);
+            resources.ApplyResources(btnMeasure, "btnMeasure");
+            btnMeasure.Name = "btnMeasure";
+            btnMeasure.UseVisualStyleBackColor = true;
+            btnMeasure.Click += btnMeasure_Click;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.72414F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.27586F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cmbMeasureObjects, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnMeasure, 1, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(291, 172);
-            this.tableLayoutPanel1.TabIndex = 6;
+            resources.ApplyResources(tableLayoutPanel1, "tableLayoutPanel1");
+            tableLayoutPanel1.Controls.Add(panel1, 0, 0);
+            tableLayoutPanel1.Controls.Add(cmbMeasureObjects, 1, 0);
+            tableLayoutPanel1.Controls.Add(btnMeasure, 1, 1);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.rbtVolume);
-            this.panel1.Controls.Add(this.rbtnDistance);
-            this.panel1.Controls.Add(this.rbtSquare);
-            this.panel1.Controls.Add(this.rbtnPath);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(2, 2);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(146, 129);
-            this.panel1.TabIndex = 6;
+            resources.ApplyResources(panel1, "panel1");
+            panel1.Controls.Add(rbtVolume);
+            panel1.Controls.Add(rbtnDistance);
+            panel1.Controls.Add(rbtSquare);
+            panel1.Controls.Add(rbtnPath);
+            panel1.Name = "panel1";
             // 
             // MeasuringSet
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(0);
-            this.MinimumSize = new System.Drawing.Size(218, 154);
-            this.Name = "MeasuringSet";
-            this.Size = new System.Drawing.Size(291, 172);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
+            resources.ApplyResources(this, "$this");
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(tableLayoutPanel1);
+            Name = "MeasuringSet";
+            tableLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
 
         }
 

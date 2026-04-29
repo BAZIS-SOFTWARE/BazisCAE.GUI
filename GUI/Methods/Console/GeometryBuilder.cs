@@ -19,15 +19,17 @@ namespace BazisGUI
                 string input = createExtruderEvent.Parameters[3].Replace(',', '.');
                 var valid =
                     int.TryParse(createExtruderEvent.Parameters[0], out var numberSurface) &
-                    int.TryParse(createExtruderEvent.Parameters[1], out var numberCurve) &
                     int.TryParse(createExtruderEvent.Parameters[2], out var numberStartPoint) &
                     double.TryParse(input, out var step);
                 bool transfinite = createExtruderEvent.Parameters[4] == "1";
-
+                var curveNumbers = createExtruderEvent.Parameters[1]
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => int.Parse(x.Trim()))
+                    .ToList();
                 if (!valid)
                     throw new ArgumentException("Введены неверные данные");
 
-                ExtrudeCurve(numberSurface, numberCurve, numberStartPoint, step, transfinite);
+                ExtrudeCurve(numberSurface, curveNumbers.ToArray(), numberStartPoint, step, transfinite);
             }
             else
             {
@@ -63,7 +65,7 @@ namespace BazisGUI
             switch (type)
             {
                 // "TODO: подобрать другой разделитель, чтобы не было конфликта культур"
-                case GeometryType.Point:
+                case CreateCommandType.AddPoint:
                     var prm = geomCreator.Parameters;
                     var coord = prm[0].Split(',');
 
@@ -72,18 +74,37 @@ namespace BazisGUI
                        double.TryParse(coord[2], out double z))
                         AddPoint(x, y, z);
                     break;
-                case GeometryType.Curve:
+                case CreateCommandType.AddCurve:
                     var points = geomCreator.Parameters;
                     if (int.TryParse(points[0], out int startTag) &&
                        int.TryParse(points[1], out int endTag))
                         AddLine(startTag, endTag);
                     break;
-                case GeometryType.Surface:
+                case CreateCommandType.AddSurface:
                     var lineNumbers = geomCreator.Parameters[0]
                         .Split(',', StringSplitOptions.RemoveEmptyEntries)
                         .Select(x => int.Parse(x.Trim()))
                         .ToList();
                     AddPlane(lineNumbers);
+                    break;
+                case CreateCommandType.AddPointByVector:
+                    var prmByVector = geomCreator.Parameters;
+                    if (int.TryParse(prmByVector[0], out int basePointTag) &&
+                        int.TryParse(prmByVector[1], out int directionPointTag) &&
+                        double.TryParse(prmByVector[2], out double offset))
+                        AddPointByVector(basePointTag, directionPointTag, offset);
+                    break;
+                case CreateCommandType.AddPointProjectToSurface:
+                    var prmProjectToSurface = geomCreator.Parameters;
+                    if (int.TryParse(prmProjectToSurface[0], out int pointTag) &&
+                        int.TryParse(prmProjectToSurface[1], out int surfaceTag))
+                        AddPointProjectionOntoPlane(pointTag, 2, surfaceTag);
+                    break;
+                case CreateCommandType.AddPointProjectToCurve:
+                    var prmProjectToCurve = geomCreator.Parameters;
+                    if (int.TryParse(prmProjectToCurve[0], out int pointTag1) &&
+                        int.TryParse(prmProjectToCurve[1], out int curveTag))
+                        AddPointProjectionOntoCurve(pointTag1, 1, curveTag);
                     break;
                 default:
                     throw new NotSupportedException();
@@ -92,8 +113,8 @@ namespace BazisGUI
             DisplayObjects();
         }
 
-        private void ExtrudeCurve(int numberSurface, int numberCurve, int numberStartPoint, double step, bool transfinite)
-            => project.ExtrudeElement3DAlongCurve(numberSurface, numberCurve, numberStartPoint, step, transfinite);
+        private void ExtrudeCurve(int numberSurface, int[] numbersCurve, int numberStartPoint, double step, bool transfinite)
+            => project.ExtrudeElement3DAlongCurve(numberSurface, numbersCurve, numberStartPoint, step, transfinite);
         
         private void ExtrudeRotate(int numberSurface, float angle, int originPoint, Vector3 rotAxis, bool transfinite)
         {
@@ -119,6 +140,23 @@ namespace BazisGUI
             RefreshGeometry(ObjType.Поверхность);
         }
 
+        private void AddPointByVector(int startTag, int endTag, double step)
+        {
+            project.CreatePointByVector(startTag, endTag, step);
+            RefreshGeometry(ObjType.Точка);
+        }
+
+        private void AddPointProjectionOntoPlane(int pointTag, int dim, int surfaceTag)
+        {
+            project.CreatePointProjectionOntoGeometry(pointTag, dim, surfaceTag);
+            RefreshGeometry(ObjType.Точка);
+        }
+
+        private void AddPointProjectionOntoCurve(int pointTag, int dim, int curveTag)
+        {
+            project.CreatePointProjectionOntoGeometry(pointTag, dim, curveTag);
+            RefreshGeometry(ObjType.Точка);
+        }
         private void RefreshGeometry(ObjType objType)
         {
             VBOController.DeleteVBObjects(objType.ToString());
@@ -131,7 +169,8 @@ namespace BazisGUI
 
         private void PresentExtrude()
         {
-            var set = project.GetModelSetsInfo(ObjType.Элемент3D).Where(x => x.Name.Contains("append")).Last();
+            var set = project.GetModelSetsInfo(ObjType.Элемент3D).Where(x => x.Name.Contains("extrude")).Last();
+            var s = project.GetModelSetsInfo;
             var pre = project.CreateModelObjectsPresentor(set);
             var vbo = CreateVBObject(pre);
             VBOController.AddVbo(vbo);

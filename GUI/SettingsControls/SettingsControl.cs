@@ -3,11 +3,13 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Drawing;
 using BazisGUI.Scene.Interfaces;
+using System.Linq;
 
 namespace BazisGUI.SettingsControls
 {
     public partial class SettingsControl : UserControl
     {
+        enum Culture { en, ru }
         //public event Action SaveSettingsEvent;
         public event Action<Color> SetSelectionObjectColorEvent;
         public event Action<Color> SetSelectionGroupColorEvent;
@@ -25,7 +27,9 @@ namespace BazisGUI.SettingsControls
         public Action<int> SetTransparencyValueEvent;
 
         public Action<bool> SetOrtoProjectionEvent;
-        
+
+        public Action<string> SetLanguageEvent;
+
         public SettingsControl()
         {
             InitializeComponent();
@@ -34,6 +38,9 @@ namespace BazisGUI.SettingsControls
             {
                 SetLighterPositionEvent?.Invoke(ar);
             };
+
+            cmbLanguage.Items.Clear();
+            cmbLanguage.Items.AddRange(Enum.GetValues<Culture>().Select(GetLanguageByCulture).ToArray());
         }
 
         public void SetSettings(SettingsConfig settingsConfig)
@@ -51,7 +58,42 @@ namespace BazisGUI.SettingsControls
             chbOrtoProjection.Checked = settingsConfig.Projection == ViewProjection.Parallel ?
                 true : false;
             clslTransparency.Value = settingsConfig.TransparencyValue;
-        }  
+
+            cmbLanguage.Text = GetLanguageByCulture(ParseCulture(settingsConfig.Language));
+        }
+
+        private Culture GetCultureByLanguage(string language)
+        {
+            switch (language)
+            {
+                case "Русский":
+                    return Culture.ru;
+                default:
+                    return Culture.en;
+            }
+        }
+
+        private string GetLanguageByCulture(Culture culture)
+        {
+            switch (culture)
+            {
+                case Culture.ru:
+                    return "Русский";
+                default:
+                    return "English";
+            }
+        }
+
+        private Culture ParseCulture(string culture)
+        {
+            switch (culture)
+            {
+                case "ru":
+                    return Culture.ru;
+                default:
+                    return Culture.en;
+            }
+        }
 
         private void btnSelectObjectColor_Click(object sender, EventArgs e)
         {
@@ -168,6 +210,11 @@ namespace BazisGUI.SettingsControls
                 SetOrtoProjectionEvent?.Invoke(true);
             else
                 SetOrtoProjectionEvent?.Invoke(false);
+        }
+
+        private void cmbLanguage_TextChanged(object sender, EventArgs e)
+        {
+            SetLanguageEvent?.Invoke(GetCultureByLanguage(cmbLanguage.Text).ToString());
         }
     }
 }

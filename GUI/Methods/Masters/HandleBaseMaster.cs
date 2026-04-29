@@ -25,8 +25,8 @@ namespace BazisGUI
             master.PrintInfoEvent += (s, e) => console.PrintInfo(e.Message, e.Color);
             master.GenerateConditionsEvent += (s, e) =>
             {
-                var res = MessageBox.Show("Генерация граничных условий приведет к удалению старых условий, если они есть. Продолжить?",
-                    "Внимание", MessageBoxButtons.YesNo);
+                var res = MessageBox.Show(Localization.Localization.GetStringResourceByName("HandleBaseMaster.Handle.CondCreation.Message"),
+                    Localization.Localization.GetAttentionCaption(), MessageBoxButtons.YesNo);
                 if (res == DialogResult.No)
                     return;
 
@@ -40,7 +40,7 @@ namespace BazisGUI
 
                 }
                 PresentCondDataOnTree();
-                console.PrintInfo("Граничные условия сформированы", Color.Green);
+                console.PrintInfo(Localization.Localization.GetStringResourceByName("HandleBaseMaster.Success.Message"), Color.Green);
             };
         }
     }

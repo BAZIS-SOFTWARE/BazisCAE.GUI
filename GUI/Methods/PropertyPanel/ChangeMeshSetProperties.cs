@@ -110,7 +110,7 @@ namespace BazisGUI
                 project.ChangeMeshSetOrder(3, setName, obj);
 
             PresentMeshData();
-            navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> mesh);
+            navigator.TrySearchNodes(NodeName.Mesh, out List<TreeNode> mesh);
 
             mesh.First().Collapse();
             mesh.First().Expand();

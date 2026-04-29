@@ -20,7 +20,7 @@ namespace BazisGUI
         {
             try
             {
-                var searchMesh = navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> mesh);
+                var searchMesh = navigator.TrySearchNodes(NodeName.Mesh, out List<TreeNode> mesh);
 
                 var nodes = project.GetModelObjects(ObjType.Узел);
 
@@ -34,12 +34,12 @@ namespace BazisGUI
                     }
                     else
                     {
-                        var rn = navigator.CreateRealNode(NodeName.сетка, "Сетка");
+                        var rn = navigator.CreateRealNode(NodeName.Mesh);
 
                         var v_node = navigator.CreateVirtualNode();
                         rn.Nodes.Add(v_node);
 
-                        navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
+                        navigator.TrySearchNodes(NodeName.Project, out List<TreeNode> prNodes);
                         prNodes[0].Nodes.Add(rn);
                     }
                 else

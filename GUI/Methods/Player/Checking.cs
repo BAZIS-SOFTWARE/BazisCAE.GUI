@@ -19,11 +19,11 @@ namespace BazisGUI
 
                 if (name.TryToEnum(out NodeName nodeName))
                 {
-                    if (nodeName == NodeName.нагрев | 
-                        nodeName == NodeName.закрепление |
-                        nodeName == NodeName.нагрузка |
-                        nodeName == NodeName.материал |
-                        nodeName == NodeName.среда )
+                    if (nodeName == NodeName.Heat | 
+                        nodeName == NodeName.Clamp |
+                        nodeName == NodeName.Load |
+                        nodeName == NodeName.Material |
+                        nodeName == NodeName.Media )
                     {
                         DisplayGeometryObjectEvent = null;
                         DisplayText3DEvent = null;
@@ -79,7 +79,7 @@ namespace BazisGUI
                             DisplayObjects();
                         }
                     }
-                    else if (nodeName == NodeName.результат)
+                    else if (nodeName == NodeName.Result)
                     {
                         var loader = new LoadResultsFileDB();
 
@@ -116,16 +116,16 @@ namespace BazisGUI
 
             var nodeName = name.ToEnum<NodeName>();
 
-            if (nodeName != NodeName.результат &
-                nodeName != NodeName.материал &
-                    nodeName != NodeName.среда &
-                    nodeName != NodeName.нагрев &
-                    nodeName != NodeName.нагрузка &
-                    nodeName != NodeName.закрепление
+            if (nodeName != NodeName.Result &
+                nodeName != NodeName.Material &
+                    nodeName != NodeName.Media &
+                    nodeName != NodeName.Heat &
+                    nodeName != NodeName.Load &
+                    nodeName != NodeName.Clamp
                     )
             {
                 checkPlayerControl.Cancelation = true;
-                console.PrintInfo("Выбранные данные не проверяются", Color.Orange);
+                console.PrintInfo(Localization.Localization.GetStringResourceByName("Checking.StartCheckingEvent.SelectedDataIsNotCheckable.Message"), Color.Orange);
             }
 
         }

@@ -68,19 +68,19 @@ namespace BazisGUI
                 //if (bool.Parse(btnAdvSelection.Tag.ToString()) && counter != 0)
                 //    DispatchSelection(sets.First().ObjType, numbersSelevtedElement, isSelected);
                 //else
-                    console.PrintInfo($"Выбрано {counter} {objStr}", Color.Black);
+                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("SelectByRect.Selected.Message")} {counter} {objStr}", Color.Black);
             }
             else
-                console.PrintInfo($"Скрыто {counter} {objStr}", Color.Black);
+                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("SelectByRect.Hidden.Message")} {counter} {objStr}", Color.Black);
             DisplayObjects();
 
         }
 
         private string Declination(int input)
         {
-            string s = "объектов";
-            if (input % 10 == 1) s = "объект";
-            if (input % 10 >= 2 && input % 10 <= 4) s = "объекта";
+            string s = Localization.Localization.GetStringResourceByName("SelectByRect.Declination.Type1");
+            if (input % 10 == 1) s = Localization.Localization.GetStringResourceByName("SelectByRect.Declination.Type2");
+            if (input % 10 >= 2 && input % 10 <= 4) s = Localization.Localization.GetStringResourceByName("SelectByRect.Declination.Type3");
             //if (n % 100 >= 11 & n % 100 <= 20) s = "объектов";
 
             return s;

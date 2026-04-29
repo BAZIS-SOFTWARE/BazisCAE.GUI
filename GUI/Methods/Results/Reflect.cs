@@ -31,7 +31,7 @@ namespace BazisGUI
                         Owner = Application.OpenForms[0],
                         MaximizeBox = false,
                         FormBorderStyle = FormBorderStyle.FixedSingle,
-                        Text = "Отражение"
+                        Text = Localization.Localization.GetStringResourceByName("Reflect.Form.Text")
                     };
                     reflectForm.Controls.Add(reflect);
                     reflect.Dock = DockStyle.Fill;
@@ -122,12 +122,12 @@ namespace BazisGUI
             try
             {
                 if (VBOController.Contains(copyVboName))
-                    throw new Exception($"Объект с именем {copyVboName} уже существует");
+                    throw new Exception($"{Localization.Localization.GetStringResourceByName("Reflect.CreateReflectedVBObject.Exception_Part1")} {copyVboName} {Localization.Localization.GetStringResourceByName("Reflect.CreateReflectedVBObject.Exception_Part2")}");
 
                 var srcVbo = VBOController.FindVBObj(srcVboName);
 
                 if (srcVbo == null)
-                    throw new Exception($"Объект с именем {srcVbo} не существует");
+                    throw new Exception($"{Localization.Localization.GetStringResourceByName("Reflect.CreateReflectedVBObject.Exception_Part1")} {srcVbo} {Localization.Localization.GetStringResourceByName("Reflect.CreateReflectedVBObject.Exception_Part3")}");
 
                 //var reflMatrix = GetReflectionMatrix(plane);//from stack
 

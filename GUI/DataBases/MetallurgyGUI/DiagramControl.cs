@@ -292,7 +292,10 @@ namespace BazisGUI.DataBases.MetallurgyGUI
                 }
             }
             if (grDataRange.Count() == 0)
-                MessageBox.Show("Отсутствуют расчетные данные. Измените условия построения диаграммы.","Внимание!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    Localization.Localization.GetStringResourceByName<DiagramControl>("CreateDiagram.LackOfCalcDataWarning"),
+                    Localization.Localization.GetAttentionCaption(),
+                    MessageBoxButtons.OK,MessageBoxIcon.Warning);
             else
             {
                 graphContainer.CreateGraphData("TTT", grDataRange, new AxisFormat()
@@ -342,7 +345,10 @@ namespace BazisGUI.DataBases.MetallurgyGUI
             }
 
             if (grDataRange.Count() == 0)
-                MessageBox.Show("Отсутствуют расчетные данные. Измените условия построения диаграммы.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    Localization.Localization.GetStringResourceByName<DiagramControl>("CreateDiagram.LackOfCalcDataWarning"),
+                    Localization.Localization.GetAttentionCaption(),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
                 graphContainer.CreateGraphData("CCT", grDataRange,

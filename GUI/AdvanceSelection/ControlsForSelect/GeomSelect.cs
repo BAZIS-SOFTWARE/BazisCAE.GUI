@@ -7,15 +7,15 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 {
     public partial class GeomSelect : UserControl
     {
-        private readonly Dictionary<string, (bool volume, bool surface, bool curve)> _modes = new()
+        private readonly Dictionary<SelectionType, (bool volume, bool surface, bool curve)> _modes = new()
         {
-            { "Точка", (true, true, true) },
-            { "Кривая", (true, true, false) },
-            { "Поверхность", (true, false, false) }
+            { SelectionType.Points, (true, true, true) },
+            { SelectionType.Curves, (true, true, false) },
+            { SelectionType.Surfaces, (true, false, false) }
         };
         public event Action CloseForm;
 
-        public GeomSelect(string selectedObjects)
+        public GeomSelect(SelectionType selectedObjects)
         {
             InitializeComponent();
             SetAvailableModes(selectedObjects);
@@ -25,7 +25,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         {
             base.OnLoad(e);
         }
-        public void SetAvailableModes(string selectedObjects)
+        public void SetAvailableModes(SelectionType selectedObjects)
         {
             if (_modes.TryGetValue(selectedObjects, out var mode))
                 SetApply(mode.volume, mode.surface, mode.curve);
@@ -37,7 +37,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         {
             foreach (var rb in generalPanel.Controls.OfType<RadioButton>())
                 if (rb.Checked)
-                    return GetDimm(rb.Text);
+                    return GetDimm(rb.AccessibleName);
             return -1;
         }
 
@@ -50,11 +50,11 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
 
         private int GetDimm(string rbtText) 
         {
-            return rbtText switch
+            return Enum.Parse<SelectionType>(rbtText.Split("GeomSelect.")[1]) switch
             {
-                "Объемы" => 3,
-                "Поверхности" => 2,
-                "Кривые" => 1,
+                SelectionType.Volumes => 3,
+                SelectionType.Surfaces => 2,
+                SelectionType.Curves => 1,
             };
         }
     }

@@ -87,25 +87,22 @@ namespace BazisGUI.Console
             // toolStripMenuItem14
             // 
             toolStripMenuItem14.Name = "toolStripMenuItem14";
-            toolStripMenuItem14.Size = new System.Drawing.Size(186, 22);
-            toolStripMenuItem14.Text = "toolStripMenuItem14";
+            resources.ApplyResources(toolStripMenuItem14, "toolStripMenuItem14");
             // 
             // toolStripMenuItem15
             // 
             toolStripMenuItem15.Name = "toolStripMenuItem15";
-            toolStripMenuItem15.Size = new System.Drawing.Size(186, 22);
-            toolStripMenuItem15.Text = "toolStripMenuItem15";
+            resources.ApplyResources(toolStripMenuItem15, "toolStripMenuItem15");
             // 
             // toolStripMenuItem16
             // 
             toolStripMenuItem16.Name = "toolStripMenuItem16";
-            toolStripMenuItem16.Size = new System.Drawing.Size(186, 22);
-            toolStripMenuItem16.Text = "toolStripMenuItem16";
+            resources.ApplyResources(toolStripMenuItem16, "toolStripMenuItem16");
             // 
             // toolStripTextBox1
             // 
             toolStripTextBox1.Name = "toolStripTextBox1";
-            toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
+            resources.ApplyResources(toolStripTextBox1, "toolStripTextBox1");
             // 
             // tlscOut
             // 
@@ -114,46 +111,33 @@ namespace BazisGUI.Console
             // tlscOut.ContentPanel
             // 
             tlscOut.ContentPanel.Controls.Add(rtxbField);
-            tlscOut.ContentPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tlscOut.ContentPanel.Size = new System.Drawing.Size(787, 217);
-            tlscOut.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(tlscOut.ContentPanel, "tlscOut.ContentPanel");
+            resources.ApplyResources(tlscOut, "tlscOut");
             tlscOut.LeftToolStripPanelVisible = false;
-            tlscOut.Location = new System.Drawing.Point(0, 20);
-            tlscOut.Margin = new System.Windows.Forms.Padding(0);
             tlscOut.Name = "tlscOut";
             // 
             // tlscOut.RightToolStripPanel
             // 
             tlscOut.RightToolStripPanel.Controls.Add(toolStripEx1);
             tlscOut.RightToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            tlscOut.Size = new System.Drawing.Size(824, 217);
-            tlscOut.TabIndex = 5;
-            tlscOut.Text = "toolStripContainer1";
             // 
             // tlscOut.TopToolStripPanel
             // 
-            tlscOut.TopToolStripPanel.Padding = new System.Windows.Forms.Padding(0, 0, 25, 25);
+            resources.ApplyResources(tlscOut.TopToolStripPanel, "tlscOut.TopToolStripPanel");
             tlscOut.TopToolStripPanelVisible = false;
             // 
             // rtxbField
             // 
             rtxbField.BackColor = System.Drawing.SystemColors.Control;
             rtxbField.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            rtxbField.Dock = System.Windows.Forms.DockStyle.Fill;
-            rtxbField.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            rtxbField.Location = new System.Drawing.Point(0, 0);
-            rtxbField.Margin = new System.Windows.Forms.Padding(1);
+            resources.ApplyResources(rtxbField, "rtxbField");
             rtxbField.Name = "rtxbField";
-            rtxbField.Size = new System.Drawing.Size(787, 217);
-            rtxbField.TabIndex = 2;
-            rtxbField.Text = "";
-            rtxbField.WordWrap = false;
             rtxbField.KeyDown += rtxbField_KeyDown;
             // 
             // toolStripEx1
             // 
             toolStripEx1.BackGroundColor = System.Drawing.Color.Gainsboro;
-            toolStripEx1.Dock = System.Windows.Forms.DockStyle.None;
+            resources.ApplyResources(toolStripEx1, "toolStripEx1");
             toolStripEx1.FrameColor = System.Drawing.Color.DarkGray;
             toolStripEx1.GeneralFrame = true;
             toolStripEx1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -166,290 +150,224 @@ namespace BazisGUI.Console
             toolStripEx1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { spbDictionary, toolStripButton1, toolStripButton2, btnStartMacro });
             toolStripEx1.ItemSelectColor = System.Drawing.Color.Gray;
             toolStripEx1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            toolStripEx1.Location = new System.Drawing.Point(0, 0);
             toolStripEx1.Name = "toolStripEx1";
-            toolStripEx1.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            toolStripEx1.Size = new System.Drawing.Size(37, 217);
             toolStripEx1.SplitButtonClickWidth = 13;
             toolStripEx1.SplitButtonHeight = 40;
             toolStripEx1.SplitButtonTriangleSize = 6;
             toolStripEx1.Stretch = true;
-            toolStripEx1.TabIndex = 10;
             toolStripEx1.TextBoxFrame = true;
             toolStripEx1.TextBoxHeight = 0;
             // 
             // spbDictionary
             // 
-            spbDictionary.AutoSize = false;
+            resources.ApplyResources(spbDictionary, "spbDictionary");
             spbDictionary.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             spbDictionary.Image = Properties.Resources.helpContent;
-            spbDictionary.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            spbDictionary.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            spbDictionary.ImageTransparentColor = System.Drawing.Color.Magenta;
             spbDictionary.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
             spbDictionary.Name = "spbDictionary";
-            spbDictionary.Size = new System.Drawing.Size(25, 25);
-            spbDictionary.Text = "Справка";
-            spbDictionary.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             spbDictionary.Click += btnDictionary_Click;
             // 
             // toolStripButton1
             // 
-            toolStripButton1.AutoSize = false;
+            resources.ApplyResources(toolStripButton1, "toolStripButton1");
             toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton1.Image = (System.Drawing.Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new System.Drawing.Size(25, 25);
-            toolStripButton1.Text = "Изменить фон";
             toolStripButton1.Click += btnBackGroundInfo_Click;
             // 
             // toolStripButton2
             // 
-            toolStripButton2.AutoSize = false;
+            resources.ApplyResources(toolStripButton2, "toolStripButton2");
             toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton2.Image = (System.Drawing.Image)resources.GetObject("toolStripButton2.Image");
-            toolStripButton2.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new System.Drawing.Size(25, 25);
-            toolStripButton2.Text = "Очистить";
             toolStripButton2.Click += ClearAll_Click;
             // 
             // btnStartMacro
             // 
-            btnStartMacro.AutoSize = false;
+            resources.ApplyResources(btnStartMacro, "btnStartMacro");
             btnStartMacro.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            btnStartMacro.Enabled = false;
-            btnStartMacro.Image = (System.Drawing.Image)resources.GetObject("btnStartMacro.Image");
-            btnStartMacro.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            btnStartMacro.ImageTransparentColor = System.Drawing.Color.Magenta;
             btnStartMacro.Name = "btnStartMacro";
-            btnStartMacro.Size = new System.Drawing.Size(25, 25);
-            btnStartMacro.Text = "Запустить";
             btnStartMacro.Click += btnStartMacro_Click;
             // 
             // toolStripMenuItem32
             // 
             toolStripMenuItem32.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem33 });
-            toolStripMenuItem32.Enabled = false;
+            resources.ApplyResources(toolStripMenuItem32, "toolStripMenuItem32");
             toolStripMenuItem32.Name = "toolStripMenuItem32";
-            toolStripMenuItem32.Size = new System.Drawing.Size(231, 22);
-            toolStripMenuItem32.Text = "Загрузить проект";
             // 
             // toolStripMenuItem33
             // 
             toolStripMenuItem33.Name = "toolStripMenuItem33";
-            toolStripMenuItem33.Size = new System.Drawing.Size(98, 22);
-            toolStripMenuItem33.Text = "путь";
+            resources.ApplyResources(toolStripMenuItem33, "toolStripMenuItem33");
             // 
             // toolStripMenuItem34
             // 
             toolStripMenuItem34.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem35 });
-            toolStripMenuItem34.Enabled = false;
+            resources.ApplyResources(toolStripMenuItem34, "toolStripMenuItem34");
             toolStripMenuItem34.Name = "toolStripMenuItem34";
-            toolStripMenuItem34.Size = new System.Drawing.Size(231, 22);
-            toolStripMenuItem34.Text = "Сохранить проект";
             // 
             // toolStripMenuItem35
             // 
             toolStripMenuItem35.Name = "toolStripMenuItem35";
-            toolStripMenuItem35.Size = new System.Drawing.Size(98, 22);
-            toolStripMenuItem35.Text = "путь";
+            resources.ApplyResources(toolStripMenuItem35, "toolStripMenuItem35");
             // 
             // toolStripMenuItem36
             // 
-            toolStripMenuItem36.Enabled = false;
+            resources.ApplyResources(toolStripMenuItem36, "toolStripMenuItem36");
             toolStripMenuItem36.Name = "toolStripMenuItem36";
-            toolStripMenuItem36.Size = new System.Drawing.Size(231, 22);
-            toolStripMenuItem36.Text = "Новый проект";
             // 
             // toolStripMenuItem37
             // 
-            toolStripMenuItem37.Enabled = false;
+            resources.ApplyResources(toolStripMenuItem37, "toolStripMenuItem37");
             toolStripMenuItem37.Name = "toolStripMenuItem37";
-            toolStripMenuItem37.Size = new System.Drawing.Size(231, 22);
-            toolStripMenuItem37.Text = "Рассчитать проект";
             // 
             // toolStripMenuItem38
             // 
             toolStripMenuItem38.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem39 });
             toolStripMenuItem38.Name = "toolStripMenuItem38";
-            toolStripMenuItem38.Size = new System.Drawing.Size(231, 22);
-            toolStripMenuItem38.Text = "Перенумерация сетки";
+            resources.ApplyResources(toolStripMenuItem38, "toolStripMenuItem38");
             // 
             // toolStripMenuItem39
             // 
             toolStripMenuItem39.Name = "toolStripMenuItem39";
-            toolStripMenuItem39.Size = new System.Drawing.Size(138, 22);
-            toolStripMenuItem39.Text = "тип , номер";
+            resources.ApplyResources(toolStripMenuItem39, "toolStripMenuItem39");
             // 
             // toolStripMenuItem47
             // 
             toolStripMenuItem47.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem48, toolStripMenuItem50 });
             toolStripMenuItem47.Name = "toolStripMenuItem47";
-            toolStripMenuItem47.Size = new System.Drawing.Size(231, 22);
-            toolStripMenuItem47.Text = "Изменить координаты узла";
+            resources.ApplyResources(toolStripMenuItem47, "toolStripMenuItem47");
             // 
             // toolStripMenuItem48
             // 
             toolStripMenuItem48.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem49 });
             toolStripMenuItem48.Name = "toolStripMenuItem48";
-            toolStripMenuItem48.Size = new System.Drawing.Size(146, 22);
-            toolStripMenuItem48.Text = "Переместить";
+            resources.ApplyResources(toolStripMenuItem48, "toolStripMenuItem48");
             // 
             // toolStripMenuItem49
             // 
             toolStripMenuItem49.Name = "toolStripMenuItem49";
-            toolStripMenuItem49.Size = new System.Drawing.Size(189, 22);
-            toolStripMenuItem49.Text = "номер : вектор(a,b,c)";
+            resources.ApplyResources(toolStripMenuItem49, "toolStripMenuItem49");
             // 
             // toolStripMenuItem50
             // 
             toolStripMenuItem50.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem51 });
             toolStripMenuItem50.Name = "toolStripMenuItem50";
-            toolStripMenuItem50.Size = new System.Drawing.Size(146, 22);
-            toolStripMenuItem50.Text = "Повернуть";
+            resources.ApplyResources(toolStripMenuItem50, "toolStripMenuItem50");
             // 
             // toolStripMenuItem51
             // 
             toolStripMenuItem51.Name = "toolStripMenuItem51";
-            toolStripMenuItem51.Size = new System.Drawing.Size(202, 22);
-            toolStripMenuItem51.Text = "номер : ось(x,y,z) : угол";
+            resources.ApplyResources(toolStripMenuItem51, "toolStripMenuItem51");
             // 
             // изменитьКоToolStripMenuItem
             // 
             изменитьКоToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { переместитьToolStripMenuItem, повернутьToolStripMenuItem });
             изменитьКоToolStripMenuItem.Name = "изменитьКоToolStripMenuItem";
-            изменитьКоToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            изменитьКоToolStripMenuItem.Text = "Изменить координаты сетки";
+            resources.ApplyResources(изменитьКоToolStripMenuItem, "изменитьКоToolStripMenuItem");
             // 
             // переместитьToolStripMenuItem
             // 
             переместитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { векторabcToolStripMenuItem });
             переместитьToolStripMenuItem.Name = "переместитьToolStripMenuItem";
-            переместитьToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            переместитьToolStripMenuItem.Text = "Переместить";
+            resources.ApplyResources(переместитьToolStripMenuItem, "переместитьToolStripMenuItem");
             // 
             // векторabcToolStripMenuItem
             // 
             векторabcToolStripMenuItem.Name = "векторabcToolStripMenuItem";
-            векторabcToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            векторabcToolStripMenuItem.Text = "вектор(x,y,z)";
+            resources.ApplyResources(векторabcToolStripMenuItem, "векторabcToolStripMenuItem");
             // 
             // повернутьToolStripMenuItem
             // 
             повернутьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { осьxyzУголToolStripMenuItem });
             повернутьToolStripMenuItem.Name = "повернутьToolStripMenuItem";
-            повернутьToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            повернутьToolStripMenuItem.Text = "Повернуть";
+            resources.ApplyResources(повернутьToolStripMenuItem, "повернутьToolStripMenuItem");
             // 
             // осьxyzУголToolStripMenuItem
             // 
             осьxyzУголToolStripMenuItem.Name = "осьxyzУголToolStripMenuItem";
-            осьxyzУголToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            осьxyzУголToolStripMenuItem.Text = "ось(x,y,z) : угол";
+            resources.ApplyResources(осьxyzУголToolStripMenuItem, "осьxyzУголToolStripMenuItem");
             // 
             // toolStripMenuItem54
             // 
             toolStripMenuItem54.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem55, toolStripMenuItem57, toolStripMenuItem59 });
-            toolStripMenuItem54.Enabled = false;
+            resources.ApplyResources(toolStripMenuItem54, "toolStripMenuItem54");
             toolStripMenuItem54.MergeAction = System.Windows.Forms.MergeAction.Replace;
             toolStripMenuItem54.Name = "toolStripMenuItem54";
-            toolStripMenuItem54.Size = new System.Drawing.Size(231, 22);
-            toolStripMenuItem54.Text = "Изменить вид";
             // 
             // toolStripMenuItem55
             // 
             toolStripMenuItem55.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem56 });
             toolStripMenuItem55.Name = "toolStripMenuItem55";
-            toolStripMenuItem55.Size = new System.Drawing.Size(170, 22);
-            toolStripMenuItem55.Text = "Переместить";
+            resources.ApplyResources(toolStripMenuItem55, "toolStripMenuItem55");
             // 
             // toolStripMenuItem56
             // 
             toolStripMenuItem56.Name = "toolStripMenuItem56";
-            toolStripMenuItem56.Size = new System.Drawing.Size(141, 22);
-            toolStripMenuItem56.Text = "вектор(x,y,z)";
+            resources.ApplyResources(toolStripMenuItem56, "toolStripMenuItem56");
             // 
             // toolStripMenuItem57
             // 
             toolStripMenuItem57.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem58 });
             toolStripMenuItem57.Name = "toolStripMenuItem57";
-            toolStripMenuItem57.Size = new System.Drawing.Size(170, 22);
-            toolStripMenuItem57.Text = "Повернуть";
+            resources.ApplyResources(toolStripMenuItem57, "toolStripMenuItem57");
             // 
             // toolStripMenuItem58
             // 
             toolStripMenuItem58.Name = "toolStripMenuItem58";
-            toolStripMenuItem58.Size = new System.Drawing.Size(99, 22);
-            toolStripMenuItem58.Text = "угол";
+            resources.ApplyResources(toolStripMenuItem58, "toolStripMenuItem58");
             // 
             // toolStripMenuItem59
             // 
             toolStripMenuItem59.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem60 });
             toolStripMenuItem59.Name = "toolStripMenuItem59";
-            toolStripMenuItem59.Size = new System.Drawing.Size(170, 22);
-            toolStripMenuItem59.Text = "Масштабировать";
+            resources.ApplyResources(toolStripMenuItem59, "toolStripMenuItem59");
             // 
             // toolStripMenuItem60
             // 
             toolStripMenuItem60.Name = "toolStripMenuItem60";
-            toolStripMenuItem60.Size = new System.Drawing.Size(114, 22);
-            toolStripMenuItem60.Text = "фактор";
+            resources.ApplyResources(toolStripMenuItem60, "toolStripMenuItem60");
             // 
             // toolStripMenuItem61
             // 
             toolStripMenuItem61.Name = "toolStripMenuItem61";
-            toolStripMenuItem61.Size = new System.Drawing.Size(231, 22);
-            toolStripMenuItem61.Text = "Найти свободные узлы";
+            resources.ApplyResources(toolStripMenuItem61, "toolStripMenuItem61");
             toolStripMenuItem61.Click += NewItem_Click;
             // 
             // toolStripMenuItem62
             // 
             toolStripMenuItem62.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem63 });
             toolStripMenuItem62.Name = "toolStripMenuItem62";
-            toolStripMenuItem62.Size = new System.Drawing.Size(231, 22);
-            toolStripMenuItem62.Text = "Найти объект";
+            resources.ApplyResources(toolStripMenuItem62, "toolStripMenuItem62");
             // 
             // toolStripMenuItem63
             // 
             toolStripMenuItem63.Name = "toolStripMenuItem63";
-            toolStripMenuItem63.Size = new System.Drawing.Size(138, 22);
-            toolStripMenuItem63.Text = "тип , номер";
+            resources.ApplyResources(toolStripMenuItem63, "toolStripMenuItem63");
             // 
             // toolStripMenuItem64
             // 
             toolStripMenuItem64.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem65 });
             toolStripMenuItem64.Name = "toolStripMenuItem64";
-            toolStripMenuItem64.Size = new System.Drawing.Size(231, 22);
-            toolStripMenuItem64.Text = "Найти совпадающие";
+            resources.ApplyResources(toolStripMenuItem64, "toolStripMenuItem64");
             // 
             // toolStripMenuItem65
             // 
             toolStripMenuItem65.Name = "toolStripMenuItem65";
-            toolStripMenuItem65.Size = new System.Drawing.Size(102, 22);
-            toolStripMenuItem65.Text = "Узлы";
+            resources.ApplyResources(toolStripMenuItem65, "toolStripMenuItem65");
             toolStripMenuItem65.Click += NewItem_Click;
             // 
             // toolStripMenuItem66
             // 
             toolStripMenuItem66.Name = "toolStripMenuItem66";
-            toolStripMenuItem66.Size = new System.Drawing.Size(231, 22);
-            toolStripMenuItem66.Text = "Выход";
+            resources.ApplyResources(toolStripMenuItem66, "toolStripMenuItem66");
             // 
             // ConsoleControl
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             Controls.Add(tlscOut);
-            HeaderName = "Консоль";
+            HeaderName = resources.GetString("HeaderName");
             Name = "ConsoleControl";
-            Padding = new System.Windows.Forms.Padding(0, 20, 0, 0);
-            Size = new System.Drawing.Size(824, 237);
             Load += ConsoleControl_Load;
             tlscOut.ContentPanel.ResumeLayout(false);
             tlscOut.RightToolStripPanel.ResumeLayout(false);

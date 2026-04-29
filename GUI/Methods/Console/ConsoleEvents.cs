@@ -54,7 +54,7 @@ namespace BazisGUI
                             DisplayObjects();
                         }
                         else
-                            console.PrintInfo("Объект не найден", Color.Orange);
+                            console.PrintInfo(Localization.Localization.GetStringResourceByName("ConsoleEvents.ConsoleInEvent.ObjectNotFound.Message"), Color.Orange);
                     }));
                 }
 
@@ -93,7 +93,7 @@ namespace BazisGUI
                         }
                         DisplayObjects();                     
                     }
-                    Invoke(new Action(() => { console.PrintInfo($"Найдено {findElmems.Count()} объемных элементов", Color.Black); }));
+                    Invoke(new Action(() => { console.PrintInfo($"{Localization.Localization.GetStringResourceByName("ConsoleEvents.ConsoleInEvent.ObjectFound.Message_Part1")} {findElmems.Count()} {Localization.Localization.GetStringResourceByName("ConsoleEvents.ConsoleInEvents.VolumeElements.Message")}", Color.Black); }));
                 }
                 else if (arg2 is BeamConnectionEventArgs beamConnectionEventArgs)
                 {

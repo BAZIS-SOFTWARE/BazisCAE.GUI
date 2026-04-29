@@ -32,7 +32,7 @@ namespace BazisGUI
             if (clearFlag)
             {
                 List<TreeNode> tasks;
-                var search = navigator.TrySearchNodes(NodeName.задача, out tasks);
+                var search = navigator.TrySearchNodes(NodeName.Task, out tasks);
                 tasks[0].Nodes.Clear();
             }
 

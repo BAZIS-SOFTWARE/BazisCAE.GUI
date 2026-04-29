@@ -31,15 +31,16 @@ namespace BazisGUI.DataBases
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FunctionDataBasePage));
+            SuspendLayout();
             // 
             // FunctionDataBasePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "FunctionDataBasePage";
-            this.SaveEvent += new System.Action<string>(this.SafeDBEventHandler);
-            this.ResumeLayout(false);
+            resources.ApplyResources(this, "$this");
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Name = "FunctionDataBasePage";
+            SaveEvent += SafeDBEventHandler;
+            ResumeLayout(false);
 
         }
 

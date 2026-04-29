@@ -28,23 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaterialsDataBasePage));
+            contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
+            SuspendLayout();
             // 
             // contextMenuStrip1
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            resources.ApplyResources(contextMenuStrip1, "contextMenuStrip1");
+            contextMenuStrip1.Name = "contextMenuStrip1";
             // 
             // MaterialsDataBasePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.Name = "MaterialsDataBasePage";
-            this.Size = new System.Drawing.Size(693, 639);
-            this.SaveEvent += new System.Action<string>(this.SafeDBEventHandler);
-            this.ResumeLayout(false);
+            resources.ApplyResources(this, "$this");
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.Control;
+            Name = "MaterialsDataBasePage";
+            SaveEvent += SafeDBEventHandler;
+            ResumeLayout(false);
 
         }
 

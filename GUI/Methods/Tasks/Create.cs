@@ -13,16 +13,16 @@ namespace BazisGUI
             try
             {
                 List<TreeNode> tasks;
-                var search = navigator.TrySearchNodes(NodeName.задача, out tasks);
+                var search = navigator.TrySearchNodes(NodeName.Task, out tasks);
 
                 if (project == null)
                     throw new Exception("Создайте или загрузите проект или сетку");
 
                 if (!search)
                 {
-                    var rn = navigator.CreateRealNode(NodeName.задача, "Задача");
+                    var rn = navigator.CreateRealNode(NodeName.Task);
 
-                    navigator.TrySearchNodes(NodeName.проект, out List<TreeNode> prNodes);
+                    navigator.TrySearchNodes(NodeName.Project, out List<TreeNode> prNodes);
                     prNodes[0].Nodes.Add(rn);
                 }
 

@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="dataGridView1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 393</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 410</value>
+  </data>
+  <data name="Header.Color" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="Header.File" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="DataBase.Materials.MissingException" xml:space="preserve">
+    <value>Не загружена база физических свойств</value>
+  </data>
+  <data name="DataBase.Materials.NoDataException" xml:space="preserve">
+    <value>База физических свойств пустая</value>
+  </data>
+  <data name="DataBase.Functions.MissingException" xml:space="preserve">
+    <value>Не загружена база функций</value>
+  </data>
+  <data name="DataBase.Functions.NoDataException" xml:space="preserve">
+    <value>База функций пустая</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Свойства</value>
+  </data>
+  <data name="Comp.General.Header.Execute" xml:space="preserve">
+    <value>Выполнить</value>
+  </data>
+  <data name="Comp.Value.Execute" xml:space="preserve">
+    <value>Выполнить</value>
+  </data>
+  <data name="Comp.Value.Skip" xml:space="preserve">
+    <value>Пропустить</value>
+  </data>
+  <data name="Comp.GeneralHeader.Algorithm" xml:space="preserve">
+    <value>Алгоритм решения</value>
+  </data>
+  <data name="Comp.General.Header.IterationQuantity" xml:space="preserve">
+    <value>Кол-во итераций решения</value>
+  </data>
+  <data name="Comp.General.Header.Accuracy" xml:space="preserve">
+    <value>Точность решения, у.ед.</value>
+  </data>
+  <data name="Comp.General.Header.RelaxCoef" xml:space="preserve">
+    <value>Коэф. релаксации (w)</value>
+  </data>
+  <data name="Comp.General.HeaderMaxRelaxCoef" xml:space="preserve">
+    <value>Макс. коэф. релаксации (wm)</value>
+  </data>
+  <data name="Comp.General.Header.Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="Comp.General.Header.IterationsPerStep" xml:space="preserve">
+    <value>Кол-во итераций на шаге</value>
+  </data>
+  <data name="Comp.General.Header.SaveFrequency" xml:space="preserve">
+    <value>Частота сохранений, шаг</value>
+  </data>
+  <data name="Comp.General.Header.InitialTemp" xml:space="preserve">
+    <value>Начальная температура, C°</value>
+  </data>
+  <data name="Comp.General.Header.StartTime" xml:space="preserve">
+    <value>Время начала, сек</value>
+  </data>
+  <data name="Comp.General.Header.StopTime" xml:space="preserve">
+    <value>Время окончания, сек</value>
+  </data>
+  <data name="Comp.General.Header.InitialStep" xml:space="preserve">
+    <value>Начальный шаг расчета, сек</value>
+  </data>
+  <data name="Comp.General.Header.MinCalcStep" xml:space="preserve">
+    <value>Минимальный шаг расчета, сек</value>
+  </data>
+  <data name="Comp.General.Header.MaxCalcStep" xml:space="preserve">
+    <value>Максимальный шаг расчета, сек</value>
+  </data>
+  <data name="Comp.General.Header.Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Comp.Chem.Header.MaxConcentration" xml:space="preserve">
+    <value>Макс. концентрация. (dCt max), %</value>
+  </data>
+  <data name="Comp.Chem.Header.MaxConcentrationValue" xml:space="preserve">
+    <value>Значение макс. концентрации</value>
+  </data>
+  <data name="Comp.Chem.Header.InitialConcentration" xml:space="preserve">
+    <value>Начальная концентрация, %</value>
+  </data>
+  <data name="Comp.Term.Header.MaxTemperture" xml:space="preserve">
+    <value>Макс. темп. (dTt max), C°</value>
+  </data>
+  <data name="Comp.Term.Header.MaxTempertureValue" xml:space="preserve">
+    <value>Значение макс. темп.</value>
+  </data>
+  <data name="Comp.Mech.Header.MaxDifference" xml:space="preserve">
+    <value>Макс. разница dU, &gt;0</value>
+  </data>
+  <data name="Comp.Mech.Header.MaxDisplacement" xml:space="preserve">
+    <value>Макс. перемещение U, &gt;0</value>
+  </data>
+  <data name="Comp.Mech.Header.MaxDisplacementValue" xml:space="preserve">
+    <value>Значение макс. перемещения U</value>
+  </data>
+  <data name="Comp.Mech.Header.PlasticDeformation" xml:space="preserve">
+    <value>Пласт. деформация Si/St, &gt;1</value>
+  </data>
+  <data name="Comp.Mech.Header.PlasticDeformationValue" xml:space="preserve">
+    <value>Значение пласт. деформации Si/St</value>
+  </data>
+  <data name="Cond.General.Header.Group" xml:space="preserve">
+    <value>Группа</value>
+  </data>
+  <data name="Cond.General.Header.StartTime" xml:space="preserve">
+    <value>Старт, сек</value>
+  </data>
+  <data name="Cond.General.Header.StopTime" xml:space="preserve">
+    <value>Стоп, сек</value>
+  </data>
+  <data name="Cond.General.Header.Function" xml:space="preserve">
+    <value>Функция</value>
+  </data>
+  <data name="Cond.General.Header.Parameter" xml:space="preserve">
+    <value>Параметр</value>
+  </data>
+  <data name="Cond.General.Header.Table" xml:space="preserve">
+    <value>Таблица</value>
+  </data>
+  <data name="Cond.General.Header.Value" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="Cond.General.Header.CoordinateSystem" xml:space="preserve">
+    <value>Система координат</value>
+  </data>
+  <data name="Cond.General.Header.File" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Cond.General.Header.Plane" xml:space="preserve">
+    <value>Плоскость</value>
+  </data>
+  <data name="Cond.General.Header.Trajectory" xml:space="preserve">
+    <value>Траектория</value>
+  </data>
+  <data name="Cond.General.Header.ReferenceLine" xml:space="preserve">
+    <value>Опорная линия</value>
+  </data>
+  <data name="Cond.General.Header.Speed" xml:space="preserve">
+    <value>Скорость, мм/сек</value>
+  </data>
+  <data name="Cond.General.Header.ShiftingX" xml:space="preserve">
+    <value>Смещение X</value>
+  </data>
+  <data name="Cond.General.Header.RotationX" xml:space="preserve">
+    <value>Поворот X</value>
+  </data>
+  <data name="Cond.Clamp.Header.Type" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Cond.Clamp.Header.Direction" xml:space="preserve">
+    <value>Направление</value>
+  </data>
+  <data name="Cond.Material.Header.Material" xml:space="preserve">
+    <value>Материал</value>
+  </data>
+  <data name="Cond.Material.Header.Diameter" xml:space="preserve">
+    <value>Диаметр</value>
+  </data>
+  <data name="Cond.Material.Header.Thickness" xml:space="preserve">
+    <value>Толщина</value>
+  </data>
+  <data name="Cond.Heat.Header.Power" xml:space="preserve">
+    <value>Мощность, Дж/cек</value>
+  </data>
+  <data name="Cond.Load.Header.Direction" xml:space="preserve">
+    <value>Направление</value>
+  </data>
+  <data name="Cond.Load.Header.Value" xml:space="preserve">
+    <value>Значение, Н</value>
+  </data>
+  <data name="Cond.Load.Header.Type" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Geo.Curve.Header.Algorithm" xml:space="preserve">
+    <value>Алгоритм</value>
+  </data>
+  <data name="Geo.Curve.Header.PointQuantity" xml:space="preserve">
+    <value>Количество точек</value>
+  </data>
+  <data name="Geo.Curve.Header.Coefficient" xml:space="preserve">
+    <value>Коэффициент</value>
+  </data>
+  <data name="Geo.General.Header.MinSize" xml:space="preserve">
+    <value>Мин. размер</value>
+  </data>
+  <data name="Geo.General.Header.MaxSize" xml:space="preserve">
+    <value>Макс. размер</value>
+  </data>
+  <data name="Geo.General.Header.Algorithm2D" xml:space="preserve">
+    <value>Алгоритм 2D</value>
+  </data>
+  <data name="Geo.General.Header.Algorithm3D" xml:space="preserve">
+    <value>Алгоритм 3D</value>
+  </data>
+  <data name="Geo.General.Header.MeshSizeFactor" xml:space="preserve">
+    <value>Масштаб. коэффициент</value>
+  </data>
+  <data name="Geo.General.Header.ShowPointsOnCurves" xml:space="preserve">
+    <value>Показать точки на кривых</value>
+  </data>
+  <data name="Geo.General.ShowAllMeshOnGeneration" xml:space="preserve">
+    <value>Показать всю сетку при генерации</value>
+  </data>
+  <data name="Groups.Header.Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Groups.Header.CreateCondition" xml:space="preserve">
+    <value>Создать условие</value>
+  </data>
+  <data name="Cond.General.Header.ShiftingY" xml:space="preserve">
+    <value>Смещение Y</value>
+  </data>
+  <data name="Cond.General.Header.ShiftingZ" xml:space="preserve">
+    <value>Смещение Z</value>
+  </data>
+  <data name="Cond.General.Header.RotationY" xml:space="preserve">
+    <value>Поворот Y</value>
+  </data>
+  <data name="Cond.General.Header.RotationZ" xml:space="preserve">
+    <value>Поворот Z</value>
+  </data>
+  <data name="MeshObj.General.Header.CoordinateX" xml:space="preserve">
+    <value>Координата X</value>
+  </data>
+  <data name="MeshObj.General.Header.CoordinateY" xml:space="preserve">
+    <value>Координата Y</value>
+  </data>
+  <data name="MeshObj.General.Header.CoordinateZ" xml:space="preserve">
+    <value>Координата Z</value>
+  </data>
+  <data name="MeshSet.General.Header.Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="MeshSet.General.Header.Color" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="MeshSet.General.Header.View" xml:space="preserve">
+    <value>Представление</value>
+  </data>
+  <data name="MeshSet.General.Header.AccuracyLevel" xml:space="preserve">
+    <value>Порядок точности</value>
+  </data>
+  <data name="Geo.Point.Header.ElementsSize" xml:space="preserve">
+    <value>Размер элементов</value>
+  </data>
+  <data name="Geo.Surface.Header.MeshType" xml:space="preserve">
+    <value>Вид сетки</value>
+  </data>
+  <data name="Geo.Surface.Header.MeshType.Regular" xml:space="preserve">
+    <value>Регулярная</value>
+  </data>
+  <data name="Geo.Surface.Header.AddedCurves" xml:space="preserve">
+    <value>Добавленные кривые</value>
+  </data>
+  <data name="Geo.Surface.Header.Squaring" xml:space="preserve">
+    <value>Квадратизация</value>
+  </data>
+  <data name="Geo.Surface.Header.CornerPoints" xml:space="preserve">
+    <value>Угловые точки</value>
+  </data>
+  <data name="Geo.Surface.Header.RibbersOrientation" xml:space="preserve">
+    <value>Ориентация ребер</value>
+  </data>
+  <data name="Task.General.Header.Type" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Task.General.Header.Kind" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Task.General.Header.CheckConditionValues" xml:space="preserve">
+    <value>Проверка значений условий</value>
+  </data>
+  <data name="Geo.Volume.Header.MeshType" xml:space="preserve">
+    <value>Вид сетки</value>
+  </data>
+  <data name="Geo.Volume.Header.MeshType.Regulare" xml:space="preserve">
+    <value>Регулярная</value>
+  </data>
+  <data name="Geo.Volume.Header.MeshType.Gradient" xml:space="preserve">
+    <value>Градиентная</value>
+  </data>
+  <data name="Geo.Volume.Header.TransitionGradientDegree" xml:space="preserve">
+    <value>Степень градиента перехода</value>
+  </data>
+  <data name="Geo.Volume.Header.LayerThickness" xml:space="preserve">
+    <value>Толщина слоя</value>
+  </data>
+  <data name="Geo.Volume.Header.SurfaceElementsSize" xml:space="preserve">
+    <value>Размер элементов поверхности</value>
+  </data>
+  <data name="Geo.Volume.Header.SizeOfElementsInCenter" xml:space="preserve">
+    <value>Размер элементов в центре</value>
+  </data>
+  <data name="Result.General.Header.Scale" xml:space="preserve">
+    <value>Масштаб</value>
+  </data>
+  <data name="Result.General.Header.MaxValue" xml:space="preserve">
+    <value>Макс. значение</value>
+  </data>
+  <data name="Result.General.Header.MinValue" xml:space="preserve">
+    <value>Мин. значение</value>
+  </data>
+  <data name="Result.General.Header.ShowScale" xml:space="preserve">
+    <value>Показать шкалу</value>
+  </data>
+  <data name="Result.General.Header.RefineValues" xml:space="preserve">
+    <value>Уточнить значения</value>
+  </data>
+  <data name="Result.General.Header.ShowFields" xml:space="preserve">
+    <value>Показывать поле</value>
+  </data>
+  <data name="Result.General.Header.ShowValuesInNodes" xml:space="preserve">
+    <value>Показать значения в узлах</value>
+  </data>
+  <data name="Result.General.Header.ShowValuesInElements" xml:space="preserve">
+    <value>Показать значения в элементах</value>
+  </data>
+  <data name="Result.General.Header.AverageValues" xml:space="preserve">
+    <value>Усреднять значения</value>
+  </data>
+  <data name="Result.General.Header.Accuracy" xml:space="preserve">
+    <value>Точность</value>
+  </data>
+  <data name="Result.General.Header.Intervals" xml:space="preserve">
+    <value>Интервалы</value>
+  </data>
+  <data name="Result.General.Header.ScaleScreenPositionX" xml:space="preserve">
+    <value>Положение шкалы по Х</value>
+  </data>
+  <data name="Result.General.Header.ScaleScreenPositionY" xml:space="preserve">
+    <value>Положение шкалы по Y</value>
+  </data>
+</root>
