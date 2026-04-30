@@ -4764,6 +4764,16 @@ namespace BazisGUI.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Задать_точку_вращения {
+            get {
+                object obj = ResourceManager.GetObject("Задать точку вращения", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Инфо_со_сцены {
             get {
                 object obj = ResourceManager.GetObject("Инфо_со_сцены", resourceCulture);

@@ -1086,12 +1086,14 @@ namespace BazisGUI
             // скрытьВыбранноеItem
             // 
             resources.ApplyResources(скрытьВыбранноеItem, "скрытьВыбранноеItem");
+            скрытьВыбранноеItem.Image = Properties.Resources.hide_w;
             скрытьВыбранноеItem.Name = "скрытьВыбранноеItem";
             скрытьВыбранноеItem.Click += скрытьВыбранноеItem_Click;
             // 
             // показатьСкрытыеItem
             // 
             resources.ApplyResources(показатьСкрытыеItem, "показатьСкрытыеItem");
+            показатьСкрытыеItem.Image = Properties.Resources.show_w;
             показатьСкрытыеItem.Name = "показатьСкрытыеItem";
             показатьСкрытыеItem.Click += показатьСкрытыеItem_Click;
             // 
@@ -1105,6 +1107,7 @@ namespace BazisGUI
             // menuItem_SetRotPoint
             // 
             resources.ApplyResources(menuItem_SetRotPoint, "menuItem_SetRotPoint");
+            menuItem_SetRotPoint.Image = Properties.Resources.Задать_точку_вращения;
             menuItem_SetRotPoint.Name = "menuItem_SetRotPoint";
             menuItem_SetRotPoint.Click += menuItem_SetRotPoint_Click;
             // 
