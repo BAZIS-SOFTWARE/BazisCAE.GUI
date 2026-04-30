@@ -1,5 +1,6 @@
 ﻿using BazisGUI.Extensions;
 using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
 using Model.Interfaces;
@@ -42,7 +43,7 @@ namespace BazisGUI
                                     var objects = set.GetNumbers().Select(num => project.GetModelObject(objType, num)).ToList();
                                     project.CreateGroup(set.Name, objects);
                                     var group = project.GetAllModelGroups().Last();
-                                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("SelectSetEvent.CreateGroupBySet.Message")}: {group.Name}", Color.Black);
+                                    console.PrintInfo($"{Resources.SelectSetEvent_CreateGroupBySet_Message}: {group.Name}", Color.Black);
 
                                     PresentGroupDataOnTree();
                                     OnGroupCreated?.Invoke(group.ObjType, group.Number, group.Name);

@@ -1,14 +1,15 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
+using BazisGUI.Scene.VBO;
 using Geometry;
 using Model.Interfaces;
 using Model.Utilities;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using OpenTK.Graphics.OpenGL;
-using BazisGUI.Scene.VBO;
 
 namespace BazisGUI
 {
@@ -24,7 +25,7 @@ namespace BazisGUI
                     SelectedObjects == SelectionType.Elements)
                 {
 
-                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("SceneEvents.CreateGroup.InvalidGroupTypeWarning")}: {SelectedObjects.ToString()}", Color.Orange);
+                    console.PrintInfo($"{Resources.SceneEvents_CreateGroup_InvalidGroupTypeWarning}: {SelectedObjects.ToString()}", Color.Orange);
                 }
                 else
                 {
@@ -43,7 +44,7 @@ namespace BazisGUI
                         project.CreateGroup(selObjs);
                         var gr = project.GetAllModelGroups().Last();
 
-                        console.PrintInfo($"{Localization.Localization.GetStringResourceByName("SceneEvents.CreateGroup.SuccessCaption")}: {gr.Name}", Color.Black);
+                        console.PrintInfo($"{Resources.SceneEvents_CreateGroup_SuccessCaption}: {gr.Name}", Color.Black);
 
                         PresentGroupDataOnTree();
                         OnGroupCreated?.Invoke(gr.ObjType, gr.Number, gr.Name);
@@ -123,7 +124,7 @@ namespace BazisGUI
                 var objs = GetModelObjects(SelectedObjects);
                 var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
 
-                var message = $"{Localization.Localization.GetStringResourceByName("SceneEvents.Info.Selected")} {SelectedObjects}: {selObjs.Count()}";
+                var message = $"{Resources.SceneEvents_Info_Selected} {SelectedObjects}: {selObjs.Count()}";
 
                 var numbers = string.Join("\n", selObjs.Select(x => x.ToString()).ToArray());
 

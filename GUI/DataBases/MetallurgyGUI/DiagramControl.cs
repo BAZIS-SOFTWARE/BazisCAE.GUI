@@ -1,4 +1,5 @@
-﻿using MaterialDB;
+﻿using BazisGUI.Properties;
+using MaterialDB;
 using MaterialDB.MaterialData;
 using MaterialDB.MaterialData.MetallurgicalData;
 using PropertiesCalculator.PropertiesController.MetallurgicalModels;
@@ -293,7 +294,7 @@ namespace BazisGUI.DataBases.MetallurgyGUI
             }
             if (grDataRange.Count() == 0)
                 MessageBox.Show(
-                    Localization.Localization.GetStringResourceByName<DiagramControl>("CreateDiagram.LackOfCalcDataWarning"),
+                    Resources.CreateDiagram_LackOfCalcDataWarning,
                     Localization.Localization.GetAttentionCaption(),
                     MessageBoxButtons.OK,MessageBoxIcon.Warning);
             else
@@ -346,7 +347,7 @@ namespace BazisGUI.DataBases.MetallurgyGUI
 
             if (grDataRange.Count() == 0)
                 MessageBox.Show(
-                    Localization.Localization.GetStringResourceByName<DiagramControl>("CreateDiagram.LackOfCalcDataWarning"),
+                    Resources.CreateDiagram_LackOfCalcDataWarning,
                     Localization.Localization.GetAttentionCaption(),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else

@@ -1,5 +1,6 @@
 ﻿using BazisGUI.Extensions;
 using BazisGUI.PinnedControl;
+using BazisGUI.Properties;
 using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
@@ -147,7 +148,7 @@ namespace BazisGUI.Navigator
             
             var node = new TreeNode 
             { 
-                Text = Localization.Localization.GetStringResourceByName<NavigatorControl>("Navigator.TreeView.Node.Text.Project"),
+                Text = Resources.Navigator_TreeView_Node_Text_Project,
                 Name = NodeName.Project.ToString()
             };
             treeView.Nodes.Clear();

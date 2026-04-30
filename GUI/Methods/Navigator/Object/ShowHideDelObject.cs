@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
@@ -39,7 +40,7 @@ namespace BazisGUI
                     objInfo == ObjType.Кривая.ToString() |
                     objInfo == ObjType.Поверхность.ToString()) 
                 {
-                    console.PrintInfo(Localization.Localization.GetStringResourceByName("ShowHideDelObjects.DelObjectEvent.TryToDelGeom.Message"), Color.Orange);
+                    console.PrintInfo(Resources.ShowHideDelObjects_DelObjectEvent_TryToDelGeom_Message, Color.Orange);
                     return;
                 }
 

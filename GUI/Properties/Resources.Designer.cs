@@ -61,6 +61,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на &amp;About....
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
         /// </summary>
         internal static System.Drawing.Icon Add {
@@ -76,6 +85,15 @@ namespace BazisGUI.Properties {
         internal static string AddBranch_ExceptionMessage {
             get {
                 return ResourceManager.GetString("AddBranch.ExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Add reaction.
+        /// </summary>
+        internal static string AddReaction {
+            get {
+                return ResourceManager.GetString("AddReaction", resourceCulture);
             }
         }
         
@@ -130,6 +148,15 @@ namespace BazisGUI.Properties {
         internal static string AdvaneSelectionSelectedCaption {
             get {
                 return ResourceManager.GetString("AdvaneSelectionSelectedCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на already exists! \\nRename the material!.
+        /// </summary>
+        internal static string AlreadyExistsNRenameTheMaterial {
+            get {
+                return ResourceManager.GetString("AlreadyExistsNRenameTheMaterial", resourceCulture);
             }
         }
         
@@ -414,6 +441,33 @@ namespace BazisGUI.Properties {
         internal static string button2_Text {
             get {
                 return ResourceManager.GetString("button2.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Calculate creep.
+        /// </summary>
+        internal static string CalculateCreep {
+            get {
+                return ResourceManager.GetString("CalculateCreep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Calculate diagram.
+        /// </summary>
+        internal static string CalculateDiagram {
+            get {
+                return ResourceManager.GetString("CalculateDiagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Calculate hardening.
+        /// </summary>
+        internal static string CalculateHardening {
+            get {
+                return ResourceManager.GetString("CalculateHardening", resourceCulture);
             }
         }
         
@@ -1328,6 +1382,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Data.
+        /// </summary>
+        internal static string Data {
+            get {
+                return ResourceManager.GetString("Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на The function database is not loaded.
         /// </summary>
         internal static string DataBase_Functions_MissingException {
@@ -1400,6 +1463,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Data removed successfully.
+        /// </summary>
+        internal static string DataRemovedSuccessfully {
+            get {
+                return ResourceManager.GetString("DataRemovedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на An error occurred while deleting data!.
         /// </summary>
         internal static string DelBranchException {
@@ -1424,6 +1496,15 @@ namespace BazisGUI.Properties {
         internal static string DeletingError {
             get {
                 return ResourceManager.GetString("DeletingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Diagram calculator.
+        /// </summary>
+        internal static string DiagramCalculator {
+            get {
+                return ResourceManager.GetString("DiagramCalculator", resourceCulture);
             }
         }
         
@@ -1509,11 +1590,20 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Edit.
+        /// </summary>
+        internal static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Edit {
+        internal static System.Drawing.Bitmap Edit_Image {
             get {
-                object obj = ResourceManager.GetObject("Edit", resourceCulture);
+                object obj = ResourceManager.GetObject("Edit_Image", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1551,6 +1641,15 @@ namespace BazisGUI.Properties {
         internal static string EditGroup_EditGroupAsync_Preamble_Message {
             get {
                 return ResourceManager.GetString("EditGroup.EditGroupAsync.Preamble.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Edit reaction.
+        /// </summary>
+        internal static string EditReaction {
+            get {
+                return ResourceManager.GetString("EditReaction", resourceCulture);
             }
         }
         
@@ -1686,6 +1785,24 @@ namespace BazisGUI.Properties {
         internal static string FindVolElemsEventArgsArgExc {
             get {
                 return ResourceManager.GetString("FindVolElemsEventArgsArgExc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Found.
+        /// </summary>
+        internal static string Found {
+            get {
+                return ResourceManager.GetString("Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Function.
+        /// </summary>
+        internal static string Function {
+            get {
+                return ResourceManager.GetString("Function", resourceCulture);
             }
         }
         
@@ -2212,6 +2329,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Graph.
+        /// </summary>
+        internal static string Graph {
+            get {
+                return ResourceManager.GetString("Graph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Create condition.
         /// </summary>
         internal static string Groups_Header_CreateCondition {
@@ -2280,6 +2406,15 @@ namespace BazisGUI.Properties {
         internal static string HandleBaseMaster_Success_Message {
             get {
                 return ResourceManager.GetString("HandleBaseMaster.Success.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Hardening calculator.
+        /// </summary>
+        internal static string HardeningCalculator {
+            get {
+                return ResourceManager.GetString("HardeningCalculator", resourceCulture);
             }
         }
         
@@ -2557,6 +2692,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на List.
+        /// </summary>
+        internal static string List {
+            get {
+                return ResourceManager.GetString("List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Upload a database or create a new one.
         /// </summary>
         internal static string LoadDBAddIntoMissingDBException {
@@ -2607,6 +2751,15 @@ namespace BazisGUI.Properties {
         internal static string MakeScreenShot_ScreenShotTaken_Message {
             get {
                 return ResourceManager.GetString("MakeScreenShot.ScreenShotTaken.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Material.
+        /// </summary>
+        internal static string Material {
+            get {
+                return ResourceManager.GetString("Material", resourceCulture);
             }
         }
         
@@ -2890,6 +3043,24 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на New_function_.
+        /// </summary>
+        internal static string New_function_ {
+            get {
+                return ResourceManager.GetString("New_function_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на New_material_.
+        /// </summary>
+        internal static string New_material_ {
+            get {
+                return ResourceManager.GetString("New_material_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на new_project.bpf2.
         /// </summary>
         internal static string NewProjectNameTemplate {
@@ -2960,6 +3131,15 @@ namespace BazisGUI.Properties {
         internal static string ProjectSavedCaption {
             get {
                 return ResourceManager.GetString("ProjectSavedCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Property table is missing!.
+        /// </summary>
+        internal static string PropertyTableIsMissing {
+            get {
+                return ResourceManager.GetString("PropertyTableIsMissing", resourceCulture);
             }
         }
         
@@ -3225,6 +3405,24 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Reaction with a such name is already exist! Choose another name.
+        /// </summary>
+        internal static string ReactionWithASuchNameIsAlreadyExistChooseAnotherName {
+            get {
+                return ResourceManager.GetString("ReactionWithASuchNameIsAlreadyExistChooseAnotherName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &amp;Reference.
+        /// </summary>
+        internal static string Reference {
+            get {
+                return ResourceManager.GetString("Reference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Object with name.
         /// </summary>
         internal static string Reflect_CreateReflectedVBObject_Exception_Part1 {
@@ -3276,6 +3474,33 @@ namespace BazisGUI.Properties {
         internal static string releaseNoteslinkLabel_Text {
             get {
                 return ResourceManager.GetString("releaseNoteslinkLabel.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Remove.
+        /// </summary>
+        internal static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Remove reaction.
+        /// </summary>
+        internal static string RemoveReaction {
+            get {
+                return ResourceManager.GetString("RemoveReaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Rename.
+        /// </summary>
+        internal static string Rename {
+            get {
+                return ResourceManager.GetString("Rename", resourceCulture);
             }
         }
         
@@ -3605,6 +3830,24 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Select a function!.
+        /// </summary>
+        internal static string SelectAFunction {
+            get {
+                return ResourceManager.GetString("SelectAFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Select a property or reaction to remove!.
+        /// </summary>
+        internal static string SelectAPropertyOrReactionToRemove {
+            get {
+                return ResourceManager.GetString("SelectAPropertyOrReactionToRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Object selected.
         /// </summary>
         internal static string SelectByPoint_ObjectSelected_Message {
@@ -3655,6 +3898,24 @@ namespace BazisGUI.Properties {
         internal static string SelectByRect_Selected_Message {
             get {
                 return ResourceManager.GetString("SelectByRect.Selected.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Select material!.
+        /// </summary>
+        internal static string SelectMaterial {
+            get {
+                return ResourceManager.GetString("SelectMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Select reaction!.
+        /// </summary>
+        internal static string SelectReaction {
+            get {
+                return ResourceManager.GetString("SelectReaction", resourceCulture);
             }
         }
         
@@ -4068,6 +4329,33 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на The phase name can only consist of letters, numbers and the underscore \\\.
+        /// </summary>
+        internal static string ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore {
+            get {
+                return ResourceManager.GetString("ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The phase name can only consist of letters, numbers and the underscore \&quot;_\&quot;!.
+        /// </summary>
+        internal static string ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore_ {
+            get {
+                return ResourceManager.GetString("ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The reaction requires at least two phases!.
+        /// </summary>
+        internal static string TheReactionRequiresAtLeastTwoPhases {
+            get {
+                return ResourceManager.GetString("TheReactionRequiresAtLeastTwoPhases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Loading. Please wait....
         /// </summary>
         internal static string title_Text {
@@ -4476,26 +4764,6 @@ namespace BazisGUI.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Закрыто {
-            get {
-                object obj = ResourceManager.GetObject("Закрыто", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Инфо {
-            get {
-                object obj = ResourceManager.GetObject("Инфо", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Инфо_со_сцены {
             get {
                 object obj = ResourceManager.GetObject("Инфо_со_сцены", resourceCulture);
@@ -4519,16 +4787,6 @@ namespace BazisGUI.Properties {
         internal static System.Drawing.Bitmap к_39 {
             get {
                 object obj = ResourceManager.GetObject("к 39", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Карандаш {
-            get {
-                object obj = ResourceManager.GetObject("Карандаш", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -4606,16 +4864,6 @@ namespace BazisGUI.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Открыто {
-            get {
-                object obj = ResourceManager.GetObject("Открыто", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Показать_все_скрытые {
             get {
                 object obj = ResourceManager.GetObject("Показать все скрытые", resourceCulture);
@@ -4639,16 +4887,6 @@ namespace BazisGUI.Properties {
         internal static System.Drawing.Bitmap Скрыть_выбранное {
             get {
                 object obj = ResourceManager.GetObject("Скрыть выбранное", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Удалить_раздел {
-            get {
-                object obj = ResourceManager.GetObject("Удалить раздел", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

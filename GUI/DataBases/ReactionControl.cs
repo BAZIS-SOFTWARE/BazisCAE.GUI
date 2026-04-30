@@ -4,6 +4,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using MaterialDB.MaterialData;
+using BazisGUI.Properties;
 
 namespace BazisGUI.DataBases
 {
@@ -54,7 +55,7 @@ namespace BazisGUI.DataBases
             if (!regex.IsMatch(txbPhaseValue.Text))
             {
                 MessageBox.Show(
-                    Localization.Localization.GetStringResourceByName<ReactionControl>("InvalidRegexPhaseMatchWarning"),
+                    Resources.InvalidRegexPhaseMatchWarning,
                     Localization.Localization.GetAttentionCaption(),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);                
                 return;
@@ -147,7 +148,7 @@ namespace BazisGUI.DataBases
         private void chbTimeDependent_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show(
-                Localization.Localization.GetStringResourceByName<ReactionControl>("EnteredDataDeletingWarning"), 
+                Resources.EnteredDataDeletingWarning, 
                 Localization.Localization.GetAttentionCaption(),
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             

@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Localization;
+using BazisGUI.Properties;
 using Geometry;
 using Model.Interfaces;
 using System;
@@ -33,9 +34,9 @@ namespace BazisGUI
         {
             var actBreak = new Action(() =>
             {
-                Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("BasePage.CreateSurfaceAync.OperationCanceled.Message"), Color.Black)));
+                Invoke(new Action(() => console.PrintInfo(Resources.BasePage_CreateSurfaceAync_OperationCanceled_Message, Color.Black)));
             });
-            var message = @$"{Localization.Localization.GetStringResourceByName("BasePage.CreateSurfaceAsync.AsyncContainer.Message")}";
+            var message = @$"{Resources.BasePage_CreateSurfaceAsync_AsyncContainer_Message}";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
                 var pointObjs = project.GetModelObjects(objType);
@@ -43,12 +44,12 @@ namespace BazisGUI
 
                 if (selObjs.Length < 3)
                 {
-                    Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("BasePage.CreateSurfaceAsync.SelectThreeNodes.Message"), Color.Orange)));
+                    Invoke(new Action(() => console.PrintInfo(Resources.BasePage_CreateSurfaceAsync_SelectThreeNodes_Message, Color.Orange)));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else if (objType != ObjType.Узел & objType != ObjType.Точка)
                 {
-                    Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("BasePage.CreateSurfaceAsync.SelectNodeType.Message"), Color.Orange)));
+                    Invoke(new Action(() => console.PrintInfo(Resources.BasePage_CreateSurfaceAsync_SelectNodeType_Message, Color.Orange)));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else
@@ -58,7 +59,7 @@ namespace BazisGUI
                     var p2 = selObjs[2];
 
                     var plane = new Geometry.Plane(p0.CalcCentr(), p1.CalcCentr(), p2.CalcCentr());
-                    Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("BasePage.CreateSurfaceAsync.SurfaceSet.Message"), Color.Green)));
+                    Invoke(new Action(() => console.PrintInfo(Resources.BasePage_CreateSurfaceAsync_SurfaceSet_Message, Color.Green)));
                     return new Tuple<bool, object>(true, plane);
                 }
             });

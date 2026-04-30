@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace BazisGUI
                 return;
             var els = project.GetModelObjects(objType);
             if (els.Count() == 0)
-                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("GenerateBoundaryMesh.Generate2DOn3DSurfaces.NoObjects.Message")} {dim + 1}D {Localization.Localization.GetStringResourceByName("GenerateBoundaryMesh.Generate2DOn3DSurfaces.Elements.Message")}", Color.Red);
+                console.PrintInfo($"{Resources.GenerateBoundaryMesh_Generate2DOn3DSurfaces_NoObjects_Message} {dim + 1}D {Resources.GenerateBoundaryMesh_Generate2DOn3DSurfaces_Elements_Message}", Color.Red);
             else
             {
                 if (dim == 2)
@@ -78,7 +79,7 @@ namespace BazisGUI
                     VBOController.AddVbo(vbo);
 
                     DisplayObjects();
-                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("GenerateBoundaryMesh.CreateBoundaryMeh.ObjectsGenerated.Message")} {set.ObjType.ToString()}: {set.NumberOfObjects}. {Localization.Localization.GetStringResourceByName("GenerateBoundaryMesh.CreateBoundaryMeh.CheckRecommendation.Message")}", Color.Orange);
+                    console.PrintInfo($"{Resources.GenerateBoundaryMesh_CreateBoundaryMeh_ObjectsGenerated_Message} {set.ObjType.ToString()}: {set.NumberOfObjects}. {Resources.GenerateBoundaryMesh_CreateBoundaryMeh_CheckRecommendation_Message}", Color.Orange);
                 }
             }
         }

@@ -1,4 +1,5 @@
-﻿using Model.Interfaces;
+﻿using BazisGUI.Properties;
+using Model.Interfaces;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -35,10 +36,10 @@ namespace BazisGUI
                 FitObjectsToScreen();
                 DisplayObjects();
 
-                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("GenerateMesh2DEvent.GenerateOnGeometry.GenElements.Message")}"+
+                console.PrintInfo($"{Resources.GenerateMesh2DEvent_GenerateOnGeometry_GenElements_Message}"+
                     $" 1D: {project.GetModelObjects(ObjType.Элемент1D).Count()}," +
                     $" 2D: {project.GetModelObjects(ObjType.Элемент2D).Count()}." +
-                    Localization.Localization.GetStringResourceByName("GenerateMesh2DEvent.GenerateOnGeometry.Recomendation.Message"), Color.Orange);
+                    Resources.GenerateMesh2DEvent_GenerateOnGeometry_Recomendation_Message, Color.Orange);
             }
             catch (Exception ex)
             {

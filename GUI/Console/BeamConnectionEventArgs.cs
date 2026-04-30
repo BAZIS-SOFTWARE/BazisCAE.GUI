@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazisGUI.Properties;
+using System;
 
 namespace BazisGUI.Console
 {
@@ -19,12 +20,12 @@ namespace BazisGUI.Console
             if (double.TryParse(_radius, out radius))
                 Radius = radius;
             else
-                throw new ArgumentException(Localization.Localization.GetStringResourceByName<ConsoleControl>("BeamConnectionEventArgsArgNumExc"), nameof(_radius));
+                throw new ArgumentException(Resources.BeamConnectionEventArgsArgNumExc, nameof(_radius));
             int maxBeams;
             if (int.TryParse(_maxBeams, out maxBeams))
                 MaxBeams = maxBeams;
             else
-                throw new ArgumentException(Localization.Localization.GetStringResourceByName<ConsoleControl>("BeamConnectionEventArgsArgNumExc"), nameof(_maxBeams));
+                throw new ArgumentException(Resources.BeamConnectionEventArgsArgNumExc, nameof(_maxBeams));
         }
     }
 }

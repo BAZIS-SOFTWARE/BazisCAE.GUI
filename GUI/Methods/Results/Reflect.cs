@@ -1,13 +1,14 @@
-﻿using System;
-using Geometry;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Linq;
+﻿using BazisGUI.Properties;
 using BazisGUI.Reflect;
 using BazisGUI.Scene.VBO;
-using OpenTK.Graphics.OpenGL;
-using MathNet.Numerics.LinearAlgebra;
+using Geometry;
 using MathNet.Numerics;
+using MathNet.Numerics.LinearAlgebra;
+using OpenTK.Graphics.OpenGL;
+using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -31,7 +32,7 @@ namespace BazisGUI
                         Owner = Application.OpenForms[0],
                         MaximizeBox = false,
                         FormBorderStyle = FormBorderStyle.FixedSingle,
-                        Text = Localization.Localization.GetStringResourceByName("Reflect.Form.Text")
+                        Text = Resources.Reflect_Form_Text
                     };
                     reflectForm.Controls.Add(reflect);
                     reflect.Dock = DockStyle.Fill;
@@ -122,12 +123,12 @@ namespace BazisGUI
             try
             {
                 if (VBOController.Contains(copyVboName))
-                    throw new Exception($"{Localization.Localization.GetStringResourceByName("Reflect.CreateReflectedVBObject.Exception_Part1")} {copyVboName} {Localization.Localization.GetStringResourceByName("Reflect.CreateReflectedVBObject.Exception_Part2")}");
+                    throw new Exception($"{Resources.Reflect_CreateReflectedVBObject_Exception_Part1} {copyVboName} {Resources.Reflect_CreateReflectedVBObject_Exception_Part2}");
 
                 var srcVbo = VBOController.FindVBObj(srcVboName);
 
                 if (srcVbo == null)
-                    throw new Exception($"{Localization.Localization.GetStringResourceByName("Reflect.CreateReflectedVBObject.Exception_Part1")} {srcVbo} {Localization.Localization.GetStringResourceByName("Reflect.CreateReflectedVBObject.Exception_Part3")}");
+                    throw new Exception($"{Resources.Reflect_CreateReflectedVBObject_Exception_Part1} {srcVbo} {Resources.Reflect_CreateReflectedVBObject_Exception_Part3}");
 
                 //var reflMatrix = GetReflectionMatrix(plane);//from stack
 

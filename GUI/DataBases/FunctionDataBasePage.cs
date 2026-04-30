@@ -9,6 +9,7 @@ using UserControlsEx.Graph;
 using PropertiesCalculator;
 using MaterialDB.FunctionData;
 using MaterialDB.MaterialData;
+using BazisGUI.Properties;
 
 namespace BazisGUI.DataBases
 {
@@ -41,7 +42,7 @@ namespace BazisGUI.DataBases
                     OnMutationEvent?.Invoke();
                 }
 
-                else throw new Exception(Localization.Localization.GetStringResourceByName<DataBasePage>("DelBranchException"));
+                else throw new Exception(Resources.DelBranchException);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
@@ -61,8 +62,8 @@ namespace BazisGUI.DataBases
             var name = $"{function.Name},{function.Units}";
             var funNode = new TreeNode(name) { Name = name };
 
-            var renameFunItem = new ToolStripMenuItem(Localization.Localization.GetStringResourceByName<DataBasePage>("itmRename.Text"));
-            var deleteFunItem = new ToolStripMenuItem(Localization.Localization.GetStringResourceByName<DataBasePage>("itmDelete.Text"));
+            var renameFunItem = new ToolStripMenuItem(Resources.Rename);
+            var deleteFunItem = new ToolStripMenuItem(Resources.Remove);
             renameFunItem.Click += RenameMatItem_Click;
             deleteFunItem.Click += DeleteMaterialItem_Click;
             matMenu.Items.Add(renameFunItem);
@@ -85,7 +86,7 @@ namespace BazisGUI.DataBases
 
                     var property = Functions[fun];
                     if (property.DataTable == null)
-                        throw new Exception(Localization.Localization.GetStringResourceByName<FunctionDataBasePage>("PropertyTableIsMissingException"));
+                        throw new Exception(BazisGUI.Properties.Resources.PropertyTableIsMissing);
 
                     var dt = Resort(property.DataTable, "X", "ASC");
                     property.DataTable = dt;
@@ -146,7 +147,7 @@ namespace BazisGUI.DataBases
                 if (addFlag)
                 {
                     if (Functions == null)
-                        throw new Exception(Localization.Localization.GetStringResourceByName<DataBasePage>("LoadDBAddIntoMissingDBException"));
+                        throw new Exception(Resources.LoadDBAddIntoMissingDBException);
 
                     foreach (var function in functions)
                     {
@@ -158,7 +159,7 @@ namespace BazisGUI.DataBases
                 else
                 {
                     if (functions == null)
-                        throw new Exception(Localization.Localization.GetStringResourceByName<DataBasePage>("LoadDBCorruptedException"));
+                        throw new Exception(Resources.LoadDBCorruptedException);
                     Functions = functions;
                     var name = Path.GetFileName(fileName);
                     Functions.Name = name;
@@ -187,7 +188,7 @@ namespace BazisGUI.DataBases
         {
             if (TreeView.SelectedNode == null)
             {
-                MessageBox.Show(Localization.Localization.GetStringResourceByName<FunctionDataBasePage>("FuncIsMissingException"));
+                MessageBox.Show(Resources.SelectAFunction);
                 return;
             }
 
@@ -219,7 +220,7 @@ namespace BazisGUI.DataBases
                 var dbPath = string.Empty;
                 var name = string.Empty;
                 dbPath = Directory.GetFiles(Application.StartupPath, "functions_draft.txt", SearchOption.AllDirectories)[0];
-                name = GetNextName(Localization.Localization.GetStringResourceByName<FunctionDataBasePage>("NewFunctionTemplate"), Functions.Keys);
+                name = GetNextName(Resources.New_function_, Functions.Keys);
 
                 var dataSet = Loader.LoadDataBase(dbPath);
                 var function = ConvertToFunctions(dataSet);
@@ -235,7 +236,7 @@ namespace BazisGUI.DataBases
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{Localization.Localization.GetStringResourceByName<DataBasePage>("AddBranch.ExceptionMessage")} : {ex.Message}");
+                MessageBox.Show($"{Resources.AddBranch_ExceptionMessage} : {ex.Message}");
             }
         }
 /// <inheritdoc/>
@@ -362,13 +363,13 @@ namespace BazisGUI.DataBases
             if (TreeView.SelectedNode != null && TreeView.SelectedNode.Level == 0)
             {
                 var functionName = TreeView.SelectedNode.Name.Split(',')[0];
-                var copyName = functionName + Localization.Localization.GetStringResourceByName<DataBasePage>("CopySuffics");
+                var copyName = functionName + Resources.CopySuffics;
                 if (Functions.ContainsKey(copyName))
                 {
                     MessageBox.Show(
-                        Localization.Localization.GetStringResourceByName<FunctionDataBasePage>("CreateCopy.FuncExistWarningMessagePart1") +
+                        Resources.Function +
                         $" \"{copyName}\" " +
-                        Localization.Localization.GetStringResourceByName<FunctionDataBasePage>("CreateCopy.FuncExistWarningMessagePart1"),
+                        Resources.Function,
                         Localization.Localization.GetAttentionCaption(),
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -382,7 +383,7 @@ namespace BazisGUI.DataBases
                 TreeView.Nodes.Add(newNod);
                 OnMutationEvent?.Invoke();
             }
-            else MessageBox.Show(Localization.Localization.GetStringResourceByName<FunctionDataBasePage>("FuncIsMissingException"),
+            else MessageBox.Show(Resources.SelectAFunction,
                 Localization.Localization.GetAttentionCaption(),
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }

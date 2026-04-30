@@ -1,4 +1,5 @@
-﻿using MaterialDB.Interfaces;
+﻿using BazisGUI.Properties;
+using MaterialDB.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -277,7 +278,7 @@ namespace BazisGUI.DataBases
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString(Localization.Localization.GetStringResourceByName<DataBasePage>("treePanel.Text"), Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString(Resources.List, Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
 
         private void dataPanel_Paint(object sender, PaintEventArgs e)
@@ -289,7 +290,7 @@ namespace BazisGUI.DataBases
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString(Localization.Localization.GetStringResourceByName<DataBasePage>("dataPanel.Text"), Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString(BazisGUI.Properties.Resources.Data, Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
 
         private void graphPanel_Paint(object sender, PaintEventArgs e)
@@ -301,7 +302,7 @@ namespace BazisGUI.DataBases
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString(Localization.Localization.GetStringResourceByName<DataBasePage>("graphPanel.Text"), Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString(BazisGUI.Properties.Resources.Graph, Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
     }
 }

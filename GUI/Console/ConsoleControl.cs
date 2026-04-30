@@ -1,6 +1,7 @@
 ﻿using BasicControls.OpenFileDialogEx;
 using BazisGUI.Console.Events;
 using BazisGUI.PinnedControl;
+using BazisGUI.Properties;
 using BazisGUI.Utilities;
 using System;
 using System.Collections.Generic;
@@ -102,7 +103,7 @@ namespace BazisGUI.Console
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
                 SetValue(tlscOut, true, null);
 
-            var path = $" > {Localization.Localization.GetStringResourceByName<ConsoleControl>("CurrentSession")} ";
+            var path = $" > {Resources.CurrentSession} ";
 
             rtxbField.AppendText(path);
             rtxbField.AppendText("\n");
@@ -258,7 +259,7 @@ namespace BazisGUI.Console
                 trd.Abort();
 
             }
-            else throw new Exception($"\n > {Localization.Localization.GetStringResourceByName<ConsoleControl>("ExecuteCMDFileMissing)")}");
+            else throw new Exception($"\n > {Resources.ExecuteCMDFileMissing}");
         }
 
         private void ExecuteCommand(string line)
@@ -268,9 +269,9 @@ namespace BazisGUI.Console
             if (cmds.Count != 0)
             {
                 if (!this.genCmds.ContainsKey(cmds[0])) 
-                    throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("NotACommandException"));
+                    throw new Exception(Resources.NotACommandException);
                 if (subCmds[genCmds[cmds[0]]].Length !=  cmds.Count -1)
-                    throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("InvalidArgumentsNumberException"));
+                    throw new Exception(Resources.InvalidArgumentsNumberException);
 
                 ConsoleHistory.AddComand(line);
                 
@@ -303,7 +304,7 @@ namespace BazisGUI.Console
                         ModelRotateEvent?.Invoke(this, new ModelRotateEventArgs(cmds[2]));
                         break;
                     case GenCmd.MoveNodes:
-                        if (cmds[1] == Localization.Localization.GetStringResourceByName<ConsoleControl>("MoveRotNodesOption"))
+                        if (cmds[1] == Resources.MoveRotNodesOption)
                             InEvent?.Invoke(this, new NodesShiftCoordinateEventArgs());
                         else
                             InEvent?.Invoke(this, new NodesRotateCoordinateEventArgs());
@@ -315,7 +316,7 @@ namespace BazisGUI.Console
                         InEvent(this, new FindVolElemsEventArgs(cmds[1]));
                         break;
                     case GenCmd.FindCoincident:
-                        if (cmds[1] == Localization.Localization.GetStringResourceByName<ConsoleControl>("FindCoincidentOption"))
+                        if (cmds[1] == Resources.FindCoincidentOption)
                             InEvent(this, new ModelFindCoincidentsNodesEventArgs(cmds[2]));
                         break;
                     case GenCmd.BeamConnection:
@@ -405,7 +406,7 @@ namespace BazisGUI.Console
 
         private void btnDictionary_Click(object sender, EventArgs e)
         {
-            PrintInfo($"{Localization.Localization.GetStringResourceByName<ConsoleControl>("AvailableCommands")}:", Color.Black);
+            PrintInfo($"{Resources.AvailableCommands}:", Color.Black);
 
             foreach (var item in genCmds)
             {

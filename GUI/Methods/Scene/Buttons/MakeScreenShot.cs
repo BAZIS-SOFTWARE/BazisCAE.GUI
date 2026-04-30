@@ -1,4 +1,5 @@
 ﻿using BazisGUI;
+using BazisGUI.Properties;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.Interfaces;
 using Geometry;
@@ -22,7 +23,7 @@ namespace BazisGUI
                 var image = CreateScreenShot();
                 var path = Path.Combine(WorkingDir, "screenShot.bmp");
                 image.Save(path, System.Drawing.Imaging.ImageFormat.Bmp);
-                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("MakeScreenShot.ScreenShotTaken.Message")}: {path}", Color.Black);
+                console.PrintInfo($"{Resources.MakeScreenShot_ScreenShotTaken_Message}: {path}", Color.Black);
             }
             catch (Exception ex)
             {

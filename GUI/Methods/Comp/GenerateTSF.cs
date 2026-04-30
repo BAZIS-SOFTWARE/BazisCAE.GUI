@@ -1,5 +1,6 @@
-﻿using PreProc.Interfaces;
+﻿using BazisGUI.Properties;
 using PreProc;
+using PreProc.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -41,7 +42,7 @@ namespace BazisGUI
 
                 PresentCompDataOnTree(sortedFiles);
 
-                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("GenerateTSF.InstructionsFormed.Message")} {inputDir}", Color.Green);
+                console.PrintInfo($"{Resources.GenerateTSF_InstructionsFormed_Message} {inputDir}", Color.Green);
 
             }
             catch (Exception ex)

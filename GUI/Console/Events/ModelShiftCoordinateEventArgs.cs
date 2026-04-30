@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazisGUI.Properties;
+using System;
 using System.Globalization;
 
 namespace BazisGUI.Console.Events
@@ -14,7 +15,7 @@ namespace BazisGUI.Console.Events
             var strAr = vector.Split(',');
 
             if (strAr.Length < 3)
-                throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("ModelShiftCoordinateEventArgsVectorExc"));
+                throw new Exception(Resources.ModelShiftCoordinateEventArgsVectorExc);
             X = float.Parse(strAr[0], NumberStyles.Float, CultureInfo.InvariantCulture);
             Y = float.Parse(strAr[1], NumberStyles.Float, CultureInfo.InvariantCulture);
             Z = float.Parse(strAr[2], NumberStyles.Float, CultureInfo.InvariantCulture);

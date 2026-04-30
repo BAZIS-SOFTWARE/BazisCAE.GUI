@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazisGUI.Properties;
+using System;
 
 namespace BazisGUI.Extensions
 {
@@ -14,9 +15,9 @@ namespace BazisGUI.Extensions
             if (Enum.TryParse(value, out T result))
                 return result;
             else throw new ArgumentException(
-                Localization.Localization.GetStringResourceByName("StringEx.ToEnum.ArgumentException.Part1") +
+                Resources.StringEx_ToEnum_ArgumentException_Part1 +
                 $" '{value}' " +
-                Localization.Localization.GetStringResourceByName("StringEx.ToEnum.ArgumentException.Part2"));
+                Resources.StringEx_ToEnum_ArgumentException_Part2);
         }
 
         public static bool TryToEnum<T>(this string value, out T result) where T : struct, Enum

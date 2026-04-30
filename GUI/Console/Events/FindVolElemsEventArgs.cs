@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazisGUI.Properties;
+using System;
 
 namespace BazisGUI.Console.Events
 {
@@ -12,7 +13,7 @@ namespace BazisGUI.Console.Events
             if (double.TryParse(v, out volume))
                 Volume = volume;
             else
-                throw new ArgumentException(Localization.Localization.GetStringResourceByName<ConsoleControl>("InvalidArgumentsNumberException"), nameof(v));
+                throw new ArgumentException(Resources.InvalidArgumentsNumberException, nameof(v));
         }
     }
 }

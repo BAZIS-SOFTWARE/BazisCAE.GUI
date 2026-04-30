@@ -265,7 +265,7 @@ namespace BazisGUI
 
         private void содержаниеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "helpForm", Text = Resources.справкаToolStripMenuItem_Text, ShowIcon = false };
+            var form = new Form() { Name = "helpForm", Text = BazisGUI.Properties.Resources.Reference, ShowIcon = false };
             form.TopMost = true;
             var helpFile = Directory.GetFiles(Application.StartupPath, "ПО Bazis 5.2. Руководство пользователя.pdf", SearchOption.AllDirectories);
 
@@ -276,7 +276,7 @@ namespace BazisGUI
 
         private void опрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "aboutProgrammForm", Text = Localization.Localization.GetStringResourceByName("опрограммеToolStripMenuItem.Text"), ShowIcon = false };
+            var form = new Form() { Name = "aboutProgrammForm", Text = BazisGUI.Properties.Resources.About, ShowIcon = false };
             var control = new AboutProgrammControl { Dock = DockStyle.Fill };
 
             form.ClientSize = control.Size;
@@ -286,7 +286,7 @@ namespace BazisGUI
 
         private void сведенияMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "aboutLicenseForm", Text = Localization.Localization.GetStringResourceByName("LicenseInfo"), ShowIcon = false };
+            var form = new Form() { Name = "aboutLicenseForm", Text = Resources.LicenseInfo, ShowIcon = false };
             form.TopMost = true;
             var control = new AboutLicenseControl { Dock = DockStyle.Fill };
             form.ClientSize = control.Size;
@@ -312,7 +312,7 @@ namespace BazisGUI
                 else
                 {
                     var res = MessageBox.Show(
-                        Localization.Localization.GetStringResourceByName("BazisServerPathMissingMessage"),
+                        Resources.BazisServerPathMissingMessage,
                         Localization.Localization.GetAttentionCaption(),MessageBoxButtons.YesNo);
 
                     if (res == DialogResult.Yes)
@@ -324,7 +324,7 @@ namespace BazisGUI
             catch (Exception ex)
             {
                 if (ex is Newtonsoft.Json.JsonReaderException)
-                    MessageBox.Show(Localization.Localization.GetStringResourceByName("GetLicenseInfoException"));
+                    MessageBox.Show(Resources.GetLicenseInfoException);
                 else
                     MessageBox.Show(ex.Message);
             }
@@ -335,7 +335,7 @@ namespace BazisGUI
 
         private void StartLisenceForm(string request)
         {
-            var form = new Form() { Name = "checkForm", Text = Localization.Localization.GetStringResourceByName("Licensing"), ShowIcon = false };
+            var form = new Form() { Name = "checkForm", Text = Resources.Licensing, ShowIcon = false };
             var control = new ClientControl() { Dock = DockStyle.Fill };
 
             control.LicenseActionEvent += (ar1, ar2) =>
@@ -347,12 +347,12 @@ namespace BazisGUI
 
                     if (serverConnection.Answer == "можно")
                     {
-                        control.LabelAnswer = Localization.Localization.GetStringResourceByName("LicenseAllowedAnswer");
+                        control.LabelAnswer = Resources.LicenseAllowedAnswer;
                         UnBlockGeneralMenuInterface(request.Split(' ')[0], true);
                         StartLicensing(request.Split(' ')[0]);
                     }
                     else if (serverConnection.Answer == "Пустой запрос")
-                        control.LabelAnswer = Localization.Localization.GetStringResourceByName("ConnectionEstablishedAnswer");
+                        control.LabelAnswer = Resources.ConnectionEstablishedAnswer;
                     else
                         control.LabelAnswer = serverConnection.Answer;
                 }
@@ -398,7 +398,7 @@ namespace BazisGUI
 
         private static void ShowReleaseNotes()
         {
-            var form = new Form() { Name = "newsForm", Text = Localization.Localization.GetStringResourceByName("VersionNews"), ShowIcon = false, Size = new Size(500, 300) };
+            var form = new Form() { Name = "newsForm", Text = Resources.VersionNews, ShowIcon = false, Size = new Size(500, 300) };
             form.TopMost = true;
             var helpFile = Directory.GetFiles(Application.StartupPath, "ReleaseNotes.pdf", SearchOption.AllDirectories);
 
@@ -571,7 +571,7 @@ namespace BazisGUI
                     return;
 
                 if (project == null)
-                    MessageBox.Show(Localization.Localization.GetStringResourceByName("SaveWithoutProjectMessage"));
+                    MessageBox.Show(Resources.SaveWithoutProjectMessage);
                 else
                 {
                     var newFolder = Path.GetDirectoryName(saveDialog.FileName);
@@ -592,7 +592,7 @@ namespace BazisGUI
 
                     project.Save(saveDialog.FileName);
 
-                    console.PrintInfo(Localization.Localization.GetStringResourceByName("ProjectSavedCaption"), Color.Black);
+                    console.PrintInfo(Resources.ProjectSavedCaption, Color.Black);
                     lblStatus.Text = saveDialog.FileName;
                 }
             }
@@ -606,7 +606,7 @@ namespace BazisGUI
             {
                 //Path.GetDirectoryName
                 project?.Save(lblStatus.Text);
-                console.PrintInfo(Localization.Localization.GetStringResourceByName("ProjectSavedCaption"), Color.Black);
+                console.PrintInfo(Resources.ProjectSavedCaption, Color.Black);
             }
             catch (Exception ex)
             {

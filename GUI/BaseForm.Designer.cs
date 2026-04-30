@@ -1098,7 +1098,7 @@ namespace BazisGUI
             // menuItem_InfoSelectedObjects
             // 
             resources.ApplyResources(menuItem_InfoSelectedObjects, "menuItem_InfoSelectedObjects");
-            menuItem_InfoSelectedObjects.Image = Properties.Resources.Edit;
+            menuItem_InfoSelectedObjects.Image = Properties.Resources.Edit_Image;
             menuItem_InfoSelectedObjects.Name = "menuItem_InfoSelectedObjects";
             menuItem_InfoSelectedObjects.Click += menuItem_InfoSelectedObjects_Click;
             // 

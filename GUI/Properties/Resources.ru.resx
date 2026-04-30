@@ -952,13 +952,13 @@
     <value>Скрыто</value>
   </data>
   <data name="SelectByRect.Declination.Type1" xml:space="preserve">
-    <value>объект</value>
+    <value>объектов</value>
   </data>
   <data name="SelectByRect.Declination.Type2" xml:space="preserve">
-    <value>объекта</value>
+    <value>объект</value>
   </data>
   <data name="SelectByRect.Declination.Type3" xml:space="preserve">
-    <value>объекты</value>
+    <value>объекта</value>
   </data>
   <data name="SelectByPoint.ObjectSelected.Message" xml:space="preserve">
     <value>Объект выбран</value>
@@ -1048,7 +1048,7 @@
     <value>Ошибка удаления</value>
   </data>
   <data name="DelBranchException" xml:space="preserve">
-    <value>Произошла ошибка при удалении данных!</value>
+    <value>Возникла ошибка при удалении данных!</value>
   </data>
   <data name="CopySuffics" xml:space="preserve">
     <value>_copy</value>
@@ -1449,5 +1449,98 @@
   </data>
   <data name="AdvanceSelection2NodesWarning" xml:space="preserve">
     <value>Должно быть выбрано два узла</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Спра&amp;вка</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>&amp;О программе...</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>Список</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Данные</value>
+  </data>
+  <data name="Graph" xml:space="preserve">
+    <value>График</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Переименовать</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="PropertyTableIsMissing" xml:space="preserve">
+    <value>Таблица свойства отсутсвует!</value>
+  </data>
+  <data name="SelectAFunction" xml:space="preserve">
+    <value>Выберите функцию!</value>
+  </data>
+  <data name="New_function_" xml:space="preserve">
+    <value>Новая_функция_</value>
+  </data>
+  <data name="Function" xml:space="preserve">
+    <value>Функция</value>
+  </data>
+  <data name="AddReaction" xml:space="preserve">
+    <value>Добавить реакцию</value>
+  </data>
+  <data name="CalculateDiagram" xml:space="preserve">
+    <value>Рассчитать диаграмму</value>
+  </data>
+  <data name="CalculateHardening" xml:space="preserve">
+    <value>Рассчитать упрочнение</value>
+  </data>
+  <data name="CalculateCreep" xml:space="preserve">
+    <value>Рассчитать ползучесть</value>
+  </data>
+  <data name="HardeningCalculator" xml:space="preserve">
+    <value>Калькулятор упрочнения</value>
+  </data>
+  <data name="DiagramCalculator" xml:space="preserve">
+    <value>Калькулятор диаграмм</value>
+  </data>
+  <data name="RemoveReaction" xml:space="preserve">
+    <value>Удалить реакцию</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="SelectReaction" xml:space="preserve">
+    <value>Выберите реакцию!</value>
+  </data>
+  <data name="ReactionWithASuchNameIsAlreadyExistChooseAnotherName" xml:space="preserve">
+    <value>Реакция с таким названием уже существует! Выберите другое название.</value>
+  </data>
+  <data name="EditReaction" xml:space="preserve">
+    <value>Редактировать реакцию</value>
+  </data>
+  <data name="SelectMaterial" xml:space="preserve">
+    <value>Выберите материал!</value>
+  </data>
+  <data name="TheReactionRequiresAtLeastTwoPhases" xml:space="preserve">
+    <value>Для реакции необходимо минимум две фазы!</value>
+  </data>
+  <data name="SelectAPropertyOrReactionToRemove" xml:space="preserve">
+    <value>Выберите свойство или реакцию для удаления!</value>
+  </data>
+  <data name="New_material_" xml:space="preserve">
+    <value>Новый_материал_</value>
+  </data>
+  <data name="ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore_" xml:space="preserve">
+    <value>Наименование фазы может состоять только из букв, цифр и нижнего подчёркивания \"_\"!</value>
+  </data>
+  <data name="DataRemovedSuccessfully" xml:space="preserve">
+    <value>Данные удалены успешно</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Материал</value>
+  </data>
+  <data name="AlreadyExistsNRenameTheMaterial" xml:space="preserve">
+    <value>уже существует! \nПереименуйте материал!</value>
+  </data>
+  <data name="Found" xml:space="preserve">
+    <value>Найдено</value>
   </data>
 </root>

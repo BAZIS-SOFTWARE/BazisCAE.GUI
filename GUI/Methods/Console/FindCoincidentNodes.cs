@@ -1,9 +1,10 @@
-﻿using System;
+﻿using BazisGUI.Properties;
+using BazisGUI.Scene.VBO;
+using Model.Interfaces;
+using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using Model.Interfaces;
-using System.Drawing;
-using BazisGUI.Scene.VBO;
 
 namespace BazisGUI
 {
@@ -13,11 +14,11 @@ namespace BazisGUI
         {
             if (project == null)
                 return;
-            Invoke(new Action(() => { console.PrintInfo(Localization.Localization.GetStringResourceByName("FindCoincidentNodes.Action.Message"), Color.Black); }));
+            Invoke(new Action(() => { console.PrintInfo(Resources.FindCoincidentNodes_Action_Message, Color.Black); }));
 
             var coincidentNodes = project.FindCoincidentObjects(ObjType.Узел, distance);
 
-            Invoke(new Action(() => { console.PrintInfo($"{Localization.Localization.GetStringResourceByName("FindCoincidentNodes.Action.Found.Message")} {coincidentNodes.Count()} {Localization.Localization.GetStringResourceByName("FindCoincidentNodes.Action.Matches.Message")}", Color.Black); }));
+            Invoke(new Action(() => { console.PrintInfo($"{Resources.FindCoincidentNodes_Action_Found_Message} {coincidentNodes.Count()} {Resources.FindCoincidentNodes_Action_Matches_Message}", Color.Black); }));
             Invoke(new Action(() =>
             {
                 ClearAllDataOnScene();
@@ -45,7 +46,7 @@ namespace BazisGUI
 
                     //navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> objects);
                     //objects[0].Nodes[0].Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
-                    console.PrintInfo(Localization.Localization.GetStringResourceByName("FindCoincidentNodes.ActionConfirm.MergeNodes.Message"), Color.Green);
+                    console.PrintInfo(Resources.FindCoincidentNodes_ActionConfirm_MergeNodes_Message, Color.Green);
                     PresentMeshData();
                     PresentCondDataOnTree();
 
@@ -59,9 +60,9 @@ namespace BazisGUI
 
             var actBreak = new Action(() =>
             {
-                Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("FindCoincidentNodes.Action.OperationCanceled.Message"), Color.Black)));
+                Invoke(new Action(() => console.PrintInfo(Resources.FindCoincidentNodes_Action_OperationCanceled_Message, Color.Black)));
             });
-            await AsyncMethodContainer(actConfirm, actBreak, $@"{Localization.Localization.GetStringResourceByName("FindCoincidentNodes.AsyncContainer.Message")}");
+            await AsyncMethodContainer(actConfirm, actBreak, $@"{Resources.FindCoincidentNodes_AsyncContainer_Message}");
         }
     }
 }

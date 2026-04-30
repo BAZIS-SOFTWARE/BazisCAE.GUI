@@ -1,12 +1,13 @@
-﻿using System;
-using System.Drawing;
-using ResultDB.IO;
-using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Linq;
-using BazisGUI.Animation;
+﻿using BazisGUI.Animation;
 using BazisGUI.Navigator;
+using BazisGUI.Properties;
+using ResultDB.IO;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -23,7 +24,7 @@ namespace BazisGUI
                     var form = new Form()
                     {
                         Name = "animationForm",
-                        Text = Localization.Localization.GetStringResourceByName("AnimationForm.Text"),
+                        Text = Resources.AnimationForm_Text,
                         Icon = this.Icon,
                         ShowIcon = true,
                         Owner = Application.OpenForms[0],
@@ -72,10 +73,10 @@ namespace BazisGUI
             try
             {
                 //выбрать узел в дереве асинхронно
-                await SelectContainerAsync(Localization.Localization.GetStringResourceByName("Result.CreateGIFAnimation.SelectContainerAsync.SelectResult.Message"));
+                await SelectContainerAsync(Resources.Result_CreateGIFAnimation_SelectContainerAsync_SelectResult_Message);
 
                 if (navigator.SelectedNode.Name != NodeName.Result.ToString())
-                    throw new Exception(Localization.Localization.GetStringResourceByName("Result.CreateGIFAnimation.Exception"));
+                    throw new Exception(Resources.Result_CreateGIFAnimation_Exception);
 
                 var selNode = navigator.SelectedNode;
                 var resName = selNode.Text;
@@ -123,13 +124,13 @@ namespace BazisGUI
                     //    //var bmpImage = Image.FromFile(imagesPaths[i]);
                     //    e.AddFrame(bmpImage);
                     var total = ((i + 1) / (float)list.Count * 100).ToString("#.##");
-                    console.PrintInfo($@"{Localization.Localization.GetStringResourceByName("Result.CreateGIFAnimation.CreateGIFAnimationInfo")} {total}%", Color.Black);
+                    console.PrintInfo($@"{Resources.Result_CreateGIFAnimation_CreateGIFAnimationInfo} {total}%", Color.Black);
                     //}
                     //File.Delete(imagePath);
                 }
                 e.Dispose();
                 //e.Finish();
-                console.PrintInfo(Localization.Localization.GetStringResourceByName("Result.CreateGIFAnimation.AnimationCreated"), Color.Green);
+                console.PrintInfo(Resources.Result_CreateGIFAnimation_AnimationCreated, Color.Green);
             }
             catch (Exception ex)
             {

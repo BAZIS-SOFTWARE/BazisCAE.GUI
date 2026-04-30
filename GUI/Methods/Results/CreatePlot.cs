@@ -1,14 +1,15 @@
-﻿using System;
+﻿using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using Geometry;
-using System.Drawing;
-using ResultDB.IO;
-using System.Windows.Forms;
 using Model.Interfaces;
+using ResultDB.IO;
+using System;
 using System.Collections.Generic;
-using UserControlsEx.Graph;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Linq;
-using BazisGUI.Navigator;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using UserControlsEx.Graph;
 
 namespace BazisGUI
 {
@@ -28,7 +29,7 @@ namespace BazisGUI
                         break;
                     if (PressedKey == Keys.Escape)
                     {
-                        Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("CreatePlot.SelectContainerAsync.CancelOperation.Message"), Color.Black)));
+                        Invoke(new Action(() => console.PrintInfo(Resources.CreatePlot_SelectContainerAsync_CancelOperation_Message, Color.Black)));
                         break;
                     }
                 }
@@ -46,18 +47,18 @@ namespace BazisGUI
                 CreateVBObjects("Объекты");
                 DisplayObjects();
                 // выбор объектов
-                await SelectContainerAsync(Localization.Localization.GetStringResourceByName("CreatePlot.BuildGraph.SelectContainerAsync.SelectNodes.Message"));
+                await SelectContainerAsync(Resources.CreatePlot_BuildGraph_SelectContainerAsync_SelectNodes_Message);
 
                 var nodes = project.GetModelObjects(ObjType.Узел).
                     Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 if (nodes.Count() == 0)
-                    throw new Exception(Localization.Localization.GetStringResourceByName("CreatePlot.BuildDiagram.NoNodesSelected.Exception"));
+                    throw new Exception(Resources.Result_BuildDiagram_NoNodesSelectedException);
 
-                await SelectContainerAsync(Localization.Localization.GetStringResourceByName("CreatePlot.BuildGraph.SelectContainerAsync.SelectResult.Message"));
+                await SelectContainerAsync(Resources.CreatePlot_BuildGraph_SelectContainerAsync_SelectResult_Message);
 
                 if (navigator.SelectedNode.Name != NodeName.Result.ToString())
-                    throw new Exception(Localization.Localization.GetStringResourceByName("CreatePlot.BuildGraph.SelectResult.Exception"));
+                    throw new Exception(Resources.CreatePlot_BuildGraph_SelectResult_Exception);
 
                 var selNode = navigator.SelectedNode;
                 var resDes = selNode.Text;
@@ -75,7 +76,7 @@ namespace BazisGUI
                 {
                     var grPoints = new List<GraphPoint>();
 
-                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("CreatePlot.BuildGraph.BuildingGraph.Text_Part1")} {obj.ObjType} {obj.Number}, {Localization.Localization.GetStringResourceByName("CreatePlot.BuildGraph.BuildingGraph.Text_Part2")}...", Color.Orange); ;
+                    console.PrintInfo($"{Resources.CreatePlot_BuildGraph_BuildingGraph_Text_Part1} {obj.ObjType} {obj.Number}, {Resources.CreatePlot_BuildGraph_BuildingGraph_Text_Part2}...", Color.Orange); ;
 
                     foreach (var time in times)
                     {
@@ -89,9 +90,9 @@ namespace BazisGUI
                         grPoints.Add(grPoint);
                     }
 
-                    DisplayText3D($"{Localization.Localization.GetStringResourceByName("CreatePlot.DisplayText3D.Text")}_{obj.Number}", Color.Black, obj.CalcCentr());
+                    DisplayText3D($"{Resources.CreatePlot_DisplayText3D_Text}_{obj.Number}", Color.Black, obj.CalcCentr());
                     var color = Color.FromArgb(random.Next(255), random.Next(255), random.Next(255));
-                    var grData = new GraphData($"{Localization.Localization.GetStringResourceByName("CreatePlot.GraphData.Header_Part1")}_{obj.Number}", color, Localization.Localization.GetStringResourceByName("CreatePlot.GraphData.XUnit"), resDes, grPoints.ToArray());
+                    var grData = new GraphData($"{Resources.CreatePlot_GraphData_Header_Part1}_{obj.Number}", color, Resources.CreatePlot_GraphData_XUnit, resDes, grPoints.ToArray());
                     grDataAr.Add(grData);
                 }
                 DisplayObjects();
@@ -99,13 +100,13 @@ namespace BazisGUI
 
                 if (grDataAr.Count != 0)
                 {
-                    grContainer.CreateGraphData(Localization.Localization.GetStringResourceByName("CreatePlot.CreateGraphData.Header"), grDataAr, new AxisFormat(), new AxisFormat());
+                    grContainer.CreateGraphData(Resources.CreatePlot_CreateGraphData_Header, grDataAr, new AxisFormat(), new AxisFormat());
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {
                         Owner = Application.OpenForms[0],
                         TopMost = true,
-                        Text = $"{Localization.Localization.GetStringResourceByName("CreatePlot.GraphForm.Text_Part1")} {resDes} - {Localization.Localization.GetStringResourceByName("CreatePlot.GraphForm.Text_Part2")}",
+                        Text = $"{Resources.CreatePlot_GraphForm_Text_Part1} {resDes} - {Resources.CreatePlot_GraphForm_Text_Part2}",
                         ShowIcon = false,
                         ClientSize = grContainer.Size
                     };

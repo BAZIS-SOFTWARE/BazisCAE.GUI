@@ -1,15 +1,16 @@
-﻿using PreProc.Interfaces;
+﻿using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using PreProc;
+using PreProc.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using BazisGUI.Navigator;
 
 namespace BazisGUI
 {
@@ -20,7 +21,7 @@ namespace BazisGUI
             try
             {
                 project.Save(lblStatus.Text);
-                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("StartStopConp.SaveProjectInto.Message")} {WorkingDir}", Color.Black);
+                console.PrintInfo($"{Resources.StartStopConp_SaveProjectInto_Message} {WorkingDir}", Color.Black);
 
                 CheckProjectDataBeforeCreationTCF();
 
@@ -53,7 +54,7 @@ namespace BazisGUI
 
                 File.WriteAllLines(cmdFile, result);
 
-                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("StartStopConp.FormCommandFile.Message")} {cmdFile}", Color.Green);
+                console.PrintInfo($"{Resources.StartStopConp_FormCommandFile_Message} {cmdFile}", Color.Green);
 
                 StartComputation();
             }
@@ -68,15 +69,15 @@ namespace BazisGUI
             try
             {
                 if (!File.Exists($@"{lblStatus.Text}"))
-                    throw new Exception($"{Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDirectoryCheck.Message_Part1")}: {WorkingDir} {Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDataCheck.LackOfProjFile.Message")}: {project.Name}.");
+                    throw new Exception($"{Resources.StartStopConp_ProjectDirectoryCheck_Message_Part1}: {WorkingDir} {Resources.StartStopConp_ProjectDataCheck_LackOfProjFile_Message}: {project.Name}.");
 
                 var mat = Path.Combine(WorkingDir, project.MaterialsDB.Name);
                 if (!File.Exists(mat))
-                    throw new Exception($"{Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDirectoryCheck.Message_Part1")}: {WorkingDir} {Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDataCheck.LackOfMaterials.Message")}: {project.MaterialsDB.Name}.");
+                    throw new Exception($"{Resources.StartStopConp_ProjectDirectoryCheck_Message_Part1}: {WorkingDir} {Resources.StartStopConp_ProjectDataCheck_LackOfMaterials_Message}: {project.MaterialsDB.Name}.");
 
                 var func = Path.Combine(WorkingDir, project.FunctionsDB.Name);
                 if (!File.Exists(func))
-                    throw new Exception($"{Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDirectoryCheck.Message_Part1")}: {WorkingDir} {Localization.Localization.GetStringResourceByName("StartStopConp.ProjectDataCheck.LackOfFunctions.Message")}: {project.FunctionsDB.Name}.");
+                    throw new Exception($"{Resources.StartStopConp_ProjectDirectoryCheck_Message_Part1}: {WorkingDir} {Resources.StartStopConp_ProjectDataCheck_LackOfFunctions_Message}: {project.FunctionsDB.Name}.");
 
             }
             catch (Exception ex)

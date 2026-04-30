@@ -1,4 +1,5 @@
-﻿using Model.Interfaces;
+﻿using BazisGUI.Properties;
+using Model.Interfaces;
 using System;
 
 namespace BazisGUI.Console.Events
@@ -14,11 +15,11 @@ namespace BazisGUI.Console.Events
 
             ObjType objType;
             if (!Enum.TryParse(cmd.Split(':')[0], out objType))
-                throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("UnknownTypeException"));
+                throw new Exception(Resources.UnknownTypeException);
             ObjsType = objType;
 
             if (!uint.TryParse(cmd.Split(':')[1], out number))
-                throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("PositiveCellingNumberException"));
+                throw new Exception(Resources.PositiveCellingNumberException);
             Number = number;
         }
     }
