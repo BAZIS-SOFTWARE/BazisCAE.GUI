@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Args;
+using BazisGUI.Properties;
 using BazisGUI.Scene;
 using BazisGUI.Scene.VBO;
 using BazisGUI.SettingsControls;
@@ -100,7 +101,7 @@ namespace BazisGUI
         private void BaseForm_Load(object sender, EventArgs e)
         {
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            var verStr = $"{Localization.Localization.GetStringResourceByName("versionWordPrefix")} {ver.Major}.{ver.Minor}.{ver.Build}";
+            var verStr = $"{Resources.versionWordPrefix} {ver.Major}.{ver.Minor}.{ver.Build}";
             lblVersion.Text = verStr;
 
             //var config = dataController.LoadConfig();
@@ -146,7 +147,7 @@ namespace BazisGUI
                     var projInd = Array.IndexOf(args, "-proj");
 
                     if (args.Length - 1 - projInd < 1)
-                        throw new Exception(Localization.Localization.GetStringResourceByName("HandleArgsProjectAbsenceException"));
+                        throw new Exception(Resources.HandleArgsProjectAbsenceException);
 
                     await OpenProject(Path.GetFullPath(args[projInd + 1]));
                 }
@@ -155,12 +156,12 @@ namespace BazisGUI
                     var resInd = Array.IndexOf(args, "-res");
 
                     if (args.Length - 1 - resInd < 1)
-                        throw new Exception(Localization.Localization.GetStringResourceByName("HandleArgsResultsAbsenceException"));
+                        throw new Exception(Resources.HandleArgsResultsAbsenceException);
 
                     var fullPath = Path.GetFullPath(args[resInd + 1]);
 
                     if (project == null) 
-                        throw new Exception(Localization.Localization.GetStringResourceByName("HandleArgsResultsLoadingWithoutProjectException"));
+                        throw new Exception(Resources.HandleArgsResultsLoadingWithoutProjectException);
 
                     ResultDbPath = fullPath;
                     FillingResultsData();
@@ -173,7 +174,7 @@ namespace BazisGUI
                     var resInd = Array.IndexOf(args, "-cad");
 
                     if (args.Length - 1 - resInd < 1)
-                        throw new Exception(Localization.Localization.GetStringResourceByName("HandleArgsCADAbsenceException"));
+                        throw new Exception(Resources.HandleArgsCADAbsenceException);
 
                     await OpenProject(Path.GetFullPath(args[resInd + 1]));
                 }
@@ -264,7 +265,7 @@ namespace BazisGUI
 
         private void содержаниеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "helpForm", Text = Localization.Localization.GetStringResourceByName("справкаToolStripMenuItem.Text"), ShowIcon = false };
+            var form = new Form() { Name = "helpForm", Text = Resources.справкаToolStripMenuItem_Text, ShowIcon = false };
             form.TopMost = true;
             var helpFile = Directory.GetFiles(Application.StartupPath, "ПО Bazis 5.2. Руководство пользователя.pdf", SearchOption.AllDirectories);
 

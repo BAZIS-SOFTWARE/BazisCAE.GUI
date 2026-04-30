@@ -281,7 +281,7 @@
     <value>Square</value>
   </data>
   <data name="UtilityToolStip.ClipForm.Text" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="UtilityTiilStrip.SelectObjectAsync.WithNumber.Message" xml:space="preserve">
     <value>under number</value>
@@ -900,7 +900,7 @@ Create variable?</value>
     <value>search radius&lt;|&gt;max quantity&lt;|&gt;group#1&lt;|&gt;group#2</value>
   </data>
   <data name="rtxbField.Text" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="PositiveCellingNumberException" xml:space="preserve">
     <value>The number must be a positive integer!</value>
@@ -1035,7 +1035,7 @@ Create variable?</value>
     <value>toolStripContainer1</value>
   </data>
   <data name="toolStrip2.Text" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="LoadDBCorruptedException" xml:space="preserve">
     <value>The downloaded database is corrupted</value>
@@ -1557,76 +1557,76 @@ Create variable?</value>
     <value>Initial concentration, %</value>
   </data>
   <data name="trackBar3.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="trackBar2.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="trackBar1.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="textBox1.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="tableLayoutPanel1.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="radioButton6.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="radioButton5.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="radioButton4.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="radioButton3.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="radioButton2.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="radioButton1.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="label8.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="label5.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="label4.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="label3.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="label2.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="label1.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="domainUpDown1.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="comboBox1.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="button1.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="button1.Text" xml:space="preserve">
     <value>Create new project</value>
   </data>
   <data name="btnCreateCopy.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="btnCreateCopy.Text" xml:space="preserve">
     <value>Set</value>
   </data>
   <data name="$this.ToolTip" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="clslTransparency.Text" xml:space="preserve">
     <value>colorSlider1</value>
