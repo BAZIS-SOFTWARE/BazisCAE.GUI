@@ -847,7 +847,7 @@
     <value>Открыть проект</value>
   </data>
   <data name="UtilityToolStrip.DistancePointToPoint.EmptySelectionErrorMessage" xml:space="preserve">
-    <value>Выберите объекты типа</value>
+    <value>Не выбрано ни одного объекта типа</value>
   </data>
   <data name="UtilityToolStrip.DistancePointToPlane.InstructionPart2" xml:space="preserve">
     <value>и нажмите «E» для подтверждения или «ESC» для отмены</value>
@@ -938,5 +938,74 @@
   </data>
   <data name="ShowInsideObjects.HideInnerObjects.Message" xml:space="preserve">
     <value>Скрыты внутренние объекты</value>
+  </data>
+  <data name="ShowHideDelObjects.DelObjectEvent.TryToDelGeom.Message" xml:space="preserve">
+    <value>Рекомендуется проверить уровень точности набора в панели свойств</value>
+  </data>
+  <data name="SelectSetEvent.CreateGroupBySet.Message" xml:space="preserve">
+    <value>Создана новая группа</value>
+  </data>
+  <data name="SelectByRect.Selected.Message" xml:space="preserve">
+    <value>Выбрано</value>
+  </data>
+  <data name="SelectByRect.Hidden.Message" xml:space="preserve">
+    <value>Скрыто</value>
+  </data>
+  <data name="SelectByRect.Declination.Type1" xml:space="preserve">
+    <value>объект</value>
+  </data>
+  <data name="SelectByRect.Declination.Type2" xml:space="preserve">
+    <value>объекта</value>
+  </data>
+  <data name="SelectByRect.Declination.Type3" xml:space="preserve">
+    <value>объекты</value>
+  </data>
+  <data name="SelectByPoint.ObjectSelected.Message" xml:space="preserve">
+    <value>Объект выбран</value>
+  </data>
+  <data name="SceneEvents.Info.Selected" xml:space="preserve">
+    <value>Объекты выбраны</value>
+  </data>
+  <data name="SceneEvents.CreateGroup.SuccessCaption" xml:space="preserve">
+    <value>Создана новая группа</value>
+  </data>
+  <data name="SceneEvents.CreateGroup.InvalidGroupTypeWarning" xml:space="preserve">
+    <value>Невозможно создать группу выбранного типа</value>
+  </data>
+  <data name="SaveWithoutProjectMessage" xml:space="preserve">
+    <value>Сначала откройте существующий проект или создайте новый</value>
+  </data>
+  <data name="SaveLoadScript.GeoScript.Message" xml:space="preserve">
+    <value>Скрипт</value>
+  </data>
+  <data name="SaveLoadScript.GeoScript.Formed.Message" xml:space="preserve">
+    <value>сформирован</value>
+  </data>
+  <data name="SaveLoadScript.GeoScript.Executed.Message" xml:space="preserve">
+    <value>выполнен</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.RecalculationOnNodesResNames.Message" xml:space="preserve">
+    <value>Перерасчет для узлов выполнен для</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.RecalculationOnNodes.Message" xml:space="preserve">
+    <value>Выполняется перерасчет на узлах по времени</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.Recalculated.Message" xml:space="preserve">
+    <value>Перерасчет выполнен</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.SelectContainerAsync.SelectResult.Message" xml:space="preserve">
+    <value>Выберите результат и нажмите клавишу «E» для подтверждения</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.Exception" xml:space="preserve">
+    <value>Выберите результат в разделе результатов</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.CreateGIFAnimationInfo" xml:space="preserve">
+    <value>Создание GIF анимации</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.AnimationCreated" xml:space="preserve">
+    <value>GIF анимация создана</value>
+  </data>
+  <data name="Result.BuildDiagram.Text_Part2" xml:space="preserve">
+    <value>Координата</value>
   </data>
 </root>
