@@ -1,15 +1,16 @@
-﻿using BazisGUI.Scene.Interfaces;
+﻿using BazisGUI;
+using BazisGUI.Properties;
 using BazisGUI.Scene.Interfaces;
-using System;
-using Geometry;
-using System.Drawing;
-using MathNet.Numerics.LinearAlgebra;
-using BazisGUI;
-using System.Windows.Forms;
-using Model.Interfaces;
-using System.Linq;
-using Model.Interfaces.MeshObjects;
+using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
+using Geometry;
+using MathNet.Numerics.LinearAlgebra;
+using Model.Interfaces;
+using Model.Interfaces.MeshObjects;
+using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -65,9 +66,9 @@ namespace BazisGUI
             }
 
             if (!flag)
-                console.PrintInfo(Localization.Localization.GetStringResourceByName("ShowInsideObjects.HideInnerObjects.Message"), Color.Black);
+                console.PrintInfo(Resources.ShowInsideObjects_HideInnerObjects_Message, Color.Black);
             else
-                console.PrintInfo(Localization.Localization.GetStringResourceByName("ShowInsideObjects.ShowAllObjects.Message"), Color.Black);
+                console.PrintInfo(Resources.ShowInsideObjects_ShowAllObjects_Message, Color.Black);
 
             DisplayObjects();
         }

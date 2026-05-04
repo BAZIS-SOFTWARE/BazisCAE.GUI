@@ -1,4 +1,5 @@
-﻿using BazisGUI.Scene.EventsArgs;
+﻿using BazisGUI.Properties;
+using BazisGUI.Scene.EventsArgs;
 using BazisGUI.Scene.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -159,7 +160,7 @@ namespace BazisGUI.Scene.VBO
         {
             var glObj = glObjs[objsName];
             if (glObj == null)
-                MessageEvent?.Invoke(this, new MessageEventArgs(Localization.Localization.GetStringResourceByName("VBObjectController.ChangeViewMode.Message")));
+                MessageEvent?.Invoke(this, new MessageEventArgs(Resources.VBObjectController_ChangeViewMode_Message));
             else
                 glObj.ViewMode = objView;
         }
@@ -168,7 +169,7 @@ namespace BazisGUI.Scene.VBO
         {
             var glObj = glObjs[objsName];
             if (glObj == null)
-                MessageEvent?.Invoke(this, new MessageEventArgs(Localization.Localization.GetStringResourceByName("VBObjectController.ChangeViewMode.Message")));
+                MessageEvent?.Invoke(this, new MessageEventArgs(Resources.VBObjectController_ChangeViewMode_Message));
             else
             {
                 glObj.Gl_PointSize = pointsSize;

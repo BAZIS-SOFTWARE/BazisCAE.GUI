@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
 using Project.Interfaces.Tasks;
@@ -220,7 +221,7 @@ namespace BazisGUI
                 else
                     interfaceNodes = project.FindInterfacedNodes(2);
 
-                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("ResultsMainMenuEvents.MergeResults.RecalculationOnNodes.Message")} " +
+                console.PrintInfo($"{Resources.ResultsMainMenuEvents_MergeResults_RecalculationOnNodes_Message} " +
                     $"{result.Time}", Color.Black);
                 console.PrintInfo("", Color.Black);
 
@@ -230,10 +231,10 @@ namespace BazisGUI
                 {
                     resultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], result);
 
-                    Invoke(new Action(() => console.PrintInfo($"{Localization.Localization.GetStringResourceByName("ResultsMainMenuEvents.MergeResults.RecalculationOnNodesResNames.Message")} {resNames[i]}", Color.Black)));
+                    Invoke(new Action(() => console.PrintInfo($"{Resources.ResultsMainMenuEvents_MergeResults_RecalculationOnNodesResNames_Message} {resNames[i]}", Color.Black)));
                 }
 
-                console.PrintInfo(Localization.Localization.GetStringResourceByName("ResultsMainMenuEvents.MergeResults.Recalculated.Message"), Color.Green);
+                console.PrintInfo(Resources.ResultsMainMenuEvents_MergeResults_Recalculated_Message, Color.Green);
 
             }
             catch (Exception ex)

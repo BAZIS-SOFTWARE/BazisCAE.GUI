@@ -12,6 +12,7 @@ using UserControlsEx.Graph;
 using BazisGUI.DataBases.MechanicalGUI;
 using BazisGUI.DataBases.MetallurgyGUI;
 using MaterialDB.MaterialData;
+using BazisGUI.Properties;
 
 namespace BazisGUI.DataBases
 {
@@ -113,7 +114,7 @@ namespace BazisGUI.DataBases
                 if (addFlag)
                 {
                     if (Materials == null)
-                        throw new Exception(Localization.Localization.GetStringResourceByName<DataBasePage>("LoadDBAddIntoMissingDBException"));
+                        throw new Exception(Resources.LoadDBAddIntoMissingDBException);
 
                     foreach (var material in materials)
                     {
@@ -125,7 +126,7 @@ namespace BazisGUI.DataBases
                 else
                 {
                     if (materials == null)
-                        throw new Exception(Localization.Localization.GetStringResourceByName<DataBasePage>("LoadDBCorruptedException"));
+                        throw new Exception(Resources.LoadDBCorruptedException);
                     Materials = materials;
                     var name = Path.GetFileName(fileName);
                     Materials.Name = name;
@@ -151,10 +152,10 @@ namespace BazisGUI.DataBases
 
                 var matMenu = new ContextMenuStrip();
 
-                var renameMatItem = new ToolStripMenuItem(Localization.Localization.GetStringResourceByName<DataBasePage>("itmRename.Text"));
+                var renameMatItem = new ToolStripMenuItem(Resources.Rename);
                 renameMatItem.Click += RenameMatItem_Click;
                 matMenu.Items.Add(renameMatItem);
-                var deleteMatItem = new ToolStripMenuItem(Localization.Localization.GetStringResourceByName<DataBasePage>("itmDelete.Text"));
+                var deleteMatItem = new ToolStripMenuItem(Resources.Remove);
                 deleteMatItem.Click += DeleteMaterialItem_Click;
                 matMenu.Items.Add(deleteMatItem);
 
@@ -168,10 +169,10 @@ namespace BazisGUI.DataBases
                 if (category.Name == "Металлургия")
                 {
                     var catMenu = new ContextMenuStrip();
-                    var addReacItem = new ToolStripMenuItem(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("AddReaction"));
+                    var addReacItem = new ToolStripMenuItem(Resources.AddReaction);
                     addReacItem.Click += AddReacItem_Click;
                     catMenu.Items.Add(addReacItem);
-                    var diagramCalcItem = new ToolStripMenuItem(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("CalculateDiagram"));
+                    var diagramCalcItem = new ToolStripMenuItem(Resources.CalculateDiagram);
                     diagramCalcItem.Click += DiagramCalcItem_Click;
                     catMenu.Items.Add(diagramCalcItem);
                     catNode.ContextMenuStrip = catMenu;
@@ -179,9 +180,9 @@ namespace BazisGUI.DataBases
                 else if (category.Name == "Механические свойства")
                 {
                     var catMenu = new ContextMenuStrip();
-                    var hardeningCalcItem = new ToolStripMenuItem(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("CalculateHardening"));
+                    var hardeningCalcItem = new ToolStripMenuItem(BazisGUI.Properties.Resources.CalculateHardening);
                     hardeningCalcItem.Click += HardeningCalcItem_Click;
-                    var creepCalcItem = new ToolStripMenuItem(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("CalculateCreep"));
+                    var creepCalcItem = new ToolStripMenuItem(BazisGUI.Properties.Resources.CalculateCreep);
                     creepCalcItem.Click += CreepCalcItem_Click;
                     catMenu.Items.Add(hardeningCalcItem);
                     catMenu.Items.Add(creepCalcItem);
@@ -225,7 +226,7 @@ namespace BazisGUI.DataBases
             var diagForm = new Form()
             {
                 Name = "hardCalc",
-                Text = Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("HardeningCalculator.Text"),
+                Text = BazisGUI.Properties.Resources.HardeningCalculator,
                 ShowIcon = false,
                 Size = new Size(500, 500),
                 TopMost = true
@@ -249,7 +250,7 @@ namespace BazisGUI.DataBases
 
             var diagForm = new Form() {
                 Name = "diagCalc",
-                Text = Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("DiagramCalculator.Text"),
+                Text = Resources.DiagramCalculator,
                 ShowIcon = false,
                 Size = new Size(500, 500),
                 TopMost = true
@@ -262,10 +263,10 @@ namespace BazisGUI.DataBases
         private ContextMenuStrip CreateMetallurgyToolsStripMenu()
         {
             var menu = new ContextMenuStrip();
-            var deleteReacItem = new ToolStripMenuItem(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("DelReaction"));
+            var deleteReacItem = new ToolStripMenuItem(Resources.RemoveReaction);
             deleteReacItem.Click += DeleteReactionItem_Click;
             menu.Items.Add(deleteReacItem);
-            var editMenuItem = new ToolStripMenuItem(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("EditReaction"));
+            var editMenuItem = new ToolStripMenuItem(BazisGUI.Properties.Resources.Edit);
             editMenuItem.Click += EditMenuItem_Click;
             menu.Items.Add(editMenuItem);
             return menu;
@@ -275,7 +276,7 @@ namespace BazisGUI.DataBases
         {
             if(TreeView.SelectedNode == null)
             {
-                MessageBox.Show(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("SelectReaction"));
+                MessageBox.Show(BazisGUI.Properties.Resources.SelectReaction);
                 return;
             }
                 var dataAr = TreeView.SelectedNode.FullPath.Split('\\', ',');
@@ -296,7 +297,7 @@ namespace BazisGUI.DataBases
                 {
                     if (Materials[mat][cat].PropertyData.ContainsKey(newReacName))
                     {
-                        MessageBox.Show(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("DublicateReactionNameWarning"));
+                        MessageBox.Show(Resources.ReactionWithASuchNameIsAlreadyExistChooseAnotherName);
                         return;
                     }
 
@@ -313,7 +314,7 @@ namespace BazisGUI.DataBases
                 var reacForm = new Form() 
                 { 
                     Name = "editForm", 
-                    Text = Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("reacForm.Text"), 
+                    Text = Resources.EditReaction, 
                     ShowIcon = false,
                     TopMost = true
                     
@@ -328,7 +329,7 @@ namespace BazisGUI.DataBases
         {
             if(TreeView.SelectedNode == null)
             {
-                MessageBox.Show(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("SelectMaterialsCaption"));
+                MessageBox.Show(Resources.SelectMaterial);
                 return;
             }
             Materials.Remove(TreeView.SelectedNode.Text);
@@ -380,7 +381,7 @@ namespace BazisGUI.DataBases
                 var phaseTable = Materials[mat]["Общие сведения"]["Структура"].DataTable;
 
                 if (phaseTable.Rows.Count < 2)
-                    throw new Exception(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("InvalidReactionPhaseCountException"));
+                    throw new Exception(BazisGUI.Properties.Resources.TheReactionRequiresAtLeastTwoPhases);
 
                 var phaseNames = phaseTable.AsEnumerable().Select(r => r.Field<string>(0)).ToArray();
 
@@ -416,7 +417,7 @@ namespace BazisGUI.DataBases
         {
             if (TreeView.SelectedNode == null)
             {
-                MessageBox.Show(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("SelectPropertyOrReactionForDeletingWarning"));
+                MessageBox.Show(Resources.SelectAPropertyOrReactionToRemove);
                 return;
             }
 
@@ -436,7 +437,7 @@ namespace BazisGUI.DataBases
             }
             catch (Exception)
             {
-                MessageBox.Show(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("SelectMaterialsCaption"));
+                MessageBox.Show(Resources.SelectMaterial);
                 LabelEditFlag = false;
             }
 
@@ -456,7 +457,7 @@ namespace BazisGUI.DataBases
 
                     var property = Materials[mat][cat][prop];
                     if (property.DataTable == null) 
-                        throw new Exception(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("MissingPropertyTableException"));
+                        throw new Exception(Resources.PropertyTableIsMissing);
 
                     var dt = Resort(property.DataTable, "Температура", "ASC");
                     property.DataTable = dt;
@@ -493,7 +494,7 @@ namespace BazisGUI.DataBases
 
                     var property = Materials[mat][cat][prop];
                     if (property.DataTable == null)
-                        throw new Exception(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("MissingPropertyTableException"));
+                        throw new Exception(Resources.PropertyTableIsMissing);
 
                     DataGridView.DataSource = property.DataTable;
 
@@ -522,7 +523,7 @@ namespace BazisGUI.DataBases
                 var dbPath = string.Empty;
                 var name = string.Empty;
                 dbPath = Directory.GetFiles(Application.StartupPath, "materials_draft.txt", SearchOption.AllDirectories)[0];
-                name = GetNextName(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("NewMaterialTemplate"), Materials.Keys);
+                name = GetNextName(Resources.New_material_, Materials.Keys);
 
                 var dataSet = Loader.LoadDataBase(dbPath);
                 var material = ConvertToMaterials(dataSet);
@@ -540,7 +541,7 @@ namespace BazisGUI.DataBases
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{Localization.Localization.GetStringResourceByName<DataBasePage>("AddBranch.ExceptionMessage")} : {ex.Message}");
+                MessageBox.Show($"{Resources.AddBranch_ExceptionMessage} : {ex.Message}");
             }
         }
 
@@ -571,7 +572,7 @@ namespace BazisGUI.DataBases
                 if (regex.IsMatch(NewCellValue.ToString()) | NewCellValue.ToString().Count() == 0)
                 {
                     MessageBox.Show(
-                        Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("PhaseNameInvalidSymbolsWarning"),
+                        BazisGUI.Properties.Resources.ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore_,
                         Localization.Localization.GetAttentionCaption(),
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     EditCell.Value = OldCellValue;
@@ -651,15 +652,15 @@ namespace BazisGUI.DataBases
             {
                 if (Materials.Remove(TreeView.SelectedNode.Name))
                 {
-                    MessageBox.Show(Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("DataSuccessfulyRemovedMessage"));
+                    MessageBox.Show(BazisGUI.Properties.Resources.DataRemovedSuccessfully);
                     TreeView.Nodes.Remove(TreeView.SelectedNode);
                     OnMutationEvent?.Invoke();
                 }
 
                 else throw
-                        new Exception(Localization.Localization.GetStringResourceByName("RemoveDataException"));
+                        new Exception(Resources.DelBranchException);
             }
-            catch (Exception ex) { MessageBox.Show($"{Localization.Localization.GetStringResourceByName<DataBasePage>("DeletingError")} : {ex.Message}"); }
+            catch (Exception ex) { MessageBox.Show($"{Resources.DeletingError} : {ex.Message}"); }
         }
 
         public override void DelAllRowsButton_Click(object sender, EventArgs e)
@@ -796,13 +797,13 @@ namespace BazisGUI.DataBases
         {
             if (TreeView.SelectedNode != null && TreeView.SelectedNode.Level == 0)
             {
-                var copyName = TreeView.SelectedNode.Name + Localization.Localization.GetStringResourceByName<DataBasePage>("CopySuffics");
+                var copyName = TreeView.SelectedNode.Name + Resources.CopySuffics;
                 if (Materials.ContainsKey(copyName)) 
                 {
                     MessageBox.Show(
-                        Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("CreateCopy.MatExistWarningMessagePart1") +
+                        Resources.Material +
                         " \"" + copyName + "\" " +
-                        Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("CreateCopy.MatExistWarningMessagePart2"),
+                        Resources.AlreadyExistsNRenameTheMaterial,
                         Localization.Localization.GetAttentionCaption(),
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -818,7 +819,7 @@ namespace BazisGUI.DataBases
                 OnMutationEvent?.Invoke();
             }
             else MessageBox.Show(
-                Localization.Localization.GetStringResourceByName<MaterialsDataBasePage>("SelectMaterialsCaption"),
+                Resources.SelectMaterial,
                 Localization.Localization.GetAttentionCaption(),
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }

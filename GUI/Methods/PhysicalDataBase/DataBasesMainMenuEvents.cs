@@ -1,5 +1,6 @@
 ﻿using BazisGUI.Args;
 using BazisGUI.DataBases;
+using BazisGUI.Properties;
 using System;
 using System.Drawing;
 using System.IO;
@@ -49,7 +50,7 @@ namespace BazisGUI
                         return;
 
                     project.MaterialsDB = matBasePage.Materials;
-                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenDB.Message")} {matBasePage.Materials.Name} {Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenDB.SuccessfullyAdded.Message")}", Color.Green);
+                    console.PrintInfo($"{Resources.DataBaseMainMenuEvents_OpenDB_Message} {matBasePage.Materials.Name} {Resources.DataBaseMainMenuEvents_OpenDB_SuccessfullyAdded_Message}", Color.Green);
                 };
 
                 if (project == null)
@@ -59,7 +60,7 @@ namespace BazisGUI
 
                 if (project.MaterialsDB == null)
                 {
-                    console.PrintInfo(Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenMatDB.DBNotLoaded.Message"), Color.Red);
+                    console.PrintInfo(Resources.DataBaseMainMenuEvents_OpenMatDB_DBNotLoaded_Message, Color.Red);
                     return;
                 }
                 matBasePage.Materials = project.MaterialsDB;
@@ -103,7 +104,7 @@ namespace BazisGUI
                         return;
 
                     project.FunctionsDB = funBasePage.Functions;
-                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenDB.Message")} {funBasePage.Functions.Name} {Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenDB.SuccessfullyAdded.Message")}", Color.Green);
+                    console.PrintInfo($"{Resources.DataBaseMainMenuEvents_OpenDB_Message} {funBasePage.Functions.Name} {Resources.DataBaseMainMenuEvents_OpenDB_SuccessfullyAdded_Message}", Color.Green);
                 };
 
                 ShowTabButton("btnTabФункции");
@@ -120,7 +121,7 @@ namespace BazisGUI
 
                 if (project.FunctionsDB == null)
                 {
-                    console.PrintInfo(Localization.Localization.GetStringResourceByName("DataBaseMainMenuEvents.OpenFuncDB.DBNotLoaded.Message"), Color.Red);
+                    console.PrintInfo(Resources.DataBaseMainMenuEvents_OpenFuncDB_DBNotLoaded_Message, Color.Red);
                     return;
                 }
                 funBasePage.Functions = project.FunctionsDB;

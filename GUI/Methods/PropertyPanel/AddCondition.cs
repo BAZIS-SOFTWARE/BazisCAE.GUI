@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using Geometry;
 using Model.Interfaces;
@@ -17,15 +18,15 @@ namespace BazisGUI
         {
             var matDB = project.MaterialsDB;
             if (matDB == null)
-                throw new Exception(Localization.Localization.GetStringResourceByName<PropertiesPanelControl>("DataBase.Materials.MissingException"));
+                throw new Exception(Resources.DataBase_Materials_MissingException);
             if (matDB.Count == 0)
-                throw new Exception(Localization.Localization.GetStringResourceByName<PropertiesPanelControl>("DataBase.Materials.NoDataException"));
+                throw new Exception(Resources.DataBase_Materials_NoDataException);
 
             var funDB = project.FunctionsDB;
             if (funDB == null)
-                throw new Exception(Localization.Localization.GetStringResourceByName<PropertiesPanelControl>("DataBase.Functions.MissingException"));
+                throw new Exception(Resources.DataBase_Functions_MissingException);
             if (funDB.Count == 0)
-                throw new Exception(Localization.Localization.GetStringResourceByName<PropertiesPanelControl>("DataBase.Functions.NoDataException"));
+                throw new Exception(Resources.DataBase_Functions_NoDataException);
         }
 
         private ICondData CreateMaterial(PropertyChangedEventArgs obj, IGroup _objectsGr)

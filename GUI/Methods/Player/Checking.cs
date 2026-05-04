@@ -1,5 +1,6 @@
 ﻿using BazisGUI.Extensions;
 using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using Project.Interfaces.Tasks;
 using ResultDB.IO;
 using System;
@@ -125,7 +126,7 @@ namespace BazisGUI
                     )
             {
                 checkPlayerControl.Cancelation = true;
-                console.PrintInfo(Localization.Localization.GetStringResourceByName("Checking.StartCheckingEvent.SelectedDataIsNotCheckable.Message"), Color.Orange);
+                console.PrintInfo(Resources.Checking_StartCheckingEvent_SelectedDataIsNotCheckable_Message, Color.Orange);
             }
 
         }

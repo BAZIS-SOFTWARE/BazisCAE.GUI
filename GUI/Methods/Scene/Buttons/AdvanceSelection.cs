@@ -1,6 +1,7 @@
 ﻿using BazisGUI.AdvanceSelection;
 using BazisGUI.AdvanceSelection.ControlsForSelect;
 using BazisGUI.Extensions;
+using BazisGUI.Properties;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.MeshObjects;
@@ -40,7 +41,7 @@ namespace BazisGUI
                 var form = new Form()
                 {
                     Name = "selectForm",
-                    Text = Localization.Localization.GetStringResourceByName("AdvanceSelectionForm.Text"),
+                    Text = Resources.AdvanceSelectionForm_Text,
                     AutoSize = false,
                     ShowIcon = false,
                     MinimizeBox = false,
@@ -148,7 +149,7 @@ namespace BazisGUI
 
                     }
                     else
-                        console.PrintInfo(Localization.Localization.GetStringResourceByName("AdvanceSelection3NodesWarning"), Color.Orange);
+                        console.PrintInfo(Resources.AdvanceSelection3NodesWarning, Color.Orange);
                 }
 
                 else if(objType == ObjType.Элемент2D)
@@ -163,7 +164,7 @@ namespace BazisGUI
                         }
                     }
                     else
-                        console.PrintInfo(Localization.Localization.GetStringResourceByName("AdvanceSelectionElemntsSelectionWarning"), Color.Orange);
+                        console.PrintInfo(Resources.AdvanceSelectionElemntsSelectionWarning, Color.Orange);
                 }
                 
                 return false;
@@ -207,7 +208,7 @@ namespace BazisGUI
   
                 }
                 else
-                    console.PrintInfo(Localization.Localization.GetStringResourceByName("AdvanceSelection2NodesWarning"), Color.Orange);
+                    console.PrintInfo(Resources.AdvanceSelection2NodesWarning, Color.Orange);
                 return false;
             }
             catch (Exception)
@@ -222,7 +223,7 @@ namespace BazisGUI
         {
             if (numbers == null || numbers.Count == 0)
             {
-                console.PrintInfo(Localization.Localization.GetStringResourceByName("AdvanceSelectionNoObjectSelectedWarning"), Color.Red);
+                console.PrintInfo(Resources.AdvanceSelectionNoObjectSelectedWarning, Color.Red);
                 return null;
             }
 
@@ -244,7 +245,7 @@ namespace BazisGUI
                 ? project.GetAllModelNodes().Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x => x.Number).ToList()
                 : project.GetAllModelElements().Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x => x.Number).ToList();
 
-            console.PrintInfo($"{selectType}, {Localization.Localization.GetStringResourceByName("AdvaneSelectionSelectedCaption")}: {selectedCount}", Color.Black);
+            console.PrintInfo($"{selectType}, {Resources.AdvaneSelectionSelectedCaption}: {selectedCount}", Color.Black);
             DisplayObjects();
             return selectedCount;
         }
@@ -254,7 +255,7 @@ namespace BazisGUI
 
             if (numbers == null || numbers.Count == 0)
             {
-                console.PrintInfo(Localization.Localization.GetStringResourceByName("AdvanceSelectionNoObjectSelectedWarning"), Color.Red);
+                console.PrintInfo(Resources.AdvanceSelectionNoObjectSelectedWarning, Color.Red);
                 return;
             }
 
@@ -278,7 +279,7 @@ namespace BazisGUI
 
             var selectedCount = project.GetAllModelObjects().Count(x => x.Color == settingsConfig.SelectObjectColor);
             
-            console.PrintInfo($"{objType}, {Localization.Localization.GetStringResourceByName("AdvaneSelectionSelectedCaption")}: {selectedCount}", Color.Black);
+            console.PrintInfo($"{objType}, {Resources.AdvaneSelectionSelectedCaption}: {selectedCount}", Color.Black);
             
             DisplayObjects();
         }

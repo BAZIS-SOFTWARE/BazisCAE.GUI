@@ -1,4 +1,5 @@
-﻿using MasterInterface;
+﻿using BazisGUI.Properties;
+using MasterInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -40,7 +41,7 @@ namespace BazisGUI
             {
                 if (masterTypes.Count == 0)
                 {
-                    console.PrintInfo(Localization.Localization.GetStringResourceByName("ImportMaster.CreateImportedMasters.MasterNotFoundOrAlreadyLoaded.Message"), Color.DarkOrange);
+                    console.PrintInfo(Resources.ImportMaster_CreateImportedMasters_MasterNotFoundOrAlreadyLoaded_Message, Color.DarkOrange);
                     return;
                 }
 
@@ -49,7 +50,7 @@ namespace BazisGUI
                     var master = (BaseMaster)Activator.CreateInstance(item);
                     OpenMaster(master);
                     importedMasters.Add(item);
-                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("ImportMaster.CreateImportedMasters.MasterOpened.Message")} {master.MasterName}", Color.Black);
+                    console.PrintInfo($"{Resources.ImportMaster_CreateImportedMasters_MasterOpened_Message} {master.MasterName}", Color.Black);
                 }
             }
             catch (Exception ex)

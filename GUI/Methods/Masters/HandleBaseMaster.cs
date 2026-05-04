@@ -1,4 +1,5 @@
-﻿using MasterInterface;
+﻿using BazisGUI.Properties;
+using MasterInterface;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
@@ -25,7 +26,7 @@ namespace BazisGUI
             master.PrintInfoEvent += (s, e) => console.PrintInfo(e.Message, e.Color);
             master.GenerateConditionsEvent += (s, e) =>
             {
-                var res = MessageBox.Show(Localization.Localization.GetStringResourceByName("HandleBaseMaster.Handle.CondCreation.Message"),
+                var res = MessageBox.Show(Resources.HandleBaseMaster_Handle_CondCreation_Message,
                     Localization.Localization.GetAttentionCaption(), MessageBoxButtons.YesNo);
                 if (res == DialogResult.No)
                     return;
@@ -40,7 +41,7 @@ namespace BazisGUI
 
                 }
                 PresentCondDataOnTree();
-                console.PrintInfo(Localization.Localization.GetStringResourceByName("HandleBaseMaster.Success.Message"), Color.Green);
+                console.PrintInfo(Resources.HandleBaseMaster_Success_Message, Color.Green);
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using Model.Interfaces;
+﻿using BazisGUI.Properties;
+using Model.Interfaces;
 using Model.Utilities;
 using System;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
@@ -45,7 +46,7 @@ namespace BazisGUI
 
                 if (selObj.Count() == 0)
                 {
-                    Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("EditGroup.EditGroupAsync.NoObjectsSelected.Message"), Color.Black)));
+                    Invoke(new Action(() => console.PrintInfo(Resources.EditGroup_EditGroupAsync_NoObjectsSelected_Message, Color.Black)));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else
@@ -54,17 +55,17 @@ namespace BazisGUI
 
                     group.AddRange(selObj);
 
-                    Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("EditGroup.EditGroupAsync.GroupChanged.Message"), Color.Green)));
+                    Invoke(new Action(() => console.PrintInfo(Resources.EditGroup_EditGroupAsync_GroupChanged_Message, Color.Green)));
                     return new Tuple<bool, object>(true, new object());
                 }
             });
 
             var actBreak = new Action(() =>
             {
-                Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("EditGroup.EditGroupAsync.OperationCanceled.Message"), Color.Black)));
+                Invoke(new Action(() => console.PrintInfo(Resources.EditGroup_EditGroupAsync_OperationCanceled_Message, Color.Black)));
             });
 
-            var message = $@"{Localization.Localization.GetStringResourceByName("EditGroup.EditGroupAsync.Preamble.Message")}";
+            var message = $@"{Resources.EditGroup_EditGroupAsync_Preamble_Message}";
 
             await AsyncMethodContainer(actConfirm, actBreak, message);
         }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BazisGUI.Properties;
+using Newtonsoft.Json;
 using System.Drawing;
 using System.IO;
 
@@ -11,7 +12,7 @@ namespace BazisGUI
             var filePath = FindFileByPath(dbPath, dbName);
             if (filePath == null)
             {
-                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("GetDAtaBase.FindFileByPath.DBNotFound.Message_Part1")} {dbName} {Localization.Localization.GetStringResourceByName("GetDAtaBase.FindFileByPath.DBNotFound.Message_Part2")} {dbPath}", Color.Orange);
+                console.PrintInfo($"{Resources.GetDAtaBase_FindFileByPath_DBNotFound_Message_Part1} {dbName} {Resources.GetDAtaBase_FindFileByPath_DBNotFound_Message_Part2} {dbPath}", Color.Orange);
                 return default;
             }
 

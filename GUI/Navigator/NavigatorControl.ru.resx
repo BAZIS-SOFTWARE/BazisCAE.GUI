@@ -122,7 +122,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA9hAAAAJNU0Z0AUkBTAIBAQoB
-        AAFMAQUBTAEFARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEwAwABAQEAAQgG
+        AAFUAQUBVAEFARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEwAwABAQEAAQgG
         AAEMGAABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEAAfABygGmAQABMwUAATMB
         AAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEAAYABfAH/AQACUAH/AQAB
         kwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFmAwABmQMAAcwCAAEzAwAC
@@ -202,7 +202,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAASgkAAAJNU0Z0AUkBTAIBAQUB
-        AAGMAQYBjAEGARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEgAwABAQEAAQgG
+        AAGUAQYBlAEGARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEgAwABAQEAAQgG
         AAEIGAABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEAAfABygGmAQABMwUAATMB
         AAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEAAYABfAH/AQACUAH/AQAB
         kwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFmAwABmQMAAcwCAAEzAwAC
@@ -244,74 +244,8 @@
         gwYAAsMGAALnBgAC/wYAAv8GABD/YAAQ/ws=
 </value>
   </data>
-  <data name="treeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
-        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        VHJlZU5vZGUJAAAABFRleHQLVG9vbFRpcFRleHQETmFtZQlJc0NoZWNrZWQKSW1hZ2VJbmRleAhJbWFn
-        ZUtleRJTZWxlY3RlZEltYWdlSW5kZXgQU2VsZWN0ZWRJbWFnZUtleQpDaGlsZENvdW50AQEBAAABAAEA
-        AQgICAIAAAAGAwAAAAzQn9GA0L7QtdC60YIGBAAAAAAGBQAAAAdQcm9qZWN0AP////8JBAAAAP////8J
-        BAAAAAAAAAAL
-</value>
-  </data>
-  <data name="HeaderName" xml:space="preserve">
-    <value>Навигатор</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Project" xml:space="preserve">
-    <value>Проект</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Geometry" xml:space="preserve">
-    <value>Геометрия</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Mesh" xml:space="preserve">
-    <value>Сетка</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Sets" xml:space="preserve">
-    <value>Наборы</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Objects" xml:space="preserve">
-    <value>Объекты</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Groups" xml:space="preserve">
-    <value>Группы</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.NodesGroup" xml:space="preserve">
-    <value>Группа_Узлов</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.ElementsGroup" xml:space="preserve">
-    <value>Группа_Элементов</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Task" xml:space="preserve">
-    <value>Задача</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Material" xml:space="preserve">
-    <value>Материал</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Media" xml:space="preserve">
-    <value>Среда</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Heat" xml:space="preserve">
-    <value>Нагрев</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Clamp" xml:space="preserve">
-    <value>Закрепление</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Load" xml:space="preserve">
-    <value>Нагрузка</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Calculations" xml:space="preserve">
-    <value>Расчеты</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Calculation" xml:space="preserve">
-    <value>Расчет</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Results" xml:space="preserve">
-    <value>Результаты</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Result" xml:space="preserve">
-    <value>Результат</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Time" xml:space="preserve">
-    <value>Время</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="treeView.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8pt</value>
   </data>
 </root>

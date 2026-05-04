@@ -132,31 +132,31 @@ namespace BazisGUI
             switch (select)
             {
                 case SelectionType.Objects:
-                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Objects");
+                    localization = Resources.btnSelect_Text_Objects;
                     break;
                 case SelectionType.Points:
-                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Points");
+                    localization = Resources.btnSelect_Text_Points;
                     break;
                 case SelectionType.Curves:
-                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Curves");
+                    localization = Resources.btnSelect_Text_Curves;
                     break;
                 case SelectionType.Surfaces:
-                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Serfaces");
+                    localization = Resources.btnSelect_Text_Surfaces;
                     break;
                 case SelectionType.Nodes:
-                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Nodes");
+                    localization = Resources.btnSelect_Text_Nodes;
                     break;
                 case SelectionType.Elements1D:
-                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Elements1D");
+                    localization = Resources.btnSelect_Text_Elements1D;
                     break;
                 case SelectionType.Elements2D:
-                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Elements2D");
+                    localization = Resources.btnSelect_Text_Elements2D;
                     break;
                 case SelectionType.Elements3D:
-                    localization = Localization.Localization.GetStringResourceByName("btnSelect.Text.Elements3D");
+                    localization = Resources.btnSelect_Text_Elements3D;
                     break;
                 default:
-                    throw new ArgumentException($"{Localization.Localization.GetStringResourceByName("ConvertFailCaption")}: {select.ToString()} -> string");
+                    throw new ArgumentException($"{Resources.ConvertFailCaption}: {select.ToString()} -> string");
             }
 
             var btn = new Button();

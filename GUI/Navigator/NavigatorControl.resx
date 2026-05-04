@@ -117,19 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Navigator.TreeView.Node.Text.Objects" xml:space="preserve">
+    <value>Objects</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Clamp" xml:space="preserve">
+    <value>Clamp</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="treeView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>299, 619</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Heat" xml:space="preserve">
+    <value>Heat</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>BazisGUI.PinnedControl.PinnedPage, BazisGUI, Culture=neutral, PublicKeyToken=13dac0df97930c63</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="treeView.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Groups" xml:space="preserve">
-    <value>Groups</value>
   </data>
   <data name="genImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA9hAAAAJNU0Z0AUkBTAIBAQoB
-        AAE4AQUBRAEFARABAAEQAQAE/wEJARAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEwAwABAQEAAQgG
+        AAE4AQUBSAEFARABAAEQAQAE/wEJARAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEwAwABAQEAAQgG
         AAEMGAABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEAAfABygGmAQABMwUAATMB
         AAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEAAYABfAH/AQACUAH/AQAB
         kwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFmAwABmQMAAcwCAAEzAwAC
@@ -204,58 +220,55 @@
         8AEPgwAB/5YACw==
 </value>
   </data>
-  <data name="Navigator.TreeView.Node.Text.Load" xml:space="preserve">
-    <value>Load</value>
+  <data name="Navigator.TreeView.Node.Text.Project" xml:space="preserve">
+    <value>Project</value>
   </data>
-  <data name="Navigator.TreeView.Node.Text.Media" xml:space="preserve">
-    <value>Media</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="treeView.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8pt</value>
-  </data>
-  <data name="HeaderName" xml:space="preserve">
-    <value>Navigator</value>
-  </data>
-  <data name="&gt;&gt;treeView.Name" xml:space="preserve">
-    <value>treeView</value>
-  </data>
-  <data name="treeView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 20</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Calculation" xml:space="preserve">
-    <value>Calculations</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Material" xml:space="preserve">
-    <value>Material</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="treeView.Indent" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Geometry" xml:space="preserve">
-    <value>Geometry</value>
-  </data>
-  <data name="&gt;&gt;treeView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;genImageList.Type" xml:space="preserve">
+  <data name="&gt;&gt;helpImageList.Type" xml:space="preserve">
     <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 20, 0, 0</value>
   </data>
-  <data name="Navigator.TreeView.Node.Text.Time" xml:space="preserve">
-    <value>Time</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>NavigatorControl</value>
   </data>
-  <data name="&gt;&gt;treeView.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="Navigator.TreeView.Node.Text.Mesh" xml:space="preserve">
+    <value>Mesh</value>
   </data>
-  <data name="Navigator.TreeView.Node.Text.Results" xml:space="preserve">
-    <value>Results</value>
+  <data name="&gt;&gt;treeView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="treeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>299, 619</value>
+  <data name="treeView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 20</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Media" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Geometry" xml:space="preserve">
+    <value>Geometry</value>
+  </data>
+  <data name="&gt;&gt;genImageList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="treeView.ImageIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.ElementsGroup" xml:space="preserve">
+    <value>Elements_Group</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="treeView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Navigator</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Task" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="treeView.SelectedImageIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
   <data name="treeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -267,49 +280,57 @@
         /////wkEAAAAAAAAAAs=
 </value>
   </data>
-  <data name="Navigator.TreeView.Node.Text.Project" xml:space="preserve">
-    <value>Project</value>
+  <data name="treeView.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8pt</value>
   </data>
-  <data name="&gt;&gt;helpImageList.Name" xml:space="preserve">
-    <value>helpImageList</value>
-  </data>
-  <data name="treeView.ImageIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.ElementsGroup" xml:space="preserve">
-    <value>Elements_Group</value>
-  </data>
-  <data name="&gt;&gt;treeView.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="treeView.SelectedImageIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="treeView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Objects" xml:space="preserve">
-    <value>Objects</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>BazisGUI.PinnedControl.PinnedPage, BazisGUI, Culture=neutral, PublicKeyToken=13dac0df97930c63</value>
+  <data name="Navigator.TreeView.Node.Text.Results" xml:space="preserve">
+    <value>Results</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
     <value>299, 639</value>
   </data>
-  <data name="Navigator.TreeView.Node.Text.Task" xml:space="preserve">
-    <value>Task</value>
+  <data name="&gt;&gt;helpImageList.Name" xml:space="preserve">
+    <value>helpImageList</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Calculations" xml:space="preserve">
+    <value>Calculations</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Calculation" xml:space="preserve">
+    <value>Calculations</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="&gt;&gt;treeView.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Load" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Groups" xml:space="preserve">
+    <value>Groups</value>
   </data>
   <data name="Navigator.TreeView.Node.Text.NodesGroup" xml:space="preserve">
     <value>Node_Group</value>
+  </data>
+  <data name="&gt;&gt;treeView.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Sets" xml:space="preserve">
+    <value>Sets</value>
+  </data>
+  <data name="Navigator.TreeView.Node.Text.Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="treeView.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
   <data name="helpImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAATAkAAAJNU0Z0AUkBTAIBAQUB
-        AAF4AQYBhAEGARABAAEQAQAE/wEJARAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEgAwABAQEAAQgG
+        AAF4AQYBiAEGARABAAEQAQAE/wEJARAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEgAwABAQEAAQgG
         AAEIGAABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEAAfABygGmAQABMwUAATMB
         AAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEAAYABfAH/AQACUAH/AQAB
         kwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFmAwABmQMAAcwCAAEzAwAC
@@ -351,55 +372,34 @@
         gwYAAsMGAALnBgAC/wYAAv8GABD/YAAQ/xYACw==
 </value>
   </data>
-  <data name="Navigator.TreeView.Node.Text.Mesh" xml:space="preserve">
-    <value>Mesh</value>
-  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>7, 15</value>
-  </data>
-  <data name="&gt;&gt;helpImageList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Heat" xml:space="preserve">
-    <value>Heat</value>
-  </data>
-  <data name="treeView.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Result" xml:space="preserve">
-    <value>Result</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 0</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>NavigatorControl</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Sets" xml:space="preserve">
-    <value>Sets</value>
-  </data>
-  <data name="Navigator.TreeView.Node.Text.Calculations" xml:space="preserve">
-    <value>Calculations</value>
+  <data name="&gt;&gt;treeView.Name" xml:space="preserve">
+    <value>treeView</value>
   </data>
   <data name="&gt;&gt;genImageList.Name" xml:space="preserve">
     <value>genImageList</value>
   </data>
-  <data name="Navigator.TreeView.Node.Text.Clamp" xml:space="preserve">
-    <value>Clamp</value>
+  <data name="treeView.Indent" type="System.Int32, mscorlib">
+    <value>19</value>
   </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>ru</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="genImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>453, 79</value>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>183</value>
   </metadata>
   <metadata name="helpImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>13, 76</value>
   </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>ru</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>183</value>
+  <metadata name="genImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>453, 79</value>
   </metadata>
 </root>

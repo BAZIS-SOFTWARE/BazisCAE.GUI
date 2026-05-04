@@ -119,30 +119,18 @@ namespace BazisGUI.Reflect
             label8.Name = "label8";
             toolTip1.SetToolTip(label8, resources.GetString("label8.ToolTip"));
             // 
-            // trackBar2
+            // trackBar1
             // 
-            resources.ApplyResources(trackBar2, "trackBar2");
-            trackBar2.BackColor = System.Drawing.Color.Transparent;
-            trackBar2.BarInnerColor = System.Drawing.Color.Silver;
-            trackBar2.BarOuterColor = System.Drawing.Color.Silver;
-            trackBar2.BarPenColor = System.Drawing.Color.Black;
-            trackBar2.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            tableLayoutPanel1.SetColumnSpan(trackBar2, 2);
-            trackBar2.ElapsedInnerColor = System.Drawing.Color.Silver;
-            trackBar2.ElapsedOuterColor = System.Drawing.Color.Silver;
-            trackBar2.LargeChange = 5U;
-            trackBar2.Maximum = 200;
-            trackBar2.Name = "trackBar2";
-            trackBar2.ShowTextValue = false;
-            trackBar2.SmallChange = 1U;
-            trackBar2.Tag = "";
-            trackBar2.TextValueColor = System.Drawing.Color.Black;
-            trackBar2.ThumbPenColor = System.Drawing.Color.Black;
-            trackBar2.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
-            trackBar2.ThumbSize = 12;
-            toolTip1.SetToolTip(trackBar2, resources.GetString("trackBar2.ToolTip"));
-            trackBar2.Value = 100;
-            trackBar2.ValueChanged += OnChangeNormal;
+            resources.ApplyResources(trackBar1, "trackBar1");
+            trackBar1.BackColor = System.Drawing.Color.Transparent;
+            trackBar1.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            trackBar1.LargeChange = 5U;
+            trackBar1.Name = "trackBar1";
+            trackBar1.ShowTextValue = true;
+            trackBar1.SmallChange = 1U;
+            trackBar1.TextValueColor = System.Drawing.Color.Black;
+            trackBar1.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            toolTip1.SetToolTip(trackBar1, resources.GetString("trackBar1.ToolTip"));
             // 
             // trackBar3
             // 

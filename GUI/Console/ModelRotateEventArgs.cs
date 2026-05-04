@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazisGUI.Properties;
+using System;
 using System.Globalization;
 using System.Numerics;
 
@@ -15,12 +16,12 @@ namespace BazisGUI.Console
             var strAr = v.Split(':');
 
             if (strAr.Length < 2)
-                throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("InvalidCommandException"));
+                throw new Exception(Resources.InvalidCommandException);
 
             var coords = strAr[0].Split(',');
 
             if (coords.Length < 3)
-                throw new Exception(Localization.Localization.GetStringResourceByName<ConsoleControl>("InvalidCoordinatesException"));
+                throw new Exception(Resources.InvalidCoordinatesException);
 
             var x = float.Parse(coords[0].Replace(" ",""), NumberStyles.Float);
             var y = float.Parse(coords[1].Replace(" ", ""), NumberStyles.Float);

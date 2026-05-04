@@ -1,4 +1,5 @@
-﻿using Model.Interfaces;
+﻿using BazisGUI.Properties;
+using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BazisGUI.Utilities
         {
             DataKind objType;
             return Enum.TryParse(dataKind, out objType) ? objType :
-                throw new Exception($"{Localization.Localization.GetStringResourceByName("ConvertFailCaption")}:{dataKind} -> DataKind");
+                throw new Exception($"{Resources.ConvertFailCaption}:{dataKind} -> DataKind");
         }
 
         //public static NodeName ConvertToNavigatorNodeType(ObjType objType)
@@ -83,7 +84,7 @@ namespace BazisGUI.Utilities
                 case SelectionType.Elements2D: return ObjType.Элемент2D;
                 case SelectionType.Elements3D: return ObjType.Элемент3D;
                 default:
-                    throw new ArgumentException($"{Localization.Localization.GetStringResourceByName("ConvertFailCaption")}:{st.ToString()} -> ObjType");
+                    throw new ArgumentException($"{Resources.ConvertFailCaption}:{st.ToString()} -> ObjType");
             }
         }
 

@@ -1,14 +1,15 @@
-﻿using BazisGUI.Console.Events;
-using BazisGUI.Console;
-using System;
-using System.Linq;
+﻿using BazisGUI.Console;
+using BazisGUI.Console.Events;
+using BazisGUI.Properties;
 using BazisGUI.Utilities;
-using Model.Interfaces;
 using Geometry;
-using System.Drawing;
+using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
 using Model.Utilities;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace BazisGUI
 {
@@ -54,7 +55,7 @@ namespace BazisGUI
                             DisplayObjects();
                         }
                         else
-                            console.PrintInfo(Localization.Localization.GetStringResourceByName("ConsoleEvents.ConsoleInEvent.ObjectNotFound.Message"), Color.Orange);
+                            console.PrintInfo(Resources.ConsoleEvents_ConsoleInEvent_ObjectNotFound_Message, Color.Orange);
                     }));
                 }
 
@@ -93,7 +94,7 @@ namespace BazisGUI
                         }
                         DisplayObjects();                     
                     }
-                    Invoke(new Action(() => { console.PrintInfo($"{Localization.Localization.GetStringResourceByName("ConsoleEvents.ConsoleInEvent.ObjectFound.Message_Part1")} {findElmems.Count()} {Localization.Localization.GetStringResourceByName("ConsoleEvents.ConsoleInEvents.VolumeElements.Message")}", Color.Black); }));
+                    Invoke(new Action(() => { console.PrintInfo($"{Resources.Found} {findElmems.Count()} {Resources.ConsoleEvents_ConsoleInEvents_VolumeElements_Message}", Color.Black); }));
                 }
                 else if (arg2 is BeamConnectionEventArgs beamConnectionEventArgs)
                 {

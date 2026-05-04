@@ -1,4 +1,5 @@
-﻿using Model.Interfaces;
+﻿using BazisGUI.Properties;
+using Model.Interfaces;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace BazisGUI
             {
                 // заглушка
                 if (GmshController.Gmsh == null)
-                    throw new NullReferenceException(Localization.Localization.GetStringResourceByName("GenerateMesh3DEvents.Generate3D.GMSHNull.Exception"));
+                    throw new NullReferenceException(Resources.GenerateMesh3DEvents_Generate3D_GMSHNull_Exception);
                 DeleteGMSHMeshObjects(ObjType.Узел);
                 project.ClearModelCollection(ObjType.Узел);
                 project.GenerateMesh(3);
@@ -45,11 +46,11 @@ namespace BazisGUI
             FitObjectsToScreen();
             DisplayObjects();
 
-                console.PrintInfo(Localization.Localization.GetStringResourceByName("GenerateMesh3DEvents.Generate3D.GeneratedElements.Message") +
+                console.PrintInfo(Resources.GenerateMesh3DEvents_Generate3D_GeneratedElements_Message +
                     $" 1D: {project.GetModelObjects(ObjType.Элемент1D).Count()}," +
                     $" 2D: {project.GetModelObjects(ObjType.Элемент2D).Count()}," +
                     $" 3D: {project.GetModelObjects(ObjType.Элемент3D).Count()}." +
-                    $" {Localization.Localization.GetStringResourceByName("GenerateMesh3DEvents.Generate3D.CheckRecommendation.Message")}", Color.Orange);
+                    $" {Resources.GenerateMesh3DEvents_Generate3D_CheckRecommendation_Message}", Color.Orange);
             }
             catch (Exception ex)
             {

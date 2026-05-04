@@ -1,6 +1,7 @@
-﻿using System;
+﻿using BazisGUI.Properties;
 using BazisGUI.Scene.Interfaces;
 using OpenTK.Graphics.OpenGL;
+using System;
 
 
 namespace BazisGUI.Scene.VBO
@@ -75,7 +76,7 @@ namespace BazisGUI.Scene.VBO
         public VBObject(string objName, int[] pointers, float[] glCoords)
         {
             if (pointers.Length == 0)
-                throw new ArgumentException(Localization.Localization.GetStringResourceByName("VBObjectCtor.EmptyArrayArgumentException"));
+                throw new ArgumentException(Resources.VBObjectCtor_EmptyArrayArgumentException);
             ObjName = objName;
 
             PtrLength = pointers.Length;

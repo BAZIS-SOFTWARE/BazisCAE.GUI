@@ -1,8 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using BazisGUI.Console;
+using BazisGUI.Properties;
 using Model.Interfaces;
+using System;
 using System.Drawing;
-using BazisGUI.Console;
+using System.Linq;
 
 namespace BazisGUI
 {
@@ -30,7 +31,7 @@ namespace BazisGUI
 
                 PresentMeshData();
             }
-            Invoke(new Action(() => { console.PrintInfo($"{Localization.Localization.GetStringResourceByName("BeamConnection.BeamConnection.ObjectsCreated.Message")} {beams.ObjType}", Color.Black); }));
+            Invoke(new Action(() => { console.PrintInfo($"{Resources.BeamConnection_BeamConnection_ObjectsCreated_Message} {beams.ObjType}", Color.Black); }));
         }
     }
 }

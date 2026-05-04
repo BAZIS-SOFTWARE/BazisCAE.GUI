@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Localization;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace BaseModule.PropertiesPanel
 
         public virtual void UpdateObject(string header, string newValue)
         {
-            throw new NotImplementedException(Localization.GetStringResourceByName("PanelConverter.UndefinedConverterTypeException"));
+            throw new NotImplementedException(Resources.PanelConverter_UndefinedConverterTypeException);
         }
 
         /// <summary>

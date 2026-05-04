@@ -1,10 +1,16 @@
-﻿using BazisGUI.Extensions;
+﻿using BazisGUI.CrossSection;
+using BazisGUI.Extensions;
+using BazisGUI.Measurement;
+using BazisGUI.Properties;
+using BazisGUI.Reflect;
 using BazisGUI.Scene;
 using BazisGUI.Scene.VBO;
+using BazisGUI.Utilities;
 using Geometry;
 using Model.GeometryObjects;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,11 +18,6 @@ using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using OpenTK.Graphics.OpenGL;
-using BazisGUI.Reflect;
-using BazisGUI.Measurement;
-using BazisGUI.CrossSection;
-using BazisGUI.Utilities;
 
 namespace BazisGUI
 {
@@ -87,7 +88,7 @@ namespace BazisGUI
         {
             if (!Converters.TryConvertSelectionTypeToObjType(SelectedObjects, out ObjType res))
             {
-                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityToolStrip.Measuring.InvalidSeletedTypeError")} \"{SelectedObjects}\"", Color.Red);
+                console.PrintInfo($"{Resources.UtilityToolStrip_Measuring_InvalidSeletedTypeError} \"{SelectedObjects}\"", Color.Red);
                 return;
             }
             try
@@ -158,7 +159,7 @@ namespace BazisGUI
                 if (nodes.Count > 1)
                 {
                     var line = new Segment3D(nodes[nodes.Count - 1].Position, nodes[nodes.Count - 2].Position);
-                    console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityToolStrip.Distance.Output")} : { path+=line.GetLength()}", Color.Black);
+                    console.PrintInfo($"{Resources.UtilityToolStrip_Distance_Output} : { path+=line.GetLength()}", Color.Black);
                     DisplayDistance(line);
 
                     var coord = line.P0.Sum(line.P1).Div(2);
@@ -175,7 +176,7 @@ namespace BazisGUI
         {
             var actBreak = new Action(() =>
             {
-                Invoke(new Action(() => console.PrintInfo(Localization.Localization.GetStringResourceByName("UtilityToolStrip.SelectObjectAsync.OperationCanceled.Message"), Color.Black)));
+                Invoke(new Action(() => console.PrintInfo(Resources.UtilityToolStrip_SelectObjectAsync_OperationCanceled_Message, Color.Black)));
             });
 
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
@@ -186,18 +187,18 @@ namespace BazisGUI
 
                 if (selObjs.Count() == 0)
                 {
-                    Invoke(new Action(() => console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityTiilStrip.SelectObjectAsync.NoObjectSelected.Message")} {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(objType))}!", Color.Orange)));
+                    Invoke(new Action(() => console.PrintInfo($"{Resources.UtilityTiilStrip_SelectObjectAsync_NoObjectSelected_Message} {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(objType))}!", Color.Orange)));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else if (selObjs.Count() > 1)
                 {
-                    Invoke(new Action(() => console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityTiilStrip.SelectObjectAsync.SelectOne.Message")} {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(objType))}!", Color.Orange)));
+                    Invoke(new Action(() => console.PrintInfo($"{Resources.UtilityTiilStrip_SelectObjectAsync_SelectOne_Message} {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(objType))}!", Color.Orange)));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else
                 {
                     var node = selObjs.First();
-                    Invoke(new Action(() => console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityTiilStrip.SelectObjectAsync.Selected.Message")} {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(objType))} {Localization.Localization.GetStringResourceByName("UtilityTiilStrip.SelectObjectAsync.WithNumber.Message")} {node.Number}", Color.Green)));
+                    Invoke(new Action(() => console.PrintInfo($"{Resources.UtilityTiilStrip_SelectObjectAsync_Selected_Message} {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(objType))} {Resources.UtilityTiilStrip_SelectObjectAsync_WithNumber_Message} {node.Number}", Color.Green)));
                     return new Tuple<bool, object>(true, node);
                 }
             });
@@ -218,7 +219,7 @@ namespace BazisGUI
                 var e3DObj = (IElement3D)obj;
                 vol += (float)e3DObj.CalcVolume();
             }
-            console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityToolStrip.CalcVolume.Output")} : {vol}", Color.Black);
+            console.PrintInfo($"{Resources.UtilityToolStrip_CalcVolume_Output} : {vol}", Color.Black);
         }
 
         private void CalcSquare(SelectionType select)
@@ -232,7 +233,7 @@ namespace BazisGUI
                 var sObj = (ISquare)obj;
                 square += sObj.CalcSquare();
             }
-            console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityToolStrip.CalcSquare.Output")} : {square}", Color.Black);
+            console.PrintInfo($"{Resources.UtilityToolStrip_CalcSquare_Output} : {square}", Color.Black);
         }
 
         private async void DistancePointToPlane(SelectionType objTypeStr)
@@ -249,7 +250,7 @@ namespace BazisGUI
 
             SetVBObjectAttribute(pres, "цвет");
             DisplayObjects();
-            var message = $@"{Localization.Localization.GetStringResourceByName("UtilityToolStrip.DistancePointToPlane.InstructionPart1")} {Localization.Localization.GetSelectionTypeLocalization(SelectionType.Nodes)} {Localization.Localization.GetStringResourceByName("UtilityToolStrip.DistancePointToPlane.InstructionPart1")}";
+            var message = $@"{Resources.UtilityToolStrip_DistancePointToPlane_InstructionPart1} {Localization.Localization.GetSelectionTypeLocalization(SelectionType.Nodes)} {Resources.UtilityToolStrip_DistancePointToPlane_InstructionPart1}";
             var res = SelectObjectAsync(objType, message);
             await res;
 
@@ -257,7 +258,7 @@ namespace BazisGUI
             {
                 var proj = point.Position.GetPointProectionOnPlane(plane);
                 var line = new Segment3D(point.Position, proj);
-                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityToolStrip.Distance.Output")} : {line.GetLength()}", Color.Black);
+                console.PrintInfo($"{Resources.UtilityToolStrip_Distance_Output} : {line.GetLength()}", Color.Black);
                 DisplayDistance(line);
                 DisplayObjects();
             }
@@ -277,12 +278,12 @@ namespace BazisGUI
                 var p1 = nodes.Last();
                 var line = new Segment3D(p0.Position, p1.Position);
 
-                console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityToolStrip.Distance.Output")} : {line.GetLength()}", Color.Black);
+                console.PrintInfo($"{Resources.UtilityToolStrip_Distance_Output} : {line.GetLength()}", Color.Black);
 
                 DisplayDistance(line);
                 DisplayObjects();
             }
-            else console.PrintInfo($"{Localization.Localization.GetStringResourceByName("UtilityToolStrip.DistancePointToPoint.EmptySelectionErrorMessage")}: {Localization.Localization.GetSelectionTypeLocalization(objTypeStr)}", Color.Red);
+            else console.PrintInfo($"{Resources.UtilityToolStrip_DistancePointToPoint_EmptySelectionErrorMessage}: {Localization.Localization.GetSelectionTypeLocalization(objTypeStr)}", Color.Red);
         }
 
         private void btnCrossSection_Click(object sender, EventArgs e)
@@ -295,7 +296,7 @@ namespace BazisGUI
                     var form = new Form()
                     {
                         Name = "CrossSectionForm",
-                        Text = Localization.Localization.GetStringResourceByName("UtilityToolStrip.CrossSection.Text"),
+                        Text = Resources.UtilityToolStrip_CrossSection_Text,
                         ShowIcon = false,
                         Size = new Size(268, 203),
                         Owner = Application.OpenForms[0],
@@ -363,7 +364,7 @@ namespace BazisGUI
             var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
             if (selObjs.Length < 3)
             {
-                console.PrintInfo(Localization.Localization.GetStringResourceByName("UtilityToolStrip.CreateCrossSection.InvalidNodeNumerErrorMessage"), Color.Red);
+                console.PrintInfo(Resources.UtilityToolStrip_CreateCrossSection_InvalidNodeNumerErrorMessage, Color.Red);
                 return;
             }
 
@@ -433,7 +434,7 @@ namespace BazisGUI
                         Icon = this.Icon,
                         ClientSize = clip.Size,
                         MaximizeBox = false,
-                        Text = Localization.Localization.GetStringResourceByName("UtilityToolStip.ClipForm.Text"),
+                        Text = Resources.UtilityToolStip_ClipForm_Text,
                         Owner = Application.OpenForms[0]
                     };
 
