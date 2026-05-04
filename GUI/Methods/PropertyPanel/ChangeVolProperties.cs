@@ -18,7 +18,7 @@ namespace BazisGUI
         {
             // Тут задаем настройки сетки в объемах геометрии
 
-            if (obj.Header == "Вид сетки")
+            if (obj.LocalizedHeader == "Вид сетки")
             {
                 flag = true;
                 if (obj.NewValue == "регулярная")
@@ -54,16 +54,16 @@ namespace BazisGUI
                 var attributes = GmshController.GetTransfiniteVolume(number);
                 //var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite vol {number}");
 
-                if (obj.Header == "Степень градиента перехода")
+                if (obj.LocalizedHeader == "Степень градиента перехода")
                     attributes[1] = obj.NewValue;
 
-                else if (obj.Header == "Толщина слоя")
+                else if (obj.LocalizedHeader == "Толщина слоя")
                     attributes[2] = obj.NewValue;
 
-                else if (obj.Header == "Размер элементов на поверхности")
+                else if (obj.LocalizedHeader == "Размер элементов на поверхности")
                     attributes[3] = obj.NewValue;
 
-                else if (obj.Header == "Размер элементов в центре")
+                else if (obj.LocalizedHeader == "Размер элементов в центре")
                     attributes[4] = obj.NewValue;
                 //SetMeshGradientSettings(attributes, number);
                 //GmshController.Gmsh.Model.

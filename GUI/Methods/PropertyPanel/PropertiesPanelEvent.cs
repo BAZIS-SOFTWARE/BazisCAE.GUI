@@ -233,12 +233,12 @@ namespace BazisGUI
 
         private void ChangeResultsProperty(PropertyChangedEventArgs obj)
         {
-            if (obj.Header == "Масштаб")
+            if (obj.LocalizedHeader == "Масштаб")
                 settingsConfig.Scale_scale = int.Parse(obj.NewValue);
 
-            else if(obj.Header == "Макс. значение" | obj.Header == "Мин. значение")
+            else if(obj.LocalizedHeader == "Макс. значение" | obj.LocalizedHeader == "Мин. значение")
             {
-                if (obj.Header == "Макс. значение")
+                if (obj.LocalizedHeader == "Макс. значение")
                     settingsConfig.Scale_MaxValue = float.Parse(obj.NewValue);
                 else
                     settingsConfig.Scale_MinValue = float.Parse(obj.NewValue);
@@ -249,14 +249,14 @@ namespace BazisGUI
                     settingsConfig.Scale_MinValue,settingsConfig.Scale_MaxValue, intervals, pre);
             }
 
-            else if (obj.Header == "Показывать шкалу")
+            else if (obj.LocalizedHeader == "Показывать шкалу")
             {
                 settingsConfig.ShowResultsScale = bool.Parse(obj.NewValue);
 
                 if (!settingsConfig.ShowResultsScale)
                     HideGeometryObj("DisplaySceneScale");
             }
-            else if (obj.Header == "Уточнить значения")
+            else if (obj.LocalizedHeader == "Уточнить значения")
             {
 
                 //resultsController.FillRange(ar2.Min, ar2.Max, ar2.Range, ar2.Precision);
@@ -273,21 +273,21 @@ namespace BazisGUI
 
             }
 
-            else if (obj.Header == "Показывать поле")
+            else if (obj.LocalizedHeader == "Показывать поле")
                 settingsConfig.ShowResultsField = bool.Parse(obj.NewValue);
-            else if (obj.Header == "Показать значения в узлах")
+            else if (obj.LocalizedHeader == "Показать значения в узлах")
                 settingsConfig.ShowNodeResultsValue = bool.Parse(obj.NewValue);
-            else if (obj.Header == "Показать значения в элементах")
+            else if (obj.LocalizedHeader == "Показать значения в элементах")
                 settingsConfig.ShowElementsResultsValue = bool.Parse(obj.NewValue);
-            else if (obj.Header == "Усреднять результаты")
+            else if (obj.LocalizedHeader == "Усреднять результаты")
                 settingsConfig.MergeResultsValue = bool.Parse(obj.NewValue);
-            else if (obj.Header == "Точность")
+            else if (obj.LocalizedHeader == "Точность")
                 settingsConfig.Scale_Precision = int.Parse(obj.NewValue);
-            else if (obj.Header == "Интервалы")
+            else if (obj.LocalizedHeader == "Интервалы")
                 settingsConfig.Scale_Intervals = int.Parse(obj.NewValue);
-            else if (obj.Header == "Положение шкалы по Х")
+            else if (obj.LocalizedHeader == "Положение шкалы по Х")
                 settingsConfig.Scale_X_Coord = int.Parse(obj.NewValue);
-            else if (obj.Header == "Положение шкалы по Y")
+            else if (obj.LocalizedHeader == "Положение шкалы по Y")
                 settingsConfig.Scale_Y_Coord = int.Parse(obj.NewValue);
         }
     }

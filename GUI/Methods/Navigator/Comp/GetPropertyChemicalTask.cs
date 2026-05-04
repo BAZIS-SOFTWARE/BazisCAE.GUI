@@ -12,11 +12,11 @@ namespace BazisGUI
         private List<RowProperty> GetPropertyChemicalTask(ChemicalParameters chemical)
         {
             var rows = new List<RowProperty>();
-            rows.Add(new RowProperty(ChemicalTaskPropertyKeys.MaxConсentration.ToString(), Properties.Resources.МаксКонцентрDCtMax, chemical.ChemicalConvergence.Is_Switched_Cm));
+            rows.Add(new RowProperty(ChemicalTaskPropertyKeys.MaxConсentration.ToString(), Properties.Resources.Header_MaxConcentration, chemical.ChemicalConvergence.Is_Switched_Cm));
             if (chemical.ChemicalConvergence.Is_Switched_Cm)
-                rows.Add(new RowProperty(ChemicalTaskPropertyKeys.MaxConсentrationValue.ToString(), Properties.Resources.ЗначениеМаксКонцентр, chemical.ChemicalConvergence.Cm.ToString()));
+                rows.Add(new RowProperty(ChemicalTaskPropertyKeys.MaxConсentrationValue.ToString(), Properties.Resources.Header_MaxConcentrationValue, chemical.ChemicalConvergence.Cm.ToString()));
 
-            rows.Add(new RowProperty(ChemicalTaskPropertyKeys.InitialConcentration.ToString(), BazisGUI.Properties.Resources.НачальнаяКонцентрация, chemical.InitConcentration.ToString()));
+            rows.Add(new RowProperty(ChemicalTaskPropertyKeys.InitialConcentration.ToString(), BazisGUI.Properties.Resources.Header_InitialConcentration, chemical.InitConcentration.ToString()));
             return rows;
         }
     }

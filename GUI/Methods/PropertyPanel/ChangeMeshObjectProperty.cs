@@ -18,9 +18,9 @@ namespace BazisGUI
 
             var c = mObj.GetCoordinates().First();
 
-            if (obj.Header == "Координата X")
+            if (obj.LocalizedHeader == "Координата X")
                 c._x = float.Parse(obj.NewValue);
-            else if (obj.Header == "Координата Y")
+            else if (obj.LocalizedHeader == "Координата Y")
                 c._y = float.Parse(obj.NewValue);
             else
                 c._z = float.Parse(obj.NewValue);

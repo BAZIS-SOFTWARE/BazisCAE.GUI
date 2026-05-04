@@ -17,12 +17,12 @@ namespace BazisGUI
     {
         private void ChangeGeneralProperties(PropertyChangedEventArgs obj, ICondData cond, ref bool refresh)
         {
-            if (obj.Header.Contains("Группа"))
+            if (obj.LocalizedHeader.Contains("Группа"))
             {
                 var group = project.GetAllModelGroups().First(x => x.Name == obj.NewValue);
                 cond.Group = group;
             }
-            else if (obj.Header == "Старт, сек.")
+            else if (obj.LocalizedHeader == "Старт, сек.")
             {
                 var newTime = float.Parse(obj.NewValue);
                 newTime = (float)Math.Round(newTime, 2);
@@ -36,10 +36,10 @@ namespace BazisGUI
                 refresh = true;
             }
 
-            else if (obj.Header == "Стоп, сек.")
+            else if (obj.LocalizedHeader == "Стоп, сек.")
                 cond.StopTime = float.Parse(obj.NewValue);
 
-            else if (obj.Header.Contains("Функция"))
+            else if (obj.LocalizedHeader.Contains("Функция"))
             {
                 if (obj.NewValue == "*")
                     cond.Function = null;
@@ -69,9 +69,9 @@ namespace BazisGUI
                 refresh = true;
             }
 
-            else if (obj.Header.Contains("Параметр"))
+            else if (obj.LocalizedHeader.Contains("Параметр"))
             {
-                var ar = obj.Header.Split(" ");
+                var ar = obj.LocalizedHeader.Split(" ");
 
                 if (obj.NewValue == ParameterKind.Digit.ToString())
                     cond.Function[ar[1]] = new Parameter(ar[1], ParameterType.Constant, 0);
@@ -83,9 +83,9 @@ namespace BazisGUI
                 refresh = true;
             }
             // подумать про регулярные выражения для поиска
-            else if (obj.Header.Contains("Таблица"))
+            else if (obj.LocalizedHeader.Contains("Таблица"))
             {
-                var ar = obj.Header.Split(" ");
+                var ar = obj.LocalizedHeader.Split(" ");
 
                 var tableParam = cond.Function.GetTableParameters().
                     First(x => x.Table.Name == ar[1]);
@@ -97,9 +97,9 @@ namespace BazisGUI
                 refresh = true;
             }
 
-            else if (obj.Header.Contains("Значение"))
+            else if (obj.LocalizedHeader.Contains("Значение"))
             {
-                var parts = obj.Header.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                var parts = obj.LocalizedHeader.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length == 1)
                 {
                     if (double.TryParse(obj.NewValue, out var value))
@@ -132,7 +132,7 @@ namespace BazisGUI
                 refresh = true;
             }
 
-            else if (obj.Header == "Система координат")
+            else if (obj.LocalizedHeader == "Система координат")
             {
                 if (obj.NewValue == "SRF")
                     cond.LocalFrame = new StaticFrame();
@@ -144,13 +144,13 @@ namespace BazisGUI
                 refresh = true;
             }
 
-            else if (obj.Header == "Файл")
+            else if (obj.LocalizedHeader == "Файл")
             {
                 var cf = cond.Function as CustomFrameFunction;
                 cf.CreateEngine(obj.NewValue);
             }
 
-            else if (obj.Header == "Плоскость" && cond.LocalFrame is StaticFrame srf)
+            else if (obj.LocalizedHeader == "Плоскость" && cond.LocalFrame is StaticFrame srf)
             {
                 var group = project.GetAllModelGroups().FirstOrDefault(x => x.Name == obj.NewValue);
 
@@ -168,19 +168,19 @@ namespace BazisGUI
                     srf.BaseGroup = group;
             }
 
-            else if (obj.Header == "Траектория")
+            else if (obj.LocalizedHeader == "Траектория")
             {
                 var mrf = cond.LocalFrame as MovedFrame;
                 var group = project.GetAllModelGroups().First(x => x.Name == obj.NewValue);
                 mrf.BaseLine = group;
             }
-            else if (obj.Header == "Опорная линия")
+            else if (obj.LocalizedHeader == "Опорная линия")
             {
                 var mrf = cond.LocalFrame as MovedFrame;
                 var group = project.GetAllModelGroups().First(x => x.Name == obj.NewValue);
                 mrf.RefLine = group;
             }
-            else if (obj.Header == "Скорость, мм./сек.")
+            else if (obj.LocalizedHeader == "Скорость, мм./сек.")
             {
                 var mrf = cond.LocalFrame as MovedFrame;
                 mrf.Velocity = float.Parse(obj.NewValue);
@@ -192,17 +192,17 @@ namespace BazisGUI
                 refresh = true;
             }
 
-            else if (obj.Header == "Смещение x")
+            else if (obj.LocalizedHeader == "Смещение x")
                 cond.LocalFrame.Shifting._x = float.Parse(obj.NewValue);
-            else if (obj.Header == "Смещение y")
+            else if (obj.LocalizedHeader == "Смещение y")
                 cond.LocalFrame.Shifting._y = float.Parse(obj.NewValue);
-            else if (obj.Header == "Смещение z")
+            else if (obj.LocalizedHeader == "Смещение z")
                 cond.LocalFrame.Shifting._z = float.Parse(obj.NewValue);
-            else if (obj.Header == "Поворот x")
+            else if (obj.LocalizedHeader == "Поворот x")
                 cond.LocalFrame.Rotation_X = float.Parse(obj.NewValue);
-            else if (obj.Header == "Поворот y")
+            else if (obj.LocalizedHeader == "Поворот y")
                 cond.LocalFrame.Rotation_Y = float.Parse(obj.NewValue);
-            else if (obj.Header == "Поворот z")
+            else if (obj.LocalizedHeader == "Поворот z")
                 cond.LocalFrame.Rotation_Z = float.Parse(obj.NewValue);
         }
 
@@ -211,9 +211,9 @@ namespace BazisGUI
 
             ChangeGeneralProperties(obj, clampCond, ref flag);
 
-            if (obj.Header == "Вид")
+            if (obj.LocalizedHeader == "Вид")
                 clampCond.TrySetKind(obj.NewValue.ToString());
-            else if (obj.Header == "Направление")
+            else if (obj.LocalizedHeader == "Направление")
                 clampCond.Direction = obj.NewValue.ToEnum<Direction>();
         }
 
@@ -221,11 +221,11 @@ namespace BazisGUI
         {
             ChangeGeneralProperties(obj, matCond, ref flag);
 
-            if (obj.Header == "Материал")
+            if (obj.LocalizedHeader == "Материал")
                 matCond.Material = project.MaterialsDB[obj.NewValue.ToString()];
-            else if (obj.Header == "Диаметр")
+            else if (obj.LocalizedHeader == "Диаметр")
                 (matCond as BeamMatData).Diameter = double.Parse(obj.NewValue);
-            else if (obj.Header == "Толщина")
+            else if (obj.LocalizedHeader == "Толщина")
                 (matCond as PlateMatData).Thickness = double.Parse(obj.NewValue);
             // TO DO дописать метод, так чтобы изменялись все свойства
         }
@@ -234,7 +234,7 @@ namespace BazisGUI
         {
             //Мощность, Дж
             ChangeGeneralProperties(obj, heatCond, ref flag);
-            if (obj.Header == "Мощность, Дж")
+            if (obj.LocalizedHeader == "Мощность, Дж")
                 heatCond.Value = float.Parse(obj.NewValue);
             //else if (obj.Header == "Функция, F(t), F - Дж.")
             //    heatCond.TimeFunction = project.FunctionsDB[obj.NewValue];
@@ -243,14 +243,14 @@ namespace BazisGUI
         private void ChangeLoadProperties(PropertyChangedEventArgs obj, LoadData loadData, ref bool flag)
         {
             ChangeGeneralProperties(obj, loadData, ref flag);
-            if (obj.Header == "Направление")
+            if (obj.LocalizedHeader == "Направление")
                 loadData.Direction = obj.NewValue.ToEnum<Direction>();
-            else if (obj.Header == "Величина, Н")
+            else if (obj.LocalizedHeader == "Величина, Н")
                 loadData.Value = float.Parse(obj.NewValue);
             //else if (obj.Header == "Функция, F(t), F - Н.")
             //    loadData.TimeFunction = project.FunctionsDB[obj.NewValue];
 
-            else if (obj.Header == "Вид")
+            else if (obj.LocalizedHeader == "Вид")
                 loadData.LoadKind = obj.NewValue.ToEnum<LoadKind>();
         }
 

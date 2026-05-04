@@ -11,24 +11,24 @@ namespace BazisGUI
     {
         private void ChangeGeoProperties(PropertyChangedEventArgs obj)
         {          
-            if (obj.Header == "Мин.размер")
+            if (obj.LocalizedHeader == "Мин.размер")
                 GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(obj.NewValue));
-            else if (obj.Header == "Макс.размер")
+            else if (obj.LocalizedHeader == "Макс.размер")
                 GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", double.Parse(obj.NewValue));
-            else if (obj.Header == "Алгоритм 2D")
+            else if (obj.LocalizedHeader == "Алгоритм 2D")
                 GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)obj.NewValue.ToEnum<MeshAlgorithm2D>());
-            else if (obj.Header == "Алгоритм 3D")
+            else if (obj.LocalizedHeader == "Алгоритм 3D")
                 GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm3D", (double)obj.NewValue.ToEnum<MeshAlgorithm3D>());
-            else if (obj.Header == "Масштаб. коэфициент")
+            else if (obj.LocalizedHeader == "Масштаб. коэфициент")
                 GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", double.Parse(obj.NewValue));
 
-            else if(obj.Header == "Показать узлы на кривых")
+            else if(obj.LocalizedHeader == "Показать узлы на кривых")
             {
                 settingsConfig.ShowNodesOnCurves = bool.Parse(obj.NewValue);
                 ShowNodesOnCurves(settingsConfig.ShowNodesOnCurves);
             }
 
-            else if (obj.Header == "Отображать всю сетку при генерации")
+            else if (obj.LocalizedHeader == "Отображать всю сетку при генерации")
             {
                 settingsConfig.ShowAllMeshWhenGeneration = bool.Parse(obj.NewValue);
             }

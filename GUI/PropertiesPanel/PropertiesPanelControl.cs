@@ -157,6 +157,8 @@ namespace BazisGUI.PropertiesPanel
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
+                // TODO: получение ключа из DGVCellEx
+                var key = "";
                 var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                 var cellValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
                 var newValue = cellValue?.ToString() ?? string.Empty;
@@ -166,7 +168,7 @@ namespace BazisGUI.PropertiesPanel
                     var color = ChangeColorCell(newValue);
                     dataGridView1.Rows[e.RowIndex].Cells[1].Style.BackColor = color;
                 }
-                var eventArgs = new PropertyChangedEventArgs(header, newValue, _oldValue);
+                var eventArgs = new PropertyChangedEventArgs(key, header, newValue, _oldValue);
                 
                 if (objInfo != null)
                     eventArgs.ObjInfo = objInfo;

@@ -16,7 +16,7 @@ namespace BazisGUI
             //var dimTags = new int[] { 0, number };
             //var meshSize = GmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
 
-            if (obj.Header == "Размер элементов")
+            if (obj.LocalizedHeader == "Размер элементов")
                 GmshController.SetSize(number, double.Parse(obj.NewValue));
 
             //GmshController.Gmsh.Model.Mesh.SetSize(dimTags, meshSize[0]);

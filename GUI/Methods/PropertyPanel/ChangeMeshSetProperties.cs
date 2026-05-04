@@ -24,14 +24,14 @@ namespace BazisGUI
             else
                 _objectsSet = project.GetModelSetInfo(ObjType.Элемент1D, setName);
 
-            if (obj.Header == "Имя")
+            if (obj.LocalizedHeader == "Имя")
             {
                 project.ChangeMeshSetName(dimm,
                     obj.OldValue.ToString(),
                     obj.NewValue.ToString());
                 PresentMeshData();
             }
-            else if (obj.Header == "Цвет")
+            else if (obj.LocalizedHeader == "Цвет")
             {
                 Color color;
 
@@ -57,7 +57,7 @@ namespace BazisGUI
                 }
 
             }
-            else if (obj.Header == "Представление")
+            else if (obj.LocalizedHeader == "Представление")
             {
                 var viewMode = obj.NewValue.ToString().ToEnum<ViewMode>();
                 _objectsSet.SetViewMode(viewMode);
@@ -86,7 +86,7 @@ namespace BazisGUI
 
                 DisplayObjects();
             }
-            else if(obj.Header == "Порядок точности")
+            else if(obj.LocalizedHeader == "Порядок точности")
             {
                 SetElementsOrderEvent(int.Parse(obj.NewValue));
             }    

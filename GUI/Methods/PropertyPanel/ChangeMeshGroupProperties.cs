@@ -10,7 +10,7 @@ namespace BazisGUI
         {
             var grName = navigator.SelectedNode.Text.Split(' ')[0];
             var _objectsGr = project.GetModelGroup(index);
-            if (obj.Header == "Имя")
+            if (obj.LocalizedHeader == "Имя")
             {
                 _objectsGr.Name = obj.NewValue.ToString();
                 OnGroupRenamed?.Invoke(_objectsGr.ObjType, _objectsGr.Number, obj.NewValue);
@@ -19,7 +19,7 @@ namespace BazisGUI
 
             //TODO добавить создание условий
 
-            else if(obj.Header == "Создать условие")
+            else if(obj.LocalizedHeader == "Создать условие")
             {
                 ICondData cond;
                 CheckMatsAndFuncs();

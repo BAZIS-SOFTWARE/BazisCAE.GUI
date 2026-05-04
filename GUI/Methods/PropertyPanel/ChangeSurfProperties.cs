@@ -14,7 +14,7 @@ namespace BazisGUI
             //if (attributes.Length == 0)
             //attributes = new string[] { Arrangement.Left.ToString(), "" }; // тут записать угловые точки
 
-            if (obj.Header == "Вид сетки")
+            if (obj.LocalizedHeader == "Вид сетки")
             {
                 flag = true;
                 if (obj.NewValue == "регулярная")
@@ -30,7 +30,7 @@ namespace BazisGUI
                     GmshController.Gmsh.Model.RemoveAttribute($"transfinite surface {number}");
                 }
             }
-            else if (obj.Header == "Добавленные кривые")
+            else if (obj.LocalizedHeader == "Добавленные кривые")
             {
                 if(GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number).Length > 0)
                     GmshController.Gmsh.Model.Mesh.RemoveEmbedded([2, number]);
@@ -42,7 +42,7 @@ namespace BazisGUI
             else
             {
                 var attributes = GmshController.GetTransfiniteSurface(number);
-                if (obj.Header == "Квадратизация") 
+                if (obj.LocalizedHeader == "Квадратизация") 
                 {
                     if (bool.Parse(obj.NewValue))
                         project.GmshController.SetRecombineSurface(number);
@@ -52,12 +52,12 @@ namespace BazisGUI
                         GmshController.Gmsh.Model.RemoveAttribute($"recombine surface {number}");
                     }
                 }
-                else if (obj.Header == "Угловые точки")
+                else if (obj.LocalizedHeader == "Угловые точки")
                 {
                     attributes[0] = obj.NewValue;
                 }
 
-                else if (obj.Header == "Ориентация ребер")
+                else if (obj.LocalizedHeader == "Ориентация ребер")
                 {
                     attributes[1] = obj.NewValue;
                 }

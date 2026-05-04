@@ -14,9 +14,9 @@ namespace BazisGUI
             if (attributes.Length == 0)
                 attributes = new string[] { "0", MeshType.Progression.ToString(), "1" };
 
-            if (obj.Header == "Алгоритм")
+            if (obj.LocalizedHeader == "Алгоритм")
                 attributes[1] = obj.NewValue;
-            else if (obj.Header == "Количество точек")
+            else if (obj.LocalizedHeader == "Количество точек")
                 attributes[0] = obj.NewValue;
             else
                 attributes[2] = obj.NewValue;

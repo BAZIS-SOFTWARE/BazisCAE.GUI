@@ -12,19 +12,19 @@ namespace BazisGUI
         private void ChangeTaskProperties(PropertyChangedEventArgs obj)
         {
             var clearFlag = false;
-            if(obj.Header == "Вид")
+            if(obj.LocalizedHeader == "Вид")
             {
                 project.ProjectType = obj.NewValue.ToEnum<TaskType>();
                 clearFlag = true;
             }
                 
-            else if(obj.Header == "Тип")
+            else if(obj.LocalizedHeader == "Тип")
             {
                 project.ProjectKind = obj.NewValue.ToEnum<TaskKind>();
                 clearFlag = true;
             }
 
-            else if (obj.Header == "Проверка значений условий")
+            else if (obj.LocalizedHeader == "Проверка значений условий")
             {
                 settingsConfig.CheckCondValue = bool.Parse(obj.NewValue);
             }
