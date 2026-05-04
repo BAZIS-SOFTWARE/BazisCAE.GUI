@@ -124,10 +124,10 @@ namespace BazisGUI.SettingsControls
             // 
             // clslLigthingIntensity
             // 
+            resources.ApplyResources(clslLigthingIntensity, "clslLigthingIntensity");
             clslLigthingIntensity.BackColor = System.Drawing.Color.Transparent;
             clslLigthingIntensity.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             clslLigthingIntensity.LargeChange = 5U;
-            resources.ApplyResources(clslLigthingIntensity, "clslLigthingIntensity");
             clslLigthingIntensity.Name = "clslLigthingIntensity";
             clslLigthingIntensity.ShowTextValue = true;
             clslLigthingIntensity.SmallChange = 1U;
@@ -138,6 +138,18 @@ namespace BazisGUI.SettingsControls
             // 
             resources.ApplyResources(label2, "label2");
             label2.Name = "label2";
+            // 
+            // clslTransparency
+            // 
+            resources.ApplyResources(clslTransparency, "clslTransparency");
+            clslTransparency.BackColor = System.Drawing.Color.Transparent;
+            clslTransparency.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            clslTransparency.LargeChange = 5U;
+            clslTransparency.Name = "clslTransparency";
+            clslTransparency.ShowTextValue = true;
+            clslTransparency.SmallChange = 1U;
+            clslTransparency.TextValueColor = System.Drawing.Color.Black;
+            clslTransparency.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
             // 
             // chbTransparency
             // 
