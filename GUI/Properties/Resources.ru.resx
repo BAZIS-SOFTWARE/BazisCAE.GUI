@@ -148,7 +148,7 @@
     <value>Stop</value>
   </data>
   <data name="btnSelect.Text.Elements2D" xml:space="preserve">
-    <value>Element2D</value>
+    <value>Элемент2D</value>
   </data>
   <data name="rbtVolume.Text" xml:space="preserve">
     <value>Объемы</value>
@@ -1511,7 +1511,7 @@
     <value>Выберите реакцию!</value>
   </data>
   <data name="ReactionWithASuchNameIsAlreadyExistChooseAnotherName" xml:space="preserve">
-    <value>Реакция с таким названием уже существует! Выберите другое название.</value>
+    <value>Реакция с таким названием уже существует! Выберите другое название</value>
   </data>
   <data name="EditReaction" xml:space="preserve">
     <value>Редактировать реакцию</value>
@@ -1542,5 +1542,8 @@
   </data>
   <data name="Found" xml:space="preserve">
     <value>Найдено</value>
+  </data>
+  <data name="ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore" xml:space="preserve">
+    <value>Название этапа может состоять только из букв, цифр и нижнего подчеркивания</value>
   </data>
 </root>

@@ -1543,4 +1543,7 @@ Create variable?</value>
   <data name="Found" xml:space="preserve">
     <value>Found</value>
   </data>
+  <data name="ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore" xml:space="preserve">
+    <value>The phase name can only consist of letters, numbers and the underscore</value>
+  </data>
 </root>

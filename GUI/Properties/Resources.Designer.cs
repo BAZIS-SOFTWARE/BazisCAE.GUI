@@ -4329,7 +4329,7 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на The phase name can only consist of letters, numbers and the underscore \\\.
+        ///   Ищет локализованную строку, похожую на The phase name can only consist of letters, numbers and the underscore.
         /// </summary>
         internal static string ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore {
             get {

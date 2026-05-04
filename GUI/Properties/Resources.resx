@@ -281,7 +281,7 @@
     <value>B: 0</value>
   </data>
   <data name="ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore" xml:space="preserve">
-    <value>The phase name can only consist of letters, numbers and the underscore \\\</value>
+    <value>The phase name can only consist of letters, numbers and the underscore</value>
   </data>
   <data name="SelectByRect.Hidden.Message" xml:space="preserve">
     <value>Hidden</value>
