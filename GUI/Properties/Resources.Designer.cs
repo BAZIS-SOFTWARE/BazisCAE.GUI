@@ -4772,6 +4772,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Значение макс.концентр..
+        /// </summary>
+        internal static string ЗначениеМаксКонцентр {
+            get {
+                return ResourceManager.GetString("ЗначениеМаксКонцентр", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Инфо_со_сцены {
@@ -4842,6 +4851,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Макс.концентр. (dCt max), %.
+        /// </summary>
+        internal static string МаксКонцентрDCtMax {
+            get {
+                return ResourceManager.GetString("МаксКонцентрDCtMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap н_4 {
@@ -4868,6 +4886,15 @@ namespace BazisGUI.Properties {
             get {
                 object obj = ResourceManager.GetObject("н1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Начальная концентрация, %.
+        /// </summary>
+        internal static string НачальнаяКонцентрация {
+            get {
+                return ResourceManager.GetString("НачальнаяКонцентрация", resourceCulture);
             }
         }
         

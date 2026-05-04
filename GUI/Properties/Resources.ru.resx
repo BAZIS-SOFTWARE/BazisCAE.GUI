@@ -1546,4 +1546,7 @@
   <data name="ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore" xml:space="preserve">
     <value>Название этапа может состоять только из букв, цифр и нижнего подчеркивания</value>
   </data>
+  <data name="МаксКонцентрDCtMax" xml:space="preserve">
+    <value>Макс.концентр. (dCt max), %</value>
+  </data>
 </root>
