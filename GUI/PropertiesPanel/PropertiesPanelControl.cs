@@ -84,7 +84,7 @@ namespace BazisGUI.PropertiesPanel
                 var row = new DataGridViewRow();
                 row.DefaultCellStyle.BackColor = prop.Color;
 
-                row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); // Имя свойства
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.LocalizedHeader }); // Имя свойства
 
                 DataGridViewCell cell; // Значение свойства
 
@@ -131,7 +131,7 @@ namespace BazisGUI.PropertiesPanel
                 }
                     
 
-                if (prop.Header == Resources.Header_Color)
+                if (prop.LocalizedHeader == Resources.Header_Color)
                     cell.Style.BackColor = (Color)prop.Value;
 
                 cell.Tag = prop.ValidationType.ToString();
