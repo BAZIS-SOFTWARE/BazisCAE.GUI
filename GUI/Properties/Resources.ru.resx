@@ -1546,7 +1546,22 @@
   <data name="ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore" xml:space="preserve">
     <value>Название этапа может состоять только из букв, цифр и нижнего подчеркивания</value>
   </data>
-  <data name="МаксКонцентрDCtMax" xml:space="preserve">
+  <data name="Header_MaxConcentration" xml:space="preserve">
     <value>Макс.концентр. (dCt max), %</value>
+  </data>
+  <data name="Header_Execute" xml:space="preserve">
+    <value>Выполнить</value>
+  </data>
+  <data name="Выполнить" xml:space="preserve">
+    <value>выполнить</value>
+  </data>
+  <data name="Пропустить" xml:space="preserve">
+    <value>пропустить</value>
+  </data>
+  <data name="Header_InitialConcentration" xml:space="preserve">
+    <value>Начальная концентрация, %</value>
+  </data>
+  <data name="Header_MaxConcentrationValue" xml:space="preserve">
+    <value>Значение макс.концентр.</value>
   </data>
 </root>

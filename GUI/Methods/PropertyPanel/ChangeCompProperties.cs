@@ -16,6 +16,9 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        enum CompPropertyKeys { Execute, Algorithm, SolveIterations, SolveAccuracy, RelaxationCoef, MaxRelaxationCoef, Priority, IterationOnStep, SaveRate, InitTemp, StartTime, StopTime, InitialSolveStep, MinSolveStep, MaxSolveStep }
+        enum PriorityKeys { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий, Наивысший }
+
         private void ChangeCompProperties(PropertyChangedEventArgs obj, string nodeText)
         {
             var parameters = ReadTaskParametersFromFile(nodeText.Split(' ')[1]);
@@ -26,54 +29,56 @@ namespace BazisGUI
             else if (parameters is TermalParameters tmp)
                 ChangeTermalTask(obj, tmp);
 
-            switch (obj.Header)
+            var key = Enum.Parse<CompPropertyKeys>(obj.Key);
+            switch (key)
             {
-                case "Выполнить":
+                case CompPropertyKeys.Execute:
+                    // TODO: проверить корректность работы с данными при их смене
                     var isExe = bool.Parse(obj.NewValue);
                     var selectedInstruction = navigator.SelectedNode;
-                    selectedInstruction.Text = selectedInstruction.Text.Replace(isExe ? "пропустить" : "выполнить", isExe ? "выполнить" : "пропустить");
+                    selectedInstruction.Text = selectedInstruction.Text.Replace(isExe ? Properties.Resources.Пропустить : Properties.Resources.Выполнить, isExe ? Properties.Resources.Выполнить : Properties.Resources.Пропустить);
                     nodeText = selectedInstruction.Text;
                     break;
-                case "Алгоритм решения":
+                case CompPropertyKeys.Algorithm:
                     parameters.SolverSettings.Solver = obj.NewValue;
                     break;
-                case "Кол-во итераций решения":
+                case CompPropertyKeys.SolveIterations:
                     parameters.SolverSettings.MaxIter = int.Parse(obj.NewValue);
                     break;
-                case "Точность решения, у.ед.":
+                case CompPropertyKeys.SolveAccuracy:
                     parameters.SolverSettings.Precision = ParseFloatValue(obj.NewValue);
                     break;
-                case "Коэф. релаксации (w)":
+                case CompPropertyKeys.RelaxationCoef:
                     parameters.SolverSettings.Relaxation = ParseFloatValue(obj.NewValue);
                     break;
-                case "Max. коэф. релаксации (wm)":
+                case CompPropertyKeys.MaxRelaxationCoef:
                     parameters.SolverSettings.MaxRelaxation = ParseFloatValue(obj.NewValue);
                     break;
-                case "Приоритет":
+                case CompPropertyKeys.Priority:
                     parameters.SolverSettings.Priority = obj.NewValue;
                     break;
-                case "Кол-во итераций на шаге":
+                case CompPropertyKeys.IterationOnStep:
                     parameters.Iterations = int.Parse(obj.NewValue);
                     break;
-                case "Частота сохранений, шаг":
+                case CompPropertyKeys.SaveRate:
                     parameters.SaveRate = int.Parse(obj.NewValue);
                     break;
-                case "Начальная температура, C°":
+                case CompPropertyKeys.InitTemp:
                     parameters.InitTemp = ParseFloatValue(obj.NewValue);
                     break;
-                case "Время начала, сек":
+                case CompPropertyKeys.StartTime:
                     parameters.TimeSettings.StartTime = ParseFloatValue(obj.NewValue);
                     break;
-                case "Время окончания, сек":
+                case CompPropertyKeys.StopTime:
                     parameters.TimeSettings.StopTime = ParseFloatValue(obj.NewValue);
                     break;
-                case "Начальный шаг расчета, сек":
+                case CompPropertyKeys.InitialSolveStep:
                     parameters.TimeSettings.InitTimeStep = ParseFloatValue(obj.NewValue);
                     break;
-                case "Минимальный шаг расчета, сек":
+                case CompPropertyKeys.MinSolveStep:
                     parameters.TimeSettings.MinTimeStep = ParseFloatValue(obj.NewValue);
                     break;
-                case "Максимальный шаг расчета, сек":
+                case CompPropertyKeys.MaxSolveStep:
                     parameters.TimeSettings.MaxTimeStep = ParseFloatValue(obj.NewValue);
                     break;
             }
@@ -87,11 +92,11 @@ namespace BazisGUI
 
         private void ChangeCompProperties(PropertyChangedEventArgs obj)
         {
-            if (obj.Header == "Тип")
+            if (obj.LocalizedHeader == "Тип")
                 selectInstruction = obj.NewValue;
-            else if (obj.Header.Contains("Выполнять"))
+            else if (obj.LocalizedHeader.Contains("Выполнять"))
             {
-                var name = obj.Header.Split(' ')[1];
+                var name = obj.LocalizedHeader.Split(' ')[1];
 
                 navigator.TrySearchNodes(NodeName.Calculations, out List<TreeNode> task);
 
@@ -110,33 +115,33 @@ namespace BazisGUI
         [Obsolete ("Отсутствует химические задачи, не протестировано")]
         private void ChangeChemicalTask(PropertyChangedEventArgs obj, ChemicalParameters cmp)
         {
-            if(obj.Header == "Макс.концентр. (dCt max), %")
+            if(obj.LocalizedHeader == "Макс.концентр. (dCt max), %")
                 cmp.ChemicalConvergence.Is_Switched_Cm = bool.Parse(obj.NewValue);
-            else if(obj.Header == "Значение макс.концентр.")
+            else if(obj.LocalizedHeader == "Значение макс.концентр.")
                 cmp.ChemicalConvergence.Cm = ParseFloatValue(obj.NewValue);
-            else if (obj.Header == "Начальная концентрация, %")
+            else if (obj.LocalizedHeader == "Начальная концентрация, %")
                 cmp.InitConcentration = ParseFloatValue(obj.NewValue);
         }
 
         private void ChangeTermalTask(PropertyChangedEventArgs obj, TermalParameters tmp)
         {
-            if (obj.Header == "Макс. темп. (dTt max), C°")
+            if (obj.LocalizedHeader == "Макс. темп. (dTt max), C°")
                 tmp.TermalConvergence.Is_Switched_Tm = bool.Parse(obj.NewValue);
-            else if (obj.Header == "Значение макс. темп.")
+            else if (obj.LocalizedHeader == "Значение макс. темп.")
                 tmp.TermalConvergence.Tm = ParseFloatValue(obj.NewValue);
         }
 
         private void ChangeMechanicalTask(PropertyChangedEventArgs obj, MechanicalParameters mhp)
         {
-            if (obj.Header == "Макс. разница dU, >0")
+            if (obj.LocalizedHeader == "Макс. разница dU, >0")
                 mhp.MechanicalConvergence.DUm = ParseFloatValue(obj.NewValue);
-            else if (obj.Header == "Макс. перемещения U, >0")
+            else if (obj.LocalizedHeader == "Макс. перемещения U, >0")
                 mhp.MechanicalConvergence.Is_Switched_Um = bool.Parse(obj.NewValue);
-            else if (obj.Header == "Значение макс. перемещения U")
+            else if (obj.LocalizedHeader == "Значение макс. перемещения U")
                 mhp.MechanicalConvergence.Um = ParseFloatValue(obj.NewValue);
-            else if (obj.Header == "Пласт. деформации Si/St, >1")
+            else if (obj.LocalizedHeader == "Пласт. деформации Si/St, >1")
                 mhp.MechanicalConvergence.Is_Physically_NonLinear = bool.Parse(obj.NewValue);
-            else if (obj.Header == "Значение пласт. деформации Si/St")
+            else if (obj.LocalizedHeader == "Значение пласт. деформации Si/St")
                 mhp.MechanicalConvergence.PlasticityCriterion = ParseFloatValue(obj.NewValue);
         }
 

@@ -2419,6 +2419,24 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Алгоритм решения.
+        /// </summary>
+        internal static string Header_Algorithm {
+            get {
+                return ResourceManager.GetString("Header_Algorithm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Применить ко всем.
+        /// </summary>
+        internal static string Header_ApplyForAll {
+            get {
+                return ResourceManager.GetString("Header_ApplyForAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Color.
         /// </summary>
         internal static string Header_Color {
@@ -2428,11 +2446,164 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Execute.
+        /// </summary>
+        internal static string Header_Execute {
+            get {
+                return ResourceManager.GetString("Header_Execute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на File.
         /// </summary>
         internal static string Header_File {
             get {
                 return ResourceManager.GetString("Header.File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Initial concentration, %.
+        /// </summary>
+        internal static string Header_InitialConcentration {
+            get {
+                return ResourceManager.GetString("Header_InitialConcentration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Начальный шаг расчета, сек.
+        /// </summary>
+        internal static string Header_InitialSolveStep {
+            get {
+                return ResourceManager.GetString("Header_InitialSolveStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Начальная температура, C°.
+        /// </summary>
+        internal static string Header_InitTemp {
+            get {
+                return ResourceManager.GetString("Header_InitTemp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Кол-во итераций на шаге.
+        /// </summary>
+        internal static string Header_IterationsOnStep {
+            get {
+                return ResourceManager.GetString("Header_IterationsOnStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max. concentration (dCt max), %.
+        /// </summary>
+        internal static string Header_MaxConcentration {
+            get {
+                return ResourceManager.GetString("Header_MaxConcentration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max. concentration value.
+        /// </summary>
+        internal static string Header_MaxConcentrationValue {
+            get {
+                return ResourceManager.GetString("Header_MaxConcentrationValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max. коэф. релаксации (wm).
+        /// </summary>
+        internal static string Header_MaxRelaxationCoef {
+            get {
+                return ResourceManager.GetString("Header_MaxRelaxationCoef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Максимальный шаг расчета, сек.
+        /// </summary>
+        internal static string Header_MaxSolveStep {
+            get {
+                return ResourceManager.GetString("Header_MaxSolveStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Минимальный шаг расчета, сек.
+        /// </summary>
+        internal static string Header_MinSolveStep {
+            get {
+                return ResourceManager.GetString("Header_MinSolveStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Приоритет.
+        /// </summary>
+        internal static string Header_Priority {
+            get {
+                return ResourceManager.GetString("Header_Priority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Коэф. релаксации (w).
+        /// </summary>
+        internal static string Header_RelaxationCoef {
+            get {
+                return ResourceManager.GetString("Header_RelaxationCoef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Частота сохранений, шаг.
+        /// </summary>
+        internal static string Header_SaveRate {
+            get {
+                return ResourceManager.GetString("Header_SaveRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Точность решения, у.ед..
+        /// </summary>
+        internal static string Header_SolveAccuracy {
+            get {
+                return ResourceManager.GetString("Header_SolveAccuracy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Кол-во итераций решения.
+        /// </summary>
+        internal static string Header_SolveIterations {
+            get {
+                return ResourceManager.GetString("Header_SolveIterations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Время начала, сек.
+        /// </summary>
+        internal static string Header_StartTime {
+            get {
+                return ResourceManager.GetString("Header_StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Время окончания, сек.
+        /// </summary>
+        internal static string Header_StopTime {
+            get {
+                return ResourceManager.GetString("Header_StopTime", resourceCulture);
             }
         }
         
@@ -3075,6 +3246,15 @@ namespace BazisGUI.Properties {
         internal static string NotACommandException {
             get {
                 return ResourceManager.GetString("NotACommandException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на OK.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -4762,21 +4942,21 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на .
+        /// </summary>
+        internal static string Выполнить {
+            get {
+                return ResourceManager.GetString("Выполнить", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Задать_точку_вращения {
             get {
                 object obj = ResourceManager.GetObject("Задать точку вращения", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Значение макс.концентр..
-        /// </summary>
-        internal static string ЗначениеМаксКонцентр {
-            get {
-                return ResourceManager.GetString("ЗначениеМаксКонцентр", resourceCulture);
             }
         }
         
@@ -4851,15 +5031,6 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Макс.концентр. (dCt max), %.
-        /// </summary>
-        internal static string МаксКонцентрDCtMax {
-            get {
-                return ResourceManager.GetString("МаксКонцентрDCtMax", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap н_4 {
@@ -4890,15 +5061,6 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Начальная концентрация, %.
-        /// </summary>
-        internal static string НачальнаяКонцентрация {
-            get {
-                return ResourceManager.GetString("НачальнаяКонцентрация", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Показать_все_скрытые {
@@ -4915,6 +5077,15 @@ namespace BazisGUI.Properties {
             get {
                 object obj = ResourceManager.GetObject("Показать сопряженные", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на pass.
+        /// </summary>
+        internal static string Пропустить {
+            get {
+                return ResourceManager.GetString("Пропустить", resourceCulture);
             }
         }
         

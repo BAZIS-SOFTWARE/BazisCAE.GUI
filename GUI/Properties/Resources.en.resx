@@ -1546,4 +1546,22 @@ Create variable?</value>
   <data name="ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore" xml:space="preserve">
     <value>The phase name can only consist of letters, numbers and the underscore</value>
   </data>
+  <data name="Header_Execute" xml:space="preserve">
+    <value>Execute</value>
+  </data>
+  <data name="Header_MaxConcentration" xml:space="preserve">
+    <value>Max. concentration (dCt max), %</value>
+  </data>
+  <data name="Header_MaxConcentrationValue" xml:space="preserve">
+    <value>Max. concentration value</value>
+  </data>
+  <data name="Header_InitialConcentration" xml:space="preserve">
+    <value>Initial concentration, %</value>
+  </data>
+  <data name="Пропустить" xml:space="preserve">
+    <value>pass</value>
+  </data>
+  <data name="Выполнить" xml:space="preserve">
+    <value>execute</value>
+  </data>
 </root>
