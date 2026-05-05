@@ -1724,70 +1724,76 @@ Create variable?</value>
   <data name="Задать точку вращения" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Задать точку вращения.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Header_MaxConcentration" xml:space="preserve">
+  <data name="Header_chemical_MaxConcentration" xml:space="preserve">
     <value>Max. concentration (dCt max), %</value>
   </data>
-  <data name="Header_MaxConcentrationValue" xml:space="preserve">
+  <data name="Header_chemical_MaxConcentrationValue" xml:space="preserve">
     <value>Max. concentration value</value>
   </data>
-  <data name="Header_InitialConcentration" xml:space="preserve">
+  <data name="Header_chemical_InitialConcentration" xml:space="preserve">
     <value>Initial concentration, %</value>
   </data>
   <data name="Пропустить" xml:space="preserve">
     <value>pass</value>
   </data>
   <data name="Выполнить" xml:space="preserve">
-    <value></value>
+    <value>execute</value>
   </data>
-  <data name="Header_Execute" xml:space="preserve">
+  <data name="Header_comp_Execute" xml:space="preserve">
     <value>Execute</value>
   </data>
-  <data name="Header_ApplyForAll" xml:space="preserve">
-    <value>Применить ко всем</value>
+  <data name="Header_comp_ApplyForAll" xml:space="preserve">
+    <value>Apply to all</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="Header_Algorithm" xml:space="preserve">
-    <value>Алгоритм решения</value>
+  <data name="Header_comp_Algorithm" xml:space="preserve">
+    <value>Solving algorithm</value>
   </data>
-  <data name="Header_SolveIterations" xml:space="preserve">
-    <value>Кол-во итераций решения</value>
+  <data name="Header_comp_SolveIterations" xml:space="preserve">
+    <value>Solving iterations number</value>
   </data>
-  <data name="Header_SolveAccuracy" xml:space="preserve">
-    <value>Точность решения, у.ед.</value>
+  <data name="Header_comp_SolveAccuracy" xml:space="preserve">
+    <value>Solving accuracy, CU</value>
   </data>
-  <data name="Header_RelaxationCoef" xml:space="preserve">
-    <value>Коэф. релаксации (w)</value>
+  <data name="Header_comp_RelaxationCoef" xml:space="preserve">
+    <value>Relaxation coefficient (w)</value>
   </data>
-  <data name="Header_MaxRelaxationCoef" xml:space="preserve">
-    <value>Max. коэф. релаксации (wm)</value>
+  <data name="Header_comp_MaxRelaxationCoef" xml:space="preserve">
+    <value>Max relaxation coefficient (wm)</value>
   </data>
-  <data name="Header_Priority" xml:space="preserve">
-    <value>Приоритет</value>
+  <data name="Header_comp_Priority" xml:space="preserve">
+    <value>Priority</value>
   </data>
-  <data name="Header_IterationsOnStep" xml:space="preserve">
-    <value>Кол-во итераций на шаге</value>
+  <data name="Header_comp_IterationsOnStep" xml:space="preserve">
+    <value>Iterations number per step</value>
   </data>
-  <data name="Header_SaveRate" xml:space="preserve">
-    <value>Частота сохранений, шаг</value>
+  <data name="Header_comp_SaveRate" xml:space="preserve">
+    <value>Saving frequency, step</value>
   </data>
-  <data name="Header_InitTemp" xml:space="preserve">
-    <value>Начальная температура, C°</value>
+  <data name="Header_comp_InitTemp" xml:space="preserve">
+    <value>Initial temperature, C°</value>
   </data>
-  <data name="Header_StartTime" xml:space="preserve">
-    <value>Время начала, сек</value>
+  <data name="Header_comp_StartTime" xml:space="preserve">
+    <value>Start time, sec</value>
   </data>
-  <data name="Header_StopTime" xml:space="preserve">
-    <value>Время окончания, сек</value>
+  <data name="Header_comp_StopTime" xml:space="preserve">
+    <value>Stop time, sec</value>
   </data>
-  <data name="Header_InitialSolveStep" xml:space="preserve">
-    <value>Начальный шаг расчета, сек</value>
+  <data name="Header_comp_InitialSolveStep" xml:space="preserve">
+    <value>Initial calculation step, sec</value>
   </data>
-  <data name="Header_MinSolveStep" xml:space="preserve">
-    <value>Минимальный шаг расчета, сек</value>
+  <data name="Header_comp_MinSolveStep" xml:space="preserve">
+    <value>Min calculation step, sec</value>
   </data>
-  <data name="Header_MaxSolveStep" xml:space="preserve">
-    <value>Максимальный шаг расчета, сек</value>
+  <data name="Header_comp_MaxSolveStep" xml:space="preserve">
+    <value>Max calculation step, sec</value>
+  </data>
+  <data name="Header_comp_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Execute" xml:space="preserve">
+    <value>Execute</value>
   </data>
 </root>

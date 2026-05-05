@@ -1,6 +1,7 @@
 ﻿using BazisGUI.Extensions;
 using BazisGUI.Localization;
 using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using Newtonsoft.Json;
 using Project.TaskParameters;
@@ -16,7 +17,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        enum CompPropertyKeys { Execute, Algorithm, SolveIterations, SolveAccuracy, RelaxationCoef, MaxRelaxationCoef, Priority, IterationOnStep, SaveRate, InitTemp, StartTime, StopTime, InitialSolveStep, MinSolveStep, MaxSolveStep }
+        enum CompPropertyKeys { Type, Execute, Algorithm, SolveIterations, SolveAccuracy, RelaxationCoef, MaxRelaxationCoef, Priority, IterationOnStep, SaveRate, InitTemp, StartTime, StopTime, InitialSolveStep, MinSolveStep, MaxSolveStep }
         enum PriorityKeys { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий, Наивысший }
 
         private void ChangeCompProperties(PropertyChangedEventArgs obj, string nodeText)
@@ -92,22 +93,22 @@ namespace BazisGUI
 
         private void ChangeCompProperties(PropertyChangedEventArgs obj)
         {
-            if (obj.LocalizedHeader == "Тип")
+            var key = Enum.Parse<CompPropertyKeys>(obj.Key);
+
+            if (key == CompPropertyKeys.Type)
                 selectInstruction = obj.NewValue;
-            else if (obj.LocalizedHeader.Contains("Выполнять"))
+            else if (key == CompPropertyKeys.Execute)
             {
+                // obj.LocalizedHeader.Contains("Выполнять")
                 var name = obj.LocalizedHeader.Split(' ')[1];
-
                 navigator.TrySearchNodes(NodeName.Calculations, out List<TreeNode> task);
-
-
                 var selectedInstruction = task[0].Nodes.Cast<TreeNode>().FirstOrDefault(inst => inst.Text.Contains(name));
 
                 var isExe =  bool.Parse(obj.NewValue);
                 if (isExe)
-                    selectedInstruction.Text = selectedInstruction.Text.Replace("пропустить", "выполнить");
+                    selectedInstruction.Text = selectedInstruction.Text.Replace(Resources.Пропустить, Resources.Выполнить);
                 else
-                    selectedInstruction.Text = selectedInstruction.Text.Replace("выполнить", "пропустить");
+                    selectedInstruction.Text = selectedInstruction.Text.Replace(Resources.Выполнить, Resources.Пропустить);
             }
             Navigator_SelectCompsEvent();
         }
@@ -115,16 +116,24 @@ namespace BazisGUI
         [Obsolete ("Отсутствует химические задачи, не протестировано")]
         private void ChangeChemicalTask(PropertyChangedEventArgs obj, ChemicalParameters cmp)
         {
-            if(obj.LocalizedHeader == "Макс.концентр. (dCt max), %")
-                cmp.ChemicalConvergence.Is_Switched_Cm = bool.Parse(obj.NewValue);
-            else if(obj.LocalizedHeader == "Значение макс.концентр.")
-                cmp.ChemicalConvergence.Cm = ParseFloatValue(obj.NewValue);
-            else if (obj.LocalizedHeader == "Начальная концентрация, %")
-                cmp.InitConcentration = ParseFloatValue(obj.NewValue);
+            var key = Enum.Parse<ChemicalTaskPropertyKeys>(obj.Key);
+            switch (key)
+            {
+                case ChemicalTaskPropertyKeys.MaxConсentration:
+                    cmp.ChemicalConvergence.Is_Switched_Cm = bool.Parse(obj.NewValue);
+                    break;
+                case ChemicalTaskPropertyKeys.MaxConсentrationValue:
+                    cmp.ChemicalConvergence.Cm = ParseFloatValue(obj.NewValue);
+                    break;
+                case ChemicalTaskPropertyKeys.InitialConcentration:
+                    cmp.InitConcentration = ParseFloatValue(obj.NewValue);
+                    break;
+            }
         }
 
         private void ChangeTermalTask(PropertyChangedEventArgs obj, TermalParameters tmp)
         {
+
             if (obj.LocalizedHeader == "Макс. темп. (dTt max), C°")
                 tmp.TermalConvergence.Is_Switched_Tm = bool.Parse(obj.NewValue);
             else if (obj.LocalizedHeader == "Значение макс. темп.")

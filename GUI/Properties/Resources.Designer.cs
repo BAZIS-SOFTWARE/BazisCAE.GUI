@@ -1681,6 +1681,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Execute.
+        /// </summary>
+        internal static string Execute {
+            get {
+                return ResourceManager.GetString("Execute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на The specified command file is missing!.
         /// </summary>
         internal static string ExecuteCMDFileMissing {
@@ -2419,20 +2428,29 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Алгоритм решения.
+        ///   Ищет локализованную строку, похожую на Initial concentration, %.
         /// </summary>
-        internal static string Header_Algorithm {
+        internal static string Header_chemical_InitialConcentration {
             get {
-                return ResourceManager.GetString("Header_Algorithm", resourceCulture);
+                return ResourceManager.GetString("Header_chemical_InitialConcentration", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Применить ко всем.
+        ///   Ищет локализованную строку, похожую на Max. concentration (dCt max), %.
         /// </summary>
-        internal static string Header_ApplyForAll {
+        internal static string Header_chemical_MaxConcentration {
             get {
-                return ResourceManager.GetString("Header_ApplyForAll", resourceCulture);
+                return ResourceManager.GetString("Header_chemical_MaxConcentration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max. concentration value.
+        /// </summary>
+        internal static string Header_chemical_MaxConcentrationValue {
+            get {
+                return ResourceManager.GetString("Header_chemical_MaxConcentrationValue", resourceCulture);
             }
         }
         
@@ -2446,11 +2464,155 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Solving algorithm.
+        /// </summary>
+        internal static string Header_comp_Algorithm {
+            get {
+                return ResourceManager.GetString("Header_comp_Algorithm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Apply to all.
+        /// </summary>
+        internal static string Header_comp_ApplyForAll {
+            get {
+                return ResourceManager.GetString("Header_comp_ApplyForAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Execute.
         /// </summary>
-        internal static string Header_Execute {
+        internal static string Header_comp_Execute {
             get {
-                return ResourceManager.GetString("Header_Execute", resourceCulture);
+                return ResourceManager.GetString("Header_comp_Execute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Initial calculation step, sec.
+        /// </summary>
+        internal static string Header_comp_InitialSolveStep {
+            get {
+                return ResourceManager.GetString("Header_comp_InitialSolveStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Initial temperature, C°.
+        /// </summary>
+        internal static string Header_comp_InitTemp {
+            get {
+                return ResourceManager.GetString("Header_comp_InitTemp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Iterations number per step.
+        /// </summary>
+        internal static string Header_comp_IterationsOnStep {
+            get {
+                return ResourceManager.GetString("Header_comp_IterationsOnStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max relaxation coefficient (wm).
+        /// </summary>
+        internal static string Header_comp_MaxRelaxationCoef {
+            get {
+                return ResourceManager.GetString("Header_comp_MaxRelaxationCoef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max calculation step, sec.
+        /// </summary>
+        internal static string Header_comp_MaxSolveStep {
+            get {
+                return ResourceManager.GetString("Header_comp_MaxSolveStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Min calculation step, sec.
+        /// </summary>
+        internal static string Header_comp_MinSolveStep {
+            get {
+                return ResourceManager.GetString("Header_comp_MinSolveStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Priority.
+        /// </summary>
+        internal static string Header_comp_Priority {
+            get {
+                return ResourceManager.GetString("Header_comp_Priority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Relaxation coefficient (w).
+        /// </summary>
+        internal static string Header_comp_RelaxationCoef {
+            get {
+                return ResourceManager.GetString("Header_comp_RelaxationCoef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Saving frequency, step.
+        /// </summary>
+        internal static string Header_comp_SaveRate {
+            get {
+                return ResourceManager.GetString("Header_comp_SaveRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Solving accuracy, CU.
+        /// </summary>
+        internal static string Header_comp_SolveAccuracy {
+            get {
+                return ResourceManager.GetString("Header_comp_SolveAccuracy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Solving iterations number.
+        /// </summary>
+        internal static string Header_comp_SolveIterations {
+            get {
+                return ResourceManager.GetString("Header_comp_SolveIterations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Start time, sec.
+        /// </summary>
+        internal static string Header_comp_StartTime {
+            get {
+                return ResourceManager.GetString("Header_comp_StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Stop time, sec.
+        /// </summary>
+        internal static string Header_comp_StopTime {
+            get {
+                return ResourceManager.GetString("Header_comp_StopTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Type.
+        /// </summary>
+        internal static string Header_comp_Type {
+            get {
+                return ResourceManager.GetString("Header_comp_Type", resourceCulture);
             }
         }
         
@@ -2460,150 +2622,6 @@ namespace BazisGUI.Properties {
         internal static string Header_File {
             get {
                 return ResourceManager.GetString("Header.File", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Initial concentration, %.
-        /// </summary>
-        internal static string Header_InitialConcentration {
-            get {
-                return ResourceManager.GetString("Header_InitialConcentration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Начальный шаг расчета, сек.
-        /// </summary>
-        internal static string Header_InitialSolveStep {
-            get {
-                return ResourceManager.GetString("Header_InitialSolveStep", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Начальная температура, C°.
-        /// </summary>
-        internal static string Header_InitTemp {
-            get {
-                return ResourceManager.GetString("Header_InitTemp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Кол-во итераций на шаге.
-        /// </summary>
-        internal static string Header_IterationsOnStep {
-            get {
-                return ResourceManager.GetString("Header_IterationsOnStep", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Max. concentration (dCt max), %.
-        /// </summary>
-        internal static string Header_MaxConcentration {
-            get {
-                return ResourceManager.GetString("Header_MaxConcentration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Max. concentration value.
-        /// </summary>
-        internal static string Header_MaxConcentrationValue {
-            get {
-                return ResourceManager.GetString("Header_MaxConcentrationValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Max. коэф. релаксации (wm).
-        /// </summary>
-        internal static string Header_MaxRelaxationCoef {
-            get {
-                return ResourceManager.GetString("Header_MaxRelaxationCoef", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Максимальный шаг расчета, сек.
-        /// </summary>
-        internal static string Header_MaxSolveStep {
-            get {
-                return ResourceManager.GetString("Header_MaxSolveStep", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Минимальный шаг расчета, сек.
-        /// </summary>
-        internal static string Header_MinSolveStep {
-            get {
-                return ResourceManager.GetString("Header_MinSolveStep", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Приоритет.
-        /// </summary>
-        internal static string Header_Priority {
-            get {
-                return ResourceManager.GetString("Header_Priority", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Коэф. релаксации (w).
-        /// </summary>
-        internal static string Header_RelaxationCoef {
-            get {
-                return ResourceManager.GetString("Header_RelaxationCoef", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Частота сохранений, шаг.
-        /// </summary>
-        internal static string Header_SaveRate {
-            get {
-                return ResourceManager.GetString("Header_SaveRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Точность решения, у.ед..
-        /// </summary>
-        internal static string Header_SolveAccuracy {
-            get {
-                return ResourceManager.GetString("Header_SolveAccuracy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Кол-во итераций решения.
-        /// </summary>
-        internal static string Header_SolveIterations {
-            get {
-                return ResourceManager.GetString("Header_SolveIterations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Время начала, сек.
-        /// </summary>
-        internal static string Header_StartTime {
-            get {
-                return ResourceManager.GetString("Header_StartTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Время окончания, сек.
-        /// </summary>
-        internal static string Header_StopTime {
-            get {
-                return ResourceManager.GetString("Header_StopTime", resourceCulture);
             }
         }
         
@@ -4942,7 +4960,7 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Ищет локализованную строку, похожую на execute.
         /// </summary>
         internal static string Выполнить {
             get {

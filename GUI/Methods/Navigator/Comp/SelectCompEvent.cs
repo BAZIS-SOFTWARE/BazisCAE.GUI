@@ -21,7 +21,7 @@ namespace BazisGUI
                 else
                     isExe = false;
                 List<RowProperty> rows = new List<RowProperty>();
-                rows.Add(new RowProperty(CompPropertyKeys.Execute.ToString(), Properties.Resources.Header_Execute, isExe));
+                rows.Add(new RowProperty(CompPropertyKeys.Execute.ToString(), Properties.Resources.Header_comp_Execute, isExe));
                 
                 if (parameters is ChemicalParameters cmp)
                     rows.AddRange(GetPropertyChemicalTask(cmp));
@@ -33,7 +33,7 @@ namespace BazisGUI
                 rows.AddRange(GetPropertySolverSettings(parameters));
                 rows.AddRange(GetPropertyBasic(parameters));
                 rows.AddRange(GetPropertyTimeSettings(parameters));
-                rows.Add(new RowProperty(SelectCompKeys.ApplyForAll.ToString(), Properties.Resources.Header_ApplyForAll, new ButtonPropertyValue(Properties.Resources.OK, () => ApplySettingsToAllInstructions())));
+                rows.Add(new RowProperty(SelectCompKeys.ApplyForAll.ToString(), Properties.Resources.Header_comp_ApplyForAll, new ButtonPropertyValue(Properties.Resources.OK, () => ApplySettingsToAllInstructions())));
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
@@ -49,16 +49,16 @@ namespace BazisGUI
         {
             return new List<RowProperty>
             {
-                new RowProperty(CompPropertyKeys.Algorithm.ToString(), Properties.Resources.Header_Algorithm, 
+                new RowProperty(CompPropertyKeys.Algorithm.ToString(), Properties.Resources.Header_comp_Algorithm, 
                 new DropDownPropertyValue(parameters.SolverSettings.Solver, 
                 new List<string>() { "Gauss_direct", "SOR_iterative", "CG_iterative" })),
 
-                new RowProperty(CompPropertyKeys.SolveIterations.ToString(), Properties.Resources.Header_SolveIterations, parameters.SolverSettings.MaxIter),
-                new RowProperty(CompPropertyKeys.SolveAccuracy.ToString(), Properties.Resources.Header_SolveAccuracy, parameters.SolverSettings.Precision),
-                new RowProperty(CompPropertyKeys.RelaxationCoef.ToString(), Properties.Resources.Header_RelaxationCoef, parameters.SolverSettings.Relaxation),
-                new RowProperty(CompPropertyKeys.MaxRelaxationCoef.ToString(), Properties.Resources.Header_MaxRelaxationCoef, parameters.SolverSettings.MaxRelaxation),
+                new RowProperty(CompPropertyKeys.SolveIterations.ToString(), Properties.Resources.Header_comp_SolveIterations, parameters.SolverSettings.MaxIter),
+                new RowProperty(CompPropertyKeys.SolveAccuracy.ToString(), Properties.Resources.Header_comp_SolveAccuracy, parameters.SolverSettings.Precision),
+                new RowProperty(CompPropertyKeys.RelaxationCoef.ToString(), Properties.Resources.Header_comp_RelaxationCoef, parameters.SolverSettings.Relaxation),
+                new RowProperty(CompPropertyKeys.MaxRelaxationCoef.ToString(), Properties.Resources.Header_comp_MaxRelaxationCoef, parameters.SolverSettings.MaxRelaxation),
 
-                new RowProperty(CompPropertyKeys.Priority.ToString(), Properties.Resources.Header_Priority, 
+                new RowProperty(CompPropertyKeys.Priority.ToString(), Properties.Resources.Header_comp_Priority, 
                 new DropDownPropertyValue(parameters.SolverSettings.Priority,
                 Enum.GetValues<PriorityKeys>().Select(x => x.ToString()).ToList()))            
             };
@@ -68,9 +68,9 @@ namespace BazisGUI
         {
             return new List<RowProperty>
             {
-                new RowProperty(CompPropertyKeys.IterationOnStep.ToString(), Properties.Resources.Header_IterationsOnStep, parameters.Iterations),
-                new RowProperty(CompPropertyKeys.SaveRate.ToString(), Properties.Resources.Header_SaveRate, parameters.SaveRate),
-                new RowProperty(CompPropertyKeys.InitTemp.ToString(), Properties.Resources.Header_InitTemp, parameters.InitTemp)
+                new RowProperty(CompPropertyKeys.IterationOnStep.ToString(), Properties.Resources.Header_comp_IterationsOnStep, parameters.Iterations),
+                new RowProperty(CompPropertyKeys.SaveRate.ToString(), Properties.Resources.Header_comp_SaveRate, parameters.SaveRate),
+                new RowProperty(CompPropertyKeys.InitTemp.ToString(), Properties.Resources.Header_comp_InitTemp, parameters.InitTemp)
             };
         }
 
@@ -78,11 +78,11 @@ namespace BazisGUI
         {
             return new List<RowProperty>
             {
-                new RowProperty(CompPropertyKeys.StartTime.ToString(), Properties.Resources.Header_StartTime, parameters.TimeSettings.StartTime),
-                new RowProperty(CompPropertyKeys.StopTime.ToString(), Properties.Resources.Header_StopTime, parameters.TimeSettings.StopTime),
-                new RowProperty(CompPropertyKeys.InitialSolveStep.ToString(), Properties.Resources.Header_InitialSolveStep, parameters.TimeSettings.InitTimeStep),
-                new RowProperty(CompPropertyKeys.MinSolveStep.ToString(), Properties.Resources.Header_MinSolveStep, parameters.TimeSettings.MinTimeStep),
-                new RowProperty(CompPropertyKeys.MaxSolveStep.ToString(), Properties.Resources.Header_MaxSolveStep, parameters.TimeSettings.MaxTimeStep)
+                new RowProperty(CompPropertyKeys.StartTime.ToString(), Properties.Resources.Header_comp_StartTime, parameters.TimeSettings.StartTime),
+                new RowProperty(CompPropertyKeys.StopTime.ToString(), Properties.Resources.Header_comp_StopTime, parameters.TimeSettings.StopTime),
+                new RowProperty(CompPropertyKeys.InitialSolveStep.ToString(), Properties.Resources.Header_comp_InitialSolveStep, parameters.TimeSettings.InitTimeStep),
+                new RowProperty(CompPropertyKeys.MinSolveStep.ToString(), Properties.Resources.Header_comp_MinSolveStep, parameters.TimeSettings.MinTimeStep),
+                new RowProperty(CompPropertyKeys.MaxSolveStep.ToString(), Properties.Resources.Header_comp_MaxSolveStep, parameters.TimeSettings.MaxTimeStep)
             };
         }
     }

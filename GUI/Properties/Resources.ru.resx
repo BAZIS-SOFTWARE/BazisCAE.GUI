@@ -1546,10 +1546,10 @@
   <data name="ThePhaseNameCanOnlyConsistOfLettersNumbersAndTheUnderscore" xml:space="preserve">
     <value>Название этапа может состоять только из букв, цифр и нижнего подчеркивания</value>
   </data>
-  <data name="Header_MaxConcentration" xml:space="preserve">
+  <data name="Header_chemical_MaxConcentration" xml:space="preserve">
     <value>Макс.концентр. (dCt max), %</value>
   </data>
-  <data name="Header_Execute" xml:space="preserve">
+  <data name="Header_comp_Execute" xml:space="preserve">
     <value>Выполнить</value>
   </data>
   <data name="Выполнить" xml:space="preserve">
@@ -1558,10 +1558,64 @@
   <data name="Пропустить" xml:space="preserve">
     <value>пропустить</value>
   </data>
-  <data name="Header_InitialConcentration" xml:space="preserve">
+  <data name="Header_chemical_InitialConcentration" xml:space="preserve">
     <value>Начальная концентрация, %</value>
   </data>
-  <data name="Header_MaxConcentrationValue" xml:space="preserve">
+  <data name="Header_chemical_MaxConcentrationValue" xml:space="preserve">
     <value>Значение макс.концентр.</value>
+  </data>
+  <data name="Header_comp_ApplyForAll" xml:space="preserve">
+    <value>Применить ко всем</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Header_comp_Algorithm" xml:space="preserve">
+    <value>Алгоритм решения</value>
+  </data>
+  <data name="Header_comp_SolveIterations" xml:space="preserve">
+    <value>Кол-во итераций решения</value>
+  </data>
+  <data name="Header_comp_SolveAccuracy" xml:space="preserve">
+    <value>Точность решения, у.ед.</value>
+  </data>
+  <data name="Header_comp_RelaxationCoef" xml:space="preserve">
+    <value>Коэф. релаксации (w)</value>
+  </data>
+  <data name="Header_comp_MaxRelaxationCoef" xml:space="preserve">
+    <value>Maкс. коэф. релаксации (wm)</value>
+  </data>
+  <data name="Header_comp_Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="Header_comp_IterationsOnStep" xml:space="preserve">
+    <value>Кол-во итераций на шаге</value>
+  </data>
+  <data name="Header_comp_SaveRate" xml:space="preserve">
+    <value>Частота сохранений, шаг</value>
+  </data>
+  <data name="Header_comp_InitTemp" xml:space="preserve">
+    <value>Начальная температура, C°</value>
+  </data>
+  <data name="Header_comp_StartTime" xml:space="preserve">
+    <value>Время начала, сек</value>
+  </data>
+  <data name="Header_comp_StopTime" xml:space="preserve">
+    <value>Время окончания, сек</value>
+  </data>
+  <data name="Header_comp_InitialSolveStep" xml:space="preserve">
+    <value>Начальный шаг расчета, сек</value>
+  </data>
+  <data name="Header_comp_MinSolveStep" xml:space="preserve">
+    <value>Минимальный шаг расчета, сек</value>
+  </data>
+  <data name="Header_comp_MaxSolveStep" xml:space="preserve">
+    <value>Максимальный шаг расчета, сек</value>
+  </data>
+  <data name="Header_comp_Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Execute" xml:space="preserve">
+    <value>Выполнять</value>
   </data>
 </root>
