@@ -1,20 +1,24 @@
-﻿using BazisGUI.PropertiesPanel;
-using BazisGUI.Utilities;
+﻿using BazisGUI.Properties;
+using BazisGUI.PropertiesPanel;
 using Model.Interfaces;
 using Project.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
+        enum LoadPopertyKeys { Type }
+        enum LoadKindKeys { Сила, Давление }
         public List<RowProperty> GetLoadProperty(LoadData obj, List<string> funcTables, IEnumerable<IGroup> groups)
         {
             var rows = GetCondProperty(obj, groups, funcTables);
-            rows.Add(new RowProperty("Вид",
-                new DropDownPropertyValue(obj.Kind,
-                Converters.GetEnumNames<LoadKind>()))
+            rows.Add(new RowProperty(LoadPopertyKeys.Type.ToString(),
+                Resources.Header_load_type,
+                new DropDownPropertyValue(obj.Kind, Enum.GetValues<LoadKindKeys>().Select(x => x.ToString()).ToList()))
             { Color = Color.Gainsboro });
 
             return rows;

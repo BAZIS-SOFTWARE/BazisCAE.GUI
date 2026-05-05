@@ -1796,4 +1796,85 @@ Create variable?</value>
   <data name="Execute" xml:space="preserve">
     <value>Execute</value>
   </data>
+  <data name="Header_cond_material_material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Header_cond_material_diametr" xml:space="preserve">
+    <value>Diameter</value>
+  </data>
+  <data name="Header_cond_material_thickness" xml:space="preserve">
+    <value>Thickness</value>
+  </data>
+  <data name="UndefinedConditionTypeExc" xml:space="preserve">
+    <value>Undefined condition type</value>
+  </data>
+  <data name="Header_cond_media_condType" xml:space="preserve">
+    <value>Condition type</value>
+  </data>
+  <data name="Header_cond_objectsGroup" xml:space="preserve">
+    <value>Objects group</value>
+  </data>
+  <data name="Header_cond_value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Header_cond_function" xml:space="preserve">
+    <value>Function</value>
+  </data>
+  <data name="Header_cond_parameter_placeHolder" xml:space="preserve">
+    <value>Parameter {0}</value>
+  </data>
+  <data name="Header_cond_parameterValue_placeHolder" xml:space="preserve">
+    <value>Value {0}</value>
+  </data>
+  <data name="Header_cond_table_placeHolder" xml:space="preserve">
+    <value>Table {0}</value>
+  </data>
+  <data name="Header_cond_direction" xml:space="preserve">
+    <value>Direction</value>
+  </data>
+  <data name="Header_cond_start" xml:space="preserve">
+    <value>Start, sec.</value>
+  </data>
+  <data name="Header_cond_stop" xml:space="preserve">
+    <value>Stop, sec.</value>
+  </data>
+  <data name="Header_cond_coordinateSystem" xml:space="preserve">
+    <value>Coordinate system</value>
+  </data>
+  <data name="Header_localFrame_trajectory" xml:space="preserve">
+    <value>Trajectory</value>
+  </data>
+  <data name="Header_localFrame_referenceLine" xml:space="preserve">
+    <value>Reference line</value>
+  </data>
+  <data name="Header_localFrame_speed" xml:space="preserve">
+    <value>Speed, mm./sec.</value>
+  </data>
+  <data name="Header_cond_plane" xml:space="preserve">
+    <value>Plane</value>
+  </data>
+  <data name="Header_cond_shiftingX" xml:space="preserve">
+    <value>Shifting X</value>
+  </data>
+  <data name="Header_cond_shiftingY" xml:space="preserve">
+    <value>Shifting Y</value>
+  </data>
+  <data name="Header_cond_ShiftingZ" xml:space="preserve">
+    <value>Shifting Z</value>
+  </data>
+  <data name="Header_cond_rotX" xml:space="preserve">
+    <value>Rotation X</value>
+  </data>
+  <data name="Header_cond_rotY" xml:space="preserve">
+    <value>Rotation Y</value>
+  </data>
+  <data name="Header_cond_rotZ" xml:space="preserve">
+    <value>Rotation Z</value>
+  </data>
+  <data name="Header_clamp_type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Header_load_type" xml:space="preserve">
+    <value>Type</value>
+  </data>
 </root>

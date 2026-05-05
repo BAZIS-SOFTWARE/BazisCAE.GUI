@@ -2455,6 +2455,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Type.
+        /// </summary>
+        internal static string Header_clamp_type {
+            get {
+                return ResourceManager.GetString("Header_clamp_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Color.
         /// </summary>
         internal static string Header_Color {
@@ -2617,11 +2626,236 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Coordinate system.
+        /// </summary>
+        internal static string Header_cond_coordinateSystem {
+            get {
+                return ResourceManager.GetString("Header_cond_coordinateSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Direction.
+        /// </summary>
+        internal static string Header_cond_direction {
+            get {
+                return ResourceManager.GetString("Header_cond_direction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Function.
+        /// </summary>
+        internal static string Header_cond_function {
+            get {
+                return ResourceManager.GetString("Header_cond_function", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Diameter.
+        /// </summary>
+        internal static string Header_cond_material_diametr {
+            get {
+                return ResourceManager.GetString("Header_cond_material_diametr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Material.
+        /// </summary>
+        internal static string Header_cond_material_material {
+            get {
+                return ResourceManager.GetString("Header_cond_material_material", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Thickness.
+        /// </summary>
+        internal static string Header_cond_material_thickness {
+            get {
+                return ResourceManager.GetString("Header_cond_material_thickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Condition type.
+        /// </summary>
+        internal static string Header_cond_media_condType {
+            get {
+                return ResourceManager.GetString("Header_cond_media_condType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Objects group.
+        /// </summary>
+        internal static string Header_cond_objectsGroup {
+            get {
+                return ResourceManager.GetString("Header_cond_objectsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Parameter {0}.
+        /// </summary>
+        internal static string Header_cond_parameter_placeHolder {
+            get {
+                return ResourceManager.GetString("Header_cond_parameter_placeHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Value {0}.
+        /// </summary>
+        internal static string Header_cond_parameterValue_placeHolder {
+            get {
+                return ResourceManager.GetString("Header_cond_parameterValue_placeHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Plane.
+        /// </summary>
+        internal static string Header_cond_plane {
+            get {
+                return ResourceManager.GetString("Header_cond_plane", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Rotation X.
+        /// </summary>
+        internal static string Header_cond_rotX {
+            get {
+                return ResourceManager.GetString("Header_cond_rotX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Rotation Y.
+        /// </summary>
+        internal static string Header_cond_rotY {
+            get {
+                return ResourceManager.GetString("Header_cond_rotY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Rotation Z.
+        /// </summary>
+        internal static string Header_cond_rotZ {
+            get {
+                return ResourceManager.GetString("Header_cond_rotZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Shifting X.
+        /// </summary>
+        internal static string Header_cond_shiftingX {
+            get {
+                return ResourceManager.GetString("Header_cond_shiftingX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Shifting Y.
+        /// </summary>
+        internal static string Header_cond_shiftingY {
+            get {
+                return ResourceManager.GetString("Header_cond_shiftingY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Shifting Z.
+        /// </summary>
+        internal static string Header_cond_ShiftingZ {
+            get {
+                return ResourceManager.GetString("Header_cond_ShiftingZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Start, sec..
+        /// </summary>
+        internal static string Header_cond_start {
+            get {
+                return ResourceManager.GetString("Header_cond_start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Stop, sec..
+        /// </summary>
+        internal static string Header_cond_stop {
+            get {
+                return ResourceManager.GetString("Header_cond_stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Table {0}.
+        /// </summary>
+        internal static string Header_cond_table_placeHolder {
+            get {
+                return ResourceManager.GetString("Header_cond_table_placeHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Value.
+        /// </summary>
+        internal static string Header_cond_value {
+            get {
+                return ResourceManager.GetString("Header_cond_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на File.
         /// </summary>
         internal static string Header_File {
             get {
                 return ResourceManager.GetString("Header.File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Type.
+        /// </summary>
+        internal static string Header_load_type {
+            get {
+                return ResourceManager.GetString("Header_load_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Reference line.
+        /// </summary>
+        internal static string Header_localFrame_referenceLine {
+            get {
+                return ResourceManager.GetString("Header_localFrame_referenceLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Speed, mm./sec..
+        /// </summary>
+        internal static string Header_localFrame_speed {
+            get {
+                return ResourceManager.GetString("Header_localFrame_speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Trajectory.
+        /// </summary>
+        internal static string Header_localFrame_trajectory {
+            get {
+                return ResourceManager.GetString("Header_localFrame_trajectory", resourceCulture);
             }
         }
         
@@ -4748,6 +4982,15 @@ namespace BazisGUI.Properties {
         internal static string txbTemp_AccessibleName {
             get {
                 return ResourceManager.GetString("txbTemp.AccessibleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Undefined condition type.
+        /// </summary>
+        internal static string UndefinedConditionTypeExc {
+            get {
+                return ResourceManager.GetString("UndefinedConditionTypeExc", resourceCulture);
             }
         }
         

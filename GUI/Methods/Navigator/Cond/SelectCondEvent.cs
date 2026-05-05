@@ -1,4 +1,5 @@
-﻿using BazisGUI.PropertiesPanel;
+﻿using BazisGUI.Properties;
+using BazisGUI.PropertiesPanel;
 using Model.Utilities;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
@@ -35,15 +36,9 @@ namespace BazisGUI
                     rows = GetClampProperty((ClampData)data, groups, _funcs);
                 else if (data.Kind == DataKind.Нагрузка)
                     rows = GetLoadProperty((LoadData)data, _funcs, groups);
-                else throw new NotImplementedException("Вид условия не определен");
-
-
-                //var _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, allGroup);
+                else throw new NotImplementedException(Resources.UndefinedConditionTypeExc);
         
                 propertiesPanel.DrawTable(rows);
-
-                //if (data.Direction != Direction.None)
-                //    DisplayDirection(data.StartTime, data, data.Group);
 
                 foreach (var item in project.GetAllModelSetsInfo()) // возврат цвета всем объектам, которые были выделены
                     item.SetBackColor();

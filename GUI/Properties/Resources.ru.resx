@@ -1618,4 +1618,85 @@
   <data name="Execute" xml:space="preserve">
     <value>Выполнять</value>
   </data>
+  <data name="Header_cond_material_material" xml:space="preserve">
+    <value>Материал</value>
+  </data>
+  <data name="Header_cond_material_diametr" xml:space="preserve">
+    <value>Диаметр</value>
+  </data>
+  <data name="Header_cond_material_thickness" xml:space="preserve">
+    <value>Толщина</value>
+  </data>
+  <data name="UndefinedConditionTypeExc" xml:space="preserve">
+    <value>Вид условия не определен</value>
+  </data>
+  <data name="Header_cond_media_condType" xml:space="preserve">
+    <value>Вид условия</value>
+  </data>
+  <data name="Header_cond_objectsGroup" xml:space="preserve">
+    <value>Группа объектов</value>
+  </data>
+  <data name="Header_cond_parameter_placeHolder" xml:space="preserve">
+    <value>Параметр {0}</value>
+  </data>
+  <data name="Header_cond_parameterValue_placeHolder" xml:space="preserve">
+    <value>Значение {0}</value>
+  </data>
+  <data name="Header_cond_table_placeHolder" xml:space="preserve">
+    <value>Таблица {0}</value>
+  </data>
+  <data name="Header_cond_value" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="Header_cond_function" xml:space="preserve">
+    <value>Функция</value>
+  </data>
+  <data name="Header_cond_direction" xml:space="preserve">
+    <value>Направление</value>
+  </data>
+  <data name="Header_cond_start" xml:space="preserve">
+    <value>Старт, сек.</value>
+  </data>
+  <data name="Header_cond_stop" xml:space="preserve">
+    <value>Стоп, сек.</value>
+  </data>
+  <data name="Header_cond_coordinateSystem" xml:space="preserve">
+    <value>Система координат</value>
+  </data>
+  <data name="Header_localFrame_trajectory" xml:space="preserve">
+    <value>Траектория</value>
+  </data>
+  <data name="Header_localFrame_referenceLine" xml:space="preserve">
+    <value>Опорная линия</value>
+  </data>
+  <data name="Header_localFrame_speed" xml:space="preserve">
+    <value>Скорость, мм./сек.</value>
+  </data>
+  <data name="Header_cond_plane" xml:space="preserve">
+    <value>Плоскость</value>
+  </data>
+  <data name="Header_cond_shiftingX" xml:space="preserve">
+    <value>Смещение X</value>
+  </data>
+  <data name="Header_cond_shiftingY" xml:space="preserve">
+    <value>Смещение Y</value>
+  </data>
+  <data name="Header_cond_ShiftingZ" xml:space="preserve">
+    <value>Смещение Z</value>
+  </data>
+  <data name="Header_cond_rotX" xml:space="preserve">
+    <value>Поворот OX</value>
+  </data>
+  <data name="Header_cond_rotY" xml:space="preserve">
+    <value>Поворот OY</value>
+  </data>
+  <data name="Header_cond_rotZ" xml:space="preserve">
+    <value>Поворот OZ</value>
+  </data>
+  <data name="Header_clamp_type" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Header_load_type" xml:space="preserve">
+    <value>Вид</value>
+  </data>
 </root>
