@@ -1735,4 +1735,25 @@
   <data name="Header_geo_showMeshOnGeneration" xml:space="preserve">
     <value>Отображать всю сетку при генерации</value>
   </data>
+  <data name="Header_termalTask_maxTemperture" xml:space="preserve">
+    <value>Макс. темп. (dTt max), C°</value>
+  </data>
+  <data name="Header_mechanicalTask_maxDiference" xml:space="preserve">
+    <value>Макс. разница dU, &gt;0</value>
+  </data>
+  <data name="Header_termalTask_maxTempertureValue" xml:space="preserve">
+    <value>Значение макс. темп.</value>
+  </data>
+  <data name="Header_mechanicalTask_maxMove" xml:space="preserve">
+    <value>Макс. перемещения U, &gt;0</value>
+  </data>
+  <data name="Header_mechanicalTask_maxMoveValue" xml:space="preserve">
+    <value>Значение макс. перемещения U</value>
+  </data>
+  <data name="Header_mechanicalTask_maxPlasticDeformation" xml:space="preserve">
+    <value>Пласт. деформации Si/St, &gt;1</value>
+  </data>
+  <data name="Header_mechanicalTask_plasticDeformationValue" xml:space="preserve">
+    <value>Значение пласт. деформации Si/St</value>
+  </data>
 </root>

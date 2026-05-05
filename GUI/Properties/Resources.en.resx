@@ -1735,4 +1735,25 @@ Create variable?</value>
   <data name="Header_geo_showMeshOnGeneration" xml:space="preserve">
     <value>Show mesh on generation</value>
   </data>
+  <data name="Header_termalTask_maxTemperture" xml:space="preserve">
+    <value>Max temperture (dTt max), C°</value>
+  </data>
+  <data name="Header_mechanicalTask_maxDiference" xml:space="preserve">
+    <value>Max difference dU, &gt;0</value>
+  </data>
+  <data name="Header_termalTask_maxTempertureValue" xml:space="preserve">
+    <value>Max temperture value</value>
+  </data>
+  <data name="Header_mechanicalTask_maxMove" xml:space="preserve">
+    <value>Max displacement U, &gt;0</value>
+  </data>
+  <data name="Header_mechanicalTask_maxMoveValue" xml:space="preserve">
+    <value>Max displacement value U</value>
+  </data>
+  <data name="Header_mechanicalTask_maxPlasticDeformation" xml:space="preserve">
+    <value>Plastic deformation Si/St, &gt;1</value>
+  </data>
+  <data name="Header_mechanicalTask_plasticDeformationValue" xml:space="preserve">
+    <value>Plastic deformation value Si/St</value>
+  </data>
 </root>

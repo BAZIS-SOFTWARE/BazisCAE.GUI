@@ -2959,6 +2959,69 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Max difference dU, &gt;0.
+        /// </summary>
+        internal static string Header_mechanicalTask_maxDiference {
+            get {
+                return ResourceManager.GetString("Header_mechanicalTask_maxDiference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max displacement U, &gt;0.
+        /// </summary>
+        internal static string Header_mechanicalTask_maxMove {
+            get {
+                return ResourceManager.GetString("Header_mechanicalTask_maxMove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max displacement value U.
+        /// </summary>
+        internal static string Header_mechanicalTask_maxMoveValue {
+            get {
+                return ResourceManager.GetString("Header_mechanicalTask_maxMoveValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Plastic deformation Si/St, &gt;1.
+        /// </summary>
+        internal static string Header_mechanicalTask_maxPlasticDeformation {
+            get {
+                return ResourceManager.GetString("Header_mechanicalTask_maxPlasticDeformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Plastic deformation value Si/St.
+        /// </summary>
+        internal static string Header_mechanicalTask_plasticDeformationValue {
+            get {
+                return ResourceManager.GetString("Header_mechanicalTask_plasticDeformationValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max temperture (dTt max), C°.
+        /// </summary>
+        internal static string Header_termalTask_maxTemperture {
+            get {
+                return ResourceManager.GetString("Header_termalTask_maxTemperture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max temperture value.
+        /// </summary>
+        internal static string Header_termalTask_maxTempertureValue {
+            get {
+                return ResourceManager.GetString("Header_termalTask_maxTempertureValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Properties.
         /// </summary>
         internal static string HeaderName {

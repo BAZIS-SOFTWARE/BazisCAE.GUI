@@ -133,25 +133,43 @@ namespace BazisGUI
 
         private void ChangeTermalTask(PropertyChangedEventArgs obj, TermalParameters tmp)
         {
-
-            if (obj.LocalizedHeader == "Макс. темп. (dTt max), C°")
-                tmp.TermalConvergence.Is_Switched_Tm = bool.Parse(obj.NewValue);
-            else if (obj.LocalizedHeader == "Значение макс. темп.")
-                tmp.TermalConvergence.Tm = ParseFloatValue(obj.NewValue);
+            var key = Enum.Parse<TermalTaskPropertyKeys>(obj.Key);
+            switch (key)
+            {
+                case TermalTaskPropertyKeys.MaxTemperture:
+                    tmp.TermalConvergence.Is_Switched_Tm = bool.Parse(obj.NewValue);
+                    break;
+                case TermalTaskPropertyKeys.MaxTempertureValue:
+                    tmp.TermalConvergence.Tm = ParseFloatValue(obj.NewValue);
+                    break;
+            }
         }
 
         private void ChangeMechanicalTask(PropertyChangedEventArgs obj, MechanicalParameters mhp)
         {
-            if (obj.LocalizedHeader == "Макс. разница dU, >0")
-                mhp.MechanicalConvergence.DUm = ParseFloatValue(obj.NewValue);
-            else if (obj.LocalizedHeader == "Макс. перемещения U, >0")
-                mhp.MechanicalConvergence.Is_Switched_Um = bool.Parse(obj.NewValue);
-            else if (obj.LocalizedHeader == "Значение макс. перемещения U")
-                mhp.MechanicalConvergence.Um = ParseFloatValue(obj.NewValue);
-            else if (obj.LocalizedHeader == "Пласт. деформации Si/St, >1")
-                mhp.MechanicalConvergence.Is_Physically_NonLinear = bool.Parse(obj.NewValue);
-            else if (obj.LocalizedHeader == "Значение пласт. деформации Si/St")
-                mhp.MechanicalConvergence.PlasticityCriterion = ParseFloatValue(obj.NewValue);
+            var key = Enum.Parse<MechanicalPropertyKeys>(obj.Key);
+            switch (key)
+            {
+                case MechanicalPropertyKeys.MaxDiference:
+                    mhp.MechanicalConvergence.DUm = ParseFloatValue(obj.NewValue);
+                    break;
+
+                case MechanicalPropertyKeys.MaxMove:
+                    mhp.MechanicalConvergence.Is_Switched_Um = bool.Parse(obj.NewValue);
+                    break;
+
+                case MechanicalPropertyKeys.MaxMoveValue:
+                    mhp.MechanicalConvergence.Um = ParseFloatValue(obj.NewValue);
+                    break;
+
+                case MechanicalPropertyKeys.PlasticDeformation:
+                    mhp.MechanicalConvergence.Is_Physically_NonLinear = bool.Parse(obj.NewValue);
+                    break;
+
+                case MechanicalPropertyKeys.PlasticDeformationValue:
+                    mhp.MechanicalConvergence.PlasticityCriterion = ParseFloatValue(obj.NewValue);
+                    break;
+            }
         }
 
         private void ApplySettingsToAllInstructions()
