@@ -1768,4 +1768,28 @@
   <data name="Header_curve_coefficient" xml:space="preserve">
     <value>Коэффициент</value>
   </data>
+  <data name="Header_surface_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_surface_meshType" xml:space="preserve">
+    <value>Вид сетки</value>
+  </data>
+  <data name="Header_surface_meshKind" xml:space="preserve">
+    <value>Вид сетки</value>
+  </data>
+  <data name="Header_surface_cornerPoints" xml:space="preserve">
+    <value>Угловые точки</value>
+  </data>
+  <data name="Header_surface_ribersOrientation" xml:space="preserve">
+    <value>Ориентация ребер</value>
+  </data>
+  <data name="Header_surface_quadratization" xml:space="preserve">
+    <value>Квадратизация</value>
+  </data>
+  <data name="Header_surface_addedCurves" xml:space="preserve">
+    <value>Добавленные кривые</value>
+  </data>
+  <data name="Header_surface_pointsNumbers" xml:space="preserve">
+    <value>Номера точек</value>
+  </data>
 </root>

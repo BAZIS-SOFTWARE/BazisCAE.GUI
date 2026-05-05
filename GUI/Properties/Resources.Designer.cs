@@ -3040,6 +3040,78 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Added curves.
+        /// </summary>
+        internal static string Header_surface_addedCurves {
+            get {
+                return ResourceManager.GetString("Header_surface_addedCurves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Corner points.
+        /// </summary>
+        internal static string Header_surface_cornerPoints {
+            get {
+                return ResourceManager.GetString("Header_surface_cornerPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Mesh kind.
+        /// </summary>
+        internal static string Header_surface_meshKind {
+            get {
+                return ResourceManager.GetString("Header_surface_meshKind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Mesh type.
+        /// </summary>
+        internal static string Header_surface_meshType {
+            get {
+                return ResourceManager.GetString("Header_surface_meshType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Number.
+        /// </summary>
+        internal static string Header_surface_number {
+            get {
+                return ResourceManager.GetString("Header_surface_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Points numbers.
+        /// </summary>
+        internal static string Header_surface_pointsNumbers {
+            get {
+                return ResourceManager.GetString("Header_surface_pointsNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Quadratization.
+        /// </summary>
+        internal static string Header_surface_quadratization {
+            get {
+                return ResourceManager.GetString("Header_surface_quadratization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ribbers orientation.
+        /// </summary>
+        internal static string Header_surface_ribersOrientation {
+            get {
+                return ResourceManager.GetString("Header_surface_ribersOrientation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Max temperture (dTt max), C°.
         /// </summary>
         internal static string Header_termalTask_maxTemperture {

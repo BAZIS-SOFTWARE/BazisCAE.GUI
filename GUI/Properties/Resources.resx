@@ -1946,4 +1946,28 @@ Create variable?</value>
   <data name="Header_curve_coefficient" xml:space="preserve">
     <value>Coefficient</value>
   </data>
+  <data name="Header_surface_number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Header_surface_meshType" xml:space="preserve">
+    <value>Mesh type</value>
+  </data>
+  <data name="Header_surface_meshKind" xml:space="preserve">
+    <value>Mesh kind</value>
+  </data>
+  <data name="Header_surface_cornerPoints" xml:space="preserve">
+    <value>Corner points</value>
+  </data>
+  <data name="Header_surface_ribersOrientation" xml:space="preserve">
+    <value>ribbers orientation</value>
+  </data>
+  <data name="Header_surface_quadratization" xml:space="preserve">
+    <value>Quadratization</value>
+  </data>
+  <data name="Header_surface_addedCurves" xml:space="preserve">
+    <value>Added curves</value>
+  </data>
+  <data name="Header_surface_pointsNumbers" xml:space="preserve">
+    <value>Points numbers</value>
+  </data>
 </root>

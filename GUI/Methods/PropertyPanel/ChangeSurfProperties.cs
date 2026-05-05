@@ -1,7 +1,10 @@
 ﻿using BazisGUI.Extensions;
 using BazisGUI.PropertiesPanel;
 using GmshApi;
+using System;
 using System.Linq;
+using static IronPython.Runtime.Profiler;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BazisGUI
 {
@@ -9,70 +12,70 @@ namespace BazisGUI
     {
         private void ChangeSurfaceProperty(PropertyChangedEventArgs obj, int number, ref bool flag)
         {
-            //var attribut = GmshController.Gmsh.Model.GetAttribute($"transfinite surface {number}");
+            var key = Enum.Parse<SurfacePropertyKeys>(obj.Key);
 
-            //if (attributes.Length == 0)
-            //attributes = new string[] { Arrangement.Left.ToString(), "" }; // тут записать угловые точки
+            if (key == SurfacePropertyKeys.MeshType)
+                HandleMeshTypeParameter(obj.NewValue, number, ref flag);
 
-            if (obj.LocalizedHeader == "Вид сетки")
-            {
-                flag = true;
-                if (obj.NewValue == "регулярная")
-                {
-                    var surfPoints = project.GmshController.GetSurfaceNodes(number);
-                    project.GmshController.SetTransfiniteSurface(number, Arrangement.Left, surfPoints);
-                }
-                else
-                {
-                    // тут спросить у Николая достаточно ли одной команды для снятия транфиниции объема?
-                    GmshController.Gmsh.Model.Mesh.RemoveConstraints(new int[] { 2, number });
-                    //удаляем запись из словаря атрибутов
-                    GmshController.Gmsh.Model.RemoveAttribute($"transfinite surface {number}");
-                }
-            }
-            else if (obj.LocalizedHeader == "Добавленные кривые")
-            {
-                if(GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number).Length > 0)
-                    GmshController.Gmsh.Model.Mesh.RemoveEmbedded([2, number]);
-                
-                var tags = GetArray(obj.NewValue);
-                if ( tags != null)
-                    GmshController.Gmsh.Model.Mesh.Embed(1, tags, 2, number);
-            }
+            else if (key == SurfacePropertyKeys.AddedCurves)
+                HandleAddedCurvesParameter(obj.NewValue, number);
+
             else
             {
                 var attributes = GmshController.GetTransfiniteSurface(number);
-                if (obj.LocalizedHeader == "Квадратизация") 
-                {
-                    if (bool.Parse(obj.NewValue))
-                        project.GmshController.SetRecombineSurface(number);
-                    else
-                    {
-                        GmshController.Gmsh.Model.Mesh.RemoveConstraints(new int[] { 2, number });
-                        GmshController.Gmsh.Model.RemoveAttribute($"recombine surface {number}");
-                    }
-                }
-                else if (obj.LocalizedHeader == "Угловые точки")
-                {
-                    attributes[0] = obj.NewValue;
-                }
 
-                else if (obj.LocalizedHeader == "Ориентация ребер")
-                {
+                if (key == SurfacePropertyKeys.Quadratization)
+                    HandleQuadratizationParameter(obj.NewValue, number);
+
+                else if (key == SurfacePropertyKeys.CornerPoints)
+                    attributes[0] = obj.NewValue;
+
+                else if (key == SurfacePropertyKeys.RibersOrientation)
                     attributes[1] = obj.NewValue;
-                }
+
                 var arrangement = attributes[1].ToEnum<Arrangement>();
-                var points = attributes[0].Split(',').Select(x => int.Parse(x));
+                var points = attributes[0].Split(',').Select(int.Parse);
 
                 project.GmshController.SetTransfiniteSurface(number, arrangement, points.ToArray());
             }
-            
+        }
 
-            int[] GetArray(string data)
+        private void HandleMeshTypeParameter(string newValue, int number, ref bool flag)
+        {
+            flag = true;
+            if (newValue == "регулярная")
             {
-                var arrayStr = data.Split(',');
-                int[] tags = arrayStr.Where(s => int.TryParse(s, out _)).Select(int.Parse).ToArray();
-                return tags;
+                var surfPoints = project.GmshController.GetSurfaceNodes(number);
+                project.GmshController.SetTransfiniteSurface(number, Arrangement.Left, surfPoints);
+            }
+            else
+            {
+                // тут спросить у Николая достаточно ли одной команды для снятия транфиниции объема?
+                GmshController.Gmsh.Model.Mesh.RemoveConstraints(new int[] { 2, number });
+                //удаляем запись из словаря атрибутов
+                GmshController.Gmsh.Model.RemoveAttribute($"transfinite surface {number}");
+            }
+        }
+
+        private void HandleAddedCurvesParameter(string newValue, int number)
+        {
+            if (GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number).Length > 0)
+                GmshController.Gmsh.Model.Mesh.RemoveEmbedded([2, number]);
+
+            var arrayStr = newValue.Split(',');
+            var tags = arrayStr.Where(s => int.TryParse(s, out _)).Select(int.Parse).ToArray();
+            if (tags != null)
+                GmshController.Gmsh.Model.Mesh.Embed(1, tags, 2, number);
+        }
+
+        private void HandleQuadratizationParameter(string newValue, int number)
+        {
+            if (bool.Parse(newValue))
+                project.GmshController.SetRecombineSurface(number);
+            else
+            {
+                GmshController.Gmsh.Model.Mesh.RemoveConstraints(new int[] { 2, number });
+                GmshController.Gmsh.Model.RemoveAttribute($"recombine surface {number}");
             }
         }
     }
