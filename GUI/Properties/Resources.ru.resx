@@ -1792,4 +1792,25 @@
   <data name="Header_surface_pointsNumbers" xml:space="preserve">
     <value>Номера точек</value>
   </data>
+  <data name="Header_groups_name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Header_groups_sort" xml:space="preserve">
+    <value>Сортировка</value>
+  </data>
+  <data name="Отсортировать" xml:space="preserve">
+    <value>Отсортировать</value>
+  </data>
+  <data name="Header_groups_direction" xml:space="preserve">
+    <value>Направление</value>
+  </data>
+  <data name="Реверс" xml:space="preserve">
+    <value>Реверс</value>
+  </data>
+  <data name="Header_groups_elementsNodes" xml:space="preserve">
+    <value>Узлы элементов</value>
+  </data>
+  <data name="Header_groups_createCond" xml:space="preserve">
+    <value>Создать условие</value>
+  </data>
 </root>

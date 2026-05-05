@@ -2959,6 +2959,51 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Create condition.
+        /// </summary>
+        internal static string Header_groups_createCond {
+            get {
+                return ResourceManager.GetString("Header_groups_createCond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Direction.
+        /// </summary>
+        internal static string Header_groups_direction {
+            get {
+                return ResourceManager.GetString("Header_groups_direction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Elements nodes.
+        /// </summary>
+        internal static string Header_groups_elementsNodes {
+            get {
+                return ResourceManager.GetString("Header_groups_elementsNodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Name.
+        /// </summary>
+        internal static string Header_groups_name {
+            get {
+                return ResourceManager.GetString("Header_groups_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Sorting.
+        /// </summary>
+        internal static string Header_groups_sort {
+            get {
+                return ResourceManager.GetString("Header_groups_sort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Type.
         /// </summary>
         internal static string Header_load_type {
@@ -5592,6 +5637,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Sort.
+        /// </summary>
+        internal static string Отсортировать {
+            get {
+                return ResourceManager.GetString("Отсортировать", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Show.
         /// </summary>
         internal static string Показать {
@@ -5626,6 +5680,15 @@ namespace BazisGUI.Properties {
         internal static string Пропустить {
             get {
                 return ResourceManager.GetString("Пропустить", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Reverse.
+        /// </summary>
+        internal static string Реверс {
+            get {
+                return ResourceManager.GetString("Реверс", resourceCulture);
             }
         }
         

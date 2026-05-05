@@ -1970,4 +1970,25 @@ Create variable?</value>
   <data name="Header_surface_pointsNumbers" xml:space="preserve">
     <value>Points numbers</value>
   </data>
+  <data name="Header_groups_name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Header_groups_sort" xml:space="preserve">
+    <value>Sorting</value>
+  </data>
+  <data name="Отсортировать" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="Header_groups_direction" xml:space="preserve">
+    <value>Direction</value>
+  </data>
+  <data name="Реверс" xml:space="preserve">
+    <value>Reverse</value>
+  </data>
+  <data name="Header_groups_elementsNodes" xml:space="preserve">
+    <value>Elements nodes</value>
+  </data>
+  <data name="Header_groups_createCond" xml:space="preserve">
+    <value>Create condition</value>
+  </data>
 </root>
