@@ -14,7 +14,8 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        enum CondPropertyKeys { ObjectsGroup, Value, Function, Parameter, ParameterValue, Table, Direction, StartTime, StopTime, CoordinateSystem }
+        enum CondPropertyKeys { ObjectsGroup, Value, Function, Parameter, ParameterValue, Table, File, Direction, StartTime, StopTime, CoordinateSystem }
+        enum HeatPropertyKeys { Power }
         public List<RowProperty> GetCondProperty(CondData obj, IEnumerable<IGroup> groups, List<string> funcTables)
         {
             var rows = new List<RowProperty>();
@@ -91,7 +92,7 @@ namespace BazisGUI
 
             rows.Add(new RowProperty(CondPropertyKeys.CoordinateSystem.ToString(),
                 Resources.Header_cond_coordinateSystem, 
-                new DropDownPropertyValue(obj.LocalFrame == null ? "*" : obj.LocalFrame.Name,
+                new DropDownPropertyValue(obj.LocalFrame?.Name ?? "*",
                 new List<string>() { "MRF", "SRF", "*" }))
             { Color = Color.Gainsboro });
 

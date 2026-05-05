@@ -11,12 +11,12 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        enum LoadPopertyKeys { Type }
+        enum LoadPropertyKeys { Type }
         enum LoadKindKeys { Сила, Давление }
         public List<RowProperty> GetLoadProperty(LoadData obj, List<string> funcTables, IEnumerable<IGroup> groups)
         {
             var rows = GetCondProperty(obj, groups, funcTables);
-            rows.Add(new RowProperty(LoadPopertyKeys.Type.ToString(),
+            rows.Add(new RowProperty(LoadPropertyKeys.Type.ToString(),
                 Resources.Header_load_type,
                 new DropDownPropertyValue(obj.Kind, Enum.GetValues<LoadKindKeys>().Select(x => x.ToString()).ToList()))
             { Color = Color.Gainsboro });
