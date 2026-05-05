@@ -1699,4 +1699,40 @@ Create variable?</value>
   <data name="Header_load_type" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="Header_geo_minSize" xml:space="preserve">
+    <value>Min size</value>
+  </data>
+  <data name="Header_geo_maxSize" xml:space="preserve">
+    <value>Max size</value>
+  </data>
+  <data name="Header_geo_algorithm2D" xml:space="preserve">
+    <value>Algorithm 2D</value>
+  </data>
+  <data name="Header_geo_algorithm3D" xml:space="preserve">
+    <value>Algorithm 3D</value>
+  </data>
+  <data name="Показать" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Header_geo_scaleCoef" xml:space="preserve">
+    <value>Scale coefficient</value>
+  </data>
+  <data name="Header_geo_showPointsOnCurves" xml:space="preserve">
+    <value>Show points on curves</value>
+  </data>
+  <data name="Header_geo_showPointsNumbersOnCurves" xml:space="preserve">
+    <value>Show points number on curves</value>
+  </data>
+  <data name="Header_geo_showSurfacesNumbers" xml:space="preserve">
+    <value>Show surfaces numbers</value>
+  </data>
+  <data name="Header_geo_showPointsNumbers" xml:space="preserve">
+    <value>Show points numbers</value>
+  </data>
+  <data name="Header_geo_showVolumesNumbers" xml:space="preserve">
+    <value>Show volumes numbers</value>
+  </data>
+  <data name="Header_geo_showMeshOnGeneration" xml:space="preserve">
+    <value>Show mesh on generation</value>
+  </data>
 </root>

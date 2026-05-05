@@ -2824,6 +2824,105 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Algorithm 2D.
+        /// </summary>
+        internal static string Header_geo_algorithm2D {
+            get {
+                return ResourceManager.GetString("Header_geo_algorithm2D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Algorithm 3D.
+        /// </summary>
+        internal static string Header_geo_algorithm3D {
+            get {
+                return ResourceManager.GetString("Header_geo_algorithm3D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max size.
+        /// </summary>
+        internal static string Header_geo_maxSize {
+            get {
+                return ResourceManager.GetString("Header_geo_maxSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Min size.
+        /// </summary>
+        internal static string Header_geo_minSize {
+            get {
+                return ResourceManager.GetString("Header_geo_minSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Scale coefficient.
+        /// </summary>
+        internal static string Header_geo_scaleCoef {
+            get {
+                return ResourceManager.GetString("Header_geo_scaleCoef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show mesh on generation.
+        /// </summary>
+        internal static string Header_geo_showMeshOnGeneration {
+            get {
+                return ResourceManager.GetString("Header_geo_showMeshOnGeneration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show points numbers.
+        /// </summary>
+        internal static string Header_geo_showPointsNumbers {
+            get {
+                return ResourceManager.GetString("Header_geo_showPointsNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show points number on curves.
+        /// </summary>
+        internal static string Header_geo_showPointsNumbersOnCurves {
+            get {
+                return ResourceManager.GetString("Header_geo_showPointsNumbersOnCurves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show points on curves.
+        /// </summary>
+        internal static string Header_geo_showPointsOnCurves {
+            get {
+                return ResourceManager.GetString("Header_geo_showPointsOnCurves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show surfaces numbers.
+        /// </summary>
+        internal static string Header_geo_showSurfacesNumbers {
+            get {
+                return ResourceManager.GetString("Header_geo_showSurfacesNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show volumes numbers.
+        /// </summary>
+        internal static string Header_geo_showVolumesNumbers {
+            get {
+                return ResourceManager.GetString("Header_geo_showVolumesNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Type.
         /// </summary>
         internal static string Header_load_type {
@@ -5318,6 +5417,15 @@ namespace BazisGUI.Properties {
             get {
                 object obj = ResourceManager.GetObject("н1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show.
+        /// </summary>
+        internal static string Показать {
+            get {
+                return ResourceManager.GetString("Показать", resourceCulture);
             }
         }
         

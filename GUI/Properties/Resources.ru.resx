@@ -1699,4 +1699,40 @@
   <data name="Header_load_type" xml:space="preserve">
     <value>Вид</value>
   </data>
+  <data name="Header_geo_minSize" xml:space="preserve">
+    <value>Мин размер</value>
+  </data>
+  <data name="Header_geo_maxSize" xml:space="preserve">
+    <value>Макс размер</value>
+  </data>
+  <data name="Header_geo_algorithm2D" xml:space="preserve">
+    <value>Алгоритм 2D</value>
+  </data>
+  <data name="Header_geo_algorithm3D" xml:space="preserve">
+    <value>Алгоритм 3D</value>
+  </data>
+  <data name="Показать" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Header_geo_scaleCoef" xml:space="preserve">
+    <value>Масштаб. коэфициент</value>
+  </data>
+  <data name="Header_geo_showPointsOnCurves" xml:space="preserve">
+    <value>Показать узлы на кривых</value>
+  </data>
+  <data name="Header_geo_showPointsNumbersOnCurves" xml:space="preserve">
+    <value>Показать кол-во узлов на кривых</value>
+  </data>
+  <data name="Header_geo_showSurfacesNumbers" xml:space="preserve">
+    <value>Показать номера поверхностей</value>
+  </data>
+  <data name="Header_geo_showPointsNumbers" xml:space="preserve">
+    <value>Показать номера точек</value>
+  </data>
+  <data name="Header_geo_showVolumesNumbers" xml:space="preserve">
+    <value>Показать номера объемов</value>
+  </data>
+  <data name="Header_geo_showMeshOnGeneration" xml:space="preserve">
+    <value>Отображать всю сетку при генерации</value>
+  </data>
 </root>
