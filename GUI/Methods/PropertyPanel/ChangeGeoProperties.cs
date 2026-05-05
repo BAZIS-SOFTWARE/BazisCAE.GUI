@@ -51,7 +51,6 @@ namespace BazisGUI
                 4. алгоритм построения 3д (делоне,фронтал)
                 5. масштаб сетки (element size factor)
              */
-
         }
     }
 }
