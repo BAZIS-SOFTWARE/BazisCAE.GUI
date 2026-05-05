@@ -2815,6 +2815,42 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Algorithm.
+        /// </summary>
+        internal static string Header_curve_algorithm {
+            get {
+                return ResourceManager.GetString("Header_curve_algorithm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Coefficient.
+        /// </summary>
+        internal static string Header_curve_coefficient {
+            get {
+                return ResourceManager.GetString("Header_curve_coefficient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Number.
+        /// </summary>
+        internal static string Header_curve_number {
+            get {
+                return ResourceManager.GetString("Header_curve_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Points number.
+        /// </summary>
+        internal static string Header_curve_PointsNumber {
+            get {
+                return ResourceManager.GetString("Header_curve_PointsNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на File.
         /// </summary>
         internal static string Header_File {

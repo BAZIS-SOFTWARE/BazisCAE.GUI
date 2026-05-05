@@ -1756,4 +1756,16 @@
   <data name="Header_mechanicalTask_plasticDeformationValue" xml:space="preserve">
     <value>Значение пласт. деформации Si/St</value>
   </data>
+  <data name="Header_curve_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_curve_PointsNumber" xml:space="preserve">
+    <value>Количество точек</value>
+  </data>
+  <data name="Header_curve_algorithm" xml:space="preserve">
+    <value>Алгоритм</value>
+  </data>
+  <data name="Header_curve_coefficient" xml:space="preserve">
+    <value>Коэффициент</value>
+  </data>
 </root>

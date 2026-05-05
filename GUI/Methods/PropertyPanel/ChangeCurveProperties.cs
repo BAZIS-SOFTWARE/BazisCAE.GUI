@@ -2,6 +2,7 @@
 using BazisGUI.PropertiesPanel;
 using GmshApi;
 using Project.Interfaces.Tasks;
+using System;
 
 namespace BazisGUI
 {
@@ -14,18 +15,21 @@ namespace BazisGUI
             if (attributes.Length == 0)
                 attributes = new string[] { "0", MeshType.Progression.ToString(), "1" };
 
-            if (obj.LocalizedHeader == "Алгоритм")
-                attributes[1] = obj.NewValue;
-            else if (obj.LocalizedHeader == "Количество точек")
-                attributes[0] = obj.NewValue;
-            else
-                attributes[2] = obj.NewValue;
+            var key = Enum.Parse<CurvePropertyKeys>(obj.Key);
 
-
-            //gmshController.Gmsh.Model.SetAttribute($"transfinite curve {arg3}", attributes);
+            switch (key)
+            {
+                case CurvePropertyKeys.Algorithm:
+                    attributes[1] = obj.NewValue;
+                    break;
+                case CurvePropertyKeys.PointsNumber:
+                    attributes[0] = obj.NewValue;
+                    break;
+                case CurvePropertyKeys.Coefficient:
+                    attributes[2] = obj.NewValue;
+                    break;
+            }
             GmshController.Gmsh.Model.SetAttribute($"transfinite curve {number}", attributes);
-            //if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
-            //{
 
             // записываем трансфиницию кривой
             var points = int.Parse(attributes[0]);
