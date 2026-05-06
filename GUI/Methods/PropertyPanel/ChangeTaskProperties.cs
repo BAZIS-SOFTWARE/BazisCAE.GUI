@@ -4,6 +4,7 @@ using BazisGUI.Navigator;
 using Project.Interfaces.Tasks;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System;
 
 namespace BazisGUI
 {
@@ -12,30 +13,32 @@ namespace BazisGUI
         private void ChangeTaskProperties(PropertyChangedEventArgs obj)
         {
             var clearFlag = false;
-            if(obj.LocalizedHeader == "Вид")
+            if (Enum.TryParse(obj.Key, out TaskPropertyKeys key))
             {
-                project.ProjectType = obj.NewValue.ToEnum<TaskType>();
-                clearFlag = true;
-            }
-                
-            else if(obj.LocalizedHeader == "Тип")
-            {
-                project.ProjectKind = obj.NewValue.ToEnum<TaskKind>();
-                clearFlag = true;
-            }
+                switch (key)
+                {
+                    case TaskPropertyKeys.Type:
+                        project.ProjectType = obj.NewValue.ToEnum<TaskType>();
+                        clearFlag = true;
+                        break;
 
-            else if (obj.LocalizedHeader == "Проверка значений условий")
-            {
-                settingsConfig.CheckCondValue = bool.Parse(obj.NewValue);
-            }
+                    case TaskPropertyKeys.Kind:
+                        project.ProjectKind = obj.NewValue.ToEnum<TaskKind>();
+                        clearFlag = true;
+                        break;
 
-            if (clearFlag)
-            {
-                List<TreeNode> tasks;
-                var search = navigator.TrySearchNodes(NodeName.Task, out tasks);
-                tasks[0].Nodes.Clear();
-            }
+                    case TaskPropertyKeys.CheckCondValues:
+                        settingsConfig.CheckCondValue = bool.Parse(obj.NewValue);
+                        break;
+                }
 
+                if (clearFlag)
+                {
+                    List<TreeNode> tasks;
+                    var search = navigator.TrySearchNodes(NodeName.Task, out tasks);
+                    tasks[0].Nodes.Clear();
+                }
+            }
         }
     }
 }

@@ -1939,4 +1939,49 @@ Create variable?</value>
   <data name="Header_result_yPos" xml:space="preserve">
     <value>Scale Y position on screen</value>
   </data>
+  <data name="Header_result_result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="Header_set_precisionOrder" xml:space="preserve">
+    <value>Precision order</value>
+  </data>
+  <data name="Header_set_adjacentNodes" xml:space="preserve">
+    <value>Adjacent nodes</value>
+  </data>
+  <data name="Header_set_show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Header_set_group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Header_set_create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Header_set_name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Header_set_color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Header_set_view" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Header_task_type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Headers_task_kind" xml:space="preserve">
+    <value>Kind</value>
+  </data>
+  <data name="Header_task_materials" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="Header_task_functions" xml:space="preserve">
+    <value>Functions</value>
+  </data>
+  <data name="Header_task_checkCondValues" xml:space="preserve">
+    <value>Check condition values</value>
+  </data>
+  <data name="LoadPythonFile_ВыберитеPythonФайл" xml:space="preserve">
+    <value>Select python file</value>
+  </data>
 </root>

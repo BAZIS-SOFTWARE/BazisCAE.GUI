@@ -3346,6 +3346,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Result.
+        /// </summary>
+        internal static string Header_result_result {
+            get {
+                return ResourceManager.GetString("Header_result_result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Result scale.
         /// </summary>
         internal static string Header_result_resultScale {
@@ -3405,6 +3414,78 @@ namespace BazisGUI.Properties {
         internal static string Header_result_yPos {
             get {
                 return ResourceManager.GetString("Header_result_yPos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Adjacent nodes.
+        /// </summary>
+        internal static string Header_set_adjacentNodes {
+            get {
+                return ResourceManager.GetString("Header_set_adjacentNodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Color.
+        /// </summary>
+        internal static string Header_set_color {
+            get {
+                return ResourceManager.GetString("Header_set_color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Create.
+        /// </summary>
+        internal static string Header_set_create {
+            get {
+                return ResourceManager.GetString("Header_set_create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Group.
+        /// </summary>
+        internal static string Header_set_group {
+            get {
+                return ResourceManager.GetString("Header_set_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Name.
+        /// </summary>
+        internal static string Header_set_name {
+            get {
+                return ResourceManager.GetString("Header_set_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Precision order.
+        /// </summary>
+        internal static string Header_set_precisionOrder {
+            get {
+                return ResourceManager.GetString("Header_set_precisionOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show.
+        /// </summary>
+        internal static string Header_set_show {
+            get {
+                return ResourceManager.GetString("Header_set_show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на View.
+        /// </summary>
+        internal static string Header_set_view {
+            get {
+                return ResourceManager.GetString("Header_set_view", resourceCulture);
             }
         }
         
@@ -3477,6 +3558,42 @@ namespace BazisGUI.Properties {
         internal static string Header_surface_ribersOrientation {
             get {
                 return ResourceManager.GetString("Header_surface_ribersOrientation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Check condition values.
+        /// </summary>
+        internal static string Header_task_checkCondValues {
+            get {
+                return ResourceManager.GetString("Header_task_checkCondValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Functions.
+        /// </summary>
+        internal static string Header_task_functions {
+            get {
+                return ResourceManager.GetString("Header_task_functions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Materials.
+        /// </summary>
+        internal static string Header_task_materials {
+            get {
+                return ResourceManager.GetString("Header_task_materials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Type.
+        /// </summary>
+        internal static string Header_task_type {
+            get {
+                return ResourceManager.GetString("Header_task_type", resourceCulture);
             }
         }
         
@@ -3558,6 +3675,15 @@ namespace BazisGUI.Properties {
         internal static string HeaderName {
             get {
                 return ResourceManager.GetString("HeaderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Kind.
+        /// </summary>
+        internal static string Headers_task_kind {
+            get {
+                return ResourceManager.GetString("Headers_task_kind", resourceCulture);
             }
         }
         
@@ -3840,6 +3966,15 @@ namespace BazisGUI.Properties {
         internal static string LoadingForm_Text {
             get {
                 return ResourceManager.GetString("LoadingForm.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Select python file.
+        /// </summary>
+        internal static string LoadPythonFile_ВыберитеPythonФайл {
+            get {
+                return ResourceManager.GetString("LoadPythonFile_ВыберитеPythonФайл", resourceCulture);
             }
         }
         

@@ -93,82 +93,89 @@ namespace BazisGUI
 
         private void ChangeCompProperties(PropertyChangedEventArgs obj)
         {
-            var key = Enum.Parse<CompPropertyKeys>(obj.Key);
-
-            if (key == CompPropertyKeys.Type)
-                selectInstruction = obj.NewValue;
-            else if (key == CompPropertyKeys.Execute)
+            if (Enum.TryParse(obj.Key, out CompPropertyKeys key))
             {
-                // obj.LocalizedHeader.Contains("Выполнять")
-                var name = obj.LocalizedHeader.Split(' ')[1];
-                navigator.TrySearchNodes(NodeName.Calculations, out List<TreeNode> task);
-                var selectedInstruction = task[0].Nodes.Cast<TreeNode>().FirstOrDefault(inst => inst.Text.Contains(name));
+                if (key == CompPropertyKeys.Type)
+                    selectInstruction = obj.NewValue;
+                else if (key == CompPropertyKeys.Execute)
+                {
+                    // obj.LocalizedHeader.Contains("Выполнять")
+                    var name = obj.LocalizedHeader.Split(' ')[1];
+                    navigator.TrySearchNodes(NodeName.Calculations, out List<TreeNode> task);
+                    var selectedInstruction = task[0].Nodes.Cast<TreeNode>().FirstOrDefault(inst => inst.Text.Contains(name));
 
-                var isExe =  bool.Parse(obj.NewValue);
-                if (isExe)
-                    selectedInstruction.Text = selectedInstruction.Text.Replace(Resources.Пропустить, Resources.Выполнить);
-                else
-                    selectedInstruction.Text = selectedInstruction.Text.Replace(Resources.Выполнить, Resources.Пропустить);
+                    var isExe = bool.Parse(obj.NewValue);
+                    if (isExe)
+                        selectedInstruction.Text = selectedInstruction.Text.Replace(Resources.Пропустить, Resources.Выполнить);
+                    else
+                        selectedInstruction.Text = selectedInstruction.Text.Replace(Resources.Выполнить, Resources.Пропустить);
+                }
+                Navigator_SelectCompsEvent();
             }
-            Navigator_SelectCompsEvent();
         }
 
         [Obsolete ("Отсутствует химические задачи, не протестировано")]
         private void ChangeChemicalTask(PropertyChangedEventArgs obj, ChemicalParameters cmp)
         {
-            var key = Enum.Parse<ChemicalTaskPropertyKeys>(obj.Key);
-            switch (key)
+            if (Enum.TryParse(obj.Key, out ChemicalTaskPropertyKeys key))
             {
-                case ChemicalTaskPropertyKeys.MaxConсentration:
-                    cmp.ChemicalConvergence.Is_Switched_Cm = bool.Parse(obj.NewValue);
-                    break;
-                case ChemicalTaskPropertyKeys.MaxConсentrationValue:
-                    cmp.ChemicalConvergence.Cm = ParseFloatValue(obj.NewValue);
-                    break;
-                case ChemicalTaskPropertyKeys.InitialConcentration:
-                    cmp.InitConcentration = ParseFloatValue(obj.NewValue);
-                    break;
+                switch (key)
+                {
+                    case ChemicalTaskPropertyKeys.MaxConсentration:
+                        cmp.ChemicalConvergence.Is_Switched_Cm = bool.Parse(obj.NewValue);
+                        break;
+                    case ChemicalTaskPropertyKeys.MaxConсentrationValue:
+                        cmp.ChemicalConvergence.Cm = ParseFloatValue(obj.NewValue);
+                        break;
+                    case ChemicalTaskPropertyKeys.InitialConcentration:
+                        cmp.InitConcentration = ParseFloatValue(obj.NewValue);
+                        break;
+                }
             }
         }
 
         private void ChangeTermalTask(PropertyChangedEventArgs obj, TermalParameters tmp)
         {
-            var key = Enum.Parse<TermalTaskPropertyKeys>(obj.Key);
-            switch (key)
+            if (Enum.TryParse(obj.Key, out TermalTaskPropertyKeys key))
             {
-                case TermalTaskPropertyKeys.MaxTemperture:
-                    tmp.TermalConvergence.Is_Switched_Tm = bool.Parse(obj.NewValue);
-                    break;
-                case TermalTaskPropertyKeys.MaxTempertureValue:
-                    tmp.TermalConvergence.Tm = ParseFloatValue(obj.NewValue);
-                    break;
+                switch (key)
+                {
+                    case TermalTaskPropertyKeys.MaxTemperture:
+                        tmp.TermalConvergence.Is_Switched_Tm = bool.Parse(obj.NewValue);
+                        break;
+                    case TermalTaskPropertyKeys.MaxTempertureValue:
+                        tmp.TermalConvergence.Tm = ParseFloatValue(obj.NewValue);
+                        break;
+                }
             }
         }
 
         private void ChangeMechanicalTask(PropertyChangedEventArgs obj, MechanicalParameters mhp)
         {
-            var key = Enum.Parse<MechanicalPropertyKeys>(obj.Key);
-            switch (key)
+            if (Enum.TryParse(obj.Key, out MechanicalPropertyKeys key))
             {
-                case MechanicalPropertyKeys.MaxDiference:
-                    mhp.MechanicalConvergence.DUm = ParseFloatValue(obj.NewValue);
-                    break;
+                switch (key)
+                {
+                    case MechanicalPropertyKeys.MaxDiference:
+                        mhp.MechanicalConvergence.DUm = ParseFloatValue(obj.NewValue);
+                        break;
 
-                case MechanicalPropertyKeys.MaxMove:
-                    mhp.MechanicalConvergence.Is_Switched_Um = bool.Parse(obj.NewValue);
-                    break;
+                    case MechanicalPropertyKeys.MaxMove:
+                        mhp.MechanicalConvergence.Is_Switched_Um = bool.Parse(obj.NewValue);
+                        break;
 
-                case MechanicalPropertyKeys.MaxMoveValue:
-                    mhp.MechanicalConvergence.Um = ParseFloatValue(obj.NewValue);
-                    break;
+                    case MechanicalPropertyKeys.MaxMoveValue:
+                        mhp.MechanicalConvergence.Um = ParseFloatValue(obj.NewValue);
+                        break;
 
-                case MechanicalPropertyKeys.PlasticDeformation:
-                    mhp.MechanicalConvergence.Is_Physically_NonLinear = bool.Parse(obj.NewValue);
-                    break;
+                    case MechanicalPropertyKeys.PlasticDeformation:
+                        mhp.MechanicalConvergence.Is_Physically_NonLinear = bool.Parse(obj.NewValue);
+                        break;
 
-                case MechanicalPropertyKeys.PlasticDeformationValue:
-                    mhp.MechanicalConvergence.PlasticityCriterion = ParseFloatValue(obj.NewValue);
-                    break;
+                    case MechanicalPropertyKeys.PlasticDeformationValue:
+                        mhp.MechanicalConvergence.PlasticityCriterion = ParseFloatValue(obj.NewValue);
+                        break;
+                }
             }
         }
 

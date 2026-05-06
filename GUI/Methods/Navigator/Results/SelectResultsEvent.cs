@@ -15,7 +15,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        enum ResultPropertyKeys { ShowFields, ShowNodesValues, ShowElementsValues, MergeResultsValues, ShowScale, ResultScale, ClarifyValues, MaxScaleValue, MinScaleValue, ScalePrecision, ScaleIntervals, ScaleXPos, ScaleYPos }
+        enum ResultPropertyKeys { Result, ShowFields, ShowNodesValues, ShowElementsValues, MergeResultsValues, ShowScale, ResultScale, ClarifyValues, MaxScaleValue, MinScaleValue, ScalePrecision, ScaleIntervals, ScaleXPos, ScaleYPos }
         private void navigator_SelectResultsEvent()
         {
             /*
