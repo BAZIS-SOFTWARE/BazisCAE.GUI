@@ -1,11 +1,9 @@
-﻿using BasicControls.OpenFileDialogEx;
-using BazisGUI.Console.Events;
+﻿using BazisGUI.Console.Enums;
 using BazisGUI.PinnedControl;
 using BazisGUI.Properties;
 using BazisGUI.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -15,65 +13,23 @@ using System.Windows.Forms;
 
 namespace BazisGUI.Console
 {
-    public enum GenCmd
-    {
-        LoadProject,
-        SaveProject,
-        NewProject,
-        CreateGraph,
-        SolveProject,
-        Exit,
-        RenumberMesh,
-        FindFreeNodes,
-        MoveMesh,
-        ChangeObjCoordinates,
-        FindCoincident,
-        FindObject,
-        FindVolElems,
-        BeamConnection,
-        SetLevel,
-        RotateMesh,
-        MoveNodes,
-        MergeElementSets,
-        CreateMesh2DPoligon,
-        CreatePoint,
-        CreateCurve,
-        CreatePointByVector,
-        CreatePointProjectionOntoCurve,
-        CreatePointProjectionOntoPlane,
-        CreateSurface,
-        ExtrudeCurve,
-        ExtrudeRotate
-    }
-
     public partial class ConsoleControl : PinnedPage
     {
         public bool CheckPrintElemsInfo { get; set; }
         public bool CheckPrintNodesInfo { get; set; }
-
         public bool ShowTaskInfo { get; private set; }
-
-
-        public event Action<object, EventArgs> InEvent;
-        public event Action FindFreeNodesEvent;
-        public event Action<object, ModelRenumberEventArgs> RenumberMeshEvent;
-        public event Action<object, ModelShiftCoordinateEventArgs> ModelShiftCoordinateEvent;
-        public event Action<object, ModelRotateEventArgs> ModelRotateEvent;
-        public event Action<object, MergeElementSetsEventArgs> MergeElementSetsEvent;
-        public event Action<object, CreateMesh2DPoligonEventArgs> CreateMesh2DPoligonEvent;
-        public event Action<CreateGeometryEventArgs> CreateGeometryEvent;
-        public event Action<CreateExtruderEventArgs> ExtrudeEvent;
-        int SessionNumber
+        public int SessionNumber { get; set; }
+        public string GetSessionLogPath
         {
-            get;
-            set;
+            get
+            {
+                return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                     "\\" + SessionNumber.ToString() + "bazis.session.txt";
+            }
         }
 
-        Dictionary<string, GenCmd> genCmds;
-        Dictionary<GenCmd, string[]> subCmds;
-
-        private Thread trd;
-
+        public event Action<string> ConsoleCommandEnteredEvent;
+        public event Action CommandsListRequestedEvent;
         public void NewItem_Click(object obj, EventArgs args)
         {
             var tstb = (ToolStripMenuItem)obj;
@@ -83,22 +39,9 @@ namespace BazisGUI.Console
             rtxbField.AppendText("\n" + str);
         }
 
-        private void GetItemCmd(ToolStripMenuItem toolStripItem, ref string info)
-        {
-            var owner = toolStripItem.OwnerItem;
-            if (owner is ToolStripMenuItem menuItem)
-            {
-
-                GetItemCmd(menuItem, ref info);
-            }
-            info = info + " " + "\"" + toolStripItem.Text + "\"";
-        }
-
         public ConsoleControl()
         {
             InitializeComponent();
-            InitGenCubCommandsDictionaries();
-
             typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic |
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
                 SetValue(tlscOut, true, null);
@@ -110,56 +53,46 @@ namespace BazisGUI.Console
             HighlightPhrase(path, System.Drawing.Color.Green);
         }
 
-        private void InitGenCubCommandsDictionaries()
+        public void PrintInfo(string str, Color color)
         {
-            genCmds = new Dictionary<string, GenCmd>()
+            rtxbField.AppendText($" > {str}");
+
+            if (color != Color.Black)
+                HighlightPhrase(str, color);
+            var path = GetSessionLogPath;
+            using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
+                sw.Write(str);
+            rtxbField.SelectionStart = rtxbField.Text.Length;
+
+            rtxbField.AppendText("\n");
+
+            rtxbField.Focus();
+            rtxbField.ScrollToCaret();
+        }
+
+        public void PrintHistory(string str)
+        {
+            int lastLineIndex = rtxbField.Lines.Length - 1;
+            int startIndex = rtxbField.GetFirstCharIndexFromLine(lastLineIndex);
+
+            rtxbField.SelectionStart = startIndex;
+            rtxbField.SelectionLength = rtxbField.TextLength - startIndex;
+
+            rtxbField.SelectedText = str;
+
+            rtxbField.SelectionStart = rtxbField.TextLength;
+            rtxbField.SelectionLength = 0;
+        }
+
+        private void GetItemCmd(ToolStripMenuItem toolStripItem, ref string info)
+        {
+            var owner = toolStripItem.OwnerItem;
+            if (owner is ToolStripMenuItem menuItem)
             {
-                { "Load project",GenCmd.LoadProject},
-                { "Save project",GenCmd.SaveProject},
-                { "Solve project",GenCmd.SolveProject},
-                { "Renumber mesh",GenCmd.RenumberMesh},
-                { "Move node",GenCmd.MoveNodes},
-                { "Move mesh",GenCmd.MoveMesh},
-                { "Rotate mesh",GenCmd.RotateMesh},
-                { "Find free nodes",GenCmd.FindFreeNodes},
-                { "Find Coincident",GenCmd.FindCoincident},
-                { "Find 3D elements",GenCmd.FindVolElems},
-                { "Find object",GenCmd.FindObject},
-                { "Connect with beams",GenCmd.BeamConnection},
-                { "Set precision level",GenCmd.SetLevel },
-                { "Merge elements sets",GenCmd.MergeElementSets },
-                { "Build 2D mesh",GenCmd.CreateMesh2DPoligon },
-                { "Create point",GenCmd.CreatePoint },
-                { "Create curve",GenCmd.CreateCurve },
-                { "Create surface",GenCmd.CreateSurface },
-                { "Extrude along curve",GenCmd.ExtrudeCurve },
-                { "Extrusion by rotation",GenCmd.ExtrudeRotate },
-                { "Quit",GenCmd.Exit }
-            };
-            subCmds = new Dictionary<GenCmd, string[]>()
-            {
-                { GenCmd.LoadProject, new[] { "path" } },
-                { GenCmd.SaveProject, new[] { "path" } },
-                { GenCmd.SolveProject,new string[] { } },
-                { GenCmd.RenumberMesh, new[] { "type:initial number" } },
-                { GenCmd.MoveMesh, new[] { "move", "x,y,z" } },
-                { GenCmd.MoveNodes, new[] { "move" } },
-                { GenCmd.RotateMesh, new[] { "rotate", "x,y,z:angle" } },
-                { GenCmd.FindFreeNodes,new string[] { } },
-                { GenCmd.FindCoincident, new[] { "nodes", "distance" } },
-                { GenCmd.FindVolElems, new[] { "measure" } },
-                { GenCmd.FindObject, new[] { "type,number" } },
-                { GenCmd.BeamConnection, new [] { "search radius", "max quantity", "group#1", "group#2" } },
-                { GenCmd.SetLevel, new[] { "type", "precision level" } },
-                { GenCmd.MergeElementSets, new[] { "type", "set#1", "set#2" } },
-                { GenCmd.CreateMesh2DPoligon, new[] { "x1,y1", "x2,y2", "x3,y3", "x4,y4", "number of elements" } },
-                { GenCmd.CreatePoint, new [] { "x,y,z" } },
-                { GenCmd.CreateCurve, new [] { "point#1","point#2" } },
-                { GenCmd.CreateSurface, new[] { "curves forming the contour", "curve#1,curve#2,curve#3" } },
-                { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve", "point", "step", "transfinite mesh 1-yes, 0-no" } },
-                { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
-                { GenCmd.Exit,new string[] { } }
-            };
+
+                GetItemCmd(menuItem, ref info);
+            }
+            info = info + " " + "\"" + toolStripItem.Text + "\"";
         }
 
 
@@ -178,53 +111,9 @@ namespace BazisGUI.Console
             rtxbField.Controls.Add(link);
         }
 
-        private void Link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("explorer", e.ToString());
-        }    
+        private void Link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => System.Diagnostics.Process.Start("explorer", e.ToString());
 
-        public string GetSessionLogPath
-        {
-            get
-            {
-                return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-                     "\\" + SessionNumber.ToString() + "bazis.session.txt";
-            }
-        } 
-
-        public void PrintInfo(string str, Color color)
-        {
-            rtxbField.AppendText($" > {str}");
-
-            if (color != Color.Black)
-                HighlightPhrase(str, color);
-            var path = GetSessionLogPath;
-            using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
-                sw.Write(str);
-            rtxbField.SelectionStart = rtxbField.Text.Length;
-
-            rtxbField.AppendText("\n");
-
-            rtxbField.Focus();
-            rtxbField.ScrollToCaret();
-
-        }
-
-        public void PrintHistory(string str)
-        {
-            int lastLineIndex = rtxbField.Lines.Length - 1;
-            int startIndex = rtxbField.GetFirstCharIndexFromLine(lastLineIndex);
-
-            rtxbField.SelectionStart = startIndex;
-            rtxbField.SelectionLength = rtxbField.TextLength - startIndex;
-
-            rtxbField.SelectedText = str;
-
-            rtxbField.SelectionStart = rtxbField.TextLength;
-            rtxbField.SelectionLength = 0;
-        }
-
-        void HighlightPhrase(string phrase, Color color)
+        private void HighlightPhrase(string phrase, Color color)
         {
             int pos = rtxbField.SelectionStart;
             string s = rtxbField.Text;
@@ -242,122 +131,25 @@ namespace BazisGUI.Console
             rtxbField.SelectionColor = Color.Black;
         }
 
-        public void ExecuteCmdFile(string cmdFileName)
-        {
-            if (System.IO.File.Exists(cmdFileName))
-            {
-                var cmdLines = File.ReadAllLines(cmdFileName);
+        //public void ExecuteCmdFile(string cmdFileName)
+        //{
+        //    if (System.IO.File.Exists(cmdFileName))
+        //    {
+        //        var cmdLines = File.ReadAllLines(cmdFileName);
 
-                foreach (var line in cmdLines)
-                {
-                    ExecuteCommand(line);
-                }
+        //        foreach (var line in cmdLines)
+        //        {
+        //            ExecuteCommand(line);
+        //        }
 
-                var assembly = Assembly.GetExecutingAssembly();
-                var stream = assembly.GetManifestResourceStream("PrConsole.Resources.StartCheck.ico");
-                btnStartMacro.Image = new Bitmap(stream);
-                trd.Abort();
+        //        var assembly = Assembly.GetExecutingAssembly();
+        //        var stream = assembly.GetManifestResourceStream("PrConsole.Resources.StartCheck.ico");
+        //        btnStartMacro.Image = new Bitmap(stream);
+        //    }
+        //    else throw new Exception($"\n > {Localization.Localization.GetStringResourceByName<ConsoleControl>("ExecuteCMDFileMissing)")}");
+        //}
 
-            }
-            else throw new Exception($"\n > {Resources.ExecuteCMDFileMissing}");
-        }
 
-        private void ExecuteCommand(string line)
-        {
-            //TO DO
-            var cmds = FieldsParser.ParseLine(line);
-            if (cmds.Count != 0)
-            {
-                if (!this.genCmds.ContainsKey(cmds[0])) 
-                    throw new Exception(Resources.NotACommandException);
-                if (subCmds[genCmds[cmds[0]]].Length !=  cmds.Count -1)
-                    throw new Exception(Resources.InvalidArgumentsNumberException);
-
-                ConsoleHistory.AddComand(line);
-                
-                switch (genCmds[cmds[0]])
-                {
-                    case GenCmd.CreateMesh2DPoligon:
-                        CreateMesh2DPoligonEvent?.Invoke(this, new CreateMesh2DPoligonEventArgs(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5]));
-                        break;
-                    case GenCmd.MergeElementSets:
-                        MergeElementSetsEvent?.Invoke(this, new MergeElementSetsEventArgs(cmds[1], cmds[2], cmds[3]));
-                        break;
-                    case GenCmd.FindObject:
-                        InEvent(this, new FindObjectEventArgs(cmds[1]));
-                        break;
-                    case GenCmd.LoadProject:
-                        InEvent(this, new LoadProjectEventArgs(cmds[1]));
-                        break;
-                    case GenCmd.SaveProject:
-                        InEvent(this, new SaveProjectEventArgs(cmds[1]));
-                        break;
-                    case GenCmd.CreateGraph:
-                        break;
-                    case GenCmd.RenumberMesh:
-                        RenumberMeshEvent?.Invoke(this, new ModelRenumberEventArgs(cmds[1]));
-                        break;
-                    case GenCmd.MoveMesh:
-                        ModelShiftCoordinateEvent?.Invoke(this, new ModelShiftCoordinateEventArgs(cmds[2]));
-                        break;
-                    case GenCmd.RotateMesh:
-                        ModelRotateEvent?.Invoke(this, new ModelRotateEventArgs(cmds[2]));
-                        break;
-                    case GenCmd.MoveNodes:
-                        if (cmds[1] == Resources.MoveRotNodesOption)
-                            InEvent?.Invoke(this, new NodesShiftCoordinateEventArgs());
-                        else
-                            InEvent?.Invoke(this, new NodesRotateCoordinateEventArgs());
-                        break;
-                    case GenCmd.FindFreeNodes:
-                        FindFreeNodesEvent?.Invoke();
-                        break;
-                    case GenCmd.FindVolElems:
-                        InEvent(this, new FindVolElemsEventArgs(cmds[1]));
-                        break;
-                    case GenCmd.FindCoincident:
-                        if (cmds[1] == Resources.FindCoincidentOption)
-                            InEvent(this, new ModelFindCoincidentsNodesEventArgs(cmds[2]));
-                        break;
-                    case GenCmd.BeamConnection:
-                        InEvent(this, new BeamConnectionEventArgs(cmds[1], cmds[2],cmds[3], cmds[4]));
-                        break;
-                    case GenCmd.SolveProject:
-                        InEvent(this, new SolveProjectEventArgs());
-                        break;
-                    case GenCmd.SetLevel:
-                        InEvent(this, new SetElementLevelEventArgs(cmds[1], cmds[2]));
-                        break;
-                    case GenCmd.Exit:
-                        InEvent(this, new ExitAppEventArgs());
-                        break;
-                    case GenCmd.CreatePoint:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPoint, [cmds[1]]));
-                        break;   
-                    case GenCmd.CreateCurve:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddCurve, [cmds[1], cmds[2]]));
-                        break;
-                    case GenCmd.CreateSurface:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddSurface, [cmds[2]]));
-                        break;
-                    case GenCmd.ExtrudeCurve:
-                        ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
-                        break;
-                    //case GenCmd.ExtrudeRotate:
-                    //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
-                    //    break;
-                    case GenCmd.CreatePointByVector:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]));
-                        break;
-                    case GenCmd.CreatePointProjectionOntoPlane:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]));
-                        break;
-                    case GenCmd.CreatePointProjectionOntoCurve:
-                        CreateGeometryEvent(new CreateGeometryEventArgs(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]));
-                        break;
-                }
-            }
-        }
 
         private void ClearAll_Click(object sender, EventArgs e)
         {
@@ -366,54 +158,46 @@ namespace BazisGUI.Console
             rtxbField.AppendText(sessionPath);
         }
 
-        private void btnStartMacro_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (trd == null)
-                {
-                    OpenFileDialog newDialog = new OpenFileDialog()
-                    {
-                        Filter = "Bazis command file(*.tcf)|*.tcf|" +
-            "All files(*.*)|*.*"
-                    };
-                    if (newDialog.ShowDialog() == DialogResult.Cancel)
-                        return;
+        //private void btnStartMacro_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (trd == null)
+        //        {
+        //            OpenFileDialog newDialog = new OpenFileDialog()
+        //            {
+        //                Filter = "Bazis command file(*.tcf)|*.tcf|" +
+        //    "All files(*.*)|*.*"
+        //            };
+        //            if (newDialog.ShowDialog() == DialogResult.Cancel)
+        //                return;
 
-                    trd = new Thread(delegate () { ExecuteCmdFile(newDialog.FileName); });
-                    trd.Start();
+        //            trd = new Thread(delegate () { ExecuteCmdFile(newDialog.FileName); });
+        //            trd.Start();
 
-                    var assembly = Assembly.GetExecutingAssembly();
-                    var stream = assembly.GetManifestResourceStream("PrConsole.Resources.Stop.ico");
-                    btnStartMacro.Image = new Bitmap(stream);
-                    btnStartMacro.Text = Localization.Localization.GetStopCaption();
-                }
-                else
-                {
-                    var assembly = Assembly.GetExecutingAssembly();
-                    var stream = assembly.GetManifestResourceStream("PrConsole.Resources.StartCheck.ico");
-                    btnStartMacro.Image = new Bitmap(stream);
-                    btnStartMacro.Text = Localization.Localization.GetStartCaption();
-                    trd.Abort();
+        //            var assembly = Assembly.GetExecutingAssembly();
+        //            var stream = assembly.GetManifestResourceStream("PrConsole.Resources.Stop.ico");
+        //            btnStartMacro.Image = new Bitmap(stream);
+        //            btnStartMacro.Text = Localization.Localization.GetStopCaption();
+        //        }
+        //        else
+        //        {
+        //            var assembly = Assembly.GetExecutingAssembly();
+        //            var stream = assembly.GetManifestResourceStream("PrConsole.Resources.StartCheck.ico");
+        //            btnStartMacro.Image = new Bitmap(stream);
+        //            btnStartMacro.Text = Localization.Localization.GetStartCaption();
+        //            trd.Abort();
 
-                }
-            }
-            catch (Exception)
-            {
-                trd = null;
-            }
-        }
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        trd = null;
+        //    }
+        //}
 
-        private void btnDictionary_Click(object sender, EventArgs e)
-        {
-            PrintInfo($"{Resources.AvailableCommands}:", Color.Black);
+        private void btnDictionary_Click(object sender, EventArgs e) => CommandsListRequestedEvent.Invoke();
 
-            foreach (var item in genCmds)
-            {
-                var args = string.Join(" ", subCmds[item.Value].Select(s => $"\"{s}\""));
-                PrintInfo($"- \"{item.Key}\" {args}", Color.Black);
-            }
-        }
 
         private void btnBackGroundInfo_Click(object sender, EventArgs e)
         {
@@ -426,29 +210,21 @@ namespace BazisGUI.Console
         }
 
 
-        private void rtxbField_KeyDown(object sender, KeyEventArgs e)
+        private void KeyDownEventHadler(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 var cmds = rtxbField.Lines[rtxbField.Lines.Count() - 1];
-
-                if (cmds.Length != 0)
-                {
-                    trd = new Thread(delegate ()
-                    {
-                        try
-                        {
-                            Invoke(new Action(() => ExecuteCommand(cmds)));
-                        }
-                        catch (Exception ex)
-                        {
-                            Invoke(new Action(() => PrintInfo(ex.Message, Color.Red)));
-                        }
-                    });
-                    trd.Start();
-
-                    rtxbField.AppendText($"\n < {cmds}");
-                }
+                ConsoleCommandEnteredEvent?.Invoke(cmds);
+                //var cmds = rtxbField.Lines[rtxbField.Lines.Count() - 1];
+                //try
+                //{
+                //    Invoke(new Action(() => ExecuteCommand(cmds)));
+                //}
+                //catch (Exception ex) 
+                //{
+                //    Invoke(new Action(() => PrintInfo(ex.Message, Color.Red)));
+                //}
             }
             else if (e.KeyCode == Keys.Up)
                 PrintHistory(ConsoleHistory.GetPreviousCommand());

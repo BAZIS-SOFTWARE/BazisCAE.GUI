@@ -132,7 +132,7 @@ namespace BazisGUI.Console
             rtxbField.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(rtxbField, "rtxbField");
             rtxbField.Name = "rtxbField";
-            rtxbField.KeyDown += rtxbField_KeyDown;
+            rtxbField.KeyDown += KeyDownEventHadler;
             // 
             // toolStripEx1
             // 
@@ -186,7 +186,7 @@ namespace BazisGUI.Console
             resources.ApplyResources(btnStartMacro, "btnStartMacro");
             btnStartMacro.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             btnStartMacro.Name = "btnStartMacro";
-            btnStartMacro.Click += btnStartMacro_Click;
+            //btnStartMacro.Click += btnStartMacro_Click;
             // 
             // toolStripMenuItem32
             // 

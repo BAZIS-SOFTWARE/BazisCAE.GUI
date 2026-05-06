@@ -9,16 +9,18 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void BeamConnection(BeamConnectionEventArgs beamConnectionEventArgs)
+        private void BeamConnection(string _radius, string _maxBeams, string master, string slave)
         {
+
+            if (!double.TryParse(_radius, out double radius))
+                throw new ArgumentException(Resources.BeamConnectionEventArgsArgNumExc, nameof(_radius));
+
+            if (!int.TryParse(_maxBeams, out int maxBeams))
+                throw new ArgumentException(Resources.BeamConnectionEventArgsArgNumExc, nameof(_maxBeams));
+
             // TO DO это пока прототип метода сшивки. Далее добавить асинхронные операции 
             // для выбора групп узлов
-            var mGr = beamConnectionEventArgs.Master;
-            var sGr = beamConnectionEventArgs.Slave;
-            var r = beamConnectionEventArgs.Radius;
-            var max = beamConnectionEventArgs.MaxBeams;
-
-            project.ConnectByBeams(mGr, sGr, r, max);
+            project.ConnectByBeams(master, slave, radius, maxBeams);
 
             var beams = project.GetModelSetsInfo(ObjType.Элемент1D).Last();
 

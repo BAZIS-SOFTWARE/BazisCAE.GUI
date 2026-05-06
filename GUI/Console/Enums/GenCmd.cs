@@ -1,0 +1,33 @@
+﻿namespace BazisGUI.Console.Enums
+{
+    public enum GenCmd
+    {
+        LoadProject,
+        SaveProject,
+        NewProject,
+        CreateGraph,
+        SolveProject,
+        Exit,
+        RenumberMesh,
+        FindFreeNodes,
+        MoveMesh,
+        ChangeObjCoordinates,
+        FindCoincident,
+        FindObject,
+        FindVolElems,
+        BeamConnection,
+        SetLevel,
+        RotateMesh,
+        MoveNodes,
+        MergeElementSets,
+        CreateMesh2DPoligon,
+        CreatePoint,
+        CreateCurve,
+        CreatePointByVector,
+        CreatePointProjectionOntoCurve,
+        CreatePointProjectionOntoPlane,
+        CreateSurface,
+        ExtrudeCurve,
+        ExtrudeRotate
+    }
+}

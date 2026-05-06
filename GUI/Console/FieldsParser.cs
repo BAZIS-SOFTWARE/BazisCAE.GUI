@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace BazisGUI.Utilities
 {
-    public static class FieldsParser
+    public class FieldsParser
     {
-        private static readonly char[] stopCharsAr = { ' ', '\"', '\'' };
+        private readonly char[] stopCharsAr = { ' ', '\"', '\'' };
         //private static char stopChar;
 
-        public static List<string> ParseLine(string line)
+        public List<string> ParseLine(string line)
         {
             var tokenizedString = new List<string>();
 
@@ -35,7 +35,7 @@ namespace BazisGUI.Utilities
             return tokenizedString;
         }
 
-        private static Token ReadField(string line, int startIndex)
+        private Token ReadField(string line, int startIndex)
         {
             var startToken = line[startIndex];
             var start = line[startIndex];
@@ -52,17 +52,17 @@ namespace BazisGUI.Utilities
             }
         }
 
-        private static Token ParseQuotedField(string line, int startIndex, string quote)
+        private Token ParseQuotedField(string line, int startIndex, string quote)
         {
             return ParseField(line, startIndex + 1, quote.ToCharArray(), 2);
         }
 
-        private static Token ParseFieldWithoutQuotes(string line, int startIndex)
+        private Token ParseFieldWithoutQuotes(string line, int startIndex)
         {
             return ParseField(line, startIndex, stopCharsAr, 0);
         }
 
-        private static Token ParseField(string line, int startIndex, char[] stopChars, int quotesNumber)
+        private Token ParseField(string line, int startIndex, char[] stopChars, int quotesNumber)
         {
             var tokenValue = new StringBuilder();
             var quotesInsideNumber = 0;
@@ -102,10 +102,7 @@ namespace BazisGUI.Utilities
                 i++;
             }
 
-            return new Token(tokenValue.ToString(), startIndex,
-tokenValue.Length + quotesNumber + quotesInsideNumber + slashScreen);
-
-
+            return new Token(tokenValue.ToString(), startIndex, tokenValue.Length + quotesNumber + quotesInsideNumber + slashScreen);
         }
     }
 }
