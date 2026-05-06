@@ -31,11 +31,6 @@ namespace BazisGUI.Console
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsoleControl));
-            openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             tlscOut = new System.Windows.Forms.ToolStripContainer();
             rtxbField = new System.Windows.Forms.RichTextBox();
             toolStripEx1 = new ToolStripEx();
@@ -43,6 +38,11 @@ namespace BazisGUI.Console
             toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             btnStartMacro = new System.Windows.Forms.ToolStripButton();
+            openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             toolStripMenuItem32 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem33 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem34 = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,30 +79,6 @@ namespace BazisGUI.Console
             tlscOut.SuspendLayout();
             toolStripEx1.SuspendLayout();
             SuspendLayout();
-            // 
-            // openFileDialog
-            // 
-            openFileDialog.FileName = "openFileDialog";
-            // 
-            // toolStripMenuItem14
-            // 
-            toolStripMenuItem14.Name = "toolStripMenuItem14";
-            resources.ApplyResources(toolStripMenuItem14, "toolStripMenuItem14");
-            // 
-            // toolStripMenuItem15
-            // 
-            toolStripMenuItem15.Name = "toolStripMenuItem15";
-            resources.ApplyResources(toolStripMenuItem15, "toolStripMenuItem15");
-            // 
-            // toolStripMenuItem16
-            // 
-            toolStripMenuItem16.Name = "toolStripMenuItem16";
-            resources.ApplyResources(toolStripMenuItem16, "toolStripMenuItem16");
-            // 
-            // toolStripTextBox1
-            // 
-            toolStripTextBox1.Name = "toolStripTextBox1";
-            resources.ApplyResources(toolStripTextBox1, "toolStripTextBox1");
             // 
             // tlscOut
             // 
@@ -186,7 +162,30 @@ namespace BazisGUI.Console
             resources.ApplyResources(btnStartMacro, "btnStartMacro");
             btnStartMacro.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             btnStartMacro.Name = "btnStartMacro";
-            //btnStartMacro.Click += btnStartMacro_Click;
+            // 
+            // openFileDialog
+            // 
+            openFileDialog.FileName = "openFileDialog";
+            // 
+            // toolStripMenuItem14
+            // 
+            toolStripMenuItem14.Name = "toolStripMenuItem14";
+            resources.ApplyResources(toolStripMenuItem14, "toolStripMenuItem14");
+            // 
+            // toolStripMenuItem15
+            // 
+            toolStripMenuItem15.Name = "toolStripMenuItem15";
+            resources.ApplyResources(toolStripMenuItem15, "toolStripMenuItem15");
+            // 
+            // toolStripMenuItem16
+            // 
+            toolStripMenuItem16.Name = "toolStripMenuItem16";
+            resources.ApplyResources(toolStripMenuItem16, "toolStripMenuItem16");
+            // 
+            // toolStripTextBox1
+            // 
+            toolStripTextBox1.Name = "toolStripTextBox1";
+            resources.ApplyResources(toolStripTextBox1, "toolStripTextBox1");
             // 
             // toolStripMenuItem32
             // 
@@ -366,7 +365,7 @@ namespace BazisGUI.Console
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(tlscOut);
-            HeaderName = resources.GetString("HeaderName");
+            HeaderName = null;
             Name = "ConsoleControl";
             Load += ConsoleControl_Load;
             tlscOut.ContentPanel.ResumeLayout(false);
