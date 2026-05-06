@@ -1900,4 +1900,43 @@
   <data name="Header_frameFunction_CFF_file" xml:space="preserve">
     <value>Файл</value>
   </data>
+  <data name="Header_result_showFields" xml:space="preserve">
+    <value>Показывать поле</value>
+  </data>
+  <data name="Header_result_showNodesValues" xml:space="preserve">
+    <value>Показать значения в узлах</value>
+  </data>
+  <data name="Header_result_showElementsValues" xml:space="preserve">
+    <value>Показать значения в элементах</value>
+  </data>
+  <data name="Header_result_averageValues" xml:space="preserve">
+    <value>Усреднять результаты</value>
+  </data>
+  <data name="Header_result_showScale" xml:space="preserve">
+    <value>Показывать шкалу</value>
+  </data>
+  <data name="Header_result_resultScale" xml:space="preserve">
+    <value>Масштаб</value>
+  </data>
+  <data name="Header_result_clarifyValues" xml:space="preserve">
+    <value>Уточнить значения</value>
+  </data>
+  <data name="Header_result_maxScaleValue" xml:space="preserve">
+    <value>Макс. значение</value>
+  </data>
+  <data name="Header_result_minScaleValue" xml:space="preserve">
+    <value>Мин. значение</value>
+  </data>
+  <data name="Header_result_precision" xml:space="preserve">
+    <value>Точность</value>
+  </data>
+  <data name="Header_result_intervals" xml:space="preserve">
+    <value>Интервалы</value>
+  </data>
+  <data name="Header_result_xPos" xml:space="preserve">
+    <value>Положение шкалы по Х</value>
+  </data>
+  <data name="Header_result_yPos" xml:space="preserve">
+    <value>Положение шкалы по Y</value>
+  </data>
 </root>

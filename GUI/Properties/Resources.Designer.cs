@@ -3292,6 +3292,123 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Average results.
+        /// </summary>
+        internal static string Header_result_averageValues {
+            get {
+                return ResourceManager.GetString("Header_result_averageValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Clarify values.
+        /// </summary>
+        internal static string Header_result_clarifyValues {
+            get {
+                return ResourceManager.GetString("Header_result_clarifyValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Intervals.
+        /// </summary>
+        internal static string Header_result_intervals {
+            get {
+                return ResourceManager.GetString("Header_result_intervals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Max value.
+        /// </summary>
+        internal static string Header_result_maxScaleValue {
+            get {
+                return ResourceManager.GetString("Header_result_maxScaleValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Min value.
+        /// </summary>
+        internal static string Header_result_minScaleValue {
+            get {
+                return ResourceManager.GetString("Header_result_minScaleValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Precision.
+        /// </summary>
+        internal static string Header_result_precision {
+            get {
+                return ResourceManager.GetString("Header_result_precision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Result scale.
+        /// </summary>
+        internal static string Header_result_resultScale {
+            get {
+                return ResourceManager.GetString("Header_result_resultScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show elements values.
+        /// </summary>
+        internal static string Header_result_showElementsValues {
+            get {
+                return ResourceManager.GetString("Header_result_showElementsValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show results fields.
+        /// </summary>
+        internal static string Header_result_showFields {
+            get {
+                return ResourceManager.GetString("Header_result_showFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show nodes values.
+        /// </summary>
+        internal static string Header_result_showNodesValues {
+            get {
+                return ResourceManager.GetString("Header_result_showNodesValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show scale.
+        /// </summary>
+        internal static string Header_result_showScale {
+            get {
+                return ResourceManager.GetString("Header_result_showScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Scale X position on screen.
+        /// </summary>
+        internal static string Header_result_xPos {
+            get {
+                return ResourceManager.GetString("Header_result_xPos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Scale Y position on screen.
+        /// </summary>
+        internal static string Header_result_yPos {
+            get {
+                return ResourceManager.GetString("Header_result_yPos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Added curves.
         /// </summary>
         internal static string Header_surface_addedCurves {

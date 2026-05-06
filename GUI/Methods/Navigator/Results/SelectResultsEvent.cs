@@ -1,4 +1,5 @@
-﻿using BazisGUI.PropertiesPanel;
+﻿using BazisGUI.Properties;
+using BazisGUI.PropertiesPanel;
 using BazisGUI.PropertiesPanel.DataGridViewNumericUpDown;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
@@ -14,6 +15,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        enum ResultPropertyKeys { ShowFields, ShowNodesValues, ShowElementsValues, MergeResultsValues, ShowScale, ResultScale, ClarifyValues, MaxScaleValue, MinScaleValue, ScalePrecision, ScaleIntervals, ScaleXPos, ScaleYPos }
         private void navigator_SelectResultsEvent()
         {
             /*
@@ -32,42 +34,40 @@ namespace BazisGUI
              */
 
             var rows = GetResultsProperties();
-
-
-
-            //var _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, allGroup);
-
             propertiesPanel.DrawTable(rows);
         }
 
         public List<RowProperty> GetResultsProperties()
         {
-            List<RowProperty> rows = new List<RowProperty>();
-
-
-            rows.Add(new RowProperty("Показывать поле", settingsConfig.ShowResultsField));
-            rows.Add(new RowProperty("Показать значения в узлах", settingsConfig.ShowNodeResultsValue));
-            rows.Add(new RowProperty("Показать значения в элементах", settingsConfig.ShowElementsResultsValue));
-            rows.Add(new RowProperty("Усреднять результаты", settingsConfig.MergeResultsValue));
-            rows.Add(new RowProperty("Показывать шкалу", settingsConfig.ShowResultsScale));
+            List<RowProperty> rows = new List<RowProperty>
+            {
+                new RowProperty(ResultPropertyKeys.ShowFields.ToString(), Resources.Header_result_showFields, settingsConfig.ShowResultsField),
+                new RowProperty(ResultPropertyKeys.ShowNodesValues.ToString(), Resources.Header_result_showNodesValues, settingsConfig.ShowNodeResultsValue),
+                new RowProperty(ResultPropertyKeys.ShowElementsValues.ToString(), Resources.Header_result_showElementsValues, settingsConfig.ShowElementsResultsValue),
+                new RowProperty(ResultPropertyKeys.MergeResultsValues.ToString(), Resources.Header_result_averageValues, settingsConfig.MergeResultsValue),
+                new RowProperty(ResultPropertyKeys.ShowScale.ToString(), Resources.Header_result_showScale, settingsConfig.ShowResultsScale)
+            };
 
             if (settingsConfig.ShowResultsScale)
             {
-                rows.Add(new RowProperty("Масштаб", settingsConfig.Scale_scale));
-                rows.Add(new RowProperty("Уточнить значения", settingsConfig.IsScaleMaxMinManual));
+                rows.Add(new RowProperty(ResultPropertyKeys.ResultScale.ToString(), Resources.Header_result_resultScale, settingsConfig.Scale_scale));
+                rows.Add(new RowProperty(ResultPropertyKeys.ClarifyValues.ToString(), Resources.Header_result_clarifyValues, settingsConfig.IsScaleMaxMinManual));
 
                 if (settingsConfig.IsScaleMaxMinManual)
                 {
-                    rows.Add(new RowProperty("Макс. значение", settingsConfig.Scale_MaxValue));
-                    rows.Add(new RowProperty("Мин. значение", settingsConfig.Scale_MinValue));
+                    rows.Add(new RowProperty(ResultPropertyKeys.MaxScaleValue.ToString(), Resources.Header_result_maxScaleValue, settingsConfig.Scale_MaxValue));
+                    rows.Add(new RowProperty(ResultPropertyKeys.MinScaleValue.ToString(), Resources.Header_result_minScaleValue, settingsConfig.Scale_MinValue));
                 }
 
-                rows.Add(new RowProperty("Точность", new NumericUpDownValue(settingsConfig.Scale_Precision, 0, 15, 0, 1)));
-                rows.Add(new RowProperty("Интервалы", new NumericUpDownValue(settingsConfig.Scale_Intervals, 2, 10, 0, 1)));
+                rows.Add(new RowProperty(ResultPropertyKeys.ScalePrecision.ToString(), Resources.Header_result_precision, 
+                    new NumericUpDownValue(settingsConfig.Scale_Precision, 0, 15, 0, 1)));
 
-                rows.Add(new RowProperty("Положение шкалы по Х",
+                rows.Add(new RowProperty(ResultPropertyKeys.ScaleIntervals.ToString(),Resources.Header_result_intervals, 
+                    new NumericUpDownValue(settingsConfig.Scale_Intervals, 2, 10, 0, 1)));
+
+                rows.Add(new RowProperty(ResultPropertyKeys.ScaleXPos.ToString(), Resources.Header_result_xPos,
                     new NumericUpDownValue(settingsConfig.Scale_X_Coord, 0, 2000, 0, 1)));
-                rows.Add(new RowProperty("Положение шкалы по Y",
+                rows.Add(new RowProperty(ResultPropertyKeys.ScaleYPos.ToString(), Resources.Header_result_yPos,
                     new NumericUpDownValue(settingsConfig.Scale_Y_Coord, 0, 2000, 0, 1)));
             }
 

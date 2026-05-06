@@ -2078,4 +2078,43 @@ Create variable?</value>
   <data name="Header_frameFunction_CFF_file" xml:space="preserve">
     <value>File</value>
   </data>
+  <data name="Header_result_showFields" xml:space="preserve">
+    <value>Show results fields</value>
+  </data>
+  <data name="Header_result_showNodesValues" xml:space="preserve">
+    <value>Show nodes values</value>
+  </data>
+  <data name="Header_result_showElementsValues" xml:space="preserve">
+    <value>Show elements values</value>
+  </data>
+  <data name="Header_result_averageValues" xml:space="preserve">
+    <value>Average results</value>
+  </data>
+  <data name="Header_result_showScale" xml:space="preserve">
+    <value>Show scale</value>
+  </data>
+  <data name="Header_result_resultScale" xml:space="preserve">
+    <value>Result scale</value>
+  </data>
+  <data name="Header_result_clarifyValues" xml:space="preserve">
+    <value>Clarify values</value>
+  </data>
+  <data name="Header_result_maxScaleValue" xml:space="preserve">
+    <value>Max value</value>
+  </data>
+  <data name="Header_result_minScaleValue" xml:space="preserve">
+    <value>Min value</value>
+  </data>
+  <data name="Header_result_precision" xml:space="preserve">
+    <value>Precision</value>
+  </data>
+  <data name="Header_result_intervals" xml:space="preserve">
+    <value>Intervals</value>
+  </data>
+  <data name="Header_result_xPos" xml:space="preserve">
+    <value>Scale X position on screen</value>
+  </data>
+  <data name="Header_result_yPos" xml:space="preserve">
+    <value>Scale Y position on screen</value>
+  </data>
 </root>
