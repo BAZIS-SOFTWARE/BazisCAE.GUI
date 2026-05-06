@@ -1882,4 +1882,22 @@ Create variable?</value>
   <data name="Header_projectMesh_elements3D" xml:space="preserve">
     <value>Elements 3D</value>
   </data>
+  <data name="Header_object_object" xml:space="preserve">
+    <value>Object</value>
+  </data>
+  <data name="Header_frameFunction_SPH_width" xml:space="preserve">
+    <value>Width, mm.</value>
+  </data>
+  <data name="Header_frameFunction_CIL_length" xml:space="preserve">
+    <value>Length, mm.</value>
+  </data>
+  <data name="Header_frameFunction_CIL_upperDiam" xml:space="preserve">
+    <value>Upper diam, mm.</value>
+  </data>
+  <data name="Header_frameFunction_CIL_bottomDiam" xml:space="preserve">
+    <value>Bottom diam, mm.</value>
+  </data>
+  <data name="Header_frameFunction_CFF_file" xml:space="preserve">
+    <value>File</value>
+  </data>
 </root>

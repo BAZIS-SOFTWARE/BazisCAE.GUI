@@ -26,18 +26,32 @@ namespace BazisGUI
 
                 List<RowProperty> rows;
 
-                if (data.Kind == DataKind.Материал)
-                    rows = GetMatProperty((MatData)data, _mats, groups, _funcs);
-                else if (data.Kind == DataKind.Среда)
-                    rows = GetMediaProperty((MediaData)data, groups, _funcs);
-                else if (data.Kind == DataKind.Нагрев)
-                    rows = GetCondProperty((HeatData)data, groups, _funcs);
-                else if (data.Kind == DataKind.Закрепление)
-                    rows = GetClampProperty((ClampData)data, groups, _funcs);
-                else if (data.Kind == DataKind.Нагрузка)
-                    rows = GetLoadProperty((LoadData)data, _funcs, groups);
-                else throw new NotImplementedException(Resources.UndefinedConditionTypeExc);
-        
+                switch (data.Kind)
+                {
+                    case DataKind.Материал:
+                        rows = GetMatProperty((MatData)data, _mats, groups, _funcs);
+                        break;
+
+                    case DataKind.Среда:
+                        rows = GetMediaProperty((MediaData)data, groups, _funcs);
+                        break;
+
+                    case DataKind.Нагрев:
+                        rows = GetCondProperty((HeatData)data, groups, _funcs);
+                        break;
+
+                    case DataKind.Закрепление:
+                        rows = GetClampProperty((ClampData)data, groups, _funcs);
+                        break;
+
+                    case DataKind.Нагрузка:
+                        rows = GetLoadProperty((LoadData)data, _funcs, groups);
+                        break;
+
+                    default:
+                        throw new NotImplementedException(Resources.UndefinedConditionTypeExc);
+                }
+
                 propertiesPanel.DrawTable(rows);
 
                 foreach (var item in project.GetAllModelSetsInfo()) // возврат цвета всем объектам, которые были выделены

@@ -2887,6 +2887,51 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на File.
+        /// </summary>
+        internal static string Header_frameFunction_CFF_file {
+            get {
+                return ResourceManager.GetString("Header_frameFunction_CFF_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Bottom diam, mm..
+        /// </summary>
+        internal static string Header_frameFunction_CIL_bottomDiam {
+            get {
+                return ResourceManager.GetString("Header_frameFunction_CIL_bottomDiam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Length, mm..
+        /// </summary>
+        internal static string Header_frameFunction_CIL_length {
+            get {
+                return ResourceManager.GetString("Header_frameFunction_CIL_length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Upper diam, mm..
+        /// </summary>
+        internal static string Header_frameFunction_CIL_upperDiam {
+            get {
+                return ResourceManager.GetString("Header_frameFunction_CIL_upperDiam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Width, mm..
+        /// </summary>
+        internal static string Header_frameFunction_SPH_width {
+            get {
+                return ResourceManager.GetString("Header_frameFunction_SPH_width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Algorithm 2D.
         /// </summary>
         internal static string Header_geo_algorithm2D {
@@ -3157,7 +3202,7 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Объект.
+        ///   Ищет локализованную строку, похожую на Object.
         /// </summary>
         internal static string Header_object_object {
             get {
