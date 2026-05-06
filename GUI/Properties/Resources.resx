@@ -1991,4 +1991,52 @@ Create variable?</value>
   <data name="Header_groups_createCond" xml:space="preserve">
     <value>Create condition</value>
   </data>
+  <data name="Header_point_number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Header_point_elementsSize" xml:space="preserve">
+    <value>Elements size</value>
+  </data>
+  <data name="Header_element_number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Header_element_elementLevel" xml:space="preserve">
+    <value>Elements order</value>
+  </data>
+  <data name="Header_element_includedNodes" xml:space="preserve">
+    <value>Included elements</value>
+  </data>
+  <data name="Header_node_number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Header_node_cordX" xml:space="preserve">
+    <value>Coordinate X</value>
+  </data>
+  <data name="Header_node_cordY" xml:space="preserve">
+    <value>Coordinate Y</value>
+  </data>
+  <data name="Header_node_cordZ" xml:space="preserve">
+    <value>Coordinate Z</value>
+  </data>
+  <data name="Header_node_linkedElements" xml:space="preserve">
+    <value>Linked elements</value>
+  </data>
+  <data name="Header_volume_number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Header_volume_meshType" xml:space="preserve">
+    <value>Mesh type</value>
+  </data>
+  <data name="Header_volume_TransitionGradientDegree" xml:space="preserve">
+    <value>Transition gradient degree</value>
+  </data>
+  <data name="Header_volume_layerThickness" xml:space="preserve">
+    <value>Layer thickness</value>
+  </data>
+  <data name="Header_volume_surfaceElementsSize" xml:space="preserve">
+    <value>Surface elements size</value>
+  </data>
+  <data name="Header_volume_centerElementsSize" xml:space="preserve">
+    <value>Center elements size</value>
+  </data>
 </root>

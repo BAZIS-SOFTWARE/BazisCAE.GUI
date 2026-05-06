@@ -2851,6 +2851,33 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Elements order.
+        /// </summary>
+        internal static string Header_element_elementLevel {
+            get {
+                return ResourceManager.GetString("Header_element_elementLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Included elements.
+        /// </summary>
+        internal static string Header_element_includedNodes {
+            get {
+                return ResourceManager.GetString("Header_element_includedNodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Number.
+        /// </summary>
+        internal static string Header_element_number {
+            get {
+                return ResourceManager.GetString("Header_element_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на File.
         /// </summary>
         internal static string Header_File {
@@ -3085,6 +3112,69 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Coordinate X.
+        /// </summary>
+        internal static string Header_node_cordX {
+            get {
+                return ResourceManager.GetString("Header_node_cordX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Coordinate Y.
+        /// </summary>
+        internal static string Header_node_cordY {
+            get {
+                return ResourceManager.GetString("Header_node_cordY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Coordinate Z.
+        /// </summary>
+        internal static string Header_node_cordZ {
+            get {
+                return ResourceManager.GetString("Header_node_cordZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Linked elements.
+        /// </summary>
+        internal static string Header_node_linkedElements {
+            get {
+                return ResourceManager.GetString("Header_node_linkedElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Number.
+        /// </summary>
+        internal static string Header_node_number {
+            get {
+                return ResourceManager.GetString("Header_node_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Elements size.
+        /// </summary>
+        internal static string Header_point_elementsSize {
+            get {
+                return ResourceManager.GetString("Header_point_elementsSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Number.
+        /// </summary>
+        internal static string Header_point_number {
+            get {
+                return ResourceManager.GetString("Header_point_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Added curves.
         /// </summary>
         internal static string Header_surface_addedCurves {
@@ -3171,6 +3261,60 @@ namespace BazisGUI.Properties {
         internal static string Header_termalTask_maxTempertureValue {
             get {
                 return ResourceManager.GetString("Header_termalTask_maxTempertureValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Center elements size.
+        /// </summary>
+        internal static string Header_volume_centerElementsSize {
+            get {
+                return ResourceManager.GetString("Header_volume_centerElementsSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Layer thickness.
+        /// </summary>
+        internal static string Header_volume_layerThickness {
+            get {
+                return ResourceManager.GetString("Header_volume_layerThickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Mesh type.
+        /// </summary>
+        internal static string Header_volume_meshType {
+            get {
+                return ResourceManager.GetString("Header_volume_meshType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Number.
+        /// </summary>
+        internal static string Header_volume_number {
+            get {
+                return ResourceManager.GetString("Header_volume_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Surface elements size.
+        /// </summary>
+        internal static string Header_volume_surfaceElementsSize {
+            get {
+                return ResourceManager.GetString("Header_volume_surfaceElementsSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Transition gradient degree.
+        /// </summary>
+        internal static string Header_volume_TransitionGradientDegree {
+            get {
+                return ResourceManager.GetString("Header_volume_TransitionGradientDegree", resourceCulture);
             }
         }
         

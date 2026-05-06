@@ -1813,4 +1813,52 @@
   <data name="Header_groups_createCond" xml:space="preserve">
     <value>Создать условие</value>
   </data>
+  <data name="Header_point_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_point_elementsSize" xml:space="preserve">
+    <value>Размер элементов</value>
+  </data>
+  <data name="Header_element_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_element_elementLevel" xml:space="preserve">
+    <value>Порядок элемента</value>
+  </data>
+  <data name="Header_element_includedNodes" xml:space="preserve">
+    <value>Входящие узлы</value>
+  </data>
+  <data name="Header_node_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_node_cordX" xml:space="preserve">
+    <value>Координата X</value>
+  </data>
+  <data name="Header_node_cordY" xml:space="preserve">
+    <value>Координата Y</value>
+  </data>
+  <data name="Header_node_cordZ" xml:space="preserve">
+    <value>Координата Z</value>
+  </data>
+  <data name="Header_node_linkedElements" xml:space="preserve">
+    <value>Связанные элементы</value>
+  </data>
+  <data name="Header_volume_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_volume_meshType" xml:space="preserve">
+    <value>Вид сетки</value>
+  </data>
+  <data name="Header_volume_TransitionGradientDegree" xml:space="preserve">
+    <value>Степень градиента перехода</value>
+  </data>
+  <data name="Header_volume_layerThickness" xml:space="preserve">
+    <value>Толщина слоя</value>
+  </data>
+  <data name="Header_volume_surfaceElementsSize" xml:space="preserve">
+    <value>Размер элементов на поверхности</value>
+  </data>
+  <data name="Header_volume_centerElementsSize" xml:space="preserve">
+    <value>Размер элементов в центре</value>
+  </data>
 </root>
