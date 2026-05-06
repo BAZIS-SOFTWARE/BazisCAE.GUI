@@ -1,6 +1,6 @@
 ﻿namespace UserControlsEx
 {
-    partial class DataGridViewCellEx
+    partial class DataGridViewRowEx
     {
         /// <summary>
         /// Обязательная переменная конструктора.

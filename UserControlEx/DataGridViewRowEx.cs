@@ -9,10 +9,10 @@ using System.Windows.Forms;
 
 namespace UserControlsEx
 {
-    public partial class DataGridViewCellEx : DataGridViewCell
+    public partial class DataGridViewRowEx : DataGridViewRow
     {
         public string Key { get; set; }
-        public DataGridViewCellEx()
+        public DataGridViewRowEx()
         {
             InitializeComponent();
         }

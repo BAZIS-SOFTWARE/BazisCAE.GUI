@@ -22,6 +22,7 @@ namespace BazisGUI.PropertiesPanel
 
         public RowProperty(string key, string localizedHeader, object value, bool isReadOnly = false)
         {
+            Key = key;
             LocalizedHeader = localizedHeader;
             Value = value;
             IsReadOnly = isReadOnly;
