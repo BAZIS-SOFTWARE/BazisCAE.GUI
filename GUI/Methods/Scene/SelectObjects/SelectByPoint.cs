@@ -141,30 +141,38 @@ namespace BazisGUI
         private void CreateObjectProperties(ISetInfo setName, int number)
         {
 
-            var rows = new List<RowProperty>();
-            rows.Add(new RowProperty("Объект", setName.ObjType, true));
+            var rows = new List<RowProperty> 
+            { 
+                new RowProperty(ObjectPropertyKey.Type.ToString(),
+                Resources.Header_object_object,
+                setName.ObjType,
+                true)
+            };
 
-            if (setName.ObjType == ObjType.Точка)
-                rows.AddRange(GetPointProperty(number));
-
-            else if (setName.ObjType == ObjType.Узел)
+            switch (setName.ObjType)
             {
-                var node = (Node)project.GetModelObject(ObjType.Узел, number);
-                rows.AddRange(GetNodeProperty(node));
-            }
+                case ObjType.Точка:
+                    rows.AddRange(GetPointProperty(number));
+                    break;
 
+                case ObjType.Узел:
+                    var node = (Node)project.GetModelObject(ObjType.Узел, number);
+                    rows.AddRange(GetNodeProperty(node));
+                    break;
 
-            else if (setName.ObjType == ObjType.Элемент1D |
-                setName.ObjType == ObjType.Элемент2D |
-                setName.ObjType == ObjType.Элемент3D)
-            {
-                var element = project.GetAllModelElements().First(x => x.Number == number);
-                rows.AddRange(GetElementProperty(element));
+                case ObjType.Элемент1D | ObjType.Элемент2D | ObjType.Элемент3D:
+                    var element = project.GetAllModelElements().First(x => x.Number == number);
+                    rows.AddRange(GetElementProperty(element));
+                    break;
+
+                case ObjType.Кривая:
+                    rows.AddRange(GetCurveProperties(number));
+                    break;
+
+                case ObjType.Поверхность:
+                    rows.AddRange(GetSurfaceProperties(number));
+                    break;
             }
-            else if (setName.ObjType == ObjType.Кривая)
-                rows.AddRange(GetCurveProperties(number));
-            else if (setName.ObjType == ObjType.Поверхность)
-                rows.AddRange(GetSurfaceProperties(number));
 
             var objInfo = $"{number} {setName.ObjType}";
             propertiesPanel.DrawTable(rows, objInfo, 1);
@@ -211,16 +219,8 @@ namespace BazisGUI
         {
             if (scrPoints.Count == 1)
             {
-                if (scrPoints[0]._x > selectionPoint._x - 10
-                                & scrPoints[0]._x < selectionPoint._x + 5
-                                &&
-                                scrPoints[0]._y > selectionPoint._y - 5
-                                & scrPoints[0]._y < selectionPoint._y + 5)
-                {
-                    return true;
-                }
-                else
-                    return false;
+                return scrPoints[0]._x > selectionPoint._x - 10 & scrPoints[0]._x < selectionPoint._x + 5
+                    && scrPoints[0]._y > selectionPoint._y - 5 & scrPoints[0]._y < selectionPoint._y + 5;
             }
             else
             {
@@ -230,7 +230,7 @@ namespace BazisGUI
                 {
                     var creator = new Hull2DCreator();
                     if (creator.TryCreateHullGraham(scrPoints, out Polygon polygon))
-                        return polygon.IsPointInsidePolygon(selectionPoint) ? true : false;
+                        return polygon.IsPointInsidePolygon(selectionPoint);
                 }
                 return false;
             }

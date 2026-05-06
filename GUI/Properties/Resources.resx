@@ -2039,4 +2039,28 @@ Create variable?</value>
   <data name="Header_volume_centerElementsSize" xml:space="preserve">
     <value>Center elements size</value>
   </data>
+  <data name="Header_projectMesh_nodes" xml:space="preserve">
+    <value>Nodes</value>
+  </data>
+  <data name="Header_projectMesh_elements1D" xml:space="preserve">
+    <value>Elements 1D</value>
+  </data>
+  <data name="Header_projectMesh_elements2D" xml:space="preserve">
+    <value>Elements 2D</value>
+  </data>
+  <data name="Header_projectMesh_show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Header_projectMesh_hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Header_projectMesh_delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Header_projectMesh_elements3D" xml:space="preserve">
+    <value>Elements 3D</value>
+  </data>
+  <data name="Header_object_object" xml:space="preserve">
+    <value>Объект</value>
+  </data>
 </root>

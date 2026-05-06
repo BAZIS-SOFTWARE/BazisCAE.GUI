@@ -1861,4 +1861,25 @@
   <data name="Header_volume_centerElementsSize" xml:space="preserve">
     <value>Размер элементов в центре</value>
   </data>
+  <data name="Header_projectMesh_nodes" xml:space="preserve">
+    <value>Узлы</value>
+  </data>
+  <data name="Header_projectMesh_elements1D" xml:space="preserve">
+    <value>Элементы 1D</value>
+  </data>
+  <data name="Header_projectMesh_elements2D" xml:space="preserve">
+    <value>Элементы 2D</value>
+  </data>
+  <data name="Header_projectMesh_show" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Header_projectMesh_hide" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="Header_projectMesh_delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Header_projectMesh_elements3D" xml:space="preserve">
+    <value>Элементы 3D</value>
+  </data>
 </root>

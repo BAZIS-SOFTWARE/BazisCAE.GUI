@@ -3157,6 +3157,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Объект.
+        /// </summary>
+        internal static string Header_object_object {
+            get {
+                return ResourceManager.GetString("Header_object_object", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Elements size.
         /// </summary>
         internal static string Header_point_elementsSize {
@@ -3171,6 +3180,69 @@ namespace BazisGUI.Properties {
         internal static string Header_point_number {
             get {
                 return ResourceManager.GetString("Header_point_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete.
+        /// </summary>
+        internal static string Header_projectMesh_delete {
+            get {
+                return ResourceManager.GetString("Header_projectMesh_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Elements 1D.
+        /// </summary>
+        internal static string Header_projectMesh_elements1D {
+            get {
+                return ResourceManager.GetString("Header_projectMesh_elements1D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Elements 2D.
+        /// </summary>
+        internal static string Header_projectMesh_elements2D {
+            get {
+                return ResourceManager.GetString("Header_projectMesh_elements2D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Elements 3D.
+        /// </summary>
+        internal static string Header_projectMesh_elements3D {
+            get {
+                return ResourceManager.GetString("Header_projectMesh_elements3D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Hide.
+        /// </summary>
+        internal static string Header_projectMesh_hide {
+            get {
+                return ResourceManager.GetString("Header_projectMesh_hide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Nodes.
+        /// </summary>
+        internal static string Header_projectMesh_nodes {
+            get {
+                return ResourceManager.GetString("Header_projectMesh_nodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show.
+        /// </summary>
+        internal static string Header_projectMesh_show {
+            get {
+                return ResourceManager.GetString("Header_projectMesh_show", resourceCulture);
             }
         }
         
