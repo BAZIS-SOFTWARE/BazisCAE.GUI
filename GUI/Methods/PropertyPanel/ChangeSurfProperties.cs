@@ -12,31 +12,32 @@ namespace BazisGUI
     {
         private void ChangeSurfaceProperty(PropertyChangedEventArgs obj, int number, ref bool flag)
         {
-            var key = Enum.Parse<SurfacePropertyKeys>(obj.Key);
-
-            if (key == SurfacePropertyKeys.MeshType)
-                HandleMeshTypeParameter(obj.NewValue, number, ref flag);
-
-            else if (key == SurfacePropertyKeys.AddedCurves)
-                HandleAddedCurvesParameter(obj.NewValue, number);
-
-            else
+            if (Enum.TryParse(obj.Key, out SurfacePropertyKeys key))
             {
-                var attributes = GmshController.GetTransfiniteSurface(number);
+                if (key == SurfacePropertyKeys.MeshType)
+                    HandleMeshTypeParameter(obj.NewValue, number, ref flag);
 
-                if (key == SurfacePropertyKeys.Quadratization)
-                    HandleQuadratizationParameter(obj.NewValue, number);
+                else if (key == SurfacePropertyKeys.AddedCurves)
+                    HandleAddedCurvesParameter(obj.NewValue, number);
 
-                else if (key == SurfacePropertyKeys.CornerPoints)
-                    attributes[0] = obj.NewValue;
+                else
+                {
+                    var attributes = GmshController.GetTransfiniteSurface(number);
 
-                else if (key == SurfacePropertyKeys.RibersOrientation)
-                    attributes[1] = obj.NewValue;
+                    if (key == SurfacePropertyKeys.Quadratization)
+                        HandleQuadratizationParameter(obj.NewValue, number);
 
-                var arrangement = attributes[1].ToEnum<Arrangement>();
-                var points = attributes[0].Split(',').Select(int.Parse);
+                    else if (key == SurfacePropertyKeys.CornerPoints)
+                        attributes[0] = obj.NewValue;
 
-                project.GmshController.SetTransfiniteSurface(number, arrangement, points.ToArray());
+                    else if (key == SurfacePropertyKeys.RibersOrientation)
+                        attributes[1] = obj.NewValue;
+
+                    var arrangement = attributes[1].ToEnum<Arrangement>();
+                    var points = attributes[0].Split(',').Select(int.Parse);
+
+                    project.GmshController.SetTransfiniteSurface(number, arrangement, points.ToArray());
+                }
             }
         }
 

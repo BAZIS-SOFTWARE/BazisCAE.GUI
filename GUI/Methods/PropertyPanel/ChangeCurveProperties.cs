@@ -15,21 +15,22 @@ namespace BazisGUI
             if (attributes.Length == 0)
                 attributes = new string[] { "0", MeshType.Progression.ToString(), "1" };
 
-            var key = Enum.Parse<CurvePropertyKeys>(obj.Key);
-
-            switch (key)
+            if (Enum.TryParse(obj.Key, out CurvePropertyKeys key))
             {
-                case CurvePropertyKeys.Algorithm:
-                    attributes[1] = obj.NewValue;
-                    break;
-                case CurvePropertyKeys.PointsNumber:
-                    attributes[0] = obj.NewValue;
-                    break;
-                case CurvePropertyKeys.Coefficient:
-                    attributes[2] = obj.NewValue;
-                    break;
+                switch (key)
+                {
+                    case CurvePropertyKeys.Algorithm:
+                        attributes[1] = obj.NewValue;
+                        break;
+                    case CurvePropertyKeys.PointsNumber:
+                        attributes[0] = obj.NewValue;
+                        break;
+                    case CurvePropertyKeys.Coefficient:
+                        attributes[2] = obj.NewValue;
+                        break;
+                }
+                GmshController.Gmsh.Model.SetAttribute($"transfinite curve {number}", attributes);
             }
-            GmshController.Gmsh.Model.SetAttribute($"transfinite curve {number}", attributes);
 
             // записываем трансфиницию кривой
             var points = int.Parse(attributes[0]);

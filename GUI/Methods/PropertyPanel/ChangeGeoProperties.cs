@@ -12,34 +12,35 @@ namespace BazisGUI
     {
         private void ChangeGeoProperties(PropertyChangedEventArgs obj)
         {
-            var key = Enum.Parse<GeoPropertyKeys>(obj.Key);
-
-            switch (key)
+            if (Enum.TryParse(obj.Key, out GeoPropertyKeys key))
             {
-                case GeoPropertyKeys.MinSize:
-                    GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(obj.NewValue));
-                    break;
-                case GeoPropertyKeys.MaxSize:
-                    GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", double.Parse(obj.NewValue));
-                    break;
-                case GeoPropertyKeys.Algorithm2D:
-                    GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)obj.NewValue.ToEnum<MeshAlgorithm2D>());
-                    break;
-                case GeoPropertyKeys.Algorithm3D:
-                    GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm3D", (double)obj.NewValue.ToEnum<MeshAlgorithm3D>());
-                    break;
-                case GeoPropertyKeys.ScaleCoef:
-                    GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", double.Parse(obj.NewValue));
-                    break;
-                case GeoPropertyKeys.ShowPointsOnCurves:
-                    settingsConfig.ShowNodesOnCurves = bool.Parse(obj.NewValue);
-                    ShowNodesOnCurves(settingsConfig.ShowNodesOnCurves);
-                    break;
-                case GeoPropertyKeys.ShowMeshOnGeneration:
-                    settingsConfig.ShowAllMeshWhenGeneration = bool.Parse(obj.NewValue);
-                    break;
+                switch (key)
+                {
+                    case GeoPropertyKeys.MinSize:
+                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(obj.NewValue));
+                        break;
+                    case GeoPropertyKeys.MaxSize:
+                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", double.Parse(obj.NewValue));
+                        break;
+                    case GeoPropertyKeys.Algorithm2D:
+                        GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)obj.NewValue.ToEnum<MeshAlgorithm2D>());
+                        break;
+                    case GeoPropertyKeys.Algorithm3D:
+                        GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm3D", (double)obj.NewValue.ToEnum<MeshAlgorithm3D>());
+                        break;
+                    case GeoPropertyKeys.ScaleCoef:
+                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", double.Parse(obj.NewValue));
+                        break;
+                    case GeoPropertyKeys.ShowPointsOnCurves:
+                        settingsConfig.ShowNodesOnCurves = bool.Parse(obj.NewValue);
+                        ShowNodesOnCurves(settingsConfig.ShowNodesOnCurves);
+                        break;
+                    case GeoPropertyKeys.ShowMeshOnGeneration:
+                        settingsConfig.ShowAllMeshWhenGeneration = bool.Parse(obj.NewValue);
+                        break;
+                }
             }
-
+           
             /*
              * TO DO
              * Реализовать изменение свойств в ядре gmsh для построения сетки
