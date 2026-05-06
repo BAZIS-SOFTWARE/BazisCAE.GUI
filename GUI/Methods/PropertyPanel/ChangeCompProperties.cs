@@ -30,59 +30,62 @@ namespace BazisGUI
             else if (parameters is TermalParameters tmp)
                 ChangeTermalTask(obj, tmp);
 
-            var key = Enum.Parse<CompPropertyKeys>(obj.Key);
-            switch (key)
+            if (Enum.TryParse(obj.Key, out CompPropertyKeys key))
             {
-                case CompPropertyKeys.Execute:
-                    // TODO: проверить корректность работы с данными при их смене
-                    var isExe = bool.Parse(obj.NewValue);
-                    var selectedInstruction = navigator.SelectedNode;
-                    selectedInstruction.Text = selectedInstruction.Text.Replace(isExe ? Properties.Resources.Пропустить : Properties.Resources.Выполнить, isExe ? Properties.Resources.Выполнить : Properties.Resources.Пропустить);
-                    nodeText = selectedInstruction.Text;
-                    break;
-                case CompPropertyKeys.Algorithm:
-                    parameters.SolverSettings.Solver = obj.NewValue;
-                    break;
-                case CompPropertyKeys.SolveIterations:
-                    parameters.SolverSettings.MaxIter = int.Parse(obj.NewValue);
-                    break;
-                case CompPropertyKeys.SolveAccuracy:
-                    parameters.SolverSettings.Precision = ParseFloatValue(obj.NewValue);
-                    break;
-                case CompPropertyKeys.RelaxationCoef:
-                    parameters.SolverSettings.Relaxation = ParseFloatValue(obj.NewValue);
-                    break;
-                case CompPropertyKeys.MaxRelaxationCoef:
-                    parameters.SolverSettings.MaxRelaxation = ParseFloatValue(obj.NewValue);
-                    break;
-                case CompPropertyKeys.Priority:
-                    parameters.SolverSettings.Priority = obj.NewValue;
-                    break;
-                case CompPropertyKeys.IterationOnStep:
-                    parameters.Iterations = int.Parse(obj.NewValue);
-                    break;
-                case CompPropertyKeys.SaveRate:
-                    parameters.SaveRate = int.Parse(obj.NewValue);
-                    break;
-                case CompPropertyKeys.InitTemp:
-                    parameters.InitTemp = ParseFloatValue(obj.NewValue);
-                    break;
-                case CompPropertyKeys.StartTime:
-                    parameters.TimeSettings.StartTime = ParseFloatValue(obj.NewValue);
-                    break;
-                case CompPropertyKeys.StopTime:
-                    parameters.TimeSettings.StopTime = ParseFloatValue(obj.NewValue);
-                    break;
-                case CompPropertyKeys.InitialSolveStep:
-                    parameters.TimeSettings.InitTimeStep = ParseFloatValue(obj.NewValue);
-                    break;
-                case CompPropertyKeys.MinSolveStep:
-                    parameters.TimeSettings.MinTimeStep = ParseFloatValue(obj.NewValue);
-                    break;
-                case CompPropertyKeys.MaxSolveStep:
-                    parameters.TimeSettings.MaxTimeStep = ParseFloatValue(obj.NewValue);
-                    break;
+                switch (key)
+                {
+                    case CompPropertyKeys.Execute:
+                        // TODO: проверить корректность работы с данными при их смене
+                        var isExe = bool.Parse(obj.NewValue);
+                        var selectedInstruction = navigator.SelectedNode;
+                        selectedInstruction.Text = selectedInstruction.Text.Replace(isExe ? Properties.Resources.Пропустить : Properties.Resources.Выполнить, isExe ? Properties.Resources.Выполнить : Properties.Resources.Пропустить);
+                        nodeText = selectedInstruction.Text;
+                        break;
+                    case CompPropertyKeys.Algorithm:
+                        parameters.SolverSettings.Solver = obj.NewValue;
+                        break;
+                    case CompPropertyKeys.SolveIterations:
+                        parameters.SolverSettings.MaxIter = int.Parse(obj.NewValue);
+                        break;
+                    case CompPropertyKeys.SolveAccuracy:
+                        parameters.SolverSettings.Precision = ParseFloatValue(obj.NewValue);
+                        break;
+                    case CompPropertyKeys.RelaxationCoef:
+                        parameters.SolverSettings.Relaxation = ParseFloatValue(obj.NewValue);
+                        break;
+                    case CompPropertyKeys.MaxRelaxationCoef:
+                        parameters.SolverSettings.MaxRelaxation = ParseFloatValue(obj.NewValue);
+                        break;
+                    case CompPropertyKeys.Priority:
+                        parameters.SolverSettings.Priority = obj.NewValue;
+                        break;
+                    case CompPropertyKeys.IterationOnStep:
+                        parameters.Iterations = int.Parse(obj.NewValue);
+                        break;
+                    case CompPropertyKeys.SaveRate:
+                        parameters.SaveRate = int.Parse(obj.NewValue);
+                        break;
+                    case CompPropertyKeys.InitTemp:
+                        parameters.InitTemp = ParseFloatValue(obj.NewValue);
+                        break;
+                    case CompPropertyKeys.StartTime:
+                        parameters.TimeSettings.StartTime = ParseFloatValue(obj.NewValue);
+                        break;
+                    case CompPropertyKeys.StopTime:
+                        parameters.TimeSettings.StopTime = ParseFloatValue(obj.NewValue);
+                        break;
+                    case CompPropertyKeys.InitialSolveStep:
+                        parameters.TimeSettings.InitTimeStep = ParseFloatValue(obj.NewValue);
+                        break;
+                    case CompPropertyKeys.MinSolveStep:
+                        parameters.TimeSettings.MinTimeStep = ParseFloatValue(obj.NewValue);
+                        break;
+                    case CompPropertyKeys.MaxSolveStep:
+                        parameters.TimeSettings.MaxTimeStep = ParseFloatValue(obj.NewValue);
+                        break;
+                }
             }
+            
             SaveGeneralParametersToFile(parameters, nodeText);
 
             //перерисовывает панель свойств если был нажат какой либо чек бокс

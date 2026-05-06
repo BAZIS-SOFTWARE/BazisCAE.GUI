@@ -145,7 +145,8 @@ namespace BazisGUI
                     navigator.DrawNodeFrozen = true;
                     navigator.BeginUpdate();
 
-                    navigator.SelectedNode.Text = cond.ToString();
+                    var parts = cond.ToString().Split(" : ");
+                    navigator.SelectedNode.Text = $"{Localization.Localization.GetNavigatorNodeNameLocalization(nodeName)} : {parts[1]}";
 
                     navigator.EndUpdate();
                     navigator.DrawNodeFrozen = false;

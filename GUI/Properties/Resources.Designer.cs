@@ -1364,6 +1364,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Create or load project before.
+        /// </summary>
+        internal static string CreateTaskWithoutProjectExc {
+            get {
+                return ResourceManager.GetString("CreateTaskWithoutProjectExc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Incorrectly specified plane coordinates.
         /// </summary>
         internal static string CrossSectionControl_InvalidSurfaceCoordsSetException {

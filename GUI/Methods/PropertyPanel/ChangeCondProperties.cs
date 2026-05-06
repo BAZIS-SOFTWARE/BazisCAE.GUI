@@ -59,7 +59,7 @@ namespace BazisGUI
                 }
             }
 
-            if (Enum.TryParse<LocalFramePropertyKeys>(obj.Key, out var localFrameKey))
+            else if (Enum.TryParse<LocalFramePropertyKeys>(obj.Key, out var localFrameKey))
             {
                 switch (localFrameKey)
                 {

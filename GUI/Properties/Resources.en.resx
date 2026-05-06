@@ -1984,4 +1984,7 @@ Create variable?</value>
   <data name="LoadPythonFile_ВыберитеPythonФайл" xml:space="preserve">
     <value>Select python file</value>
   </data>
+  <data name="CreateTaskWithoutProjectExc" xml:space="preserve">
+    <value>Create or load project</value>
+  </data>
 </root>

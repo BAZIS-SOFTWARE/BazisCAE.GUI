@@ -1984,4 +1984,7 @@
   <data name="LoadPythonFile_ВыберитеPythonФайл" xml:space="preserve">
     <value>Выберите Python файл</value>
   </data>
+  <data name="CreateTaskWithoutProjectExc" xml:space="preserve">
+    <value>Создайте или загрузите проект или сетку</value>
+  </data>
 </root>
