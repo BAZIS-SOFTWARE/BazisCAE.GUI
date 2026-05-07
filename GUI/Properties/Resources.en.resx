@@ -2008,4 +2008,7 @@ Create variable?</value>
   <data name="NavigatorControl_headerName_text" xml:space="preserve">
     <value>Navigator</value>
   </data>
+  <data name="Header_volume_volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
 </root>

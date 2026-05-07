@@ -3706,6 +3706,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Volume.
+        /// </summary>
+        internal static string Header_volume_volume {
+            get {
+                return ResourceManager.GetString("Header_volume_volume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Properties.
         /// </summary>
         internal static string HeaderName {

@@ -21,11 +21,12 @@ namespace BazisGUI
             {
                 if (key == VolumePropertyKeys.MeshType)
                 {
+                    var value = Enum.Parse<VolGenMeshTypes>(obj.NewValue);
                     flag = true;
-                    if (obj.NewValue == "регулярная")
+                    if (value == VolGenMeshTypes.Regular)
                         GmshController.SetTransfiniteVolume(number);
 
-                    else if (obj.NewValue == "градиентная")
+                    else if (value == VolGenMeshTypes.Gradient)
                         GmshController.SetGradientVolume(number, 1, 1, 1, 10);
 
                     else

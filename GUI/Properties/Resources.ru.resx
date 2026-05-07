@@ -2008,4 +2008,7 @@
   <data name="NavigatorControl_headerName_text" xml:space="preserve">
     <value>Навигатор</value>
   </data>
+  <data name="Header_volume_volume" xml:space="preserve">
+    <value>Объем</value>
+  </data>
 </root>
