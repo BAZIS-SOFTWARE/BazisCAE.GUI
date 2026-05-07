@@ -22,6 +22,7 @@ namespace BazisGUI
             { "Move node",GenCmd.MoveNodes},
             { "Move mesh",GenCmd.MoveMesh},
             { "Rotate mesh",GenCmd.RotateMesh},
+            { "Generate mesh",GenCmd.GenerateMesh},
             { "Find free nodes",GenCmd.FindFreeNodes},
             { "Find Coincident",GenCmd.FindCoincident},
             { "Find 3D elements",GenCmd.FindVolElems},
@@ -66,7 +67,8 @@ namespace BazisGUI
             { GenCmd.CreateSurface, new[] { "curves forming the contour", "curve#1,curve#2,curve#3" } },
             { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve", "point", "step", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
-            { GenCmd.Exit,new string[] { } }
+            { GenCmd.Exit, Array.Empty<string>() },
+            { GenCmd.GenerateMesh, Array.Empty<string>()}
         };
 
         private void PrintAllCommands()
@@ -81,7 +83,6 @@ namespace BazisGUI
         }
         private async Task<int> ExecuteCommand(string line)
         {
-           // var parser = new FieldsParser();
             var cmds = FieldsParser.ParseLine(line);
             var number = -1;
             if (cmds.Count != 0)
@@ -169,6 +170,9 @@ namespace BazisGUI
                         break;
                     case GenCmd.CreatePointProjectionOntoCurve:
                         number = GeometryParserEventHandler(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]);
+                        break;
+                    case GenCmd.GenerateMesh:
+                        создать3DСеткуToolStripMenuItem_Click(null, EventArgs.Empty);
                         break;
                 }
             }

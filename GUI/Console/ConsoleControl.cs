@@ -176,7 +176,9 @@ namespace BazisGUI.Console
                         }
 
                         newLine = ReplaceVariables(line, variables);
-                        newLine = newLine.Split('=')[1].Trim();
+                        var parts = newLine.Split('=');
+                        if(parts.Length == 2)
+                            newLine = parts[1].Trim();
                     }
                     else newLine = line;
                     var number = ConsoleCommandEnteredEvent?.Invoke(newLine).Result;

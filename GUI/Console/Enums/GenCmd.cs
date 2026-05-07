@@ -28,6 +28,7 @@
         CreatePointProjectionOntoPlane,
         CreateSurface,
         ExtrudeCurve,
-        ExtrudeRotate
+        ExtrudeRotate,
+        GenerateMesh
     }
 }
