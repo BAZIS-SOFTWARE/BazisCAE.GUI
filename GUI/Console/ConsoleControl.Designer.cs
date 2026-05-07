@@ -366,7 +366,7 @@ namespace BazisGUI.Console
             resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(tlscOut);
-            HeaderName = resources.GetString("HeaderName");
+            HeaderName = GetLocalizableHeaderText();
             Name = "ConsoleControl";
             Load += ConsoleControl_Load;
             tlscOut.ContentPanel.ResumeLayout(false);

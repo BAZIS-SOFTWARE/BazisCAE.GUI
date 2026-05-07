@@ -2005,4 +2005,7 @@
   <data name="MaterialsDataBasePage_headerName_text" xml:space="preserve">
     <value>Материалы</value>
   </data>
+  <data name="NavigatorControl_headerName_text" xml:space="preserve">
+    <value>Навигатор</value>
+  </data>
 </root>

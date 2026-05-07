@@ -57,6 +57,7 @@ namespace BazisGUI.PropertiesPanel
             // PropertiesPanelControl
             // 
             resources.ApplyResources(this, "$this");
+            HeaderName = GetLocalizableHeaderText();
             AutoScaleMode = AutoScaleMode.Inherit;
             BackColor = SystemColors.ControlLight;
             BorderStyle = BorderStyle.FixedSingle;

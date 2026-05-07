@@ -4339,6 +4339,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Navigator.
+        /// </summary>
+        internal static string NavigatorControl_headerName_text {
+            get {
+                return ResourceManager.GetString("NavigatorControl_headerName_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на New_function_.
         /// </summary>
         internal static string New_function_ {
