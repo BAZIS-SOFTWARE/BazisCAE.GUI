@@ -14,10 +14,10 @@ namespace BazisGUI
 {
     public class TabButtonControlService
     {
-        private IContainer container;
+        private Panel container;
         private Dictionary<string, (Button, Control)> linkedComponents;
 
-        public TabButtonControlService(IContainer container) 
+        public TabButtonControlService(Panel container) 
         { 
             this.container = container;
         }
@@ -26,16 +26,22 @@ namespace BazisGUI
         public Control GetControl(string name) => linkedComponents[name].Item2;
         public IEnumerable<string> GetNames() => linkedComponents.Keys;
 
-        public void Provide(string name, Control control)
+        public void AddControl(string name, Control control)
         {
-            if (control is ILocalizableHeaderControl locControl)
-            {
+            var btn = CreateTabButton(name);
 
-            }
-            else
-            {
+            container.Controls.Add(btn);
+            container.Controls.Add(control);
 
-            }
+            linkedComponents[name] = (btn, control);
+        }
+
+        public void RemoveControl(string name)
+        {
+            container.Controls.Remove(GetButton(name));
+            container.Controls.Remove(GetControl(name));
+
+            linkedComponents.Remove(name);
         }
 
         public Button CreateTabButton(string name)
@@ -71,6 +77,8 @@ namespace BazisGUI
 
             btn.Name = $"btnTab{name}";
             btn.Text = name;
+
+            btn.MouseDown += button_MouseDown;
             btn.Paint += buttonTab_Paint;
 
             return btn;
@@ -80,83 +88,55 @@ namespace BazisGUI
         {
             var max_y = 0;
 
-            for (int i = 0; i < splitContainer3.Panel1.Controls.Count; i++)
+            for (int i = 0; i < container.Controls.Count; i++)
             {
-                var cntr = splitContainer3.Panel1.Controls[i];
-                if (cntr.Name.Contains("btnTab") & cntr.Visible == true)
-                    if (cntr.Location.Y > max_y)
-                        max_y = cntr.Location.Y;
+                var cntr = container.Controls[i];
+                if (cntr.Name.Contains("btnTab") && cntr.Visible && cntr.Location.Y > max_y)
+                    max_y = cntr.Location.Y;
             }
 
-            var show = splitContainer3.Panel1.Controls.Find(btnName, false)[0];
+            var show = container.Controls.Find(btnName, false)[0];
             show.Visible = true;
             show.Location = new Point(0, max_y + show.Height + show.Margin.Bottom);
         }
 
         public void HideTabButton(string btnName)
         {
-            var hide = splitContainer3.Panel1.Controls.Find(btnName, false)[0];
+            var hide = container.Controls.Find(btnName, false)[0];
             hide.Visible = false;
 
-            for (int i = 0; i < splitContainer3.Panel1.Controls.Count; i++)
+            for (int i = 0; i < container.Controls.Count; i++)
             {
-                var cntr = splitContainer3.Panel1.Controls[i];
-                if (cntr.Name.Contains("btnTab") & cntr.Visible == true)
+                var cntr = container.Controls[i];
+                if (cntr.Name.Contains("btnTab") && cntr.Visible && cntr.Location.Y > hide.Location.Y)
                 {
-                    if (cntr.Location.Y > hide.Location.Y)
-                    {
-                        var temp_x = cntr.Location.X;
-                        var temp_y = cntr.Location.Y;
-                        cntr.Location = new Point(temp_x, temp_y -
-                            hide.Location.Y);
-                    }
-
+                    var temp_x = cntr.Location.X;
+                    var temp_y = cntr.Location.Y;
+                    cntr.Location = new Point(temp_x, temp_y - hide.Location.Y);
                 }
             }
         }
 
-
-
-
         private void button_MouseDown(object sender, MouseEventArgs e)
         {
             var btn = sender as Button;
-
             btn.Tag = true;
 
-            for (int i = 0; i < splitContainer3.Panel1.Controls.Count; i++)
+            for (int i = 0; i < container.Controls.Count; i++)
             {
-                var cntr = splitContainer3.Panel1.Controls[i];
+                var cntr = container.Controls[i];
                 if (cntr.Name.Contains("btnTab") & cntr.Visible)
                 {
-                    if (cntr is ILocalizableHeaderControl locCntr)
-                    {
+                    var tabPage = GetControl(cntr.Text);
 
-                    }
-
-                    else if (cntr is ILocalizableMaster locMaster)
-                    {
-
-                    }
-
-                    else
-                    {
-
-                    }
-
-                    var searchName = cntr.Name.Replace("btnTab", "");
-                    var tabPage = splitContainer3.Panel1.Controls[$"cntr{searchName}"];
                     if (cntr.Name != btn.Name)
                     {
                         cntr.Tag = false;
                         tabPage.Visible = false;
                     }
                     else
-                    {
                         tabPage.Visible = true;
-                    }
                 }
-
             }
         }
 

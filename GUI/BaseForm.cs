@@ -116,6 +116,7 @@ namespace BazisGUI
 
         public BaseForm(string[] args)
         {
+            // TODO где-то тут нужно добавить все контроллы в TabButtonControlService
             var datacontroller = new IODataController();
             var config = datacontroller.LoadConfig();
 
@@ -134,7 +135,6 @@ namespace BazisGUI
             //scene.InitializeContexts();
             //Gle.Load();//Это скорее всего больше не понадобится
             scene.Load += SceneInitialization;//Это конвертировалось в событие scene.Load!
-
             Shown += (arg1, arg2) => HandleArgs(args);
         }
 
