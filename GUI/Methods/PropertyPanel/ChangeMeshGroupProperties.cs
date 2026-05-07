@@ -26,16 +26,16 @@ namespace BazisGUI
                         ICondData cond;
                         CheckMatsAndFuncs();
 
-                        if (obj.NewValue == DataKind.Материал.ToString())
+                        if (obj.NewValue == CreateCondByGroup.Material.ToString())
                             cond = CreateMaterial(obj, _objectsGr);
 
-                        else if (obj.NewValue == DataKind.Нагрев.ToString())
+                        else if (obj.NewValue == CreateCondByGroup.Heat.ToString())
                             cond = new HeatData(_objectsGr, 0, 1);
 
-                        else if (obj.NewValue == DataKind.Среда.ToString())
+                        else if (obj.NewValue == CreateCondByGroup.Media.ToString())
                             cond = new MediaData(_objectsGr, 0, 1);
 
-                        else if (obj.NewValue == DataKind.Закрепление.ToString())
+                        else if (obj.NewValue == CreateCondByGroup.Clamp.ToString())
                             cond = new ClampData(_objectsGr, 0, 1);
 
                         else

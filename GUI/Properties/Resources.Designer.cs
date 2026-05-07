@@ -3067,6 +3067,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Show.
+        /// </summary>
+        internal static string Header_group_show {
+            get {
+                return ResourceManager.GetString("Header_group_show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Create condition.
         /// </summary>
         internal static string Header_groups_createCond {
