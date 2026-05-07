@@ -96,6 +96,30 @@ namespace BazisGUI.Utilities
             }
         }
 
+        public static TaskKind ConvertTaskKindPropertyKeysToTaskKind(TaskKindPropertyKeys key)
+        {
+            switch (key)
+            {
+                case TaskKindPropertyKeys.Chemical: return TaskKind.химическая;
+                case TaskKindPropertyKeys.Termal: return TaskKind.термическая;
+                case TaskKindPropertyKeys.Mechanical: return TaskKind.механическая;
+                case TaskKindPropertyKeys.Termo_mechanical: return TaskKind.термическая | TaskKind.механическая;
+                default: throw new InvalidCastException(string.Format(Resources.Converters_ConvertClampKindKeysToClampKind_CastExc, "TaskKindPropertyKeys", "TaskKind"));
+            }
+        }
+
+        public static TaskKindPropertyKeys ConvertTaskKindToTaskKindPropertyKeys(TaskKind key)
+        {
+            switch (key)
+            {
+                case TaskKind.химическая: return TaskKindPropertyKeys.Chemical;
+                case TaskKind.термическая: return TaskKindPropertyKeys.Termal;
+                case TaskKind.механическая: return TaskKindPropertyKeys.Mechanical;
+                case TaskKind.термическая | TaskKind.механическая: return TaskKindPropertyKeys.Termo_mechanical;
+                default: throw new InvalidCastException(string.Format(Resources.Converters_ConvertClampKindKeysToClampKind_CastExc, "TaskKind", "TaskKindPropertyKeys"));
+            }
+        }
+
         public static ObjType ConvertSelectionTypeToObjType(SelectionType st)
         {
             switch (st)

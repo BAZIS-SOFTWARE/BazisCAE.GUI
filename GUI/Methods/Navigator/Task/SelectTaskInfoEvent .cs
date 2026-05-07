@@ -12,6 +12,7 @@ namespace BazisGUI
     public partial class BaseForm
     {
         enum TaskPropertyKeys { Type, Kind, Materials, Functions, CheckCondValues }
+        public enum TaskKindPropertyKeys { Chemical, Termal, Mechanical, Termo_mechanical }
         private void navigator_SelectTaskEvent()
         {
             try
@@ -28,14 +29,14 @@ namespace BazisGUI
                     Resources.Header_task_type,
                     new DropDownPropertyValue(project.ProjectType, type)));
 
-                var kinds = Converters.GetEnumNames<TaskKind>();
+                var kinds = Converters.GetEnumNames<TaskKindPropertyKeys>();
                 //kinds.RemoveRange(0, 1);// пока уберем химическую задачу (она не реализована)
-                var term_mech = (TaskKind.термическая | TaskKind.механическая).ToString();
-                kinds.Add(term_mech);
+                //var term_mech = (TaskKind.термическая | TaskKind.механическая).ToString();
+                //kinds.Add(term_mech);
 
                 rows.Add(new RowProperty(TaskPropertyKeys.Kind.ToString(),
                     Resources.Headers_task_kind,
-                    new DropDownPropertyValue(project.ProjectKind, kinds)));
+                    new DropDownPropertyValue(Converters.ConvertTaskKindToTaskKindPropertyKeys(project.ProjectKind), kinds)));
 
                 if(project.MaterialsDB != null)
                     rows.Add(new RowProperty(TaskPropertyKeys.Materials.ToString(),

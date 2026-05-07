@@ -5,6 +5,7 @@ using Project.Interfaces.Tasks;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System;
+using BazisGUI.Utilities;
 
 namespace BazisGUI
 {
@@ -23,7 +24,7 @@ namespace BazisGUI
                         break;
 
                     case TaskPropertyKeys.Kind:
-                        project.ProjectKind = obj.NewValue.ToEnum<TaskKind>();
+                        project.ProjectKind = Converters.ConvertTaskKindPropertyKeysToTaskKind(obj.NewValue.ToEnum<TaskKindPropertyKeys>());
                         clearFlag = true;
                         break;
 
