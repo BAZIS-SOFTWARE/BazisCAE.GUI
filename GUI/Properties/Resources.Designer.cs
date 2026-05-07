@@ -1228,6 +1228,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Cant cast {0} to target type {1}.
+        /// </summary>
+        internal static string Converters_ConvertClampKindKeysToClampKind_CastExc {
+            get {
+                return ResourceManager.GetString("Converters_ConvertClampKindKeysToClampKind_CastExc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Failed to convert.
         /// </summary>
         internal static string ConvertFailCaption {

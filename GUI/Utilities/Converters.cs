@@ -1,9 +1,11 @@
 ﻿using BazisGUI.Properties;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
+using Project.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static BazisGUI.BaseForm;
 
 namespace BazisGUI.Utilities
 {
@@ -70,6 +72,28 @@ namespace BazisGUI.Utilities
         public static List<string> GetEnumNames<T>() where T : Enum
         {
             return Enum.GetNames(typeof(T)).ToList();
+        }
+
+        public static ClampKind ConvertClampKindKeysToClampKind(ClampKindKeys key)
+        {
+            switch (key) 
+            {
+                case ClampKindKeys.Hard: return ClampKind.Жесткое;
+                case ClampKindKeys.Flexable: return ClampKind.Упругое;
+                case ClampKindKeys.Symmetric: return ClampKind.Симметрия;
+                case ClampKindKeys.Contact: return ClampKind.Контакт;
+                default: throw new InvalidCastException(string.Format(Resources.Converters_ConvertClampKindKeysToClampKind_CastExc, "ClampKindKeys", "ClampKind"));
+            }
+        }
+
+        public static LoadKind ConvertLoadKindKeysToLoadKind(LoadKindKeys key)
+        {
+            switch (key)
+            {
+                case LoadKindKeys.Force: return LoadKind.Сила;
+                case LoadKindKeys.Pressure: return LoadKind.Давление;
+                default: throw new InvalidCastException(string.Format(Resources.Converters_ConvertClampKindKeysToClampKind_CastExc, "LoadKindKeys", "LoadKind"));
+            }
         }
 
         public static ObjType ConvertSelectionTypeToObjType(SelectionType st)

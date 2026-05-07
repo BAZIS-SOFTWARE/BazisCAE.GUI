@@ -12,7 +12,7 @@ namespace BazisGUI
     public partial class BaseForm
     {
         enum LoadPropertyKeys { Type }
-        enum LoadKindKeys { Сила, Давление }
+        public enum LoadKindKeys { Force, Pressure }
         public List<RowProperty> GetLoadProperty(LoadData obj, List<string> funcTables, IEnumerable<IGroup> groups)
         {
             var rows = GetCondProperty(obj, groups, funcTables);

@@ -1,6 +1,7 @@
 ﻿using BazisGUI.Extensions;
 using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
+using BazisGUI.Utilities;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.Functions;
@@ -104,6 +105,8 @@ namespace BazisGUI
                         break;
                 }
             }
+
+
         }
 
         private void HandleObjectGroupParameter(string newValue, ICondData cond)
@@ -279,7 +282,7 @@ namespace BazisGUI
             ChangeGeneralProperties(obj, clampCond, ref flag);
 
             if (Enum.TryParse(obj.Key, out ClampPopertyKeys clampRes) && clampRes == ClampPopertyKeys.Type)
-                clampCond.TrySetKind(obj.NewValue.ToString());
+                clampCond.TrySetKind(Converters.ConvertClampKindKeysToClampKind(Enum.Parse<ClampKindKeys>(obj.NewValue.ToString())).ToString());
             else if (Enum.TryParse(obj.Key, out CondPropertyKeys condRes) && condRes == CondPropertyKeys.Direction)
                 clampCond.Direction = obj.NewValue.ToEnum<Direction>();
         }
@@ -324,7 +327,7 @@ namespace BazisGUI
                 loadData.Direction = obj.NewValue.ToEnum<Direction>();
             
             else if (Enum.TryParse(obj.Key, out LoadPropertyKeys loadRes) && loadRes == LoadPropertyKeys.Type)
-                loadData.LoadKind = obj.NewValue.ToEnum<LoadKind>();
+                loadData.LoadKind = Converters.ConvertLoadKindKeysToLoadKind(Enum.Parse<LoadKindKeys>(obj.NewValue));
             //else if (obj.LocalizedHeader == "Величина, Н")
             //    loadData.Value = float.Parse(obj.NewValue);
             //else if (obj.Header == "Функция, F(t), F - Н.")

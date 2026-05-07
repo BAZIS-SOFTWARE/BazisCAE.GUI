@@ -2192,4 +2192,7 @@ Create variable?</value>
   <data name="Header_group_show" xml:space="preserve">
     <value>Show</value>
   </data>
+  <data name="Converters_ConvertClampKindKeysToClampKind_CastExc" xml:space="preserve">
+    <value>Cant cast {0} to target type {1}</value>
+  </data>
 </root>

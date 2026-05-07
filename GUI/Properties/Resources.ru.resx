@@ -2014,4 +2014,7 @@
   <data name="Header_group_show" xml:space="preserve">
     <value>Показать</value>
   </data>
+  <data name="Converters_ConvertClampKindKeysToClampKind_CastExc" xml:space="preserve">
+    <value>Не удалось привести тип {0} к типу {1}</value>
+  </data>
 </root>
