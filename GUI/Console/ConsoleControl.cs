@@ -3,6 +3,8 @@ using BazisGUI.PinnedControl;
 using BazisGUI.Properties;
 using BazisGUI.Utilities;
 using IronPython.Runtime.Operations;
+using Microsoft.Scripting.Hosting;
+using Microsoft.Scripting.Hosting.Shell;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static IronPython.Modules.PythonRegex;
+using static System.Windows.Forms.LinkLabel;
 
 namespace BazisGUI.Console
 {
@@ -157,50 +161,68 @@ namespace BazisGUI.Console
 
         public void ExecuteCmdFile(string cmdFileName)
         {
-            var variables = new Dictionary<string, int>();
             if (System.IO.File.Exists(cmdFileName))
             {
+                var variables = new Dictionary<string, int>();
                 var cmdLines = File.ReadAllLines(cmdFileName);
-                var newLine = string.Empty;
                 foreach (var line in cmdLines)
                 {
                     var matches = Regex.Matches(line, @"\$(\w+)");
                     if (matches.Count > 0)
-                    {
-                        foreach (Match match in matches)
-                        {
-                            var name = match.Groups[1].Value;
-
-                            if (!variables.ContainsKey(name))
-                                variables[name] = -1;
-                        }
-
-                        newLine = ReplaceVariables(line, variables);
-                        var parts = newLine.Split('=');
-                        if(parts.Length == 2)
-                            newLine = parts[1].Trim();
-                    }
-                    else newLine = line;
-                    var number = ConsoleCommandEnteredEvent?.Invoke(newLine).Result;
-                    SetValue((int)number, variables);
-
+                        VariableCreator(line, matches, variables);
+                    else 
+                        ConsoleCommandEnteredEvent?.Invoke(line); 
                 }   
             }
             else throw new Exception($"\n > {Resources.ExecuteCMDFileMissing}");
         }
 
-        private static void SetValue(int number, Dictionary<string, int> variables)
+        private void VariableCreator(string line, MatchCollection matches, Dictionary<string, int> variables)
         {
-            if (number != -1)
-                variables[variables.Keys.Last()] = (int)number;
+            var variableName = string.Empty;
+            var newLine = string.Empty;
+            foreach (System.Text.RegularExpressions.Match match in matches)
+            {
+                var name = match.Groups[1].Value;
+
+                if (!variables.ContainsKey(name))
+                    variables[name] = -1;
+            }
+
+            var parts = line.Split('=', 2);
+
+            if (parts.Length == 2)
+            {
+                variableName = parts[0]
+                    .Trim()
+                    .TrimStart('$');
+
+                newLine = parts[1].Trim();
+            }
+            else newLine = line;
+
+            newLine = ReplaceVariables(newLine, variables);
+
+            var number = ConsoleCommandEnteredEvent?.Invoke(newLine).Result;
+            SetValue((int)number, variableName, variables);
+            variableName = string.Empty;
         }
 
-        private static string ReplaceVariables(string line, Dictionary<string, int> variables)
+        private void SetValue(int number, string variableName, Dictionary<string, int> variables)
+        {
+            if (number == -1)
+                throw new InvalidOperationException($"\n > {Resources.FailedCreateGeometry}");
+            if(variableName != string.Empty)
+                variables[variableName] = (int)number;
+        }
+
+        private string ReplaceVariables(string line, Dictionary<string, int> variables)
         {
             foreach (var pair in variables)
                 line = line.Replace("$" + pair.Key, pair.Value.ToString());
             return line;
         }
+
         private void btnStartMacro_Click(object sender, EventArgs e)
         {
             OpenFileDialog newDialog = new OpenFileDialog()

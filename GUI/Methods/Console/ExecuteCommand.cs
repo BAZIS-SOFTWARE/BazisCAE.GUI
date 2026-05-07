@@ -158,6 +158,7 @@ namespace BazisGUI
                         break;
                     case GenCmd.ExtrudeCurve:
                         ExtruderParserEventHandler(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
+                        number = 1;
                         break;
                     //case GenCmd.ExtrudeRotate:
                     //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));

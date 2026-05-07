@@ -22,9 +22,7 @@ namespace BazisGUI.Utilities
 
                 if (line[startIndex] != ' ')
                 {
-                    var value = nextToken.Value;
-
-                    tokenizedString.Add(value);
+                    tokenizedString.Add(nextToken.Value);
                     startIndex += nextToken.Length;
                 }
                 else

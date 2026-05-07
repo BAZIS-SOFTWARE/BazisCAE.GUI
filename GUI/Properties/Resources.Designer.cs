@@ -1690,6 +1690,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Failed to create geometry.
+        /// </summary>
+        internal static string FailedCreateGeometry {
+            get {
+                return ResourceManager.GetString("FailedCreateGeometry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на File missing!.
         /// </summary>
         internal static string FileAbsenceCaption {
