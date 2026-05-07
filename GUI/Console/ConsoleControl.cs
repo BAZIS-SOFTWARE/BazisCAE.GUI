@@ -2,13 +2,17 @@
 using BazisGUI.PinnedControl;
 using BazisGUI.Properties;
 using BazisGUI.Utilities;
+using IronPython.Runtime.Operations;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BazisGUI.Console
@@ -28,7 +32,7 @@ namespace BazisGUI.Console
             }
         }
 
-        public event Action<string> ConsoleCommandEnteredEvent;
+        public event Func<string, Task<int>> ConsoleCommandEnteredEvent;
         public event Action CommandsListRequestedEvent;
         public void NewItem_Click(object obj, EventArgs args)
         {
@@ -131,70 +135,12 @@ namespace BazisGUI.Console
             rtxbField.SelectionColor = Color.Black;
         }
 
-        //public void ExecuteCmdFile(string cmdFileName)
-        //{
-        //    if (System.IO.File.Exists(cmdFileName))
-        //    {
-        //        var cmdLines = File.ReadAllLines(cmdFileName);
-
-        //        foreach (var line in cmdLines)
-        //        {
-        //            ExecuteCommand(line);
-        //        }
-
-        //        var assembly = Assembly.GetExecutingAssembly();
-        //        var stream = assembly.GetManifestResourceStream("PrConsole.Resources.StartCheck.ico");
-        //        btnStartMacro.Image = new Bitmap(stream);
-        //    }
-        //    else throw new Exception($"\n > {Localization.Localization.GetStringResourceByName<ConsoleControl>("ExecuteCMDFileMissing)")}");
-        //}
-
-
-
         private void ClearAll_Click(object sender, EventArgs e)
         {
             var sessionPath = rtxbField.Lines[0];
             rtxbField.Clear();
             rtxbField.AppendText(sessionPath);
         }
-
-        //private void btnStartMacro_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (trd == null)
-        //        {
-        //            OpenFileDialog newDialog = new OpenFileDialog()
-        //            {
-        //                Filter = "Bazis command file(*.tcf)|*.tcf|" +
-        //    "All files(*.*)|*.*"
-        //            };
-        //            if (newDialog.ShowDialog() == DialogResult.Cancel)
-        //                return;
-
-        //            trd = new Thread(delegate () { ExecuteCmdFile(newDialog.FileName); });
-        //            trd.Start();
-
-        //            var assembly = Assembly.GetExecutingAssembly();
-        //            var stream = assembly.GetManifestResourceStream("PrConsole.Resources.Stop.ico");
-        //            btnStartMacro.Image = new Bitmap(stream);
-        //            btnStartMacro.Text = Localization.Localization.GetStopCaption();
-        //        }
-        //        else
-        //        {
-        //            var assembly = Assembly.GetExecutingAssembly();
-        //            var stream = assembly.GetManifestResourceStream("PrConsole.Resources.StartCheck.ico");
-        //            btnStartMacro.Image = new Bitmap(stream);
-        //            btnStartMacro.Text = Localization.Localization.GetStartCaption();
-        //            trd.Abort();
-
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        trd = null;
-        //    }
-        //}
 
         private void btnDictionary_Click(object sender, EventArgs e) => CommandsListRequestedEvent.Invoke();
 
@@ -209,6 +155,62 @@ namespace BazisGUI.Console
             rtxbField.BackColor = colorDialog.Color;
         }
 
+        public void ExecuteCmdFile(string cmdFileName)
+        {
+            var variables = new Dictionary<string, int>();
+            if (System.IO.File.Exists(cmdFileName))
+            {
+                var cmdLines = File.ReadAllLines(cmdFileName);
+                var newLine = string.Empty;
+                foreach (var line in cmdLines)
+                {
+                    var matches = Regex.Matches(line, @"\$(\w+)");
+                    if (matches.Count > 0)
+                    {
+                        foreach (Match match in matches)
+                        {
+                            var name = match.Groups[1].Value;
+
+                            if (!variables.ContainsKey(name))
+                                variables[name] = -1;
+                        }
+
+                        newLine = ReplaceVariables(line, variables);
+                        newLine = newLine.Split('=')[1].Trim();
+                    }
+                    else newLine = line;
+                    var number = ConsoleCommandEnteredEvent?.Invoke(newLine).Result;
+                    SetValue((int)number, variables);
+
+                }   
+            }
+            else throw new Exception($"\n > {Resources.ExecuteCMDFileMissing}");
+        }
+
+        private static void SetValue(int number, Dictionary<string, int> variables)
+        {
+            if (number != -1)
+                variables[variables.Keys.Last()] = (int)number;
+        }
+
+        private static string ReplaceVariables(string line, Dictionary<string, int> variables)
+        {
+            foreach (var pair in variables)
+                line = line.Replace("$" + pair.Key, pair.Value.ToString());
+            return line;
+        }
+        private void btnStartMacro_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog newDialog = new OpenFileDialog()
+            {
+                Filter = "Bazis command file(*.tcf)|*.tcf|" + "All files(*.*)|*.*"
+            };
+
+            if (newDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            ExecuteCmdFile(newDialog.FileName);
+        }
 
         private void KeyDownEventHadler(object sender, KeyEventArgs e)
         {
@@ -216,15 +218,6 @@ namespace BazisGUI.Console
             {
                 var cmds = rtxbField.Lines[rtxbField.Lines.Count() - 1];
                 ConsoleCommandEnteredEvent?.Invoke(cmds);
-                //var cmds = rtxbField.Lines[rtxbField.Lines.Count() - 1];
-                //try
-                //{
-                //    Invoke(new Action(() => ExecuteCommand(cmds)));
-                //}
-                //catch (Exception ex) 
-                //{
-                //    Invoke(new Action(() => PrintInfo(ex.Message, Color.Red)));
-                //}
             }
             else if (e.KeyCode == Keys.Up)
                 PrintHistory(ConsoleHistory.GetPreviousCommand());

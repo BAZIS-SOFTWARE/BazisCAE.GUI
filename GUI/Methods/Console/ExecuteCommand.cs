@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BazisGUI
@@ -78,10 +79,11 @@ namespace BazisGUI
                 console.PrintInfo($"- \"{item.Key}\" {args}", Color.Black);
             }
         }
-        private async void ExecuteCommand(string line)
+        private async Task<int> ExecuteCommand(string line)
         {
-            var parser = new FieldsParser();
-            var cmds = parser.ParseLine(line);
+           // var parser = new FieldsParser();
+            var cmds = FieldsParser.ParseLine(line);
+            var number = -1;
             if (cmds.Count != 0)
             {
                 if (!this.genCmds.ContainsKey(cmds[0]))
@@ -90,7 +92,6 @@ namespace BazisGUI
                     throw new Exception(Resources.InvalidArgumentsNumberException);
 
                 ConsoleHistory.AddComand(line);
-
                 switch (genCmds[cmds[0]])
                 {
                     case GenCmd.CreateMesh2DPoligon:
@@ -146,13 +147,13 @@ namespace BazisGUI
                         Application.Exit();
                         break;
                     case GenCmd.CreatePoint:
-                        GeometryParserEventHandler(CreateCommandType.AddPoint, [cmds[1]]);
+                        number = GeometryParserEventHandler(CreateCommandType.AddPoint, [cmds[1]]);
                         break;
                     case GenCmd.CreateCurve:
-                        GeometryParserEventHandler(CreateCommandType.AddCurve, [cmds[1], cmds[2]]);
+                        number = GeometryParserEventHandler(CreateCommandType.AddCurve, [cmds[1], cmds[2]]);
                         break;
                     case GenCmd.CreateSurface:
-                        GeometryParserEventHandler(CreateCommandType.AddSurface, [cmds[2]]);
+                        number = GeometryParserEventHandler(CreateCommandType.AddSurface, [cmds[2]]);
                         break;
                     case GenCmd.ExtrudeCurve:
                         ExtruderParserEventHandler(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
@@ -161,16 +162,17 @@ namespace BazisGUI
                     //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
                     //    break;
                     case GenCmd.CreatePointByVector:
-                        GeometryParserEventHandler(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]);
+                        number = GeometryParserEventHandler(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]);
                         break;
                     case GenCmd.CreatePointProjectionOntoPlane:
-                        GeometryParserEventHandler(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]);
+                        number = GeometryParserEventHandler(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]);
                         break;
                     case GenCmd.CreatePointProjectionOntoCurve:
-                        GeometryParserEventHandler(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]);
+                        number = GeometryParserEventHandler(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]);
                         break;
                 }
             }
+            return number;
         }
     }
 }

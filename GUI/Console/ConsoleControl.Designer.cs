@@ -162,6 +162,7 @@ namespace BazisGUI.Console
             resources.ApplyResources(btnStartMacro, "btnStartMacro");
             btnStartMacro.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             btnStartMacro.Name = "btnStartMacro";
+            btnStartMacro.Click += btnStartMacro_Click;
             // 
             // openFileDialog
             // 

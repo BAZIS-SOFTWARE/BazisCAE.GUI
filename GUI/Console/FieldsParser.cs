@@ -1,41 +1,42 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace BazisGUI.Utilities
 {
-    public class FieldsParser
+    public static class FieldsParser
     {
-        private readonly char[] stopCharsAr = { ' ', '\"', '\'' };
-        //private static char stopChar;
+        private static readonly char[] stopCharsAr = { ' ', '\"', '\'' };
 
-        public List<string> ParseLine(string line)
+        public static List<string> ParseLine(string line)
         {
             var tokenizedString = new List<string>();
 
-            var ar = line.ToCharArray();
-            var count = ar.Length;
-
             var startIndex = 0;
+
             while (startIndex < line.Length)
             {
                 var nextToken = ReadField(line, startIndex);
 
                 if (line[startIndex] != ' ')
                 {
-                    tokenizedString.Add(nextToken.Value);
+                    var value = nextToken.Value;
+
+                    tokenizedString.Add(value);
                     startIndex += nextToken.Length;
                 }
-                else { startIndex++; }
+                else
+                {
+                    startIndex++;
+                }
             }
-
+            
             return tokenizedString;
         }
 
-        private Token ReadField(string line, int startIndex)
+        private static Token ReadField(string line, int startIndex)
         {
             var startToken = line[startIndex];
             var start = line[startIndex];
@@ -52,17 +53,7 @@ namespace BazisGUI.Utilities
             }
         }
 
-        private Token ParseQuotedField(string line, int startIndex, string quote)
-        {
-            return ParseField(line, startIndex + 1, quote.ToCharArray(), 2);
-        }
-
-        private Token ParseFieldWithoutQuotes(string line, int startIndex)
-        {
-            return ParseField(line, startIndex, stopCharsAr, 0);
-        }
-
-        private Token ParseField(string line, int startIndex, char[] stopChars, int quotesNumber)
+        private static Token ParseField(string line, int startIndex, char[] stopChars, int quotesNumber)
         {
             var tokenValue = new StringBuilder();
             var quotesInsideNumber = 0;
@@ -84,14 +75,12 @@ namespace BazisGUI.Utilities
                     }
                     else if (a == '\\' && line[i + 1] == '\'')
                     {
-                        //tokenValue.Append(a);
                         tokenValue.Append('\'');
                         quotesInsideNumber++;
                         i++;
                     }
                     else if (a == '\\' && line[i + 1] == '\"')
                     {
-                        //tokenValue.Append(a);
                         tokenValue.Append('\"');
                         quotesInsideNumber++;
                         i++;
@@ -104,5 +93,8 @@ namespace BazisGUI.Utilities
 
             return new Token(tokenValue.ToString(), startIndex, tokenValue.Length + quotesNumber + quotesInsideNumber + slashScreen);
         }
+
+        private static Token ParseQuotedField(string line, int startIndex, string quote) => ParseField(line, startIndex + 1, quote.ToCharArray(), 2);
+        private static Token ParseFieldWithoutQuotes(string line, int startIndex) => ParseField(line, startIndex, stopCharsAr, 0);
     }
 }

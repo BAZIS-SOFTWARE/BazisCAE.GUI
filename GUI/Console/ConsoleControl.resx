@@ -241,12 +241,12 @@
   <data name="toolStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEXSURBVDhPlZK/SgNBEMZHBQsbsTwIiRya7Oxld06Devun
-        sLS09BHsxNZWOys7n8PeN7Cwt7CzNwpGiUb2IGFvTI7zBwPDN983DMsCNMAQ3gHACtdrcSTuDW52uF6L
-        zfB5V7QTrtdSaPFocGvH9vGUzxbidPdpkKbroTd6+8Qqcc49fygUvgySZC3WfB+PrcKLWKvglHiVEla5
-        Hih098hqccn1JS1xDADLfBBzkPUOLYlrpdobpbBPOOKmRZisZ43GB3CEE0f488+alFtC43MZFjSu2QlN
-        w4bSd0fiJroewOfym6Qcc/OschxaJW4roSmeWp8+bX3x0B513lwur7i/QjiHSH5EwaFT2Rn3zSUErBbl
-        C/o5v+YXuiqBS9Jzg/4AAAAASUVORK5CYII=
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEXSURBVDhPlZI9S8RAEIZHBQsbsdzmIkHvdjbZneihZj8K
+        S0tLf4Kd2NpqZ2Xn77D3H1jYW9jZewp+cHqyAY9kvAvxgYHhnfcdhmUBOmAJbwBgieuteJK3FtcTrrfi
+        Mnzclj3B9VZKI+8tbmy5HI/5bC7e9B+Gaboae2s2j5yWp9zzh1Lj01CIlboWcjx0Gs/qWgOv5bNSsMz1
+        SGn6B87Ic64vZArHALDIB3X2ssG+I3mpdW+tEnYJ37lpHjYbOGvwDjzhxBN+/7Mm1ZbYhELFBZ1rekLX
+        sKX01ZO8ql0PEAr1lSs15uZpFThyWl43Qr8EEh8hEZ88tEPJiy/UBfc3iOcQqbdacOR1dsJ9M4kBZ2T1
+        gmHGr/kBrIaBPB5/G7kAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="toolStripButton1.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
@@ -270,13 +270,13 @@
   <data name="toolStripButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAANCAYAAACgu+4kAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFHSURBVDhPjZG/TsMwEIeNEAM7IyioobbvUttB0DbJBQYm
-        xIR4BF4AITGwgsTAgsSGECtLX4IH6AP0ERCoGyIg/gjkFEepSxGf9FvO950vMWP/YCOKlsjAlzH4kik4
-        9c//hGK40AgfdoCL3zONOTLygRCLuqwR7bCB31yxxvlC3gp3bXMeYyWOBbHIV/HQd0syJa8mhClJGJuv
-        xATDFdIwTCJOCfLtXMPQF+px21l3hpQ4yLTsMcZm3cA8xp4Zfe+E7KIbwTsjDdfdSO5Vq9SYNsDdnirY
-        ZG6N32hDGJUvUR+AWHQQHu0rlU3dVnOHtDz2ZQe18Iw4f7byaCN56ffYLU5S5Ft+3UFa9jsxvBoRLPtn
-        FakRN6TFvv2prpYoocp6jOfrSohx44dUw1Gq4M6GjBxQjJ9tEzxRY/EtM837XEM/0/LW9xzfCfyXunnd
-        f8oAAAAASUVORK5CYII=
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFISURBVDhPjZG/SgQxEIcjYmFvYyErnJdkJptkRe9ud2e1
+        sBIr8RF8AREsbBUsbAQ7EVubewkf4B7gHkGU68RT/IOSPbPs5Tzxg18zmW8yu2HsH2wotUQWvqzFl1zD
+        aXj+J5TAhUL4cAN8wp5pzJGVD4Q4rMsK0Q3rh80Va5wvFHFj1zUXCVbiWBCHxSoehm5JruXVhDAlKWPz
+        lZhiY4UMDFLFKUW+XRgYhEI9fjvnzpAWB7mRXcbYrB9YJNiNR987IfuoKHpnZOC6o+RetUqNaQP87ZmG
+        TebX+I0WNFT5EvUBiMM2wqN7pbKpEzd3yMjjUPZQjGfE+bOTRxvJy7DHbXGSId8K6x4ystdO4NWKaDk8
+        q8isuCEj9t1P9bVUC13WEzxf10KMGz9kBo4yDXcuZGWfEvxs2eiJosW33DbvCwO93Mjb0PN8A+OMl58a
+        NproAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="toolStripButton2.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
@@ -292,9 +292,6 @@
     <value>Errase</value>
   </data>
   <data name="btnStartMacro.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="btnStartMacro.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="btnStartMacro.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
