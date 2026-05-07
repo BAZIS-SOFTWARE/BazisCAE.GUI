@@ -15,18 +15,20 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void CreateMesh2DPoligon(string v1, string v2, string v3, string v4, string numberOfElems)
+        private void ParsePolygonPoints(string v1, string v2, string v3, string v4, string numberOfElems, out Point2D p1, out Point2D p2, out Point2D p3, out Point2D p4, out int numberOfElemsInt)
         {
             var c1 = v1.Split(',').Select(x => float.Parse(x)).ToArray();
-            var p1 = new Point2D(c1[0], c1[1]);
+            p1 = new Point2D(c1[0], c1[1]);
             var c2 = v2.Split(',').Select(x => float.Parse(x)).ToArray();
-            var p2 = new Point2D(c2[0], c2[1]);
+            p2 = new Point2D(c2[0], c2[1]);
             var c3 = v3.Split(',').Select(x => float.Parse(x)).ToArray();
-            var p3 = new Point2D(c3[0], c3[1]);
+            p3 = new Point2D(c3[0], c3[1]);
             var c4 = v4.Split(',').Select(x => float.Parse(x)).ToArray();
-            var p4 = new Point2D(c4[0], c4[1]);
-            var numberOfElemsInt = int.Parse(numberOfElems);
-
+            p4 = new Point2D(c4[0], c4[1]);
+            numberOfElemsInt = int.Parse(numberOfElems);
+        }
+        private void CreateMesh2DPoligon(Point2D p1, Point2D p2, Point2D p3, Point2D p4, int numberOfElemsInt)
+        {
             project.CreateQuadMeshOnPoligon(new List<Point2D>() { p1, p2, p3, p4 }, numberOfElemsInt);
             PresentMeshData();
             PresentModelObjectsForSelection();
@@ -39,14 +41,16 @@ namespace BazisGUI
             DisplayObjects();
         }
 
-        private async void FindObject(string str)
+        private void FindObjectParserStr(string str, out ObjType objType, out uint number)
         {
-            if (!Enum.TryParse(str.Split(',')[0].Replace(" ", ""), out ObjType objType))
+            if (!Enum.TryParse(str.Split(',')[0].Replace(" ", ""), out objType))
                 throw new Exception(Resources.UnknownTypeException);
 
-            if (!uint.TryParse(str.Split(',')[1].Replace(" ", ""), out uint number))
+            if (!uint.TryParse(str.Split(',')[1].Replace(" ", ""), out number))
                 throw new Exception(Resources.PositiveCellingNumberException);
-
+        }
+        private async void FindObject(ObjType objType, uint number)
+        {
             Invoke(new Action(() =>
             {
                 var obj = project.GetAllModelObjects().
@@ -123,16 +127,17 @@ namespace BazisGUI
             //project.Renumber(project.ModelData.ObjectData, objType);
         }
 
-        private void console_ModelShiftCoordinateEvent(string vector)
+        private void ParseVector(string vector, out float x, out float y, out float z)
         {
-
             var strAr = vector.Split(',');
-
             if (strAr.Length < 3)
                 throw new Exception(Resources.ModelShiftCoordinateEventArgsVectorExc);
-            var x = float.Parse(strAr[0], NumberStyles.Float, CultureInfo.InvariantCulture);
-            var y = float.Parse(strAr[1], NumberStyles.Float, CultureInfo.InvariantCulture);
-            var z = float.Parse(strAr[2], NumberStyles.Float, CultureInfo.InvariantCulture);
+            x = float.Parse(strAr[0], NumberStyles.Float, CultureInfo.InvariantCulture);
+            y = float.Parse(strAr[1], NumberStyles.Float, CultureInfo.InvariantCulture);
+            z = float.Parse(strAr[2], NumberStyles.Float, CultureInfo.InvariantCulture);
+        }
+        private void console_ModelShiftCoordinateEvent(float x, float y, float z)
+        {
             project.MoveMesh(ObjType.Узел, new Point3D(x, y, z));
 
             DisplayGeometryObjectEvent = null;
@@ -143,7 +148,6 @@ namespace BazisGUI
                 var pres = project.CreateModelObjectsPresentor(set);
                 SetVBObjectAttribute(pres, "координаты");
             }
-
             DisplayObjects();
         }
 

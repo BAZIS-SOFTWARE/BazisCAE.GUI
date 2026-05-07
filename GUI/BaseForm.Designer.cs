@@ -683,7 +683,7 @@ namespace BazisGUI
             console.Name = "console";
             console.SessionNumber = 4170;
             console.UpColor = System.Drawing.Color.Gainsboro;
-            console.ConsoleCommandEnteredEvent += ExecuteCommand;
+            console.ConsoleCommandEnteredEvent = ExecuteCommand;
             console.CommandsListRequestedEvent += PrintAllCommands;
             // 
             // menuStrip

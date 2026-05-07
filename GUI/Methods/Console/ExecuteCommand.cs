@@ -84,7 +84,7 @@ namespace BazisGUI
         private async Task<int> ExecuteCommand(string line)
         {
             var cmds = FieldsParser.ParseLine(line);
-            var number = -1;
+            var numberCreatedObject = -1;
             if (cmds.Count != 0)
             {
                 if (!this.genCmds.ContainsKey(cmds[0]))
@@ -96,13 +96,15 @@ namespace BazisGUI
                 switch (genCmds[cmds[0]])
                 {
                     case GenCmd.CreateMesh2DPoligon:
-                        CreateMesh2DPoligon(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5]);
+                        ParsePolygonPoints(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5], out var p1, out var p2, out var p3, out var p4, out var numberOfElemsInt);
+                        CreateMesh2DPoligon(p1, p2, p3, p4, numberOfElemsInt);
                         break;
                     case GenCmd.MergeElementSets:
                         MergeEventSets(cmds[1], cmds[2], cmds[3]);
                         break;
                     case GenCmd.FindObject:
-                        FindObject(cmds[1]);
+                        FindObjectParserStr(cmds[1], out var type, out var number);
+                        FindObject(type, number);
                         break;
                     case GenCmd.LoadProject:
                         await OpenProject(cmds[1]);
@@ -116,7 +118,8 @@ namespace BazisGUI
                         console_RenumberMeshEvent(cmds[1]);
                         break;
                     case GenCmd.MoveMesh:
-                        console_ModelShiftCoordinateEvent(cmds[2]);
+                        ParseVector(cmds[2], out var x, out var y, out var z);
+                        console_ModelShiftCoordinateEvent(x, y, z);
                         break;
                     case GenCmd.RotateMesh:
                         console_ModelRotateEvent(cmds[2]);
@@ -148,29 +151,29 @@ namespace BazisGUI
                         Application.Exit();
                         break;
                     case GenCmd.CreatePoint:
-                        number = GeometryParserEventHandler(CreateCommandType.AddPoint, [cmds[1]]);
+                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddPoint, [cmds[1]]);
                         break;
                     case GenCmd.CreateCurve:
-                        number = GeometryParserEventHandler(CreateCommandType.AddCurve, [cmds[1], cmds[2]]);
+                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddCurve, [cmds[1], cmds[2]]);
                         break;
                     case GenCmd.CreateSurface:
-                        number = GeometryParserEventHandler(CreateCommandType.AddSurface, [cmds[2]]);
+                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddSurface, [cmds[2]]);
                         break;
                     case GenCmd.ExtrudeCurve:
                         ExtruderParserEventHandler(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
-                        number = 1;
+                        numberCreatedObject = 1;
                         break;
                     //case GenCmd.ExtrudeRotate:
                     //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
                     //    break;
                     case GenCmd.CreatePointByVector:
-                        number = GeometryParserEventHandler(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]);
+                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]);
                         break;
                     case GenCmd.CreatePointProjectionOntoPlane:
-                        number = GeometryParserEventHandler(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]);
+                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]);
                         break;
                     case GenCmd.CreatePointProjectionOntoCurve:
-                        number = GeometryParserEventHandler(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]);
+                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]);
                         break;
                     case GenCmd.GenerateMesh:
                         создать3DСеткуToolStripMenuItem_Click(null, EventArgs.Empty);
@@ -178,7 +181,7 @@ namespace BazisGUI
                         break;
                 }
             }
-            return number;
+            return numberCreatedObject;
         }
     }
 }

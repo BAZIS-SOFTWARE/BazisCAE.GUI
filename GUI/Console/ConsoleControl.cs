@@ -36,7 +36,7 @@ namespace BazisGUI.Console
             }
         }
 
-        public event Func<string, Task<int>> ConsoleCommandEnteredEvent;
+        public Func<string, Task<int>> ConsoleCommandEnteredEvent;
         public event Action CommandsListRequestedEvent;
         public void NewItem_Click(object obj, EventArgs args)
         {
@@ -169,25 +169,28 @@ namespace BazisGUI.Console
                 {
                     var matches = Regex.Matches(line, @"\$(\w+)");
                     if (matches.Count > 0)
-                        ProcessCommandLine(line, matches, variables);
+                    {
+                        foreach (System.Text.RegularExpressions.Match match in matches)
+                        {
+                            var name = match.Groups[1].Value;
+
+                            if (!variables.ContainsKey(name))
+                                variables[name] = -1;
+                        }
+                        ProcessCommandLine(line, variables);
+                    }   
                     else 
-                        ConsoleCommandEnteredEvent?.Invoke(line); 
+                        ConsoleCommandEnteredEvent(line); 
                 }   
             }
             else throw new Exception($"\n > {Resources.ExecuteCMDFileMissing}");
         }
 
-        private void ProcessCommandLine(string line, MatchCollection matches, Dictionary<string, int> variables)
+        private void ProcessCommandLine(string line, Dictionary<string, int> variables)
         {
             var variableName = string.Empty;
             var newLine = string.Empty;
-            foreach (System.Text.RegularExpressions.Match match in matches)
-            {
-                var name = match.Groups[1].Value;
 
-                if (!variables.ContainsKey(name))
-                    variables[name] = -1;
-            }
 
             var parts = line.Split('=', 2);
 
@@ -203,7 +206,7 @@ namespace BazisGUI.Console
 
             newLine = ReplaceVariables(newLine, variables);
 
-            var number = ConsoleCommandEnteredEvent?.Invoke(newLine).Result;
+            var number = ConsoleCommandEnteredEvent(newLine).Result;
             SetValue((int)number, variableName, variables);
         }
 
@@ -240,7 +243,7 @@ namespace BazisGUI.Console
             if (e.KeyCode == Keys.Enter)
             {
                 var cmds = rtxbField.Lines[rtxbField.Lines.Count() - 1];
-                ConsoleCommandEnteredEvent?.Invoke(cmds);
+                ConsoleCommandEnteredEvent(cmds);
             }
             else if (e.KeyCode == Keys.Up)
                 PrintHistory(ConsoleHistory.GetPreviousCommand());
