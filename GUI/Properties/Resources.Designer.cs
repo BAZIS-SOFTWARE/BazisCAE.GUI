@@ -625,6 +625,60 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Undefiend condition type.
+        /// </summary>
+        internal static string cntrГант_AddConds_UndefinedCondExc {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_UndefinedCondExc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Clamp.
+        /// </summary>
+        internal static string cntrГант_AddConds_Закрепление {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_Закрепление", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Material.
+        /// </summary>
+        internal static string cntrГант_AddConds_Материал {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_Материал", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Heat.
+        /// </summary>
+        internal static string cntrГант_AddConds_Нагрев {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_Нагрев", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Load.
+        /// </summary>
+        internal static string cntrГант_AddConds_Нагрузка {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_Нагрузка", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Media.
+        /// </summary>
+        internal static string cntrГант_AddConds_Среда {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_Среда", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Gantt.
         /// </summary>
         internal static string cntrГант_headerName_text {
