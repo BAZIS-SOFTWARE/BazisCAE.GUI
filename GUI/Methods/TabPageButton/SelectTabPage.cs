@@ -1,7 +1,4 @@
-﻿using BazisGUI.Properties;
-using BazisGUI.Scene.Interfaces;
-using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace BazisGUI
@@ -39,7 +36,7 @@ namespace BazisGUI
             {
                 var cntr = splitContainer3.Panel1.Controls[i];
                 if (cntr.Name.Contains("btnTab") & cntr.Visible == true)
-                {
+                    {
                     var searchName = cntr.Name.Replace("btnTab", "");
                     var tabPage = splitContainer3.Panel1.Controls[$"cntr{searchName}"];
                     if (cntr.Name != btn.Name)

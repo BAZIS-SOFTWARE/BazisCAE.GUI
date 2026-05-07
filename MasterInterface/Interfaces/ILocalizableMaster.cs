@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MasterInterface.Interfaces
 {
-    public interface ILocalazableMaster : IMasterInterface
+    public interface ILocalizableMaster : IMasterInterface
     {
         string GetCurrentUICultureMasterName();
     }
