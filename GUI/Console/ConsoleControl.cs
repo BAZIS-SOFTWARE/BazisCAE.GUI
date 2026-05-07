@@ -169,7 +169,7 @@ namespace BazisGUI.Console
                 {
                     var matches = Regex.Matches(line, @"\$(\w+)");
                     if (matches.Count > 0)
-                        VariableCreator(line, matches, variables);
+                        ProcessCommandLine(line, matches, variables);
                     else 
                         ConsoleCommandEnteredEvent?.Invoke(line); 
                 }   
@@ -177,7 +177,7 @@ namespace BazisGUI.Console
             else throw new Exception($"\n > {Resources.ExecuteCMDFileMissing}");
         }
 
-        private void VariableCreator(string line, MatchCollection matches, Dictionary<string, int> variables)
+        private void ProcessCommandLine(string line, MatchCollection matches, Dictionary<string, int> variables)
         {
             var variableName = string.Empty;
             var newLine = string.Empty;
@@ -205,7 +205,6 @@ namespace BazisGUI.Console
 
             var number = ConsoleCommandEnteredEvent?.Invoke(newLine).Result;
             SetValue((int)number, variableName, variables);
-            variableName = string.Empty;
         }
 
         private void SetValue(int number, string variableName, Dictionary<string, int> variables)
