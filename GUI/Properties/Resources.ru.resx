@@ -2008,4 +2008,31 @@
   <data name="NavigatorControl_headerName_text" xml:space="preserve">
     <value>Навигатор</value>
   </data>
+  <data name="Header_volume_volume" xml:space="preserve">
+    <value>Объем</value>
+  </data>
+  <data name="Header_group_show" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Converters_ConvertClampKindKeysToClampKind_CastExc" xml:space="preserve">
+    <value>Не удалось привести тип {0} к типу {1}</value>
+  </data>
+  <data name="cntrГант_AddConds_Нагрев" xml:space="preserve">
+    <value>Нагрев</value>
+  </data>
+  <data name="cntrГант_AddConds_Материал" xml:space="preserve">
+    <value>Материал</value>
+  </data>
+  <data name="cntrГант_AddConds_Среда" xml:space="preserve">
+    <value>Среда</value>
+  </data>
+  <data name="cntrГант_AddConds_Закрепление" xml:space="preserve">
+    <value>Закрепление</value>
+  </data>
+  <data name="cntrГант_AddConds_Нагрузка" xml:space="preserve">
+    <value>Нагрузка</value>
+  </data>
+  <data name="cntrГант_AddConds_UndefinedCondExc" xml:space="preserve">
+    <value>Не определен тип граничных условий</value>
+  </data>
 </root>

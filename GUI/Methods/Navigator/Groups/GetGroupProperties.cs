@@ -13,7 +13,8 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        enum GroupPropertyKeys { Name, Sort, Direction, ElementsNodes, CreateCond,  }
+        enum GroupPropertyKeys { Name, Sort, Direction, ElementsNodes, CreateCond }
+        enum CreateCondByGroup { Heat, Material, Media, Clamp, Load }
         public List<RowProperty> GetGroupProperty(IGroup obj)
         {
             var rows = new List<RowProperty>();
@@ -43,7 +44,7 @@ namespace BazisGUI
             {
                 rows.Add(new RowProperty(GroupPropertyKeys.ElementsNodes.ToString(),
                     Resources.Header_groups_elementsNodes,
-                    new ButtonPropertyValue("Показать",
+                    new ButtonPropertyValue(Resources.Header_group_show,
                     new Action(() => ShowGroupWithNodes(obj)))));
             }
 
@@ -106,8 +107,8 @@ namespace BazisGUI
                     new DropDownPropertyValue("*",
                     new List<string>() 
                     {
-                        DataKind.Нагрев.ToString(),
-                        DataKind.Среда.ToString()
+                        CreateCondByGroup.Heat.ToString(),
+                        CreateCondByGroup.Media.ToString()
                     })));
             }
 
@@ -118,8 +119,8 @@ namespace BazisGUI
                     new DropDownPropertyValue("*",
                     new List<string>() 
                     {
-                        DataKind.Закрепление.ToString(),
-                        DataKind.Нагрузка.ToString()
+                        CreateCondByGroup.Clamp.ToString(),
+                        CreateCondByGroup.Load.ToString()
                     })));
             }
         }
@@ -137,8 +138,8 @@ namespace BazisGUI
                             new DropDownPropertyValue("*",
                             new List<string>() 
                             {
-                                DataKind.Материал.ToString(),
-                                DataKind.Нагрев.ToString(),
+                                CreateCondByGroup.Material.ToString(),
+                                CreateCondByGroup.Heat.ToString(),
                             })));
 
                     else if (project.ProjectKind == TaskKind.механическая)
@@ -147,7 +148,7 @@ namespace BazisGUI
                             new DropDownPropertyValue("*",
                             new List<string>()
                             {
-                                DataKind.Материал.ToString()
+                                CreateCondByGroup.Material.ToString()
                             })));
                 }
 
@@ -159,7 +160,7 @@ namespace BazisGUI
                             new DropDownPropertyValue("*",
                             new List<string>()
                             {
-                                DataKind.Среда.ToString()
+                                CreateCondByGroup.Media.ToString()
                             })));
             }
 
@@ -171,7 +172,7 @@ namespace BazisGUI
                         new DropDownPropertyValue("*",
                         new List<string>()
                         {
-                            DataKind.Материал.ToString()
+                            CreateCondByGroup.Material.ToString()
                         })));
 
                 else if (obj.ObjType == ObjType.Элемент1D)
@@ -183,7 +184,8 @@ namespace BazisGUI
                             new DropDownPropertyValue("*",
                             new List<string>()
                             {
-                                DataKind.Материал.ToString(),DataKind.Среда.ToString()
+                                CreateCondByGroup.Material.ToString(),
+                                CreateCondByGroup.Media.ToString()
                             })));
 
                     else if (project.ProjectKind == TaskKind.механическая)
@@ -192,7 +194,7 @@ namespace BazisGUI
                             new DropDownPropertyValue("*",
                             new List<string>()
                             {
-                                DataKind.Материал.ToString()
+                                CreateCondByGroup.Material.ToString()
                             })));
                 } 
             }
@@ -205,7 +207,7 @@ namespace BazisGUI
                         new DropDownPropertyValue("*",
                         new List<string>()
                         {
-                            DataKind.Материал.ToString()
+                            CreateCondByGroup.Material.ToString()
                         })));
             }
 
@@ -217,7 +219,7 @@ namespace BazisGUI
                         new DropDownPropertyValue("*",
                         new List<string>()
                         {
-                            DataKind.Материал.ToString()
+                            CreateCondByGroup.Material.ToString()
                         })));
 
                 else if (obj.ObjType == ObjType.Элемент2D)
@@ -226,7 +228,8 @@ namespace BazisGUI
                         new DropDownPropertyValue("*",
                         new List<string>()
                         {
-                            DataKind.Материал.ToString(),DataKind.Среда.ToString()
+                            CreateCondByGroup.Material.ToString(),
+                            CreateCondByGroup.Media.ToString()
                         })));
 
                 else if (obj.ObjType == ObjType.Элемент3D)
@@ -235,7 +238,7 @@ namespace BazisGUI
                         new DropDownPropertyValue("*",
                         new List<string>()
                         {
-                            DataKind.Материал.ToString()
+                            CreateCondByGroup.Material.ToString()
                         })));
             }
         }

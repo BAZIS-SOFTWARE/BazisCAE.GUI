@@ -625,6 +625,60 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Undefiend condition type.
+        /// </summary>
+        internal static string cntrГант_AddConds_UndefinedCondExc {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_UndefinedCondExc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Clamp.
+        /// </summary>
+        internal static string cntrГант_AddConds_Закрепление {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_Закрепление", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Material.
+        /// </summary>
+        internal static string cntrГант_AddConds_Материал {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_Материал", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Heat.
+        /// </summary>
+        internal static string cntrГант_AddConds_Нагрев {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_Нагрев", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Load.
+        /// </summary>
+        internal static string cntrГант_AddConds_Нагрузка {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_Нагрузка", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Media.
+        /// </summary>
+        internal static string cntrГант_AddConds_Среда {
+            get {
+                return ResourceManager.GetString("cntrГант_AddConds_Среда", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Gantt.
         /// </summary>
         internal static string cntrГант_headerName_text {
@@ -1224,6 +1278,15 @@ namespace BazisGUI.Properties {
         internal static string ConsoleEvents_ConsoleInEvents_VolumeElements_Message {
             get {
                 return ResourceManager.GetString("ConsoleEvents.ConsoleInEvents.VolumeElements.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Cant cast {0} to target type {1}.
+        /// </summary>
+        internal static string Converters_ConvertClampKindKeysToClampKind_CastExc {
+            get {
+                return ResourceManager.GetString("Converters_ConvertClampKindKeysToClampKind_CastExc", resourceCulture);
             }
         }
         
@@ -3067,6 +3130,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Show.
+        /// </summary>
+        internal static string Header_group_show {
+            get {
+                return ResourceManager.GetString("Header_group_show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Create condition.
         /// </summary>
         internal static string Header_groups_createCond {
@@ -3702,6 +3774,15 @@ namespace BazisGUI.Properties {
         internal static string Header_volume_TransitionGradientDegree {
             get {
                 return ResourceManager.GetString("Header_volume_TransitionGradientDegree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Volume.
+        /// </summary>
+        internal static string Header_volume_volume {
+            get {
+                return ResourceManager.GetString("Header_volume_volume", resourceCulture);
             }
         }
         

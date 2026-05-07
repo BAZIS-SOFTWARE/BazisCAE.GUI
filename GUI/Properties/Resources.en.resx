@@ -2008,4 +2008,31 @@ Create variable?</value>
   <data name="NavigatorControl_headerName_text" xml:space="preserve">
     <value>Navigator</value>
   </data>
+  <data name="Header_volume_volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="Header_group_show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Converters_ConvertClampKindKeysToClampKind_CastExc" xml:space="preserve">
+    <value>Cant cast {0} to target type {1}</value>
+  </data>
+  <data name="cntrГант_AddConds_Нагрев" xml:space="preserve">
+    <value>Heat</value>
+  </data>
+  <data name="cntrГант_AddConds_Материал" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="cntrГант_AddConds_Среда" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="cntrГант_AddConds_Закрепление" xml:space="preserve">
+    <value>Clamp</value>
+  </data>
+  <data name="cntrГант_AddConds_Нагрузка" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="cntrГант_AddConds_UndefinedCondExc" xml:space="preserve">
+    <value>Undefiend condition type</value>
+  </data>
 </root>

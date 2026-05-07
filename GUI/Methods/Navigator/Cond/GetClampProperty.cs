@@ -13,7 +13,7 @@ namespace BazisGUI
     public partial class BaseForm
     {
         enum ClampPopertyKeys { Type }
-        enum ClampKindKeys { Жесткое, Упругое, Симметрия, Контакт }
+        public enum ClampKindKeys { Hard, Flexable, Symmetric, Contact }
         public List<RowProperty> GetClampProperty(ClampData obj, IEnumerable<IGroup> groups, List<string> funcTables)
         {
             var rows = GetCondProperty(obj, groups, funcTables);

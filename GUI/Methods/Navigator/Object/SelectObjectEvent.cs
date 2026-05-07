@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using Model.Interfaces;
 using Model.MeshObjects;
@@ -65,7 +66,7 @@ namespace BazisGUI
             {
                 var rows = new List<RowProperty>();
 
-                rows.Add(new RowProperty(ObjectPropertyKey.Type.ToString(), "Объект", "Объем", true));
+                rows.Add(new RowProperty(ObjectPropertyKey.Type.ToString(), Resources.Header_object_object, Resources.Header_volume_volume, true));
 
                 rows.AddRange(GetVolProperties(number));
 

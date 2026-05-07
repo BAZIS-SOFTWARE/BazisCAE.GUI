@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Localization;
+using BazisGUI.Properties;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using System;
@@ -33,7 +34,36 @@ namespace BazisGUI.GantChart
                 //2. Добавляем строку
                 int rowNumber = dataGridView.Rows.Add();
                 //3. Заполняем ячейки
-                dataGridView.Rows[rowNumber].Cells[0].Value = item.ToString();
+
+                string kind;
+                var itemParts = item.ToString().Split(" : ");
+
+                switch (itemParts[0])
+                {
+                    case "Нагрев": 
+                        kind = Resources.cntrГант_AddConds_Нагрев;
+                        break;
+
+                    case "Материал":
+                        kind = Resources.cntrГант_AddConds_Материал;
+                        break;
+
+                    case "Среда":
+                        kind = Resources.cntrГант_AddConds_Среда;
+                        break;
+
+                    case "Закрепление":
+                        kind = Resources.cntrГант_AddConds_Закрепление;
+                        break;
+
+                    case "Нагрузка":
+                        kind = Resources.cntrГант_AddConds_Нагрузка;
+                        break;
+
+                    default:  throw new ArgumentException(Resources.cntrГант_AddConds_UndefinedCondExc);
+                }
+
+                dataGridView.Rows[rowNumber].Cells[0].Value = $"{kind} : {itemParts[1]}";
                 dataGridView.Rows[rowNumber].Cells[1].Value = item;
             }
             var max = conds.Max(x => x.StopTime);

@@ -12,19 +12,20 @@ namespace BazisGUI
     public partial class BaseForm
     {
         enum VolumePropertyKeys { Number, MeshType, TransitionGradientDegree, LayerThickness, SurfaceElementsSize, CenterElementsSize }
+        enum VolGenMeshTypes { Undefined, Gradient, Regular }
         private List<RowProperty> GetVolProperties(int number)
         {
             var rows = new List<RowProperty>();
             rows.Add(new RowProperty(VolumePropertyKeys.Number.ToString(), Resources.Header_volume_number, number));
 
             var attributes = GmshController.GetTransfiniteVolume(number);
-            var meshTypes = new List<string>() { "*", "градиентная", "регулярная" };
+            var meshTypes = Enum.GetValues<VolGenMeshTypes>().Select(x => x.ToString()).ToList();
 
 
             if (attributes.Length == 0)
                 rows.Add(new RowProperty(VolumePropertyKeys.MeshType.ToString(), 
                     Resources.Header_volume_meshType,
-                    new DropDownPropertyValue("*", meshTypes)));
+                    new DropDownPropertyValue("Undefined", meshTypes)));
             else
             {
                 rows.Add(new RowProperty(VolumePropertyKeys.MeshType.ToString(),
