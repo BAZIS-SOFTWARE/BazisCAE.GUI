@@ -176,11 +176,17 @@ namespace BazisGUI
 
         private void PresentExtrude()
         {
-            var set = project.GetModelSetsInfo(ObjType.Элемент3D).Where(x => x.Name.Contains("extrude")).Last();
-            var s = project.GetModelSetsInfo;
-            var pre = project.CreateModelObjectsPresentor(set);
-            var vbo = CreateVBObject(pre);
-            VBOController.AddVbo(vbo);
+           // RefreshGeometry(ObjType.Точка); RefreshGeometry(ObjType.Элемент3D);
+
+            //var set = project.GetModelSetsInfo(ObjType.Элемент3D).Where(x => x.Name.Contains("extrude")).Last();
+            //var pre = project.CreateModelObjectsPresentor(set);
+            //var vbo = CreateVBObject(pre);
+            //VBOController.AddVbo(vbo);
+
+
+            VBOController.DeleteAllVBObjects();
+            CreateVBObjects("Объекты");
+
             PresentMeshData();
             DisplayObjects();
         }

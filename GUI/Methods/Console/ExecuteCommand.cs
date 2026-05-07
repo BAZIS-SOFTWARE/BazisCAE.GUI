@@ -64,8 +64,8 @@ namespace BazisGUI
             { GenCmd.CreatePointProjectionOntoCurve, new string[]{ "point", "curve" } },
             { GenCmd.CreatePointProjectionOntoPlane, new string[]{ "point", "surface" } },
             { GenCmd.CreateCurve, new [] { "point#1","point#2" } },
-            { GenCmd.CreateSurface, new[] { "curves forming the contour", "curve#1,curve#2,curve#3" } },
-            { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve", "point", "step", "transfinite mesh 1-yes, 0-no" } },
+            { GenCmd.CreateSurface, new[] { "curves forming the contour", "curve#1,curve#2,curve#3..." } },
+            { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve#1,curve#2,curve#3...", "point", "step", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.Exit, Array.Empty<string>() },
             { GenCmd.GenerateMesh, Array.Empty<string>()}
@@ -173,6 +173,7 @@ namespace BazisGUI
                         break;
                     case GenCmd.GenerateMesh:
                         создать3DСеткуToolStripMenuItem_Click(null, EventArgs.Empty);
+                        btnSelect.Text = Resources.btnSelect_Text_Objects;
                         break;
                 }
             }
