@@ -2165,4 +2165,22 @@ Create variable?</value>
   <data name="CreateTaskWithoutProjectExc" xml:space="preserve">
     <value>Create or load project before</value>
   </data>
+  <data name="SettingsControl_headerName_text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ConsoleControl_headerName_text" xml:space="preserve">
+    <value>Console</value>
+  </data>
+  <data name="cntrГант_headerName_text" xml:space="preserve">
+    <value>Gantt</value>
+  </data>
+  <data name="PropertiesPanelControl_headerName_text" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="FunctionDataBasePage_headerName_text" xml:space="preserve">
+    <value>Functions</value>
+  </data>
+  <data name="MaterialsDataBasePage_headerName_text" xml:space="preserve">
+    <value>Materials</value>
+  </data>
 </root>

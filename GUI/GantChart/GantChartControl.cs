@@ -1,4 +1,5 @@
-﻿using Project.Interfaces.Tasks;
+﻿using BazisGUI.Localization;
+using Project.Interfaces.Tasks;
 using Project.Tasks;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using UserControlsEx;
 
 namespace BazisGUI.GantChart
 {
-    public partial class cntrГант : UserControl
+    public partial class cntrГант : UserControl, ILocalizableHeaderControl
     {
         float koeff;
 
@@ -21,6 +22,8 @@ namespace BazisGUI.GantChart
         {
             InitializeComponent();
         }
+
+        public string GetLocalizableHeaderText() => BazisGUI.Properties.Resources.cntrГант_headerName_text;
 
         public void AddConds(IEnumerable<ICondData> conds)
         {

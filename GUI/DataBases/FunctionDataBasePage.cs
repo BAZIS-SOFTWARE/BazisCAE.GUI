@@ -10,10 +10,11 @@ using PropertiesCalculator;
 using MaterialDB.FunctionData;
 using MaterialDB.MaterialData;
 using BazisGUI.Properties;
+using BazisGUI.Localization;
 
 namespace BazisGUI.DataBases
 {
-    public partial class FunctionDataBasePage : DataBasePage
+    public partial class FunctionDataBasePage : DataBasePage, ILocalizableHeaderControl
     {
         public event Action OnMutationEvent;
         public FunctionDataBasePage()
@@ -22,6 +23,8 @@ namespace BazisGUI.DataBases
             Loader = new LoadFunctionDataBaseFromTextFormat();
             Saver = new SaveFunctionDataBaseToTextFormat();
         }
+
+        public string GetLocalizableHeaderText() => Resources.FunctionDataBasePage_headerName_text;
 
         public FunctionDBData Functions { get; set; }
         = new FunctionDBData() { Name = "newFuncDataBase.jsf" };

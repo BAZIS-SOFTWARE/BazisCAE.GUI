@@ -1,5 +1,6 @@
 ﻿using BasicControls.OpenFileDialogEx;
 using BazisGUI.Console.Events;
+using BazisGUI.Localization;
 using BazisGUI.PinnedControl;
 using BazisGUI.Properties;
 using BazisGUI.Utilities;
@@ -46,7 +47,7 @@ namespace BazisGUI.Console
         ExtrudeRotate
     }
 
-    public partial class ConsoleControl : PinnedPage
+    public partial class ConsoleControl : PinnedPage, ILocalizableHeaderControl
     {
         public bool CheckPrintElemsInfo { get; set; }
         public bool CheckPrintNodesInfo { get; set; }
@@ -73,6 +74,8 @@ namespace BazisGUI.Console
         Dictionary<GenCmd, string[]> subCmds;
 
         private Thread trd;
+
+        public string GetLocalizableHeaderText() => Resources.ConsoleControl_headerName_text;
 
         public void NewItem_Click(object obj, EventArgs args)
         {

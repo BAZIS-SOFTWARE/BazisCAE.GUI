@@ -625,6 +625,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Gantt.
+        /// </summary>
+        internal static string cntrГант_headerName_text {
+            get {
+                return ResourceManager.GetString("cntrГант_headerName_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Object conversion error.
         /// </summary>
         internal static string ColorObjects_ObjectConversion_Exception {
@@ -1179,6 +1188,15 @@ namespace BazisGUI.Properties {
         internal static string ConnectionEstablishedAnswer {
             get {
                 return ResourceManager.GetString("ConnectionEstablishedAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Console.
+        /// </summary>
+        internal static string ConsoleControl_headerName_text {
+            get {
+                return ResourceManager.GetString("ConsoleControl_headerName_text", resourceCulture);
             }
         }
         
@@ -1821,6 +1839,15 @@ namespace BazisGUI.Properties {
         internal static string Function {
             get {
                 return ResourceManager.GetString("Function", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Functions.
+        /// </summary>
+        internal static string FunctionDataBasePage_headerName_text {
+            get {
+                return ResourceManager.GetString("FunctionDataBasePage_headerName_text", resourceCulture);
             }
         }
         
@@ -4024,6 +4051,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Materials.
+        /// </summary>
+        internal static string MaterialsDataBasePage_headerName_text {
+            get {
+                return ResourceManager.GetString("MaterialsDataBasePage_headerName_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на menuStrip.
         /// </summary>
         internal static string menuStrip_Text {
@@ -4400,6 +4436,15 @@ namespace BazisGUI.Properties {
         internal static string ProjectSavedCaption {
             get {
                 return ResourceManager.GetString("ProjectSavedCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Properties.
+        /// </summary>
+        internal static string PropertiesPanelControl_headerName_text {
+            get {
+                return ResourceManager.GetString("PropertiesPanelControl_headerName_text", resourceCulture);
             }
         }
         
@@ -5204,6 +5249,15 @@ namespace BazisGUI.Properties {
             get {
                 object obj = ResourceManager.GetObject("settings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Settings.
+        /// </summary>
+        internal static string SettingsControl_headerName_text {
+            get {
+                return ResourceManager.GetString("SettingsControl_headerName_text", resourceCulture);
             }
         }
         

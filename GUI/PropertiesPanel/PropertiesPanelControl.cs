@@ -1,3 +1,4 @@
+using BazisGUI.Localization;
 using BazisGUI.PinnedControl;
 using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel.DataGridViewNumericUpDown;
@@ -9,7 +10,7 @@ using UserControlsEx;
 
 namespace BazisGUI.PropertiesPanel
 {
-    public partial class PropertiesPanelControl : PinnedPage
+    public partial class PropertiesPanelControl : PinnedPage, ILocalizableHeaderControl
     {
         public event Action<PropertyChangedEventArgs> PropertyUpdateEvent;
         public event Action<PropertyChangedEventArgs> ReDrawEvent;
@@ -48,6 +49,8 @@ namespace BazisGUI.PropertiesPanel
             });
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
+
+        public string GetLocalizableHeaderText() => Resources.PropertiesPanelControl_headerName_text;
 
         private void DataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {

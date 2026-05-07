@@ -1987,4 +1987,22 @@
   <data name="CreateTaskWithoutProjectExc" xml:space="preserve">
     <value>Создайте или загрузите проект или сетку</value>
   </data>
+  <data name="SettingsControl_headerName_text" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="ConsoleControl_headerName_text" xml:space="preserve">
+    <value>Консоль</value>
+  </data>
+  <data name="cntrГант_headerName_text" xml:space="preserve">
+    <value>Гантт</value>
+  </data>
+  <data name="PropertiesPanelControl_headerName_text" xml:space="preserve">
+    <value>Свойства</value>
+  </data>
+  <data name="FunctionDataBasePage_headerName_text" xml:space="preserve">
+    <value>Функции</value>
+  </data>
+  <data name="MaterialsDataBasePage_headerName_text" xml:space="preserve">
+    <value>Материалы</value>
+  </data>
 </root>

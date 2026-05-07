@@ -8,6 +8,6 @@ namespace BazisGUI.Localization
 {
     public interface ILocalizableHeaderControl
     {
-        string GetLocalazableHeaderText();
+        string GetLocalizableHeaderText();
     }
 }
