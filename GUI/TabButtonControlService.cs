@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -30,6 +31,8 @@ namespace BazisGUI
 
             var btn = CreateTabButton(name);
 
+            control.Margin = new();
+            control.Location = new Point(btn.Width + btn.Margin.Left + btn.Margin.Right, 0);
             control.Name = $"cntr{name}";
             control.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
             SetControlSize(control);
@@ -52,6 +55,8 @@ namespace BazisGUI
 
             buttons.Remove(name);
             controls.Remove(name);
+
+            RedrawButtons();
         }
 
         public Button CreateTabButton(string name)
@@ -66,6 +71,8 @@ namespace BazisGUI
 
                 var g = first.CreateGraphics();
                 var textSize = g.MeasureString(name, first.Font);
+                var visibleControls = buttons.Values.Where(x => x.Visible);
+                btn.Location = new Point(0, visibleControls.Sum(x => x.Height + x.Margin.Top));
                 btn.Size = new Size((int)textSize.Height, (int)textSize.Width);
 
                 btn.Margin = first.Margin;
@@ -74,22 +81,20 @@ namespace BazisGUI
 
             else
             {
-                var refButton = new Button();
                 btn.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 btn.AutoSize = false;
 
-                var g = refButton.CreateGraphics();
-                var textSize = g.MeasureString(name, refButton.Font);
+                var g = btn.CreateGraphics();
+                var textSize = g.MeasureString(name, btn.Font);
+                btn.Location = new Point(0, 0);
                 btn.Size = new Size((int)textSize.Height, (int)textSize.Width);
 
-                btn.Margin = refButton.Margin;
                 btn.FlatStyle = default;
             }
 
             btn.MinimumSize = new Size(27, 130);
             btn.Tag = true;
             btn.Name = $"btnTab{name}";
-            //btn.Text = name;
 
             btn.MouseDown += button_MouseDown;
             btn.Paint += buttonTab_Paint;
@@ -130,13 +135,24 @@ namespace BazisGUI
             }
         }
 
+        private void RedrawButtons()
+        {
+            container.SuspendLayout();
+
+            var visible = buttons.Values.Where(x => x.Visible).ToArray();
+            for (var i = 0; i < visible.Count(); i++)
+                visible[i].Location = new Point(0, i * (visible[i].Height + visible[i].Margin.Top));
+
+            container.ResumeLayout();
+        }
+
         private void SetControlSize(Control control)
         {
             var btn = buttons.Values.FirstOrDefault();
-            var maxWidth = btn == null ? 6 : btn.Margin.Left + btn.Margin.Right;
+            var maxWidth = btn == null ? 33 : btn.Margin.Left + btn.Margin.Right + btn.Width;
 
-            var width = container.Width - container.Padding.Right - container.Padding.Left - control.Margin.Right - control.Margin.Left - maxWidth;
-            var height = container.Height - container.Padding.Top - container.Padding.Bottom - control.Margin.Top - control.Margin.Bottom;
+            var width = container.Width - container.Padding.Right - container.Padding.Left - maxWidth;
+            var height = container.Height - container.Padding.Top - container.Padding.Bottom;
 
             control.Size = new Size(width, height);
         }
