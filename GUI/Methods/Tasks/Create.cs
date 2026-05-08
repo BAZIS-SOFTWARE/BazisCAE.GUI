@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,7 +17,7 @@ namespace BazisGUI
                 var search = navigator.TrySearchNodes(NodeName.Task, out tasks);
 
                 if (project == null)
-                    throw new Exception("Создайте или загрузите проект или сетку");
+                    throw new Exception(Resources.CreateTaskWithoutProjectExc);
 
                 if (!search)
                 {

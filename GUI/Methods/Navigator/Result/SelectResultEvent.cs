@@ -1,4 +1,4 @@
-﻿using BazisGUI.Navigator;
+﻿using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using ResultDB.IO;
 using System;
@@ -15,7 +15,7 @@ namespace BazisGUI
         {
             try
             {
-                var row = new RowProperty("Результат", arg2);
+                var row = new RowProperty(ResultPropertyKeys.Result.ToString(), Resources.Header_result_result, arg2);
                 propertiesPanel.DrawTable(new List<RowProperty>() { row });
 
                 var loader = new LoadResultsFileDB();

@@ -1549,4 +1549,496 @@
   <data name="FailedCreateGeometry" xml:space="preserve">
     <value>Не удалось создать геометрию</value>
   </data>
+  <data name="Header_chemical_MaxConcentration" xml:space="preserve">
+    <value>Макс.концентр. (dCt max), %</value>
+  </data>
+  <data name="Header_comp_Execute" xml:space="preserve">
+    <value>Выполнить</value>
+  </data>
+  <data name="Выполнить" xml:space="preserve">
+    <value>выполнить</value>
+  </data>
+  <data name="Пропустить" xml:space="preserve">
+    <value>пропустить</value>
+  </data>
+  <data name="Header_chemical_InitialConcentration" xml:space="preserve">
+    <value>Начальная концентрация, %</value>
+  </data>
+  <data name="Header_chemical_MaxConcentrationValue" xml:space="preserve">
+    <value>Значение макс.концентр.</value>
+  </data>
+  <data name="Header_comp_ApplyForAll" xml:space="preserve">
+    <value>Применить ко всем</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Header_comp_Algorithm" xml:space="preserve">
+    <value>Алгоритм решения</value>
+  </data>
+  <data name="Header_comp_SolveIterations" xml:space="preserve">
+    <value>Кол-во итераций решения</value>
+  </data>
+  <data name="Header_comp_SolveAccuracy" xml:space="preserve">
+    <value>Точность решения, у.ед.</value>
+  </data>
+  <data name="Header_comp_RelaxationCoef" xml:space="preserve">
+    <value>Коэф. релаксации (w)</value>
+  </data>
+  <data name="Header_comp_MaxRelaxationCoef" xml:space="preserve">
+    <value>Maкс. коэф. релаксации (wm)</value>
+  </data>
+  <data name="Header_comp_Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="Header_comp_IterationsOnStep" xml:space="preserve">
+    <value>Кол-во итераций на шаге</value>
+  </data>
+  <data name="Header_comp_SaveRate" xml:space="preserve">
+    <value>Частота сохранений, шаг</value>
+  </data>
+  <data name="Header_comp_InitTemp" xml:space="preserve">
+    <value>Начальная температура, C°</value>
+  </data>
+  <data name="Header_comp_StartTime" xml:space="preserve">
+    <value>Время начала, сек</value>
+  </data>
+  <data name="Header_comp_StopTime" xml:space="preserve">
+    <value>Время окончания, сек</value>
+  </data>
+  <data name="Header_comp_InitialSolveStep" xml:space="preserve">
+    <value>Начальный шаг расчета, сек</value>
+  </data>
+  <data name="Header_comp_MinSolveStep" xml:space="preserve">
+    <value>Минимальный шаг расчета, сек</value>
+  </data>
+  <data name="Header_comp_MaxSolveStep" xml:space="preserve">
+    <value>Максимальный шаг расчета, сек</value>
+  </data>
+  <data name="Header_comp_Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Execute" xml:space="preserve">
+    <value>Выполнять</value>
+  </data>
+  <data name="Header_cond_material_material" xml:space="preserve">
+    <value>Материал</value>
+  </data>
+  <data name="Header_cond_material_diametr" xml:space="preserve">
+    <value>Диаметр</value>
+  </data>
+  <data name="Header_cond_material_thickness" xml:space="preserve">
+    <value>Толщина</value>
+  </data>
+  <data name="UndefinedConditionTypeExc" xml:space="preserve">
+    <value>Вид условия не определен</value>
+  </data>
+  <data name="Header_cond_media_condType" xml:space="preserve">
+    <value>Вид условия</value>
+  </data>
+  <data name="Header_cond_objectsGroup" xml:space="preserve">
+    <value>Группа объектов</value>
+  </data>
+  <data name="Header_cond_parameter_placeHolder" xml:space="preserve">
+    <value>Параметр {0}</value>
+  </data>
+  <data name="Header_cond_parameterValue_placeHolder" xml:space="preserve">
+    <value>Значение {0}</value>
+  </data>
+  <data name="Header_cond_table_placeHolder" xml:space="preserve">
+    <value>Таблица {0}</value>
+  </data>
+  <data name="Header_cond_value" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="Header_cond_function" xml:space="preserve">
+    <value>Функция</value>
+  </data>
+  <data name="Header_cond_direction" xml:space="preserve">
+    <value>Направление</value>
+  </data>
+  <data name="Header_cond_start" xml:space="preserve">
+    <value>Старт, сек.</value>
+  </data>
+  <data name="Header_cond_stop" xml:space="preserve">
+    <value>Стоп, сек.</value>
+  </data>
+  <data name="Header_cond_coordinateSystem" xml:space="preserve">
+    <value>Система координат</value>
+  </data>
+  <data name="Header_localFrame_trajectory" xml:space="preserve">
+    <value>Траектория</value>
+  </data>
+  <data name="Header_localFrame_referenceLine" xml:space="preserve">
+    <value>Опорная линия</value>
+  </data>
+  <data name="Header_localFrame_speed" xml:space="preserve">
+    <value>Скорость, мм./сек.</value>
+  </data>
+  <data name="Header_cond_plane" xml:space="preserve">
+    <value>Плоскость</value>
+  </data>
+  <data name="Header_cond_shiftingX" xml:space="preserve">
+    <value>Смещение X</value>
+  </data>
+  <data name="Header_cond_shiftingY" xml:space="preserve">
+    <value>Смещение Y</value>
+  </data>
+  <data name="Header_cond_ShiftingZ" xml:space="preserve">
+    <value>Смещение Z</value>
+  </data>
+  <data name="Header_cond_rotX" xml:space="preserve">
+    <value>Поворот OX</value>
+  </data>
+  <data name="Header_cond_rotY" xml:space="preserve">
+    <value>Поворот OY</value>
+  </data>
+  <data name="Header_cond_rotZ" xml:space="preserve">
+    <value>Поворот OZ</value>
+  </data>
+  <data name="Header_clamp_type" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Header_load_type" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Header_geo_minSize" xml:space="preserve">
+    <value>Мин размер</value>
+  </data>
+  <data name="Header_geo_maxSize" xml:space="preserve">
+    <value>Макс размер</value>
+  </data>
+  <data name="Header_geo_algorithm2D" xml:space="preserve">
+    <value>Алгоритм 2D</value>
+  </data>
+  <data name="Header_geo_algorithm3D" xml:space="preserve">
+    <value>Алгоритм 3D</value>
+  </data>
+  <data name="Показать" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Header_geo_scaleCoef" xml:space="preserve">
+    <value>Масштаб. коэфициент</value>
+  </data>
+  <data name="Header_geo_showPointsOnCurves" xml:space="preserve">
+    <value>Показать узлы на кривых</value>
+  </data>
+  <data name="Header_geo_showPointsNumbersOnCurves" xml:space="preserve">
+    <value>Показать кол-во узлов на кривых</value>
+  </data>
+  <data name="Header_geo_showSurfacesNumbers" xml:space="preserve">
+    <value>Показать номера поверхностей</value>
+  </data>
+  <data name="Header_geo_showPointsNumbers" xml:space="preserve">
+    <value>Показать номера точек</value>
+  </data>
+  <data name="Header_geo_showVolumesNumbers" xml:space="preserve">
+    <value>Показать номера объемов</value>
+  </data>
+  <data name="Header_geo_showMeshOnGeneration" xml:space="preserve">
+    <value>Отображать всю сетку при генерации</value>
+  </data>
+  <data name="Header_termalTask_maxTemperture" xml:space="preserve">
+    <value>Макс. темп. (dTt max), C°</value>
+  </data>
+  <data name="Header_mechanicalTask_maxDiference" xml:space="preserve">
+    <value>Макс. разница dU, &gt;0</value>
+  </data>
+  <data name="Header_termalTask_maxTempertureValue" xml:space="preserve">
+    <value>Значение макс. темп.</value>
+  </data>
+  <data name="Header_mechanicalTask_maxMove" xml:space="preserve">
+    <value>Макс. перемещения U, &gt;0</value>
+  </data>
+  <data name="Header_mechanicalTask_maxMoveValue" xml:space="preserve">
+    <value>Значение макс. перемещения U</value>
+  </data>
+  <data name="Header_mechanicalTask_maxPlasticDeformation" xml:space="preserve">
+    <value>Пласт. деформации Si/St, &gt;1</value>
+  </data>
+  <data name="Header_mechanicalTask_plasticDeformationValue" xml:space="preserve">
+    <value>Значение пласт. деформации Si/St</value>
+  </data>
+  <data name="Header_curve_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_curve_PointsNumber" xml:space="preserve">
+    <value>Количество точек</value>
+  </data>
+  <data name="Header_curve_algorithm" xml:space="preserve">
+    <value>Алгоритм</value>
+  </data>
+  <data name="Header_curve_coefficient" xml:space="preserve">
+    <value>Коэффициент</value>
+  </data>
+  <data name="Header_surface_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_surface_meshType" xml:space="preserve">
+    <value>Вид сетки</value>
+  </data>
+  <data name="Header_surface_meshKind" xml:space="preserve">
+    <value>Вид сетки</value>
+  </data>
+  <data name="Header_surface_cornerPoints" xml:space="preserve">
+    <value>Угловые точки</value>
+  </data>
+  <data name="Header_surface_ribersOrientation" xml:space="preserve">
+    <value>Ориентация ребер</value>
+  </data>
+  <data name="Header_surface_quadratization" xml:space="preserve">
+    <value>Квадратизация</value>
+  </data>
+  <data name="Header_surface_addedCurves" xml:space="preserve">
+    <value>Добавленные кривые</value>
+  </data>
+  <data name="Header_surface_pointsNumbers" xml:space="preserve">
+    <value>Номера точек</value>
+  </data>
+  <data name="Header_groups_name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Header_groups_sort" xml:space="preserve">
+    <value>Сортировка</value>
+  </data>
+  <data name="Отсортировать" xml:space="preserve">
+    <value>Отсортировать</value>
+  </data>
+  <data name="Header_groups_direction" xml:space="preserve">
+    <value>Направление</value>
+  </data>
+  <data name="Реверс" xml:space="preserve">
+    <value>Реверс</value>
+  </data>
+  <data name="Header_groups_elementsNodes" xml:space="preserve">
+    <value>Узлы элементов</value>
+  </data>
+  <data name="Header_groups_createCond" xml:space="preserve">
+    <value>Создать условие</value>
+  </data>
+  <data name="Header_point_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_point_elementsSize" xml:space="preserve">
+    <value>Размер элементов</value>
+  </data>
+  <data name="Header_element_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_element_elementLevel" xml:space="preserve">
+    <value>Порядок элемента</value>
+  </data>
+  <data name="Header_element_includedNodes" xml:space="preserve">
+    <value>Входящие узлы</value>
+  </data>
+  <data name="Header_node_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_node_cordX" xml:space="preserve">
+    <value>Координата X</value>
+  </data>
+  <data name="Header_node_cordY" xml:space="preserve">
+    <value>Координата Y</value>
+  </data>
+  <data name="Header_node_cordZ" xml:space="preserve">
+    <value>Координата Z</value>
+  </data>
+  <data name="Header_node_linkedElements" xml:space="preserve">
+    <value>Связанные элементы</value>
+  </data>
+  <data name="Header_volume_number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Header_volume_meshType" xml:space="preserve">
+    <value>Вид сетки</value>
+  </data>
+  <data name="Header_volume_TransitionGradientDegree" xml:space="preserve">
+    <value>Степень градиента перехода</value>
+  </data>
+  <data name="Header_volume_layerThickness" xml:space="preserve">
+    <value>Толщина слоя</value>
+  </data>
+  <data name="Header_volume_surfaceElementsSize" xml:space="preserve">
+    <value>Размер элементов на поверхности</value>
+  </data>
+  <data name="Header_volume_centerElementsSize" xml:space="preserve">
+    <value>Размер элементов в центре</value>
+  </data>
+  <data name="Header_projectMesh_nodes" xml:space="preserve">
+    <value>Узлы</value>
+  </data>
+  <data name="Header_projectMesh_elements1D" xml:space="preserve">
+    <value>Элементы 1D</value>
+  </data>
+  <data name="Header_projectMesh_elements2D" xml:space="preserve">
+    <value>Элементы 2D</value>
+  </data>
+  <data name="Header_projectMesh_show" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Header_projectMesh_hide" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="Header_projectMesh_delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Header_projectMesh_elements3D" xml:space="preserve">
+    <value>Элементы 3D</value>
+  </data>
+  <data name="Header_object_object" xml:space="preserve">
+    <value>Объект</value>
+  </data>
+  <data name="Header_frameFunction_SPH_width" xml:space="preserve">
+    <value>Ширина, мм.</value>
+  </data>
+  <data name="Header_frameFunction_CIL_length" xml:space="preserve">
+    <value>Длина, мм.</value>
+  </data>
+  <data name="Header_frameFunction_CIL_upperDiam" xml:space="preserve">
+    <value>Верхний диам., мм.</value>
+  </data>
+  <data name="Header_frameFunction_CIL_bottomDiam" xml:space="preserve">
+    <value>Нижний диам., мм.</value>
+  </data>
+  <data name="Header_frameFunction_CFF_file" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Header_result_showFields" xml:space="preserve">
+    <value>Показывать поле</value>
+  </data>
+  <data name="Header_result_showNodesValues" xml:space="preserve">
+    <value>Показать значения в узлах</value>
+  </data>
+  <data name="Header_result_showElementsValues" xml:space="preserve">
+    <value>Показать значения в элементах</value>
+  </data>
+  <data name="Header_result_averageValues" xml:space="preserve">
+    <value>Усреднять результаты</value>
+  </data>
+  <data name="Header_result_showScale" xml:space="preserve">
+    <value>Показывать шкалу</value>
+  </data>
+  <data name="Header_result_resultScale" xml:space="preserve">
+    <value>Масштаб</value>
+  </data>
+  <data name="Header_result_clarifyValues" xml:space="preserve">
+    <value>Уточнить значения</value>
+  </data>
+  <data name="Header_result_maxScaleValue" xml:space="preserve">
+    <value>Макс. значение</value>
+  </data>
+  <data name="Header_result_minScaleValue" xml:space="preserve">
+    <value>Мин. значение</value>
+  </data>
+  <data name="Header_result_precision" xml:space="preserve">
+    <value>Точность</value>
+  </data>
+  <data name="Header_result_intervals" xml:space="preserve">
+    <value>Интервалы</value>
+  </data>
+  <data name="Header_result_xPos" xml:space="preserve">
+    <value>Положение шкалы по Х</value>
+  </data>
+  <data name="Header_result_yPos" xml:space="preserve">
+    <value>Положение шкалы по Y</value>
+  </data>
+  <data name="Header_result_result" xml:space="preserve">
+    <value>Результат</value>
+  </data>
+  <data name="Header_set_precisionOrder" xml:space="preserve">
+    <value>Порядок точности</value>
+  </data>
+  <data name="Header_set_adjacentNodes" xml:space="preserve">
+    <value>Смежные узлы</value>
+  </data>
+  <data name="Header_set_show" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Header_set_group" xml:space="preserve">
+    <value>Группа</value>
+  </data>
+  <data name="Header_set_create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Header_set_name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Header_set_color" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="Header_set_view" xml:space="preserve">
+    <value>Представление</value>
+  </data>
+  <data name="Header_task_type" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Headers_task_kind" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Header_task_materials" xml:space="preserve">
+    <value>Материалы</value>
+  </data>
+  <data name="Header_task_functions" xml:space="preserve">
+    <value>Функции</value>
+  </data>
+  <data name="Header_task_checkCondValues" xml:space="preserve">
+    <value>Проверка значений условий</value>
+  </data>
+  <data name="LoadPythonFile_ВыберитеPythonФайл" xml:space="preserve">
+    <value>Выберите Python файл</value>
+  </data>
+  <data name="CreateTaskWithoutProjectExc" xml:space="preserve">
+    <value>Создайте или загрузите проект или сетку</value>
+  </data>
+  <data name="SettingsControl_headerName_text" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="ConsoleControl_headerName_text" xml:space="preserve">
+    <value>Консоль</value>
+  </data>
+  <data name="cntrГант_headerName_text" xml:space="preserve">
+    <value>Гантт</value>
+  </data>
+  <data name="PropertiesPanelControl_headerName_text" xml:space="preserve">
+    <value>Свойства</value>
+  </data>
+  <data name="FunctionDataBasePage_headerName_text" xml:space="preserve">
+    <value>Функции</value>
+  </data>
+  <data name="MaterialsDataBasePage_headerName_text" xml:space="preserve">
+    <value>Материалы</value>
+  </data>
+  <data name="NavigatorControl_headerName_text" xml:space="preserve">
+    <value>Навигатор</value>
+  </data>
+  <data name="Header_volume_volume" xml:space="preserve">
+    <value>Объем</value>
+  </data>
+  <data name="Header_group_show" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Converters_ConvertClampKindKeysToClampKind_CastExc" xml:space="preserve">
+    <value>Не удалось привести тип {0} к типу {1}</value>
+  </data>
+  <data name="cntrГант_AddConds_Нагрев" xml:space="preserve">
+    <value>Нагрев</value>
+  </data>
+  <data name="cntrГант_AddConds_Материал" xml:space="preserve">
+    <value>Материал</value>
+  </data>
+  <data name="cntrГант_AddConds_Среда" xml:space="preserve">
+    <value>Среда</value>
+  </data>
+  <data name="cntrГант_AddConds_Закрепление" xml:space="preserve">
+    <value>Закрепление</value>
+  </data>
+  <data name="cntrГант_AddConds_Нагрузка" xml:space="preserve">
+    <value>Нагрузка</value>
+  </data>
+  <data name="cntrГант_AddConds_UndefinedCondExc" xml:space="preserve">
+    <value>Не определен тип граничных условий</value>
+  </data>
+  <data name="btnSelect_Text_Select" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
 </root>

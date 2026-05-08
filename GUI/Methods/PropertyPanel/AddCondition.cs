@@ -54,36 +54,5 @@ namespace BazisGUI
                     return new MatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
             }
         }   
-      
-
-        //private void AddDataLRF(Point3D vec, string dataName, string dataInfo)
-        //{
-        //    var dataAr = dataInfo.Split(' ');
-
-        //    var lrfStr = dataAr.First(x => x.Contains("LRF"));
-        //    var lrfInd = lrfStr.IndexOf("LRF");
-        //    var valStr = dataAr[lrfInd + 1];
-
-        //    var val = float.Parse(valStr);
-        //    var rVec = vec.Mult(val);
-
-        //    dataAr[lrfInd] = "X";
-        //    dataAr[lrfInd] = rVec._x.ToString();
-
-        //    var x_data = project.TaskData.Create(dataName.ToEnum<DataKind>(), string.Join(" ", dataAr), project.ModelData.GroupData);
-        //    project.TaskData.Add(x_data);
-
-        //    dataAr[lrfInd] = "Y";
-        //    dataAr[lrfInd] = rVec._y.ToString();
-
-        //    var y_data = project.TaskData.Create(dataName.ToEnum<DataKind>(), string.Join(" ", dataAr), project.ModelData.GroupData);
-        //    project.TaskData.Add(y_data);
-
-        //    dataAr[lrfInd] = "Z";
-        //    dataAr[lrfInd] = rVec._z.ToString();
-
-        //    var z_data = project.TaskData.Create(dataName.ToEnum<DataKind>(), string.Join(" ", dataAr), project.ModelData.GroupData);
-        //    project.TaskData.Add(z_data);
-        //}
     }
 }

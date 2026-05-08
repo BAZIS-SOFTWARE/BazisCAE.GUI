@@ -1,3 +1,4 @@
+using BazisGUI.Localization;
 using BazisGUI.PinnedControl;
 using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel.DataGridViewNumericUpDown;
@@ -5,10 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using UserControlsEx;
 
 namespace BazisGUI.PropertiesPanel
 {
-    public partial class PropertiesPanelControl : PinnedPage
+    public partial class PropertiesPanelControl : PinnedPage, ILocalizableHeaderControl
     {
         public event Action<PropertyChangedEventArgs> PropertyUpdateEvent;
         public event Action<PropertyChangedEventArgs> ReDrawEvent;
@@ -48,6 +50,8 @@ namespace BazisGUI.PropertiesPanel
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
+        public string GetLocalizableHeaderText() => Resources.PropertiesPanelControl_headerName_text;
+
         private void DataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
 
@@ -81,10 +85,10 @@ namespace BazisGUI.PropertiesPanel
             // comboBox,TextBox, CheckBox etc.
             foreach (var prop in rows)// Инициализация строк через RowProperty
             {
-                var row = new DataGridViewRow();
+                var row = new DataGridViewRowEx { Key = prop.Key };
                 row.DefaultCellStyle.BackColor = prop.Color;
 
-                row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); // Имя свойства
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.LocalizedHeader }); // Имя свойства
 
                 DataGridViewCell cell; // Значение свойства
 
@@ -131,7 +135,7 @@ namespace BazisGUI.PropertiesPanel
                 }
                     
 
-                if (prop.Header == Resources.Header_Color)
+                if (prop.LocalizedHeader == Resources.Header_Color)
                     cell.Style.BackColor = (Color)prop.Value;
 
                 cell.Tag = prop.ValidationType.ToString();
@@ -153,10 +157,11 @@ namespace BazisGUI.PropertiesPanel
 
         }
 
-        public void CellValueChanged(DataGridViewCell e)
+        public void CellValueChanged(DataGridViewCell e, string key)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
+                // TODO: получение ключа из DGVCellEx
                 var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                 var cellValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
                 var newValue = cellValue?.ToString() ?? string.Empty;
@@ -166,7 +171,7 @@ namespace BazisGUI.PropertiesPanel
                     var color = ChangeColorCell(newValue);
                     dataGridView1.Rows[e.RowIndex].Cells[1].Style.BackColor = color;
                 }
-                var eventArgs = new PropertyChangedEventArgs(header, newValue, _oldValue);
+                var eventArgs = new PropertyChangedEventArgs(key, header, newValue, _oldValue);
                 
                 if (objInfo != null)
                     eventArgs.ObjInfo = objInfo;
@@ -235,8 +240,8 @@ namespace BazisGUI.PropertiesPanel
                 }
                 if (newValue != corrected) dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = corrected;
             }
-            var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            CellValueChanged(cell);
+            var row = dataGridView1.Rows[e.RowIndex] as DataGridViewRowEx;
+            CellValueChanged(row.Cells[e.ColumnIndex], row.Key);
         }
 
         private Color ChangeColorCell(string colorName) 

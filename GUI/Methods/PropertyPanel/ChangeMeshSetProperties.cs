@@ -4,6 +4,7 @@ using BazisGUI.PropertiesPanel;
 using BazisGUI.Scene.Interfaces;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -24,72 +25,50 @@ namespace BazisGUI
             else
                 _objectsSet = project.GetModelSetInfo(ObjType.Элемент1D, setName);
 
-            if (obj.Header == "Имя")
+            if (Enum.TryParse(obj.Key, out SetPropertyKeys key))
             {
-                project.ChangeMeshSetName(dimm,
-                    obj.OldValue.ToString(),
-                    obj.NewValue.ToString());
-                PresentMeshData();
-            }
-            else if (obj.Header == "Цвет")
-            {
-                Color color;
-
-                var newValue = obj.NewValue.ToString();
-                if (newValue.StartsWith("Color [A="))
+                switch (key) 
                 {
-                    string[] parts = newValue.Trim('C', 'o', 'l', 'r', ' ', '[', ']').Split(',');
-                    int a = int.Parse(parts[0].Split('=')[1]);
-                    int r = int.Parse(parts[1].Split('=')[1]);
-                    int g = int.Parse(parts[2].Split('=')[1]);
-                    int b = int.Parse(parts[3].Split('=')[1]);
-                    color = Color.FromArgb(a, r, g, b);
+                    case SetPropertyKeys.Name:
+                        HandleSetNameParameter(dimm, obj.OldValue, obj.NewValue); 
+                        break;
+
+                    case SetPropertyKeys.Color:
+                    {
+                        var color = HandleSetColorParameter(obj.NewValue.ToString());
+                        if (_objectsSet != null)
+                        {
+                            _objectsSet.SetColor(color);
+                            ColorObjects(_objectsSet.ObjType.ToString());
+                        }
+                        break;  
+                    }
+
+                    case SetPropertyKeys.View:
+                    {
+                        var viewMode = obj.NewValue.ToString().ToEnum<ViewMode>();
+                        _objectsSet.SetViewMode(viewMode);
+
+                        ObjView objView;
+                        if (viewMode == ViewMode.Line)
+                            objView = ObjView.Lines;
+
+                        else if (viewMode == ViewMode.Surface)
+                            objView = ObjView.Surface;
+
+                        else
+                            objView = ObjView.LinesSurface;
+
+                        VBOController.ChangeViewModeVBObjects(setName, objView);
+                        DisplayObjects();
+                        break;
+                    }
+
+                    case SetPropertyKeys.PrecisionOrder:
+                        SetElementsOrderEvent(int.Parse(obj.NewValue));
+                        break;
                 }
-                else
-                {
-                    color = Color.FromName(newValue.Replace("Color [", "").Replace("]", ""));
-                }
-
-                if (_objectsSet != null)
-                {
-                    _objectsSet.SetColor(color);
-                    ColorObjects(_objectsSet.ObjType.ToString());
-                }
-
-            }
-            else if (obj.Header == "Представление")
-            {
-                var viewMode = obj.NewValue.ToString().ToEnum<ViewMode>();
-                _objectsSet.SetViewMode(viewMode);
-
-                ObjView objView;
-                //var set = project.GetModelSetInfo(objType, setName);
-                if (viewMode == ViewMode.Line)
-                {
-                    objView = ObjView.Lines;
-                    //set.SetViewMode(ViewMode.Line);
-                }
-
-                else if (viewMode == ViewMode.Surface)
-                {
-                    objView = ObjView.Surface;
-                    //set.SetViewMode(ViewMode.Surface);
-                }
-
-                else
-                {
-                    objView = ObjView.LinesSurface;
-                    //set.SetViewMode(ViewMode.LineSurface);
-                }
-
-                VBOController.ChangeViewModeVBObjects(setName, objView);
-
-                DisplayObjects();
-            }
-            else if(obj.Header == "Порядок точности")
-            {
-                SetElementsOrderEvent(int.Parse(obj.NewValue));
-            }    
+            } 
         }
 
         private void SetElementsOrderEvent(int obj)
@@ -122,7 +101,31 @@ namespace BazisGUI
                 var nodes = mesh.First().Nodes.Find(nodeName, false);
                 nodes.FirstOrDefault(x => x.Text.Contains(setName))?.Expand();
             }
+        }
 
+        private void HandleSetNameParameter(int dimm, string oldValue, string newValue)
+        {
+            project.ChangeMeshSetName(dimm,
+                    oldValue.ToString(),
+                    newValue.ToString());
+            PresentMeshData();
+        }
+
+        private Color HandleSetColorParameter(string newValue)
+        {
+            Color color;
+
+            if (newValue.StartsWith("Color [A="))
+            {
+                string[] parts = newValue.Trim('C', 'o', 'l', 'r', ' ', '[', ']').Split(',');
+                int a = int.Parse(parts[0].Split('=')[1]);
+                int r = int.Parse(parts[1].Split('=')[1]);
+                int g = int.Parse(parts[2].Split('=')[1]);
+                int b = int.Parse(parts[3].Split('=')[1]);
+                return Color.FromArgb(a, r, g, b);
+            }
+            else
+                return Color.FromName(newValue.Replace("Color [", "").Replace("]", ""));
         }
     }
 }

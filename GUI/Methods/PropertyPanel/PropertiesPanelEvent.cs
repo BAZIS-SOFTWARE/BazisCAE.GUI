@@ -145,7 +145,8 @@ namespace BazisGUI
                     navigator.DrawNodeFrozen = true;
                     navigator.BeginUpdate();
 
-                    navigator.SelectedNode.Text = cond.ToString();
+                    var parts = cond.ToString().Split(" : ");
+                    navigator.SelectedNode.Text = $"{Localization.Localization.GetNavigatorNodeNameLocalization(nodeName)} : {parts[1]}";
 
                     navigator.EndUpdate();
                     navigator.DrawNodeFrozen = false;
@@ -233,62 +234,101 @@ namespace BazisGUI
 
         private void ChangeResultsProperty(PropertyChangedEventArgs obj)
         {
-            if (obj.Header == "Масштаб")
-                settingsConfig.Scale_scale = int.Parse(obj.NewValue);
-
-            else if(obj.Header == "Макс. значение" | obj.Header == "Мин. значение")
+            if (Enum.TryParse(obj.Key, out ResultPropertyKeys key))
             {
-                if (obj.Header == "Макс. значение")
-                    settingsConfig.Scale_MaxValue = float.Parse(obj.NewValue);
-                else
-                    settingsConfig.Scale_MinValue = float.Parse(obj.NewValue);
+                switch (key) 
+                {
+                    case ResultPropertyKeys.ResultScale:
+                        settingsConfig.Scale_scale = int.Parse(obj.NewValue);
+                        break;
 
-                var intervals = settingsConfig.Scale_Intervals;
-                var pre = settingsConfig.Scale_Precision;
-                resultsController.FillRange(
-                    settingsConfig.Scale_MinValue,settingsConfig.Scale_MaxValue, intervals, pre);
+                    case ResultPropertyKeys.MinScaleValue:
+                        HandleMinValueParameter(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.MaxScaleValue:
+                        HandleMaxValueParameter(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ShowScale:
+                        HandleShowResultsScale(obj.NewValue);
+                        break;
+
+
+                    // TO DO
+                    //
+                    // При активации создать и показать еще две строки
+                    // При деактивации -убрать строки
+                    /*
+                    - Макс. значение; (settingsConfig.Scale_MaxValue)
+                    - Мин. значение; (settingsConfig.Scale_MinValue)
+                     */
+                    case ResultPropertyKeys.ClarifyValues:
+                        settingsConfig.IsScaleMaxMinManual = bool.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ShowFields:
+                        settingsConfig.ShowResultsField = bool.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ShowNodesValues:
+                        settingsConfig.ShowNodeResultsValue = bool.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ShowElementsValues:
+                        settingsConfig.ShowElementsResultsValue = bool.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.MergeResultsValues:
+                        settingsConfig.MergeResultsValue = bool.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ScalePrecision:
+                        settingsConfig.Scale_Precision = int.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ScaleIntervals:
+                        settingsConfig.Scale_Intervals = int.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ScaleXPos:
+                        settingsConfig.Scale_X_Coord = int.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ScaleYPos:
+                        settingsConfig.Scale_Y_Coord = int.Parse(obj.NewValue);
+                        break;
+                }
             }
+        }
 
-            else if (obj.Header == "Показывать шкалу")
-            {
-                settingsConfig.ShowResultsScale = bool.Parse(obj.NewValue);
+        private void HandleMinValueParameter(string newValue)
+        {
 
-                if (!settingsConfig.ShowResultsScale)
-                    HideGeometryObj("DisplaySceneScale");
-            }
-            else if (obj.Header == "Уточнить значения")
-            {
+            settingsConfig.Scale_MinValue = float.Parse(newValue);
+            HandleIntervalsAfterMinMaxValueChanged();
+        }
 
-                //resultsController.FillRange(ar2.Min, ar2.Max, ar2.Range, ar2.Precision);
-                settingsConfig.IsScaleMaxMinManual = bool.Parse(obj.NewValue);
+        private void HandleMaxValueParameter(string newValue)
+        {
+            settingsConfig.Scale_MaxValue = float.Parse(newValue);
+            HandleIntervalsAfterMinMaxValueChanged();
+        }
 
-                // TO DO
-                //
-                // При активации создать и показать еще две строки
-                // При деактивации -убрать строки
-                /*
-                - Макс. значение; (settingsConfig.Scale_MaxValue)
-                - Мин. значение; (settingsConfig.Scale_MinValue)
-                 */
+        private void HandleIntervalsAfterMinMaxValueChanged()
+        {
+            var intervals = settingsConfig.Scale_Intervals;
+            var pre = settingsConfig.Scale_Precision;
+            resultsController.FillRange(
+                settingsConfig.Scale_MinValue, settingsConfig.Scale_MaxValue, intervals, pre);
+        }
 
-            }
+        private void HandleShowResultsScale(string newValue)
+        {
+            settingsConfig.ShowResultsScale = bool.Parse(newValue);
 
-            else if (obj.Header == "Показывать поле")
-                settingsConfig.ShowResultsField = bool.Parse(obj.NewValue);
-            else if (obj.Header == "Показать значения в узлах")
-                settingsConfig.ShowNodeResultsValue = bool.Parse(obj.NewValue);
-            else if (obj.Header == "Показать значения в элементах")
-                settingsConfig.ShowElementsResultsValue = bool.Parse(obj.NewValue);
-            else if (obj.Header == "Усреднять результаты")
-                settingsConfig.MergeResultsValue = bool.Parse(obj.NewValue);
-            else if (obj.Header == "Точность")
-                settingsConfig.Scale_Precision = int.Parse(obj.NewValue);
-            else if (obj.Header == "Интервалы")
-                settingsConfig.Scale_Intervals = int.Parse(obj.NewValue);
-            else if (obj.Header == "Положение шкалы по Х")
-                settingsConfig.Scale_X_Coord = int.Parse(obj.NewValue);
-            else if (obj.Header == "Положение шкалы по Y")
-                settingsConfig.Scale_Y_Coord = int.Parse(obj.NewValue);
+            if (!settingsConfig.ShowResultsScale)
+                HideGeometryObj("DisplaySceneScale");
         }
     }
 }

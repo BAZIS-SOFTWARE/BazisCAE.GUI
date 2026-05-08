@@ -84,6 +84,7 @@
             // NavigatorControl
             // 
             resources.ApplyResources(this, "$this");
+            HeaderName = GetLocalizableHeaderText();
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Gainsboro;
             Controls.Add(treeView);

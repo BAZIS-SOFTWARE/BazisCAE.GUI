@@ -1,4 +1,5 @@
-﻿using BazisGUI.PropertiesPanel;
+﻿using BazisGUI.Properties;
+using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
 using GmshApi;
 using Model.GeometryObjects;
@@ -10,34 +11,43 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        enum VolumePropertyKeys { Number, MeshType, TransitionGradientDegree, LayerThickness, SurfaceElementsSize, CenterElementsSize }
+        enum VolGenMeshTypes { Undefined, Gradient, Regular }
         private List<RowProperty> GetVolProperties(int number)
         {
             var rows = new List<RowProperty>();
-            rows.Add(new RowProperty("Номер", number));
+            rows.Add(new RowProperty(VolumePropertyKeys.Number.ToString(), Resources.Header_volume_number, number));
 
-            //var list = GmshController.Gmsh.Model.Mesh.Field.List();
             var attributes = GmshController.GetTransfiniteVolume(number);
-            //var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite vol {number}");
-            var meshTypes = new List<string>() { "*", "градиентная", "регулярная" };
+            var meshTypes = Enum.GetValues<VolGenMeshTypes>().Select(x => x.ToString()).ToList();
 
 
-            //if (!list.Contains(number))
-            //{
             if (attributes.Length == 0)
-                rows.Add(new RowProperty("Вид сетки",
-                    new DropDownPropertyValue("*", meshTypes)));
+                rows.Add(new RowProperty(VolumePropertyKeys.MeshType.ToString(), 
+                    Resources.Header_volume_meshType,
+                    new DropDownPropertyValue("Undefined", meshTypes)));
             else
             {
-                //gmshController.Gmsh.Model.SetAttribute($"transfinite vol {number}", 
-                //new string[] { "регулярная" });
-                rows.Add(new RowProperty("Вид сетки",
+                rows.Add(new RowProperty(VolumePropertyKeys.MeshType.ToString(),
+                    Resources.Header_volume_meshType,
                     new DropDownPropertyValue(attributes[0], meshTypes)));
                 if (attributes[0] == meshTypes[1])
                 {
-                    rows.Add(new RowProperty("Степень градиента перехода", attributes[1]));
-                    rows.Add(new RowProperty("Толщина слоя", attributes[2]));
-                    rows.Add(new RowProperty("Размер элементов на поверхности", attributes[3]));
-                    rows.Add(new RowProperty("Размер элементов в центре", attributes[4]));
+                    rows.Add(new RowProperty(VolumePropertyKeys.TransitionGradientDegree.ToString(),
+                        Resources.Header_volume_TransitionGradientDegree,
+                        attributes[1]));
+
+                    rows.Add(new RowProperty(VolumePropertyKeys.LayerThickness.ToString(),
+                        Resources.Header_volume_layerThickness,
+                        attributes[2]));
+
+                    rows.Add(new RowProperty(VolumePropertyKeys.SurfaceElementsSize.ToString(),
+                        Resources.Header_volume_surfaceElementsSize,
+                        attributes[3]));
+
+                    rows.Add(new RowProperty(VolumePropertyKeys.CenterElementsSize.ToString(),
+                        Resources.Header_volume_centerElementsSize,
+                        attributes[4]));
                 }
             }
             

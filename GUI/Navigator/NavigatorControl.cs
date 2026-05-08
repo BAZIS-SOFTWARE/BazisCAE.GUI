@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Localization;
 using BazisGUI.PinnedControl;
 using BazisGUI.Properties;
 using Project.TaskParameters;
@@ -50,7 +51,7 @@ namespace BazisGUI.Navigator
         Time
     }
 
-    public partial class NavigatorControl : PinnedPage
+    public partial class NavigatorControl : PinnedPage, ILocalizableHeaderControl
     {
         public TreeNode SelectedNode
         {
@@ -59,6 +60,8 @@ namespace BazisGUI.Navigator
                 return treeView.SelectedNode; 
             }
         }
+
+        public string GetLocalizableHeaderText() => Resources.NavigatorControl_headerName_text;
 
         public void SelectNode(TreeNode treeNode)
         {
@@ -146,17 +149,11 @@ namespace BazisGUI.Navigator
 
             //SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             
-            var node = new TreeNode 
-            { 
-                Text = Resources.Navigator_TreeView_Node_Text_Project,
-                Name = NodeName.Project.ToString()
-            };
-            treeView.Nodes.Clear();
-            treeView.Nodes.Add(node);
             //8 - 
 
             genImgDict = new Dictionary<NodeName, int>()
             {
+                { NodeName.Project, 7 },
                 { NodeName.Mesh,7},
                 { NodeName.Geometry,7},
                 { NodeName.Material,2},
@@ -199,13 +196,11 @@ namespace BazisGUI.Navigator
                 { NodeName.Sets,new []{ 2,3,4}},
             };
 
+            var node = CreateRealNode(NodeName.Project, Resources.Navigator_TreeView_Node_Text_Project);
+            treeView.Nodes.Clear();
+            treeView.Nodes.Add(node);
             treeView.Nodes[0].Expand();
         }
-
-        //public void SetObjectImageIndex(NodeName nodeType,int imgInd)
-        //{
-        //    ImgDict[nodeType] = imgInd;
-        //}
 
         public int GetObjectImageIndex(NodeName nodeType)
         {
@@ -214,7 +209,7 @@ namespace BazisGUI.Navigator
 
         public TreeNode CreateRealNode(NodeName nodeName)
         {
-            return new TreeNode(Localization.Localization.GetNavigatorNodeNameLocalization(nodeName)) { Name = nodeName.ToString() };
+            return new TreeNode(Localization.Localization.GetNavigatorNodeNameLocalization(nodeName)) { Name = nodeName.ToString(), ImageIndex = GetObjectImageIndex(nodeName) };
         }
 
         public TreeNode CreateRealNode(NodeName nodeName, string text)

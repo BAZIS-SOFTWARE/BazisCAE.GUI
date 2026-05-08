@@ -1,22 +1,20 @@
-﻿using BazisGUI.PropertiesPanel;
+﻿using BazisGUI.Properties;
+using BazisGUI.PropertiesPanel;
 using Model.Interfaces;
 using Project.Tasks;
-using Project.Tasks.Functions;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
+        enum MediaPropertyKeys { CondType }
         public List<RowProperty> GetMediaProperty(MediaData obj, IEnumerable<IGroup> groups, List<string> funcTables)
         {
             var rows = GetCondProperty(obj, groups, funcTables);
 
-            rows.Add(new RowProperty("Вид условия", 
+            rows.Add(new RowProperty(MediaPropertyKeys.CondType.ToString(), Resources.Header_cond_media_condType, 
                 new DropDownPropertyValue(obj.MediaType, 
                 new List<string>() 
                 { 

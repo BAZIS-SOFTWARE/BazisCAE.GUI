@@ -89,6 +89,8 @@ namespace BazisGUI.Localization
         {
             switch (select) 
             {
+                case SelectionType.Select:
+                    return Resources.btnSelect_Text_Select;
                 case SelectionType.Points:
                     return Resources.btnSelect_Text_Points;
                 case SelectionType.Curves:

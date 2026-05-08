@@ -4,10 +4,12 @@ using Newtonsoft.Json;
 using System.Drawing;
 using BazisGUI.Scene.Interfaces;
 using System.Linq;
+using BazisGUI.Localization;
+using BazisGUI.Properties;
 
 namespace BazisGUI.SettingsControls
 {
-    public partial class SettingsControl : UserControl
+    public partial class SettingsControl : UserControl, ILocalizableHeaderControl
     {
         enum Culture { en, ru }
         //public event Action SaveSettingsEvent;
@@ -42,6 +44,8 @@ namespace BazisGUI.SettingsControls
             cmbLanguage.Items.Clear();
             cmbLanguage.Items.AddRange(Enum.GetValues<Culture>().Select(GetLanguageByCulture).ToArray());
         }
+
+        public string GetLocalizableHeaderText() => Resources.SettingsControl_headerName_text;
 
         public void SetSettings(SettingsConfig settingsConfig)
         {

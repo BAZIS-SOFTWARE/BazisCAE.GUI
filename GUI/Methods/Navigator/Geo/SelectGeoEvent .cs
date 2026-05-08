@@ -1,14 +1,12 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using BazisGUI.Scene.VBO;
-using BazisGUI.Utilities;
 using Geometry;
 using GmshApi;
 using Model.GeometryObjects;
 using Model.Interfaces;
-using OperationalController;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -17,6 +15,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        enum GeoPropertyKeys { MinSize, MaxSize, Algorithm2D, Algorithm3D, ScaleCoef, ShowPointsOnCurves, ShowPointsNumbersOnCurves, ShowSurfaceNumbers, ShowPointsNumbers, ShowVolumeNumbers, ShowMeshOnGeneration }
         private void navigator_SelectGeoEvent()
         {
             try
@@ -38,34 +37,43 @@ namespace BazisGUI
                 var algs3D = Enum.GetValues(typeof(MeshAlgorithm3D)).
                     Cast<MeshAlgorithm3D>().Select(x => x.ToString());
 
-                rows.Add(new RowProperty("Мин.размер", actMinSize));
-                rows.Add(new RowProperty("Макс.размер", actMaxSize));
-                rows.Add(new RowProperty("Алгоритм 2D",new DropDownPropertyValue(alg2D, algs2D.ToList())));
-                rows.Add(new RowProperty("Алгоритм 3D",new DropDownPropertyValue(alg3D, algs3D.ToList())));
-                rows.Add(new RowProperty("Масштаб. коэфициент", actSizeFactor));
-                rows.Add(new RowProperty("Показать узлы на кривых", settingsConfig.ShowNodesOnCurves));
-                rows.Add(new RowProperty("Показать кол-во узлов на кривых", new ButtonPropertyValue("Показать",
-                    () => 
-                    { 
-                        ShowNumberOfCurveNodes();
-                        DisplayObjects();
-                    })));
-                rows.Add(new RowProperty("Показать номера поверхностей", new ButtonPropertyValue("Показать",
-                    () => {
-                        ShowObjectsNumbers(ObjType.Поверхность);
-                        DisplayObjects();
-                    })));
-                rows.Add(new RowProperty("Показать номера точек", new ButtonPropertyValue("Показать",
-    () => {
-        ShowObjectsNumbers(ObjType.Точка);
-        DisplayObjects();
-    })));
-                rows.Add(new RowProperty("Показать номера объемов", new ButtonPropertyValue("Показать",
-() => {
-ShowVolNumbers();
-DisplayObjects();
-})));
-                rows.Add(new RowProperty("Отображать всю сетку при генерации", settingsConfig.ShowAllMeshWhenGeneration));
+                rows.Add(new RowProperty(GeoPropertyKeys.MinSize.ToString(), Resources.Header_geo_minSize, actMinSize));
+                rows.Add(new RowProperty(GeoPropertyKeys.MaxSize.ToString(), Resources.Header_geo_maxSize, actMaxSize));
+                rows.Add(new RowProperty(GeoPropertyKeys.Algorithm2D.ToString(), Resources.Header_geo_algorithm2D, new DropDownPropertyValue(alg2D, algs2D.ToList())));
+                rows.Add(new RowProperty(GeoPropertyKeys.Algorithm3D.ToString(), Resources.Header_geo_algorithm3D, new DropDownPropertyValue(alg3D, algs3D.ToList())));
+                rows.Add(new RowProperty(GeoPropertyKeys.ScaleCoef.ToString(), Resources.Header_geo_scaleCoef, actSizeFactor));
+                rows.Add(new RowProperty(GeoPropertyKeys.ShowPointsOnCurves.ToString(), Resources.Header_geo_showPointsOnCurves, settingsConfig.ShowNodesOnCurves));
+
+                rows.Add(new RowProperty(GeoPropertyKeys.ShowPointsNumbersOnCurves.ToString(),
+                    Resources.Header_geo_showPointsNumbersOnCurves,
+                    new ButtonPropertyValue(Resources.Показать,() => 
+                        {
+                            ShowNumberOfCurveNodes();
+                            DisplayObjects();
+                        })));
+                rows.Add(new RowProperty(GeoPropertyKeys.ShowSurfaceNumbers.ToString(),
+                    Resources.Header_geo_showSurfacesNumbers,
+                    new ButtonPropertyValue(Resources.Показать, () => 
+                        {
+                            ShowObjectsNumbers(ObjType.Поверхность);
+                            DisplayObjects();
+                        })));
+                rows.Add(new RowProperty(GeoPropertyKeys.ShowPointsNumbers.ToString(),
+                    Resources.Header_geo_showPointsNumbers,
+                    new ButtonPropertyValue(Resources.Показать, () =>
+                        {
+                            ShowObjectsNumbers(ObjType.Точка);
+                            DisplayObjects();
+                        })));
+                rows.Add(new RowProperty(GeoPropertyKeys.ShowVolumeNumbers.ToString(), Resources.Header_geo_showVolumesNumbers,
+                    new ButtonPropertyValue(Resources.Показать, () => 
+                        {
+                            ShowVolNumbers();
+                            DisplayObjects();
+                        })));
+                rows.Add(new RowProperty(GeoPropertyKeys.ShowMeshOnGeneration.ToString(),
+                    Resources.Header_geo_showMeshOnGeneration,
+                    settingsConfig.ShowAllMeshWhenGeneration));
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
@@ -170,8 +178,9 @@ DisplayObjects();
             {
                 if(item.ViewState)
                 {
-                    var point = objType == ObjType.Точка ? item.CalcCentr() : 
-                        GetCenterOfGeometryEntity(dim, item.Number);
+                    var point = objType == ObjType.Точка 
+                        ? item.CalcCentr() 
+                        : GetCenterOfGeometryEntity(dim, item.Number);
                     //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
                     var text = $"{objType} {item.Number}";
 
@@ -193,8 +202,9 @@ DisplayObjects();
 
                 if (obj.ViewState)
                 {
-                    var point = objType == ObjType.Точка ? obj.CalcCentr() :
-                        GetCenterOfGeometryEntity(dim, obj.Number);
+                    var point = objType == ObjType.Точка 
+                        ? obj.CalcCentr() 
+                        : GetCenterOfGeometryEntity(dim, obj.Number);
                     //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
                     var text = $"{objType} {obj.Number}";
 
@@ -221,15 +231,14 @@ DisplayObjects();
 
         public void DisplayObjectNumber(string str, Color color, Point3D coord)
         {
-            var met = new Action(() =>
-            {
+            var met = new Action(() => DisplayText3DTemplate(str, color, coord));
+            
                 //if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                 //    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                DisplayText3DTemplate(str, color, coord);
+                
                 //if (settingsConfig.Transparency && !advanced3DClipper.IsEnable)
                 //    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
 
-            });
 
             DisplayText3DEvent += met;
         }
