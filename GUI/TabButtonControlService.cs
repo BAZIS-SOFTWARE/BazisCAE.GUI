@@ -57,6 +57,12 @@ namespace BazisGUI
             controls.Remove(name);
 
             RedrawButtons();
+            var nav = controls.Values.FirstOrDefault();
+            if (nav != null)
+            {
+                nav.Visible = true;
+                nav.BringToFront();
+            }
         }
 
         public Button CreateTabButton(string name)
