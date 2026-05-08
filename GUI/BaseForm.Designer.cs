@@ -243,12 +243,12 @@ namespace BazisGUI
             // splitContainer3.Panel1
             // 
             resources.ApplyResources(splitContainer3.Panel1, "splitContainer3.Panel1");
-            splitContainer3.Panel1.Controls.Add(btnTabНастройки);
-            splitContainer3.Panel1.Controls.Add(btnTabГант);
-            splitContainer3.Panel1.Controls.Add(btnTabФункции);
-            splitContainer3.Panel1.Controls.Add(btnTabМатериалы);
-            splitContainer3.Panel1.Controls.Add(btnTabНавигатор);
-            splitContainer3.Panel1.Controls.Add(cntrНавигатор);
+            //splitContainer3.Panel1.Controls.Add(btnTabНастройки);
+            //splitContainer3.Panel1.Controls.Add(btnTabГант);
+            //splitContainer3.Panel1.Controls.Add(btnTabФункции);
+            //splitContainer3.Panel1.Controls.Add(btnTabМатериалы);
+            //splitContainer3.Panel1.Controls.Add(btnTabНавигатор);
+            //splitContainer3.Panel1.Controls.Add(cntrНавигатор);
             // 
             // splitContainer3.Panel2
             // 
@@ -262,8 +262,8 @@ namespace BazisGUI
             btnTabНастройки.Name = "btnTabНастройки";
             btnTabНастройки.Tag = "True";
             btnTabНастройки.UseVisualStyleBackColor = true;
-            btnTabНастройки.Paint += buttonTab_Paint;
-            btnTabНастройки.MouseDown += button_MouseDown;
+            //btnTabНастройки.Paint += buttonTab_Paint;
+            //btnTabНастройки.MouseDown += button_MouseDown;
             // 
             // btnTabГант
             // 
@@ -271,8 +271,8 @@ namespace BazisGUI
             btnTabГант.Name = "btnTabГант";
             btnTabГант.Tag = "True";
             btnTabГант.UseVisualStyleBackColor = true;
-            btnTabГант.Paint += buttonTab_Paint;
-            btnTabГант.MouseDown += button_MouseDown;
+            //btnTabГант.Paint += buttonTab_Paint;
+            //btnTabГант.MouseDown += button_MouseDown;
             // 
             // btnTabФункции
             // 
@@ -280,8 +280,8 @@ namespace BazisGUI
             btnTabФункции.Name = "btnTabФункции";
             btnTabФункции.Tag = "True";
             btnTabФункции.UseVisualStyleBackColor = true;
-            btnTabФункции.Paint += buttonTab_Paint;
-            btnTabФункции.MouseDown += button_MouseDown;
+            //btnTabФункции.Paint += buttonTab_Paint;
+            //btnTabФункции.MouseDown += button_MouseDown;
             // 
             // btnTabМатериалы
             // 
@@ -289,8 +289,8 @@ namespace BazisGUI
             btnTabМатериалы.Name = "btnTabМатериалы";
             btnTabМатериалы.Tag = "True";
             btnTabМатериалы.UseVisualStyleBackColor = true;
-            btnTabМатериалы.Paint += buttonTab_Paint;
-            btnTabМатериалы.MouseDown += button_MouseDown;
+            //btnTabМатериалы.Paint += buttonTab_Paint;
+            //btnTabМатериалы.MouseDown += button_MouseDown;
             // 
             // btnTabНавигатор
             // 
@@ -298,8 +298,8 @@ namespace BazisGUI
             btnTabНавигатор.Name = "btnTabНавигатор";
             btnTabНавигатор.Tag = "True";
             btnTabНавигатор.UseVisualStyleBackColor = true;
-            btnTabНавигатор.Paint += buttonTab_Paint;
-            btnTabНавигатор.MouseDown += button_MouseDown;
+            //btnTabНавигатор.Paint += buttonTab_Paint;
+            //btnTabНавигатор.MouseDown += button_MouseDown;
             // 
             // cntrНавигатор
             // 

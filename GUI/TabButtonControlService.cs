@@ -1,62 +1,72 @@
-﻿using BazisGUI.Localization;
-using MasterInterface.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using UserControlsEx;
 
 namespace BazisGUI
 {
     public class TabButtonControlService
     {
         private Panel container;
-        private Dictionary<string, (Button, Control)> linkedComponents;
+        private Dictionary<string, Button> buttons;
+        private Dictionary<string, Control> controls;
 
         public TabButtonControlService(Panel container) 
         { 
             this.container = container;
+            buttons = new();
+            controls = new();
         }
 
-        public Button GetButton(string name) => linkedComponents[name].Item1;
-        public Control GetControl(string name) => linkedComponents[name].Item2;
-        public IEnumerable<string> GetNames() => linkedComponents.Keys;
+        public Button GetButton(string name) => buttons[name];
+        public Control GetControl(string name) => controls[name];
+        public IEnumerable<string> GetNames() => buttons.Keys;
 
         public void AddControl(string name, Control control)
         {
+            name = name.Replace("cntr", "").Replace("btnTab", "");
+            if (buttons.ContainsKey(name))
+                return;
+
             var btn = CreateTabButton(name);
+
+            control.Name = $"cntr{name}";
+            control.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            SetControlSize(control);
 
             container.Controls.Add(btn);
             container.Controls.Add(control);
+            buttons[name] = btn;
+            controls[name] = control;
 
-            linkedComponents[name] = (btn, control);
+            control.BringToFront();
         }
 
         public void RemoveControl(string name)
         {
+            if (!buttons.ContainsKey(name))
+                return;
+
             container.Controls.Remove(GetButton(name));
             container.Controls.Remove(GetControl(name));
 
-            linkedComponents.Remove(name);
+            buttons.Remove(name);
+            controls.Remove(name);
         }
 
         public Button CreateTabButton(string name)
         {
             var btn = new Button();
-            if (linkedComponents.Count > 0)
+            if (buttons.Count > 0)
             {
-                var first = linkedComponents.First().Value.Item1;
+                var first = buttons.First().Value;
 
                 btn.Anchor = first.Anchor;
                 btn.AutoSize = first.AutoSize;
 
                 var g = first.CreateGraphics();
                 var textSize = g.MeasureString(name, first.Font);
-                btn.Size = new Size((int)textSize.Width, (int)textSize.Height);
+                btn.Size = new Size((int)textSize.Height, (int)textSize.Width);
 
                 btn.Margin = first.Margin;
                 btn.FlatStyle = first.FlatStyle;
@@ -64,19 +74,22 @@ namespace BazisGUI
 
             else
             {
+                var refButton = new Button();
                 btn.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-                btn.AutoSize = true;
+                btn.AutoSize = false;
 
-                var g = default(Button).CreateGraphics();
-                var textSize = g.MeasureString(name, default(Button).Font);
-                btn.Size = new Size((int)textSize.Width, (int)textSize.Height);
+                var g = refButton.CreateGraphics();
+                var textSize = g.MeasureString(name, refButton.Font);
+                btn.Size = new Size((int)textSize.Height, (int)textSize.Width);
 
-                btn.Margin = default(Button).Margin;
+                btn.Margin = refButton.Margin;
                 btn.FlatStyle = default;
             }
 
+            btn.MinimumSize = new Size(27, 130);
+            btn.Tag = true;
             btn.Name = $"btnTab{name}";
-            btn.Text = name;
+            //btn.Text = name;
 
             btn.MouseDown += button_MouseDown;
             btn.Paint += buttonTab_Paint;
@@ -117,6 +130,17 @@ namespace BazisGUI
             }
         }
 
+        private void SetControlSize(Control control)
+        {
+            var btn = buttons.Values.FirstOrDefault();
+            var maxWidth = btn == null ? 6 : btn.Margin.Left + btn.Margin.Right;
+
+            var width = container.Width - container.Padding.Right - container.Padding.Left - control.Margin.Right - control.Margin.Left - maxWidth;
+            var height = container.Height - container.Padding.Top - container.Padding.Bottom - control.Margin.Top - control.Margin.Bottom;
+
+            control.Size = new Size(width, height);
+        }
+
         private void button_MouseDown(object sender, MouseEventArgs e)
         {
             var btn = sender as Button;
@@ -127,15 +151,20 @@ namespace BazisGUI
                 var cntr = container.Controls[i];
                 if (cntr.Name.Contains("btnTab") & cntr.Visible)
                 {
-                    var tabPage = GetControl(cntr.Text);
+                    var tabPage = GetControl(cntr.Name.Replace("cntr", "").Replace("btnTab", ""));
+                    SetControlSize(tabPage);
 
                     if (cntr.Name != btn.Name)
                     {
                         cntr.Tag = false;
                         tabPage.Visible = false;
+
                     }
                     else
+                    {
                         tabPage.Visible = true;
+                        tabPage.BringToFront();
+                    }
                 }
             }
         }
