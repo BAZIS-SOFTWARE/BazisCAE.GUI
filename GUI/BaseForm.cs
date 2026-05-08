@@ -108,7 +108,7 @@ namespace BazisGUI
 
             // TODO где-то тут нужно добавить все контроллы в TabButtonControlService
             TabButtonsService = new TabButtonControlService(splitContainer3.Panel1);
-            TabButtonsService.AddControl("Navigator", cntrНавигатор);
+            TabButtonsService.AddControl(Resources.BaseForm_BaseForm_Load_Navigator, cntrНавигатор);
 
 
             SetGeneralSettings();

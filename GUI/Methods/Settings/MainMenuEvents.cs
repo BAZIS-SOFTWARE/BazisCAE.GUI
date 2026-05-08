@@ -16,7 +16,7 @@ namespace BazisGUI
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripMenuItem;
-            var name = "Settings";
+            var name = Resources.BaseForm_настройкиToolStripMenuItem_Click_Settings;
 
             if (btn.Checked)
             {
@@ -29,33 +29,6 @@ namespace BazisGUI
             }
             else
                 TabButtonsService.RemoveControl(name);
-        }
-
-        private void OpenSettings()
-        {
-            var settings = new SettingsControl()
-            {
-                //Dock = DockStyle.Fill,
-                //Name = "cntrНастройки",
-                //BorderStyle = BorderStyle.FixedSingle
-            };
-
-            settings.Leave += Settings_Leave;
-
-            settings.SetSettings(settingsConfig);
-
-            TabButtonsService.AddControl("Settings", settings);
-
-            //ShowTabButton("btnTabНастройки");
-
-            //settings.Size = cntrНавигатор.Size;
-            //settings.Location = cntrНавигатор.Location;
-            //settings.Anchor = cntrНавигатор.Anchor;
-
-            //splitContainer3.Panel1.Controls.Add(settings);
-            //settings.BringToFront();
-
-            SetSettingsToConfig(settings);
         }
 
         private void Settings_Leave(object sender, EventArgs e)

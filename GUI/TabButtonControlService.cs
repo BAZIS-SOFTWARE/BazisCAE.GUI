@@ -108,39 +108,6 @@ namespace BazisGUI
             return btn;
         }
 
-        public void ShowTabButton(string btnName)
-        {
-            var max_y = 0;
-
-            for (int i = 0; i < container.Controls.Count; i++)
-            {
-                var cntr = container.Controls[i];
-                if (cntr.Name.Contains("btnTab") && cntr.Visible && cntr.Location.Y > max_y)
-                    max_y = cntr.Location.Y;
-            }
-
-            var show = container.Controls.Find(btnName, false)[0];
-            show.Visible = true;
-            show.Location = new Point(0, max_y + show.Height + show.Margin.Bottom);
-        }
-
-        public void HideTabButton(string btnName)
-        {
-            var hide = container.Controls.Find(btnName, false)[0];
-            hide.Visible = false;
-
-            for (int i = 0; i < container.Controls.Count; i++)
-            {
-                var cntr = container.Controls[i];
-                if (cntr.Name.Contains("btnTab") && cntr.Visible && cntr.Location.Y > hide.Location.Y)
-                {
-                    var temp_x = cntr.Location.X;
-                    var temp_y = cntr.Location.Y;
-                    cntr.Location = new Point(temp_x, temp_y - hide.Location.Y);
-                }
-            }
-        }
-
         private void RedrawButtons()
         {
             container.SuspendLayout();

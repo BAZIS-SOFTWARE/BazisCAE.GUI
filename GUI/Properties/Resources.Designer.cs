@@ -228,6 +228,42 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Navigator.
+        /// </summary>
+        internal static string BaseForm_BaseForm_Load_Navigator {
+            get {
+                return ResourceManager.GetString("BaseForm_BaseForm_Load_Navigator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Materials.
+        /// </summary>
+        internal static string BaseForm_материалыMenuItem_Click_Materials {
+            get {
+                return ResourceManager.GetString("BaseForm_материалыMenuItem_Click_Materials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Settings.
+        /// </summary>
+        internal static string BaseForm_настройкиToolStripMenuItem_Click_Settings {
+            get {
+                return ResourceManager.GetString("BaseForm_настройкиToolStripMenuItem_Click_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Functions.
+        /// </summary>
+        internal static string BaseForm_функцииMenuItem_Click_Functions {
+            get {
+                return ResourceManager.GetString("BaseForm_функцииMenuItem_Click_Functions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Define the surface, select three nodes and press the &quot;E&quot; key or press the &quot;ESC&quot; key.
         /// </summary>
         internal static string BasePage_CreateSurfaceAsync_AsyncContainer_Message {

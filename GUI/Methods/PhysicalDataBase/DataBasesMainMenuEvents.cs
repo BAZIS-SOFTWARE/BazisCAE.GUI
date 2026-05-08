@@ -14,7 +14,7 @@ namespace BazisGUI
         private void материалыMenuItem_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripMenuItem;
-            var name = "Materials";
+            var name = Resources.BaseForm_материалыMenuItem_Click_Materials;
             if (btn.Checked)
                 OpenMaterialsDB(name);
             else
@@ -62,7 +62,7 @@ namespace BazisGUI
         private void функцииMenuItem_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripMenuItem;
-            var name = "Functions";
+            var name = Resources.BaseForm_функцииMenuItem_Click_Functions;
 
             if (btn.Checked)
                 OpenFunctionsDB(name);
