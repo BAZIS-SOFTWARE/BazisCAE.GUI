@@ -195,18 +195,18 @@ namespace BazisGUI.Console
 
             if (parts.Length == 2)
             {
-                variableName = parts[0]
-                    .Trim()
-                    .TrimStart('$');
-
+                variableName = parts[0].Trim().TrimStart('$');
                 newLine = parts[1].Trim();
             }
             else newLine = line;
-
-            newLine = ReplaceVariables(newLine, variables);
+            
+            //Заменяем переменные в строке вида "$name" значением из словаря
+            foreach (var pair in variables)
+                newLine = newLine.Replace("$" + pair.Key, pair.Value.ToString());
 
             var number = ConsoleCommandEnteredEvent(newLine).Result;
-            SetValue((int)number, variableName, variables);
+            //Записываем результат "number" в Value словаря с ключом variableName
+            SetValue(number, variableName, variables);
         }
 
         private void SetValue(int number, string variableName, Dictionary<string, int> variables)
@@ -214,14 +214,7 @@ namespace BazisGUI.Console
             if (number == -1)
                 throw new InvalidOperationException($"\n > {Resources.FailedCreateGeometry}");
             if(variableName != string.Empty)
-                variables[variableName] = (int)number;
-        }
-
-        private string ReplaceVariables(string line, Dictionary<string, int> variables)
-        {
-            foreach (var pair in variables)
-                line = line.Replace("$" + pair.Key, pair.Value.ToString());
-            return line;
+                variables[variableName] = number;
         }
 
         private void btnStartMacro_Click(object sender, EventArgs e)
