@@ -125,6 +125,10 @@ namespace BazisGUI
 
             InitializeComponent();
 
+            propertiesPanel.HeaderName = propertiesPanel.GetLocalizableHeaderText();
+            navigator.HeaderName = navigator.GetLocalizableHeaderText();
+            console.HeaderName = console.GetLocalizableHeaderText();
+
             cntrНавигатор.SplitterWidth = 8;
             splitContainer2.SplitterWidth = 8;
             splitContainer3.SplitterWidth = 8;
