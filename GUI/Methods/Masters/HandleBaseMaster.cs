@@ -1,4 +1,5 @@
-﻿using MasterInterface;
+﻿using BazisGUI.Properties;
+using MasterInterface;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
@@ -25,8 +26,8 @@ namespace BazisGUI
             master.PrintInfoEvent += (s, e) => console.PrintInfo(e.Message, e.Color);
             master.GenerateConditionsEvent += (s, e) =>
             {
-                var res = MessageBox.Show("Генерация граничных условий приведет к удалению старых условий, если они есть. Продолжить?",
-                    "Внимание", MessageBoxButtons.YesNo);
+                var res = MessageBox.Show(Resources.HandleBaseMaster_Handle_CondCreation_Message,
+                    Localization.Localization.GetAttentionCaption(), MessageBoxButtons.YesNo);
                 if (res == DialogResult.No)
                     return;
 
@@ -40,7 +41,7 @@ namespace BazisGUI
 
                 }
                 PresentCondDataOnTree();
-                console.PrintInfo("Граничные условия сформированы", Color.Green);
+                console.PrintInfo(Resources.HandleBaseMaster_Success_Message, Color.Green);
             };
         }
     }

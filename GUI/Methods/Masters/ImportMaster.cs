@@ -1,4 +1,5 @@
-﻿using MasterInterface;
+﻿using BazisGUI.Properties;
+using MasterInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -40,8 +41,7 @@ namespace BazisGUI
             {
                 if (masterTypes.Count == 0)
                 {
-                    console.PrintInfo("В загруженной библиотеке не определены реализации интерфейса мастера " +
-                        "постановки задач или реализация этого мастера уже загружена", Color.DarkOrange);
+                    console.PrintInfo(Resources.ImportMaster_CreateImportedMasters_MasterNotFoundOrAlreadyLoaded_Message, Color.DarkOrange);
                     return;
                 }
 
@@ -50,7 +50,7 @@ namespace BazisGUI
                     var master = (BaseMaster)Activator.CreateInstance(item);
                     OpenMaster(master);
                     importedMasters.Add(item);
-                    console.PrintInfo($"Открыт мастер {master.MasterName}", Color.Black);
+                    console.PrintInfo($"{Resources.ImportMaster_CreateImportedMasters_MasterOpened_Message} {master.MasterName}", Color.Black);
                 }
             }
             catch (Exception ex)

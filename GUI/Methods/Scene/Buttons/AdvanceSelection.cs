@@ -1,6 +1,8 @@
 ﻿using BazisGUI.AdvanceSelection;
 using BazisGUI.AdvanceSelection.ControlsForSelect;
 using BazisGUI.Extensions;
+using BazisGUI.Properties;
+using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.MeshObjects;
 using Model.Utilities;
@@ -33,13 +35,13 @@ namespace BazisGUI
 
             if (!bool.Parse(btn.Tag.ToString()))
             {
-                if(SelectedObjects == "Выбрать" || SelectedObjects == "Объекты")
+                if(SelectedObjects == SelectionType.Select || SelectedObjects == SelectionType.Objects)
                     return;
                 btn.Tag = true;
                 var form = new Form()
                 {
                     Name = "selectForm",
-                    Text = "Расширенный выбор",
+                    Text = Resources.AdvanceSelectionForm_Text,
                     AutoSize = false,
                     ShowIcon = false,
                     MinimizeBox = false,
@@ -113,7 +115,7 @@ namespace BazisGUI
 
                     if(resFlag)
                     {
-                        var objType = SelectedObjects.ToEnum<ObjType>();
+                        var objType = Converters.ConvertSelectionTypeToObjType(SelectedObjects);
                         var pres = project.CreateModelObjectsPresentor(objType);
                         SetVBObjectAttribute(pres, "цвет");
                         DisplayObjects();
@@ -131,11 +133,11 @@ namespace BazisGUI
         {
             try
             {
-                var objType = SelectedObjects.ToEnum<ObjType>();
+                var objType = Converters.ConvertSelectionTypeToObjType(SelectedObjects);
 
-                if(objType == ObjType.Узел)
+                if (objType == ObjType.Узел)
                 {
-                    if (spArgs.SelectedNumbers.Count > 2 && SelectedObjects.ToEnum<ObjType>() == ObjType.Узел)
+                    if (spArgs.SelectedNumbers.Count > 2 && Converters.ConvertSelectionTypeToObjType(SelectedObjects) == ObjType.Узел)
                     {
 
                         if (SelectNodeInPlane(spArgs.SelectedNumbers).Count > 0)
@@ -147,12 +149,12 @@ namespace BazisGUI
 
                     }
                     else
-                        console.PrintInfo("Не выбрано три узла", Color.Orange);
+                        console.PrintInfo(Resources.AdvanceSelection3NodesWarning, Color.Orange);
                 }
 
                 else if(objType == ObjType.Элемент2D)
                 {
-                    if (spArgs.SelectedNumbers.Count > 0 && SelectedObjects.ToEnum<ObjType>() == ObjType.Элемент2D)
+                    if (spArgs.SelectedNumbers.Count > 0 && Converters.ConvertSelectionTypeToObjType(SelectedObjects) == ObjType.Элемент2D)
                     {
                         if (SelectE2DInPlane(spArgs.SelectedNumbers, spArgs.Angle).Count > 0)
                         {
@@ -162,7 +164,7 @@ namespace BazisGUI
                         }
                     }
                     else
-                        console.PrintInfo("Не выбрано ни одного элемента", Color.Orange);
+                        console.PrintInfo(Resources.AdvanceSelectionElemntsSelectionWarning, Color.Orange);
                 }
                 
                 return false;
@@ -206,7 +208,7 @@ namespace BazisGUI
   
                 }
                 else
-                    console.PrintInfo("Должно быть два выбранных узла", Color.Orange);
+                    console.PrintInfo(Resources.AdvanceSelection2NodesWarning, Color.Orange);
                 return false;
             }
             catch (Exception)
@@ -221,7 +223,7 @@ namespace BazisGUI
         {
             if (numbers == null || numbers.Count == 0)
             {
-                console.PrintInfo("Нет выбранных объектов", Color.Red);
+                console.PrintInfo(Resources.AdvanceSelectionNoObjectSelectedWarning, Color.Red);
                 return null;
             }
 
@@ -243,7 +245,7 @@ namespace BazisGUI
                 ? project.GetAllModelNodes().Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x => x.Number).ToList()
                 : project.GetAllModelElements().Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x => x.Number).ToList();
 
-            console.PrintInfo($"Количество выбранных элементов {selectedCount}, тип: {selectType}", Color.Black);
+            console.PrintInfo($"{selectType}, {Resources.AdvaneSelectionSelectedCaption}: {selectedCount}", Color.Black);
             DisplayObjects();
             return selectedCount;
         }
@@ -253,12 +255,12 @@ namespace BazisGUI
 
             if (numbers == null || numbers.Count == 0)
             {
-                console.PrintInfo("Нет выбранных объектов", Color.Red);
+                console.PrintInfo(Resources.AdvanceSelectionNoObjectSelectedWarning, Color.Red);
                 return;
             }
 
             var startDim = GetModelObjects(SelectedObjects).Where(x => x.Number == numbers[0]).First().Dim;
-            var objType = SelectedObjects.ToEnum<ObjType>();
+            var objType = Converters.ConvertSelectionTypeToObjType(SelectedObjects);
             var volumes = project.SelectByScope(startDim, numbers, targetDim);
 
             foreach (var number in volumes)
@@ -277,7 +279,7 @@ namespace BazisGUI
 
             var selectedCount = project.GetAllModelObjects().Count(x => x.Color == settingsConfig.SelectObjectColor);
             
-            console.PrintInfo($"Количество выбранных элементов {selectedCount}, тип: {objType}", Color.Black);
+            console.PrintInfo($"{objType}, {Resources.AdvaneSelectionSelectedCaption}: {selectedCount}", Color.Black);
             
             DisplayObjects();
         }
@@ -359,18 +361,18 @@ namespace BazisGUI
 
         private bool IsMesh()
         {
-            return SelectedObjects == ObjType.Элемент1D.ToString() ||
-                   SelectedObjects == ObjType.Элемент2D.ToString() ||
-                   SelectedObjects == ObjType.Элемент3D.ToString() ||
-                   SelectedObjects == ObjType.Узел.ToString();
+            return SelectedObjects == SelectionType.Elements1D ||
+                   SelectedObjects == SelectionType.Elements2D ||
+                   SelectedObjects == SelectionType.Elements3D ||
+                   SelectedObjects == SelectionType.Nodes;
         }
 
         private bool IsGeometry()
         {
-            return SelectedObjects == ObjType.Точка.ToString() ||
-                   SelectedObjects == ObjType.Кривая.ToString() ||
-                   SelectedObjects == ObjType.Поверхность.ToString() ||
-                   SelectedObjects == "Объекты";
+            return SelectedObjects == SelectionType.Points||
+                   SelectedObjects == SelectionType.Curves ||
+                   SelectedObjects == SelectionType.Surfaces ||
+                   SelectedObjects == SelectionType.Objects;
         }
     }
 }

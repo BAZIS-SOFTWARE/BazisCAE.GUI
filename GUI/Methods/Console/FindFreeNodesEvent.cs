@@ -1,7 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using BazisGUI.Properties;
 using Model.Interfaces;
+using System;
 using System.Drawing;
+using System.Linq;
 
 namespace BazisGUI
 {
@@ -13,7 +14,7 @@ namespace BazisGUI
 
             Invoke(new Action(() =>
             {
-                console.PrintInfo($"Найдено {freeNodes.Count()} свободных узлов", Color.Black);
+                console.PrintInfo($"{Resources.FindFreeNodesEvent_Found_Message} {freeNodes.Count()} {Resources.FindFreeNodesEvent_FreeNodes_Message}", Color.Black);
 
                 if(freeNodes.Count() != 0)
                 {

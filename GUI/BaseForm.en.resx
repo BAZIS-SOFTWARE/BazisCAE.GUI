@@ -1,0 +1,1353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="GenerateBoundaryMesh.CreateBoundaryMeh.ObjectsGenerated.Message" xml:space="preserve">
+    <value>Objects generated of type</value>
+  </data>
+  <data name="LicenseAllowedAnswer" xml:space="preserve">
+    <value>Licensing has been completed</value>
+  </data>
+  <data name="ConsoleEvents.ConsoleInEvents.VolumeElements.Message" xml:space="preserve">
+    <value>volume elements</value>
+  </data>
+  <data name="SaveLoadScript.GeoScript.Message" xml:space="preserve">
+    <value>The script</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="измеритьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 22</value>
+  </data>
+  <data name="AdvanceSelection3NodesWarning" xml:space="preserve">
+    <value>Three nodes must be selected</value>
+  </data>
+  <data name="FindCoincidentNodes.Action.Matches.Message" xml:space="preserve">
+    <value>matches</value>
+  </data>
+  <data name="MakeScreenShot.Message" xml:space="preserve">
+    <value>ScreenShot taken</value>
+  </data>
+  <data name="GenerateMesh3DEvents.Generate3D.GeneratedElements.Message" xml:space="preserve">
+    <value>Elements generated</value>
+  </data>
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="выходToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Exit</value>
+  </data>
+  <data name="DataBaseMainMenuEvents.OpenDB.Message" xml:space="preserve">
+    <value>Data base</value>
+  </data>
+  <data name="UtilityToolStrip.CalcSquare.Output" xml:space="preserve">
+    <value>Measure</value>
+  </data>
+  <data name="построитьГрафикToolStripMenuItem.Text" xml:space="preserve">
+    <value>Build a graph</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPlane.InstructionPart1" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="FindCoincidentNodes.Action.Message" xml:space="preserve">
+    <value>Searching for coincident mesh nodes...</value>
+  </data>
+  <data name="открытьToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Open</value>
+  </data>
+  <data name="создатьToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Create Task</value>
+  </data>
+  <data name="добавитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Append</value>
+  </data>
+  <data name="toolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 6</value>
+  </data>
+  <data name="HandleBaseMaster.Success.Message" xml:space="preserve">
+    <value>The boundary conditions have been formed</value>
+  </data>
+  <data name="создатьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wgAADsIBFShKgAAAAQ1JREFUOE+tkdtKAlEYRn0pfYd8jXwj0QuRLkoJEQwMFI1UtEDTENERD4VMlqLj
+        uabxMM4Xs2WG6Uc3A7Xgu9qsdfFvh+O/iOdboItlGoikqgjdlvDcfAN1fqELpwhGc3C5PfzITVagnokv
+        lEL6sXGICOLxSPSuRj0T72WSycaoy7hOVKhnslP3LGKEqMu4ihepx9A0DbKyxWgqs4Dz7Px44CJWoC5j
+        s1UxWyoQh0t+IBDJUBfqXsNK3mAgfaEjzvgBfzhNfSjrHaT5N3ofC9S7Ej+gP1rRD7f4XKM/WqHVm6Is
+        DO0HrId76c9Ra4/xUH23H7AeTnidoFQf4P5JtBcw/vvUuAH90c6o+yd+ANjM9sPuzkLwAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
+  <data name="HandleArgsResultsAbsenceException" xml:space="preserve">
+    <value>Required arguments for -res file are missing</value>
+  </data>
+  <data name="DataBaseMainMenuEvents.OpenFuncDB.DBNotLoaded.Message" xml:space="preserve">
+    <value>The function database is not loaded</value>
+  </data>
+  <data name="показатьСопряженныеItem.Text" xml:space="preserve">
+    <value>Show paired</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPoint.EmptySelectionErrorMessage" xml:space="preserve">
+    <value>Selected no objects of type</value>
+  </data>
+  <data name="BasePage.CreateSurfaceAsync.AsyncContainer.Message" xml:space="preserve">
+    <value>Define the surface, select three nodes and press the "E" key or press the "ESC" key</value>
+  </data>
+  <data name="StartStopConp.ProjectDataCheck.LackOfMaterials.Message" xml:space="preserve">
+    <value>missing materials file</value>
+  </data>
+  <data name="CreatePlot.GraphData.Header_Part1" xml:space="preserve">
+    <value>Node</value>
+  </data>
+  <data name="Reflect.CreateReflectedVBObject.Exception_Part3" xml:space="preserve">
+    <value>not exists</value>
+  </data>
+  <data name="Checking.StartCheckingEvent.SelectedDataIsNotCheckable.Message" xml:space="preserve">
+    <value>Selected data is not checkable</value>
+  </data>
+  <data name="MakeScreenShot.ScreenShotTaken.Message" xml:space="preserve">
+    <value>The screenshot is taken</value>
+  </data>
+  <data name="BazisServerPathMissingMessage" xml:space="preserve">
+    <value>Connection failed. Environment variable "BazisServerPath" not found.
+Create variable?</value>
+  </data>
+  <data name="AttentionCaption" xml:space="preserve">
+    <value>Attention!</value>
+  </data>
+  <data name="sceneImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABE
+        KwAAAk1TRnQBSQFMAgEBEgEAAWQBBAFoAQQBFAEAARQBAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        AwABUAMAAWQDAAEBAQABCAUAAUABHxgAAYACAAGAAwACgAEAAYADAAGAAQABgAEAAoACAAPAAQABwAHc
+        AcABAAHwAcoBpgEAATMFAAEzAQABMwEAATMBAAIzAgADFgEAAxwBAAMiAQADKQEAA1UBAANNAQADQgEA
+        AzkBAAGAAXwB/wEAAlAB/wEAAZMBAAHWAQAB/wHsAcwBAAHGAdYB7wEAAdYC5wEAAZABqQGtAgAB/wEz
+        AwABZgMAAZkDAAHMAgABMwMAAjMCAAEzAWYCAAEzAZkCAAEzAcwCAAEzAf8CAAFmAwABZgEzAgACZgIA
+        AWYBmQIAAWYBzAIAAWYB/wIAAZkDAAGZATMCAAGZAWYCAAKZAgABmQHMAgABmQH/AgABzAMAAcwBMwIA
+        AcwBZgIAAcwBmQIAAswCAAHMAf8CAAH/AWYCAAH/AZkCAAH/AcwBAAEzAf8CAAH/AQABMwEAATMBAAFm
+        AQABMwEAAZkBAAEzAQABzAEAATMBAAH/AQAB/wEzAgADMwEAAjMBZgEAAjMBmQEAAjMBzAEAAjMB/wEA
+        ATMBZgIAATMBZgEzAQABMwJmAQABMwFmAZkBAAEzAWYBzAEAATMBZgH/AQABMwGZAgABMwGZATMBAAEz
+        AZkBZgEAATMCmQEAATMBmQHMAQABMwGZAf8BAAEzAcwCAAEzAcwBMwEAATMBzAFmAQABMwHMAZkBAAEz
+        AswBAAEzAcwB/wEAATMB/wEzAQABMwH/AWYBAAEzAf8BmQEAATMB/wHMAQABMwL/AQABZgMAAWYBAAEz
+        AQABZgEAAWYBAAFmAQABmQEAAWYBAAHMAQABZgEAAf8BAAFmATMCAAFmAjMBAAFmATMBZgEAAWYBMwGZ
+        AQABZgEzAcwBAAFmATMB/wEAAmYCAAJmATMBAANmAQACZgGZAQACZgHMAQABZgGZAgABZgGZATMBAAFm
+        AZkBZgEAAWYCmQEAAWYBmQHMAQABZgGZAf8BAAFmAcwCAAFmAcwBMwEAAWYBzAGZAQABZgLMAQABZgHM
+        Af8BAAFmAf8CAAFmAf8BMwEAAWYB/wGZAQABZgH/AcwBAAHMAQAB/wEAAf8BAAHMAQACmQIAAZkBMwGZ
+        AQABmQEAAZkBAAGZAQABzAEAAZkDAAGZAjMBAAGZAQABZgEAAZkBMwHMAQABmQEAAf8BAAGZAWYCAAGZ
+        AWYBMwEAAZkBMwFmAQABmQFmAZkBAAGZAWYBzAEAAZkBMwH/AQACmQEzAQACmQFmAQADmQEAApkBzAEA
+        ApkB/wEAAZkBzAIAAZkBzAEzAQABZgHMAWYBAAGZAcwBmQEAAZkCzAEAAZkBzAH/AQABmQH/AgABmQH/
+        ATMBAAGZAcwBZgEAAZkB/wGZAQABmQH/AcwBAAGZAv8BAAHMAwABmQEAATMBAAHMAQABZgEAAcwBAAGZ
+        AQABzAEAAcwBAAGZATMCAAHMAjMBAAHMATMBZgEAAcwBMwGZAQABzAEzAcwBAAHMATMB/wEAAcwBZgIA
+        AcwBZgEzAQABmQJmAQABzAFmAZkBAAHMAWYBzAEAAZkBZgH/AQABzAGZAgABzAGZATMBAAHMAZkBZgEA
+        AcwCmQEAAcwBmQHMAQABzAGZAf8BAALMAgACzAEzAQACzAFmAQACzAGZAQADzAEAAswB/wEAAcwB/wIA
+        AcwB/wEzAQABmQH/AWYBAAHMAf8BmQEAAcwB/wHMAQABzAL/AQABzAEAATMBAAH/AQABZgEAAf8BAAGZ
+        AQABzAEzAgAB/wIzAQAB/wEzAWYBAAH/ATMBmQEAAf8BMwHMAQAB/wEzAf8BAAH/AWYCAAH/AWYBMwEA
+        AcwCZgEAAf8BZgGZAQAB/wFmAcwBAAHMAWYB/wEAAf8BmQIAAf8BmQEzAQAB/wGZAWYBAAH/ApkBAAH/
+        AZkBzAEAAf8BmQH/AQAB/wHMAgAB/wHMATMBAAH/AcwBZgEAAf8BzAGZAQAB/wLMAQAB/wHMAf8BAAL/
+        ATMBAAHMAf8BZgEAAv8BmQEAAv8BzAEAAmYB/wEAAWYB/wFmAQABZgL/AQAB/wJmAQAB/wFmAf8BAAL/
+        AWYBAAEhAQABpQEAA18BAAN3AQADhgEAA5YBAAPLAQADsgEAA9cBAAPdAQAD4wEAA+oBAAPxAQAD+AEA
+        AfAB+wH/AQABpAKgAQADgAMAAf8CAAH/AwAC/wEAAf8DAAH/AQAB/wEAAv8CAAP/BgAC/wHzAbwCkgEH
+        AfIB9AH/CgAC/wHzAfIBkgFtAfAB8wL/MAAB/wHzAQcC7wHtARwBBwHtAu8BBwHyAf8GAAH/AfQBvAHw
+        AfEB8wHsAesD8QG8AfMB/ywAAf8BvAHsAfcB8AHtAewBvAHsARwBBwHtAewBvAHvAesBBwH0Af8BAAH/
+        AfEB7QHxAfQC/wHvAZIB7AEcAQAC/wHyAewBvAH/KQABBwHsAfcBBwGSARwB8gH/AQAB7AEcAfMBAAHz
+        AQcBkgEHAe8B7AHvAQcBkgHyAf8DAAHzAe0B7wHtAfcB8gQAAfMBHAHvKAABbQHwAe0B7AHzAv8CAAHs
+        ARwB8wIAAf8B8QG8AfcB7wHtAW0B/wH0Af8B9AL/Ae8BvAHvAe0BvAHsAfQB/wH0AQAB/wH0AfcoAAHq
+        AQcB8QHyAf8CBwL/AewBHAHzAfIB8AHzAQcB/wHzAe8B7AHrBf8B8AH3AfAB7wHtAfAB7wEcAv8BAAL/
+        ARwoAAHqAQcB8gIAAf8B9AHzAesB7AEcAfMBBwHyAf8CAAH0AQcC6wQAAf8CBwHwARwB7AG8AQcB7wHy
+        Af8DAAEcKAAB6gEHAfIFAAH/AewBHAHzBQAB9AEHAusEAAHxARwC8AHvAe0C8AIHAf8DAAEcKAAB6gEH
+        AfIGAAHsARwB8wUAAfQBBwLrAwAB/wGSAbwC8AHvAe0D8AEcAfIDAAEcKAAB6gEHAfIGAAHsARwB8wUA
+        AfQBBwLrAwABkgEHA/AB7wHtA/ABvAHsAwABHCgAAeoBBwHyBgAB7AEcAfMFAAH0AQcC6wIAAfIB9wTw
+        Ae8B7QTwAe8BBwIAARwoAAHqAQcB8gUAAf8B7AEcAfMFAAH0AQcC6wEAAf8BHAG8BPAB7wHtBfAB7AHz
+        AQABHCgAAeoBBwHyAwAB/wHxAewB8QEHAewBvAH/AwAB9AEHAusBAAG8Ae8F8AEcAesBBwTwAbwBHAH/
+        ARwoAAHqAQcB8gH/AfMBBwLtAfEB9wGSAfAB9wHsAe8B8wH/AfQBBwLrAfQB7wG8AfABvAEHAe8E7AEc
+        AQcBvALwAe8B8QH3KAAB6gEHAfcB7wH3Ae0BHAEHAfAB8wHyAfEBBwEcAe0B9wLvARwC6wHwAe8BBwH3
+        ApIB9wG8AgcBvAHvAe0CkgIHAe8B7CgAAW0B8gEHAewB7QHwAfQB/wEAAfIB8QEAAf8B9AHxAfcB7AHv
+        AfEB7QHrAuwB7QHvAQcBvAbwAbwBBwHvAZIB6wHtAesoAAHsArwB7QHrAQcB9AL/AfMB8QL/AfQBvALs
+        AQcB8AHtAeoBbQHsBu0C7AXtAewB6wJtKAAB/wHxAQcB7wEHAZIB7QHvAbwC8QG8Ae8C7QLvAQcB8AL0
+        AfIBvALwAfEB9AP/AfQC/wH0AfIB8QHwAQcB8QH0KgAC/wHzAfAB7wLtAQcB7wGSAewB7wHwAfMB9AH/
+        BAAC/wHzAfIBvAEHAfIB/wH0AfMB7wG8AfIB8wL/MQAB/wHwAuwBvAH/DgAB/wHyAe0B7AHxAf80AAL/
+        AfMBvAKSAQcB8gH0Af8FAAHqEhQBEgETBusB8AQAAfMG6wESA/8B9AHxAfQIAAH/ARoB9AP/AwAB/wHz
+        AQcC7wHtARwBBwHtAu8BBwHyAf8DAAEUEu0B6gFDB/8FAAb/Ae0B9AEJAdYB3AH0Af8IAAL/ARoBmQGa
+        AfQBAAH/AbwB7AH3AfAB7QHsAbwB7AEcAQcB7QHsAbwB7wHrAQcB9AH/ARQI7QLrAewH7QHqAUMB/xAA
+        Af8B7QH/AdwC1gEJAfMB/wIAAf8DAAH/AfQBGgOZAfQBBwHsAfcBBwGSARwB8gH/AQAB7AEcAfMBAAHz
+        AQcBkgEHAe8B7AHvARQG7QHrARMCEgETAesG7QHqAUMB/xAAAf8B7QEAAfQB8AH0Ad0C1gEJAfQB7wHr
+        Af8BGgKZARoB9AEbAfQB/wFtAfAB7QHsAfMC/wIAAewBHAHzAgAB/wHxAbwB9wHvAe0BFAXtAesBEgHw
+        Af8BAAHzAW0B6wXtAeoBQwH/BwAB9AHvAfQGAAH/Ae0CAAHxAfQBAAH/AfMB1gGuAfMB/wEUAZkB8wH/
+        AQAB/wEaAgAB6gEHAfEB8gH/AgcC/wHsARwB8wHyAfAB8wEHAf8B8wHvAewBFAXtARIB8AQAAfEBEgXt
+        AeoBQwH/BQAB9AHvAewBFAHsAe8B9AQAAf8B7QMAAfMB9AIAAf8B8QHzAfQB7wH/AgAB/wHzAwAB6gEH
+        AfICAAH/AfQB8wHrAewBHAHzAQcB8gH/AgAB9AEHAesBFATtAusGAALrBO0B6gFDAf8DAAH0AfcB6wHw
+        Af8BQwH/AbwBbQH3AfQCAAH/Ae0JAAG8AewJAAHqAQcB8gUAAf8B7AEcAfMFAAH0AQcB6wEUBO0B6wEH
+        BgABBwHqBO0B6gESAf8DAAHxAQcB/wEAAf8BQwIAAf8BBwHyAgAB/wH3CQACCAkAAeoBBwHyBgAB7AEc
+        AfMFAAH0AQcB6wEUBO0B6wHwBgAB8QHqBO0B6gHxBAAB8QHwAgAB/wFDAwAB8AHyAwAB8wkAAvAJAAHq
+        AQcB8gYAAewBHAHzBQAB9AEHAesBFATtAesBvAYAAbwB6gTtAeoFAAHxAfACAAH/AUMDAAHwAfINAALw
+        CQAB6gEHAfIGAAHsARwB8wUAAfQBBwHrARQE7QHrAe0GAAHtAW0E7QHqBQAB8QHwAgAB/wFDAwAB8AHy
+        DQAC8AkAAeoBBwHyBQAB/wHsARwB8wUAAfQBBwHrARQE7QHsARIB9AQAAfQB6gHsBO0B6gG8Af8DAAHx
+        AfABAAH/AfMBQwHzAf8BAAHwAfIDAAHyCQAC8AkAAeoBBwHyAwAB/wHxAewB8QEHAewBvAH/AwAB9AEH
+        AesBFAXtAm0B9AIAAf8B7QHqBe0B6gEUAf8DAAHxAfAB8gLtAQcC7QHzAfAB8gIAAf8BkgkAAvAJAAHq
+        AQcB8gH/AfMBBwLtAfEB9wGSAfAB9wHsAe8B8wH/AfQBBwHrARQG7QHqARIB7QGSAhIG7QHqAUMB/wMA
+        AfEB6gHrAfIB/wEAAf8B8QHrAeoB8QIAAf8B7QkAAvAJAAHqAQcB9wHvAfcB7QEcAQcB8AHzAfIB8QEH
+        ARwB7QH3Au8BHAHrARQH7QHrAhIB6wftAeoBQwH/AwAB9AEHAe0BBwHxAfMB8QHvAe0BBwH0AgAB/wHt
+        BwAB9AH/AvAD/wYAAW0B8gEHAewB7QHwAfQB/wEAAfIB8QEAAf8B9AHxAfcB7AHvAfEB7QEUBOsB7Ajt
+        AewE6wESAUMB/wUAAf8B8gEHAe8BBwHyAf8EAAH/Ae0HAAH0AfMC8AH0AfMB/wYAAewCvAHtAesBBwH0
+        Av8B8wHxAv8B9AG8AuwBBwHwAe0EBwHvAesI7QHrAfcEBwFDAf8HAAP/BgAB/wHtBwAB/wHyAQgB8AHi
+        Af8HAAH/AfEBBwHvAQcBkgHtAe8BvALxAbwB7wLtAu8BBwHwAfQEAAH/AQcB7AbtAewB7QH/BAABQwH/
+        EAAB/wHtCAAB9ALCAfQKAAL/AfMB8AHvAu0BBwHvAZIB7AHvAfAB8wH0Af8HAAHyAesG7QFtAfIFAAFD
+        B/8EAAf/Ae0IAAH/AvIB/w8AAf8B8ALsAbwB/wwAAf8B7QYUAewB/wUAARMGQwEHBAAB8gETBUMBFBcA
+        Af8BCAHvAfIB/xEAAv8B8wEHAe0B7AHvAfIB9AH/CgAC/wHzAQcB7QHsAe8B8gH0Af8JAAL/AfQC8AH/
+        AQAB8gG8AfMC/wYAAf8BCAHvAfEBnwH0DwAB/wH0AbwCkgEcAbwB8QL3AZIBBwHzAf8GAAH/AfQBvAKS
+        ARwBvAHxAvcBkgEHAfMB/wUAAf8B9AHxAQcBkgHtAQcB/wEAAfEC7QEHAfAB8wH/BAAB9AF4AfMB/wHx
+        AfYOAAH/Ae8BbQH3AQcB7AESAZIBBwESAesCBwHrAfcFAAH/Ae8BbQH3AQcB7AESAZIBBwESAesCBwHr
+        AfcDAAH/AfMBBwEcBO0BBwH/AQAB8QTtAfcBBwHxAf8CAAHyAXgB/xAAAf8B9AHrAbwB7AFtAewB7QGS
+        AQcB6wHtAW0B6wHvAesC/wMAAf8B7AG8AewB7QLwAfcBBwHvAfEB7QHsAe8B6wH/AgABkgftAQcB/wEA
+        AfEH7QGSAQAB/wG8AQgRAAH0AfAB7QHsAZIBHAHvAe0BkgEHAewC7wGSAu0BvAHzAf8CAAH/AfEBvAHz
+        Af8BAAHyAfcCBwEAAf8B8wHwAfIDAAjtAQcB/wEAAfEI7QEAAf8BCAEbEQAB8QbvAe0BkgEHAewG7wG8
+        Af8EAAH/AwAB8gH3AgcIAAjtAQcB/wEAAfEI7QEAAf8BCAH0AwAB/wEbAu8BvAP/AfIC7wHCAv8B8Abv
+        Ae0BkgEHAewG7wG8BP8FAAHyAfcCBwUAA/8I7QEHAf8BAAHxCO0CAAL/AwAB/wHvA3gBCAH/AfAFeAHv
+        Ae0BkgXvAe0BkgEHAewF7wEcAewC7wGSAfMB/wQAAfIB9wIHBQAB/wH3Ae8I7QEHAf8BAAHxCO0HAAH/
+        AfMC8AEcAXgB9AF4ARwB8gHzAQgBeAETAQcB7AXvAe0BkgEHAewF7wH3AuwBEwEHAbwB/wQAAfIB9wIH
+        BQAB9AHtAewI7QEHAf8BAAHxCO0HAAH0Ae8EeAH0AXgBHAL/AbwBeAEUAQcB7AXvAe0BkgEHAewF7wH3
+        Ae0B7AEUAQcBvAH/BAAB8gH3AgcFAAH0Ae0B7AjtAQcB/wEAAfEI7QEAAf8BGwH0AwABnwF4Ae8BCAEc
+        AXgB9AF4AZ8B9AH/AQgBeAEUAQcB7AXvAe0BkgEHAewF7wH3Ae0B7AEUAQcBvAH/BAAB8gH3AgcFAAH0
+        Ae0B7AjtAQcB/wEAAfEI7QH/AQgBeAHvAfMB/wEAAe8BeAIIAZ8BeAH0AZ8BeAK8Ae8BeAEUAQcB7AXv
+        Ae0BkgEHAewF7wH3Ae0B7AEUAQcBvAH/BAAB8gH3AgcFAAH0Ae0B7AftAfcB8gH/AQAB9AHvB+0B8AN4
+        AZ8B9AEAAfQEeAHwAf8B8wR4ARsBFAEHAewF7wHsAZIBBwHrARwE7wH3Ae0B7AEUAQcBvAH/AwAB/wHw
+        AfcBBwH3Af8EAAH0Ae0B7APtAZIB7wG8AfMB/wQAAf8B9AHwAe8B9wPtAXgCnwEIAZ8B8gIAAf8C8gHz
+        Af8CAAH0AvIB8wH/ARQBBwHsAe8BHAH3Ae0C6wEHAfIB7AHrAewB9wEcAe8B9wHtAewBFAEHAbwC/wH0
+        AfAB7QHrAQcB8gLsAQcB9AL/AfQB7QHsAe0B7wHwAfMC/wIAAv8B9AH/AgAC/wHzAfABBwGSAQgB8gEI
+        AfAC9A4AARQBBwHsAe0C7APtAusE7QHrA+0B7AEUAQcB7wHxAe8D7QGSAe0BkgTtARwB8AHxAe0B7AHz
+        AfQB/wMAAf8B9AHwAe8BHAG8AfMB/wMAAv8B8wH0Af8B8AHvAv8OAAEUAQcB6gHtAbwB7ALrAe0CHAGS
+        AewB6wHsAQcB9wFtAe0B7AEUAQcBbQGSAbwB7AHrARwB8gL/AfMBBwHrAewBBwEcAesB7QHsBAAB/wHy
+        ARwG7QGSAfEB/wYAAfIBeAH/AQAC/wwAARQB8wHwAewBEwHrAfcG7wEcAewBEgHrAbwB8gHsARQB8wHw
+        AewBEgEcAfQFAAL/AQcBbQHrAbwB8gHsAQAB/wHzAbwBkgvtAQcB8wH/AwAB/wEcARsB/wHwAf8MAAHt
+        AfcBHALtAuwBkgTvAZID7AHtAfcBHALtAfcBHAPtAe8B8gMAAf8B8wEHAZIC7QH3ARwB7QEAAf8B8wHw
+        Ae8K7QEcAbwB8gH/AwAB/wHwAZ8BCAGfAf8MAAH/AfMBvAH3AesB7QHvAeoD7wEcAewB7wHtAewB7QEH
+        AfIB9AH/AfMBvAH3AesB7QHvAewB/wIAAf8C7wHtAewB7QEHAfIB9AMAAf8B9AHzAbwB9wTtAZIBBwHz
+        AfQB/wYAAf8BvAHvAfQRAAH2AQcB6wEHAfQC8QH0AbwBbQHvAfQB/wcAAfYBBwHrAQcDAAH/AbwBbQHv
+        AfQB/woAAf8B8wEHAe8B8gH/CwAB/wH0AfIBCAEcAngB7wHCAfQB/wkAAf8B9AEaAQcDkwF0ARoB9AH/
+        CQAB/wH0AfAB1gHPAq0B1QEJAfMB/xwAAf8B8gLvAcIB8gHzAfIBGwEIARwBCAH0BwAB/wEbAXQBBwEa
+        AfMB9AHzARsBmgGTAZkB9AcAAf8B8AG1Ac8BCQHwAvIBvAHWAc8B9wH0CAAB/wIaAfMB/w0AAf8B8AF4
+        AbwB9gL/AgAC/wHzAXgB7wH2BQAB/wEaAY4BGgL/AwAC/wH0AZMBBwH2BQAB/wEJAa0B3AP/AgAC/wHy
+        Ac8B1QH/BwAB9AEHAY4BGgH/DAAB/wHyAXgB8AT/AgAD/wH0Ae8BCAH/AwAB/wEbAY4BGgH/AwAB/wQA
+        Af8CBwH/AwAB/wHwAa0BCQj/AQAB9AG1AdYB/wYAAf8B8gGTAXMBGgH/AwAD/wUAAf8B7wG8Af8B9AEI
+        ARsB/wIAAfEBvAL/AfMBHAEbAf8CAAH/AQcBGgH/AwAB/wEaAfMDAAH/AfQBkwEaAwAB9AHVAdwC/wHx
+        BQkB3QL/AfMBzwG8Af8CAAL/AfQCGgJ0AW8BGgIAAf8BGgGZARoB8wL/AgAB9AGfAfYBAAHyAngBGwH/
+        AfICeAH0AQAB/wEIAZ8B9AH/AQAB9AEHAf8DAAH/ARsBbwGOAf8DAAH/ARoBkwH0Af8BAAHzAc8B/wEA
+        AfQBzwbOAQkBAAH/AfcBzwH0Af8BAAEbAXQBjgGTAZkBBwF0AZMB9AIAAf8B8wGZA5MBGgH/AQAB8wG8
+        Af8CAAEIAngBwgJ4AQgB/wIAAfQBeAG8AfQBAAH0ARoB/wMAAf8BGwJvAf8EAAH0AW8BGgH0AQAB8wEJ
+        Af8BAAH/AbUBzgGnA88B1QH0AgAB9AGtAQkB9AEAAY4BmQH0Af8B9AGTAY4B8gH/BgAB/wEaAZMBmgEA
+        AfQB8gH/AgAB/wEIA3gB7wH0AwAB/wF4Ae8B9AEAAfQB8wQAAf8BGgJvAf8EAAH/ApMB9AEAAfMB8QH/
+        AgAB/wHWAc4BzwH0BQAB/wGtAc8B9AEAAQcB/wEAAf8B8wEaARsB/wgAAf8BGgGTAQAB9AHzBAAB9AN4
+        AfMFAAHvAXgB9AEAAvQEAAH/AZMCbwEaAf8EAAEHAW8B9AEAAfQB8gQAAf8B1QGnAc8B/wUAAc8BrQHz
+        AQABkwEaAf8BAAH/CwAB8wGTARoBAAH0AfMEAAHvA3gBCAH/BAAB9AHzAf8BAAL0BAABBwNvAY4B9AQA
+        AfQB8wH/AQAB8wHyBQAB8wGtAacB1gH/BAAB9AHzAf8BAAL0Bv8CAAX/AQAB9AHzAf8BAAHzAfEB/wEA
+        Af8B8AJ4AQgCeAHCAf8HAAH0AfIB/wIAAfMCbwEbAY4BbwGaAf8HAAHzAbwB/wEAAv8C9AHWAqcBCQH/
+        CgABBwOOAQcC/wEHA44BBwH/BAAB8wEIAf8BAAHzAngBvAH/AfECeAH0BwAB9AEaAf8BAAH/AZMBbwEH
+        Af8B8wJvARsHAAHzAdYB/wEAAfQB1gOtAqcBzgHyCgABGgMHAY4B8gEaAXMBdAEHAXQBbwHzBAAB9AF4
+        AfQBAAH/Au8B/wEAAf8B8QEcAf8HAAH0AZMB/wEAAfQBkwFvAfQBAAH/AZkBbwEaBwAB8wGtAfQBAAH/
+        AbUGpwH0CQAB/wH0AXQCkwFvARoBdAFzARsB/wHzAW8BGgQAAf8BCAHvAv8BAAP/AQAC/wgAAf8BBwGa
+        Af8BAALzAwAB9AEaAf8HAAH/AdYBtQP/AvIB8wP0Af8JAAH0A3MBbwFzARoBdAFzAfIBAAHzAW8BGgUA
+        AfQBnwEIAfQB/wHyAggB9AoAAf8B9AGTARoB/wEAAfQBGgEbAf8LAAH0Ac8B1gH0Af8B8gHWAbUB9AwA
+        AQcBcwF0AQcCbwEaAnQBGgH0AZoBbwEaBQAB/wH0Au8BGwH0AbwBeAGfAfQKAAH/AfQBkwEHAfQB9gEH
+        AW8BBwH/CgAB/wH0AbUBzwG8AfQB9wHOAc8B9AsAAfQBcwGOAZMBcwGOAvQBcwGOAZMBcwFvAfQHAAH/
+        AQgCeAHvAngB7wH0CwAB9AEHAW8BdAEHAm8BmgH/CwAB/wH3Aa0BzgLPAacBtQH0IAAB/wH0ARsBCAJ4
+        Ae8B9AH/CwAB/wHzARoBBwJvAQcB9AwAAf8B9AG8AdYBzwGnAbUB9AH/IQAB/wG8AngB9AH/DgAB/wEa
+        AW8BjgH0Af8OAAH/AfcCzwH0Af8hAAH/AQgCeAH2EAABGgFvAZMB/w8AAf8B9wHOAc8B/yIAAv8B8wHw
+        AfcB6gEHAfMC/0UAAfQB8AHvAQcB8QH0AZIB9wEHAe8BBwHzAf9AAAH/AfMB9wHsAfAB9AL/AQAB/wGS
+        Av8B8QLtAfIB/z0AAbwC9wHyAf8GAAG8AfEB/wEAAf8B8wHvAZIBvDwAAu8B/wgAAfQB7wH/AwAB/wH0
+        AewB9AHyAfQB/wIAAf8B8wHyAfYEAAH0ARoB/wMAAfQB8Aa8AfAB/wEAAvIB/wMAAf8C8gH0AfAGvAHw
+        Af8EAAH0ARoB/wMAAf8B7wHyAf8HAAH/AQcB8AQAAf8BkgGfAXgB7wH/AgAB8gEcAXgB8QMAAf8BBwFv
+        AQcDAALPBs4BrQG8AfQCeAHwAwAB7wJ4As8GzgGtAbwDAAH/AQcBbwEHBAAB9AH3Af8FAAP/AfIBbQH/
+        AwAB/wGSAe8CeAEIAf8B9AHvAngB8wMAAf8CbwGTAwABtQOnBa0B8wH/ARwCeAHyAf8BvAJ4AZ8BtQHO
+        AqcFrQHzAwAB/wJvAZMEAAH/AfIB9wH/AQAB/wH0AfMB8AEHAu8B6wH0AwAB/wGSAf8BCAJ4AbwBCAJ4
+        AfAB/wMAAf8CbwGTAwAB/wHWAs4BtQHxAvIB9AH/AQAB8wGfAXgB7wHwARwBeAHvAfQB/wHWAs4BtQHx
+        AvIB9AH/AwAB/wJvAZMFAAH/AfAB9wG8AvcBBwHxAfMC/wHsAfQDAAH/AZIBAAH0Ae8EeAEIAf8EAAH0
+        Am8BkwH/AwAB9AHVAacBrQHxAf8EAAH/AfEEeAEcAfMB/wEAAfQB1QHOAa0B8QH/BgAB9AJvAZMB/wYA
+        AesB7wH0BgAB7AH/AwAB/wGSAgAB8gR4BQAB/wGTA28BBwQAAfEBrQGnAc4B9AYAAfEDeAH0BAAB8QGt
+        AacBzgH0BQAB/wGTA28BBwYAAfEB8AYAAf8B6wH/AwAB/wGSAQAB/wHzA3gB7wH0AwAB/wEaBG8BjgHz
+        Af8DAAEHAc4BpwGtAfQEAAH2Ae8DeAEIAf8EAAEHAc4BpwGtAfQDAAH/ARoEbwGOAfMB/wQAAfMBBwH/
+        AgAB/wH0AfEB7wFtAfIDAAH/AZIBAAHzAZ8EeAHvAfQCAAH0AZMBbwGTAZkBjgFvAQcB/wQAAQkBzwHO
+        AdUB9AIAAf8BvAJ4ARwCeAEbAf8EAAEJAc8BzgHVAfQCAAH0AZMBbwGTAZkBjgFvAQcB/wQAAfQBBwL/
+        AbwB7AHtAbwC9AHtAfQCAAH/AZIB/wEcAngBGwG8AngBvAH/AQABmgJvAZkB/wF0Am8BGwH/A7wB3QHV
+        AacBzgEJAf8BAAHxAngB7wHyAe8CeAHzAf8DvAHdAdUBpwHOAdwB/wEAAZkCbwGZAf8BBwJvARsEAAH/
+        AZIC7QG8AfQEAAHyAe8B/wEAAf8BkgN4AbwBAAH0Ae8CeAHyAfQBjgFvAZMB/wEAAfQBkwJvAc8HpwHP
+        AfIB/wJ4AZ8B9AEAAfIDeAHPB6cBzwHyAfQBjgFvAZMB/wEAAfQBkwJvBAAB/wG8ARwB/wYAAf8CvAL/
+        AZICeAEIAf8CAAH0AZ4BeAHyAfQBbwF0AfQDAAEaAZMBBwHPCK0B8QH0AXgB7wHzAwAB8AEcAe8Bzwit
+        AfEB9AFvAXQB9AMAARoBkwEHBQAB/wHvAfAGAAH/AfAB6wHvAfQBkgL0Av8DAAH2AfQB/wEAAfQB9gH/
+        AwAD/wn0Af8BAAH0Av8DAAH/AfQB/wn0Af8BAAH0AfYB/wMAA/8GAAH/AewB9AH/AgAB/wH0AhwB9AG8
+        Ae0B60MAAfMB7wH/AQAB9AG8AfcBvAHzAfIB8AEcAexDAAH/AfACBwHtAesB7QEcAQcB8AHyAfMB9EQA
+        Af8B7QFtAQcB8gH/QgABQgFNAT4HAAE+AwABKAMAAVADAAFkAwABAQEAAQEFAAGwAQQWAAP/AQAB+AEB
+        Af8BgAEfBwAB4AEAAX4BAAEHBwABgAEAAQgBAAGBCAABiAEAAeABeAcAAQEBjAIAAQgLAAEIBwABGAEB
+        AYcBgAEOBwABHwEPAYcBgAEOBwABHwGPAYcBAAEOBwABHwGPAYcBAAEOBwABHwGPAYYBAAEGBwABHwEP
+        AYQBAAECBwABHAEDAYQiAAGQIgABwAEAATwBAAEDBwAB/gEHAf8B4AF/BwAB+AEBAfADAAHwAQABPwHA
+        AgAB4AEAAXADAAH4AQABPwHAAgABgAQAAT8B/wHAARsBgAMAAYgDAAE/Af8ByAQAAQEBjAEAAQIBAAE/
+        AY8BzAGAARMFAAEPAQABPgEDAc4BYAFnAgABGAEBAYABHwGAATgBAAHPAfkB/wIAAR8BDwGAAR8BgAE4
+        AZgBzwH5Af8CAAEfAY8BgAEfAYABeQGcAe8B+QH/AgABHwGPAYABHwGAAfkBnAH/AfkB/wIAAR8BjwGA
+        AR8BgAH5AZwB/wH5Af8CAAEfAQ8BgAEPAQABOQEEAe8B+QH/AgABHAEDAYABBgEAATgBAAHPAfkB/wcA
+        ATgBIAHPAfkB/wcAATgBAAHPAeABPwMAAZADAAE+AQMBzwHgAT8HAAE/AY8BzwHgAX8EAAEPAQABDwE/
+        Af8BzwHwAf8CAAHAAQABPwGAAR8BAAHwAQ8B8AH/AgAB/gEHAf8BgAEfAQAB8AEPAv8CAAHgAv8BgAEf
+        AfgBAQH/AQIBDwIAAcAB/wH+AQABBwHgAQABfAECAQMCAAHAAf8B/AEAAQcBwAEAAXABAgMAAccB/wH4
+        AQABAQHAAQABMAECAwABjwH/AfgCAAHBAQgBcAECAwABjwH/AfgCAAH3AQ8B8AECAwABjgQAAR8BDwGA
+        AQIDAAHOBAACDwGAAQIDAAH+BAACDwGAAQIDAAH+BAACDwGAAQIDAAGOBAACDwGAAQIDAAECBAACDwGA
+        AQIDAAECBAABDgEHAYABDwMAAQMBBgYAATABwAIAAQMB/wHwBAABAQHAATgCAAEDAf8B8AQAAQ8BAAEP
+        AgABxAH/AfACAAEBAfABCAEAAQECAAHAAf8B8AMAAeABCAEAAQECAAHAAf8B8AMAAWABDgEAAQcCAAHh
+        Av8BAAEHAfAB4AF/AeABfwIAAfABAQH/AQABHwHwAQED/wIAAeABAAH+AQABDwHgAQAB/wEHAf8CAAHA
+        AWABfAEOAQcBwAFgAX8BBwH/AgABgAFgATgBOwHDAYABBAE/AQMBjwIAAYABYAEYAXEBwwGAAQABGAED
+        AQECAAGIAQIBCALgAYgBAgEIAQMDAAGMAQMBCAHgAfABiAEDAQgBAwHwAgABjAEHAQkB4AHwAYwBHwEJ
+        AQcB+AIAAZ4BDwGJAeABeAGeAQ8BiAG/AfgCAAGeAQcBiQHgAXgBnwEHAYgBBgEIAgABiAEDAfgBwAE/
+        AYgBAwH/AQABBwIAAYgBAwH4AYABPwGIAQMB/wEAAQcCAAGIAUMB+AGEAT8BiAEDAf4BAAEHAgABggEn
+        AfgBTgE/AYABAwH+AQABRwIAAcABHwH4ASEB/wHAAR8B/gEAAQcCAAHAAQ8B/AEAAf8BwAEPAf4BAAEH
+        AgAB8AEHAf8BAAF/AfABBwP/AgAB+AEDAf8BgAF/AfgBAwP/AgAB/gEHAf8B4AF/Af4BBwP/AgAB/AEf
+        Af8B4QH/AfwBHwP/AgAB+AEBCP8CAAHwAQABfwf/AgABgAFAAR8H/wIAAQcB4gEPB/8CAAEfAeMBgAHD
+        AccBAAEjAYABAwHHAgABDwHjAcABwwGHAQABAwGAAQMBhwIAAY8BgQHAAQMBhwMAAQMBhwIAAYQBAQHA
+        AQMBhwEAASABAAEDAYcCAAHAAQEByAEHAYMBgQHgAQgBHwGDAgAB8QH5AcwBHwEDAcEB+AE8AR8BAwIA
+        AfMB8QHIAQ4BAAHgAfABHgEOAwAB8QGBAcgBBgEAAfABYAEPAQYDAAHwAQABwAECAgABIAEAAQIDAAHw
+        ATwBQAGAARABAAEBAgABEAIAAfAB/AEAAcABOAEAAQMBgAEAATgCAAH4AfwBAAHiATgBAAEjAYABAgE4
+        AgAB/AEwAQ8H/wIAAf4BIAEPB/8CAAH+AQABDwf/AgAB/wEDCP8YAAs=
+</value>
+  </data>
+  <data name="BeamConnection.BeamConnection.ObjectsCreated.Message" xml:space="preserve">
+    <value>Objects created</value>
+  </data>
+  <data name="AnimationForm.Text" xml:space="preserve">
+    <value>Animation</value>
+  </data>
+  <data name="Result.BuildDiagram.Text_Part1" xml:space="preserve">
+    <value>Graph</value>
+  </data>
+  <data name="toolStripContainer.Text" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="StartStopConp.FormCommandFile.Message" xml:space="preserve">
+    <value>A command file has been generated by path:</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.NoNodesSelected.Exception" xml:space="preserve">
+    <value>No nodes selected</value>
+  </data>
+  <data name="расчетыToolStripMenuItem.Text" xml:space="preserve">
+    <value>Calculations</value>
+  </data>
+  <data name="лицензияToolStripMenuItem.Text" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="GenerateBoundaryMesh.Generate2DOn3DSurfaces.Elements.Message" xml:space="preserve">
+    <value>elements!</value>
+  </data>
+  <data name="dToolStripMenuItem.Text" xml:space="preserve">
+    <value>1D</value>
+  </data>
+  <data name="создатьToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
+  </data>
+  <data name="UtilityTiilStrip.SelectObjectAsync.NoObjectSelected.Message" xml:space="preserve">
+    <value>Selected no objects of type</value>
+  </data>
+  <data name="опрограммеToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="сформироватьgeoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create *.gscript</value>
+  </data>
+  <data name="FindCoincidentNodes.Action.Found.Message" xml:space="preserve">
+    <value>Found</value>
+  </data>
+  <data name="menuItem_SetRotPoint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="остановитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="EditGroup.EditGroupAsync.NoObjectsSelected.Message" xml:space="preserve">
+    <value>No objects selected!</value>
+  </data>
+  <data name="tasksMenuItem.Text" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="UtilityToolStrip.DistancePointToPlane.InstructionPart2" xml:space="preserve">
+    <value>and press the "E" to confirm or "ESC" to cancel</value>
+  </data>
+  <data name="FindFreeNodesEvent.Found.Message" xml:space="preserve">
+    <value>Found</value>
+  </data>
+  <data name="menuItem_SetRotPoint.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAU
+        bAAAFGwB1KVOXwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFpSURBVDhPpZM7
+        TwJBFIX5JRoLjShGYqO2xL9ALEF7tVILxIrYqCWINTaIGGHXLCxgAmMBCyISCRY2ZHdJdlsIDQnHzCQu
+        D9mIeJKbO3NvzjevjEXT9M9Wq6VOE9RroQNMKeqdCKBrGq4CATSbzaH6RABCcriLRMBzHI6PDod6QwBF
+        UZBOpVgkkwk2fymVWFB91Os42N8zB4hi0mj0ej0QQnDm8+GtUmG123AYp15v3z0KoCsWCgWjGYs9sNxo
+        NFAsSthxuXAfjfbdowAqSZJQq72zVanxWzzPYW52ZrJLbLfb4OLxwRK2HA4sW60QBAGZdNqojwXIsoxq
+        tYpdtxu2JSty2SwuL86N4wX8fui6bg5IJAR2iTehEFZXbFhcmMeJx8OO1e128UwIroNBc8BTJsNyp9OB
+        Ist45Hn2fJsb61iz27HtdLJdmgJSoshyPp/Ha7k82PqhsQBVVRmEPutvGgv4ixjgv9/5C0dCpThzSPFz
+        AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="StringEx.ToEnum.ArgumentException.Part1" xml:space="preserve">
+    <value>Error: value</value>
+  </data>
+  <data name="добавитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 26</value>
+  </data>
+  <data name="загрузитьМастерToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 22</value>
+  </data>
+  <data name="SelectByRect.Declination.Type3" xml:space="preserve">
+    <value>objects</value>
+  </data>
+  <data name="скрытьПлоскостьюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Hide with plane</value>
+  </data>
+  <data name="btnSelect.Text" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="EditGroup.EditGroupAsync.Preamble.Message" xml:space="preserve">
+    <value>Modify the group by adding or removing objects. Press "E" to apply the changes or "ESC" to cancel</value>
+  </data>
+  <data name="HandleArgsResultsLoadingWithoutProjectException" xml:space="preserve">
+    <value>To load the results, you must first load the project</value>
+  </data>
+  <data name="dataBasesMenuItem.Text" xml:space="preserve">
+    <value>Databases</value>
+  </data>
+  <data name="наПоверхности3DToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="EditGroup.EditGroupAsync.OperationCanceled.Message" xml:space="preserve">
+    <value>Operation canceled</value>
+  </data>
+  <data name="SelectByPoint.ObjectSelected.Message" xml:space="preserve">
+    <value>Object selected</value>
+  </data>
+  <data name="UtilityTiilStrip.SelectObjectAsync.SelectOne.Message" xml:space="preserve">
+    <value>Select single object of type</value>
+  </data>
+  <data name="Result.BuildDiagram.SelectContaimerAsync.SelectTime.Message" xml:space="preserve">
+    <value>Select the time and press the "E" key to confirm</value>
+  </data>
+  <data name="показатьНаДиаграммеToolStripMenuItem.Text" xml:space="preserve">
+    <value>Show on diagram</value>
+  </data>
+  <data name="SaveLoadScript.GeoScript.Formed.Message" xml:space="preserve">
+    <value>formed</value>
+  </data>
+  <data name="создатьАнимациюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create an animation</value>
+  </data>
+  <data name="dataBasesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 20</value>
+  </data>
+  <data name="открытьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wgAADsIBFShKgAAAAkZJREFUOE/Fkl1Ik2EYhr+DDjqyyIpCKLA88GQQFFEdhBRRKIplFiRpQs0fKoyF
+        OX/a1HRzc3PqV7qsbbqmTivLKOxHKhSJmKaONFOzorAUM0Ml/65wA3Up1Vk33Acvz3Nfz/O+vILwj1Ia
+        bFxQW8gW7fxe+6uiZKJHKN1gc50jZYUIH/veUG3VL3JHy5M/TgqLzyUkNg9htrmrzcz4cJXLP4dsTA6Y
+        sFty6Wh9uiTkUJyOkBgDQdIChKpSHWND5R7h6f4iJp0JlF9XU1achakwHWNeGle0cgpUiZ7QCrOGsa/m
+        ufBMfxF0ycEpXdKLADdKVPz4bJwL11VrXH5gz6HWpuJ2WRZ2UwY2oxKLeJFrhhSKdXJETZIbVmbMYuR9
+        vmvt3gYFNeU6pnuV0Jfp6XdK6EmGThm8jqe1MhzrVT2CSczge7caPmi5U5FL00Otu2nh6q8iwRHGVGMg
+        448CeFsqQSYNdV+lxKDgW4eSvsZUamxaZnoU0B7jDrZGg+MoU03BjNfvY+T+Lgart6CM9cMiyt2AIl0q
+        g21J3LRqaH6uhs4EaD8JzRHMvAhl4tkBRut2M1SzlS8V/jgureRYoO/8Q4o5ctrr07hlzYHuNGiJhJeH
+        mWgIYvRxAMO12xmwS/hk3oxT641CuonTscfnAfnZiVRZ1DjvxuHQC3Nu0i6jXrWce+krqExZgynRh8vn
+        NhKxcPqs9Jnn0StOkZ0URfKZI5yNDuZE+F4O7t/Bnp0Stkn88Pf1YcP61axd5cU6b68lf+f/0y8Xxt5p
+        abV3gwAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="уплотнитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="MainMenuEvents.ChangeLanguage.Message" xml:space="preserve">
+    <value>To apply the changes, open the application again</value>
+  </data>
+  <data name="ShowInsideObjects.ShowAllObjects.Message" xml:space="preserve">
+    <value>All objects shown</value>
+  </data>
+  <data name="создатьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 26</value>
+  </data>
+  <data name="наToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 22</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="SelectByRect.Declination.Type2" xml:space="preserve">
+    <value>objects</value>
+  </data>
+  <data name="GenerateMesh3DEvents.Generate3D.CheckRecommendation.Message" xml:space="preserve">
+    <value>It is recommended to check the levelt of accuracy of the sets before starting the calculation in the properties panel by selecting it in the navigator.</value>
+  </data>
+  <data name="справкаToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 20</value>
+  </data>
+  <data name="сеткаToolStripMenuItem.Text" xml:space="preserve">
+    <value>Mesh</value>
+  </data>
+  <data name="GenerateTSF.InstructionsFormed.Message" xml:space="preserve">
+    <value>The task instructions are generated in directory</value>
+  </data>
+  <data name="содержаниеToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Content</value>
+  </data>
+  <data name="EditGroup.EditGroupAsync.GroupChanged.Message" xml:space="preserve">
+    <value>Group changed successfully</value>
+  </data>
+  <data name="показатьНаДиаграммеToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
+  </data>
+  <data name="построитьДиаграммуToolStripMenuItem.Text" xml:space="preserve">
+    <value>Build a diagram</value>
+  </data>
+  <data name="инструментыToolStripMenuItem.Text" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="показатьСкрытыеItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="HandleArgsCADAbsenceException" xml:space="preserve">
+    <value>Required arguments for -cad file are missing</value>
+  </data>
+  <data name="menuItem_DeleteSelectedObjects.Text" xml:space="preserve">
+    <value>Remove selected</value>
+  </data>
+  <data name="геометрияToolStripMenuItem.Text" xml:space="preserve">
+    <value>Geometry</value>
+  </data>
+  <data name="открытьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 26</value>
+  </data>
+  <data name="GenerateMesh3DEvents.Generate3D.GMSHNull.Exception" xml:space="preserve">
+    <value>Error creating mesh. Geometry may not be loaded</value>
+  </data>
+  <data name="VBObjectCtor.EmptyArrayArgumentException" xml:space="preserve">
+    <value>VBObject Error: Index array length cannot be zero</value>
+  </data>
+  <data name="tasksMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 20</value>
+  </data>
+  <data name="ConvertFailCaption" xml:space="preserve">
+    <value>Failed to convert</value>
+  </data>
+  <data name="создатьТочкуToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 22</value>
+  </data>
+  <data name="GenerateBoundaryMesh.Generate2DOn3DSurfaces.NoObjects.Message" xml:space="preserve">
+    <value>Model does not contain</value>
+  </data>
+  <data name="menuItem_DeleteSelectedObjects.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="открытьИнструкцииToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
+  </data>
+  <data name="GetLicenseInfoException" xml:space="preserve">
+    <value>Error requesting license information</value>
+  </data>
+  <data name="квадратизацияСуществующейToolStripMenuItem.Text" xml:space="preserve">
+    <value>Squaring the exist mesh</value>
+  </data>
+  <data name="Reflect.CreateReflectedVBObject.Exception_Part1" xml:space="preserve">
+    <value>Object with name</value>
+  </data>
+  <data name="Result.BuildDiagram.SelectTime.Exception" xml:space="preserve">
+    <value>Select the time in the results section</value>
+  </data>
+  <data name="SceneEvents.Info.Selected" xml:space="preserve">
+    <value>Objects are selected</value>
+  </data>
+  <data name="AdvanceSelectionNoObjectSelectedWarning" xml:space="preserve">
+    <value>No object selected</value>
+  </data>
+  <data name="btnSelect.Text.Surfaces" xml:space="preserve">
+    <value>Surface</value>
+  </data>
+  <data name="мастерToolStripMenuItem.Text" xml:space="preserve">
+    <value>Master</value>
+  </data>
+  <data name="измеритьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Measure</value>
+  </data>
+  <data name="показатьСопряженныеItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.Recalculated.Message" xml:space="preserve">
+    <value>Recalculation completed</value>
+  </data>
+  <data name="сформироватьИнструкцииToolStripMenuItem.Text" xml:space="preserve">
+    <value>Form</value>
+  </data>
+  <data name="HandleArgsProjectAbsenceException" xml:space="preserve">
+    <value>Required arguments for -proj path file are missing</value>
+  </data>
+  <data name="btnSelect.Text.Nodes" xml:space="preserve">
+    <value>Node</value>
+  </data>
+  <data name="выбратьСопряженныеToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="сведенияMenuItem.Text" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.RecalculationOnNodesResNames.Message" xml:space="preserve">
+    <value>Recalculation for nodes has been performed for</value>
+  </data>
+  <data name="создатьToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Create</value>
+  </data>
+  <data name="GenerateMesh2DEvent.GenerateOnGeometry.GenElements.Message" xml:space="preserve">
+    <value>Items generated</value>
+  </data>
+  <data name="UtilityToolStrip.Measuring.InvalidSeletedTypeError" xml:space="preserve">
+    <value>Please select another required object type. Measurements cannot be taken for</value>
+  </data>
+  <data name="Reflect.Form.Text" xml:space="preserve">
+    <value>Reflection</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.Exception" xml:space="preserve">
+    <value>Select the result in the results section</value>
+  </data>
+  <data name="ImportMaster.CreateImportedMasters.MasterNotFoundOrAlreadyLoaded.Message" xml:space="preserve">
+    <value>The loaded library does not define any implementations of the task master interface, or the implementation of this master is already loaded</value>
+  </data>
+  <data name="StartStopConp.ProjectDataCheck.LackOfProjFile.Message" xml:space="preserve">
+    <value>missing project file</value>
+  </data>
+  <data name="ChangeCondProperties.ChangeGeneralProperties.FileNotSelected.Message" xml:space="preserve">
+    <value>File is not selected</value>
+  </data>
+  <data name="показатьСкрытыеItem.Text" xml:space="preserve">
+    <value>Show all hidden</value>
+  </data>
+  <data name="VBObjectController.ChangeViewMode.Message" xml:space="preserve">
+    <value>No objects of the specified type found!</value>
+  </data>
+  <data name="геометрияToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 20</value>
+  </data>
+  <data name="наПоверхностиГеометрииToolStripMenuItem.Text" xml:space="preserve">
+    <value>On the geometry surfaces</value>
+  </data>
+  <data name="menuItem_SetRotPoint.Text" xml:space="preserve">
+    <value>Set rotation point</value>
+  </data>
+  <data name="выходToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 26</value>
+  </data>
+  <data name="MethodIsNotImplementedException" xml:space="preserve">
+    <value>Method is not implemented!</value>
+  </data>
+  <data name="файлToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="dToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="ProjectSavedCaption" xml:space="preserve">
+    <value>Project saved</value>
+  </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="CreatePlot.CreateGraphData.Header" xml:space="preserve">
+    <value>Result set by time</value>
+  </data>
+  <data name="создатьЛиниюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 22</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAFB8AAAEAIABUCgAAFgAAACgAAAAUAAAAPgAAAAEAIAAAAAAAsAkAAMITAADCEwAAAAAAAAAA
+        AAAdYOo9AID/Av///wD///8AAID/Ah5i7jwdYuyUHmLs6B5i7P8eYuz/HmLs+h5i7OceYuzKHmLskR5j
+        7EMAAP8B////AP///wD///8A////AB5i7P8eYuzjH2LrjR1g7DX///8A////AP///wAAVf8DHmLsRB1i
+        65weYuztHmLs/x5i7P8eYuz/HmLs/x5i7NMdYOo9////AP///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7d0fYuyFHGTuLv///wD///8A////ACtV/wYeYetMHmPsox5i7PIeYuz/HmLs/x5i7P0fYut1////AP//
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs1R5h7X4bZesm////AP///wD///8AHFXjCR9i
+        7VMeYuyrHmLs9h5i7P8fYu1j////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuzVHmLrgBxj6iT///8A////AP///wAcVeMJHmPrTR1i65wcY/ESHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7NUeY+x3HWLrGv///wD///8A////AP//
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz9HmLrxB5j7W8hZOkX////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/H2PsliFi
+        6yceYuuAHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7PseY+ywHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuuA////AP///wAeYuvEHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7PoeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i64D///8A////AB5i648eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs7B5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLrgP//
+        /wD///8AHmHskB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYezUHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuuA////AP///wAeYuvEHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x1i
+        65weYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7IcgYN8IHWHsaR5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/H2LuSR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x9i7MgAgP8CHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuzvHmXtK///
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLr6x9h6zL///8A////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8fYuzqHmHtKv///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuznG17yE///
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7PgeYuz5HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8dYuyU////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HWLrgitV
+        /wYeYe2YHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7O4AgP8EHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuuA////ACNd6BYeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5k
+        6zMeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i64D///8AAAD/AR5i7PweYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmPrTR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLrgP//
+        /wAcYOolHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8dYe1XHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8fY+yWIGTtOB9i7MAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5j
+        7EMeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/H2TwIR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7Nj///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLtcP//
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7M4zZv8F////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8fYuvRGGHnFf///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuzyHmPrgSBg3wj///8A////AP//
+        /wAdYezhHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz2HmLs6B5i7M0dYuucHmPsXRdd
+        6Av///8A////AP///wD///8A////ADAA8AAOAHAAAcAwAAA4EAAABwAAAADwAAAAEAAAAAAAAGAAAABg
+        AAAAYAAAAGAAAAAAAAAAAAAAAAAQAAAAMAAAADAAAAAQAAAAEAAAAAAAAEAAAABAAAAAQAAAAAAAAAAA
+        AAAAABAAAAAQAAAAEAAAADAAAABwAAAB8AA=
+</value>
+  </data>
+  <data name="ErrorCaption" xml:space="preserve">
+    <value>Error!</value>
+  </data>
+  <data name="материалыMenuItem.Text" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="DataBaseMainMenuEvents.OpenDB.SuccessfullyAdded.Message" xml:space="preserve">
+    <value>Successfully added</value>
+  </data>
+  <data name="LicenseInfo" xml:space="preserve">
+    <value>License info</value>
+  </data>
+  <data name="SelectByRect.Selected.Message" xml:space="preserve">
+    <value>Selected</value>
+  </data>
+  <data name="GetDAtaBase.FindFileByPath.DBNotFound.Message_Part2" xml:space="preserve">
+    <value>not found in the directory</value>
+  </data>
+  <data name="CreatePlot.DisplayText3D.Text" xml:space="preserve">
+    <value>Node</value>
+  </data>
+  <data name="OpenTSF.OpenInstructions.Message" xml:space="preserve">
+    <value>Task instructions are open from directory</value>
+  </data>
+  <data name="BasePage.CreateSurfaceAsync.SelectThreeNodes.Message" xml:space="preserve">
+    <value>Select three nodes or points!</value>
+  </data>
+  <data name="ShowInsideObjects.HideInnerObjects.Message" xml:space="preserve">
+    <value>Hidden internal objects</value>
+  </data>
+  <data name="StartCaption" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="webPageLabel.Text" xml:space="preserve">
+    <value>www.bazisnet.ru</value>
+  </data>
+  <data name="создатьГруппуItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="результатыMenuItem.Text" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="StopCaption" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="UtilityTiilStrip.SelectObjectAsync.Selected.Message" xml:space="preserve">
+    <value>Selected object of type</value>
+  </data>
+  <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 180</value>
+  </data>
+  <data name="DataBaseMainMenuEvents.OpenMatDB.DBNotLoaded.Message" xml:space="preserve">
+    <value>The materials database is not loaded</value>
+  </data>
+  <data name="UtilityToolStrip.Distance.Output" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="UtilityToolStrip.CreateCrossSection.InvalidNodeNumerErrorMessage" xml:space="preserve">
+    <value>Error, incorrect number of nodes selected</value>
+  </data>
+  <data name="CreatePlot.GraphData.XUnit" xml:space="preserve">
+    <value>Sec.</value>
+  </data>
+  <data name="AdvaneSelectionSelectedCaption" xml:space="preserve">
+    <value>Selected</value>
+  </data>
+  <data name="dToolStripMenuItem1.Text" xml:space="preserve">
+    <value>2D</value>
+  </data>
+  <data name="наПоверхностиГеометрииToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="SelectSetEvent.CreateGroupBySet.Message" xml:space="preserve">
+    <value>New group created</value>
+  </data>
+  <data name="запуститьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
+  </data>
+  <data name="UtilityToolStrip.CalcVolume.Output" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="SelectByRect.Hidden.Message" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="сохранитьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wgAADsIBFShKgAAAAidJREFUOE+tkt9Lk2EUx99/wftugi66rakxnIvp4C3XUFYNw4ro1xtplqbLNEmx
+        Mo32phtoU5w6abXaiE008geYIiWiTCUrM1e0xKGm2EQw+MZ5pPdhu9hFdOBcfj7nOd/nCML/qN6eKKgD
+        /g34vOt46l5FZ0cELY5F2G3fIVtDuF87j+qqT6gof4/SkmlcuxqEIiBwcACwNW4hUW1ubcOQO4gTuS9Z
+        KwLvizUmqK/7Gc8oRXBkdRMHTa+gUkkwH/dwgfvJChNUV/2I51j9hb+E15BsDKD85gKOmrq4wNm2xAQ3
+        LJ/j2Rh4ai6CvaIXxUWzyMl2ckFzU5gJCq9MJ4RHg2Hs0rkhSeMwGh1c0NjwjQmki+MJ4YGxr0hK68DJ
+        U2+QlWXnggf1C+jvA3p7gDPn3sF8eoSlTYHRzvRsmrwDD+GY+TVEUeaCOzVz6A4APi/Q5foN2foLtfeW
+        WagUGO1ckB9U4CM5fuj1dVxwq2IWnmdAu3MbdlsUhryimDadtSDvcuUOnO2H/rAHOl0NF1hKZ9DuBBoe
+        RdlkggRBQLJGxMTHJczML0MquYtMg4/BmgwXtNpKLqCzdDyG8mwSEHyp7CE+hFYQWlzH9dsyUnQuaDI6
+        kZLeCk1aGRcU5E9Ctm4weI/eg937RTzvHkagbxT9Q2MYeTuBQ0YzVNo2pKa3Yp+6GWp1MRdQXTg/zM6T
+        LoyOhP6ZvorSpsBoZ5pKTfCB1MJYwb/WH060OMXnlEl9AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="StackTrace" xml:space="preserve">
+    <value>Stack trace</value>
+  </data>
+  <data name="viewMenuItem.Text" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="уплотнитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Densify exist mesh</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.CreateGIFAnimationInfo" xml:space="preserve">
+    <value>Creating GIF animation</value>
+  </data>
+  <data name="лицензияToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 20</value>
+  </data>
+  <data name="SceneEvents.CreateGroup.InvalidGroupTypeWarning" xml:space="preserve">
+    <value>A group of the selected type cannot be created</value>
+  </data>
+  <data name="ResultsMainMenuEvents.MergeResults.RecalculationOnNodes.Message" xml:space="preserve">
+    <value>Recalculation is performed on nodes, time</value>
+  </data>
+  <data name="мастерToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
+  </data>
+  <data name="загрузитьМастерToolStripMenuItem.Text" xml:space="preserve">
+    <value>User master</value>
+  </data>
+  <data name="btnSelect.Text.Elements3D" xml:space="preserve">
+    <value>Element3D</value>
+  </data>
+  <data name="инструментыToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 20</value>
+  </data>
+  <data name="FindFreeNodesEvent.FreeNodes.Message" xml:space="preserve">
+    <value>free nodes</value>
+  </data>
+  <data name="lblStatus.Text" xml:space="preserve">
+    <value>Create or load a project or mesh</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 6</value>
+  </data>
+  <data name="NewProjectNameTemplate" xml:space="preserve">
+    <value>new_project.bpf2</value>
+  </data>
+  <data name="AdvanceSelection2NodesWarning" xml:space="preserve">
+    <value>Two nodes must be selected</value>
+  </data>
+  <data name="ConsoleEvents.ConsoleInEvent.ObjectNotFound.Message" xml:space="preserve">
+    <value>Object not found</value>
+  </data>
+  <data name="объединитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="создатьАнимациюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="menuItem_InfoSelectedObjects.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="сведенияMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 22</value>
+  </data>
+  <data name="рассечьПлоскостьюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 22</value>
+  </data>
+  <data name="ShowHideDelObjects.DelObjectEvent.TryToDelGeom.Message" xml:space="preserve">
+    <value>It is recommended to check the accuracy level of the set in the properties panel</value>
+  </data>
+  <data name="SelectByRect.Declination.Type1" xml:space="preserve">
+    <value>objects</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.SelectResult.Exception" xml:space="preserve">
+    <value>Select the result in the results section</value>
+  </data>
+  <data name="Reflect.CreateReflectedVBObject.Exception_Part2" xml:space="preserve">
+    <value>already exists</value>
+  </data>
+  <data name="наПоверхности3DToolStripMenuItem.Text" xml:space="preserve">
+    <value>On open 3D elements</value>
+  </data>
+  <data name="btnSelect.Text.Points" xml:space="preserve">
+    <value>Point</value>
+  </data>
+  <data name="UtilityToolStrip.CrossSection.Text" xml:space="preserve">
+    <value>Build cross section</value>
+  </data>
+  <data name="Licensing" xml:space="preserve">
+    <value>Licensing</value>
+  </data>
+  <data name="btnDisplayViews.Text" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="остановитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
+  </data>
+  <data name="StringEx.ToEnum.ArgumentException.Part2" xml:space="preserve">
+    <value>does not match any value.</value>
+  </data>
+  <data name="выбратьСопряженныеToolStripMenuItem.Text" xml:space="preserve">
+    <value>Select paired</value>
+  </data>
+  <data name="сформироватьИнструкцииToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
+  </data>
+  <data name="справкаToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Reference</value>
+  </data>
+  <data name="скрытьВыбранноеItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="BasePage.CreateSurfaceAsync.SelectNodeType.Message" xml:space="preserve">
+    <value>Select either nodes or points!</value>
+  </data>
+  <data name="создатьПлоскостьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create a plane</value>
+  </data>
+  <data name="результатыMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 20</value>
+  </data>
+  <data name="StartStopConp.SaveProjectInto.Message" xml:space="preserve">
+    <value>Project saved in directory</value>
+  </data>
+  <data name="FileAbsenceCaption" xml:space="preserve">
+    <value>File missing!</value>
+  </data>
+  <data name="создатьОбъемToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create a volume</value>
+  </data>
+  <data name="HandleBaseMaster.Handle.CondCreation.Message" xml:space="preserve">
+    <value>Generating boundary conditions will delete any old conditions in this master, if any. Continue?</value>
+  </data>
+  <data name="CreatePlot.SelectContainerAsync.CancelOperation.Message" xml:space="preserve">
+    <value>Operation canceled</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.SelectContainerAsync.SelectResult.Message" xml:space="preserve">
+    <value>Select the result and press the "E" key to confirm</value>
+  </data>
+  <data name="dToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="GenerateMesh2DEvent.GenerateOnGeometry.Recomendation.Message" xml:space="preserve">
+    <value>Recommended to check the level of accuracy of the sets before starting the calculation in the properties panel by selecting it in the navigator</value>
+  </data>
+  <data name="VersionNews" xml:space="preserve">
+    <value>Version news</value>
+  </data>
+  <data name="SaveWithoutProjectMessage" xml:space="preserve">
+    <value>Firstly open exist project or create a new one</value>
+  </data>
+  <data name="menuItem_InfoSelectedObjects.Text" xml:space="preserve">
+    <value>Selected objects</value>
+  </data>
+  <data name="расчетыToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 20</value>
+  </data>
+  <data name="btnSelect.Text.Curves" xml:space="preserve">
+    <value>Curve</value>
+  </data>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="сформироватьgeoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="сохранитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.SelectContainerAsync.SelectNodes.Message" xml:space="preserve">
+    <value>Select the nodes and press the "E" key to confirm</value>
+  </data>
+  <data name="функцииMenuItem.Text" xml:space="preserve">
+    <value>Functions</value>
+  </data>
+  <data name="ColorObjects.ObjectConversion.Exception" xml:space="preserve">
+    <value>Object conversion error</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Bazis. Engineering Analysis System</value>
+  </data>
+  <data name="содержаниеToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="ConsoleEvents.ConsoleInEvent.ObjectFound.Message" xml:space="preserve">
+    <value>Found</value>
+  </data>
+  <data name="GetDAtaBase.FindFileByPath.DBNotFound.Message_Part1" xml:space="preserve">
+    <value>The database</value>
+  </data>
+  <data name="FindCoincidentNodes.AsyncContainer.Message" xml:space="preserve">
+    <value>Press "E" to merge, "Esc" to cancel</value>
+  </data>
+  <data name="toolStripMenuItem4.Text" xml:space="preserve">
+    <value>Reflect results</value>
+  </data>
+  <data name="BasePage.CreateSurfaceAsync.SurfaceSet.Message" xml:space="preserve">
+    <value>Surface is set</value>
+  </data>
+  <data name="Result.BuildDiagram.NoNodesSelectedException" xml:space="preserve">
+    <value>No nodes selected</value>
+  </data>
+  <data name="открытьToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="dToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="btnSelect.Text.Elements2D" xml:space="preserve">
+    <value>Element2D</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 6</value>
+  </data>
+  <data name="квадратизацияСуществующейToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="btnSelect.Text.Elements1D" xml:space="preserve">
+    <value>Element1D</value>
+  </data>
+  <data name="настройкиToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 20</value>
+  </data>
+  <data name="FindCoincidentNodes.ActionConfirm.MergeNodes.Message" xml:space="preserve">
+    <value>Nodes merged</value>
+  </data>
+  <data name="PanelConverter.UndefinedConverterTypeException" xml:space="preserve">
+    <value>Converter type is not defined</value>
+  </data>
+  <data name="объединитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Merge</value>
+  </data>
+  <data name="CreatePlot.GraphForm.Text_Part2" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="загрузитьgeoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="экспортироватьРезультатыToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="создатьПлоскостьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 22</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.BuildingGraph.Text_Part1" xml:space="preserve">
+    <value>The graph for the object is being built</value>
+  </data>
+  <data name="toolStripMenuItem3.Text" xml:space="preserve">
+    <value>Console</value>
+  </data>
+  <data name="SaveLoadScript.GeoScript.Executed.Message" xml:space="preserve">
+    <value>executed</value>
+  </data>
+  <data name="UtilityTiilStrip.SelectObjectAsync.WithNumber.Message" xml:space="preserve">
+    <value>under number</value>
+  </data>
+  <data name="CreatePlot.GraphForm.Text_Part1" xml:space="preserve">
+    <value>Graph</value>
+  </data>
+  <data name="открытьИнструкцииToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="опрограммеToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;About...</value>
+  </data>
+  <data name="CreatePlot.BuildGraph.BuildingGraph.Text_Part2" xml:space="preserve">
+    <value>wait a little</value>
+  </data>
+  <data name="viewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 20</value>
+  </data>
+  <data name="функцииMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 22</value>
+  </data>
+  <data name="LoadingForm.Text" xml:space="preserve">
+    <value>Loading. Please wait...</value>
+  </data>
+  <data name="BasePage.CreateSurfaceAync.OperationCanceled.Message" xml:space="preserve">
+    <value>Operation canceled</value>
+  </data>
+  <data name="dToolStripMenuItem2.Text" xml:space="preserve">
+    <value>3D</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.SelectContainerAsync.SelectResult.Message" xml:space="preserve">
+    <value>Select the result and press the "E" key to confirm</value>
+  </data>
+  <data name="GenerateBoundaryMesh.CreateBoundaryMeh.CheckRecommendation.Message" xml:space="preserve">
+    <value>It is recommended to check the accuracy level of the set in the properties panel</value>
+  </data>
+  <data name="настройкиToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Settings</value>
+  </data>
+  <data name="FindCoincidentNodes.Action.OperationCanceled.Message" xml:space="preserve">
+    <value>Operation canceled</value>
+  </data>
+  <data name="сеткаToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 20</value>
+  </data>
+  <data name="menuItem_DeleteSelectedObjects.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAFVJREFUOE/NjEEKACAIBP3/D3qtUSDUlOYhqIG9uLOKfIUW0RbejbC30pNO/SKM
+        Eu/pB1G471Dywt0EZYb+Fo6ujFNPKHvhrkPpFO63DzLdRFgm+jdUPKYIOroK8iQAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="создатьТочкуToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create a point</value>
+  </data>
+  <data name="AdvanceSelectionForm.Text" xml:space="preserve">
+    <value>Advance selection</value>
+  </data>
+  <data name="файлToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="скрытьВыбранноеItem.Text" xml:space="preserve">
+    <value>Hide selected</value>
+  </data>
+  <data name="сохранитькакToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save &amp;as</value>
+  </data>
+  <data name="menuStrip.Text" xml:space="preserve">
+    <value>menuStrip</value>
+  </data>
+  <data name="btnSelect.AccessibleName" xml:space="preserve">
+    <value>SelectObjects.btnSelect.Select</value>
+  </data>
+  <data name="ConnectionEstablishedAnswer" xml:space="preserve">
+    <value>Connection established</value>
+  </data>
+  <data name="CallBackFormName" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="StartStopConp.ProjectDirectoryCheck.Message_Part1" xml:space="preserve">
+    <value>In the project directory</value>
+  </data>
+  <data name="Result.CreateGIFAnimation.AnimationCreated" xml:space="preserve">
+    <value>GIF animation created</value>
+  </data>
+  <data name="сохранитькакToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 26</value>
+  </data>
+  <data name="создатьЛиниюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Create a line</value>
+  </data>
+  <data name="запуститьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="экспортироватьРезультатыToolStripMenuItem.Text" xml:space="preserve">
+    <value>Export results</value>
+  </data>
+  <data name="создатьГруппуItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAClJREFUOE9jYKAVcDjA8B8Zo8sTBCPNAHTFxOLhZAA2QJJibGDUAOIBABBrv6Eu
+        ctv/AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="SceneEvents.CreateGroup.SuccessCaption" xml:space="preserve">
+    <value>New group created</value>
+  </data>
+  <data name="наToolStripMenuItem.Text" xml:space="preserve">
+    <value>On the boundaries of 2D elements</value>
+  </data>
+  <data name="скрытьПлоскостьюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 22</value>
+  </data>
+  <data name="загрузитьgeoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Load *.gscript</value>
+  </data>
+  <data name="btnSelect.Text.Objects" xml:space="preserve">
+    <value>Objects</value>
+  </data>
+  <data name="StartStopConp.ProjectDataCheck.LackOfFunctions.Message" xml:space="preserve">
+    <value>missing functions file</value>
+  </data>
+  <data name="UtilityToolStrip.SelectObjectAsync.OperationCanceled.Message" xml:space="preserve">
+    <value>Operation canceled</value>
+  </data>
+  <data name="AdvanceSelectionElemntsSelectionWarning" xml:space="preserve">
+    <value>An element must be selected</value>
+  </data>
+  <data name="Result.BuildDiagram.Text_Part2" xml:space="preserve">
+    <value>Coordinate</value>
+  </data>
+  <data name="создатьГруппуItem.Text" xml:space="preserve">
+    <value>Create a new group</value>
+  </data>
+  <data name="сохранитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 26</value>
+  </data>
+  <data name="ImportMaster.CreateImportedMasters.MasterOpened.Message" xml:space="preserve">
+    <value>Opened master</value>
+  </data>
+  <data name="построитьГрафикToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="Result.BuildDiagram.GraphData.XUnit" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="рассечьПлоскостьюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Cut with a plane</value>
+  </data>
+  <data name="построитьДиаграммуToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="Result.BuildDiagram.DistanceResultSet.Header" xml:space="preserve">
+    <value>Distance result set</value>
+  </data>
+  <data name="открытьToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="материалыMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 22</value>
+  </data>
+  <data name="versionWordPrefix" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 6</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 6</value>
+  </data>
+  <data name="toolStripMenuItem2.Text" xml:space="preserve">
+    <value>Navigator</value>
+  </data>
+  <data name="ImportMeshCaption" xml:space="preserve">
+    <value>Import mesh</value>
+  </data>
+  <data name="создатьОбъемToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 22</value>
+  </data>
+</root>

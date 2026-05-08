@@ -1,4 +1,5 @@
-﻿using BazisGUI.SettingsControls;
+﻿using BazisGUI.Properties;
+using BazisGUI.SettingsControls;
 using Geometry;
 using Geometry.Exteisions;
 using Model.Interfaces.ObjectsCollections;
@@ -68,19 +69,19 @@ namespace BazisGUI
                 //if (bool.Parse(btnAdvSelection.Tag.ToString()) && counter != 0)
                 //    DispatchSelection(sets.First().ObjType, numbersSelevtedElement, isSelected);
                 //else
-                    console.PrintInfo($"Выбрано {counter} {objStr}", Color.Black);
+                    console.PrintInfo($"{Resources.SelectByRect_Selected_Message} {counter} {objStr}", Color.Black);
             }
             else
-                console.PrintInfo($"Скрыто {counter} {objStr}", Color.Black);
+                console.PrintInfo($"{Resources.SelectByRect_Hidden_Message} {counter} {objStr}", Color.Black);
             DisplayObjects();
 
         }
 
         private string Declination(int input)
         {
-            string s = "объектов";
-            if (input % 10 == 1) s = "объект";
-            if (input % 10 >= 2 && input % 10 <= 4) s = "объекта";
+            string s = Resources.SelectByRect_Declination_Type1;
+            if (input % 10 == 1) s = Resources.SelectByRect_Declination_Type2;
+            if (input % 10 >= 2 && input % 10 <= 4) s = Resources.SelectByRect_Declination_Type3;
             //if (n % 100 >= 11 & n % 100 <= 20) s = "объектов";
 
             return s;

@@ -1,14 +1,15 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
+using BazisGUI.Scene.VBO;
 using Geometry;
 using Model.Interfaces;
 using Model.Utilities;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using OpenTK.Graphics.OpenGL;
-using BazisGUI.Scene.VBO;
 
 namespace BazisGUI
 {
@@ -18,12 +19,13 @@ namespace BazisGUI
         {
             try
             {
-                if (SelectedObjects == "Объекты" |
-                    SelectedObjects == "Фигуры" |
-                    SelectedObjects == "Элементы")
+                if (SelectedObjects == SelectionType.Select |
+                    SelectedObjects == SelectionType.Objects |
+                    SelectedObjects == SelectionType.Figures |
+                    SelectedObjects == SelectionType.Elements)
                 {
 
-                    console.PrintInfo($"Нельзя создать группу {SelectedObjects}", Color.Orange);
+                    console.PrintInfo($"{Resources.SceneEvents_CreateGroup_InvalidGroupTypeWarning}: {SelectedObjects.ToString()}", Color.Orange);
                 }
                 else
                 {
@@ -42,7 +44,7 @@ namespace BazisGUI
                         project.CreateGroup(selObjs);
                         var gr = project.GetAllModelGroups().Last();
 
-                        console.PrintInfo(string.Format("Создана новая группа {0}", gr.Name), Color.Black);
+                        console.PrintInfo($"{Resources.SceneEvents_CreateGroup_SuccessCaption}: {gr.Name}", Color.Black);
 
                         PresentGroupDataOnTree();
                         OnGroupCreated?.Invoke(gr.ObjType, gr.Number, gr.Name);
@@ -62,15 +64,17 @@ namespace BazisGUI
                 var objTypeStr = SelectedObjects;
 
                 var selObjs = GetModelObjects(objTypeStr).
-        Where(x => x.Color == settingsConfig.SelectObjectColor);
+                    Where(x => x.Color == settingsConfig.SelectObjectColor);
                 //& x.ViewState == true);
                 
                 foreach (var selObj in selObjs)
                     selObj.ViewState = false;  
 
 
-                var sets = selObjs.Select(x => project.GetModelSetInfo(x.ObjType,x.Number)).
-        Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
+                var sets = selObjs
+                    .Select(x => project.GetModelSetInfo(x.ObjType,x.Number))
+                    .Distinct(new DefaultSetInfoComparer())
+                    .Where(x => x.NumberOfObjects > 0);
 
                 foreach (var set in sets)
                 {
@@ -120,7 +124,7 @@ namespace BazisGUI
                 var objs = GetModelObjects(SelectedObjects);
                 var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
 
-                var message = $"Выбраны {SelectedObjects} {selObjs.Count()}";
+                var message = $"{Resources.SceneEvents_Info_Selected} {SelectedObjects}: {selObjs.Count()}";
 
                 var numbers = string.Join("\n", selObjs.Select(x => x.ToString()).ToArray());
 
@@ -179,25 +183,27 @@ namespace BazisGUI
             try
             {
                 // Пока нельзя удалить геометрию рамкой с экрана. Пока только через дерево.
-                if (SelectedObjects == ObjType.Точка.ToString() |
-                    SelectedObjects == ObjType.Кривая.ToString() |
-                    SelectedObjects == ObjType.Поверхность.ToString())
+                if (SelectedObjects == SelectionType.Points |
+                    SelectedObjects == SelectionType.Curves |
+                    SelectedObjects == SelectionType.Surfaces)
                     return;
 
-                    var selObjs = GetModelObjects(SelectedObjects).
-Where(x => x.Color == settingsConfig.SelectObjectColor);
+                    var selObjs = GetModelObjects(SelectedObjects)
+                    .Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 foreach (var item in selObjs)
                     item.ExistState = false;
 
-                if(SelectedObjects == ObjType.Узел.ToString())
+                if(SelectedObjects == SelectionType.Nodes)
                 {
                     DeleteVBObjects("Элементы");
                     CreateVBObjects("Элементы");
                 }
  
-                var sets = selObjs.Select(x => project.GetModelSetInfo(x.ObjType, x.Number)).
-Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
+                var sets = selObjs
+                    .Select(x => project.GetModelSetInfo(x.ObjType, x.Number))
+                    .Distinct(new DefaultSetInfoComparer())
+                    .Where(x => x.NumberOfObjects > 0);
 
                 foreach (var set in sets)
                 {
@@ -264,7 +270,7 @@ Distinct(new DefaultSetInfoComparer()).Where(x => x.NumberOfObjects > 0);
                 DisplayText2DEvent = null;
                 DisplayText3DEvent = null;
 
-                SelectedObjects = "_";
+                SelectedObjects = SelectionType.Select;
                 CloseAdvancedSelectionForm();
                 SetBackColorToAllObjects();
                 DisplayObjects();

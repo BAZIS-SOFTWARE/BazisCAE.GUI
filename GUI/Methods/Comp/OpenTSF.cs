@@ -1,5 +1,6 @@
-﻿using PreProc.Interfaces;
+﻿using BazisGUI.Properties;
 using PreProc;
+using PreProc.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -29,7 +30,7 @@ namespace BazisGUI
 
                 PresentCompDataOnTree(sortedFiles);
 
-                console.PrintInfo($"Инструкции задачи открыты из {inputDir}", Color.Green);
+                console.PrintInfo($"{Resources.OpenTSF_OpenInstructions_Message} {inputDir}", Color.Green);
 
             }
             catch (Exception ex)

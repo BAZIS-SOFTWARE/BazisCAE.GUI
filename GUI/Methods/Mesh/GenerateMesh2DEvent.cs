@@ -1,4 +1,5 @@
-﻿using Model.Interfaces;
+﻿using BazisGUI.Properties;
+using Model.Interfaces;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -35,10 +36,10 @@ namespace BazisGUI
                 FitObjectsToScreen();
                 DisplayObjects();
 
-                console.PrintInfo($"Сгенерировано элементов" +
+                console.PrintInfo($"{Resources.GenerateMesh2DEvent_GenerateOnGeometry_GenElements_Message}"+
                     $" 1D: {project.GetModelObjects(ObjType.Элемент1D).Count()}," +
                     $" 2D: {project.GetModelObjects(ObjType.Элемент2D).Count()}." +
-                    $" Рекомендуется проверить порядок точности наборов перед началом расчета в панели свойств, выбрав его в навигаторе", Color.Orange);
+                    Resources.GenerateMesh2DEvent_GenerateOnGeometry_Recomendation_Message, Color.Orange);
             }
             catch (Exception ex)
             {

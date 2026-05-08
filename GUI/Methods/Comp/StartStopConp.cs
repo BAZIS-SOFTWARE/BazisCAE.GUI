@@ -1,15 +1,16 @@
-﻿using PreProc.Interfaces;
+﻿using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using PreProc;
+using PreProc.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using BazisGUI.Navigator;
 
 namespace BazisGUI
 {
@@ -20,11 +21,11 @@ namespace BazisGUI
             try
             {
                 project.Save(lblStatus.Text);
-                console.PrintInfo("Проект сохранен в " + WorkingDir, Color.Black);
+                console.PrintInfo($"{Resources.StartStopConp_SaveProjectInto_Message} {WorkingDir}", Color.Black);
 
                 CheckProjectDataBeforeCreationTCF();
 
-                var compDir = $@"{WorkingDir}\ComputationData";
+                var compDir = Path.Combine(WorkingDir, "ComputationData");
 
                 if (!Directory.Exists(compDir))
                     Directory.CreateDirectory(compDir);
@@ -43,17 +44,17 @@ namespace BazisGUI
             };
 
                 var tasks = new List<string>();
-                navigator.TrySearchNodes(NodeName.расчеты, out List<TreeNode> task);
+                navigator.TrySearchNodes(NodeName.Calculations, out List<TreeNode> task);
                 foreach (TreeNode item in task[0].Nodes)
                     tasks.Add("расчет " + item.Text);
 
                 result.AddRange(tasks);
 
-                var cmdFile = $@"{compDir}\computation.tcf";
+                var cmdFile = Path.Combine(compDir, "computation.tcf");
 
                 File.WriteAllLines(cmdFile, result);
 
-                console.PrintInfo($"Сформирован командный файл {cmdFile}", Color.Green);
+                console.PrintInfo($"{Resources.StartStopConp_FormCommandFile_Message} {cmdFile}", Color.Green);
 
                 StartComputation();
             }
@@ -68,15 +69,15 @@ namespace BazisGUI
             try
             {
                 if (!File.Exists($@"{lblStatus.Text}"))
-                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл проекта {project.Name}.");
+                    throw new Exception($"{Resources.StartStopConp_ProjectDirectoryCheck_Message_Part1}: {WorkingDir} {Resources.StartStopConp_ProjectDataCheck_LackOfProjFile_Message}: {project.Name}.");
 
                 var mat = Path.Combine(WorkingDir, project.MaterialsDB.Name);
                 if (!File.Exists(mat))
-                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл материалов {project.MaterialsDB.Name}.");
+                    throw new Exception($"{Resources.StartStopConp_ProjectDirectoryCheck_Message_Part1}: {WorkingDir} {Resources.StartStopConp_ProjectDataCheck_LackOfMaterials_Message}: {project.MaterialsDB.Name}.");
 
                 var func = Path.Combine(WorkingDir, project.FunctionsDB.Name);
                 if (!File.Exists(func))
-                    throw new Exception($"В папке проекта {WorkingDir} отсутствует файл функций {project.FunctionsDB.Name}.");
+                    throw new Exception($"{Resources.StartStopConp_ProjectDirectoryCheck_Message_Part1}: {WorkingDir} {Resources.StartStopConp_ProjectDataCheck_LackOfFunctions_Message}: {project.FunctionsDB.Name}.");
 
             }
             catch (Exception ex)

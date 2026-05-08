@@ -33,6 +33,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeshSelect));
             generalPanel = new TableLayoutPanel();
             rbtSet = new RadioButton();
             rbtSurface = new RadioButton();
@@ -45,118 +46,69 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             // 
             // generalPanel
             // 
-            generalPanel.AutoSize = true;
-            generalPanel.ColumnCount = 2;
-            generalPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
-            generalPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
+            resources.ApplyResources(generalPanel, "generalPanel");
             generalPanel.Controls.Add(rbtSet, 0, 0);
             generalPanel.Controls.Add(rbtSurface, 0, 1);
             generalPanel.Controls.Add(rbtDirection, 0, 2);
             generalPanel.Controls.Add(lblAngle, 0, 3);
             generalPanel.Controls.Add(txbAngle, 1, 3);
             generalPanel.Controls.Add(chbChangeDirection, 0, 4);
-            generalPanel.Dock = DockStyle.Fill;
-            generalPanel.Location = new Point(0, 0);
             generalPanel.Name = "generalPanel";
-            generalPanel.RowCount = 5;
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            generalPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            generalPanel.Size = new Size(225, 150);
-            generalPanel.TabIndex = 0;
             // 
             // rbtSet
             // 
-            rbtSet.Anchor = AnchorStyles.Left;
-            rbtSet.AutoSize = true;
+            resources.ApplyResources(rbtSet, "rbtSet");
             rbtSet.Checked = true;
             generalPanel.SetColumnSpan(rbtSet, 2);
-            rbtSet.Location = new Point(8, 5);
-            rbtSet.Margin = new Padding(8, 0, 0, 0);
             rbtSet.Name = "rbtSet";
-            rbtSet.Size = new Size(70, 19);
-            rbtSet.TabIndex = 8;
             rbtSet.TabStop = true;
-            rbtSet.Text = "Наборы";
             rbtSet.CheckedChanged += Rbt_CheckedChanged;
             // 
             // rbtSurface
             // 
-            rbtSurface.Anchor = AnchorStyles.Left;
-            rbtSurface.AutoSize = true;
+            resources.ApplyResources(rbtSurface, "rbtSurface");
             generalPanel.SetColumnSpan(rbtSurface, 2);
-            rbtSurface.Location = new Point(8, 35);
-            rbtSurface.Margin = new Padding(8, 0, 0, 0);
             rbtSurface.Name = "rbtSurface";
-            rbtSurface.Size = new Size(93, 19);
-            rbtSurface.TabIndex = 8;
             rbtSurface.TabStop = true;
-            rbtSurface.Text = "В плоскости";
             rbtSurface.CheckedChanged += Rbt_CheckedChanged;
             // 
             // rbtDirection
             // 
-            rbtDirection.Anchor = AnchorStyles.Left;
-            rbtDirection.AutoSize = true;
+            resources.ApplyResources(rbtDirection, "rbtDirection");
             generalPanel.SetColumnSpan(rbtDirection, 2);
-            rbtDirection.Location = new Point(8, 65);
-            rbtDirection.Margin = new Padding(8, 0, 0, 0);
             rbtDirection.Name = "rbtDirection";
-            rbtDirection.Size = new Size(120, 19);
-            rbtDirection.TabIndex = 8;
             rbtDirection.TabStop = true;
-            rbtDirection.Text = "По направлению";
             rbtDirection.CheckedChanged += Rbt_CheckedChanged;
             // 
             // lblAngle
             // 
-            lblAngle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            lblAngle.AutoSize = true;
-            lblAngle.Location = new Point(3, 90);
+            resources.ApplyResources(lblAngle, "lblAngle");
             lblAngle.Name = "lblAngle";
-            lblAngle.Padding = new Padding(5, 3, 0, 5);
-            lblAngle.Size = new Size(38, 30);
-            lblAngle.TabIndex = 9;
-            lblAngle.Text = "Угол";
-            lblAngle.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // txbAngle
             // 
-            txbAngle.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            resources.ApplyResources(txbAngle, "txbAngle");
             txbAngle.BorderStyle = BorderStyle.FixedSingle;
             txbAngle.InputType = TXTBoxInputType.Text;
             txbAngle.IsValidating = true;
-            txbAngle.Location = new Point(67, 93);
-            txbAngle.Margin = new Padding(0, 0, 20, 0);
             txbAngle.Name = "txbAngle";
-            txbAngle.Size = new Size(138, 23);
-            txbAngle.TabIndex = 6;
-            txbAngle.Text = "5";
             txbAngle.UserRegExCheck = null;
             txbAngle.UserRegExCheckErrorMessage = null;
             // 
             // chbChangeDirection
             // 
-            chbChangeDirection.AutoSize = true;
+            resources.ApplyResources(chbChangeDirection, "chbChangeDirection");
             generalPanel.SetColumnSpan(chbChangeDirection, 2);
-            chbChangeDirection.Location = new Point(3, 123);
             chbChangeDirection.Name = "chbChangeDirection";
-            chbChangeDirection.Padding = new Padding(5, 0, 0, 0);
-            chbChangeDirection.Size = new Size(154, 19);
-            chbChangeDirection.TabIndex = 10;
-            chbChangeDirection.Text = "Сменить направление";
             chbChangeDirection.UseVisualStyleBackColor = true;
             chbChangeDirection.CheckedChanged += chbChangeDirection_CheckedChanged;
             // 
             // MeshSelect
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(generalPanel);
             Name = "MeshSelect";
-            Size = new Size(225, 150);
             generalPanel.ResumeLayout(false);
             generalPanel.PerformLayout();
             ResumeLayout(false);

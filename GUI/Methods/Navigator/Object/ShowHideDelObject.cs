@@ -1,4 +1,6 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
+using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using System;

@@ -1,4 +1,5 @@
 using BazisGUI.PinnedControl;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel.DataGridViewNumericUpDown;
 using System;
 using System.Collections.Generic;
@@ -130,7 +131,7 @@ namespace BazisGUI.PropertiesPanel
                 }
                     
 
-                if (prop.Header == "Цвет")
+                if (prop.Header == Resources.Header_Color)
                     cell.Style.BackColor = (Color)prop.Value;
 
                 cell.Tag = prop.ValidationType.ToString();
@@ -160,7 +161,7 @@ namespace BazisGUI.PropertiesPanel
                 var cellValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
                 var newValue = cellValue?.ToString() ?? string.Empty;
 
-                if (header == "Цвет")
+                if (header == Resources.Header_Color)
                 {
                     var color = ChangeColorCell(newValue);
                     dataGridView1.Rows[e.RowIndex].Cells[1].Style.BackColor = color;
@@ -181,7 +182,7 @@ namespace BazisGUI.PropertiesPanel
             if (e.ColumnIndex == 0) return;
 
             var value = "";
-            if (dataGridView1[0,e.RowIndex].Value.ToString() == "Цвет")
+            if (dataGridView1[0,e.RowIndex].Value.ToString() == Resources.Header_Color)
             {
                 ColorDialog colorDialog = new ColorDialog();
                 if(colorDialog.ShowDialog() == DialogResult.OK)
@@ -190,7 +191,7 @@ namespace BazisGUI.PropertiesPanel
                 }
             }
 
-            else if (dataGridView1[0, e.RowIndex].Value.ToString() == "Файл")
+            else if (dataGridView1[0, e.RowIndex].Value.ToString() == Resources.Header_File)
             {
                 var fileDialog = new OpenFileDialog();
                 if (fileDialog.ShowDialog() == DialogResult.OK)

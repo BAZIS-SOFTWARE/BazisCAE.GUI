@@ -1,5 +1,6 @@
 ﻿using BazisGUI.Extensions;
 using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
 using Model.Interfaces;
@@ -13,7 +14,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void navigator_SelectSetEvent(NodeName arg1, string arg2)
+        private void navigator_SelectSetEvent(string arg2)
         {
             try
             {
@@ -42,7 +43,7 @@ namespace BazisGUI
                                     var objects = set.GetNumbers().Select(num => project.GetModelObject(objType, num)).ToList();
                                     project.CreateGroup(set.Name, objects);
                                     var group = project.GetAllModelGroups().Last();
-                                    console.PrintInfo(string.Format("Создана новая группа {0}", group.Name), Color.Black);
+                                    console.PrintInfo($"{Resources.SelectSetEvent_CreateGroupBySet_Message}: {group.Name}", Color.Black);
 
                                     PresentGroupDataOnTree();
                                     OnGroupCreated?.Invoke(group.ObjType, group.Number, group.Name);

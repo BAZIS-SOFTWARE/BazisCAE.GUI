@@ -2,14 +2,15 @@
 using Model.Interfaces;
 using System.Collections.Generic;
 using BazisGUI.Extensions;
+using BazisGUI.Utilities;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public IEnumerable<ISetInfo> GetModelSetsInfo(string objects)
+        public IEnumerable<ISetInfo> GetModelSetsInfo(SelectionType objects)
         {
-            if (objects == "Объекты")
+            if (objects == SelectionType.Objects)
             {
                 foreach (var item in project.GetModelSetsInfo(ObjType.Точка))
                     yield return item;
@@ -27,7 +28,7 @@ namespace BazisGUI
                     yield return item;
 
             }
-            else if (objects == "Элементы")
+            else if (objects == SelectionType.Elements)
             {
                 foreach (var item in project.GetModelSetsInfo(ObjType.Элемент1D))
                     yield return item;
@@ -37,7 +38,7 @@ namespace BazisGUI
                     yield return item;
             }
 
-            else if (objects == "Фигуры")
+            else if (objects == SelectionType.Figures)
             {
                 foreach (var item in project.GetModelSetsInfo(ObjType.Точка))
                     yield return item;
@@ -48,7 +49,7 @@ namespace BazisGUI
             }
             else
             {
-                var objType = objects.ToEnum<ObjType>();
+                var objType = Converters.ConvertSelectionTypeToObjType(objects);
                 foreach (var item in project.GetModelSetsInfo(objType))
                     yield return item;
             }

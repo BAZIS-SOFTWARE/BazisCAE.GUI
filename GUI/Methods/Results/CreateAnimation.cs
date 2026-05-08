@@ -1,12 +1,13 @@
-﻿using System;
-using System.Drawing;
-using ResultDB.IO;
-using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Linq;
-using BazisGUI.Animation;
+﻿using BazisGUI.Animation;
 using BazisGUI.Navigator;
+using BazisGUI.Properties;
+using ResultDB.IO;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BazisGUI
 {
@@ -23,7 +24,7 @@ namespace BazisGUI
                     var form = new Form()
                     {
                         Name = "animationForm",
-                        Text = "Анимация",
+                        Text = Resources.AnimationForm_Text,
                         Icon = this.Icon,
                         ShowIcon = true,
                         Owner = Application.OpenForms[0],
@@ -67,15 +68,15 @@ namespace BazisGUI
 
         public async void CreateGIFAnimation(CreateAnimationEventArgs args)
         {
-            var outputFilePath = $@"{WorkingDir}\results.gif";
+            var outputFilePath = Path.Combine(WorkingDir, "results.gif");
             var stream = new FileStream(outputFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
             try
             {
                 //выбрать узел в дереве асинхронно
-                await SelectContainerAsync(@"Выберите результат и нажмите на клавишу ""E"" для подтверждения");
+                await SelectContainerAsync(Resources.Result_CreateGIFAnimation_SelectContainerAsync_SelectResult_Message);
 
-                if (navigator.SelectedNode.Name != NodeName.результат.ToString())
-                    throw new Exception("Выберите результат в разделе результаты");
+                if (navigator.SelectedNode.Name != NodeName.Result.ToString())
+                    throw new Exception(Resources.Result_CreateGIFAnimation_Exception);
 
                 var selNode = navigator.SelectedNode;
                 var resName = selNode.Text;
@@ -123,13 +124,13 @@ namespace BazisGUI
                     //    //var bmpImage = Image.FromFile(imagesPaths[i]);
                     //    e.AddFrame(bmpImage);
                     var total = ((i + 1) / (float)list.Count * 100).ToString("#.##");
-                    console.PrintInfo($@"Создание GIF анимации {total}%", Color.Black);
+                    console.PrintInfo($@"{Resources.Result_CreateGIFAnimation_CreateGIFAnimationInfo} {total}%", Color.Black);
                     //}
                     //File.Delete(imagePath);
                 }
                 e.Dispose();
                 //e.Finish();
-                console.PrintInfo("GIF анимация создана", Color.Green);
+                console.PrintInfo(Resources.Result_CreateGIFAnimation_AnimationCreated, Color.Green);
             }
             catch (Exception ex)
             {

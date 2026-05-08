@@ -1,5 +1,6 @@
-﻿using PreProc.Interfaces;
+﻿using BazisGUI.Properties;
 using PreProc;
+using PreProc.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,7 +19,7 @@ namespace BazisGUI
             {
                 //var pContr = (PinnedTaskPlannerControl)EmbeddedControls.Find("pinnedTaskPlannerControl", false)[0];
 
-                var inputDir = $@"{WorkingDir}\InputData";
+                var inputDir = Path.Combine(WorkingDir, "InputData");
 
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
@@ -41,7 +42,7 @@ namespace BazisGUI
 
                 PresentCompDataOnTree(sortedFiles);
 
-                console.PrintInfo($"Инструкции задачи сгенерированы в {inputDir}", Color.Green);
+                console.PrintInfo($"{Resources.GenerateTSF_InstructionsFormed_Message} {inputDir}", Color.Green);
 
             }
             catch (Exception ex)

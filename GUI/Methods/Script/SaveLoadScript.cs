@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazisGUI.Properties;
+using System;
 using System.Drawing;
 using System.IO;
 
@@ -16,7 +17,7 @@ namespace BazisGUI
 
                 project.LoadSMF(changed);
 
-                console.PrintInfo($"скрипт {changed} выполнен", Color.Green);
+                console.PrintInfo($"{Resources.SaveLoadScript_GeoScript_Message} {changed} {Resources.SaveLoadScript_GeoScript_Executed_Message}", Color.Green);
             }
             catch (Exception ex)
             {
@@ -35,7 +36,7 @@ namespace BazisGUI
                 
                 project.SaveSMF(changed);
 
-                console.PrintInfo($"скрипт {changed} сформирован", Color.Green);
+                console.PrintInfo($"{Resources.SaveLoadScript_GeoScript_Message} {changed} {Resources.SaveLoadScript_GeoScript_Formed_Message}", Color.Green);
             }
             catch (Exception ex)
             {

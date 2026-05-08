@@ -1,4 +1,5 @@
-﻿using Model.Interfaces;
+﻿using BazisGUI.Properties;
+using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BazisGUI.Utilities
         {
             DataKind objType;
             return Enum.TryParse(dataKind, out objType) ? objType :
-                throw new Exception($"Ошибка конвертации объектов {dataKind}");
+                throw new Exception($"{Resources.ConvertFailCaption}:{dataKind} -> DataKind");
         }
 
         //public static NodeName ConvertToNavigatorNodeType(ObjType objType)
@@ -69,6 +70,51 @@ namespace BazisGUI.Utilities
         public static List<string> GetEnumNames<T>() where T : Enum
         {
             return Enum.GetNames(typeof(T)).ToList();
+        }
+
+        public static ObjType ConvertSelectionTypeToObjType(SelectionType st)
+        {
+            switch (st)
+            {
+                case SelectionType.Points: return ObjType.Точка;
+                case SelectionType.Curves: return ObjType.Кривая;
+                case SelectionType.Surfaces: return ObjType.Поверхность;
+                case SelectionType.Nodes: return ObjType.Узел;
+                case SelectionType.Elements1D: return ObjType.Элемент1D;
+                case SelectionType.Elements2D: return ObjType.Элемент2D;
+                case SelectionType.Elements3D: return ObjType.Элемент3D;
+                default:
+                    throw new ArgumentException($"{Resources.ConvertFailCaption}:{st.ToString()} -> ObjType");
+            }
+        }
+
+        public static bool TryConvertSelectionTypeToObjType(SelectionType st, out ObjType res)
+        {
+            try
+            {
+                res = ConvertSelectionTypeToObjType(st);
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                res = ObjType.Узел;
+                return false;
+            }
+        }
+
+        public static SelectionType ConvertObjTypeToSelectionType(ObjType ot)
+        {
+            switch (ot)
+            {
+                case ObjType.Точка: return SelectionType.Points;
+                case ObjType.Кривая: return SelectionType.Curves;
+                case ObjType.Поверхность: return SelectionType.Surfaces;
+                case ObjType.Узел: return SelectionType.Nodes;
+                case ObjType.Элемент1D: return SelectionType.Elements1D;
+                case ObjType.Элемент2D: return SelectionType.Elements2D;
+                case ObjType.Элемент3D: return SelectionType.Elements3D;
+                default: return SelectionType.Objects;
+            }
         }
     }
 }

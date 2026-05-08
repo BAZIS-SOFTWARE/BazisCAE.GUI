@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigatorControl));
-            var treeNode2 = new System.Windows.Forms.TreeNode("Проект", 7, 7);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigatorControl));
             genImageList = new System.Windows.Forms.ImageList(components);
             helpImageList = new System.Windows.Forms.ImageList(components);
             treeView = new System.Windows.Forms.TreeView();
@@ -65,28 +64,15 @@
             // 
             // treeView
             // 
+            resources.ApplyResources(treeView, "treeView");
             treeView.BackColor = System.Drawing.SystemColors.Control;
             treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             treeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            treeView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
             treeView.FullRowSelect = true;
-            treeView.ImageIndex = 9;
             treeView.ImageList = genImageList;
-            treeView.Indent = 19;
             treeView.ItemHeight = 18;
-            treeView.Location = new System.Drawing.Point(0, 20);
-            treeView.Margin = new System.Windows.Forms.Padding(0);
             treeView.Name = "treeView";
-            treeNode2.ImageIndex = 7;
-            treeNode2.Name = "проект";
-            treeNode2.SelectedImageIndex = 7;
-            treeNode2.Text = "Проект";
-            treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode2 });
-            treeView.SelectedImageIndex = 9;
             treeView.ShowLines = false;
-            treeView.Size = new System.Drawing.Size(299, 619);
-            treeView.TabIndex = 5;
             treeView.AfterCollapse += treeView_AfterCollapse;
             treeView.BeforeExpand += treeView_BeforeExpand;
             treeView.AfterExpand += treeView_AfterExpand;
@@ -97,15 +83,12 @@
             // 
             // NavigatorControl
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Gainsboro;
             Controls.Add(treeView);
             HeaderName = "Навигатор";
-            Margin = new System.Windows.Forms.Padding(6, 6, 6, 0);
             Name = "NavigatorControl";
-            Padding = new System.Windows.Forms.Padding(0, 20, 0, 0);
-            Size = new System.Drawing.Size(299, 639);
             ResumeLayout(false);
 
         }

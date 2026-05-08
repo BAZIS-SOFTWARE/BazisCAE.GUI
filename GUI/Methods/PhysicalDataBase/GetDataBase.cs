@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BazisGUI.Properties;
+using Newtonsoft.Json;
 using System.Drawing;
 using System.IO;
 
@@ -11,7 +12,7 @@ namespace BazisGUI
             var filePath = FindFileByPath(dbPath, dbName);
             if (filePath == null)
             {
-                console.PrintInfo($"Не найдена база {dbName} в папке {dbPath}", Color.Orange);
+                console.PrintInfo($"{Resources.GetDAtaBase_FindFileByPath_DBNotFound_Message_Part1} {dbName} {Resources.GetDAtaBase_FindFileByPath_DBNotFound_Message_Part2} {dbPath}", Color.Orange);
                 return default;
             }
 
@@ -24,7 +25,7 @@ namespace BazisGUI
                 };
 
                 return JsonConvert.DeserializeObject<T>
-    (File.ReadAllText($@"{dbPath}\{dbName}"), settingsSerializer);
+    (File.ReadAllText(Path.Combine(dbPath, dbName)), settingsSerializer);
             }
         }
     }

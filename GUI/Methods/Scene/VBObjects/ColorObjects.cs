@@ -4,6 +4,7 @@ using Geometry;
 using System.Drawing;
 using BazisGUI.Utilities;
 using Model.Interfaces;
+using BazisGUI.Properties;
 
 namespace BazisGUI
 {
@@ -26,7 +27,7 @@ namespace BazisGUI
             {
                 ObjType objType;
                 var res = Enum.TryParse(objTypeStr, out objType) ? objType :
-                    throw new Exception($"Ошибка конвертации объектов {objTypeStr}");
+                    throw new Exception($"{Resources.ColorObjects_ObjectConversion_Exception} {objTypeStr}");
                 ColorVBObjsByObjsType(objType);
             }
 

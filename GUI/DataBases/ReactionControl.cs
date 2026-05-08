@@ -4,6 +4,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using MaterialDB.MaterialData;
+using BazisGUI.Properties;
 
 namespace BazisGUI.DataBases
 {
@@ -53,8 +54,10 @@ namespace BazisGUI.DataBases
             Regex regex = new Regex(@"(^([0]\.)(\d{0,3}[1-9])$)|(^[1]$)|(^[0]$)");
             if (!regex.IsMatch(txbPhaseValue.Text))
             {
-                MessageBox.Show("Значение масс. доли должно задаваться в следующем формате: А.ББ, где А=0...1, Б=0...9. Знак разделения дробных чисел - точка. " +
-                    "Значение масс. доли не должно превышать 1!\nНапример: 0.01; 0.5; 1", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);                
+                MessageBox.Show(
+                    Resources.InvalidRegexPhaseMatchWarning,
+                    Localization.Localization.GetAttentionCaption(),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);                
                 return;
             }
 
@@ -144,8 +147,10 @@ namespace BazisGUI.DataBases
 
         private void chbTimeDependent_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("При нажатии на кнопку \"ОК\" введенные данные будут удалены", 
-                "Внимание!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            var result = MessageBox.Show(
+                Resources.EnteredDataDeletingWarning, 
+                Localization.Localization.GetAttentionCaption(),
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             
             if(result == DialogResult.OK)
             {

@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Args;
+using BazisGUI.Properties;
 using BazisGUI.Scene;
 using BazisGUI.Scene.VBO;
 using BazisGUI.SettingsControls;
@@ -17,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -99,13 +101,13 @@ namespace BazisGUI
         private void BaseForm_Load(object sender, EventArgs e)
         {
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            var verStr = $"Версия {ver.Major}.{ver.Minor}.{ver.Build}";
+            var verStr = $"{Resources.versionWordPrefix} {ver.Major}.{ver.Minor}.{ver.Build}";
             lblVersion.Text = verStr;
 
-            var config = dataController.LoadConfig();
+            //var config = dataController.LoadConfig();
 
-            if (config != null)
-                settingsConfig = config;
+            //if (config != null)
+            //    settingsConfig = config;
 
             SetGeneralSettings();
             DisplayObjects();
@@ -114,6 +116,13 @@ namespace BazisGUI
 
         public BaseForm(string[] args)
         {
+            var datacontroller = new IODataController();
+            var config = datacontroller.LoadConfig();
+
+            if (config != null)
+                settingsConfig = config;
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(settingsConfig.Language);
+
             InitializeComponent();
 
             cntrНавигатор.SplitterWidth = 8;
@@ -138,7 +147,7 @@ namespace BazisGUI
                     var projInd = Array.IndexOf(args, "-proj");
 
                     if (args.Length - 1 - projInd < 1)
-                        throw new Exception($"Отсутствуют необходимые аргументы для -proj path file");
+                        throw new Exception(Resources.HandleArgsProjectAbsenceException);
 
                     await OpenProject(Path.GetFullPath(args[projInd + 1]));
                 }
@@ -147,12 +156,12 @@ namespace BazisGUI
                     var resInd = Array.IndexOf(args, "-res");
 
                     if (args.Length - 1 - resInd < 1)
-                        throw new Exception($"Отсутствуют необходимые аргументы для -res file");
+                        throw new Exception(Resources.HandleArgsResultsAbsenceException);
 
                     var fullPath = Path.GetFullPath(args[resInd + 1]);
 
-                    if (project == null)
-                        throw new Exception($"Для загрузки результатов требуется сперва загрузить проект");
+                    if (project == null) 
+                        throw new Exception(Resources.HandleArgsResultsLoadingWithoutProjectException);
 
                     ResultDbPath = fullPath;
                     FillingResultsData();
@@ -165,7 +174,7 @@ namespace BazisGUI
                     var resInd = Array.IndexOf(args, "-cad");
 
                     if (args.Length - 1 - resInd < 1)
-                        throw new Exception($"Отсутствуют необходимые аргументы для -cad file");
+                        throw new Exception(Resources.HandleArgsCADAbsenceException);
 
                     await OpenProject(Path.GetFullPath(args[resInd + 1]));
                 }
@@ -235,6 +244,7 @@ namespace BazisGUI
                 var transpVal = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
                 settingsConfig.SelectObjectColor = Color.FromArgb(transpVal, settingsConfig.SelectObjectColor);
                 settingsConfig.SelectGroupColor = Color.FromArgb(transpVal, settingsConfig.SelectGroupColor);
+                
 
                 //module.ScenePage.NodeColor = settingsConfig.NodeColor;
                 //module.ScenePage.E2DColor = settingsConfig.Elem2DColor;
@@ -255,18 +265,18 @@ namespace BazisGUI
 
         private void содержаниеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "helpForm", Text = "Справка", ShowIcon = false };
+            var form = new Form() { Name = "helpForm", Text = BazisGUI.Properties.Resources.Reference, ShowIcon = false };
             form.TopMost = true;
             var helpFile = Directory.GetFiles(Application.StartupPath, "ПО Bazis 5.2. Руководство пользователя.pdf", SearchOption.AllDirectories);
 
             if (helpFile.Count() != 0)
                 Help.ShowHelp(form, helpFile[0]);
-            else MessageBox.Show("Отсутствует файл справки!");
+            else MessageBox.Show(Localization.Localization.GetFileMissingCaption());
         }
 
         private void опрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "aboutProgrammForm", Text = "О программе", ShowIcon = false };
+            var form = new Form() { Name = "aboutProgrammForm", Text = BazisGUI.Properties.Resources.About, ShowIcon = false };
             var control = new AboutProgrammControl { Dock = DockStyle.Fill };
 
             form.ClientSize = control.Size;
@@ -276,7 +286,7 @@ namespace BazisGUI
 
         private void сведенияMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "aboutLicenseForm", Text = "Информация о лицензии", ShowIcon = false };
+            var form = new Form() { Name = "aboutLicenseForm", Text = Resources.LicenseInfo, ShowIcon = false };
             form.TopMost = true;
             var control = new AboutLicenseControl { Dock = DockStyle.Fill };
             form.ClientSize = control.Size;
@@ -301,12 +311,9 @@ namespace BazisGUI
                 }
                 else
                 {
-                    var res = MessageBox.Show
-    (
-    $@"Соединение не установлено. Не найдена переменная среды ""BazisServerPath""
-                    Создать переменную?", "Внимание!",
-    MessageBoxButtons.YesNo
-    );
+                    var res = MessageBox.Show(
+                        Resources.BazisServerPathMissingMessage,
+                        Localization.Localization.GetAttentionCaption(),MessageBoxButtons.YesNo);
 
                     if (res == DialogResult.Yes)
                         StartLisenceForm("");
@@ -317,7 +324,7 @@ namespace BazisGUI
             catch (Exception ex)
             {
                 if (ex is Newtonsoft.Json.JsonReaderException)
-                    MessageBox.Show("Ошибка запроса информации о лицензии");
+                    MessageBox.Show(Resources.GetLicenseInfoException);
                 else
                     MessageBox.Show(ex.Message);
             }
@@ -328,7 +335,7 @@ namespace BazisGUI
 
         private void StartLisenceForm(string request)
         {
-            var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false };
+            var form = new Form() { Name = "checkForm", Text = Resources.Licensing, ShowIcon = false };
             var control = new ClientControl() { Dock = DockStyle.Fill };
 
             control.LicenseActionEvent += (ar1, ar2) =>
@@ -340,12 +347,12 @@ namespace BazisGUI
 
                     if (serverConnection.Answer == "можно")
                     {
-                        control.LabelAnswer = "Лицензирование проведено";
+                        control.LabelAnswer = Resources.LicenseAllowedAnswer;
                         UnBlockGeneralMenuInterface(request.Split(' ')[0], true);
                         StartLicensing(request.Split(' ')[0]);
                     }
                     else if (serverConnection.Answer == "Пустой запрос")
-                        control.LabelAnswer = "Соединение установлено";
+                        control.LabelAnswer = Resources.ConnectionEstablishedAnswer;
                     else
                         control.LabelAnswer = serverConnection.Answer;
                 }
@@ -391,13 +398,13 @@ namespace BazisGUI
 
         private static void ShowReleaseNotes()
         {
-            var form = new Form() { Name = "newsForm", Text = "Новости версии", ShowIcon = false, Size = new Size(500, 300) };
+            var form = new Form() { Name = "newsForm", Text = Resources.VersionNews, ShowIcon = false, Size = new Size(500, 300) };
             form.TopMost = true;
             var helpFile = Directory.GetFiles(Application.StartupPath, "ReleaseNotes.pdf", SearchOption.AllDirectories);
 
             if (helpFile.Count() != 0)
                 Help.ShowHelp(form, helpFile[0]);
-            else MessageBox.Show("Отсутствует файл!");
+            else MessageBox.Show(Localization.Localization.GetFileMissingCaption());
         }
 
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -455,7 +462,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+                MessageBox.Show(Localization.Localization.GetErrorWithStackMessage(ex), Localization.Localization.GetErrorCaption());
             }
         }
 
@@ -500,7 +507,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+                MessageBox.Show(Localization.Localization.GetErrorWithStackMessage(ex), Localization.Localization.GetErrorCaption());
                 Application.OpenForms["Загрузка"]?.Close();
             }
         }
@@ -564,7 +571,7 @@ namespace BazisGUI
                     return;
 
                 if (project == null)
-                    MessageBox.Show("Сначала откройте или создайте новый проект");
+                    MessageBox.Show(Resources.SaveWithoutProjectMessage);
                 else
                 {
                     var newFolder = Path.GetDirectoryName(saveDialog.FileName);
@@ -585,7 +592,7 @@ namespace BazisGUI
 
                     project.Save(saveDialog.FileName);
 
-                    console.PrintInfo("Проект сохранен", Color.Black);
+                    console.PrintInfo(Resources.ProjectSavedCaption, Color.Black);
                     lblStatus.Text = saveDialog.FileName;
                 }
             }
@@ -599,7 +606,7 @@ namespace BazisGUI
             {
                 //Path.GetDirectoryName
                 project?.Save(lblStatus.Text);
-                console.PrintInfo("Проект сохранен", Color.Black);
+                console.PrintInfo(Resources.ProjectSavedCaption, Color.Black);
             }
             catch (Exception ex)
             {
@@ -652,7 +659,7 @@ namespace BazisGUI
 
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+                MessageBox.Show(Localization.Localization.GetErrorWithStackMessage(ex), Localization.Localization.GetErrorCaption());
             }
         }
 
@@ -700,7 +707,7 @@ namespace BazisGUI
 
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+                MessageBox.Show(Localization.Localization.GetErrorWithStackMessage(ex), Localization.Localization.GetErrorCaption());
                 Application.OpenForms["Загрузка"]?.Close();
             }
         }

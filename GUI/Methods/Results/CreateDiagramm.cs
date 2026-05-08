@@ -1,12 +1,13 @@
-﻿using System;
+﻿using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using Geometry;
-using System.Drawing;
 using ResultDB.IO;
-using System.Windows.Forms;
+using System;
 using System.Collections.Generic;
-using UserControlsEx.Graph;
+using System.Drawing;
 using System.Linq;
-using BazisGUI.Navigator;
+using System.Windows.Forms;
+using UserControlsEx.Graph;
 
 namespace BazisGUI
 {
@@ -23,12 +24,12 @@ namespace BazisGUI
                 var objs = await CreatePathAsync();
 
                 if (objs.Count() == 0)
-                    throw new Exception("Не выбран ни один узел");
+                    throw new Exception(Resources.Result_BuildDiagram_NoNodesSelectedException);
 
-                await SelectContainerAsync(@"Выберите время и нажмите на клавишу ""E"" для подтверждения");
+                await SelectContainerAsync(Resources.Result_BuildDiagram_SelectContaimerAsync_SelectTime_Message);
 
-                if (navigator.SelectedNode.Name != NodeName.время.ToString())
-                    throw new Exception("Выберите время в разделе результаты");
+                if (navigator.SelectedNode.Name != NodeName.Time.ToString())
+                    throw new Exception(Resources.Result_BuildDiagram_SelectTime_Exception);
 
                 var selNode = navigator.SelectedNode;
                 var resDes = selNode.Parent.Text;
@@ -67,16 +68,16 @@ namespace BazisGUI
 
                 if (grPoints.Count != 0)
                 {
-                    var grData = new GraphData(resDes, Color.Orange, "мм", resDes, grPoints.ToArray());
+                    var grData = new GraphData(resDes, Color.Orange, Resources.Result_BuildDiagram_GraphData_XUnit, resDes, grPoints.ToArray());
                     var grContainer = new GraphContainer();
 
-                    grContainer.CreateGraphData("Набор результатов по расстоянию", new List<GraphData>() { grData }, new AxisFormat(), new AxisFormat());
+                    grContainer.CreateGraphData(Resources.Result_BuildDiagram_DistanceResultSet_Header, new List<GraphData>() { grData }, new AxisFormat(), new AxisFormat());
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {
                         Owner = Application.OpenForms[0],
                         TopMost = true,
-                        Text = $"График {resDes} - координата",
+                        Text = $"{Resources.Result_BuildDiagram_Text_Part1} {resDes} - {Resources.Result_BuildDiagram_Text_Part2}",
                         ShowIcon = false,
                         ClientSize = grContainer.Size
                     };

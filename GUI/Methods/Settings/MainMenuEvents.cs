@@ -1,12 +1,13 @@
-﻿using BazisGUI.SettingsControls;
+﻿using BazisGUI.DataBases;
+using BazisGUI.Properties;
+using BazisGUI.Scene.Interfaces;
+using BazisGUI.SettingsControls;
+using Model.Interfaces;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
-using OpenTK.Graphics.OpenGL;
 using System.Linq;
 using System.Windows.Forms;
-using Model.Interfaces;
-using BazisGUI.DataBases;
-using BazisGUI.Scene.Interfaces;
 
 namespace BazisGUI
 {
@@ -154,6 +155,15 @@ namespace BazisGUI
                 settingsConfig.LighterPosition.Y = (int)y;
 
                 DisplayObjects();
+            };
+
+            settings.SetLanguageEvent += (ar) => 
+            {
+                if (settingsConfig.Language != ar)
+                {
+                    MessageBox.Show(Resources.MainMenuEvents_ChangeLanguage_Message, Localization.Localization.GetAttentionCaption());
+                    settingsConfig.Language = ar;
+                }
             };
         }
     }

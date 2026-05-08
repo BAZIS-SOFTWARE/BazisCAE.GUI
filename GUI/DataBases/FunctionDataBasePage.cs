@@ -9,6 +9,7 @@ using UserControlsEx.Graph;
 using PropertiesCalculator;
 using MaterialDB.FunctionData;
 using MaterialDB.MaterialData;
+using BazisGUI.Properties;
 
 namespace BazisGUI.DataBases
 {
@@ -41,7 +42,7 @@ namespace BazisGUI.DataBases
                     OnMutationEvent?.Invoke();
                 }
 
-                else throw new Exception("Возникла ошибка при удалении данных!");
+                else throw new Exception(Resources.DelBranchException);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
@@ -61,8 +62,8 @@ namespace BazisGUI.DataBases
             var name = $"{function.Name},{function.Units}";
             var funNode = new TreeNode(name) { Name = name };
 
-            var renameFunItem = new ToolStripMenuItem("Переименовать");
-            var deleteFunItem = new ToolStripMenuItem("Удалить");
+            var renameFunItem = new ToolStripMenuItem(Resources.Rename);
+            var deleteFunItem = new ToolStripMenuItem(Resources.Remove);
             renameFunItem.Click += RenameMatItem_Click;
             deleteFunItem.Click += DeleteMaterialItem_Click;
             matMenu.Items.Add(renameFunItem);
@@ -85,7 +86,7 @@ namespace BazisGUI.DataBases
 
                     var property = Functions[fun];
                     if (property.DataTable == null)
-                        throw new Exception("Таблица свойства отсутсвует!");
+                        throw new Exception(BazisGUI.Properties.Resources.PropertyTableIsMissing);
 
                     var dt = Resort(property.DataTable, "X", "ASC");
                     property.DataTable = dt;
@@ -146,7 +147,7 @@ namespace BazisGUI.DataBases
                 if (addFlag)
                 {
                     if (Functions == null)
-                        throw new Exception("Загрузите базу или создайте новую");
+                        throw new Exception(Resources.LoadDBAddIntoMissingDBException);
 
                     foreach (var function in functions)
                     {
@@ -158,7 +159,7 @@ namespace BazisGUI.DataBases
                 else
                 {
                     if (functions == null)
-                        throw new Exception("Загружаемая база повреждена");
+                        throw new Exception(Resources.LoadDBCorruptedException);
                     Functions = functions;
                     var name = Path.GetFileName(fileName);
                     Functions.Name = name;
@@ -187,7 +188,7 @@ namespace BazisGUI.DataBases
         {
             if (TreeView.SelectedNode == null)
             {
-                MessageBox.Show("Выберите функцию!");
+                MessageBox.Show(Resources.SelectAFunction);
                 return;
             }
 
@@ -219,7 +220,7 @@ namespace BazisGUI.DataBases
                 var dbPath = string.Empty;
                 var name = string.Empty;
                 dbPath = Directory.GetFiles(Application.StartupPath, "functions_draft.txt", SearchOption.AllDirectories)[0];
-                name = GetNextName("Новая_функция_", Functions.Keys);
+                name = GetNextName(Resources.New_function_, Functions.Keys);
 
                 var dataSet = Loader.LoadDataBase(dbPath);
                 var function = ConvertToFunctions(dataSet);
@@ -235,7 +236,7 @@ namespace BazisGUI.DataBases
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка добавления узла : " + ex.Message);
+                MessageBox.Show($"{Resources.AddBranch_ExceptionMessage} : {ex.Message}");
             }
         }
 /// <inheritdoc/>
@@ -362,10 +363,15 @@ namespace BazisGUI.DataBases
             if (TreeView.SelectedNode != null && TreeView.SelectedNode.Level == 0)
             {
                 var functionName = TreeView.SelectedNode.Name.Split(',')[0];
-                var copyName = functionName + "_копия";
+                var copyName = functionName + Resources.CopySuffics;
                 if (Functions.ContainsKey(copyName))
                 {
-                    MessageBox.Show("Функция \"" + copyName + "\" уже существует! \nПереименуйте функцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(
+                        Resources.Function +
+                        $" \"{copyName}\" " +
+                        Resources.Function,
+                        Localization.Localization.GetAttentionCaption(),
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 var newFunction = Functions[functionName].Copy(copyName);                
@@ -377,7 +383,9 @@ namespace BazisGUI.DataBases
                 TreeView.Nodes.Add(newNod);
                 OnMutationEvent?.Invoke();
             }
-            else MessageBox.Show("Выберите функцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else MessageBox.Show(Resources.SelectAFunction,
+                Localization.Localization.GetAttentionCaption(),
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         public override void treeView_MouseDown(object sender, MouseEventArgs e)

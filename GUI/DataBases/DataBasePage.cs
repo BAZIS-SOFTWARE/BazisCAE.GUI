@@ -1,4 +1,5 @@
-﻿using MaterialDB.Interfaces;
+﻿using BazisGUI.Properties;
+using MaterialDB.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -96,12 +97,12 @@ namespace BazisGUI.DataBases
         }
         public virtual void ConvertToDictionary(DataSet dataSet)
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
 
         public virtual DataSet ConvertToDataSet()
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
         public List<GraphData> SetGraphData(DataTable table, string header, Color color, string xUnit, string yUnit)
         {
@@ -155,7 +156,7 @@ namespace BazisGUI.DataBases
         /// <exception cref="Exception"></exception>
         public virtual void AddBranchButton_Click(object sender, EventArgs e)
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
         /// <summary>
         /// DelBrachButton_Click
@@ -165,7 +166,7 @@ namespace BazisGUI.DataBases
         /// <exception cref="Exception"></exception>
         public virtual void DelBrachButton_Click(object sender, EventArgs e)
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
         /// <summary>
         /// AddNewRowButton_Click
@@ -175,23 +176,23 @@ namespace BazisGUI.DataBases
         /// <exception cref="Exception"></exception>
         public virtual void AddNewRowButton_Click(object sender, EventArgs e)
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
 
 
         public virtual void DelAllRowsButton_Click(object sender, EventArgs e)
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
 
         public virtual void TreeView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
 
         public virtual void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
         /// <summary>
         /// DataGridView_CellEndEdit
@@ -205,12 +206,12 @@ namespace BazisGUI.DataBases
 
         public virtual void TreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
 
         public virtual void Resort_Click(object sender, EventArgs e)
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
 
         public DataTable Resort(DataTable dt, string colName, string direction)
@@ -222,7 +223,7 @@ namespace BazisGUI.DataBases
         }
         public virtual void treeView_MouseDown(object sender, MouseEventArgs e)
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
 
         public string GetNextName(string basePrefix, IEnumerable<string> keys)
@@ -255,7 +256,7 @@ namespace BazisGUI.DataBases
 
         public virtual void CreateCopy_Click(object sender, EventArgs e)
         {
-            throw new Exception("Метод не реализован!");
+            throw new Exception(Localization.Localization.GetMethodIsNotImplementedExceptionCaption());
         }
         private void TreeView_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
@@ -277,7 +278,7 @@ namespace BazisGUI.DataBases
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString("Список", Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString(Resources.List, Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
 
         private void dataPanel_Paint(object sender, PaintEventArgs e)
@@ -289,7 +290,7 @@ namespace BazisGUI.DataBases
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString("Данные", Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString(BazisGUI.Properties.Resources.Data, Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
 
         private void graphPanel_Paint(object sender, PaintEventArgs e)
@@ -301,8 +302,7 @@ namespace BazisGUI.DataBases
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString("График", Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString(BazisGUI.Properties.Resources.Graph, Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
-
     }
 }

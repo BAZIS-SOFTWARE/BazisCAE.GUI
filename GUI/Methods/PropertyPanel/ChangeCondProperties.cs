@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
@@ -63,7 +64,7 @@ namespace BazisGUI
                         pythonFunction.CreateEngine(file);
                         cond.Function = pythonFunction;
                     }
-                    else { console.PrintInfo("Файл не выбран", Color.Red); }
+                    else { console.PrintInfo(Resources.ChangeCondProperties_ChangeGeneralProperties_FileNotSelected_Message, Color.Red); }
                 }
                 refresh = true;
             }

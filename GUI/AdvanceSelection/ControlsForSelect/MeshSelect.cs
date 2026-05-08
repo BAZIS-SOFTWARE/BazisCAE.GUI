@@ -1,4 +1,5 @@
-﻿using Model.Interfaces;
+﻿using BazisGUI.Utilities;
+using Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -10,12 +11,12 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         private SelectInDirectionEventArgs directionConfig;
         private SelectInPlainEventArgs plainConfig;
 
-        private readonly Dictionary<string, (bool set, bool surface, bool direction, bool other)> _modes = new()
+        private readonly Dictionary<SelectionType, (bool set, bool surface, bool direction, bool other)> _modes = new()
         {
-            { "Элемент1D", (true, false, false, false) },
-            { "Элемент2D", (true, true, false, true) },
-            { "Элемент3D", (true, false, false, false) },
-            { "Узел",      (true, true, true, true) }
+            { SelectionType.Elements1D, (true, false, false, false) },
+            { SelectionType.Elements2D, (true, true, false, true) },
+            { SelectionType.Elements3D, (true, false, false, false) },
+            { SelectionType.Nodes,      (true, true, true, true) }
         };
         public event Action<SelectInDirectionEventArgs> SelectInDirection;
         public event Action CloseForm;
@@ -26,18 +27,18 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             base.OnLoad(e);
         }
 
-        public MeshSelect(string selectedObjects)
+        public MeshSelect(SelectionType selectedObjects)
         {
             InitializeComponent();
             SetAvailableModes(selectedObjects);
         }
 
-        public void SetAvailableModes(string selectedObjects)
+        public void SetAvailableModes(SelectionType selectedObjects)
         {
             if (_modes.TryGetValue(selectedObjects, out var mode))
             {
                 SetApply(mode.set, mode.surface, mode.direction, mode.other);
-                selectType = ConvertToObjsType(selectedObjects);
+                selectType = Converters.ConvertSelectionTypeToObjType(selectedObjects);
                 directionConfig = null;
                 plainConfig = null;
             }
@@ -72,13 +73,6 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             lblAngle.Enabled = other;
             txbAngle.Enabled = other;
             chbChangeDirection.Enabled = other;
-        }
-
-        private ObjType ConvertToObjsType(string objects)
-        {
-            ObjType objType;
-            return Enum.TryParse(objects, out objType) ? objType :
-                throw new Exception($"Ошибка конвертации объектов {objects}");
         }
 
         private void chbChangeDirection_CheckedChanged(object sender, EventArgs e)

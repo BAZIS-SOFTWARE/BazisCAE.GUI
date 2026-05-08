@@ -11,11 +11,11 @@ namespace BazisGUI
     {
         public static bool CopyFile(string fileName, string oldFolder, string newFolder)
         {
-            var oldfilePath = $@"{oldFolder}\{fileName}";
+            var oldfilePath = Path.Combine(oldFolder, fileName);
 
             if (File.Exists(oldfilePath))
             {
-                var newfilePath = $@"{newFolder}\{fileName}";
+                var newfilePath = Path.Combine(newFolder, fileName);
 
                 File.Create(newfilePath).Close();
                 File.Copy(oldfilePath, newfilePath, true);

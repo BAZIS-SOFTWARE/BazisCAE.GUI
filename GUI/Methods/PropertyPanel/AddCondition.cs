@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using Geometry;
 using Model.Interfaces;
@@ -17,15 +18,15 @@ namespace BazisGUI
         {
             var matDB = project.MaterialsDB;
             if (matDB == null)
-                throw new Exception("Не загружена база физических свойств");
+                throw new Exception(Resources.DataBase_Materials_MissingException);
             if (matDB.Count == 0)
-                throw new Exception("База физических свойств пустая");
+                throw new Exception(Resources.DataBase_Materials_NoDataException);
 
             var funDB = project.FunctionsDB;
             if (funDB == null)
-                throw new Exception("Не загружена база функций");
+                throw new Exception(Resources.DataBase_Functions_MissingException);
             if (funDB.Count == 0)
-                throw new Exception("База функций пустая");
+                throw new Exception(Resources.DataBase_Functions_NoDataException);
         }
 
         private ICondData CreateMaterial(PropertyChangedEventArgs obj, IGroup _objectsGr)
