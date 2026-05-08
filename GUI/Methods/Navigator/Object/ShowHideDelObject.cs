@@ -76,7 +76,7 @@ namespace BazisGUI
             var info = node.Text.Split(' ');
             var number = int.Parse(info[0]);
 
-            if(node.Parent.Parent.Text == "Геометрия")
+            if(node.Parent.Parent.Text == Resources.Navigator_TreeView_Node_Text_Geometry)
             {
                 if (info[1].TryToEnum(out ObjType objType))
                 {
@@ -89,7 +89,7 @@ namespace BazisGUI
                 }
                 DisplayObjects();
             }
-            else if(node.Parent.Parent.Text == "Сетка")
+            else if(node.Parent.Parent.Text == Resources.Navigator_TreeView_Node_Text_Mesh)
             {
                 if (info[1].TryToEnum(out ObjType objType))
                 {
