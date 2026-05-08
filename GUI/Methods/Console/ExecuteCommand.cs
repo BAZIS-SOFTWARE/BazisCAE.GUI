@@ -139,7 +139,8 @@ namespace BazisGUI
                             await FindCoincidentNodes(float.Parse(cmds[2]));
                         break;
                     case GenCmd.BeamConnection:
-                        BeamConnection(cmds[1], cmds[2], cmds[3], cmds[4]);
+                        PrepareDataForConnectionBeam(cmds[1], cmds[2], out double radius, out int maxBeams);
+                        BeamConnection(radius, maxBeams, cmds[3], cmds[4]);
                         break;
                     case GenCmd.SolveProject:
                         //TODO: Реализовать метод

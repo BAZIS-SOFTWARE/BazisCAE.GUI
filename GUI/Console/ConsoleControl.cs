@@ -191,7 +191,6 @@ namespace BazisGUI.Console
             var variableName = string.Empty;
             var newLine = string.Empty;
 
-
             var parts = line.Split('=', 2);
 
             if (parts.Length == 2)
