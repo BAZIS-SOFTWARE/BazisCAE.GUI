@@ -31,11 +31,6 @@ namespace BazisGUI.Console
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsoleControl));
-            openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             tlscOut = new System.Windows.Forms.ToolStripContainer();
             rtxbField = new System.Windows.Forms.RichTextBox();
             toolStripEx1 = new ToolStripEx();
@@ -43,6 +38,11 @@ namespace BazisGUI.Console
             toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             btnStartMacro = new System.Windows.Forms.ToolStripButton();
+            openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             toolStripMenuItem32 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem33 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem34 = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,30 +80,6 @@ namespace BazisGUI.Console
             toolStripEx1.SuspendLayout();
             SuspendLayout();
             // 
-            // openFileDialog
-            // 
-            openFileDialog.FileName = "openFileDialog";
-            // 
-            // toolStripMenuItem14
-            // 
-            toolStripMenuItem14.Name = "toolStripMenuItem14";
-            resources.ApplyResources(toolStripMenuItem14, "toolStripMenuItem14");
-            // 
-            // toolStripMenuItem15
-            // 
-            toolStripMenuItem15.Name = "toolStripMenuItem15";
-            resources.ApplyResources(toolStripMenuItem15, "toolStripMenuItem15");
-            // 
-            // toolStripMenuItem16
-            // 
-            toolStripMenuItem16.Name = "toolStripMenuItem16";
-            resources.ApplyResources(toolStripMenuItem16, "toolStripMenuItem16");
-            // 
-            // toolStripTextBox1
-            // 
-            toolStripTextBox1.Name = "toolStripTextBox1";
-            resources.ApplyResources(toolStripTextBox1, "toolStripTextBox1");
-            // 
             // tlscOut
             // 
             tlscOut.BottomToolStripPanelVisible = false;
@@ -132,7 +108,7 @@ namespace BazisGUI.Console
             rtxbField.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(rtxbField, "rtxbField");
             rtxbField.Name = "rtxbField";
-            rtxbField.KeyDown += rtxbField_KeyDown;
+            rtxbField.KeyDown += KeyDownEventHadler;
             // 
             // toolStripEx1
             // 
@@ -187,6 +163,30 @@ namespace BazisGUI.Console
             btnStartMacro.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             btnStartMacro.Name = "btnStartMacro";
             btnStartMacro.Click += btnStartMacro_Click;
+            // 
+            // openFileDialog
+            // 
+            openFileDialog.FileName = "openFileDialog";
+            // 
+            // toolStripMenuItem14
+            // 
+            toolStripMenuItem14.Name = "toolStripMenuItem14";
+            resources.ApplyResources(toolStripMenuItem14, "toolStripMenuItem14");
+            // 
+            // toolStripMenuItem15
+            // 
+            toolStripMenuItem15.Name = "toolStripMenuItem15";
+            resources.ApplyResources(toolStripMenuItem15, "toolStripMenuItem15");
+            // 
+            // toolStripMenuItem16
+            // 
+            toolStripMenuItem16.Name = "toolStripMenuItem16";
+            resources.ApplyResources(toolStripMenuItem16, "toolStripMenuItem16");
+            // 
+            // toolStripTextBox1
+            // 
+            toolStripTextBox1.Name = "toolStripTextBox1";
+            resources.ApplyResources(toolStripTextBox1, "toolStripTextBox1");
             // 
             // toolStripMenuItem32
             // 

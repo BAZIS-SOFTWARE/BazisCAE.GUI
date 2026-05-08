@@ -241,12 +241,12 @@
   <data name="toolStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEZSURBVDhPYyAGWOprbgJSzBAekcBaX2OvpaaCPJRLHLDS
-        1rxvpCEnCeUSByz0NC5YaqoYWuloZkCFCANrPbXbxkpK/CC2pZ5qhJWuRiFYAh+w0NV8ZiwpyQXlgoGN
-        jmaAla5mFZSLCax1NT5qaTGwQbkowEJPzcNKT6MZyoUDRgMtzT9AmgnCxQ7MtdUdrPQ1unV15QTBAmb6
-        mj/ADCKApba6laWe5hlgPGn+B+J/JOL/YFNADBsDLZABRGOwRhAAcYjRbKmv9AWYmiZCtUEAUONfQy2t
-        P9g0gLGB5idgnM6AKkcFNvpyP21U5H6hazLVl/9sbaDVAlWGHYCcY6Cv9R1J4ydrXe18qDR+ANIAjHBw
-        CNpgpBoGBgDDm4FWc0uYagAAAABJRU5ErkJggg==
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEXSURBVDhPlZI9S8RAEIZHBQsbsdzmIkHvdjbZneihZj8K
+        S0tLf4Kd2NpqZ2Xn77D3H1jYW9jZewp+cHqyAY9kvAvxgYHhnfcdhmUBOmAJbwBgieuteJK3FtcTrrfi
+        Mnzclj3B9VZKI+8tbmy5HI/5bC7e9B+Gaboae2s2j5yWp9zzh1Lj01CIlboWcjx0Gs/qWgOv5bNSsMz1
+        SGn6B87Ic64vZArHALDIB3X2ssG+I3mpdW+tEnYJ37lpHjYbOGvwDjzhxBN+/7Mm1ZbYhELFBZ1rekLX
+        sKX01ZO8ql0PEAr1lSs15uZpFThyWl43Qr8EEh8hEZ88tEPJiy/UBfc3iOcQqbdacOR1dsJ9M4kBZ2T1
+        gmHGr/kBrIaBPB5/G7kAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="toolStripButton1.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
@@ -270,13 +270,13 @@
   <data name="toolStripButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAANCAYAAACgu+4kAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFQSURBVDhPjZG9TsMwEMddoQ7srBCkpHZ8iWNX0DaJAwMT
-        YkI8Ai+AkBhYQWJgQWJDiJWlL8ED9AH6CIiKDfEhPgTnxIGGBNGfdNL57v8/OzkyC2tBsKgl/1QSnlPB
-        j215NrTiZwr4uxlQhm39S1tL/04DPE2bFYAZNraaOiuULmShu23EmYJvYyVwaNaFfWupkgr/otHUEDEh
-        89ZGSAyupyN+HwdUx0A3M8ybTGWUrzPelhZsL438IeZzpmBAwbBbfG/NXIbynDeCt14OAn/H+ir8NaC8
-        PRF8nZjE6mv0uBvkm5gymx/YBz7BdjsXDcLOlo78w/zQgA7hRFP6aMzFi/xz2/oBm0cJ0A17rIEXjPqK
-        v0jmLNtSnUSyKx2xXUxbRQU3I5jI6wpOVwVjtlwlifgB/owbE/i8MYo/etJ50N7Sayo7t7jOEW7o2sp/
-        QcgXJrKXzTlHPC0AAAAASUVORK5CYII=
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFISURBVDhPjZG/SgQxEIcjYmFvYyErnJdkJptkRe9ud2e1
+        sBIr8RF8AREsbBUsbAQ7EVubewkf4B7gHkGU68RT/IOSPbPs5Tzxg18zmW8yu2HsH2wotUQWvqzFl1zD
+        aXj+J5TAhUL4cAN8wp5pzJGVD4Q4rMsK0Q3rh80Va5wvFHFj1zUXCVbiWBCHxSoehm5JruXVhDAlKWPz
+        lZhiY4UMDFLFKUW+XRgYhEI9fjvnzpAWB7mRXcbYrB9YJNiNR987IfuoKHpnZOC6o+RetUqNaQP87ZmG
+        TebX+I0WNFT5EvUBiMM2wqN7pbKpEzd3yMjjUPZQjGfE+bOTRxvJy7DHbXGSId8K6x4ystdO4NWKaDk8
+        q8isuCEj9t1P9bVUC13WEzxf10KMGz9kBo4yDXcuZGWfEvxs2eiJosW33DbvCwO93Mjb0PN8A+OMl58a
+        NproAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="toolStripButton2.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
@@ -286,7 +286,7 @@
     <value>Magenta</value>
   </data>
   <data name="toolStripButton2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 20</value>
+    <value>25, 25</value>
   </data>
   <data name="toolStripButton2.Text" xml:space="preserve">
     <value>Errase</value>
@@ -294,15 +294,12 @@
   <data name="btnStartMacro.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="btnStartMacro.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="btnStartMacro.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABcSURBVDhP1YxRCsAwCMW8/9l2p5XCClJia9WPLhDwwxf5
-        IY+831VAj2nTzMF0lILDEBTSHkMR0g2NLV3QcOcSGng0oeedS2hg6YKGs0dQYBiCQt0wZSFNWehORBrc
-        YN5VO0NQnQAAAABJRU5ErkJggg==
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABZSURBVDhP1YwxCgAgDMT6/7f5J8VBkKDltB00kKX0YvYf
+        xSpP9/TYbBgGw1HGwmFG6DEM7JTh0FOCI0UXPqtu4aOiC589JThaeQTH16EBI6FYJy00kxZ6lQbcYN5V
+        9ve0rgAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="btnStartMacro.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
@@ -413,6 +410,12 @@
   <data name="toolStripTextBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
+  <data name="toolStripMenuItem33.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 22</value>
+  </data>
+  <data name="toolStripMenuItem33.Text" xml:space="preserve">
+    <value>path</value>
+  </data>
   <data name="toolStripMenuItem32.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -422,10 +425,10 @@
   <data name="toolStripMenuItem32.Text" xml:space="preserve">
     <value>Load project</value>
   </data>
-  <data name="toolStripMenuItem33.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem35.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 22</value>
   </data>
-  <data name="toolStripMenuItem33.Text" xml:space="preserve">
+  <data name="toolStripMenuItem35.Text" xml:space="preserve">
     <value>path</value>
   </data>
   <data name="toolStripMenuItem34.Enabled" type="System.Boolean, mscorlib">
@@ -436,12 +439,6 @@
   </data>
   <data name="toolStripMenuItem34.Text" xml:space="preserve">
     <value>Save project</value>
-  </data>
-  <data name="toolStripMenuItem35.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 22</value>
-  </data>
-  <data name="toolStripMenuItem35.Text" xml:space="preserve">
-    <value>path</value>
   </data>
   <data name="toolStripMenuItem36.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -461,29 +458,17 @@
   <data name="toolStripMenuItem37.Text" xml:space="preserve">
     <value>Calculate the project</value>
   </data>
-  <data name="toolStripMenuItem38.Size" type="System.Drawing.Size, System.Drawing">
-    <value>231, 22</value>
-  </data>
-  <data name="toolStripMenuItem38.Text" xml:space="preserve">
-    <value>Renumber mesh</value>
-  </data>
   <data name="toolStripMenuItem39.Size" type="System.Drawing.Size, System.Drawing">
     <value>145, 22</value>
   </data>
   <data name="toolStripMenuItem39.Text" xml:space="preserve">
     <value>type, number</value>
   </data>
-  <data name="toolStripMenuItem47.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem38.Size" type="System.Drawing.Size, System.Drawing">
     <value>231, 22</value>
   </data>
-  <data name="toolStripMenuItem47.Text" xml:space="preserve">
-    <value>Change node coordinates</value>
-  </data>
-  <data name="toolStripMenuItem48.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
-  </data>
-  <data name="toolStripMenuItem48.Text" xml:space="preserve">
-    <value>Move</value>
+  <data name="toolStripMenuItem38.Text" xml:space="preserve">
+    <value>Renumber mesh</value>
   </data>
   <data name="toolStripMenuItem49.Size" type="System.Drawing.Size, System.Drawing">
     <value>191, 22</value>
@@ -491,23 +476,35 @@
   <data name="toolStripMenuItem49.Text" xml:space="preserve">
     <value>number : vector(a,b,c)</value>
   </data>
+  <data name="toolStripMenuItem48.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 22</value>
+  </data>
+  <data name="toolStripMenuItem48.Text" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="toolStripMenuItem51.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 22</value>
+  </data>
+  <data name="toolStripMenuItem51.Text" xml:space="preserve">
+    <value>number : axis(x,y,z) : angle</value>
+  </data>
   <data name="toolStripMenuItem50.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 22</value>
   </data>
   <data name="toolStripMenuItem50.Text" xml:space="preserve">
     <value>Rotation</value>
   </data>
-  <data name="toolStripMenuItem51.Size" type="System.Drawing.Size, System.Drawing">
-    <value>214, 22</value>
-  </data>
-  <data name="toolStripMenuItem51.Text" xml:space="preserve">
-    <value>number : axis(x,y,z) : angle</value>
-  </data>
-  <data name="изменитьКоToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem47.Size" type="System.Drawing.Size, System.Drawing">
     <value>231, 22</value>
   </data>
-  <data name="изменитьКоToolStripMenuItem.Text" xml:space="preserve">
-    <value>Change mesh coordinates</value>
+  <data name="toolStripMenuItem47.Text" xml:space="preserve">
+    <value>Change node coordinates</value>
+  </data>
+  <data name="векторabcToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 22</value>
+  </data>
+  <data name="векторabcToolStripMenuItem.Text" xml:space="preserve">
+    <value>vector(x,y,z)</value>
   </data>
   <data name="переместитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 22</value>
@@ -515,11 +512,11 @@
   <data name="переместитьToolStripMenuItem.Text" xml:space="preserve">
     <value>Move</value>
   </data>
-  <data name="векторabcToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 22</value>
+  <data name="осьxyzУголToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 22</value>
   </data>
-  <data name="векторabcToolStripMenuItem.Text" xml:space="preserve">
-    <value>vector(x,y,z)</value>
+  <data name="осьxyzУголToolStripMenuItem.Text" xml:space="preserve">
+    <value>axis(x,y,z) : angle</value>
   </data>
   <data name="повернутьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 22</value>
@@ -527,11 +524,47 @@
   <data name="повернутьToolStripMenuItem.Text" xml:space="preserve">
     <value>Повернуть</value>
   </data>
-  <data name="осьxyzУголToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
+  <data name="изменитьКоToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>231, 22</value>
   </data>
-  <data name="осьxyzУголToolStripMenuItem.Text" xml:space="preserve">
-    <value>axis(x,y,z) : angle</value>
+  <data name="изменитьКоToolStripMenuItem.Text" xml:space="preserve">
+    <value>Change mesh coordinates</value>
+  </data>
+  <data name="toolStripMenuItem56.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 22</value>
+  </data>
+  <data name="toolStripMenuItem56.Text" xml:space="preserve">
+    <value>vector(x,y,z)</value>
+  </data>
+  <data name="toolStripMenuItem55.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 22</value>
+  </data>
+  <data name="toolStripMenuItem55.Text" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="toolStripMenuItem58.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
+  </data>
+  <data name="toolStripMenuItem58.Text" xml:space="preserve">
+    <value>angle</value>
+  </data>
+  <data name="toolStripMenuItem57.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 22</value>
+  </data>
+  <data name="toolStripMenuItem57.Text" xml:space="preserve">
+    <value>Повернуть</value>
+  </data>
+  <data name="toolStripMenuItem60.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 22</value>
+  </data>
+  <data name="toolStripMenuItem60.Text" xml:space="preserve">
+    <value>factor</value>
+  </data>
+  <data name="toolStripMenuItem59.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 22</value>
+  </data>
+  <data name="toolStripMenuItem59.Text" xml:space="preserve">
+    <value>Scale</value>
   </data>
   <data name="toolStripMenuItem54.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -542,53 +575,11 @@
   <data name="toolStripMenuItem54.Text" xml:space="preserve">
     <value>Change view</value>
   </data>
-  <data name="toolStripMenuItem55.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 22</value>
-  </data>
-  <data name="toolStripMenuItem55.Text" xml:space="preserve">
-    <value>Move</value>
-  </data>
-  <data name="toolStripMenuItem56.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 22</value>
-  </data>
-  <data name="toolStripMenuItem56.Text" xml:space="preserve">
-    <value>vector(x,y,z)</value>
-  </data>
-  <data name="toolStripMenuItem57.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 22</value>
-  </data>
-  <data name="toolStripMenuItem57.Text" xml:space="preserve">
-    <value>Повернуть</value>
-  </data>
-  <data name="toolStripMenuItem58.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 22</value>
-  </data>
-  <data name="toolStripMenuItem58.Text" xml:space="preserve">
-    <value>angle</value>
-  </data>
-  <data name="toolStripMenuItem59.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 22</value>
-  </data>
-  <data name="toolStripMenuItem59.Text" xml:space="preserve">
-    <value>Scale</value>
-  </data>
-  <data name="toolStripMenuItem60.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 22</value>
-  </data>
-  <data name="toolStripMenuItem60.Text" xml:space="preserve">
-    <value>factor</value>
-  </data>
   <data name="toolStripMenuItem61.Size" type="System.Drawing.Size, System.Drawing">
     <value>231, 22</value>
   </data>
   <data name="toolStripMenuItem61.Text" xml:space="preserve">
     <value>Find free nodes</value>
-  </data>
-  <data name="toolStripMenuItem62.Size" type="System.Drawing.Size, System.Drawing">
-    <value>231, 22</value>
-  </data>
-  <data name="toolStripMenuItem62.Text" xml:space="preserve">
-    <value>Find object</value>
   </data>
   <data name="toolStripMenuItem63.Size" type="System.Drawing.Size, System.Drawing">
     <value>145, 22</value>
@@ -596,17 +587,23 @@
   <data name="toolStripMenuItem63.Text" xml:space="preserve">
     <value>type, number</value>
   </data>
-  <data name="toolStripMenuItem64.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem62.Size" type="System.Drawing.Size, System.Drawing">
     <value>231, 22</value>
   </data>
-  <data name="toolStripMenuItem64.Text" xml:space="preserve">
-    <value>Find matching</value>
+  <data name="toolStripMenuItem62.Text" xml:space="preserve">
+    <value>Find object</value>
   </data>
   <data name="toolStripMenuItem65.Size" type="System.Drawing.Size, System.Drawing">
     <value>108, 22</value>
   </data>
   <data name="toolStripMenuItem65.Text" xml:space="preserve">
     <value>Nodes</value>
+  </data>
+  <data name="toolStripMenuItem64.Size" type="System.Drawing.Size, System.Drawing">
+    <value>231, 22</value>
+  </data>
+  <data name="toolStripMenuItem64.Text" xml:space="preserve">
+    <value>Find matching</value>
   </data>
   <data name="toolStripMenuItem66.Size" type="System.Drawing.Size, System.Drawing">
     <value>231, 22</value>

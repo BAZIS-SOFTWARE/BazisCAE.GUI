@@ -2222,7 +2222,13 @@ Create variable?</value>
   <data name="BaseForm_функцииMenuItem_Click_Functions" xml:space="preserve">
     <value>Functions</value>
   </data>
-  <data name="BaseForm_настройкиToolStripMenuItem_Click_Settings" xml:space="preserve">
+	<data name="BaseForm_настройкиToolStripMenuItem_Click_Settings" xml:space="preserve">
     <value>Settings</value>
+	  </data>
+	<data name="btnSelect_Text_Select" xml:space="preserve">
+    <value>Select</value>
+	  </data>
+  <data name="FailedCreateGeometry" xml:space="preserve">
+    <value>Failed to create geometry</value>
   </data>
 </root>

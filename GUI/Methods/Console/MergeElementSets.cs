@@ -16,25 +16,24 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-   
-        private async void MergeEventSetsEventHandler(object sender, MergeElementSetsEventArgs args)
+        private async void MergeEventSets(string objTypeStr, string masterSet, string slaveSet)
         {
             try
             {
                 // выбор объектов
                 ObjType objType;
-                if (!ObjType.TryParse(args.ObjType, out objType))
+                if (!ObjType.TryParse(objTypeStr, out objType))
                     throw new Exception("Неизвестный тип объектов");
 
-                project.MergeElements(objType, args.MasterSet, args.SlaveSet);
+                project.MergeElements(objType, masterSet, slaveSet);
 
                 PresentMeshData();
 
                 project.SetModelObjectsBackColor(objType);
-                VBOController.DeleteVBObjects(args.SlaveSet);
-                VBOController.DeleteVBObjects(args.MasterSet);
+                VBOController.DeleteVBObjects(slaveSet);
+                VBOController.DeleteVBObjects(masterSet);
 
-                var set = project.GetModelSetInfo(objType, args.MasterSet);
+                var set = project.GetModelSetInfo(objType, masterSet);
                 var pre = project.CreateModelObjectsPresentor(set);
                 var vbo = CreateVBObject(pre);
                 VBOController.AddVbo(vbo);

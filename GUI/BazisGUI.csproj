@@ -94,9 +94,7 @@
     <Compile Update="Clip\ClipControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Console\ConsoleControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Console\ConsoleControl.cs" />
     <Compile Update="DataBases\DataBasePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
