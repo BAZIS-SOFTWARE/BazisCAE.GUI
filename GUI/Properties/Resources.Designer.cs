@@ -409,6 +409,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Select.
+        /// </summary>
+        internal static string btnSelect_Text_Select {
+            get {
+                return ResourceManager.GetString("btnSelect_Text_Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Surface.
         /// </summary>
         internal static string btnSelect_Text_Surfaces {

@@ -2035,4 +2035,7 @@ Create variable?</value>
   <data name="cntrГант_AddConds_UndefinedCondExc" xml:space="preserve">
     <value>Undefiend condition type</value>
   </data>
+  <data name="btnSelect_Text_Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
 </root>
