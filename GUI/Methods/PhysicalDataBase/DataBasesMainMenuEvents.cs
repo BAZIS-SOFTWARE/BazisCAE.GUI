@@ -14,35 +14,18 @@ namespace BazisGUI
         private void материалыMenuItem_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripMenuItem;
-
-            if(btn.Checked)
-                OpenMaterialsDB();
+            var name = "Materials";
+            if (btn.Checked)
+                OpenMaterialsDB(name);
             else
-            {
-                HideTabButton("btnTabМатериалы");
-                splitContainer3.Panel1.Controls.RemoveByKey("cntrМатериалы");
-            }
+                TabButtonsService.RemoveControl(name);
         }
 
-        public void OpenMaterialsDB()
+        public void OpenMaterialsDB(string name)
         {
             try
             {
-                var matBasePage = new MaterialsDataBasePage() 
-                { 
-                    Dock = DockStyle.Fill, 
-                    HeadColor = Color.Gainsboro,
-                    Name = "cntrМатериалы"
-                };
-
-                ShowTabButton("btnTabМатериалы");
-
-                matBasePage.Size = cntrНавигатор.Size;
-                matBasePage.Location = cntrНавигатор.Location;
-                matBasePage.Anchor = cntrНавигатор.Anchor;
-
-                splitContainer3.Panel1.Controls.Add(matBasePage);
-                matBasePage.BringToFront();
+                var matBasePage = new MaterialsDataBasePage() { HeadColor = Color.Gainsboro };
 
                 matBasePage.LoadEvent += () =>
                 {
@@ -67,7 +50,8 @@ namespace BazisGUI
                 matBasePage.PresentMaterials();
                 matBasePage.OnMutationEvent += () => OnChangeMaterials(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
                 OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
-                //matBasePage.Load($@"{project.Path}\{project.MaterialsDB.Name}", false);
+
+                TabButtonsService.AddControl(name, matBasePage);
             }
             catch (Exception ex)
             {
@@ -78,26 +62,20 @@ namespace BazisGUI
         private void функцииMenuItem_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripMenuItem;
+            var name = "Functions";
 
             if (btn.Checked)
-                OpenFunctionsDB();
+                OpenFunctionsDB(name);
             else
-            {
-                HideTabButton("btnTabФункции");
-                splitContainer3.Panel1.Controls.RemoveByKey("cntrФункции");
-            }
+                TabButtonsService.RemoveControl(name);
         }
 
-        public void OpenFunctionsDB()
+        public void OpenFunctionsDB(string name)
         {
             try
             {
-                var funBasePage = new FunctionDataBasePage() 
-                { 
-                    Dock = DockStyle.Fill, 
-                    HeadColor = Color.Gainsboro,
-                    Name = "cntrФункции"
-                };
+                var funBasePage = new FunctionDataBasePage() {  HeadColor = Color.Gainsboro };
+
                 funBasePage.LoadEvent += () =>
                 {
                     if (project == null)
@@ -106,15 +84,6 @@ namespace BazisGUI
                     project.FunctionsDB = funBasePage.Functions;
                     console.PrintInfo($"{Resources.DataBaseMainMenuEvents_OpenDB_Message} {funBasePage.Functions.Name} {Resources.DataBaseMainMenuEvents_OpenDB_SuccessfullyAdded_Message}", Color.Green);
                 };
-
-                ShowTabButton("btnTabФункции");
-
-                funBasePage.Size = cntrНавигатор.Size;
-                funBasePage.Location = cntrНавигатор.Location;
-                funBasePage.Anchor = cntrНавигатор.Anchor;
-
-                splitContainer3.Panel1.Controls.Add(funBasePage);
-                funBasePage.BringToFront();
 
                 if (project == null)
                     return;
@@ -129,6 +98,8 @@ namespace BazisGUI
 
                 funBasePage.OnMutationEvent += () => OnChangeFunctions(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
                 OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
+
+                TabButtonsService.AddControl(name, funBasePage);
             }
             catch (Exception ex)
             {
