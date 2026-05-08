@@ -681,16 +681,10 @@ namespace BazisGUI
             console.HeaderName = "Консоль";
             console.IsPinndable = false;
             console.Name = "console";
+            console.SessionNumber = 4170;
             console.UpColor = System.Drawing.Color.Gainsboro;
-            console.InEvent += console_InEvent;
-            console.FindFreeNodesEvent += console_FindFreeNodesEvent;
-            console.RenumberMeshEvent += console_RenumberMeshEvent;
-            console.ModelShiftCoordinateEvent += console_ModelShiftCoordinateEvent;
-            console.ModelRotateEvent += console_ModelRotateEvent;
-            console.MergeElementSetsEvent += MergeEventSetsEventHandler;
-            console.CreateMesh2DPoligonEvent += console_CreateMesh2DPoligonEvent;
-            console.CreateGeometryEvent += GeometryParserEventHandler;
-            console.ExtrudeEvent += ExtruderParserEventHandler;
+            console.ConsoleCommandEnteredEvent = ExecuteCommand;
+            console.CommandsListRequestedEvent += PrintAllCommands;
             // 
             // menuStrip
             // 

@@ -1,25 +1,21 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace BazisGUI.Utilities
 {
     public static class FieldsParser
     {
         private static readonly char[] stopCharsAr = { ' ', '\"', '\'' };
-        //private static char stopChar;
 
         public static List<string> ParseLine(string line)
         {
             var tokenizedString = new List<string>();
 
-            var ar = line.ToCharArray();
-            var count = ar.Length;
-
             var startIndex = 0;
+
             while (startIndex < line.Length)
             {
                 var nextToken = ReadField(line, startIndex);
@@ -29,9 +25,12 @@ namespace BazisGUI.Utilities
                     tokenizedString.Add(nextToken.Value);
                     startIndex += nextToken.Length;
                 }
-                else { startIndex++; }
+                else
+                {
+                    startIndex++;
+                }
             }
-
+            
             return tokenizedString;
         }
 
@@ -50,16 +49,6 @@ namespace BazisGUI.Utilities
                 default:
                     return ParseFieldWithoutQuotes(line, startIndex);
             }
-        }
-
-        private static Token ParseQuotedField(string line, int startIndex, string quote)
-        {
-            return ParseField(line, startIndex + 1, quote.ToCharArray(), 2);
-        }
-
-        private static Token ParseFieldWithoutQuotes(string line, int startIndex)
-        {
-            return ParseField(line, startIndex, stopCharsAr, 0);
         }
 
         private static Token ParseField(string line, int startIndex, char[] stopChars, int quotesNumber)
@@ -84,14 +73,12 @@ namespace BazisGUI.Utilities
                     }
                     else if (a == '\\' && line[i + 1] == '\'')
                     {
-                        //tokenValue.Append(a);
                         tokenValue.Append('\'');
                         quotesInsideNumber++;
                         i++;
                     }
                     else if (a == '\\' && line[i + 1] == '\"')
                     {
-                        //tokenValue.Append(a);
                         tokenValue.Append('\"');
                         quotesInsideNumber++;
                         i++;
@@ -102,10 +89,10 @@ namespace BazisGUI.Utilities
                 i++;
             }
 
-            return new Token(tokenValue.ToString(), startIndex,
-tokenValue.Length + quotesNumber + quotesInsideNumber + slashScreen);
-
-
+            return new Token(tokenValue.ToString(), startIndex, tokenValue.Length + quotesNumber + quotesInsideNumber + slashScreen);
         }
+
+        private static Token ParseQuotedField(string line, int startIndex, string quote) => ParseField(line, startIndex + 1, quote.ToCharArray(), 2);
+        private static Token ParseFieldWithoutQuotes(string line, int startIndex) => ParseField(line, startIndex, stopCharsAr, 0);
     }
 }
