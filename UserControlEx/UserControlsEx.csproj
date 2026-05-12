@@ -76,6 +76,10 @@
       <DependentUpon>ComboBoxEx.cs</DependentUpon>
     </Compile>
     <Compile Include="ComponentsPainter.cs" />
+    <Compile Include="DataGridViewRowEx.cs" />
+    <Compile Include="DataGridViewRowEx.Designer.cs">
+      <DependentUpon>DataGridViewRowEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Graph\AxisFormat.cs" />
     <Compile Include="Graph\Functions\InterpolationSearch.cs" />
     <Compile Include="Graph\GraphContainer.cs">

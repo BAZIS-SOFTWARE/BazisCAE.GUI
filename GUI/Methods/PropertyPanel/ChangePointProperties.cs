@@ -2,6 +2,7 @@
 using BazisGUI.PropertiesPanel;
 using OperationalController.GmshController;
 using Project.Interfaces.Tasks;
+using System;
 
 namespace BazisGUI
 {
@@ -15,10 +16,12 @@ namespace BazisGUI
 
             //var dimTags = new int[] { 0, number };
             //var meshSize = GmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
-
-            if (obj.Header == "Размер элементов")
-                GmshController.SetSize(number, double.Parse(obj.NewValue));
-
+            if (Enum.TryParse(obj.Key, out PointPropertyKeys key))
+            {
+                if (key == PointPropertyKeys.ElementSize)
+                    GmshController.SetSize(number, double.Parse(obj.NewValue));
+            }
+            
             //GmshController.Gmsh.Model.Mesh.SetSize(dimTags, meshSize[0]);
             //SetMinMaxSizes()
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazisGUI.Properties;
+using System;
 using System.Windows.Forms;
 
 namespace BazisGUI
@@ -10,7 +11,7 @@ namespace BazisGUI
             using (var fileDialog = new OpenFileDialog())
             {
                 fileDialog.Filter = "Python Files|*.py";
-                fileDialog.Title = "Выберите Python файл";
+                fileDialog.Title = Resources.LoadPythonFile_ВыберитеPythonФайл;
 
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                     return fileDialog.FileName;

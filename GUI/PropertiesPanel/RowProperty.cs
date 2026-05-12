@@ -5,17 +5,13 @@ using System.Drawing;
 
 namespace BazisGUI.PropertiesPanel
 {
-
-    //public abstract class RowProperty
-    //{
-    // может быть когда-нибудь понадобиться для обобщения
-    //}
-    public class RowProperty//<T> : RowProperty //where T : IComparable<T> //: DataGridViewRow // Свойства строки
+    public class RowProperty
     {
-        public string Header { get; internal set; } // Заголовок
+        public string Key { get; internal set; }
+        public string LocalizedHeader { get; internal set; } // Заголовок
         public override string ToString()
         {
-            return $"{Header} {Value}";
+            return $"{Key} {LocalizedHeader} {Value}";
         }
         public object Value { get; set; } // Значение
 
@@ -24,23 +20,10 @@ namespace BazisGUI.PropertiesPanel
         public bool IsReadOnly { get; set; }
         public Color Color { get; internal set; } = SystemColors.Control;
 
-        //public bool IsNumericUpDown { get; set; }
-
-        //public bool IsCheckable { get; set; }
-        //public bool IsDropDown 
-        //{
-        //    get { return AvailableValues.Count == 0 ? false : true; }
-        //}
-
-        //public RowProperty(string header, object value,List<string> availableValues) :
-        //    this(header, value)
-        //{
-        //    AvailableValues = availableValues;
-        //}
-
-        public RowProperty(string header, object value, bool isReadOnly = false)
+        public RowProperty(string key, string localizedHeader, object value, bool isReadOnly = false)
         {
-            Header = header;
+            Key = key;
+            LocalizedHeader = localizedHeader;
             Value = value;
             IsReadOnly = isReadOnly;
 

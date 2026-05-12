@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using Model.Interfaces;
 using Model.MeshObjects;
@@ -11,6 +12,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        enum ObjectPropertyKey { Type }
         private void navigator_SelectObjectEvent(string objInfo, int number)
         {
             try
@@ -64,7 +66,7 @@ namespace BazisGUI
             {
                 var rows = new List<RowProperty>();
 
-                rows.Add(new RowProperty("Объект", "Объем", true));
+                rows.Add(new RowProperty(ObjectPropertyKey.Type.ToString(), Resources.Header_object_object, Resources.Header_volume_volume, true));
 
                 rows.AddRange(GetVolProperties(number));
 
@@ -89,35 +91,33 @@ namespace BazisGUI
 
         private void CreateObjectProperties(ObjType objType, int number)
         {
-            var rows = new List<RowProperty>();
+            var rows = new List<RowProperty> { new RowProperty(ObjectPropertyKey.Type.ToString(), "Объект", objType, true) };
 
-            rows.Add(new RowProperty("Объект", objType, true));
+            switch (objType)
+            {
+                case ObjType.Точка:
+                    rows.AddRange(GetPointProperty(number));
+                    break;
 
-            if (objType == ObjType.Точка) 
-            {
-                rows.AddRange(GetPointProperty(number));
-            }
-            else if (objType == ObjType.Узел)
-            {
-                var node = (Node)project.GetModelObject(ObjType.Узел, number);
-                rows.AddRange(GetNodeProperty(node));
-            }
-            else if (objType == ObjType.Элемент1D | objType == ObjType.Элемент2D | objType == ObjType.Элемент3D)
-            {
-                var element = project.GetAllModelElements().First(x => x.Number == number);
-                rows.AddRange(GetElementProperty(element));
-            }
-            else if (objType == ObjType.Кривая) 
-            {
-                rows.AddRange(GetCurveProperties(number));
-            }
-            else if (objType == ObjType.Поверхность)
-            {
-                rows.AddRange(GetSurfaceProperties(number));
+                case ObjType.Узел:
+                    var node = (Node)project.GetModelObject(ObjType.Узел, number);
+                    rows.AddRange(GetNodeProperty(node));
+                    break;
+
+                case ObjType.Кривая:
+                    rows.AddRange(GetCurveProperties(number));
+                    break;
+
+                case ObjType.Элемент1D | ObjType.Элемент2D | ObjType.Элемент3D:
+                    var element = project.GetAllModelElements().First(x => x.Number == number);
+                    rows.AddRange(GetElementProperty(element));
+                    break;
+
+                case ObjType.Поверхность:
+                    rows.AddRange(GetSurfaceProperties(number));
+                    break;
             }
 
-            //rows.Add(new RowProperty("Связанные объекты", new ButtonPropertyValue("Показать", 
-            //    new Action(() => { ShowAdjacencies(objType, number);}))));
             propertiesPanel.DrawTable(rows);
         }
     }

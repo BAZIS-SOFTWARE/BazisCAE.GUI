@@ -3,12 +3,13 @@ using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-
+        enum SelectCompKeys { ApplyForAll }
         private void Navigator_SelectCompEvent(string arg2)
         {
             try
@@ -20,7 +21,7 @@ namespace BazisGUI
                 else
                     isExe = false;
                 List<RowProperty> rows = new List<RowProperty>();
-                rows.Add(new RowProperty("Выполнить", isExe));
+                rows.Add(new RowProperty(CompPropertyKeys.Execute.ToString(), Properties.Resources.Header_comp_Execute, isExe));
                 
                 if (parameters is ChemicalParameters cmp)
                     rows.AddRange(GetPropertyChemicalTask(cmp));
@@ -32,7 +33,7 @@ namespace BazisGUI
                 rows.AddRange(GetPropertySolverSettings(parameters));
                 rows.AddRange(GetPropertyBasic(parameters));
                 rows.AddRange(GetPropertyTimeSettings(parameters));
-                rows.Add(new RowProperty("Применить ко всем", new ButtonPropertyValue("OK", () => ApplySettingsToAllInstructions())));
+                rows.Add(new RowProperty(SelectCompKeys.ApplyForAll.ToString(), Properties.Resources.Header_comp_ApplyForAll, new ButtonPropertyValue(Properties.Resources.OK, () => ApplySettingsToAllInstructions())));
                 propertiesPanel.DrawTable(rows);
             }
             catch (Exception ex)
@@ -48,16 +49,18 @@ namespace BazisGUI
         {
             return new List<RowProperty>
             {
-                new RowProperty("Алгоритм решения", 
+                new RowProperty(CompPropertyKeys.Algorithm.ToString(), Properties.Resources.Header_comp_Algorithm, 
                 new DropDownPropertyValue(parameters.SolverSettings.Solver, 
                 new List<string>() { "Gauss_direct", "SOR_iterative", "CG_iterative" })),
-                new RowProperty("Кол-во итераций решения", parameters.SolverSettings.MaxIter),
-                new RowProperty("Точность решения, у.ед.", parameters.SolverSettings.Precision),
-                new RowProperty("Коэф. релаксации (w)", parameters.SolverSettings.Relaxation),
-                new RowProperty("Max. коэф. релаксации (wm)", parameters.SolverSettings.MaxRelaxation),
-                new RowProperty("Приоритет", 
-                new DropDownPropertyValue(parameters.SolverSettings.Priority, 
-                new List<string>() {"Низкий","НижеСреднего","Средний","ВышеСреднего","Высокий","Наивысший"}))            
+
+                new RowProperty(CompPropertyKeys.SolveIterations.ToString(), Properties.Resources.Header_comp_SolveIterations, parameters.SolverSettings.MaxIter),
+                new RowProperty(CompPropertyKeys.SolveAccuracy.ToString(), Properties.Resources.Header_comp_SolveAccuracy, parameters.SolverSettings.Precision),
+                new RowProperty(CompPropertyKeys.RelaxationCoef.ToString(), Properties.Resources.Header_comp_RelaxationCoef, parameters.SolverSettings.Relaxation),
+                new RowProperty(CompPropertyKeys.MaxRelaxationCoef.ToString(), Properties.Resources.Header_comp_MaxRelaxationCoef, parameters.SolverSettings.MaxRelaxation),
+
+                new RowProperty(CompPropertyKeys.Priority.ToString(), Properties.Resources.Header_comp_Priority, 
+                new DropDownPropertyValue(parameters.SolverSettings.Priority,
+                Enum.GetValues<PriorityKeys>().Select(x => x.ToString()).ToList()))            
             };
         }
 
@@ -65,9 +68,9 @@ namespace BazisGUI
         {
             return new List<RowProperty>
             {
-                new RowProperty("Кол-во итераций на шаге", parameters.Iterations),
-                new RowProperty("Частота сохранений, шаг", parameters.SaveRate),
-                new RowProperty("Начальная температура, C°", parameters.InitTemp)
+                new RowProperty(CompPropertyKeys.IterationOnStep.ToString(), Properties.Resources.Header_comp_IterationsOnStep, parameters.Iterations),
+                new RowProperty(CompPropertyKeys.SaveRate.ToString(), Properties.Resources.Header_comp_SaveRate, parameters.SaveRate),
+                new RowProperty(CompPropertyKeys.InitTemp.ToString(), Properties.Resources.Header_comp_InitTemp, parameters.InitTemp)
             };
         }
 
@@ -75,11 +78,11 @@ namespace BazisGUI
         {
             return new List<RowProperty>
             {
-                new RowProperty("Время начала, сек", parameters.TimeSettings.StartTime),
-                new RowProperty("Время окончания, сек", parameters.TimeSettings.StopTime),
-                new RowProperty("Начальный шаг расчета, сек", parameters.TimeSettings.InitTimeStep),
-                new RowProperty("Минимальный шаг расчета, сек", parameters.TimeSettings.MinTimeStep),
-                new RowProperty("Максимальный шаг расчета, сек", parameters.TimeSettings.MaxTimeStep)
+                new RowProperty(CompPropertyKeys.StartTime.ToString(), Properties.Resources.Header_comp_StartTime, parameters.TimeSettings.StartTime),
+                new RowProperty(CompPropertyKeys.StopTime.ToString(), Properties.Resources.Header_comp_StopTime, parameters.TimeSettings.StopTime),
+                new RowProperty(CompPropertyKeys.InitialSolveStep.ToString(), Properties.Resources.Header_comp_InitialSolveStep, parameters.TimeSettings.InitTimeStep),
+                new RowProperty(CompPropertyKeys.MinSolveStep.ToString(), Properties.Resources.Header_comp_MinSolveStep, parameters.TimeSettings.MinTimeStep),
+                new RowProperty(CompPropertyKeys.MaxSolveStep.ToString(), Properties.Resources.Header_comp_MaxSolveStep, parameters.TimeSettings.MaxTimeStep)
             };
         }
     }

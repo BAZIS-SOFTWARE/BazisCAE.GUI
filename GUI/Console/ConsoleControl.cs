@@ -1,27 +1,18 @@
-﻿using BazisGUI.Console.Enums;
+using BazisGUI.Localization;
 using BazisGUI.PinnedControl;
 using BazisGUI.Properties;
-using BazisGUI.Utilities;
-using IronPython.Runtime.Operations;
-using Microsoft.Scripting.Hosting;
-using Microsoft.Scripting.Hosting.Shell;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static IronPython.Modules.PythonRegex;
-using static System.Windows.Forms.LinkLabel;
 
 namespace BazisGUI.Console
 {
-    public partial class ConsoleControl : PinnedPage
+    public partial class ConsoleControl : PinnedPage, ILocalizableHeaderControl
     {
         public bool CheckPrintElemsInfo { get; set; }
         public bool CheckPrintNodesInfo { get; set; }
@@ -36,6 +27,7 @@ namespace BazisGUI.Console
             }
         }
 
+        public string GetLocalizableHeaderText() => Resources.ConsoleControl_headerName_text;
         public Func<string, Task<int>> ConsoleCommandEnteredEvent;
         public event Action CommandsListRequestedEvent;
         public void NewItem_Click(object obj, EventArgs args)

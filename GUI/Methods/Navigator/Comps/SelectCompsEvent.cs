@@ -1,15 +1,19 @@
 ﻿using BazisGUI.Navigator;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
+        // TODO добавить локализацию tasktype
+        enum TaskTypePropertyKeys { все, термическая, механическая, химическая }
         private void Navigator_SelectCompsEvent()
         {
             try
@@ -19,32 +23,32 @@ namespace BazisGUI
                 foreach (TreeNode item in task[0].Nodes)
                     tasks.Add(item.Text);
 
-                var taskType = new List<string> { "все", "термическая", "механическая", "химическая" };
+                var taskType = Enum.GetValues<TaskTypePropertyKeys>().Select(x => x.ToString()).ToList();
 
                 if (selectInstruction == string.Empty)
                     selectInstruction = taskType[0];
 
                 List<RowProperty> rows = new List<RowProperty>();
-                rows.Add(new RowProperty("Тип", new DropDownPropertyValue(selectInstruction, taskType)));
+                rows.Add(new RowProperty(CompPropertyKeys.Type.ToString(), Resources.Header_comp_Type, new DropDownPropertyValue(selectInstruction, taskType)));
 
                 foreach (var taskName in tasks)
                 {
                     bool isExe;
-                    if (taskName.Split(' ')[2] == "выполнить")
+                    if (taskName.Split(' ')[2] == Resources.Выполнить)
                         isExe = true;
                     else
                         isExe = false;
                     if (selectInstruction == "все")
                     {
                         var name = Path.GetFileName(taskName.Split(' ')[1]);
-                        rows.Add(new RowProperty($"Выполнять {name}", isExe));
+                        rows.Add(new RowProperty(CompPropertyKeys.Execute.ToString(),$"{Resources.Execute} {name}", isExe));
                     }
                     else
                     {
                         if (taskName.Contains(selectInstruction))
                         {
                             var name = Path.GetFileName(taskName.Split(' ')[1]);
-                            rows.Add(new RowProperty($"Выполнять {name}", isExe));
+                            rows.Add(new RowProperty(CompPropertyKeys.Execute.ToString(), $"{Resources.Execute} {name}", isExe));
                         }
                     }
                 }
