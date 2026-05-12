@@ -1,19 +1,11 @@
-﻿using BazisGUI.AdvanceSelection;
-using BazisGUI.Extensions;
-using BazisGUI.Properties;
+﻿using BazisGUI.Properties;
 using BazisGUI.Utilities;
-using MathNet.Numerics.RootFinding;
-using Model.Interfaces;
-using Model.MeshObjects;
-using Model.Utilities;
+//using Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices.JavaScript;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using UserControlsEx;
 
 namespace BazisGUI
 {
@@ -120,7 +112,7 @@ namespace BazisGUI
             {
                 AddObjectsType(SelectionType.Objects);
 
-                foreach (ObjType item in objTypes)
+                foreach (var item in objTypes)
                     AddObjectsType(Converters.ConvertObjTypeToSelectionType(item));
             }
         }

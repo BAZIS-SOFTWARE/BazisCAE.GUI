@@ -329,10 +329,6 @@ namespace BazisGUI
             navigator.DrawNodeFrozen = false;
             navigator.ExpandIndex = 8;
             navigator.HeaderColor = System.Drawing.Color.Black;
-<<<<<<< HEAD
-=======
-            navigator.HeaderName = navigator.GetLocalizableHeaderText();
->>>>>>> origin/Master_Dev_2
             navigator.IsPinndable = false;
             navigator.Name = "navigator";
             navigator.ProjectInfoIndex = 0;
@@ -412,10 +408,6 @@ namespace BazisGUI
             propertiesPanel.BorderStyle = BorderStyle.FixedSingle;
             propertiesPanel.DownColor = System.Drawing.Color.Gainsboro;
             propertiesPanel.HeaderColor = System.Drawing.Color.Black;
-<<<<<<< HEAD
-=======
-            propertiesPanel.HeaderName = propertiesPanel.GetLocalizableHeaderText();
->>>>>>> origin/Master_Dev_2
             propertiesPanel.IsPinndable = false;
             propertiesPanel.Name = "propertiesPanel";
             propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
@@ -684,10 +676,6 @@ namespace BazisGUI
             console.CheckPrintNodesInfo = false;
             console.DownColor = System.Drawing.Color.Gainsboro;
             console.HeaderColor = System.Drawing.Color.Black;
-<<<<<<< HEAD
-=======
-            console.HeaderName = console.GetLocalizableHeaderText();
->>>>>>> origin/Master_Dev_2
             console.IsPinndable = false;
             console.Name = "console";
             console.SessionNumber = 4170;
