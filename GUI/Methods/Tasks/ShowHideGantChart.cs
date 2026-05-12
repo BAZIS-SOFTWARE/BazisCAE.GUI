@@ -14,37 +14,20 @@ namespace BazisGUI
             try
             {
                 var btn = sender as ToolStripMenuItem;
-                if(btn.Checked)
-                    ShowGantChart(project.GetAllCondData());
+                if (btn.Checked)
+                {
+                    var ganttContol = new cntrГант();
+                    ganttContol.AddConds(project.GetAllCondData());
+                    TabButtonsService.AddControl(btn.Text, ganttContol);
+                }
+
                 else
-                    HideGantChart();
+                    TabButtonsService.RemoveControl(btn.Text);
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        private void HideGantChart()
-        {
-            HideTabButton("btnTabГант");
-            splitContainer3.Panel1.Controls.RemoveByKey("cntrГант");
-        
-        }
-
-        public void ShowGantChart(IEnumerable<ICondData> tasks)
-        {
-            var ganttContol = new cntrГант();
-            ganttContol.AddConds(tasks);
-
-            ShowTabButton("btnTabГант");
-
-            ganttContol.Size = cntrНавигатор.Size;
-            ganttContol.Location = cntrНавигатор.Location;
-            ganttContol.Anchor = cntrНавигатор.Anchor;
-            
-            splitContainer3.Panel1.Controls.Add(ganttContol);
-            ganttContol.BringToFront();
         }
     }
 }

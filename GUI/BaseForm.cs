@@ -32,6 +32,7 @@ namespace BazisGUI
 
     public partial class BaseForm : Form
     {
+        public TabButtonControlService TabButtonsService;
         public event Action OnProjectLoaded;
         public event Action<ObjType, int, string> OnGroupCreated;
         public event Action<ObjType, int, string> OnGroupRenamed;
@@ -104,10 +105,11 @@ namespace BazisGUI
             var verStr = $"{Resources.versionWordPrefix} {ver.Major}.{ver.Minor}.{ver.Build}";
             lblVersion.Text = verStr;
 
-            //var config = dataController.LoadConfig();
 
-            //if (config != null)
-            //    settingsConfig = config;
+            // TODO где-то тут нужно добавить все контроллы в TabButtonControlService
+            TabButtonsService = new TabButtonControlService(splitContainer3.Panel1);
+            TabButtonsService.AddControl(Resources.BaseForm_BaseForm_Load_Navigator, cntrНавигатор);
+
 
             SetGeneralSettings();
             DisplayObjects();
@@ -125,6 +127,10 @@ namespace BazisGUI
 
             InitializeComponent();
 
+            propertiesPanel.HeaderName = propertiesPanel.GetLocalizableHeaderText();
+            navigator.HeaderName = navigator.GetLocalizableHeaderText();
+            console.HeaderName = console.GetLocalizableHeaderText();
+
             cntrНавигатор.SplitterWidth = 8;
             splitContainer2.SplitterWidth = 8;
             splitContainer3.SplitterWidth = 8;
@@ -134,7 +140,6 @@ namespace BazisGUI
             //scene.InitializeContexts();
             //Gle.Load();//Это скорее всего больше не понадобится
             scene.Load += SceneInitialization;//Это конвертировалось в событие scene.Load!
-
             Shown += (arg1, arg2) => HandleArgs(args);
         }
 
@@ -232,7 +237,7 @@ namespace BazisGUI
         {
             try
             {
-                var intervals = settingsConfig.Scale_Intervals;
+                var intervals = settingsConfig.Scale_Intervals == 0 ? 2 : settingsConfig.Scale_Intervals;
                 var min = settingsConfig.Scale_MinValue;
                 var max = settingsConfig.Scale_MaxValue;
                 var pre = settingsConfig.Scale_Precision;

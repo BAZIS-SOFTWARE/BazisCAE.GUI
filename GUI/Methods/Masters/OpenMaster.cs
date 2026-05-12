@@ -38,29 +38,7 @@ namespace BazisGUI
 
             HandleBaseMaster(master);
 
-            var btnName = $"btnTab{master.MasterName}";
-            if (!splitContainer3.Panel1.Controls.ContainsKey(btnName))
-            {
-                var btn = new Button()
-                {
-                    FlatStyle = FlatStyle.Flat,
-                    Margin = new Padding(0, 0, 3, 3),
-                    Name = $"btnTab{master.MasterName}",
-                    Size = new System.Drawing.Size(27, 130),
-                    TabIndex = 1,
-                    Tag = "True",
-                    UseVisualStyleBackColor = true,
-                    Visible = true,
-                };
-                btn.Paint += buttonTab_Paint;
-                btn.MouseDown += button_MouseDown;
-                splitContainer3.Panel1.Controls.Add(btn);
-            }
-
-            splitContainer3.Panel1.Controls.Add(master);
-
-            ShowTabButton(btnName);
-            master.BringToFront();
+            TabButtonsService.AddControl(master.Name, master);
         }
     }
 }

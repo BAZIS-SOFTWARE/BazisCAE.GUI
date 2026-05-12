@@ -2213,6 +2213,18 @@ Create variable?</value>
   <data name="cntrГант_AddConds_UndefinedCondExc" xml:space="preserve">
     <value>Undefiend condition type</value>
   </data>
+  <data name="BaseForm_BaseForm_Load_Navigator" xml:space="preserve">
+    <value>Navigator</value>
+  </data>
+  <data name="BaseForm_материалыMenuItem_Click_Materials" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="BaseForm_функцииMenuItem_Click_Functions" xml:space="preserve">
+    <value>Functions</value>
+  </data>
+	<data name="BaseForm_настройкиToolStripMenuItem_Click_Settings" xml:space="preserve">
+    <value>Settings</value>
+	  </data>
 	<data name="btnSelect_Text_Select" xml:space="preserve">
     <value>Select</value>
 	  </data>

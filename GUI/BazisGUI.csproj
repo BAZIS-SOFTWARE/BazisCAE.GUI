@@ -142,12 +142,6 @@
     <Compile Update="Methods\Scene\DisplayBoundingBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Methods\TabPageButton\AddRemoveTabPage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Methods\TabPageButton\SelectTabPage.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Navigator\NavigatorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

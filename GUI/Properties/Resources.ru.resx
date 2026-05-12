@@ -2038,6 +2038,18 @@
   <data name="cntrГант_AddConds_UndefinedCondExc" xml:space="preserve">
     <value>Не определен тип граничных условий</value>
   </data>
+  <data name="BaseForm_BaseForm_Load_Navigator" xml:space="preserve">
+    <value>Навигатор</value>
+  </data>
+  <data name="BaseForm_материалыMenuItem_Click_Materials" xml:space="preserve">
+    <value>Материалы</value>
+  </data>
+  <data name="BaseForm_функцииMenuItem_Click_Functions" xml:space="preserve">
+    <value>Функции</value>
+  </data>
+  <data name="BaseForm_настройкиToolStripMenuItem_Click_Settings" xml:space="preserve">
+    <value>Настройки</value>
+	  </data>
   <data name="btnSelect_Text_Select" xml:space="preserve">
     <value>Выбрать</value>
   </data>
