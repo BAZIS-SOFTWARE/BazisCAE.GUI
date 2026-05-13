@@ -27,6 +27,9 @@ namespace BazisGUI
             {
                 var matBasePage = new MaterialsDataBasePage() { HeadColor = Color.Gainsboro };
 
+                if (project == null)
+                    return;
+
                 matBasePage.LoadEvent += () =>
                 {
                     if (project == null)
@@ -36,8 +39,16 @@ namespace BazisGUI
                     console.PrintInfo($"{Resources.DataBaseMainMenuEvents_OpenDB_Message} {matBasePage.Materials.Name} {Resources.DataBaseMainMenuEvents_OpenDB_SuccessfullyAdded_Message}", Color.Green);
                 };
 
-                if (project == null)
-                    return;
+                OnProjectLoaded += () =>
+                {
+                    matBasePage.Materials = project.MaterialsDB;
+                    matBasePage.PresentMaterials();
+                    OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
+                };
+
+                matBasePage.OnMutationEvent += () => OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
+                OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
+
 
                 // Проект без базы здесь не существует. При его создании она берется по-умолчанию
 
@@ -49,8 +60,8 @@ namespace BazisGUI
                     matBasePage.PresentMaterials();
                 }
 
-                matBasePage.OnMutationEvent += () => OnChangeMaterials(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
-                OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
+                matBasePage.OnMutationEvent += () => OnChangeMaterials(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
+                //OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
 
                 TabButtonsService.AddControl(name, matBasePage);
             }
@@ -75,7 +86,10 @@ namespace BazisGUI
         {
             try
             {
-                var funBasePage = new FunctionDataBasePage() {  HeadColor = Color.Gainsboro };
+                var funBasePage = new FunctionDataBasePage() { HeadColor = Color.Gainsboro };
+
+                if (project == null)
+                    return;
 
                 funBasePage.LoadEvent += () =>
                 {
@@ -86,8 +100,12 @@ namespace BazisGUI
                     console.PrintInfo($"{Resources.DataBaseMainMenuEvents_OpenDB_Message} {funBasePage.Functions.Name} {Resources.DataBaseMainMenuEvents_OpenDB_SuccessfullyAdded_Message}", Color.Green);
                 };
 
-                if (project == null)
-                    return;
+                OnProjectLoaded += () =>
+                {
+                    funBasePage.Functions = project.FunctionsDB;
+                    funBasePage.PresentFunctions();
+                    OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
+                };
 
                 if (project.FunctionsDB == null)
                     console.PrintInfo(Resources.DataBaseMainMenuEvents_OpenFuncDB_DBNotLoaded_Message, Color.Red);
@@ -96,8 +114,9 @@ namespace BazisGUI
                     funBasePage.Functions = project.FunctionsDB;
                     funBasePage.PresentFunctions();
                 }
-                funBasePage.OnMutationEvent += () => OnChangeFunctions(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
-                OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
+
+                funBasePage.OnMutationEvent += () => OnChangeFunctions(this, new ChangeFunctionsEventArgs(project?.FunctionsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
+                //OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
 
                 TabButtonsService.AddControl(name, funBasePage);
             }
