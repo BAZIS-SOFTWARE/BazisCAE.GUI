@@ -39,6 +39,8 @@ namespace BazisGUI
                     console.PrintInfo($"{Resources.DataBaseMainMenuEvents_OpenDB_Message} {matBasePage.Materials.Name} {Resources.DataBaseMainMenuEvents_OpenDB_SuccessfullyAdded_Message}", Color.Green);
                 };
 
+                matBasePage.OnMutationEvent += () => OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
+
                 OnProjectLoaded += () =>
                 {
                     matBasePage.Materials = project.MaterialsDB;
@@ -46,12 +48,7 @@ namespace BazisGUI
                     OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
                 };
 
-                matBasePage.OnMutationEvent += () => OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
-                OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
-
-
                 // Проект без базы здесь не существует. При его создании она берется по-умолчанию
-
                 if (project.MaterialsDB == null)
                     console.PrintInfo(Resources.DataBaseMainMenuEvents_OpenMatDB_DBNotLoaded_Message, Color.Red);
                 else
@@ -60,9 +57,7 @@ namespace BazisGUI
                     matBasePage.PresentMaterials();
                 }
 
-                matBasePage.OnMutationEvent += () => OnChangeMaterials(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
-                //OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
-
+                OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
                 TabButtonsService.AddControl(name, matBasePage);
             }
             catch (Exception ex)
@@ -100,12 +95,15 @@ namespace BazisGUI
                     console.PrintInfo($"{Resources.DataBaseMainMenuEvents_OpenDB_Message} {funBasePage.Functions.Name} {Resources.DataBaseMainMenuEvents_OpenDB_SuccessfullyAdded_Message}", Color.Green);
                 };
 
+                funBasePage.OnMutationEvent += () => OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project?.FunctionsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
+
                 OnProjectLoaded += () =>
                 {
                     funBasePage.Functions = project.FunctionsDB;
                     funBasePage.PresentFunctions();
                     OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
                 };
+
 
                 if (project.FunctionsDB == null)
                     console.PrintInfo(Resources.DataBaseMainMenuEvents_OpenFuncDB_DBNotLoaded_Message, Color.Red);
@@ -115,9 +113,7 @@ namespace BazisGUI
                     funBasePage.PresentFunctions();
                 }
 
-                funBasePage.OnMutationEvent += () => OnChangeFunctions(this, new ChangeFunctionsEventArgs(project?.FunctionsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
-                //OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
-
+                OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project?.FunctionsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
                 TabButtonsService.AddControl(name, funBasePage);
             }
             catch (Exception ex)
