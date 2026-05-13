@@ -127,9 +127,7 @@
     <Compile Update="Methods\Console\MergeElementSets.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Methods\Console\NodesShiftCoordinate.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Methods\Console\NodesShiftCoordinate.cs" />
     <Compile Update="Methods\License\LicenseModule.cs">
       <SubType>Form</SubType>
     </Compile>

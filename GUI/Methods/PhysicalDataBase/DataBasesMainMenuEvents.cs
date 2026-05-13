@@ -42,12 +42,13 @@ namespace BazisGUI
                 // Проект без базы здесь не существует. При его создании она берется по-умолчанию
 
                 if (project.MaterialsDB == null)
-                {
                     console.PrintInfo(Resources.DataBaseMainMenuEvents_OpenMatDB_DBNotLoaded_Message, Color.Red);
-                    return;
+                else
+                {
+                    matBasePage.Materials = project.MaterialsDB;
+                    matBasePage.PresentMaterials();
                 }
-                matBasePage.Materials = project.MaterialsDB;
-                matBasePage.PresentMaterials();
+
                 matBasePage.OnMutationEvent += () => OnChangeMaterials(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
                 OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
 
@@ -89,13 +90,12 @@ namespace BazisGUI
                     return;
 
                 if (project.FunctionsDB == null)
-                {
                     console.PrintInfo(Resources.DataBaseMainMenuEvents_OpenFuncDB_DBNotLoaded_Message, Color.Red);
-                    return;
+                else
+                {
+                    funBasePage.Functions = project.FunctionsDB;
+                    funBasePage.PresentFunctions();
                 }
-                funBasePage.Functions = project.FunctionsDB;
-                funBasePage.PresentFunctions();
-
                 funBasePage.OnMutationEvent += () => OnChangeFunctions(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
                 OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
 
