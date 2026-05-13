@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace BazisGUI.Console
 {
-    public partial class ConsoleControl : PinnedPage, ILocalizableHeaderControl
+    public partial class ConsoleControl : PinnedPage//, ILocalizableHeaderControl
     {
         public bool CheckPrintElemsInfo { get; set; }
         public bool CheckPrintNodesInfo { get; set; }
@@ -27,7 +27,6 @@ namespace BazisGUI.Console
             }
         }
 
-        public string GetLocalizableHeaderText() => Resources.ConsoleControl_headerName_text;
         public Func<string, Task<int>> ConsoleCommandEnteredEvent;
         public event Action CommandsListRequestedEvent;
         public void NewItem_Click(object obj, EventArgs args)

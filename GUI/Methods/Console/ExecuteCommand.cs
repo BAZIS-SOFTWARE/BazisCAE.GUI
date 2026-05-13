@@ -135,7 +135,7 @@ namespace BazisGUI
                         FindVolElems(cmds[1]);
                         break;
                     case GenCmd.FindCoincident:
-                        if (cmds[1] == Resources.FindCoincidentOption)
+                        if (cmds[1] == "nodes")
                             await FindCoincidentNodes(float.Parse(cmds[2]));
                         break;
                     case GenCmd.BeamConnection:

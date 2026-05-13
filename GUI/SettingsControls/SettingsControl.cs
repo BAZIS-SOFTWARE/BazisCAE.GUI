@@ -9,7 +9,7 @@ using BazisGUI.Properties;
 
 namespace BazisGUI.SettingsControls
 {
-    public partial class SettingsControl : UserControl, ILocalizableHeaderControl
+    public partial class SettingsControl : UserControl//, ILocalizableHeaderControl
     {
         enum Culture { en, ru }
         //public event Action SaveSettingsEvent;
@@ -45,7 +45,7 @@ namespace BazisGUI.SettingsControls
             cmbLanguage.Items.AddRange(Enum.GetValues<Culture>().Select(GetLanguageByCulture).ToArray());
         }
 
-        public string GetLocalizableHeaderText() => Resources.SettingsControl_headerName_text;
+        //public string GetLocalizableHeaderText() => 
 
         public void SetSettings(SettingsConfig settingsConfig)
         {

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using BazisGUI.Properties;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BazisGUI.PropertiesPanel
@@ -57,7 +58,6 @@ namespace BazisGUI.PropertiesPanel
             // PropertiesPanelControl
             // 
             resources.ApplyResources(this, "$this");
-            HeaderName = GetLocalizableHeaderText();
             AutoScaleMode = AutoScaleMode.Inherit;
             BackColor = SystemColors.ControlLight;
             BorderStyle = BorderStyle.FixedSingle;

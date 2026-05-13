@@ -37,23 +37,13 @@ namespace BazisGUI
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             toolStripContainer = new ToolStripContainer();
             statusStrip = new StatusStrip();
             lblStatus = new ToolStripStatusLabel();
             lblVersion = new ToolStripStatusLabel();
             webPageLabel = new ToolStripStatusLabel();
             splitContainer3 = new UserControlsEx.SplitContainerEx();
-            btnTabНастройки = new Button();
-            btnTabГант = new Button();
-            btnTabФункции = new Button();
-            btnTabМатериалы = new Button();
-            btnTabНавигатор = new Button();
-            cntrНавигатор = new UserControlsEx.SplitContainerEx();
-            navigator = new NavigatorControl();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            checkPlayerControl = new BazisGUI.Player.PlayerControl();
-            propertiesPanel = new BazisGUI.PropertiesPanel.PropertiesPanelControl();
             splitContainer2 = new UserControlsEx.SplitContainerEx();
             btnSelect = new Button();
             btnDisplayStates = new Button();
@@ -141,6 +131,16 @@ namespace BazisGUI
             опрограммеToolStripMenuItem = new ToolStripMenuItem();
             лицензияToolStripMenuItem = new ToolStripMenuItem();
             сведенияMenuItem = new ToolStripMenuItem();
+            cntrНавигатор = new UserControlsEx.SplitContainerEx();
+            navigator = new NavigatorControl();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            checkPlayerControl = new BazisGUI.Player.PlayerControl();
+            propertiesPanel = new BazisGUI.PropertiesPanel.PropertiesPanelControl();
+            btnTabНастройки = new Button();
+            btnTabГант = new Button();
+            btnTabФункции = new Button();
+            btnTabМатериалы = new Button();
+            btnTabНавигатор = new Button();
             contextMenu = new ContextMenuStrip(components);
             создатьГруппуItem = new ToolStripMenuItem();
             скрытьВыбранноеItem = new ToolStripMenuItem();
@@ -155,19 +155,18 @@ namespace BazisGUI
             toolStripContainer.SuspendLayout();
             statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer3).BeginInit();
-            splitContainer3.Panel1.SuspendLayout();
             splitContainer3.Panel2.SuspendLayout();
             splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)cntrНавигатор).BeginInit();
-            cntrНавигатор.Panel1.SuspendLayout();
-            cntrНавигатор.Panel2.SuspendLayout();
-            cntrНавигатор.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
             splitContainer2.Panel1.SuspendLayout();
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
             menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)cntrНавигатор).BeginInit();
+            cntrНавигатор.Panel1.SuspendLayout();
+            cntrНавигатор.Panel2.SuspendLayout();
+            cntrНавигатор.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             contextMenu.SuspendLayout();
             SuspendLayout();
             // 
@@ -243,175 +242,12 @@ namespace BazisGUI
             // splitContainer3.Panel1
             // 
             resources.ApplyResources(splitContainer3.Panel1, "splitContainer3.Panel1");
-            //splitContainer3.Panel1.Controls.Add(btnTabНастройки);
-            //splitContainer3.Panel1.Controls.Add(btnTabГант);
-            //splitContainer3.Panel1.Controls.Add(btnTabФункции);
-            //splitContainer3.Panel1.Controls.Add(btnTabМатериалы);
-            //splitContainer3.Panel1.Controls.Add(btnTabНавигатор);
-            //splitContainer3.Panel1.Controls.Add(cntrНавигатор);
             // 
             // splitContainer3.Panel2
             // 
             resources.ApplyResources(splitContainer3.Panel2, "splitContainer3.Panel2");
             splitContainer3.Panel2.Controls.Add(splitContainer2);
             splitContainer3.SwitchShifting = false;
-            // 
-            // btnTabНастройки
-            // 
-            resources.ApplyResources(btnTabНастройки, "btnTabНастройки");
-            btnTabНастройки.Name = "btnTabНастройки";
-            btnTabНастройки.Tag = "True";
-            btnTabНастройки.UseVisualStyleBackColor = true;
-            //btnTabНастройки.Paint += buttonTab_Paint;
-            //btnTabНастройки.MouseDown += button_MouseDown;
-            // 
-            // btnTabГант
-            // 
-            resources.ApplyResources(btnTabГант, "btnTabГант");
-            btnTabГант.Name = "btnTabГант";
-            btnTabГант.Tag = "True";
-            btnTabГант.UseVisualStyleBackColor = true;
-            //btnTabГант.Paint += buttonTab_Paint;
-            //btnTabГант.MouseDown += button_MouseDown;
-            // 
-            // btnTabФункции
-            // 
-            resources.ApplyResources(btnTabФункции, "btnTabФункции");
-            btnTabФункции.Name = "btnTabФункции";
-            btnTabФункции.Tag = "True";
-            btnTabФункции.UseVisualStyleBackColor = true;
-            //btnTabФункции.Paint += buttonTab_Paint;
-            //btnTabФункции.MouseDown += button_MouseDown;
-            // 
-            // btnTabМатериалы
-            // 
-            resources.ApplyResources(btnTabМатериалы, "btnTabМатериалы");
-            btnTabМатериалы.Name = "btnTabМатериалы";
-            btnTabМатериалы.Tag = "True";
-            btnTabМатериалы.UseVisualStyleBackColor = true;
-            //btnTabМатериалы.Paint += buttonTab_Paint;
-            //btnTabМатериалы.MouseDown += button_MouseDown;
-            // 
-            // btnTabНавигатор
-            // 
-            resources.ApplyResources(btnTabНавигатор, "btnTabНавигатор");
-            btnTabНавигатор.Name = "btnTabНавигатор";
-            btnTabНавигатор.Tag = "True";
-            btnTabНавигатор.UseVisualStyleBackColor = true;
-            //btnTabНавигатор.Paint += buttonTab_Paint;
-            //btnTabНавигатор.MouseDown += button_MouseDown;
-            // 
-            // cntrНавигатор
-            // 
-            resources.ApplyResources(cntrНавигатор, "cntrНавигатор");
-            cntrНавигатор.IncrementButtonSize = new System.Drawing.Size(50, 5);
-            cntrНавигатор.IncrementShifting = 50;
-            cntrНавигатор.Name = "cntrНавигатор";
-            // 
-            // cntrНавигатор.Panel1
-            // 
-            resources.ApplyResources(cntrНавигатор.Panel1, "cntrНавигатор.Panel1");
-            cntrНавигатор.Panel1.Controls.Add(navigator);
-            // 
-            // cntrНавигатор.Panel2
-            // 
-            resources.ApplyResources(cntrНавигатор.Panel2, "cntrНавигатор.Panel2");
-            cntrНавигатор.Panel2.Controls.Add(tableLayoutPanel1);
-            cntrНавигатор.SwitchShifting = false;
-            // 
-            // navigator
-            // 
-            resources.ApplyResources(navigator, "navigator");
-            navigator.BackColor = System.Drawing.Color.Gainsboro;
-            navigator.BorderStyle = BorderStyle.FixedSingle;
-            navigator.CollapseIndex = 7;
-            navigator.DownColor = System.Drawing.Color.Gainsboro;
-            navigator.DrawNodeFrozen = false;
-            navigator.ExpandIndex = 8;
-            navigator.HeaderColor = System.Drawing.Color.Black;
-            navigator.IsPinndable = false;
-            navigator.Name = "navigator";
-            navigator.ProjectInfoIndex = 0;
-            navigator.UpColor = System.Drawing.Color.Gainsboro;
-            navigator.HideResultsEvent += navigator_HideResultsEvent;
-            navigator.RemoveResultsEvent += navigator_RemoveResultsEvent;
-            navigator.RemoveAllConditionsEvent += navigator_RemoveAllConditionsEvent;
-            navigator.DelAllGroupsEvent += navigator_DelAllGroupsEvent;
-            navigator.ShowAllGroupsEvent += navigator_ShowAllGroupsEvent;
-            navigator.HideAllGroupsEvent += navigator_HideAllGroupsEvent;
-            navigator.ChangeAllGeoViewStateEvent += navigator_ChangeAllObjectsViewStateEvent;
-            navigator.DelAllGeoEvent += navigator_DelAllObjectsEvent;
-            navigator.DelAllMeshEvent += navigator_DelAllObjectsEvent;
-            navigator.ChangeAllMeshViewStateEvent += navigator_ChangeAllObjectsViewStateEvent;
-            navigator.ShowSetEvent += navigator_ShowSetEvent;
-            navigator.HideSetEvent += navigator_HideSetEvent;
-            navigator.DelSetEvent += navigator_DelSetEvent;
-            navigator.SelectSetEvent += navigator_SelectSetEvent;
-            navigator.GetSetsInfoEvent += navigator_GetSetsInfoEvent;
-            navigator.SelectGroupEvent += navigator_SelectGroupEvent;
-            navigator.DelGroupEvent += navigator_DelGroupEvent;
-            navigator.HideGroupEvent += navigator_HideGroupEvent;
-            navigator.ShowGroupEvent += navigator_ShowGroupEvent;
-            navigator.EditGroupEvent += EditGroup;
-            navigator.InfoGroupEvent += navigator_InfoGroupEvent;
-            navigator.GetObjectsInfoEvent += navigator_GetObjectsInfoEvent;
-            navigator.SelectObjectEvent += navigator_SelectObjectEvent;
-            navigator.DelObjectEvent += navigator_DelObjectEvent;
-            navigator.ShowObjectEvent += navigator_ShowObjectEvent;
-            navigator.HideObjectEvent += navigator_HideObjectEvent;
-            navigator.SelectCondEvent += Navigator_SelectCondEvent;
-            navigator.SelectTaskEvent += navigator_SelectTaskEvent;
-            navigator.SelectGeoEvent += navigator_SelectGeoEvent;
-            navigator.SelectMeshEvent += navigator_SelectMeshEvent;
-            navigator.SelectResultsEvent += navigator_SelectResultsEvent;
-            navigator.SelectCompEvent += Navigator_SelectCompEvent;
-            navigator.SelectCompsEvent += Navigator_SelectCompsEvent;
-            navigator.SelectGeneralInfoEvent += navigator_SelectGeneralInfoEvent;
-            navigator.SelectTimeEvent += navigator_SelectTimeEvent;
-            navigator.SelectResultEvent += navigator_SelectResultEvent;
-            navigator.GetResultInfoEvent += navigator_GetResultInfoEvent;
-            navigator.DelCondEvent += navigator_DelCondEvent;
-            navigator.ControlCollapseEvent += navigator_ControlCollapseEvent;
-            // 
-            // tableLayoutPanel1
-            // 
-            resources.ApplyResources(tableLayoutPanel1, "tableLayoutPanel1");
-            tableLayoutPanel1.Controls.Add(checkPlayerControl, 0, 1);
-            tableLayoutPanel1.Controls.Add(propertiesPanel, 0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
-            // checkPlayerControl
-            // 
-            resources.ApplyResources(checkPlayerControl, "checkPlayerControl");
-            checkPlayerControl.BorderStyle = BorderStyle.FixedSingle;
-            checkPlayerControl.Cancelation = false;
-            checkPlayerControl.CheckState = Player.CheckState.start;
-            checkPlayerControl.CurrentValue = 50;
-            checkPlayerControl.Name = "checkPlayerControl";
-            checkPlayerControl.ShowTextValue = true;
-            checkPlayerControl.SliderBarInnerColor = System.Drawing.Color.Silver;
-            checkPlayerControl.SliderBarOuterColor = System.Drawing.Color.Silver;
-            checkPlayerControl.SliderElapsedInnerColor = System.Drawing.Color.Silver;
-            checkPlayerControl.SliderElapsedOuterColor = System.Drawing.Color.Silver;
-            checkPlayerControl.SpeedValue = 500;
-            checkPlayerControl.StartValue = 0;
-            checkPlayerControl.StopValue = 100;
-            checkPlayerControl.TextValueColor = System.Drawing.Color.Black;
-            checkPlayerControl.CheckingEvent += CheckPlayerControl_CheckingEvent;
-            checkPlayerControl.StopCheckingEvent += CheckPlayerControl_StopCheckingEvent;
-            checkPlayerControl.StartCheckingEvent += CheckPlayerControl_StartCheckingEvent;
-            // 
-            // propertiesPanel
-            // 
-            resources.ApplyResources(propertiesPanel, "propertiesPanel");
-            propertiesPanel.BackColor = System.Drawing.SystemColors.ControlLight;
-            propertiesPanel.BorderStyle = BorderStyle.FixedSingle;
-            propertiesPanel.DownColor = System.Drawing.Color.Gainsboro;
-            propertiesPanel.HeaderColor = System.Drawing.Color.Black;
-            propertiesPanel.IsPinndable = false;
-            propertiesPanel.Name = "propertiesPanel";
-            propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
-            propertiesPanel.PropertyUpdateEvent += PropertiesPanel_OnPropertyUpdate;
             // 
             // splitContainer2
             // 
@@ -484,24 +320,24 @@ namespace BazisGUI
             sceneImageList.ColorDepth = ColorDepth.Depth8Bit;
             sceneImageList.ImageStream = (ImageListStreamer)resources.GetObject("sceneImageList.ImageStream");
             sceneImageList.TransparentColor = System.Drawing.Color.Transparent;
-            sceneImageList.Images.SetKeyName(0, "вп 12.png");
-            sceneImageList.Images.SetKeyName(1, "вп 25.png");
-            sceneImageList.Images.SetKeyName(2, "вп 26.png");
-            sceneImageList.Images.SetKeyName(3, "вп 27.png");
-            sceneImageList.Images.SetKeyName(4, "вп 28.png");
-            sceneImageList.Images.SetKeyName(5, "вп 29.png");
-            sceneImageList.Images.SetKeyName(6, "вп 30.png");
-            sceneImageList.Images.SetKeyName(7, "вп 31.png");
-            sceneImageList.Images.SetKeyName(8, "вп 32.png");
-            sceneImageList.Images.SetKeyName(9, "вп 16.png");
-            sceneImageList.Images.SetKeyName(10, "вп 17.png");
-            sceneImageList.Images.SetKeyName(11, "вп 18.png");
-            sceneImageList.Images.SetKeyName(12, "вп 21.png");
-            sceneImageList.Images.SetKeyName(13, "вп 24.png");
-            sceneImageList.Images.SetKeyName(14, "вп 33.png");
-            sceneImageList.Images.SetKeyName(15, "вп 19.png");
-            sceneImageList.Images.SetKeyName(16, "вп 21.png");
-            sceneImageList.Images.SetKeyName(17, "вп 14.png");
+            sceneImageList.Images.SetKeyName(0, "");
+            sceneImageList.Images.SetKeyName(1, "");
+            sceneImageList.Images.SetKeyName(2, "");
+            sceneImageList.Images.SetKeyName(3, "");
+            sceneImageList.Images.SetKeyName(4, "");
+            sceneImageList.Images.SetKeyName(5, "");
+            sceneImageList.Images.SetKeyName(6, "");
+            sceneImageList.Images.SetKeyName(7, "");
+            sceneImageList.Images.SetKeyName(8, "");
+            sceneImageList.Images.SetKeyName(9, "");
+            sceneImageList.Images.SetKeyName(10, "");
+            sceneImageList.Images.SetKeyName(11, "");
+            sceneImageList.Images.SetKeyName(12, "");
+            sceneImageList.Images.SetKeyName(13, "");
+            sceneImageList.Images.SetKeyName(14, "");
+            sceneImageList.Images.SetKeyName(15, "");
+            sceneImageList.Images.SetKeyName(16, "");
+            sceneImageList.Images.SetKeyName(17, "");
             // 
             // btnRotHor90
             // 
@@ -676,12 +512,13 @@ namespace BazisGUI
             console.CheckPrintNodesInfo = false;
             console.DownColor = System.Drawing.Color.Gainsboro;
             console.HeaderColor = System.Drawing.Color.Black;
+            console.HeaderName = "Console";
             console.IsPinndable = false;
             console.Name = "console";
-            console.SessionNumber = 4170;
+            console.SessionNumber = 9649;
             console.UpColor = System.Drawing.Color.Gainsboro;
-            console.ConsoleCommandEnteredEvent = ExecuteCommand;
             console.CommandsListRequestedEvent += PrintAllCommands;
+            console.ConsoleCommandEnteredEvent = ExecuteCommand;
             // 
             // menuStrip
             // 
@@ -1061,6 +898,155 @@ namespace BazisGUI
             сведенияMenuItem.Name = "сведенияMenuItem";
             сведенияMenuItem.Click += сведенияMenuItem_Click;
             // 
+            // cntrНавигатор
+            // 
+            resources.ApplyResources(cntrНавигатор, "cntrНавигатор");
+            cntrНавигатор.IncrementButtonSize = new System.Drawing.Size(50, 5);
+            cntrНавигатор.IncrementShifting = 50;
+            cntrНавигатор.Name = "cntrНавигатор";
+            // 
+            // cntrНавигатор.Panel1
+            // 
+            resources.ApplyResources(cntrНавигатор.Panel1, "cntrНавигатор.Panel1");
+            cntrНавигатор.Panel1.Controls.Add(navigator);
+            // 
+            // cntrНавигатор.Panel2
+            // 
+            resources.ApplyResources(cntrНавигатор.Panel2, "cntrНавигатор.Panel2");
+            cntrНавигатор.Panel2.Controls.Add(tableLayoutPanel1);
+            cntrНавигатор.SwitchShifting = false;
+            // 
+            // navigator
+            // 
+            resources.ApplyResources(navigator, "navigator");
+            navigator.BackColor = System.Drawing.Color.Gainsboro;
+            navigator.BorderStyle = BorderStyle.FixedSingle;
+            navigator.CollapseIndex = 7;
+            navigator.DownColor = System.Drawing.Color.Gainsboro;
+            navigator.DrawNodeFrozen = false;
+            navigator.ExpandIndex = 8;
+            navigator.HeaderColor = System.Drawing.Color.Black;
+            navigator.HeaderName = "Навигатор";
+            navigator.IsPinndable = false;
+            navigator.Name = "navigator";
+            navigator.ProjectInfoIndex = 0;
+            navigator.UpColor = System.Drawing.Color.Gainsboro;
+            navigator.HideResultsEvent += navigator_HideResultsEvent;
+            navigator.RemoveResultsEvent += navigator_RemoveResultsEvent;
+            navigator.RemoveAllConditionsEvent += navigator_RemoveAllConditionsEvent;
+            navigator.DelAllGroupsEvent += navigator_DelAllGroupsEvent;
+            navigator.ShowAllGroupsEvent += navigator_ShowAllGroupsEvent;
+            navigator.HideAllGroupsEvent += navigator_HideAllGroupsEvent;
+            navigator.ChangeAllGeoViewStateEvent += navigator_ChangeAllObjectsViewStateEvent;
+            navigator.DelAllGeoEvent += navigator_DelAllObjectsEvent;
+            navigator.DelAllMeshEvent += navigator_DelAllObjectsEvent;
+            navigator.ChangeAllMeshViewStateEvent += navigator_ChangeAllObjectsViewStateEvent;
+            navigator.ShowSetEvent += navigator_ShowSetEvent;
+            navigator.HideSetEvent += navigator_HideSetEvent;
+            navigator.DelSetEvent += navigator_DelSetEvent;
+            navigator.SelectSetEvent += navigator_SelectSetEvent;
+            navigator.GetSetsInfoEvent += navigator_GetSetsInfoEvent;
+            navigator.SelectGroupEvent += navigator_SelectGroupEvent;
+            navigator.DelGroupEvent += navigator_DelGroupEvent;
+            navigator.HideGroupEvent += navigator_HideGroupEvent;
+            navigator.ShowGroupEvent += navigator_ShowGroupEvent;
+            navigator.EditGroupEvent += EditGroup;
+            navigator.InfoGroupEvent += navigator_InfoGroupEvent;
+            navigator.GetObjectsInfoEvent += navigator_GetObjectsInfoEvent;
+            navigator.SelectObjectEvent += navigator_SelectObjectEvent;
+            navigator.DelObjectEvent += navigator_DelObjectEvent;
+            navigator.ShowObjectEvent += navigator_ShowObjectEvent;
+            navigator.HideObjectEvent += navigator_HideObjectEvent;
+            navigator.SelectCondEvent += Navigator_SelectCondEvent;
+            navigator.SelectTaskEvent += navigator_SelectTaskEvent;
+            navigator.SelectGeoEvent += navigator_SelectGeoEvent;
+            navigator.SelectMeshEvent += navigator_SelectMeshEvent;
+            navigator.SelectResultsEvent += navigator_SelectResultsEvent;
+            navigator.SelectCompEvent += Navigator_SelectCompEvent;
+            navigator.SelectCompsEvent += Navigator_SelectCompsEvent;
+            navigator.SelectGeneralInfoEvent += navigator_SelectGeneralInfoEvent;
+            navigator.SelectTimeEvent += navigator_SelectTimeEvent;
+            navigator.SelectResultEvent += navigator_SelectResultEvent;
+            navigator.GetResultInfoEvent += navigator_GetResultInfoEvent;
+            navigator.DelCondEvent += navigator_DelCondEvent;
+            navigator.ControlCollapseEvent += navigator_ControlCollapseEvent;
+            // 
+            // tableLayoutPanel1
+            // 
+            resources.ApplyResources(tableLayoutPanel1, "tableLayoutPanel1");
+            tableLayoutPanel1.Controls.Add(checkPlayerControl, 0, 1);
+            tableLayoutPanel1.Controls.Add(propertiesPanel, 0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
+            // checkPlayerControl
+            // 
+            resources.ApplyResources(checkPlayerControl, "checkPlayerControl");
+            checkPlayerControl.BorderStyle = BorderStyle.FixedSingle;
+            checkPlayerControl.Cancelation = false;
+            checkPlayerControl.CheckState = Player.CheckState.start;
+            checkPlayerControl.CurrentValue = 50;
+            checkPlayerControl.Name = "checkPlayerControl";
+            checkPlayerControl.ShowTextValue = true;
+            checkPlayerControl.SliderBarInnerColor = System.Drawing.Color.Silver;
+            checkPlayerControl.SliderBarOuterColor = System.Drawing.Color.Silver;
+            checkPlayerControl.SliderElapsedInnerColor = System.Drawing.Color.Silver;
+            checkPlayerControl.SliderElapsedOuterColor = System.Drawing.Color.Silver;
+            checkPlayerControl.SpeedValue = 500;
+            checkPlayerControl.StartValue = 0;
+            checkPlayerControl.StopValue = 100;
+            checkPlayerControl.TextValueColor = System.Drawing.Color.Black;
+            checkPlayerControl.CheckingEvent += CheckPlayerControl_CheckingEvent;
+            checkPlayerControl.StopCheckingEvent += CheckPlayerControl_StopCheckingEvent;
+            checkPlayerControl.StartCheckingEvent += CheckPlayerControl_StartCheckingEvent;
+            // 
+            // propertiesPanel
+            // 
+            resources.ApplyResources(propertiesPanel, "propertiesPanel");
+            propertiesPanel.BackColor = System.Drawing.SystemColors.ControlLight;
+            propertiesPanel.BorderStyle = BorderStyle.FixedSingle;
+            propertiesPanel.DownColor = System.Drawing.Color.Gainsboro;
+            propertiesPanel.HeaderColor = System.Drawing.Color.Black;
+            propertiesPanel.HeaderName = "Properties";
+            propertiesPanel.IsPinndable = false;
+            propertiesPanel.Name = "propertiesPanel";
+            propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
+            propertiesPanel.PropertyUpdateEvent += PropertiesPanel_OnPropertyUpdate;
+            // 
+            // btnTabНастройки
+            // 
+            resources.ApplyResources(btnTabНастройки, "btnTabНастройки");
+            btnTabНастройки.Name = "btnTabНастройки";
+            btnTabНастройки.Tag = "True";
+            btnTabНастройки.UseVisualStyleBackColor = true;
+            // 
+            // btnTabГант
+            // 
+            resources.ApplyResources(btnTabГант, "btnTabГант");
+            btnTabГант.Name = "btnTabГант";
+            btnTabГант.Tag = "True";
+            btnTabГант.UseVisualStyleBackColor = true;
+            // 
+            // btnTabФункции
+            // 
+            resources.ApplyResources(btnTabФункции, "btnTabФункции");
+            btnTabФункции.Name = "btnTabФункции";
+            btnTabФункции.Tag = "True";
+            btnTabФункции.UseVisualStyleBackColor = true;
+            // 
+            // btnTabМатериалы
+            // 
+            resources.ApplyResources(btnTabМатериалы, "btnTabМатериалы");
+            btnTabМатериалы.Name = "btnTabМатериалы";
+            btnTabМатериалы.Tag = "True";
+            btnTabМатериалы.UseVisualStyleBackColor = true;
+            // 
+            // btnTabНавигатор
+            // 
+            resources.ApplyResources(btnTabНавигатор, "btnTabНавигатор");
+            btnTabНавигатор.Name = "btnTabНавигатор";
+            btnTabНавигатор.Tag = "True";
+            btnTabНавигатор.UseVisualStyleBackColor = true;
+            // 
             // contextMenu
             // 
             resources.ApplyResources(contextMenu, "contextMenu");
@@ -1077,14 +1063,14 @@ namespace BazisGUI
             // скрытьВыбранноеItem
             // 
             resources.ApplyResources(скрытьВыбранноеItem, "скрытьВыбранноеItem");
-            скрытьВыбранноеItem.Image = Properties.Resources.hide_w;
+            скрытьВыбранноеItem.Image = Properties.Resources.Скрыть_выбранное;
             скрытьВыбранноеItem.Name = "скрытьВыбранноеItem";
             скрытьВыбранноеItem.Click += скрытьВыбранноеItem_Click;
             // 
             // показатьСкрытыеItem
             // 
             resources.ApplyResources(показатьСкрытыеItem, "показатьСкрытыеItem");
-            показатьСкрытыеItem.Image = Properties.Resources.show_w;
+            показатьСкрытыеItem.Image = Properties.Resources.Показать_все_скрытые;
             показатьСкрытыеItem.Name = "показатьСкрытыеItem";
             показатьСкрытыеItem.Click += показатьСкрытыеItem_Click;
             // 
@@ -1138,22 +1124,21 @@ namespace BazisGUI
             toolStripContainer.PerformLayout();
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
-            splitContainer3.Panel1.ResumeLayout(false);
             splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer3).EndInit();
             splitContainer3.ResumeLayout(false);
-            cntrНавигатор.Panel1.ResumeLayout(false);
-            cntrНавигатор.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)cntrНавигатор).EndInit();
-            cntrНавигатор.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
             splitContainer2.Panel1.ResumeLayout(false);
             splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
             splitContainer2.ResumeLayout(false);
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
+            cntrНавигатор.Panel1.ResumeLayout(false);
+            cntrНавигатор.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)cntrНавигатор).EndInit();
+            cntrНавигатор.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             contextMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
