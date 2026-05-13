@@ -14,7 +14,7 @@ using BazisGUI.Localization;
 
 namespace BazisGUI.DataBases
 {
-    public partial class FunctionDataBasePage : DataBasePage, ILocalizableHeaderControl
+    public partial class FunctionDataBasePage : DataBasePage//, ILocalizableHeaderControl
     {
         public event Action OnMutationEvent;
         public FunctionDataBasePage()

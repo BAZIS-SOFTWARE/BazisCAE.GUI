@@ -24,7 +24,7 @@ namespace BazisGUI
                 settings.Leave += Settings_Leave;
                 settings.SetSettings(settingsConfig);
                 SetSettingsToConfig(settings);
-
+                //Resources.SettingsControl_headerName_text;
                 TabButtonsService.AddControl(name, settings);
             }
             else

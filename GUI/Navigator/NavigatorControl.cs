@@ -51,7 +51,7 @@ namespace BazisGUI.Navigator
         Time
     }
 
-    public partial class NavigatorControl : PinnedPage, ILocalizableHeaderControl
+    public partial class NavigatorControl : PinnedPage//, ILocalizableHeaderControl
     {
         public TreeNode SelectedNode
         {
@@ -60,8 +60,6 @@ namespace BazisGUI.Navigator
                 return treeView.SelectedNode; 
             }
         }
-
-        public string GetLocalizableHeaderText() => Resources.NavigatorControl_headerName_text;
 
         public void SelectNode(TreeNode treeNode)
         {

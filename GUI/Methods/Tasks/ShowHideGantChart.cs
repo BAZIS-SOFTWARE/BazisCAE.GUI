@@ -17,6 +17,7 @@ namespace BazisGUI
                 if (btn.Checked)
                 {
                     var ganttContol = new cntrГант();
+                    //BazisGUI.Properties.Resources.cntrГант_headerName_text;
                     ganttContol.AddConds(project.GetAllCondData());
                     TabButtonsService.AddControl(btn.Text, ganttContol);
                 }

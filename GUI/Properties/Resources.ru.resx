@@ -1546,26 +1546,23 @@
   <data name="clslTransparency.Text" xml:space="preserve">
     <value>colorSlider1</value>
   </data>
-  <data name="FailedCreateGeometry" xml:space="preserve">
-    <value>Не удалось создать геометрию</value>
-  </data>
   <data name="Header_chemical_MaxConcentration" xml:space="preserve">
     <value>Макс.концентр. (dCt max), %</value>
   </data>
-  <data name="Header_comp_Execute" xml:space="preserve">
-    <value>Выполнить</value>
-  </data>
-  <data name="Выполнить" xml:space="preserve">
-    <value>выполнить</value>
-  </data>
-  <data name="Пропустить" xml:space="preserve">
-    <value>пропустить</value>
+  <data name="Header_chemical_MaxConcentrationValue" xml:space="preserve">
+    <value>Значение макс.концентр.</value>
   </data>
   <data name="Header_chemical_InitialConcentration" xml:space="preserve">
     <value>Начальная концентрация, %</value>
   </data>
-  <data name="Header_chemical_MaxConcentrationValue" xml:space="preserve">
-    <value>Значение макс.концентр.</value>
+  <data name="Пропустить" xml:space="preserve">
+    <value>пропустить</value>
+  </data>
+  <data name="Выполнить" xml:space="preserve">
+    <value>выполнить</value>
+  </data>
+  <data name="Header_comp_Execute" xml:space="preserve">
+    <value>Выполнить</value>
   </data>
   <data name="Header_comp_ApplyForAll" xml:space="preserve">
     <value>Применить ко всем</value>
@@ -1639,6 +1636,12 @@
   <data name="Header_cond_objectsGroup" xml:space="preserve">
     <value>Группа объектов</value>
   </data>
+  <data name="Header_cond_value" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="Header_cond_function" xml:space="preserve">
+    <value>Функция</value>
+  </data>
   <data name="Header_cond_parameter_placeHolder" xml:space="preserve">
     <value>Параметр {0}</value>
   </data>
@@ -1647,12 +1650,6 @@
   </data>
   <data name="Header_cond_table_placeHolder" xml:space="preserve">
     <value>Таблица {0}</value>
-  </data>
-  <data name="Header_cond_value" xml:space="preserve">
-    <value>Значение</value>
-  </data>
-  <data name="Header_cond_function" xml:space="preserve">
-    <value>Функция</value>
   </data>
   <data name="Header_cond_direction" xml:space="preserve">
     <value>Направление</value>
@@ -1714,9 +1711,6 @@
   <data name="Header_geo_algorithm3D" xml:space="preserve">
     <value>Алгоритм 3D</value>
   </data>
-  <data name="Показать" xml:space="preserve">
-    <value>Показать</value>
-  </data>
   <data name="Header_geo_scaleCoef" xml:space="preserve">
     <value>Масштаб. коэфициент</value>
   </data>
@@ -1725,6 +1719,9 @@
   </data>
   <data name="Header_geo_showPointsNumbersOnCurves" xml:space="preserve">
     <value>Показать кол-во узлов на кривых</value>
+  </data>
+  <data name="Показать" xml:space="preserve">
+    <value>Показать</value>
   </data>
   <data name="Header_geo_showSurfacesNumbers" xml:space="preserve">
     <value>Показать номера поверхностей</value>
@@ -1741,11 +1738,11 @@
   <data name="Header_termalTask_maxTemperture" xml:space="preserve">
     <value>Макс. темп. (dTt max), C°</value>
   </data>
-  <data name="Header_mechanicalTask_maxDiference" xml:space="preserve">
-    <value>Макс. разница dU, &gt;0</value>
-  </data>
   <data name="Header_termalTask_maxTempertureValue" xml:space="preserve">
     <value>Значение макс. темп.</value>
+  </data>
+  <data name="Header_mechanicalTask_maxDiference" xml:space="preserve">
+    <value>Макс. разница dU, &gt;0</value>
   </data>
   <data name="Header_mechanicalTask_maxMove" xml:space="preserve">
     <value>Макс. перемещения U, &gt;0</value>
@@ -2049,8 +2046,11 @@
   </data>
   <data name="BaseForm_настройкиToolStripMenuItem_Click_Settings" xml:space="preserve">
     <value>Настройки</value>
-	  </data>
+  </data>
   <data name="btnSelect_Text_Select" xml:space="preserve">
     <value>Выбрать</value>
+  </data>
+  <data name="FailedCreateGeometry" xml:space="preserve">
+    <value>Не удалось создать геометрию</value>
   </data>
 </root>

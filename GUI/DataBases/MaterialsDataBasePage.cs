@@ -17,7 +17,7 @@ using BazisGUI.Localization;
 
 namespace BazisGUI.DataBases
 {
-    public partial class MaterialsDataBasePage : DataBasePage, ILocalizableHeaderControl
+    public partial class MaterialsDataBasePage : DataBasePage//, ILocalizableHeaderControl
     {
         public event Action OnMutationEvent;
 
@@ -27,8 +27,6 @@ namespace BazisGUI.DataBases
             Loader = new LoadMaterialDataBaseFromTextFormat();
             Saver = new SaveMaterialDataBaseToTextFormat();
         }
-
-        public string GetLocalizableHeaderText() => Resources.MaterialsDataBasePage_headerName_text;
 
         public MaterialDBData Materials { get; set; }
         = new MaterialDBData() { Name = "newMatDataBase.jsf" };

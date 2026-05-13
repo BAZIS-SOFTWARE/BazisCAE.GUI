@@ -106,11 +106,6 @@ namespace BazisGUI
             lblVersion.Text = verStr;
 
 
-            // TODO где-то тут нужно добавить все контроллы в TabButtonControlService
-            TabButtonsService = new TabButtonControlService(splitContainer3.Panel1);
-            TabButtonsService.AddControl(Resources.BaseForm_BaseForm_Load_Navigator, cntrНавигатор);
-
-
             SetGeneralSettings();
             DisplayObjects();
         }
@@ -127,9 +122,14 @@ namespace BazisGUI
 
             InitializeComponent();
 
-            propertiesPanel.HeaderName = propertiesPanel.GetLocalizableHeaderText();
-            navigator.HeaderName = navigator.GetLocalizableHeaderText();
-            console.HeaderName = console.GetLocalizableHeaderText();
+            propertiesPanel.HeaderName = Resources.PropertiesPanelControl_headerName_text;
+            navigator.HeaderName = Resources.NavigatorControl_headerName_text;
+
+            // TODO где-то тут нужно добавить все контроллы в TabButtonControlService
+            TabButtonsService = new TabButtonControlService(splitContainer3.Panel1);
+            TabButtonsService.AddControl(Resources.BaseForm_BaseForm_Load_Navigator, cntrНавигатор);
+
+            console.HeaderName = Resources.ConsoleControl_headerName_text;
 
             cntrНавигатор.SplitterWidth = 8;
             splitContainer2.SplitterWidth = 8;

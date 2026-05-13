@@ -50,7 +50,7 @@ namespace BazisGUI
                 matBasePage.PresentMaterials();
                 matBasePage.OnMutationEvent += () => OnChangeMaterials(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
                 OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
-
+                //Resources.MaterialsDataBasePage_headerName_text;
                 TabButtonsService.AddControl(name, matBasePage);
             }
             catch (Exception ex)

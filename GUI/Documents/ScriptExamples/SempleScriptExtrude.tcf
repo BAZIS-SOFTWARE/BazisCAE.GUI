@@ -1,4 +1,4 @@
-"Load project" "C:\Users\gav\Desktop\Models\PART_3.stp"
+"Load project" "c:\projs\testProj\ExtruzionAndBeamConnection\PART_3.stp"
 
 $p1 = "Create point by vector" "15" "17" "-5"
 $p2 = "Create point by vector" "15" "16" "15"

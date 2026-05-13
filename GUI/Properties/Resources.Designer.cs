@@ -5387,16 +5387,6 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap settings {
-            get {
-                object obj = ResourceManager.GetObject("settings", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Settings.
         /// </summary>
         internal static string SettingsControl_headerName_text {
@@ -6322,16 +6312,6 @@ namespace BazisGUI.Properties {
         internal static System.Drawing.Bitmap м_37 {
             get {
                 object obj = ResourceManager.GetObject("м_37", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap н_4 {
-            get {
-                object obj = ResourceManager.GetObject("н_4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
