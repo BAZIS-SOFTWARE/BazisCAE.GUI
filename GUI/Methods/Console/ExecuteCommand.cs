@@ -229,7 +229,7 @@ namespace BazisGUI
                     case GenCmd.ScaleFactor:
                         GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", double.Parse(cmds[1]));
                         break;
-                    case GenCmd.SaveSTL:
+                    case GenCmd.SaveSTEP:
                         GmshController.Gmsh.Write(cmds[1]);
                         break;
                 }
