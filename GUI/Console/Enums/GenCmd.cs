@@ -38,6 +38,7 @@
         SetMaxSize,
         Algo2D,
         Algo3D,
-        ScaleFactor
+        ScaleFactor,
+        SaveSTEP
     }
 }

@@ -50,6 +50,7 @@ namespace BazisGUI
             { "Scale factor", GenCmd.ScaleFactor },
             { "Extrude along curve",GenCmd.ExtrudeCurve },
             { "Extrusion by rotation",GenCmd.ExtrudeRotate },
+            { "Save STEP", GenCmd.SaveSTEP },
             { "Quit",GenCmd.Exit }
         };
 
@@ -87,6 +88,7 @@ namespace BazisGUI
             { GenCmd.ScaleFactor, new[] { "scale"} },
             { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve#1,curve#2,curve#3...", "point", "step", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
+            { GenCmd.SaveSTEP, new [] { "path" } },
             { GenCmd.Exit, Array.Empty<string>() },
             { GenCmd.GenerateMesh, Array.Empty<string>()}
         };
@@ -226,6 +228,9 @@ namespace BazisGUI
                         break;
                     case GenCmd.ScaleFactor:
                         GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", double.Parse(cmds[1]));
+                        break;
+                    case GenCmd.SaveSTL:
+                        GmshController.Gmsh.Write(cmds[1]);
                         break;
                 }
             }
