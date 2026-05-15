@@ -1,7 +1,9 @@
 ﻿using BazisGUI.Console;
 using BazisGUI.Console.Enums;
+using BazisGUI.Extensions;
 using BazisGUI.Properties;
 using BazisGUI.Utilities;
+using GmshApi;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -37,6 +39,15 @@ namespace BazisGUI
             { "Create point by projection onto plane", GenCmd.CreatePointProjectionOntoPlane },
             { "Create curve",GenCmd.CreateCurve },
             { "Create surface",GenCmd.CreateSurface },
+            { "Set mesh point", GenCmd.SetMeshPoint },
+            { "Set mesh curve", GenCmd.SetMeshCurve },
+            { "Set regular mesh surface", GenCmd.SetRegularSurface },
+            { "Set embedded mesh surface", GenCmd.SetEmbeddedSurface },
+            { "Set min size", GenCmd.SetMinSize },
+            { "Set max size", GenCmd.SetMaxSize },
+            { "Algo2D", GenCmd.Algo2D },
+            { "Algo3D", GenCmd.Algo3D },
+            { "Scale factor", GenCmd.ScaleFactor },
             { "Extrude along curve",GenCmd.ExtrudeCurve },
             { "Extrusion by rotation",GenCmd.ExtrudeRotate },
             { "Quit",GenCmd.Exit }
@@ -60,11 +71,20 @@ namespace BazisGUI
             { GenCmd.MergeElementSets, new[] { "type", "set#1", "set#2" } },
             { GenCmd.CreateMesh2DPoligon, new[] { "x1,y1", "x2,y2", "x3,y3", "x4,y4", "number of elements" } },
             { GenCmd.CreatePoint, new [] { "x,y,z" } },
-            { GenCmd.CreatePointByVector, new string[]{ "copy_point#1", "direction_point#2", "offset" } },
+            { GenCmd.CreatePointByVector, new[]{ "copy_point#1", "direction_point#2", "offset" } },
             { GenCmd.CreatePointProjectionOntoCurve, new string[]{ "point", "curve" } },
             { GenCmd.CreatePointProjectionOntoPlane, new string[]{ "point", "surface" } },
             { GenCmd.CreateCurve, new [] { "point#1","point#2" } },
             { GenCmd.CreateSurface, new[] { "curves forming the contour", "curve#1,curve#2,curve#3..." } },
+            { GenCmd.SetMeshPoint, new [] { "number", "size" }},
+            { GenCmd.SetMeshCurve, new [] { "number", "points count", "Progression/Bump/Beta", "factor"}},
+            { GenCmd.SetRegularSurface, new [] { "number", "corner points", "Left/Right,", "quad/tria" }},
+            { GenCmd.SetEmbeddedSurface, new [] { "number", "embedded curves" }},
+            { GenCmd.SetMinSize, new [] { "size" } },
+            { GenCmd.SetMaxSize, new [] { "size" } },
+            { GenCmd.Algo2D, new[] { "MeshAdapt/Automatic/InitialMeshOnly/Delaunay/FrontalDelaunay/BAMG/FrontalDelaunayQuads/PackingOfParallelograms/QuasiStructuredQuad" } },
+            { GenCmd.Algo3D, new[] { "Delaunay/InitialMeshOnly/Frontal/MMG3D/RTree/HXT" } },
+            { GenCmd.ScaleFactor, new[] { "scale"} },
             { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve#1,curve#2,curve#3...", "point", "step", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.Exit, Array.Empty<string>() },
@@ -152,33 +172,60 @@ namespace BazisGUI
                         Application.Exit();
                         break;
                     case GenCmd.CreatePoint:
-                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddPoint, [cmds[1]]);
+                        numberCreatedObject = GeometryParser(CreateCommandType.AddPoint, [cmds[1]]);
                         break;
                     case GenCmd.CreateCurve:
-                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddCurve, [cmds[1], cmds[2]]);
+                        numberCreatedObject = GeometryParser(CreateCommandType.AddCurve, [cmds[1], cmds[2]]);
                         break;
                     case GenCmd.CreateSurface:
-                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddSurface, [cmds[2]]);
+                        numberCreatedObject = GeometryParser(CreateCommandType.AddSurface, [cmds[2]]);
                         break;
                     case GenCmd.ExtrudeCurve:
-                        ExtruderParserEventHandler(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
+                        ExtruderParser(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
                         numberCreatedObject = 1;
                         break;
                     //case GenCmd.ExtrudeRotate:
                     //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
                     //    break;
                     case GenCmd.CreatePointByVector:
-                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]);
+                        numberCreatedObject = GeometryParser(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]);
                         break;
                     case GenCmd.CreatePointProjectionOntoPlane:
-                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]);
+                        numberCreatedObject = GeometryParser(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]);
                         break;
                     case GenCmd.CreatePointProjectionOntoCurve:
-                        numberCreatedObject = GeometryParserEventHandler(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]);
+                        numberCreatedObject = GeometryParser(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]);
                         break;
                     case GenCmd.GenerateMesh:
                         создать3DСеткуToolStripMenuItem_Click(null, EventArgs.Empty);
                         btnSelect.Text = Resources.btnSelect_Text_Objects;
+                        break;
+                    case GenCmd.SetMeshPoint:
+                        PrepareDataForSetMeshPoint(cmds[1], cmds[2]);
+                        break;
+                    case GenCmd.SetMeshCurve:
+                        PrepareDataForSetMeshCurve(cmds[1], cmds[2], cmds[3], cmds[4]);
+                        break;
+                    case GenCmd.SetRegularSurface:
+                        PrepareDataForSetRegularMeshSurface(cmds[1], cmds[2], cmds[3], cmds[4]);
+                        break;
+                    case GenCmd.SetEmbeddedSurface:
+                        PrepareDataForSetEmbeddedMeshSurface(cmds[1], cmds[2]);
+                        break;
+                    case GenCmd.SetMinSize:
+                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(cmds[1]));
+                        break;
+                    case GenCmd.SetMaxSize:
+                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", double.Parse(cmds[1]));
+                        break;
+                    case GenCmd.Algo2D:
+                        GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)cmds[1].ToEnum<MeshAlgorithm2D>());
+                        break;
+                    case GenCmd.Algo3D:
+                        GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm3D", (double)cmds[1].ToEnum<MeshAlgorithm3D>());
+                        break;
+                    case GenCmd.ScaleFactor:
+                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", double.Parse(cmds[1]));
                         break;
                 }
             }
