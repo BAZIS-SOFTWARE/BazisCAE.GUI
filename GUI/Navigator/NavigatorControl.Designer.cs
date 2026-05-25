@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigatorControl));
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigatorControl));
             genImageList = new System.Windows.Forms.ImageList(components);
             helpImageList = new System.Windows.Forms.ImageList(components);
             treeView = new System.Windows.Forms.TreeView();
@@ -64,9 +64,9 @@
             // 
             // treeView
             // 
-            resources.ApplyResources(treeView, "treeView");
             treeView.BackColor = System.Drawing.SystemColors.Control;
             treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(treeView, "treeView");
             treeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             treeView.FullRowSelect = true;
             treeView.ImageList = genImageList;
@@ -84,7 +84,6 @@
             // NavigatorControl
             // 
             resources.ApplyResources(this, "$this");
-            //HeaderName = GetLocalizableHeaderText();
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Gainsboro;
             Controls.Add(treeView);

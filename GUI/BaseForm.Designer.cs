@@ -172,38 +172,29 @@ namespace BazisGUI
             // 
             // toolStripContainer
             // 
-            resources.ApplyResources(toolStripContainer, "toolStripContainer");
             // 
             // toolStripContainer.BottomToolStripPanel
             // 
-            resources.ApplyResources(toolStripContainer.BottomToolStripPanel, "toolStripContainer.BottomToolStripPanel");
             toolStripContainer.BottomToolStripPanel.Controls.Add(statusStrip);
             // 
             // toolStripContainer.ContentPanel
             // 
-            resources.ApplyResources(toolStripContainer.ContentPanel, "toolStripContainer.ContentPanel");
             toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             toolStripContainer.ContentPanel.Controls.Add(splitContainer3);
-            // 
-            // toolStripContainer.LeftToolStripPanel
-            // 
-            resources.ApplyResources(toolStripContainer.LeftToolStripPanel, "toolStripContainer.LeftToolStripPanel");
+            resources.ApplyResources(toolStripContainer.ContentPanel, "toolStripContainer.ContentPanel");
+            resources.ApplyResources(toolStripContainer, "toolStripContainer");
             toolStripContainer.Name = "toolStripContainer";
-            // 
-            // toolStripContainer.RightToolStripPanel
-            // 
-            resources.ApplyResources(toolStripContainer.RightToolStripPanel, "toolStripContainer.RightToolStripPanel");
             // 
             // toolStripContainer.TopToolStripPanel
             // 
-            resources.ApplyResources(toolStripContainer.TopToolStripPanel, "toolStripContainer.TopToolStripPanel");
             toolStripContainer.TopToolStripPanel.BackColor = System.Drawing.SystemColors.Control;
             toolStripContainer.TopToolStripPanel.Controls.Add(menuStrip);
+            resources.ApplyResources(toolStripContainer.TopToolStripPanel, "toolStripContainer.TopToolStripPanel");
             // 
             // statusStrip
             // 
-            resources.ApplyResources(statusStrip, "statusStrip");
             statusStrip.BackColor = System.Drawing.SystemColors.Control;
+            resources.ApplyResources(statusStrip, "statusStrip");
             statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             statusStrip.Items.AddRange(new ToolStripItem[] { lblStatus, lblVersion, webPageLabel });
             statusStrip.Name = "statusStrip";
@@ -218,15 +209,15 @@ namespace BazisGUI
             // 
             // lblVersion
             // 
-            resources.ApplyResources(lblVersion, "lblVersion");
             lblVersion.BorderSides = ToolStripStatusLabelBorderSides.Left | ToolStripStatusLabelBorderSides.Right;
             lblVersion.DisplayStyle = ToolStripItemDisplayStyle.Text;
             lblVersion.Name = "lblVersion";
+            resources.ApplyResources(lblVersion, "lblVersion");
             // 
             // webPageLabel
             // 
-            resources.ApplyResources(webPageLabel, "webPageLabel");
             webPageLabel.BackColor = System.Drawing.SystemColors.Control;
+            resources.ApplyResources(webPageLabel, "webPageLabel");
             webPageLabel.IsLink = true;
             webPageLabel.LinkColor = System.Drawing.Color.OrangeRed;
             webPageLabel.Name = "webPageLabel";
@@ -239,13 +230,8 @@ namespace BazisGUI
             splitContainer3.IncrementShifting = 50;
             splitContainer3.Name = "splitContainer3";
             // 
-            // splitContainer3.Panel1
-            // 
-            resources.ApplyResources(splitContainer3.Panel1, "splitContainer3.Panel1");
-            // 
             // splitContainer3.Panel2
             // 
-            resources.ApplyResources(splitContainer3.Panel2, "splitContainer3.Panel2");
             splitContainer3.Panel2.Controls.Add(splitContainer2);
             splitContainer3.SwitchShifting = false;
             // 
@@ -258,7 +244,6 @@ namespace BazisGUI
             // 
             // splitContainer2.Panel1
             // 
-            resources.ApplyResources(splitContainer2.Panel1, "splitContainer2.Panel1");
             splitContainer2.Panel1.Controls.Add(btnSelect);
             splitContainer2.Panel1.Controls.Add(btnDisplayStates);
             splitContainer2.Panel1.Controls.Add(btnRotVert90);
@@ -283,7 +268,6 @@ namespace BazisGUI
             // 
             // splitContainer2.Panel2
             // 
-            resources.ApplyResources(splitContainer2.Panel2, "splitContainer2.Panel2");
             splitContainer2.Panel2.Controls.Add(console);
             splitContainer2.SwitchShifting = false;
             // 
@@ -492,10 +476,10 @@ namespace BazisGUI
             // 
             // scene
             // 
-            resources.ApplyResources(scene, "scene");
             scene.API = OpenTK.Windowing.Common.ContextAPI.OpenGL;
             scene.APIVersion = new Version(3, 3, 0, 0);
             scene.BackColor = System.Drawing.Color.Silver;
+            resources.ApplyResources(scene, "scene");
             scene.Flags = OpenTK.Windowing.Common.ContextFlags.Default;
             scene.IsEventDriven = true;
             scene.Name = "scene";
@@ -515,15 +499,14 @@ namespace BazisGUI
             console.HeaderName = "Console";
             console.IsPinndable = false;
             console.Name = "console";
-            console.SessionNumber = 9649;
+            console.SessionNumber = 9021;
             console.UpColor = System.Drawing.Color.Gainsboro;
             console.CommandsListRequestedEvent += PrintAllCommands;
-            console.ConsoleCommandEnteredEvent = ExecuteCommand;
             // 
             // menuStrip
             // 
-            resources.ApplyResources(menuStrip, "menuStrip");
             menuStrip.BackColor = System.Drawing.SystemColors.Control;
+            resources.ApplyResources(menuStrip, "menuStrip");
             menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             menuStrip.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem, viewMenuItem, геометрияToolStripMenuItem, сеткаToolStripMenuItem, dataBasesMenuItem, tasksMenuItem, расчетыToolStripMenuItem, результатыMenuItem, инструментыToolStripMenuItem, настройкиToolStripMenuItem, справкаToolStripMenuItem, лицензияToolStripMenuItem });
             menuStrip.Name = "menuStrip";
@@ -531,9 +514,9 @@ namespace BazisGUI
             // 
             // файлToolStripMenuItem
             // 
-            resources.ApplyResources(файлToolStripMenuItem, "файлToolStripMenuItem");
             файлToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { создатьToolStripMenuItem, открытьToolStripMenuItem, добавитьToolStripMenuItem, toolStripSeparator, сохранитьToolStripMenuItem, сохранитькакToolStripMenuItem, toolStripSeparator1, toolStripSeparator2, выходToolStripMenuItem });
             файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            resources.ApplyResources(файлToolStripMenuItem, "файлToolStripMenuItem");
             // 
             // создатьToolStripMenuItem
             // 
@@ -549,14 +532,14 @@ namespace BazisGUI
             // 
             // добавитьToolStripMenuItem
             // 
-            resources.ApplyResources(добавитьToolStripMenuItem, "добавитьToolStripMenuItem");
             добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
+            resources.ApplyResources(добавитьToolStripMenuItem, "добавитьToolStripMenuItem");
             добавитьToolStripMenuItem.Click += добавитьСеткуToolStripMenuItem_Click;
             // 
             // toolStripSeparator
             // 
-            resources.ApplyResources(toolStripSeparator, "toolStripSeparator");
             toolStripSeparator.Name = "toolStripSeparator";
+            resources.ApplyResources(toolStripSeparator, "toolStripSeparator");
             // 
             // сохранитьToolStripMenuItem
             // 
@@ -566,105 +549,105 @@ namespace BazisGUI
             // 
             // сохранитькакToolStripMenuItem
             // 
-            resources.ApplyResources(сохранитькакToolStripMenuItem, "сохранитькакToolStripMenuItem");
             сохранитькакToolStripMenuItem.Name = "сохранитькакToolStripMenuItem";
+            resources.ApplyResources(сохранитькакToolStripMenuItem, "сохранитькакToolStripMenuItem");
             сохранитькакToolStripMenuItem.Click += сохранитькакToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
-            resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
             toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
             // 
             // toolStripSeparator2
             // 
-            resources.ApplyResources(toolStripSeparator2, "toolStripSeparator2");
             toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(toolStripSeparator2, "toolStripSeparator2");
             // 
             // выходToolStripMenuItem
             // 
-            resources.ApplyResources(выходToolStripMenuItem, "выходToolStripMenuItem");
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            resources.ApplyResources(выходToolStripMenuItem, "выходToolStripMenuItem");
             выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
             // 
             // viewMenuItem
             // 
-            resources.ApplyResources(viewMenuItem, "viewMenuItem");
             viewMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, toolStripMenuItem3 });
             viewMenuItem.Name = "viewMenuItem";
+            resources.ApplyResources(viewMenuItem, "viewMenuItem");
             // 
             // toolStripMenuItem2
             // 
-            resources.ApplyResources(toolStripMenuItem2, "toolStripMenuItem2");
             toolStripMenuItem2.Name = "toolStripMenuItem2";
+            resources.ApplyResources(toolStripMenuItem2, "toolStripMenuItem2");
             toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
             // toolStripMenuItem3
             // 
-            resources.ApplyResources(toolStripMenuItem3, "toolStripMenuItem3");
             toolStripMenuItem3.Name = "toolStripMenuItem3";
+            resources.ApplyResources(toolStripMenuItem3, "toolStripMenuItem3");
             toolStripMenuItem3.Click += toolStripMenuItem3_Click;
             // 
             // геометрияToolStripMenuItem
             // 
-            resources.ApplyResources(геометрияToolStripMenuItem, "геометрияToolStripMenuItem");
             геометрияToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { создатьТочкуToolStripMenuItem, создатьЛиниюToolStripMenuItem, создатьПлоскостьToolStripMenuItem, создатьОбъемToolStripMenuItem });
+            resources.ApplyResources(геометрияToolStripMenuItem, "геометрияToolStripMenuItem");
             геометрияToolStripMenuItem.Name = "геометрияToolStripMenuItem";
             // 
             // создатьТочкуToolStripMenuItem
             // 
-            resources.ApplyResources(создатьТочкуToolStripMenuItem, "создатьТочкуToolStripMenuItem");
             создатьТочкуToolStripMenuItem.Name = "создатьТочкуToolStripMenuItem";
+            resources.ApplyResources(создатьТочкуToolStripMenuItem, "создатьТочкуToolStripMenuItem");
             // 
             // создатьЛиниюToolStripMenuItem
             // 
-            resources.ApplyResources(создатьЛиниюToolStripMenuItem, "создатьЛиниюToolStripMenuItem");
             создатьЛиниюToolStripMenuItem.Name = "создатьЛиниюToolStripMenuItem";
+            resources.ApplyResources(создатьЛиниюToolStripMenuItem, "создатьЛиниюToolStripMenuItem");
             // 
             // создатьПлоскостьToolStripMenuItem
             // 
-            resources.ApplyResources(создатьПлоскостьToolStripMenuItem, "создатьПлоскостьToolStripMenuItem");
             создатьПлоскостьToolStripMenuItem.Name = "создатьПлоскостьToolStripMenuItem";
+            resources.ApplyResources(создатьПлоскостьToolStripMenuItem, "создатьПлоскостьToolStripMenuItem");
             // 
             // создатьОбъемToolStripMenuItem
             // 
-            resources.ApplyResources(создатьОбъемToolStripMenuItem, "создатьОбъемToolStripMenuItem");
             создатьОбъемToolStripMenuItem.Name = "создатьОбъемToolStripMenuItem";
+            resources.ApplyResources(создатьОбъемToolStripMenuItem, "создатьОбъемToolStripMenuItem");
             // 
             // сеткаToolStripMenuItem
             // 
-            resources.ApplyResources(сеткаToolStripMenuItem, "сеткаToolStripMenuItem");
             сеткаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { загрузитьgeoToolStripMenuItem, сформироватьgeoToolStripMenuItem, dToolStripMenuItem, dToolStripMenuItem1, dToolStripMenuItem2 });
+            resources.ApplyResources(сеткаToolStripMenuItem, "сеткаToolStripMenuItem");
             сеткаToolStripMenuItem.Name = "сеткаToolStripMenuItem";
             // 
             // загрузитьgeoToolStripMenuItem
             // 
-            resources.ApplyResources(загрузитьgeoToolStripMenuItem, "загрузитьgeoToolStripMenuItem");
             загрузитьgeoToolStripMenuItem.Name = "загрузитьgeoToolStripMenuItem";
+            resources.ApplyResources(загрузитьgeoToolStripMenuItem, "загрузитьgeoToolStripMenuItem");
             загрузитьgeoToolStripMenuItem.Click += загрузитьgeoToolStripMenuItem_Click;
             // 
             // сформироватьgeoToolStripMenuItem
             // 
-            resources.ApplyResources(сформироватьgeoToolStripMenuItem, "сформироватьgeoToolStripMenuItem");
             сформироватьgeoToolStripMenuItem.Name = "сформироватьgeoToolStripMenuItem";
+            resources.ApplyResources(сформироватьgeoToolStripMenuItem, "сформироватьgeoToolStripMenuItem");
             сформироватьgeoToolStripMenuItem.Click += сформироватьgeoToolStripMenuItem_Click;
             // 
             // dToolStripMenuItem
             // 
-            resources.ApplyResources(dToolStripMenuItem, "dToolStripMenuItem");
             dToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { наToolStripMenuItem });
             dToolStripMenuItem.Name = "dToolStripMenuItem";
+            resources.ApplyResources(dToolStripMenuItem, "dToolStripMenuItem");
             // 
             // наToolStripMenuItem
             // 
-            resources.ApplyResources(наToolStripMenuItem, "наToolStripMenuItem");
             наToolStripMenuItem.Name = "наToolStripMenuItem";
+            resources.ApplyResources(наToolStripMenuItem, "наToolStripMenuItem");
             наToolStripMenuItem.Click += наПоверхности2DToolStripMenuItem_Click;
             // 
             // dToolStripMenuItem1
             // 
-            resources.ApplyResources(dToolStripMenuItem1, "dToolStripMenuItem1");
             dToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { уплотнитьToolStripMenuItem, наПоверхности3DToolStripMenuItem, наПоверхностиГеометрииToolStripMenuItem, квадратизацияСуществующейToolStripMenuItem });
             dToolStripMenuItem1.Name = "dToolStripMenuItem1";
+            resources.ApplyResources(dToolStripMenuItem1, "dToolStripMenuItem1");
             // 
             // уплотнитьToolStripMenuItem
             // 
@@ -674,14 +657,14 @@ namespace BazisGUI
             // 
             // наПоверхности3DToolStripMenuItem
             // 
-            resources.ApplyResources(наПоверхности3DToolStripMenuItem, "наПоверхности3DToolStripMenuItem");
             наПоверхности3DToolStripMenuItem.Name = "наПоверхности3DToolStripMenuItem";
+            resources.ApplyResources(наПоверхности3DToolStripMenuItem, "наПоверхности3DToolStripMenuItem");
             наПоверхности3DToolStripMenuItem.Click += наПоверхности3DToolStripMenuItem_Click;
             // 
             // наПоверхностиГеометрииToolStripMenuItem
             // 
-            resources.ApplyResources(наПоверхностиГеометрииToolStripMenuItem, "наПоверхностиГеометрииToolStripMenuItem");
             наПоверхностиГеометрииToolStripMenuItem.Name = "наПоверхностиГеометрииToolStripMenuItem";
+            resources.ApplyResources(наПоверхностиГеометрииToolStripMenuItem, "наПоверхностиГеометрииToolStripMenuItem");
             наПоверхностиГеометрииToolStripMenuItem.Click += наПоверхностиГеометрииToolStripMenuItem_Click;
             // 
             // квадратизацияСуществующейToolStripMenuItem
@@ -692,111 +675,111 @@ namespace BazisGUI
             // 
             // dToolStripMenuItem2
             // 
-            resources.ApplyResources(dToolStripMenuItem2, "dToolStripMenuItem2");
             dToolStripMenuItem2.Name = "dToolStripMenuItem2";
+            resources.ApplyResources(dToolStripMenuItem2, "dToolStripMenuItem2");
             dToolStripMenuItem2.Click += создать3DСеткуToolStripMenuItem_Click;
             // 
             // dataBasesMenuItem
             // 
-            resources.ApplyResources(dataBasesMenuItem, "dataBasesMenuItem");
             dataBasesMenuItem.DropDownItems.AddRange(new ToolStripItem[] { материалыMenuItem, функцииMenuItem });
+            resources.ApplyResources(dataBasesMenuItem, "dataBasesMenuItem");
             dataBasesMenuItem.Name = "dataBasesMenuItem";
             // 
             // материалыMenuItem
             // 
-            resources.ApplyResources(материалыMenuItem, "материалыMenuItem");
             материалыMenuItem.CheckOnClick = true;
             материалыMenuItem.Name = "материалыMenuItem";
+            resources.ApplyResources(материалыMenuItem, "материалыMenuItem");
             материалыMenuItem.Click += материалыMenuItem_Click;
             // 
             // функцииMenuItem
             // 
-            resources.ApplyResources(функцииMenuItem, "функцииMenuItem");
             функцииMenuItem.CheckOnClick = true;
             функцииMenuItem.Name = "функцииMenuItem";
+            resources.ApplyResources(функцииMenuItem, "функцииMenuItem");
             функцииMenuItem.Click += функцииMenuItem_Click;
             // 
             // tasksMenuItem
             // 
-            resources.ApplyResources(tasksMenuItem, "tasksMenuItem");
             tasksMenuItem.DropDownItems.AddRange(new ToolStripItem[] { создатьToolStripMenuItem1, мастерToolStripMenuItem, показатьНаДиаграммеToolStripMenuItem });
+            resources.ApplyResources(tasksMenuItem, "tasksMenuItem");
             tasksMenuItem.Name = "tasksMenuItem";
             // 
             // создатьToolStripMenuItem1
             // 
-            resources.ApplyResources(создатьToolStripMenuItem1, "создатьToolStripMenuItem1");
             создатьToolStripMenuItem1.Name = "создатьToolStripMenuItem1";
+            resources.ApplyResources(создатьToolStripMenuItem1, "создатьToolStripMenuItem1");
             создатьToolStripMenuItem1.Click += создатьЗадачуToolStripMenuItem_Click;
             // 
             // мастерToolStripMenuItem
             // 
-            resources.ApplyResources(мастерToolStripMenuItem, "мастерToolStripMenuItem");
             мастерToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator3, загрузитьМастерToolStripMenuItem, toolStripSeparator4 });
             мастерToolStripMenuItem.Name = "мастерToolStripMenuItem";
+            resources.ApplyResources(мастерToolStripMenuItem, "мастерToolStripMenuItem");
             // 
             // toolStripSeparator3
             // 
-            resources.ApplyResources(toolStripSeparator3, "toolStripSeparator3");
             toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(toolStripSeparator3, "toolStripSeparator3");
             // 
             // загрузитьМастерToolStripMenuItem
             // 
-            resources.ApplyResources(загрузитьМастерToolStripMenuItem, "загрузитьМастерToolStripMenuItem");
             загрузитьМастерToolStripMenuItem.Name = "загрузитьМастерToolStripMenuItem";
+            resources.ApplyResources(загрузитьМастерToolStripMenuItem, "загрузитьМастерToolStripMenuItem");
             загрузитьМастерToolStripMenuItem.Click += загрузитьМастерToolStripMenuItem_Click;
             // 
             // toolStripSeparator4
             // 
-            resources.ApplyResources(toolStripSeparator4, "toolStripSeparator4");
             toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(toolStripSeparator4, "toolStripSeparator4");
             // 
             // показатьНаДиаграммеToolStripMenuItem
             // 
-            resources.ApplyResources(показатьНаДиаграммеToolStripMenuItem, "показатьНаДиаграммеToolStripMenuItem");
             показатьНаДиаграммеToolStripMenuItem.CheckOnClick = true;
             показатьНаДиаграммеToolStripMenuItem.Name = "показатьНаДиаграммеToolStripMenuItem";
+            resources.ApplyResources(показатьНаДиаграммеToolStripMenuItem, "показатьНаДиаграммеToolStripMenuItem");
             показатьНаДиаграммеToolStripMenuItem.Click += показатьНаДиаграммеToolStripMenuItem_Click;
             // 
             // расчетыToolStripMenuItem
             // 
-            resources.ApplyResources(расчетыToolStripMenuItem, "расчетыToolStripMenuItem");
             расчетыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { открытьИнструкцииToolStripMenuItem, сформироватьИнструкцииToolStripMenuItem, запуститьToolStripMenuItem, остановитьToolStripMenuItem });
+            resources.ApplyResources(расчетыToolStripMenuItem, "расчетыToolStripMenuItem");
             расчетыToolStripMenuItem.Name = "расчетыToolStripMenuItem";
             // 
             // открытьИнструкцииToolStripMenuItem
             // 
-            resources.ApplyResources(открытьИнструкцииToolStripMenuItem, "открытьИнструкцииToolStripMenuItem");
             открытьИнструкцииToolStripMenuItem.Name = "открытьИнструкцииToolStripMenuItem";
+            resources.ApplyResources(открытьИнструкцииToolStripMenuItem, "открытьИнструкцииToolStripMenuItem");
             открытьИнструкцииToolStripMenuItem.Click += открытьИнструкцииToolStripMenuItem_Click;
             // 
             // сформироватьИнструкцииToolStripMenuItem
             // 
-            resources.ApplyResources(сформироватьИнструкцииToolStripMenuItem, "сформироватьИнструкцииToolStripMenuItem");
             сформироватьИнструкцииToolStripMenuItem.Name = "сформироватьИнструкцииToolStripMenuItem";
+            resources.ApplyResources(сформироватьИнструкцииToolStripMenuItem, "сформироватьИнструкцииToolStripMenuItem");
             сформироватьИнструкцииToolStripMenuItem.Click += сформироватьИнструкцииToolStripMenuItem_Click;
             // 
             // запуститьToolStripMenuItem
             // 
-            resources.ApplyResources(запуститьToolStripMenuItem, "запуститьToolStripMenuItem");
             запуститьToolStripMenuItem.Name = "запуститьToolStripMenuItem";
+            resources.ApplyResources(запуститьToolStripMenuItem, "запуститьToolStripMenuItem");
             запуститьToolStripMenuItem.Click += запуститьToolStripMenuItem_Click;
             // 
             // остановитьToolStripMenuItem
             // 
-            resources.ApplyResources(остановитьToolStripMenuItem, "остановитьToolStripMenuItem");
             остановитьToolStripMenuItem.Name = "остановитьToolStripMenuItem";
+            resources.ApplyResources(остановитьToolStripMenuItem, "остановитьToolStripMenuItem");
             остановитьToolStripMenuItem.Click += остановитьToolStripMenuItem_Click;
             // 
             // результатыMenuItem
             // 
-            resources.ApplyResources(результатыMenuItem, "результатыMenuItem");
             результатыMenuItem.DropDownItems.AddRange(new ToolStripItem[] { открытьToolStripMenuItem1, объединитьToolStripMenuItem, построитьГрафикToolStripMenuItem, построитьДиаграммуToolStripMenuItem, создатьАнимациюToolStripMenuItem, экспортироватьРезультатыToolStripMenuItem, toolStripMenuItem4 });
+            resources.ApplyResources(результатыMenuItem, "результатыMenuItem");
             результатыMenuItem.Name = "результатыMenuItem";
             // 
             // открытьToolStripMenuItem1
             // 
-            resources.ApplyResources(открытьToolStripMenuItem1, "открытьToolStripMenuItem1");
             открытьToolStripMenuItem1.Name = "открытьToolStripMenuItem1";
+            resources.ApplyResources(открытьToolStripMenuItem1, "открытьToolStripMenuItem1");
             открытьToolStripMenuItem1.Click += открытьToolStripMenuItem1_Click;
             // 
             // объединитьToolStripMenuItem
@@ -807,21 +790,21 @@ namespace BazisGUI
             // 
             // построитьГрафикToolStripMenuItem
             // 
-            resources.ApplyResources(построитьГрафикToolStripMenuItem, "построитьГрафикToolStripMenuItem");
             построитьГрафикToolStripMenuItem.Name = "построитьГрафикToolStripMenuItem";
+            resources.ApplyResources(построитьГрафикToolStripMenuItem, "построитьГрафикToolStripMenuItem");
             построитьГрафикToolStripMenuItem.Click += построитьГрафикToolStripMenuItem_Click;
             // 
             // построитьДиаграммуToolStripMenuItem
             // 
-            resources.ApplyResources(построитьДиаграммуToolStripMenuItem, "построитьДиаграммуToolStripMenuItem");
             построитьДиаграммуToolStripMenuItem.Name = "построитьДиаграммуToolStripMenuItem";
+            resources.ApplyResources(построитьДиаграммуToolStripMenuItem, "построитьДиаграммуToolStripMenuItem");
             построитьДиаграммуToolStripMenuItem.Click += построитьДиаграммуToolStripMenuItem_Click;
             // 
             // создатьАнимациюToolStripMenuItem
             // 
-            resources.ApplyResources(создатьАнимациюToolStripMenuItem, "создатьАнимациюToolStripMenuItem");
             создатьАнимациюToolStripMenuItem.CheckOnClick = true;
             создатьАнимациюToolStripMenuItem.Name = "создатьАнимациюToolStripMenuItem";
+            resources.ApplyResources(создатьАнимациюToolStripMenuItem, "создатьАнимациюToolStripMenuItem");
             создатьАнимациюToolStripMenuItem.Click += создатьАнимациюToolStripMenuItem_Click;
             // 
             // экспортироватьРезультатыToolStripMenuItem
@@ -831,29 +814,29 @@ namespace BazisGUI
             // 
             // toolStripMenuItem4
             // 
-            resources.ApplyResources(toolStripMenuItem4, "toolStripMenuItem4");
             toolStripMenuItem4.CheckOnClick = true;
             toolStripMenuItem4.Name = "toolStripMenuItem4";
+            resources.ApplyResources(toolStripMenuItem4, "toolStripMenuItem4");
             toolStripMenuItem4.Click += отзеркаливаниеToolStripMenuItem_Click;
             // 
             // инструментыToolStripMenuItem
             // 
-            resources.ApplyResources(инструментыToolStripMenuItem, "инструментыToolStripMenuItem");
             инструментыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { измеритьToolStripMenuItem, скрытьПлоскостьюToolStripMenuItem, рассечьПлоскостьюToolStripMenuItem });
+            resources.ApplyResources(инструментыToolStripMenuItem, "инструментыToolStripMenuItem");
             инструментыToolStripMenuItem.Name = "инструментыToolStripMenuItem";
             // 
             // измеритьToolStripMenuItem
             // 
-            resources.ApplyResources(измеритьToolStripMenuItem, "измеритьToolStripMenuItem");
             измеритьToolStripMenuItem.CheckOnClick = true;
             измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
+            resources.ApplyResources(измеритьToolStripMenuItem, "измеритьToolStripMenuItem");
             измеритьToolStripMenuItem.Click += измеритьToolStripMenuItem_Click;
             // 
             // скрытьПлоскостьюToolStripMenuItem
             // 
-            resources.ApplyResources(скрытьПлоскостьюToolStripMenuItem, "скрытьПлоскостьюToolStripMenuItem");
             скрытьПлоскостьюToolStripMenuItem.CheckOnClick = true;
             скрытьПлоскостьюToolStripMenuItem.Name = "скрытьПлоскостьюToolStripMenuItem";
+            resources.ApplyResources(скрытьПлоскостьюToolStripMenuItem, "скрытьПлоскостьюToolStripMenuItem");
             скрытьПлоскостьюToolStripMenuItem.Click += скрытьПлоскостьюToolStripMenuItem_Click;
             // 
             // рассечьПлоскостьюToolStripMenuItem
@@ -863,39 +846,39 @@ namespace BazisGUI
             // 
             // настройкиToolStripMenuItem
             // 
-            resources.ApplyResources(настройкиToolStripMenuItem, "настройкиToolStripMenuItem");
             настройкиToolStripMenuItem.CheckOnClick = true;
             настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
+            resources.ApplyResources(настройкиToolStripMenuItem, "настройкиToolStripMenuItem");
             настройкиToolStripMenuItem.Click += настройкиToolStripMenuItem_Click;
             // 
             // справкаToolStripMenuItem
             // 
-            resources.ApplyResources(справкаToolStripMenuItem, "справкаToolStripMenuItem");
             справкаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { содержаниеToolStripMenuItem, опрограммеToolStripMenuItem });
             справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+            resources.ApplyResources(справкаToolStripMenuItem, "справкаToolStripMenuItem");
             // 
             // содержаниеToolStripMenuItem
             // 
-            resources.ApplyResources(содержаниеToolStripMenuItem, "содержаниеToolStripMenuItem");
             содержаниеToolStripMenuItem.Name = "содержаниеToolStripMenuItem";
+            resources.ApplyResources(содержаниеToolStripMenuItem, "содержаниеToolStripMenuItem");
             содержаниеToolStripMenuItem.Click += содержаниеToolStripMenuItem_Click;
             // 
             // опрограммеToolStripMenuItem
             // 
-            resources.ApplyResources(опрограммеToolStripMenuItem, "опрограммеToolStripMenuItem");
             опрограммеToolStripMenuItem.Name = "опрограммеToolStripMenuItem";
+            resources.ApplyResources(опрограммеToolStripMenuItem, "опрограммеToolStripMenuItem");
             опрограммеToolStripMenuItem.Click += опрограммеToolStripMenuItem_Click;
             // 
             // лицензияToolStripMenuItem
             // 
-            resources.ApplyResources(лицензияToolStripMenuItem, "лицензияToolStripMenuItem");
             лицензияToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { сведенияMenuItem });
             лицензияToolStripMenuItem.Name = "лицензияToolStripMenuItem";
+            resources.ApplyResources(лицензияToolStripMenuItem, "лицензияToolStripMenuItem");
             // 
             // сведенияMenuItem
             // 
-            resources.ApplyResources(сведенияMenuItem, "сведенияMenuItem");
             сведенияMenuItem.Name = "сведенияMenuItem";
+            resources.ApplyResources(сведенияMenuItem, "сведенияMenuItem");
             сведенияMenuItem.Click += сведенияMenuItem_Click;
             // 
             // cntrНавигатор
@@ -907,21 +890,19 @@ namespace BazisGUI
             // 
             // cntrНавигатор.Panel1
             // 
-            resources.ApplyResources(cntrНавигатор.Panel1, "cntrНавигатор.Panel1");
             cntrНавигатор.Panel1.Controls.Add(navigator);
             // 
             // cntrНавигатор.Panel2
             // 
-            resources.ApplyResources(cntrНавигатор.Panel2, "cntrНавигатор.Panel2");
             cntrНавигатор.Panel2.Controls.Add(tableLayoutPanel1);
             cntrНавигатор.SwitchShifting = false;
             // 
             // navigator
             // 
-            resources.ApplyResources(navigator, "navigator");
             navigator.BackColor = System.Drawing.Color.Gainsboro;
             navigator.BorderStyle = BorderStyle.FixedSingle;
             navigator.CollapseIndex = 7;
+            resources.ApplyResources(navigator, "navigator");
             navigator.DownColor = System.Drawing.Color.Gainsboro;
             navigator.DrawNodeFrozen = false;
             navigator.ExpandIndex = 8;
@@ -1049,10 +1030,10 @@ namespace BazisGUI
             // 
             // contextMenu
             // 
-            resources.ApplyResources(contextMenu, "contextMenu");
             contextMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
             contextMenu.Items.AddRange(new ToolStripItem[] { создатьГруппуItem, скрытьВыбранноеItem, показатьСкрытыеItem, menuItem_InfoSelectedObjects, menuItem_SetRotPoint, показатьСопряженныеItem, menuItem_DeleteSelectedObjects });
             contextMenu.Name = "sceneContextMenu";
+            resources.ApplyResources(contextMenu, "contextMenu");
             // 
             // создатьГруппуItem
             // 
@@ -1062,36 +1043,36 @@ namespace BazisGUI
             // 
             // скрытьВыбранноеItem
             // 
-            resources.ApplyResources(скрытьВыбранноеItem, "скрытьВыбранноеItem");
             скрытьВыбранноеItem.Image = Properties.Resources.Скрыть_выбранное;
+            resources.ApplyResources(скрытьВыбранноеItem, "скрытьВыбранноеItem");
             скрытьВыбранноеItem.Name = "скрытьВыбранноеItem";
             скрытьВыбранноеItem.Click += скрытьВыбранноеItem_Click;
             // 
             // показатьСкрытыеItem
             // 
-            resources.ApplyResources(показатьСкрытыеItem, "показатьСкрытыеItem");
             показатьСкрытыеItem.Image = Properties.Resources.Показать_все_скрытые;
+            resources.ApplyResources(показатьСкрытыеItem, "показатьСкрытыеItem");
             показатьСкрытыеItem.Name = "показатьСкрытыеItem";
             показатьСкрытыеItem.Click += показатьСкрытыеItem_Click;
             // 
             // menuItem_InfoSelectedObjects
             // 
-            resources.ApplyResources(menuItem_InfoSelectedObjects, "menuItem_InfoSelectedObjects");
             menuItem_InfoSelectedObjects.Image = Properties.Resources.Edit_Image;
+            resources.ApplyResources(menuItem_InfoSelectedObjects, "menuItem_InfoSelectedObjects");
             menuItem_InfoSelectedObjects.Name = "menuItem_InfoSelectedObjects";
             menuItem_InfoSelectedObjects.Click += menuItem_InfoSelectedObjects_Click;
             // 
             // menuItem_SetRotPoint
             // 
-            resources.ApplyResources(menuItem_SetRotPoint, "menuItem_SetRotPoint");
             menuItem_SetRotPoint.Image = Properties.Resources.Задать_точку_вращения;
+            resources.ApplyResources(menuItem_SetRotPoint, "menuItem_SetRotPoint");
             menuItem_SetRotPoint.Name = "menuItem_SetRotPoint";
             menuItem_SetRotPoint.Click += menuItem_SetRotPoint_Click;
             // 
             // показатьСопряженныеItem
             // 
-            resources.ApplyResources(показатьСопряженныеItem, "показатьСопряженныеItem");
             показатьСопряженныеItem.Image = Properties.Resources.Показать_сопряженные;
+            resources.ApplyResources(показатьСопряженныеItem, "показатьСопряженныеItem");
             показатьСопряженныеItem.Name = "показатьСопряженныеItem";
             показатьСопряженныеItem.Click += показатьСопряженныеItem_Click;
             // 

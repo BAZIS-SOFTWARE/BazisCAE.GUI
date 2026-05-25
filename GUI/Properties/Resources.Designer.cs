@@ -6249,6 +6249,16 @@ namespace BazisGUI.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Закрыто {
+            get {
+                object obj = ResourceManager.GetObject("Закрыто", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Инфо_со_сцены {
             get {
                 object obj = ResourceManager.GetObject("Инфо_со_сцены", resourceCulture);
@@ -6272,6 +6282,16 @@ namespace BazisGUI.Properties {
         internal static System.Drawing.Bitmap к_39 {
             get {
                 object obj = ResourceManager.GetObject("к 39", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Карандаш {
+            get {
+                object obj = ResourceManager.GetObject("Карандаш", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -6332,6 +6352,16 @@ namespace BazisGUI.Properties {
         internal static System.Drawing.Bitmap н1 {
             get {
                 object obj = ResourceManager.GetObject("н1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Открыто {
+            get {
+                object obj = ResourceManager.GetObject("Открыто", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
