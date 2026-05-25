@@ -48,8 +48,8 @@ namespace BazisGUI
                 }
                 matBasePage.Materials = project.MaterialsDB;
                 matBasePage.PresentMaterials();
-                matBasePage.OnMutationEvent += () => OnChangeMaterials(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
-                OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
+                matBasePage.OnMutationEvent += () => OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
+        OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
                 //Resources.MaterialsDataBasePage_headerName_text;
                 TabButtonsService.AddControl(name, matBasePage);
             }

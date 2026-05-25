@@ -347,7 +347,7 @@ namespace BazisGUI.DataBases
                 var tableAr = table.TableName.Split(',');
                 if (!materials.ContainsKey(tableAr[0]))
                 {
-                    var matItem = new MaterialDBItem() { Name = tableAr[0] };
+                    var matItem = new MaterialDBItem(tableAr[0]);
                     matItem.CategoryData.Add("Общие сведения", new Category() { Name = "Общие сведения" });
                     matItem.CategoryData.Add("Тепловые свойства", new Category() { Name = "Тепловые свойства" });
                     matItem.CategoryData.Add("Механические свойства", new Category() { Name = "Механические свойства" });
@@ -359,14 +359,7 @@ namespace BazisGUI.DataBases
                 var propName = tableAr[2];
                 var yunit = unit.Split('-')[0];
                 var xunit = unit.Split('-').Count() == 2 ? unit.Split('-')[1] : unit.Split('-')[0];
-                var prop = new Property()
-                {
-                    Name = propName,
-                    Units = unit,
-                    X_unit = xunit,
-                    Y_unit = yunit,
-                    DataTable = table
-                };
+                var prop = new Property(propName, xunit, yunit, unit, table);
 
                 materials[tableAr[0]][tableAr[1]].PropertyData.Add(tableAr[2], prop);
             }
@@ -394,14 +387,7 @@ namespace BazisGUI.DataBases
                 var phaseCol = new DataColumn("Масс.Доли", typeof(float)) { DefaultValue = 0 };
                 reacTable.Columns.Add(phaseCol);
 
-                var reac = new Property() 
-                { 
-                    DataTable = reacTable,
-                    Name = reacName,
-                    X_unit = "°C",
-                    Y_unit = "Масс.Доли",
-                    Units = "Масс.Доли-°C"
-                };
+                var reac = new Property(reacName, "°C", "Масс.Доли", "Масс.Доли-°C", reacTable);
 
                 Materials[mat]["Металлургия"].PropertyData.Add(reacName, reac);
 
