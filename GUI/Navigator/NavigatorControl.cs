@@ -467,7 +467,7 @@ namespace BazisGUI.Navigator
                 // Draw the images
                 if (indexes.Length > 0)
                 {
-                    var image = helpImageList.Images[indexes.First()];
+                    var image = helpImageList_loc.Images[indexes.First()];
                     var shift = image.Width + 20;
 
 
@@ -476,7 +476,7 @@ namespace BazisGUI.Navigator
 
                     for (int i = indexes.Length - 2; i >= 0; i--)
                     {
-                        image = helpImageList.Images[i];
+                        image = helpImageList_loc.Images[i];
                         shift += image.Width + 4;
 
                         if (e.X > treeView.Width - shift & e.X < treeView.Width - shift + image.Width)
@@ -665,14 +665,14 @@ namespace BazisGUI.Navigator
                 // Draw the images
                 if(indexes.Length > 0)
                 {
-                    var image = helpImageList.Images[indexes.Last()];
+                    var image = helpImageList_loc.Images[indexes.Last()];
                     var shift = image.Width + 20;
                     float imageY = e.Bounds.Y + (e.Bounds.Height - image.Height) / 2; // Vertically center the image
                     e.Graphics.DrawImage(image, treeView.Width - shift, imageY, image.Width, image.Height);
 
                     foreach (var index in indexes.Reverse().Skip(1))
                     {
-                        image = helpImageList.Images[index];
+                        image = helpImageList_loc.Images[index];
                         shift += image.Width + 4;
 
                         e.Graphics.DrawImage(image, treeView.Width - shift, imageY, image.Width, image.Height);

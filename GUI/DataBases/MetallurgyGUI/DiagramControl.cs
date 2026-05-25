@@ -77,14 +77,22 @@ namespace BazisGUI.DataBases.MetallurgyGUI
 
         private void btnCalcDiag_Click(object sender, EventArgs e)
         {
-            if (rbtCCT.Checked)
+            try
             {
-                CalcCCTDiagram();
+                if (rbtCCT.Checked)
+                {
+                    CalcCCTDiagram();
+                }
+                else
+                {
+                    CalcTTTDiagram();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                CalcTTTDiagram();
+                MessageBox.Show(ex.Message);
             }
+
         }
 
         private void CalcTTTDiagram()

@@ -29,34 +29,35 @@ namespace BazisGUI
 
                 matBasePage.LoadEvent += () =>
                 {
-                    if (project == null)
-                        return;
-
                     project.MaterialsDB = matBasePage.Materials;
+                    OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
                     console.PrintInfo($"{Resources.DataBaseMainMenuEvents_OpenDB_Message} {matBasePage.Materials.Name} {Resources.DataBaseMainMenuEvents_OpenDB_SuccessfullyAdded_Message}", Color.Green);
                 };
 
-                if (project == null)
-                    return;
+                matBasePage.OnMutationEvent += () => OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
 
-                // Проект без базы здесь не существует. При его создании она берется по-умолчанию
-
-                if (project.MaterialsDB == null)
+                OnProjectLoaded += () =>
                 {
+                    matBasePage.Materials = project.MaterialsDB;
+                    matBasePage.PresentMaterials();
+                    OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
+                };
+
+                // Проект может существовать без базы материалов. Например если старт с геометрии.
+                if (project.MaterialsDB == null)
                     console.PrintInfo(Resources.DataBaseMainMenuEvents_OpenMatDB_DBNotLoaded_Message, Color.Red);
-                    return;
+                else
+                {
+                    matBasePage.Materials = project.MaterialsDB;
+                    matBasePage.PresentMaterials();
                 }
-                matBasePage.Materials = project.MaterialsDB;
-                matBasePage.PresentMaterials();
-                matBasePage.OnMutationEvent += () => OnChangeMaterials(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
-                OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
-                //Resources.MaterialsDataBasePage_headerName_text;
+
                 TabButtonsService.AddControl(name, matBasePage);
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
-            }
+            }       
         }
 
         private void функцииMenuItem_Click(object sender, EventArgs e)
@@ -74,30 +75,36 @@ namespace BazisGUI
         {
             try
             {
+                // Подстраховка, если контроллер null
+                if (project == null)
+                    return;
+
                 var funBasePage = new FunctionDataBasePage() {  HeadColor = Color.Gainsboro };
 
                 funBasePage.LoadEvent += () =>
                 {
-                    if (project == null)
-                        return;
-
                     project.FunctionsDB = funBasePage.Functions;
+                    OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
                     console.PrintInfo($"{Resources.DataBaseMainMenuEvents_OpenDB_Message} {funBasePage.Functions.Name} {Resources.DataBaseMainMenuEvents_OpenDB_SuccessfullyAdded_Message}", Color.Green);
                 };
 
-                if (project == null)
-                    return;
-
-                if (project.FunctionsDB == null)
-                {
-                    console.PrintInfo(Resources.DataBaseMainMenuEvents_OpenFuncDB_DBNotLoaded_Message, Color.Red);
-                    return;
-                }
-                funBasePage.Functions = project.FunctionsDB;
-                funBasePage.PresentFunctions();
-
                 funBasePage.OnMutationEvent += () => OnChangeFunctions(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
-                OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
+
+                OnProjectLoaded += () =>
+                {
+                    funBasePage.Functions = project.FunctionsDB;
+                    funBasePage.PresentFunctions();
+                    OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
+                };
+
+                // Проект может существовать без базы материалов. Например если старт с геометрии.         
+                if (project.FunctionsDB == null)
+                    console.PrintInfo(Resources.DataBaseMainMenuEvents_OpenMatDB_DBNotLoaded_Message, Color.Red);
+                else
+                {
+                    funBasePage.Functions = project.FunctionsDB;
+                    funBasePage.PresentFunctions();
+                }
 
                 TabButtonsService.AddControl(name, funBasePage);
             }

@@ -342,14 +342,8 @@ namespace BazisGUI.DataBases
                     var propName = tableAr[0];
                     var yunit = unit.Split('-')[0];
                     var xunit = unit.Split('-').Count() == 2 ? unit.Split('-')[1] : unit.Split('-')[0];
-                    var prop = new Property()
-                    {
-                        Name = propName,
-                        Units = unit,
-                        X_unit = xunit,
-                        Y_unit = yunit,
-                        DataTable = table
-                    };
+                    var prop = new Property(propName, xunit, yunit, unit, table);
+
                     functions.Add(tableAr[0], prop);
                 }
             }
