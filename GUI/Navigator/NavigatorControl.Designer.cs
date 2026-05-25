@@ -31,8 +31,8 @@
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigatorControl));
             genImageList = new System.Windows.Forms.ImageList(components);
-            helpImageList = new System.Windows.Forms.ImageList(components);
             treeView = new System.Windows.Forms.TreeView();
+            helpImageList_loc = new System.Windows.Forms.ImageList(components);
             SuspendLayout();
             // 
             // genImageList
@@ -50,17 +50,6 @@
             genImageList.Images.SetKeyName(7, "н 2.png");
             genImageList.Images.SetKeyName(8, "н 3.png");
             genImageList.Images.SetKeyName(9, "н1.png");
-            // 
-            // helpImageList
-            // 
-            helpImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            helpImageList.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("helpImageList.ImageStream");
-            helpImageList.TransparentColor = System.Drawing.Color.Transparent;
-            helpImageList.Images.SetKeyName(0, "Инфо.png");
-            helpImageList.Images.SetKeyName(1, "Карандаш.png");
-            helpImageList.Images.SetKeyName(2, "Открыто.png");
-            helpImageList.Images.SetKeyName(3, "Закрыто.png");
-            helpImageList.Images.SetKeyName(4, "Удалить раздел.png");
             // 
             // treeView
             // 
@@ -81,6 +70,17 @@
             treeView.NodeMouseClick += treeView_NodeMouseClick;
             treeView.Enter += treeView_Enter;
             // 
+            // helpImageList_loc
+            // 
+            helpImageList_loc.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            helpImageList_loc.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("helpImageList_loc.ImageStream");
+            helpImageList_loc.TransparentColor = System.Drawing.Color.Transparent;
+            helpImageList_loc.Images.SetKeyName(0, "Инфо.png");
+            helpImageList_loc.Images.SetKeyName(1, "Карандаш.png");
+            helpImageList_loc.Images.SetKeyName(2, "Открыто.png");
+            helpImageList_loc.Images.SetKeyName(3, "Закрыто.png");
+            helpImageList_loc.Images.SetKeyName(4, "Удалить раздел.png");
+            // 
             // NavigatorControl
             // 
             resources.ApplyResources(this, "$this");
@@ -94,8 +94,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.ImageList helpImageList;
         private System.Windows.Forms.ImageList genImageList;
         private System.Windows.Forms.TreeView treeView;
+        private System.Windows.Forms.ImageList helpImageList_loc;
     }
 }

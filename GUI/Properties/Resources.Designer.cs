@@ -3869,16 +3869,6 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap hide_w {
-            get {
-                object obj = ResourceManager.GetObject("hide_w", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на The loaded library does not define any implementations of the task master interface, or the implementation of this master is already loaded.
         /// </summary>
         internal static string ImportMaster_CreateImportedMasters_MasterNotFoundOrAlreadyLoaded_Message {
@@ -5392,16 +5382,6 @@ namespace BazisGUI.Properties {
         internal static string SettingsControl_headerName_text {
             get {
                 return ResourceManager.GetString("SettingsControl_headerName_text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap show_w {
-            get {
-                object obj = ResourceManager.GetObject("show_w", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
