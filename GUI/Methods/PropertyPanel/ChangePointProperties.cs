@@ -13,15 +13,13 @@ namespace BazisGUI
                     SetMeshPoint(number, double.Parse(obj.NewValue));
         }
 
-        private void PrepareDataForSetMeshPoint(string number, string meshSize)
+        private void PrepareDataForSetMeshPoint(string number, string meshSize, out int _numberPoint, out double _meshSize)
         {
             var valid =
-                int.TryParse(number, out var _number) &
-                double.TryParse(meshSize, out var _meshSize);
+                int.TryParse(number, out _numberPoint) &
+                double.TryParse(meshSize, out _meshSize);
                     if (!valid)
                 throw new ArgumentException(Resources.InvalidCommandException);
-
-            SetMeshPoint(_number, _meshSize);
         }
 
         private void SetMeshPoint(int number, double meshSize) => GmshController.SetSize(number, meshSize);

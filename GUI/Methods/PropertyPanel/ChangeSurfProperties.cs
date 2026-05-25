@@ -45,28 +45,26 @@ namespace BazisGUI
             }
         }
 
-        private void PrepareDataForSetRegularMeshSurface(string number, string cornerPoints, string ribersOrientation, string quadratization)
+        private void PrepareDataForSetRegularMeshSurface(string number, string cornerPoints, string ribersOrientation, string quadratization, out int _number, out Arrangement _arrangement, out List<int> _cornerPoints, out bool _quadratization)
         {
-            var valid = int.TryParse(number, out var _number) &
-                ribersOrientation.TryToEnum<Arrangement>(out var _arrangement);
+            var valid = int.TryParse(number, out _number) &
+                ribersOrientation.TryToEnum<Arrangement>(out _arrangement);
 
-            var _cornerPoints = cornerPoints
+            _cornerPoints = cornerPoints
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => int.Parse(x.Trim()))
                 .ToList();
 
-            var _quadratization = quadratization == "quad";
+            _quadratization = quadratization == "quad";
 
             if (!valid)
                 throw new ArgumentException(Resources.InvalidCommandException);
-
-            SetRegularMeshSurface(_number, _cornerPoints, _arrangement, _quadratization);
         }
 
-        private void PrepareDataForSetEmbeddedMeshSurface(string number, string embeddedCurves)
+        private void PrepareDataForSetEmbeddedMeshSurface(string number, string embeddedCurves, out int _numberEmbeddedSurface, out List<int> _embeddedCurves)
         {
-            var valid = int.TryParse(number, out var _number);
-            var _embeddedCurves = embeddedCurves
+            var valid = int.TryParse(number, out _numberEmbeddedSurface);
+            _embeddedCurves = embeddedCurves
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => int.Parse(x.Trim()))
                 .ToList();
@@ -74,8 +72,6 @@ namespace BazisGUI
 
             if (!valid || _embeddedCurves == null)
                 throw new ArgumentException(Resources.InvalidCommandException);
-
-            SetEmbeddedMeshSurface(_number, _embeddedCurves);
         }
 
         private void SetEmbeddedMeshSurface(int number, List<int> embeddedCurves)

@@ -36,16 +36,14 @@ namespace BazisGUI
             }
         }
 
-        private void PrepareDataForSetMeshCurve(string number, string pointsCount, string algorithm, string factor)
+        private void PrepareDataForSetMeshCurve(string number, string pointsCount, string algorithm, string factor, out int _number, out string[] attributes)
         {
-            var valid = int.TryParse(number, out var _number) & 
+            var valid = int.TryParse(number, out _number) & 
                         double.TryParse(factor, out var _factor);
 
             if (!valid)
                 throw new ArgumentException(Resources.InvalidCommandException);
-
-            var attributes = new[] { pointsCount, algorithm, factor };
-            SetMeshCurve(_number, attributes);
+            attributes = new[] { pointsCount, algorithm, factor };
         }
 
         private void SetMeshCurve(int number, string[] attributes)

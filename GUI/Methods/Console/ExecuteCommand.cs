@@ -203,16 +203,20 @@ namespace BazisGUI
                         btnSelect.Text = Resources.btnSelect_Text_Objects;
                         break;
                     case GenCmd.SetMeshPoint:
-                        PrepareDataForSetMeshPoint(cmds[1], cmds[2]);
+                        PrepareDataForSetMeshPoint(cmds[1], cmds[2], out int _numberPoint, out double _meshSize);
+                        SetMeshPoint(_numberPoint, _meshSize);
                         break;
                     case GenCmd.SetMeshCurve:
-                        PrepareDataForSetMeshCurve(cmds[1], cmds[2], cmds[3], cmds[4]);
+                        PrepareDataForSetMeshCurve(cmds[1], cmds[2], cmds[3], cmds[4], out int _number, out string[] attributes);
+                        SetMeshCurve(_number, attributes);
                         break;
                     case GenCmd.SetRegularSurface:
-                        PrepareDataForSetRegularMeshSurface(cmds[1], cmds[2], cmds[3], cmds[4]);
+                        PrepareDataForSetRegularMeshSurface(cmds[1], cmds[2], cmds[3], cmds[4], out int _numberSurface, out Arrangement _arrangement, out List<int> _cornerPoints, out bool _quadratization);
+                        SetRegularMeshSurface(_numberSurface, _cornerPoints, _arrangement, _quadratization);
                         break;
                     case GenCmd.SetEmbeddedSurface:
-                        PrepareDataForSetEmbeddedMeshSurface(cmds[1], cmds[2]);
+                        PrepareDataForSetEmbeddedMeshSurface(cmds[1], cmds[2], out int _numberEmbeddedSurface, out List<int> _embeddedCurves);
+                        SetEmbeddedMeshSurface(_numberEmbeddedSurface, _embeddedCurves);
                         break;
                     case GenCmd.SetMinSize:
                         GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(cmds[1]));
