@@ -1,8 +1,10 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using GmshApi;
 using Project.Interfaces.Tasks;
 using System;
+using System.Linq;
 
 namespace BazisGUI
 {
@@ -29,15 +31,31 @@ namespace BazisGUI
                         attributes[2] = obj.NewValue;
                         break;
                 }
-                GmshController.Gmsh.Model.SetAttribute($"transfinite curve {number}", attributes);
+                
+                SetMeshCurve(number, attributes);
             }
+        }
+
+        private void PrepareDataForSetMeshCurve(string number, string pointsCount, string algorithm, string factor, out int _number, out string[] attributes)
+        {
+            var valid = int.TryParse(number, out _number) & 
+                        double.TryParse(factor, out var _factor);
+
+            if (!valid)
+                throw new ArgumentException(Resources.InvalidCommandException);
+            attributes = new[] { pointsCount, algorithm, factor };
+        }
+
+        private void SetMeshCurve(int number, string[] attributes)
+        {
+           // var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite curve {number}");
+            GmshController.Gmsh.Model.SetAttribute($"transfinite curve {number}", attributes);
 
             // записываем трансфиницию кривой
             var points = int.Parse(attributes[0]);
             var meshType = attributes[1].ToEnum<MeshType>();
             var coeff = double.Parse(attributes[2]);
             GmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(number, points, meshType, coeff);
-
 
             // динамически обновляем картину разбиения
             if (settingsConfig.ShowNodesOnCurves)

@@ -29,6 +29,16 @@
         CreateSurface,
         ExtrudeCurve,
         ExtrudeRotate,
-        GenerateMesh
+        GenerateMesh,
+        SetMeshPoint,
+        SetMeshCurve,
+        SetRegularSurface,
+        SetEmbeddedSurface,
+        SetMinSize,
+        SetMaxSize,
+        Algo2D,
+        Algo3D,
+        ScaleFactor,
+        SaveSTEP
     }
 }

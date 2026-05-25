@@ -158,6 +158,8 @@ namespace BazisGUI.Console
                 var cmdLines = File.ReadAllLines(cmdFileName);
                 foreach (var line in cmdLines)
                 {
+                    if(line.StartsWith("//"))
+                        continue; 
                     var matches = Regex.Matches(line, @"\$(\w+)");
                     if (matches.Count > 0)
                     {
@@ -202,8 +204,6 @@ namespace BazisGUI.Console
 
         private void SetValue(int number, string variableName, Dictionary<string, int> variables)
         {
-            if (number == -1)
-                throw new InvalidOperationException($"\n > {Resources.FailedCreateGeometry}");
             if(variableName != string.Empty)
                 variables[variableName] = number;
         }
@@ -226,7 +226,9 @@ namespace BazisGUI.Console
             if (e.KeyCode == Keys.Enter)
             {
                 var cmds = rtxbField.Lines[rtxbField.Lines.Count() - 1];
-                ConsoleCommandEnteredEvent(cmds);
+                var task = ConsoleCommandEnteredEvent(cmds);
+                if (task.Exception != null)
+                    PrintInfo(task.Exception.InnerException.Message, Color.Red);
             }
             else if (e.KeyCode == Keys.Up)
                 PrintHistory(ConsoleHistory.GetPreviousCommand());

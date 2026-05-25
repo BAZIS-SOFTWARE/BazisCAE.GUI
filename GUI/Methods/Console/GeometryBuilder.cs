@@ -10,7 +10,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void ExtruderParserEventHandler(ExtruderType type, List<string> parameters)
+        private void ExtruderParser(ExtruderType type, List<string> parameters)
         {
             if (type == ExtruderType.Curve)
             {
@@ -54,7 +54,7 @@ namespace BazisGUI
             PresentExtrude();
         }
 
-        private int GeometryParserEventHandler(CreateCommandType type, List<string> parameters)
+        private int GeometryParser(CreateCommandType type, List<string> parameters)
         {
             var tag = -1;
             if (GmshController == null)

@@ -1,7 +1,11 @@
 ﻿using BazisGUI.Extensions;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using GmshApi;
+using LicenseInfo;
+using Model.MeshObjects;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using static IronPython.Runtime.Profiler;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -39,6 +43,50 @@ namespace BazisGUI
                     project.GmshController.SetTransfiniteSurface(number, arrangement, points.ToArray());
                 }
             }
+        }
+
+        private void PrepareDataForSetRegularMeshSurface(string number, string cornerPoints, string ribersOrientation, string quadratization, out int _number, out Arrangement _arrangement, out List<int> _cornerPoints, out bool _quadratization)
+        {
+            var valid = int.TryParse(number, out _number) &
+                ribersOrientation.TryToEnum<Arrangement>(out _arrangement);
+
+            _cornerPoints = cornerPoints
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => int.Parse(x.Trim()))
+                .ToList();
+
+            _quadratization = quadratization == "quad";
+
+            if (!valid)
+                throw new ArgumentException(Resources.InvalidCommandException);
+        }
+
+        private void PrepareDataForSetEmbeddedMeshSurface(string number, string embeddedCurves, out int _numberEmbeddedSurface, out List<int> _embeddedCurves)
+        {
+            var valid = int.TryParse(number, out _numberEmbeddedSurface);
+            _embeddedCurves = embeddedCurves
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => int.Parse(x.Trim()))
+                .ToList();
+
+
+            if (!valid || _embeddedCurves == null)
+                throw new ArgumentException(Resources.InvalidCommandException);
+        }
+
+        private void SetEmbeddedMeshSurface(int number, List<int> embeddedCurves)
+        {
+            if (GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number).Length > 0)
+                GmshController.Gmsh.Model.Mesh.RemoveEmbedded([2, number]);
+            GmshController.Gmsh.Model.Mesh.Embed(1, embeddedCurves.ToArray(), 2, number);
+        }
+
+        private void SetRegularMeshSurface(int number, List<int> cornerPoints, Arrangement arrangement, bool quadratization) 
+        {
+            project.GmshController.SetTransfiniteSurface(number, arrangement, cornerPoints.ToArray());
+
+            if(quadratization)
+                project.GmshController.SetRecombineSurface(number);
         }
 
         private void HandleMeshTypeParameter(string newValue, int number, ref bool flag)
