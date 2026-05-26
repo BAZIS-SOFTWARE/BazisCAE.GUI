@@ -43,10 +43,11 @@ namespace BazisGUI
 
         private void FindObjectParserStr(string str, out ObjType objType, out uint number)
         {
-            if (!Enum.TryParse(str.Split(',')[0].Replace(" ", ""), out objType))
+            var strAr = str.Split(',');
+            if (!Enum.TryParse(strAr[0].Replace(" ", ""), out objType))
                 throw new Exception(Resources.UnknownTypeException);
 
-            if (!uint.TryParse(str.Split(',')[1].Replace(" ", ""), out number))
+            if (!uint.TryParse(strAr[1].Replace(" ", ""), out number))
                 throw new Exception(Resources.PositiveCellingNumberException);
         }
         private async void FindObject(ObjType objType, uint number)

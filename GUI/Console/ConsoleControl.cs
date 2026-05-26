@@ -27,7 +27,7 @@ namespace BazisGUI.Console
             }
         }
 
-        public Func<string, Task<int>> ConsoleCommandEnteredEvent;
+        public event Func<string, Task<int>> ConsoleCommandEnteredEvent;
         public event Action CommandsListRequestedEvent;
         public void NewItem_Click(object obj, EventArgs args)
         {
