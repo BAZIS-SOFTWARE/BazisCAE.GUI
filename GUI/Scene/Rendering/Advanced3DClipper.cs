@@ -271,7 +271,7 @@ namespace BazisGUI.Scene
             KeepElementSurfaceRenderer.CreateShaderFromString(ShaderType.VertexShader, ShaderCollections.baseVertex);
             KeepElementSurfaceRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
             KeepElementSurfaceRenderer.CreateShaderFromString(ShaderType.FragmentShader, ShaderCollections.baseFragment);
-            KeepElementSurfaceRenderer.Link();
+            KeepElementSurfaceRenderer.Link(["vertexId"]);
         }
 
         private void CreateKeepElementWireframeRenderer()
@@ -282,7 +282,7 @@ namespace BazisGUI.Scene
             KeepElementWireframeRenderer.Vertex = KeepElementSurfaceRenderer.Vertex;
             KeepElementWireframeRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
             KeepElementWireframeRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
-            KeepElementWireframeRenderer.Link();
+            KeepElementWireframeRenderer.Link(["vertexId"]);
         }
 
         private void CreateKeepElementPointsRenderer()
@@ -305,7 +305,7 @@ namespace BazisGUI.Scene
             LayerSurfaceRenderer.Vertex = KeepElementSurfaceRenderer.Vertex;
             LayerSurfaceRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
             LayerSurfaceRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
-            LayerSurfaceRenderer.Link();
+            LayerSurfaceRenderer.Link(["vertexId"]);
         }
 
         private void CreateLayerWireframeRenderer()
@@ -316,7 +316,7 @@ namespace BazisGUI.Scene
             LayerWireframeRenderer.Vertex = LayerSurfaceRenderer.Vertex;
             LayerWireframeRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
             LayerWireframeRenderer.Fragment = LayerSurfaceRenderer.Fragment;
-            LayerWireframeRenderer.Link();
+            LayerWireframeRenderer.Link(["vertexId"]);
         }
 
         private void CreateLayerPointsRenderer()
