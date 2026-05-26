@@ -1,14 +1,37 @@
-"Load project" "c:\projs\testProj\ExtruzionAndBeamConnection\PART_3.stp"
+"Load project" "C:\Users\gav\Desktop\Models\PART_3.stp"
 
-$p1 = "Create point by vector" "15" "17" "-5"
-$p2 = "Create point by vector" "15" "16" "15"
+//Создаем точки
+$p1 = "Create point by vector" "15" "17" "-7"
+$p2 = "Create point by vector" "15" "16" "7"
+$p3 = "Create point by vector" "15" "17" "0"
 
-$line1 = "Create curve" "15" "$p1"
+//Создаем кривые
+$line1 = "Create curve" "$p3" "$p1"
 $line2 = "Create curve" "$p1" "$p2"
-$line3 = "Create curve" "$p2" "15"
+$line3 = "Create curve" "$p2" "$p3"
 
+//Создаем поверхность
 $surface1 = "Create surface" "curves forming the contour" "$line1,$line2,$line3"
 
+//Настройка геометрии
+//"Set mesh point" "$p1" "2"
+
+// Set mesh curve" "number" "points count" "Progression/Bump/Beta" "factor"
+"Set mesh curve" "$line1" "4" "Progression" "1"
+"Set mesh curve" "$line2" "4" "Progression" "1"
+"Set mesh curve" "$line3" "4" "Progression" "1"
+
+"Set regular mesh surface" "$surface1" "$p3,$p1,$p2" "Left" "quad"
+//"Set embedded mesh surface" "25" "64"
+
+"Set min size" "1"
+"Set max size" "10"
 "Generate mesh" 
 
-"Extrude along curve" "$surface1" "20,19,14,11,8,7,1,50,47,44,41,40,35,32,29,26,23" "15" "2" "1"
+//$setName = "Extrude along curve" "$surface1" "20,19,14,11,8,7,1,50,47,44,41,40,35,32,29,26" "15" "5" "1"
+//$coolection = "GetBoundaryNodes" "$setName"
+//$setName = "OctreeBeamGroupConnection" "$coolection"
+
+
+"Save STEP" "C:\Users\gav\Documents\1.step"
+

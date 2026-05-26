@@ -10,7 +10,14 @@ package "Core" {
 [GMSH Api]
 [Results DB]
 [SQLite]
+
 }
+
+package "Master" {
+IMasterInterface - [MasterInterface]
+}
+[baseForm] --> [MasterInterface]
+
 
 [baseForm] --> [ClientController]
 [baseForm] --> [OpenTK Api]

@@ -9,7 +9,7 @@ namespace MasterInterface.Interfaces
     public interface IMaterialsHandling : IMasterInterface
     {
         /// <summary>
-        /// Событие запроса заполнения мастера материалами со стороны мастера для осуществуления инициализации
+        /// Событие запроса заполнения мастера материалами со стороны мастера для осуществления инициализации
         /// </summary>
         event EventHandler<EventArgs> OnMaterialsRequested;
 
