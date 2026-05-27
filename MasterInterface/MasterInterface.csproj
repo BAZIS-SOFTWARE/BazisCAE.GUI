@@ -9,4 +9,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Interfaces\ILocalazableMaster.cs" />
+    <Compile Remove="Interfaces\ILocalizableMaster.cs" />
+  </ItemGroup>
+
 </Project>

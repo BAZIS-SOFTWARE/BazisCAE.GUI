@@ -29,8 +29,11 @@ $surface1 = "Create surface" "curves forming the contour" "$line1,$line2,$line3"
 "Generate mesh" 
 
 //$setName = "Extrude along curve" "$surface1" "20,19,14,11,8,7,1,50,47,44,41,40,35,32,29,26" "15" "5" "1"
-//$coolection = "GetBoundaryNodes" "$setName"
-//$setName = "OctreeBeamGroupConnection" "$coolection"
+//$grName = "GetBoundaryNodesGroup" "$setName"
+//$grBeamName = "OctreeBeamGroupConnection" "$grName"
+//"CreateBeamMaterial" "$grBeamName" "толщина"
+//$grElemName = "CreateElementsGroup" "$setName"
+//"CreateVolumeMaterial" "$grElemName"
 
 
 "Save STEP" "C:\Users\gav\Documents\1.step"
