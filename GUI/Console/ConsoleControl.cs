@@ -1,18 +1,15 @@
-using BazisGUI.Localization;
 using BazisGUI.PinnedControl;
 using BazisGUI.Properties;
+using BazisGUI.Scripting;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BazisGUI.Console
 {
-    public partial class ConsoleControl : PinnedPage//, ILocalizableHeaderControl
+    public partial class ConsoleControl : PinnedPage
     {
         public bool CheckPrintElemsInfo { get; set; }
         public bool CheckPrintNodesInfo { get; set; }
@@ -27,7 +24,8 @@ namespace BazisGUI.Console
             }
         }
 
-        public event Func<string, Task<int>> ConsoleCommandEnteredEvent;
+        public event Action<string> ConsoleCommandEnteredEvent;
+        public event Action<string> ScriptPathReceived;
         public event Action CommandsListRequestedEvent;
         public void NewItem_Click(object obj, EventArgs args)
         {
@@ -150,64 +148,6 @@ namespace BazisGUI.Console
             rtxbField.BackColor = colorDialog.Color;
         }
 
-        public void ExecuteCmdFile(string cmdFileName)
-        {
-            if (System.IO.File.Exists(cmdFileName))
-            {
-                var variables = new Dictionary<string, int>();
-                var cmdLines = File.ReadAllLines(cmdFileName);
-                foreach (var line in cmdLines)
-                {
-                    if(line.StartsWith("//"))
-                        continue; 
-                    var matches = Regex.Matches(line, @"\$(\w+)");
-                    if (matches.Count > 0)
-                    {
-                        foreach (System.Text.RegularExpressions.Match match in matches)
-                        {
-                            var name = match.Groups[1].Value;
-
-                            if (!variables.ContainsKey(name))
-                                variables[name] = -1;
-                        }
-                        ProcessCommandLine(line, variables);
-                    }   
-                    else 
-                        ConsoleCommandEnteredEvent(line); 
-                }   
-            }
-            else throw new Exception($"\n > {Resources.ExecuteCMDFileMissing}");
-        }
-
-        private void ProcessCommandLine(string line, Dictionary<string, int> variables)
-        {
-            var variableName = string.Empty;
-            var newLine = string.Empty;
-
-            var parts = line.Split('=', 2);
-
-            if (parts.Length == 2)
-            {
-                variableName = parts[0].Trim().TrimStart('$');
-                newLine = parts[1].Trim();
-            }
-            else newLine = line;
-            
-            //Заменяем переменные в строке вида "$name" значением из словаря
-            foreach (var pair in variables)
-                newLine = newLine.Replace("$" + pair.Key, pair.Value.ToString());
-
-            var number = ConsoleCommandEnteredEvent(newLine).Result;
-            //Записываем результат "number" в Value словаря с ключом variableName
-            SetValue(number, variableName, variables);
-        }
-
-        private void SetValue(int number, string variableName, Dictionary<string, int> variables)
-        {
-            if(variableName != string.Empty)
-                variables[variableName] = number;
-        }
-
         private void btnStartMacro_Click(object sender, EventArgs e)
         {
             OpenFileDialog newDialog = new OpenFileDialog()
@@ -217,19 +157,13 @@ namespace BazisGUI.Console
 
             if (newDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-
-            ExecuteCmdFile(newDialog.FileName);
+            ScriptPathReceived?.Invoke(newDialog.FileName);
         }
 
         private void KeyDownEventHadler(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
-                var cmds = rtxbField.Lines[rtxbField.Lines.Count() - 1];
-                var task = ConsoleCommandEnteredEvent(cmds);
-                if (task.Exception != null)
-                    PrintInfo(task.Exception.InnerException.Message, Color.Red);
-            }
+                ConsoleCommandEnteredEvent(rtxbField.Lines[rtxbField.Lines.Count() - 1]);
             else if (e.KeyCode == Keys.Up)
                 PrintHistory(ConsoleHistory.GetPreviousCommand());
             else if (e.KeyCode == Keys.Down)

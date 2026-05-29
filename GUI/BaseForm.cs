@@ -130,7 +130,8 @@ namespace BazisGUI
             TabButtonsService.AddControl(Resources.BaseForm_BaseForm_Load_Navigator, cntrНавигатор);
 
             console.HeaderName = Resources.ConsoleControl_headerName_text;
-
+            console.ConsoleCommandEnteredEvent += (arg) => ExecuteCommand(arg);
+            console.ScriptPathReceived += HandleScriptLoadRequested;
             cntrНавигатор.SplitterWidth = 8;
             splitContainer2.SplitterWidth = 8;
             splitContainer3.SplitterWidth = 8;
