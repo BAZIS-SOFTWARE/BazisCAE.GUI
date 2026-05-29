@@ -1,4 +1,8 @@
-﻿using BazisGUI.Scripting;
+﻿using BazisGUI.Properties;
+using BazisGUI.Scripting;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace BazisGUI
 {
@@ -6,9 +10,19 @@ namespace BazisGUI
     {
         private void HandleScriptLoadRequested(string path)
         {
-            var scriptExecuter = new ScriptExecutor();
+            var commands = new List<string>();
+            if (System.IO.File.Exists(path))
+            {
+                var cmdLines = File.ReadAllLines(path);
+                foreach (var line in cmdLines)
+                    commands.Add(line);
+            }
+            else throw new Exception($"\n > {Resources.ExecuteCMDFileMissing}");
+            
+            var scriptExecuter = new CommandPreprocessor();
             scriptExecuter.CommandEnteredEvent += ExecuteCommand;
-            scriptExecuter.ReadFileScript(path);
+
+            scriptExecuter.ReadCommands(commands);
         }
     }
 }

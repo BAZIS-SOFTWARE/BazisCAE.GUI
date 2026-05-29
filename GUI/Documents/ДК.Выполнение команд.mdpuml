@@ -1,0 +1,21 @@
+﻿@startuml
+package "BazisGUI" {
+	component Console
+	component Script
+	component Masters
+	component CommandPreprocessor
+	component BaseForm
+
+	Console --> CommandPreprocessor
+	Script --> CommandPreprocessor
+	Masters --> CommandPreprocessor
+
+	CommandPreprocessor --> BaseForm : ExecuteCommand(List<string> cmd)
+}
+
+package "Core"{
+	component OperationController
+}
+
+BazisGUI <--> Core
+@enduml

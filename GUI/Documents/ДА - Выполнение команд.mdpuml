@@ -1,0 +1,49 @@
+﻿@startuml
+
+start
+
+:ReadCommand(cmd);
+note right
+	Внешний вход
+end note
+:ExecuteLine(line);
+
+if (Строка пустая или комментарий?) then (Да)
+  stop
+note left
+	Строка нам не интересна, выход
+end note
+endif
+
+:Поиск переменных в строке через регулярные выражения ($var);
+
+if (Переменные найдены?) then (Да)
+	if (Переменная есть в словаре?) then (Да)
+		:Заменяем переменную ее значением и формируем новую строку;
+    else (Нет)
+        :Добавляем запись в словарь;
+endif
+endif
+
+if (Строка содержит "=" ?) then (Да)
+  :Извлекаем левую часть как имя переменной;
+  if (Правая часть парсится в int или не команда?) then (Да)
+  stop
+  note left
+	Обновляем запись по ключу
+	end note
+	else (Нет)
+endif
+endif
+:ParseCommandLine(command, variableName);
+
+if (Пришло имя переменной?) then (Да)
+  :Invoke CommandEnteredEvent;
+  :Записываем результат в словарь;
+else (Нет)
+  :Invoke CommandEnteredEvent;
+endif
+
+stop
+
+@enduml

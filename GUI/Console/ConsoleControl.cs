@@ -1,6 +1,5 @@
 using BazisGUI.PinnedControl;
 using BazisGUI.Properties;
-using BazisGUI.Scripting;
 using System;
 using System.Drawing;
 using System.IO;

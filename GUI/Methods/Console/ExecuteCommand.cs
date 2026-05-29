@@ -1,25 +1,19 @@
-﻿using BazisGUI.Console;
-using BazisGUI.Console.Enums;
+﻿using BazisGUI.Console.Enums;
 using BazisGUI.Extensions;
 using BazisGUI.Properties;
 using BazisGUI.Scripting;
-using BazisGUI.Scripting.Variable;
-using BazisGUI.Utilities;
 using GmshApi;
-using ResultDB;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.LinkLabel;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        Dictionary<string, GenCmd> genCmds = CommandList.Commands;
         Dictionary<GenCmd, string[]> subCmds = new Dictionary<GenCmd, string[]>()
         {
             { GenCmd.LoadProject, new[] { "path" } },
@@ -69,155 +63,293 @@ namespace BazisGUI
                 console.PrintInfo($"- \"{item.Key}\" {args}", Color.Black);
             }
         }
-  
-        private async Task<CmdReport> ExecuteCommand(string line)
+
+        private async Task<CmdReport> ExecuteCommand(List<string> cmds)
         {
             var result = int.MinValue;
-            var cmds = FieldsParser.ParseLine(line);
-
             var report = new CmdReport()
             {
                 Name = cmds[0],
             };
 
-            if (cmds.Count != 0)
+            switch (genCmds[cmds[0]])
             {
-                if (!this.genCmds.ContainsKey(cmds[0]))
-                    throw new Exception(Resources.NotACommandException);
-                if (subCmds[genCmds[cmds[0]]].Length != cmds.Count - 1)
-                    throw new Exception(Resources.InvalidArgumentsNumberException);
-
-                ConsoleHistory.AddComand(line);
-
-                switch (genCmds[cmds[0]])
-                {
-                    case GenCmd.CreateMesh2DPoligon:
-                        ParsePolygonPoints(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5], out var p1, out var p2, out var p3, out var p4, out var numberOfElemsInt);
-                        CreateMesh2DPoligon(p1, p2, p3, p4, numberOfElemsInt);
-                        break;
-                    case GenCmd.MergeElementSets:
-                        MergeEventSets(cmds[1], cmds[2], cmds[3]);
-                        break;
-                    case GenCmd.FindObject:
-                        FindObjectParserStr(cmds[1], out var type, out var number);
-                        FindObject(type, number);
-                        break;
-                    case GenCmd.LoadProject:
-                        await OpenProject(cmds[1]);
-                        break;
-                    case GenCmd.SaveProject:
-                        project.Save(cmds[1]);
-                        break;
-                    case GenCmd.CreateGraph:
-                        break;
-                    case GenCmd.RenumberMesh:
-                        console_RenumberMeshEvent(cmds[1]);
-                        break;
-                    case GenCmd.MoveMesh:
-                        ParseVector(cmds[2], out var x, out var y, out var z);
-                        console_ModelShiftCoordinateEvent(x, y, z);
-                        break;
-                    case GenCmd.RotateMesh:
-                        console_ModelRotateEvent(cmds[2]);
-                        break;
-                    case GenCmd.MoveNodes:
-                        if (cmds[1] == Resources.MoveRotNodesOption)
-                            console_NodesShiftCoordinate();
-                        break;
-                    case GenCmd.FindFreeNodes:
-                        console_FindFreeNodesEvent();
-                        break;
-                    case GenCmd.FindVolElems:
-                        FindVolElems(cmds[1]);
-                        break;
-                    case GenCmd.FindCoincident:
-                        if (cmds[1] == "nodes")
-                            await FindCoincidentNodes(float.Parse(cmds[2]));
-                        break;
-                    case GenCmd.BeamConnection:
-                        PrepareDataForConnectionBeam(cmds[1], cmds[2], out double radius, out int maxBeams);
-                        BeamConnection(radius, maxBeams, cmds[3], cmds[4]);
-                        break;
-                    case GenCmd.SolveProject:
-                        //TODO: Реализовать метод
-                        break;
-                    case GenCmd.SetLevel:
-                        SetLevel(cmds[1], cmds[2]);
-                        break;
-                    case GenCmd.Exit:
-                        Application.Exit();
-                        break;
-                    case GenCmd.CreatePoint:
-                        result = GeometryParser(CreateCommandType.AddPoint, [cmds[1]]);
-                        report.Variable = new IntValue { Value = result };
-                        break;
-                    case GenCmd.CreateCurve:
-                        result = GeometryParser(CreateCommandType.AddCurve, [cmds[1], cmds[2]]);
-                        report.Variable = new IntValue { Value = result };
-                        break;
-                    case GenCmd.CreateSurface:
-                        result = GeometryParser(CreateCommandType.AddSurface, [cmds[2]]);
-                        report.Variable = new IntValue { Value = result };
-                        break;
-                    case GenCmd.ExtrudeCurve:
-                        ExtruderParser(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
-                        break;
-                    //case GenCmd.ExtrudeRotate:
-                    //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
-                    //    break;
-                    case GenCmd.CreatePointByVector:
-                        result = GeometryParser(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]);
-                        report.Variable = new IntValue { Value = result };
-                        break;
-                    case GenCmd.CreatePointProjectionOntoPlane:
-                        result = GeometryParser(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]);
-                        report.Variable = new IntValue { Value = result };
-                        break;
-                    case GenCmd.CreatePointProjectionOntoCurve:
-                        result = GeometryParser(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]);
-                        report.Variable = new IntValue { Value = result };
-                        break;
-                    case GenCmd.GenerateMesh:
-                        создать3DСеткуToolStripMenuItem_Click(null, EventArgs.Empty);
-                        btnSelect.Text = Resources.btnSelect_Text_Objects;
-                        break;
-                    case GenCmd.SetMeshPoint:
-                        PrepareDataForSetMeshPoint(cmds[1], cmds[2], out int _numberPoint, out double _meshSize);
-                        SetMeshPoint(_numberPoint, _meshSize);
-                        break;
-                    case GenCmd.SetMeshCurve:
-                        PrepareDataForSetMeshCurve(cmds[1], cmds[2], cmds[3], cmds[4], out int _number, out string[] attributes);
-                        SetMeshCurve(_number, attributes);
-                        break;
-                    case GenCmd.SetRegularSurface:
-                        PrepareDataForSetRegularMeshSurface(cmds[1], cmds[2], cmds[3], cmds[4], out int _numberSurface, out Arrangement _arrangement, out List<int> _cornerPoints, out bool _quadratization);
-                        SetRegularMeshSurface(_numberSurface, _cornerPoints, _arrangement, _quadratization);
-                        break;
-                    case GenCmd.SetEmbeddedSurface:
-                        PrepareDataForSetEmbeddedMeshSurface(cmds[1], cmds[2], out int _numberEmbeddedSurface, out List<int> _embeddedCurves);
-                        SetEmbeddedMeshSurface(_numberEmbeddedSurface, _embeddedCurves);
-                        break;
-                    case GenCmd.SetMinSize:
-                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(cmds[1]));
-                        break;
-                    case GenCmd.SetMaxSize:
-                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", double.Parse(cmds[1]));
-                        break;
-                    case GenCmd.Algo2D:
-                        GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)cmds[1].ToEnum<MeshAlgorithm2D>());
-                        break;
-                    case GenCmd.Algo3D:
-                        GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm3D", (double)cmds[1].ToEnum<MeshAlgorithm3D>());
-                        break;
-                    case GenCmd.ScaleFactor:
-                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", double.Parse(cmds[1]));
-                        break;
-                    case GenCmd.SaveSTEP:
-                        GmshController.Gmsh.Write(cmds[1]);
-                        break;
-                }
+                case GenCmd.CreateMesh2DPoligon:
+                    ParsePolygonPoints(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5], out var p1, out var p2, out var p3, out var p4, out var numberOfElemsInt);
+                    CreateMesh2DPoligon(p1, p2, p3, p4, numberOfElemsInt);
+                    break;
+                case GenCmd.MergeElementSets:
+                    MergeEventSets(cmds[1], cmds[2], cmds[3]);
+                    break;
+                case GenCmd.FindObject:
+                    FindObjectParserStr(cmds[1], out var type, out var number);
+                    FindObject(type, number);
+                    break;
+                case GenCmd.LoadProject:
+                    await OpenProject(cmds[1]);
+                    break;
+                case GenCmd.SaveProject:
+                    project.Save(cmds[1]);
+                    break;
+                case GenCmd.CreateGraph:
+                    break;
+                case GenCmd.RenumberMesh:
+                    console_RenumberMeshEvent(cmds[1]);
+                    break;
+                case GenCmd.MoveMesh:
+                    ParseVector(cmds[2], out var x, out var y, out var z);
+                    console_ModelShiftCoordinateEvent(x, y, z);
+                    break;
+                case GenCmd.RotateMesh:
+                    console_ModelRotateEvent(cmds[2]);
+                    break;
+                case GenCmd.MoveNodes:
+                    if (cmds[1] == Resources.MoveRotNodesOption)
+                        console_NodesShiftCoordinate();
+                    break;
+                case GenCmd.FindFreeNodes:
+                    console_FindFreeNodesEvent();
+                    break;
+                case GenCmd.FindVolElems:
+                    FindVolElems(cmds[1]);
+                    break;
+                case GenCmd.FindCoincident:
+                    if (cmds[1] == "nodes")
+                        await FindCoincidentNodes(float.Parse(cmds[2]));
+                    break;
+                case GenCmd.BeamConnection:
+                    PrepareDataForConnectionBeam(cmds[1], cmds[2], out double radius, out int maxBeams);
+                    BeamConnection(radius, maxBeams, cmds[3], cmds[4]);
+                    break;
+                case GenCmd.SolveProject:
+                    //TODO: Реализовать метод
+                    break;
+                case GenCmd.SetLevel:
+                    SetLevel(cmds[1], cmds[2]);
+                    break;
+                case GenCmd.Exit:
+                    Application.Exit();
+                    break;
+                case GenCmd.CreatePoint:
+                    result = GeometryParser(CreateCommandType.AddPoint, [cmds[1]]);
+                    report.Variable = result.ToString() ;
+                    break;
+                case GenCmd.CreateCurve:
+                    result = GeometryParser(CreateCommandType.AddCurve, [cmds[1], cmds[2]]);
+                    report.Variable = result.ToString();
+                    break;
+                case GenCmd.CreateSurface:
+                    result = GeometryParser(CreateCommandType.AddSurface, [cmds[2]]);
+                    report.Variable = result.ToString();
+                    break;
+                case GenCmd.ExtrudeCurve:
+                    ExtruderParser(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
+                    break;
+                //case GenCmd.ExtrudeRotate:
+                //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
+                //    break;
+                case GenCmd.CreatePointByVector:
+                    result = GeometryParser(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]);
+                    report.Variable = result.ToString();
+                    break;
+                case GenCmd.CreatePointProjectionOntoPlane:
+                    result = GeometryParser(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]);
+                    report.Variable = result.ToString();
+                    break;
+                case GenCmd.CreatePointProjectionOntoCurve:
+                    result = GeometryParser(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]);
+                    report.Variable = result.ToString();
+                    break;
+                case GenCmd.GenerateMesh:
+                    создать3DСеткуToolStripMenuItem_Click(null, EventArgs.Empty);
+                    btnSelect.Text = Resources.btnSelect_Text_Objects;
+                    break;
+                case GenCmd.SetMeshPoint:
+                    PrepareDataForSetMeshPoint(cmds[1], cmds[2], out int _numberPoint, out double _meshSize);
+                    SetMeshPoint(_numberPoint, _meshSize);
+                    break;
+                case GenCmd.SetMeshCurve:
+                    PrepareDataForSetMeshCurve(cmds[1], cmds[2], cmds[3], cmds[4], out int _number, out string[] attributes);
+                    SetMeshCurve(_number, attributes);
+                    break;
+                case GenCmd.SetRegularSurface:
+                    PrepareDataForSetRegularMeshSurface(cmds[1], cmds[2], cmds[3], cmds[4], out int _numberSurface, out Arrangement _arrangement, out List<int> _cornerPoints, out bool _quadratization);
+                    SetRegularMeshSurface(_numberSurface, _cornerPoints, _arrangement, _quadratization);
+                    break;
+                case GenCmd.SetEmbeddedSurface:
+                    PrepareDataForSetEmbeddedMeshSurface(cmds[1], cmds[2], out int _numberEmbeddedSurface, out List<int> _embeddedCurves);
+                    SetEmbeddedMeshSurface(_numberEmbeddedSurface, _embeddedCurves);
+                    break;
+                case GenCmd.SetMinSize:
+                    GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(cmds[1]));
+                    break;
+                case GenCmd.SetMaxSize:
+                    GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", double.Parse(cmds[1]));
+                    break;
+                case GenCmd.Algo2D:
+                    GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)cmds[1].ToEnum<MeshAlgorithm2D>());
+                    break;
+                case GenCmd.Algo3D:
+                    GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm3D", (double)cmds[1].ToEnum<MeshAlgorithm3D>());
+                    break;
+                case GenCmd.ScaleFactor:
+                    GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", double.Parse(cmds[1]));
+                    break;
+                case GenCmd.SaveSTEP:
+                    GmshController.Gmsh.Write(cmds[1]);
+                    break;
             }
             return report;
         }
+
+        //private async Task<CmdReport> ExecuteCommand(string line)
+        //{
+        //    var result = int.MinValue;
+        //    var cmds = FieldsParser.ParseLine(line);
+
+        //    var report = new CmdReport()
+        //    {
+        //        Name = cmds[0],
+        //    };
+
+        //    if (cmds.Count != 0)
+        //    {
+        //        if (!this.genCmds.ContainsKey(cmds[0]))
+        //            throw new Exception(Resources.NotACommandException);
+        //        if (subCmds[genCmds[cmds[0]]].Length != cmds.Count - 1)
+        //            throw new Exception(Resources.InvalidArgumentsNumberException);
+
+        //        ConsoleHistory.AddComand(line);
+
+        //        switch (genCmds[cmds[0]])
+        //        {
+        //            case GenCmd.CreateMesh2DPoligon:
+        //                ParsePolygonPoints(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5], out var p1, out var p2, out var p3, out var p4, out var numberOfElemsInt);
+        //                CreateMesh2DPoligon(p1, p2, p3, p4, numberOfElemsInt);
+        //                break;
+        //            case GenCmd.MergeElementSets:
+        //                MergeEventSets(cmds[1], cmds[2], cmds[3]);
+        //                break;
+        //            case GenCmd.FindObject:
+        //                FindObjectParserStr(cmds[1], out var type, out var number);
+        //                FindObject(type, number);
+        //                break;
+        //            case GenCmd.LoadProject:
+        //                await OpenProject(cmds[1]);
+        //                break;
+        //            case GenCmd.SaveProject:
+        //                project.Save(cmds[1]);
+        //                break;
+        //            case GenCmd.CreateGraph:
+        //                break;
+        //            case GenCmd.RenumberMesh:
+        //                console_RenumberMeshEvent(cmds[1]);
+        //                break;
+        //            case GenCmd.MoveMesh:
+        //                ParseVector(cmds[2], out var x, out var y, out var z);
+        //                console_ModelShiftCoordinateEvent(x, y, z);
+        //                break;
+        //            case GenCmd.RotateMesh:
+        //                console_ModelRotateEvent(cmds[2]);
+        //                break;
+        //            case GenCmd.MoveNodes:
+        //                if (cmds[1] == Resources.MoveRotNodesOption)
+        //                    console_NodesShiftCoordinate();
+        //                break;
+        //            case GenCmd.FindFreeNodes:
+        //                console_FindFreeNodesEvent();
+        //                break;
+        //            case GenCmd.FindVolElems:
+        //                FindVolElems(cmds[1]);
+        //                break;
+        //            case GenCmd.FindCoincident:
+        //                if (cmds[1] == "nodes")
+        //                    await FindCoincidentNodes(float.Parse(cmds[2]));
+        //                break;
+        //            case GenCmd.BeamConnection:
+        //                PrepareDataForConnectionBeam(cmds[1], cmds[2], out double radius, out int maxBeams);
+        //                BeamConnection(radius, maxBeams, cmds[3], cmds[4]);
+        //                break;
+        //            case GenCmd.SolveProject:
+        //                //TODO: Реализовать метод
+        //                break;
+        //            case GenCmd.SetLevel:
+        //                SetLevel(cmds[1], cmds[2]);
+        //                break;
+        //            case GenCmd.Exit:
+        //                Application.Exit();
+        //                break;
+        //            case GenCmd.CreatePoint:
+        //                result = GeometryParser(CreateCommandType.AddPoint, [cmds[1]]);
+        //                report.Variable = new IntValue { Value = result };
+        //                break;
+        //            case GenCmd.CreateCurve:
+        //                result = GeometryParser(CreateCommandType.AddCurve, [cmds[1], cmds[2]]);
+        //                report.Variable = new IntValue { Value = result };
+        //                break;
+        //            case GenCmd.CreateSurface:
+        //                result = GeometryParser(CreateCommandType.AddSurface, [cmds[2]]);
+        //                report.Variable = new IntValue { Value = result };
+        //                break;
+        //            case GenCmd.ExtrudeCurve:
+        //                ExtruderParser(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
+        //                break;
+        //            //case GenCmd.ExtrudeRotate:
+        //            //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
+        //            //    break;
+        //            case GenCmd.CreatePointByVector:
+        //                result = GeometryParser(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]);
+        //                report.Variable = new IntValue { Value = result };
+        //                break;
+        //            case GenCmd.CreatePointProjectionOntoPlane:
+        //                result = GeometryParser(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]);
+        //                report.Variable = new IntValue { Value = result };
+        //                break;
+        //            case GenCmd.CreatePointProjectionOntoCurve:
+        //                result = GeometryParser(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]);
+        //                report.Variable = new IntValue { Value = result };
+        //                break;
+        //            case GenCmd.GenerateMesh:
+        //                создать3DСеткуToolStripMenuItem_Click(null, EventArgs.Empty);
+        //                btnSelect.Text = Resources.btnSelect_Text_Objects;
+        //                break;
+        //            case GenCmd.SetMeshPoint:
+        //                PrepareDataForSetMeshPoint(cmds[1], cmds[2], out int _numberPoint, out double _meshSize);
+        //                SetMeshPoint(_numberPoint, _meshSize);
+        //                break;
+        //            case GenCmd.SetMeshCurve:
+        //                PrepareDataForSetMeshCurve(cmds[1], cmds[2], cmds[3], cmds[4], out int _number, out string[] attributes);
+        //                SetMeshCurve(_number, attributes);
+        //                break;
+        //            case GenCmd.SetRegularSurface:
+        //                PrepareDataForSetRegularMeshSurface(cmds[1], cmds[2], cmds[3], cmds[4], out int _numberSurface, out Arrangement _arrangement, out List<int> _cornerPoints, out bool _quadratization);
+        //                SetRegularMeshSurface(_numberSurface, _cornerPoints, _arrangement, _quadratization);
+        //                break;
+        //            case GenCmd.SetEmbeddedSurface:
+        //                PrepareDataForSetEmbeddedMeshSurface(cmds[1], cmds[2], out int _numberEmbeddedSurface, out List<int> _embeddedCurves);
+        //                SetEmbeddedMeshSurface(_numberEmbeddedSurface, _embeddedCurves);
+        //                break;
+        //            case GenCmd.SetMinSize:
+        //                GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(cmds[1]));
+        //                break;
+        //            case GenCmd.SetMaxSize:
+        //                GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", double.Parse(cmds[1]));
+        //                break;
+        //            case GenCmd.Algo2D:
+        //                GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)cmds[1].ToEnum<MeshAlgorithm2D>());
+        //                break;
+        //            case GenCmd.Algo3D:
+        //                GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm3D", (double)cmds[1].ToEnum<MeshAlgorithm3D>());
+        //                break;
+        //            case GenCmd.ScaleFactor:
+        //                GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", double.Parse(cmds[1]));
+        //                break;
+        //            case GenCmd.SaveSTEP:
+        //                GmshController.Gmsh.Write(cmds[1]);
+        //                break;
+        //        }
+        //    }
+        //    return report;
+        //}
     }
 }
