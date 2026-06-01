@@ -81,6 +81,10 @@ namespace BazisGUI.Scene.VBO
             //
             GL.DrawElements((PrimitiveType)obj.GL_ObjType, indexLength, DrawElementsType.UnsignedInt, IntPtr.Zero);
 
+            if (obj.ObjName.Contains("Volume"))
+            {
+                var error = GL.GetError();
+            }
             //Gl.glDisable(Gl.GL_BLEND);
         }
         /// <summary>

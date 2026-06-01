@@ -1,8 +1,8 @@
-﻿
-using System;
+﻿using System;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
 using OpenTK.Graphics.OpenGL;
+using System.Collections.Generic;
 
 namespace BazisGUI.Scene
 {
@@ -86,6 +86,15 @@ namespace BazisGUI.Scene
         /// Флаг улучшенного сечения
         /// </summary>
         public bool IsEnable {  get; set; }
+        /// <summary>
+        /// Идентифкатор буффера tbo, для вытягивания данных
+        /// </summary>
+        public int TBOId { get; set; }
+
+        /// <summary>
+        /// Идентифкатор query, для запроса количества записанных примитивов
+        /// </summary>
+        public int QueryId { get; set; }
 
         /// <summary>
         /// Установить толщину слоя
@@ -181,14 +190,22 @@ namespace BazisGUI.Scene
 
                 if (ClipMode == ClipMode.Layered)
                 {
-                    program.SetUniform("layerThickness", new float[] { LayerThickness });
-                    program.SetUniform("scaleFactor", new float[] { ScaleFactor });
+                    program.SetUniform("layerThickness", [LayerThickness]);
+                    program.SetUniform("scaleFactor", [ScaleFactor]);
                 }
 
                 var sObj = vbo as SurfaceObjects;
 
                 program.SetCustomAttributes(sObj.LeftUpBuffer, "inLeftUp");
                 program.SetCustomAttributes(sObj.RightDownBuffer, "inRightDown");
+
+                if (TBOId != 0 && QueryId != 0)
+                {
+                    GL.BindTransformFeedback(TransformFeedbackTarget.TransformFeedback, TBOId);
+
+                    GL.BeginQuery(QueryTarget.TransformFeedbackPrimitivesWritten, QueryId);
+                    GL.BeginTransformFeedback(TransformFeedbackPrimitiveType.Triangles);
+                }
             }
         }
 
@@ -214,6 +231,12 @@ namespace BazisGUI.Scene
 
                 program.UnsetCustomAttributes("inLeftUp");
                 program.UnsetCustomAttributes("inRightDown");
+
+                if (TBOId != 0 && QueryId != 0)
+                {
+                    GL.EndTransformFeedback();
+                    GL.EndQuery(QueryTarget.TransformFeedbackPrimitivesWritten);
+                }
 
                 program.Unbind();
             }
