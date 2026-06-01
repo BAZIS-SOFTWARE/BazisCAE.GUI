@@ -13,6 +13,9 @@ $line3 = "Create curve" "$p2" "$p3"
 //Создаем поверхность
 $surface1 = "Create surface" "curves forming the contour" "$line1,$line2,$line3"
 
+//Сохпанение геометрии
+//"Save STEP" "C:\Users\gav\Documents\1.step"
+
 //Настройка геометрии
 //"Set mesh point" "$p1" "2"
 
@@ -29,12 +32,19 @@ $surface1 = "Create surface" "curves forming the contour" "$line1,$line2,$line3"
 "Generate mesh" 
 
 //$setName = "Extrude along curve" "$surface1" "20,19,14,11,8,7,1,50,47,44,41,40,35,32,29,26" "15" "5" "1"
-//$grName = "GetBoundaryNodesGroup" "$setName"
-//$grBeamName = "OctreeBeamGroupConnection" "$grName"
-//"CreateBeamMaterial" "$grBeamName" "толщина"
+
+// не реализован!
+//$grNameMaster = "CreateSurfaceNodesGroup" "$setName"
+//$grNameSlave = "CreateGroupByGeoObjs" "meshDim" "geoDim" "номер гео.объекта"
+// изменить под одну группу!
+//$grBeamName = "OctreeBeamGroupConnection" "$grNameMaster" $grNameSlave "distance" "maxBeams"
+
 //$grElemName = "CreateElementsGroup" "$setName"
-//"CreateVolumeMaterial" "$grElemName"
 
+//"CreateTask" "kind" "type"
+//"Load material db" "path"
+//"Load function db" "path"
 
-"Save STEP" "C:\Users\gav\Documents\1.step"
+//"CreateVolumeMaterial" "1" "*" "*" "None" "$grElemName" "startTime" "finishTime" "matName"
+//"CreateBeamMaterial" "1" "*" "*" "None" "$grBeamName" "startTime" "finishTime" "matName" "diam"
 
