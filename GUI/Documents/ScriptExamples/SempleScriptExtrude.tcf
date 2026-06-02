@@ -39,7 +39,7 @@ $surface1 = "Create surface" "curves forming the contour" "$line1,$line2,$line3"
 // изменить под одну группу!
 //$grBeamName = "OctreeBeamGroupConnection" "$grNameMaster" $grNameSlave "distance" "maxBeams"
 
-//$grElemName = "CreateElementsGroup" "$setName"
+//$grElemName = "CreateGroupByMeshObjs" "meshDim" "$setName"
 
 //"CreateTask" "kind" "type"
 //"Load material db" "path"
