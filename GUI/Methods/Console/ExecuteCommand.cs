@@ -47,6 +47,8 @@ namespace BazisGUI
             { "Set max size", GenCmd.SetMaxSize },
             { "Algo2D", GenCmd.Algo2D },
             { "Algo3D", GenCmd.Algo3D },
+            { "Create Surface Nodes Group", GenCmd.CreateSurfaceNodesGroup },
+            { "Create Group By Geo Objs", GenCmd.CreateGroupByGeoObjs},
             { "Scale factor", GenCmd.ScaleFactor },
             { "Extrude along curve",GenCmd.ExtrudeCurve },
             { "Extrusion by rotation",GenCmd.ExtrudeRotate },
@@ -85,6 +87,8 @@ namespace BazisGUI
             { GenCmd.SetMaxSize, new [] { "size" } },
             { GenCmd.Algo2D, new[] { "MeshAdapt/Automatic/InitialMeshOnly/Delaunay/FrontalDelaunay/BAMG/FrontalDelaunayQuads/PackingOfParallelograms/QuasiStructuredQuad" } },
             { GenCmd.Algo3D, new[] { "Delaunay/InitialMeshOnly/Frontal/MMG3D/RTree/HXT" } },
+            { GenCmd.CreateSurfaceNodesGroup, new []{ "set name" } },
+            { GenCmd.CreateGroupByGeoObjs, new []{ "meshDim", "geoDim", "номер гео.объекта" }},
             { GenCmd.ScaleFactor, new[] { "scale"} },
             { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve#1,curve#2,curve#3...", "point", "step", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
@@ -103,10 +107,10 @@ namespace BazisGUI
                 console.PrintInfo($"- \"{item.Key}\" {args}", Color.Black);
             }
         }
-        private async Task<int> ExecuteCommand(string line)
+        private async Task<string> ExecuteCommand(string line)
         {
             var cmds = FieldsParser.ParseLine(line);
-            var numberCreatedObject = -1;
+            var returnValue = string.Empty;
             if (cmds.Count != 0)
             {
                 if (!this.genCmds.ContainsKey(cmds[0]))
@@ -174,29 +178,28 @@ namespace BazisGUI
                         Application.Exit();
                         break;
                     case GenCmd.CreatePoint:
-                        numberCreatedObject = GeometryParser(CreateCommandType.AddPoint, [cmds[1]]);
+                        returnValue = GeometryParser(CreateCommandType.AddPoint, [cmds[1]]).ToString();
                         break;
                     case GenCmd.CreateCurve:
-                        numberCreatedObject = GeometryParser(CreateCommandType.AddCurve, [cmds[1], cmds[2]]);
+                        returnValue = GeometryParser(CreateCommandType.AddCurve, [cmds[1], cmds[2]]).ToString();
                         break;
                     case GenCmd.CreateSurface:
-                        numberCreatedObject = GeometryParser(CreateCommandType.AddSurface, [cmds[2]]);
+                        returnValue = GeometryParser(CreateCommandType.AddSurface, [cmds[2]]).ToString();
                         break;
                     case GenCmd.ExtrudeCurve:
-                        ExtruderParser(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
-                        numberCreatedObject = 1;
+                        returnValue = ExtruderParser(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
                         break;
                     //case GenCmd.ExtrudeRotate:
                     //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
                     //    break;
                     case GenCmd.CreatePointByVector:
-                        numberCreatedObject = GeometryParser(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]);
+                        returnValue = GeometryParser(CreateCommandType.AddPointByVector, [cmds[1], cmds[2], cmds[3]]).ToString();
                         break;
                     case GenCmd.CreatePointProjectionOntoPlane:
-                        numberCreatedObject = GeometryParser(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]);
+                        returnValue = GeometryParser(CreateCommandType.AddPointProjectToSurface, [cmds[1], cmds[2]]).ToString();
                         break;
                     case GenCmd.CreatePointProjectionOntoCurve:
-                        numberCreatedObject = GeometryParser(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]);
+                        returnValue = GeometryParser(CreateCommandType.AddPointProjectToCurve, [cmds[1], cmds[2]]).ToString();
                         break;
                     case GenCmd.GenerateMesh:
                         создать3DСеткуToolStripMenuItem_Click(null, EventArgs.Empty);
@@ -236,9 +239,18 @@ namespace BazisGUI
                     case GenCmd.SaveSTEP:
                         GmshController.Gmsh.Write(cmds[1]);
                         break;
+                    case GenCmd.CreateSurfaceNodesGroup:
+                        returnValue = project.CreateOpenSurfaceNodesGroup(cmds[1]);
+                        PresentGroupDataOnTree();
+                        break;
+                    case GenCmd.CreateGroupByGeoObjs:
+                        PrepareDataForCreateGroupByGeo(cmds[1], cmds[2], cmds[3], out int _meshDim, out int _geoDim, out int _tag);
+                        returnValue = project.CreateGroupByGeoObjs(_meshDim, _geoDim, _tag);
+                        PresentGroupDataOnTree();
+                        break;
                 }
             }
-            return numberCreatedObject;
+            return returnValue;
         }
     }
 }
