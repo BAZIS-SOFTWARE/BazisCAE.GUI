@@ -21,6 +21,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using static IronPython.Modules.PythonCsvModule;
 
 namespace BazisGUI
 {
@@ -532,7 +533,8 @@ namespace BazisGUI
 
             CreateCaptureData(dataBuffers, objViews);
             RunTransformFeedback();
-            FetchData(dataBuffers);
+            var indices = FetchData(dataBuffers);
+            CreateCaptureGroups(indices);
             RemoveCaptureData(dataBuffers, objViews);
         }
 
@@ -543,6 +545,26 @@ namespace BazisGUI
             GL.Disable(EnableCap.RasterizerDiscard);
         }
 
+        private void CreateCaptureGroups(List<List<int>> indices)
+        {
+            var sets = project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => v.ViewState).ToArray();
+
+            for (var i = 0; i < sets.Length; ++i)
+            {
+                var set = indices[i].ToHashSet();
+                var elems = project.GetModelElements(3, sets[i].Name).Where((v,i) => set.Contains(i)).ToArray();
+
+                if (elems.Length > 0)
+                {
+                    var grName = sets[i].Name + $"_Capture_{i}";
+                    project.DeleteModelGroup(grName);
+                    project.CreateGroup(grName, elems);
+                }
+            }
+
+            PresentGroupDataOnTree();
+        }
+
         private List<List<int>> FetchData(List<int> dataBuffers)
         {
             var list = new List<List<int>>();
@@ -551,20 +573,49 @@ namespace BazisGUI
             for (var i = 0; i < sets.Length; ++i)
             {
                 var vbo = VBOController.FindVBObj(sets[i].Name);
-                var pObj = vbo.ActiveDrawingObject as Advanced3DClipper;
+                if (vbo != null && vbo.ViewState)
+                {
+                    var surfVbo = vbo as SurfaceObjects;
+                    var pObj = vbo.ActiveDrawingObject as Advanced3DClipper;
 
-                var current = new List<int>();
-                list.Add(current);
+                    var indices = new List<int>();
+                    list.Add(indices);
 
-                var items = 0L;
-                GL.GetQueryObject(pObj.QueryId, GetQueryObjectParam.QueryResult, out items);
+                    var items = 0L;
+                    GL.GetQueryObject(pObj.QueryId, GetQueryObjectParam.QueryResult, out items);
 
-                var size = vbo.CoordLength / 3;
-                var data = new int[size];
-                GL.BindBuffer(BufferTarget.ArrayBuffer, dataBuffers[i]);
-                GL.GetBufferSubData(BufferTarget.ArrayBuffer, 0, size * sizeof(int), data);
+                    if (items > 0)
+                    {
+                        var size = vbo.CoordLength / 3;
+                        var data = new int[size];
+                        VBO.GetSubData(dataBuffers[i], 0, size * sizeof(int), data);
 
-                //Мы вытягиваем индексы точек - каждый индекс сепараторов содержит смещение до первого треугольника!
+                        var separators = new int[surfVbo.SeparatorsLength];
+                        VBO.GetSubData(surfVbo.SeparatorBuffer, 0, surfVbo.SeparatorsLength * sizeof(int), separators);
+
+                        var inIndex = 0;
+                        for (var j = 1; j < separators.Length && items > 0; ++j)
+                        {
+                            if (items < 100)
+                            {
+
+                            }
+                            var minElemIndex = separators[j - 1] * 3;
+                            var maxElemIndex = separators[j] * 3;
+
+                            var minIndex = data[inIndex];
+                            while (data[inIndex] >= minElemIndex && data[inIndex] < maxElemIndex)
+                                ++inIndex;
+
+                            if (minIndex != data[inIndex])
+                            {
+                                var maxIndex = data[inIndex - 1] + 1;
+                                items -= (maxIndex - minIndex) / 3;
+                                indices.Add(j - 1);
+                            }
+                        }
+                    }
+                }
             }
             return list;
         }
@@ -617,7 +668,6 @@ namespace BazisGUI
                         objViews.Add(vbo.ViewMode);
                         vbo.ViewMode = ObjView.Surface;
                     }
-                    //project.GetModelElements(3, set.Name).Where(v => v.ViewState);
                 }
             }
         }
