@@ -44,6 +44,8 @@
         SaveSTEP,
         CreateSurfaceNodesGroup,
         CreateGroupByGeoObjs,
-        CreateTask
+        CreateTask,
+        CreateVolumeMaterial,
+        CreateBeamMaterial
     }
 }

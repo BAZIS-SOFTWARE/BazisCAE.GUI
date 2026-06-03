@@ -62,6 +62,8 @@ namespace BazisGUI
             { "Extrude along curve",GenCmd.ExtrudeCurve },
             { "Extrusion by rotation",GenCmd.ExtrudeRotate },
             { "Save STEP", GenCmd.SaveSTEP },
+            { "Create volume material", GenCmd.CreateVolumeMaterial },
+            { "Create beam material", GenCmd.CreateBeamMaterial },
             { "Quit",GenCmd.Exit }
         };
 
@@ -104,6 +106,7 @@ namespace BazisGUI
             { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve#1,curve#2,curve#3...", "point", "step", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.SaveSTEP, new [] { "path" } },
+            { GenCmd.CreateVolumeMaterial, new[] { "Material name", "groupName", "start", "stop"} },
             { GenCmd.Exit, Array.Empty<string>() },
             { GenCmd.GenerateMesh, Array.Empty<string>()}
         };
@@ -267,6 +270,8 @@ namespace BazisGUI
                         break;
                     case GenCmd.CreateTask:
                         project.CreateTask();
+                        break;
+                    case GenCmd.CreateVolumeMaterial:
                         break;
                 }
             }
