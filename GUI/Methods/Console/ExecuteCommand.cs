@@ -4,12 +4,18 @@ using BazisGUI.Extensions;
 using BazisGUI.Properties;
 using BazisGUI.Utilities;
 using GmshApi;
+using MaterialDB.FunctionData;
+using MaterialDB.MaterialData;
+using Model.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Community.CsharpSqlite.Sqlite3;
 
 namespace BazisGUI
 {
@@ -18,6 +24,8 @@ namespace BazisGUI
         Dictionary<string, GenCmd> genCmds = new Dictionary<string, GenCmd>()
         {
             { "Load project",GenCmd.LoadProject},
+            { "Load material db", GenCmd.LoadMaterialDB },
+            { "Load function db", GenCmd.LoadFunctionDB },
             { "Save project",GenCmd.SaveProject},
             { "Solve project",GenCmd.SolveProject},
             { "Renumber mesh",GenCmd.RenumberMesh},
@@ -39,6 +47,7 @@ namespace BazisGUI
             { "Create point by projection onto plane", GenCmd.CreatePointProjectionOntoPlane },
             { "Create curve",GenCmd.CreateCurve },
             { "Create surface",GenCmd.CreateSurface },
+            { "Create task", GenCmd.CreateTask },
             { "Set mesh point", GenCmd.SetMeshPoint },
             { "Set mesh curve", GenCmd.SetMeshCurve },
             { "Set regular mesh surface", GenCmd.SetRegularSurface },
@@ -47,8 +56,8 @@ namespace BazisGUI
             { "Set max size", GenCmd.SetMaxSize },
             { "Algo2D", GenCmd.Algo2D },
             { "Algo3D", GenCmd.Algo3D },
-            { "Create Surface Nodes Group", GenCmd.CreateSurfaceNodesGroup },
-            { "Create Group By Geo Objs", GenCmd.CreateGroupByGeoObjs},
+            { "Create surface nodes group", GenCmd.CreateSurfaceNodesGroup },
+            { "Create group by geometry objs", GenCmd.CreateGroupByGeoObjs},
             { "Scale factor", GenCmd.ScaleFactor },
             { "Extrude along curve",GenCmd.ExtrudeCurve },
             { "Extrusion by rotation",GenCmd.ExtrudeRotate },
@@ -61,6 +70,8 @@ namespace BazisGUI
             { GenCmd.LoadProject, new[] { "path" } },
             { GenCmd.SaveProject, new[] { "path" } },
             { GenCmd.SolveProject,new string[] { } },
+            { GenCmd.LoadMaterialDB, new[] { "path" }  },
+            { GenCmd.LoadFunctionDB, new[] { "path" }  },
             { GenCmd.RenumberMesh, new[] { "type:initial number" } },
             { GenCmd.MoveMesh, new[] { "move", "x,y,z" } },
             { GenCmd.MoveNodes, new[] { "move" } },
@@ -247,6 +258,15 @@ namespace BazisGUI
                         PrepareDataForCreateGroupByGeo(cmds[1], cmds[2], cmds[3], out int _meshDim, out int _geoDim, out int _tag);
                         returnValue = project.CreateGroupByGeoObjs(_meshDim, _geoDim, _tag);
                         PresentGroupDataOnTree();
+                        break;
+                    case GenCmd.LoadMaterialDB:
+                        project.MaterialsDB = LoadDB<MaterialDBData>(cmds[1]);
+                        break;
+                    case GenCmd.LoadFunctionDB:
+                        project.FunctionsDB = LoadDB<FunctionDBData>(cmds[1]);
+                        break;
+                    case GenCmd.CreateTask:
+                        project.CreateTask();
                         break;
                 }
             }

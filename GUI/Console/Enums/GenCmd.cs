@@ -3,6 +3,8 @@
     public enum GenCmd
     {
         LoadProject,
+        LoadMaterialDB,
+        LoadFunctionDB,
         SaveProject,
         NewProject,
         CreateGraph,
@@ -41,6 +43,7 @@
         ScaleFactor,
         SaveSTEP,
         CreateSurfaceNodesGroup,
-        CreateGroupByGeoObjs
+        CreateGroupByGeoObjs,
+        CreateTask
     }
 }
