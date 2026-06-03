@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PropertyTableIsMissingException" xml:space="preserve">
-    <value>Таблица свойства отсутсвует!</value>
+  <data name="CreateCopy.FuncExistWarningMessagePart1" xml:space="preserve">
+    <value>Функция</value>
+  </data>
+  <data name="CreateCopy.FuncExistWarningMessagePart2" xml:space="preserve">
+    <value>уже существует! \nПереименуйте функцию!</value>
   </data>
   <data name="FuncIsMissingException" xml:space="preserve">
     <value>Выберите функцию!</value>
@@ -126,10 +129,7 @@
   <data name="NewFunctionTemplate" xml:space="preserve">
     <value>Новая_функция_</value>
   </data>
-  <data name="CreateCopy.FuncExistWarningMessagePart1" xml:space="preserve">
-    <value>Функция</value>
-  </data>
-  <data name="CreateCopy.FuncExistWarningMessagePart2" xml:space="preserve">
-    <value>уже существует! \nПереименуйте функцию!</value>
+  <data name="PropertyTableIsMissingException" xml:space="preserve">
+    <value>Таблица свойства отсутсвует!</value>
   </data>
 </root>

@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnStopCheck.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA9SURBVDhP7cuxCQAgEMDA3382d9I+zSFYepAyM997a/ZV
-        1EFRB0UdFHVQ1EFRB0UdFHVQ1EFRB0Ud1PfcAYQ8AkDI5pKoAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="btnCheckDinamic.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABZSURBVDhP1YwxCgAgDMT6/7f5J8VBkKDltB00kKX0YvYf
         xSpP9/TYbBgGw1HGwmFG6DEM7JTh0FOCI0UXPqtu4aOiC589JThaeQTH16EBI6FYJy00kxZ6lQbcYN5V
         9ve0rgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btnStopCheck.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA9SURBVDhP7cuxCQAgEMDA3382d9I+zSFYepAyM997a/ZV
+        1EFRB0UdFHVQ1EFRB0UdFHVQ1EFRB0Ud1PfcAYQ8AkDI5pKoAAAAAElFTkSuQmCC
 </value>
   </data>
 </root>

@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PropertyTableIsMissingException" xml:space="preserve">
-    <value>Property table is missing!</value>
+  <data name="CreateCopy.FuncExistWarningMessagePart1" xml:space="preserve">
+    <value>Function</value>
+  </data>
+  <data name="CreateCopy.FuncExistWarningMessagePart2" xml:space="preserve">
+    <value>already exists! \nRename the function!</value>
   </data>
   <data name="FuncIsMissingException" xml:space="preserve">
     <value>Select a function!</value>
@@ -126,10 +129,7 @@
   <data name="NewFunctionTemplate" xml:space="preserve">
     <value>New_function_</value>
   </data>
-  <data name="CreateCopy.FuncExistWarningMessagePart1" xml:space="preserve">
-    <value>Function</value>
-  </data>
-  <data name="CreateCopy.FuncExistWarningMessagePart2" xml:space="preserve">
-    <value>already exists! \nRename the function!</value>
+  <data name="PropertyTableIsMissingException" xml:space="preserve">
+    <value>Property table is missing!</value>
   </data>
 </root>

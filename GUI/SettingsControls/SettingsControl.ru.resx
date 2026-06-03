@@ -117,29 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblSolverPath.Text" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="clslLigthingIntensity.Text" xml:space="preserve">
-    <value>colorSlider</value>
-  </data>
-  <data name="clslTransparency.Text" xml:space="preserve">
-    <value>colorSlider1</value>
-  </data>
-  <data name="chbTransparency.Text" xml:space="preserve">
-    <value>Вкл/Выкл</value>
-  </data>
-  <data name="chbBackRibbers.Text" xml:space="preserve">
-    <value>Вкл/Выкл</value>
-  </data>
-  <data name="chbOrtoProjection.Text" xml:space="preserve">
-    <value>Вкл/Выкл</value>
-  </data>
-  <data name="chbLighting.Text" xml:space="preserve">
-    <value>Вкл/Выкл</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Внутренние ребра элементов</value>
+  <data name="btnBackGroundColor.Text" xml:space="preserve">
+    <value>выбрать цвет заднего фона</value>
   </data>
   <data name="btnSelect2DElemColor.Text" xml:space="preserve">
     <value>выбрать цвет 2D элементов</value>
@@ -147,43 +126,64 @@
   <data name="btnSelect3DElemColor.Text" xml:space="preserve">
     <value>выбрать цвет 3D элементов</value>
   </data>
-  <data name="btnSelectGroupColor.Text" xml:space="preserve">
-    <value>выбрать цвет выделения групп</value>
-  </data>
   <data name="btnSelectColor.Text" xml:space="preserve">
     <value>выбрать цвет выделения объектов</value>
   </data>
-  <data name="btnBackGroundColor.Text" xml:space="preserve">
-    <value>выбрать цвет заднего фона</value>
+  <data name="btnSelectGroupColor.Text" xml:space="preserve">
+    <value>выбрать цвет выделения групп</value>
   </data>
   <data name="btnSelectNodeColor.Text" xml:space="preserve">
     <value>выбрать цвет узлов</value>
   </data>
-  <data name="tbObjects.Text" xml:space="preserve">
-    <value>Объекты</value>
+  <data name="chbBackRibbers.Text" xml:space="preserve">
+    <value>Вкл/Выкл</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Ортографическая проекция</value>
+  <data name="chbLighting.Text" xml:space="preserve">
+    <value>Вкл/Выкл</value>
+  </data>
+  <data name="chbOrtoProjection.Text" xml:space="preserve">
+    <value>Вкл/Выкл</value>
+  </data>
+  <data name="chbTransparency.Text" xml:space="preserve">
+    <value>Вкл/Выкл</value>
+  </data>
+  <data name="clslLigthingIntensity.Text" xml:space="preserve">
+    <value>colorSlider</value>
+  </data>
+  <data name="clslTransparency.Text" xml:space="preserve">
+    <value>colorSlider1</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Внутренние ребра элементов</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Освещение</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Прозрачность</value>
-  </data>
   <data name="label3.Text" xml:space="preserve">
     <value>Путь до решателя</value>
   </data>
-  <data name="tbSolver.Text" xml:space="preserve">
-    <value>Решатель</value>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Прозрачность</value>
   </data>
-  <data name="tbScene.Text" xml:space="preserve">
-    <value>Сцена</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Ортографическая проекция</value>
+  </data>
+  <data name="lblLanguage.Text" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="lblSolverPath.Text" xml:space="preserve">
+    <value>?</value>
   </data>
   <data name="tabPage1.Text" xml:space="preserve">
     <value>Язык</value>
   </data>
-  <data name="lblLanguage.Text" xml:space="preserve">
-    <value>Язык</value>
+  <data name="tbObjects.Text" xml:space="preserve">
+    <value>Объекты</value>
+  </data>
+  <data name="tbScene.Text" xml:space="preserve">
+    <value>Сцена</value>
+  </data>
+  <data name="tbSolver.Text" xml:space="preserve">
+    <value>Решатель</value>
   </data>
 </root>

@@ -121,6 +121,13 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnPathThick.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAQCAYAAAB3AH1ZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAuSURBVEhLY2AYaPB/JsP/gcTo7hmBAD1I6I1HHTDwDhgF
+        6EFCbzzqgFEHDLgDANMcj85gvuD0AAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="dashButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -156,13 +163,6 @@
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAQCAYAAAB3AH1ZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vgAADr4B6kKxwAAAACJJREFUSEtjYBgFIx78n8nwfyDxqANGHTDqgIF3wCgY8QAAqS+XHwzM2sMAAAAA
         SUVORK5CYII=
-</value>
-  </data>
-  <data name="btnPathThick.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAQCAYAAAB3AH1ZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAuSURBVEhLY2AYaPB/JsP/gcTo7hmBAD1I6I1HHTDwDhgF
-        6EFCbzzqgFEHDLgDANMcj85gvuD0AAAAAElFTkSuQmCC
 </value>
   </data>
 </root>

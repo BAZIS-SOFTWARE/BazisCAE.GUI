@@ -118,14 +118,20 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnCreateCross.Text" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="btnRemoveCross.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="chbSelectPoints.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="chbSelectPoints.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="chbSelectPoints.Location" type="System.Drawing.Point, System.Drawing">
     <value>68, 138</value>
   </data>
@@ -135,11 +141,8 @@
   <data name="chbSelectPoints.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
   </data>
-  <data name="btnRemoveCross.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="txbPoint1.Text" xml:space="preserve">
-    <value>0;0;0</value>
+  <data name="CrossSectionControl.InvalidSurfaceCoordsSetException" xml:space="preserve">
+    <value>Incorrectly specified plane coordinates</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Point #1</value>
@@ -150,12 +153,6 @@
   <data name="label3.Text" xml:space="preserve">
     <value>Point #3</value>
   </data>
-  <data name="txbPoint2.Text" xml:space="preserve">
-    <value>0;0;0</value>
-  </data>
-  <data name="txbPoint3.Text" xml:space="preserve">
-    <value>0;0;0</value>
-  </data>
   <data name="rbtXY.Text" xml:space="preserve">
     <value>XY</value>
   </data>
@@ -165,10 +162,13 @@
   <data name="rbtYZ.Text" xml:space="preserve">
     <value>YZ</value>
   </data>
-  <data name="btnCreateCross.Text" xml:space="preserve">
-    <value>Build</value>
+  <data name="txbPoint1.Text" xml:space="preserve">
+    <value>0;0;0</value>
   </data>
-  <data name="CrossSectionControl.InvalidSurfaceCoordsSetException" xml:space="preserve">
-    <value>Incorrectly specified plane coordinates</value>
+  <data name="txbPoint2.Text" xml:space="preserve">
+    <value>0;0;0</value>
+  </data>
+  <data name="txbPoint3.Text" xml:space="preserve">
+    <value>0;0;0</value>
   </data>
 </root>

@@ -117,6 +117,97 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAFB8AAAEAIABUCgAAFgAAACgAAAAUAAAAPgAAAAEAIAAAAAAAsAkAAMITAADCEwAAAAAAAAAA
+        AAAdYOo9AID/Av///wD///8AAID/Ah5i7jwdYuyUHmLs6B5i7P8eYuz/HmLs+h5i7OceYuzKHmLskR5j
+        7EMAAP8B////AP///wD///8A////AB5i7P8eYuzjH2LrjR1g7DX///8A////AP///wAAVf8DHmLsRB1i
+        65weYuztHmLs/x5i7P8eYuz/HmLs/x5i7NMdYOo9////AP///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7d0fYuyFHGTuLv///wD///8A////ACtV/wYeYetMHmPsox5i7PIeYuz/HmLs/x5i7P0fYut1////AP//
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs1R5h7X4bZesm////AP///wD///8AHFXjCR9i
+        7VMeYuyrHmLs9h5i7P8fYu1j////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuzVHmLrgBxj6iT///8A////AP///wAcVeMJHmPrTR1i65wcY/ESHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7NUeY+x3HWLrGv///wD///8A////AP//
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz9HmLrxB5j7W8hZOkX////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/H2PsliFi
+        6yceYuuAHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7PseY+ywHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuuA////AP///wAeYuvEHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7PoeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i64D///8A////AB5i648eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs7B5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLrgP//
+        /wD///8AHmHskB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYezUHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuuA////AP///wAeYuvEHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x1i
+        65weYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7IcgYN8IHWHsaR5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/H2LuSR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x9i7MgAgP8CHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuzvHmXtK///
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLr6x9h6zL///8A////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8fYuzqHmHtKv///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuznG17yE///
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7PgeYuz5HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8dYuyU////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HWLrgitV
+        /wYeYe2YHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7O4AgP8EHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuuA////ACNd6BYeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5k
+        6zMeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i64D///8AAAD/AR5i7PweYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmPrTR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLrgP//
+        /wAcYOolHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8dYe1XHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8fY+yWIGTtOB9i7MAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5j
+        7EMeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/H2TwIR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7Nj///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLtcP//
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7M4zZv8F////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8fYuvRGGHnFf///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuzyHmPrgSBg3wj///8A////AP//
+        /wAdYezhHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz2HmLs6B5i7M0dYuucHmPsXRdd
+        6Av///8A////AP///wD///8A////ADAA8AAOAHAAAcAwAAA4EAAABwAAAADwAAAAEAAAAAAAAGAAAABg
+        AAAAYAAAAGAAAAAAAAAAAAAAAAAQAAAAMAAAADAAAAAQAAAAEAAAAAAAAEAAAABAAAAAQAAAAAAAAAAA
+        AAAAABAAAAAQAAAAEAAAADAAAABwAAAB8AA=
+</value>
+  </data>
+  <data name="checkPlayerControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 214</value>
+  </data>
+  <data name="checkPlayerControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 39</value>
+  </data>
+  <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 158</value>
+  </data>
+  <data name="dataBasesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 20</value>
+  </data>
+  <data name="dToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="dToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="dToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="menuItem_DeleteSelectedObjects.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAFVJREFUOE/NjEEKACAIBP3/D3qtUSDUlOYhqIG9uLOKfIUW0RbejbC30pNO/SKM
+        Eu/pB1G471Dywt0EZYb+Fo6ujFNPKHvhrkPpFO63DzLdRFgm+jdUPKYIOroK8iQAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="menuItem_DeleteSelectedObjects.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="menuItem_InfoSelectedObjects.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="menuItem_SetRotPoint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="propertiesPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 206</value>
+  </data>
   <data name="sceneImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
@@ -309,23 +400,92 @@
         Dwf/AgAB/gEAAQ8H/wIAAf8BAwj/AgAL
 </value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="файлToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
+  <data name="tasksMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 20</value>
   </data>
-  <data name="создатьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAENSURBVDhPrZHbSgJRGEZ9KX2HfI18I9ELkS5KCREMDBSN
-        VLRA0xDREQ+FTJai47mm8TDOF7NlhulHNwO14LvarHXxb4fjv4jnW6CLZRqIpKoI3Zbw3HwDdX6hC6cI
-        RnNwuT38yE1WoJ6JL5RC+rFxiAji8Uj0rkY9E+9lksnGqMu4TlSoZ7JT9yxihKjLuIoXqcfQNA2yssVo
-        KrOA8+z8eOAiVqAuY7NVMVsqEIdLfiAQyVAX6l7DSt5gIH2hI874AX84TX0o6x2k+Td6HwvUuxI/oD9a
-        0Q+3+FyjP1qh1ZuiLAztB6yHe+nPUWuP8VB9tx+wHk54naBUH+D+SbQXMP771LgB/dHOqPsnfgDYzPbD
-        7s5C8AAAAABJRU5ErkJggg==
-</value>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
   </data>
-  <data name="создатьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="toolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 6</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 6</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 6</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 6</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 6</value>
+  </data>
+  <data name="viewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 20</value>
+  </data>
+  <data name="выходToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 26</value>
+  </data>
+  <data name="геометрияToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 20</value>
+  </data>
+  <data name="добавитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 26</value>
+  </data>
+  <data name="загрузитьgeoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="загрузитьМастерToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 22</value>
+  </data>
+  <data name="запуститьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
+  </data>
+  <data name="измеритьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 22</value>
+  </data>
+  <data name="инструментыToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 20</value>
+  </data>
+  <data name="квадратизацияСуществующейToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="лицензияToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 20</value>
+  </data>
+  <data name="мастерToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
+  </data>
+  <data name="материалыMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 22</value>
+  </data>
+  <data name="наToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 22</value>
+  </data>
+  <data name="наПоверхности3DToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="наПоверхностиГеометрииToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="настройкиToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 20</value>
+  </data>
+  <data name="объединитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="опрограммеToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="остановитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
   </data>
   <data name="открытьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -346,11 +506,95 @@
   <data name="открытьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 26</value>
   </data>
-  <data name="добавитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="открытьToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="открытьИнструкцииToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
+  </data>
+  <data name="показатьНаДиаграммеToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
+  </data>
+  <data name="показатьСкрытыеItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="показатьСопряженныеItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="показатьСопряженныеItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="построитьГрафикToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="построитьДиаграммуToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="рассечьПлоскостьюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 22</value>
+  </data>
+  <data name="расчетыToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 20</value>
+  </data>
+  <data name="результатыMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 20</value>
+  </data>
+  <data name="сведенияMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 22</value>
+  </data>
+  <data name="сеткаToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 20</value>
+  </data>
+  <data name="скрытьВыбранноеItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="скрытьПлоскостьюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 22</value>
+  </data>
+  <data name="содержаниеToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="создатьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAENSURBVDhPrZHbSgJRGEZ9KX2HfI18I9ELkS5KCREMDBSN
+        VLRA0xDREQ+FTJai47mm8TDOF7NlhulHNwO14LvarHXxb4fjv4jnW6CLZRqIpKoI3Zbw3HwDdX6hC6cI
+        RnNwuT38yE1WoJ6JL5RC+rFxiAji8Uj0rkY9E+9lksnGqMu4TlSoZ7JT9yxihKjLuIoXqcfQNA2yssVo
+        KrOA8+z8eOAiVqAuY7NVMVsqEIdLfiAQyVAX6l7DSt5gIH2hI874AX84TX0o6x2k+Td6HwvUuxI/oD9a
+        0Q+3+FyjP1qh1ZuiLAztB6yHe+nPUWuP8VB9tx+wHk54naBUH+D+SbQXMP771LgB/dHOqPsnfgDYzPbD
+        7s5C8AAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="создатьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 26</value>
   </data>
-  <data name="toolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 6</value>
+  <data name="создатьToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
+  </data>
+  <data name="создатьАнимациюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 22</value>
+  </data>
+  <data name="создатьГруппуItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAClJREFUOE9jYKAVcDjA8B8Zo8sTBCPNAHTFxOLhZAA2QJJibGDUAOIBABBrv6Eu
+        ctv/AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="создатьГруппуItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="создатьЛиниюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 22</value>
+  </data>
+  <data name="создатьОбъемToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 22</value>
+  </data>
+  <data name="создатьПлоскостьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 22</value>
+  </data>
+  <data name="создатьТочкуToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 22</value>
   </data>
   <data name="сохранитьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -373,269 +617,25 @@
   <data name="сохранитькакToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 26</value>
   </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 6</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 6</value>
-  </data>
-  <data name="выходToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 26</value>
-  </data>
-  <data name="viewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 20</value>
-  </data>
-  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="геометрияToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 20</value>
-  </data>
-  <data name="создатьТочкуToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
-  </data>
-  <data name="создатьЛиниюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
-  </data>
-  <data name="создатьПлоскостьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
-  </data>
-  <data name="создатьОбъемToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
-  </data>
-  <data name="сеткаToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 20</value>
-  </data>
-  <data name="загрузитьgeoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 22</value>
+  <data name="справкаToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 20</value>
   </data>
   <data name="сформироватьgeoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 22</value>
   </data>
-  <data name="dToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 22</value>
-  </data>
-  <data name="наToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>252, 22</value>
-  </data>
-  <data name="dToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 22</value>
+  <data name="сформироватьИнструкцииToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
   </data>
   <data name="уплотнитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 22</value>
   </data>
-  <data name="наПоверхности3DToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
-  </data>
-  <data name="наПоверхностиГеометрииToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
-  </data>
-  <data name="квадратизацияСуществующейToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
-  </data>
-  <data name="dToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 22</value>
-  </data>
-  <data name="dataBasesMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 20</value>
-  </data>
-  <data name="материалыMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 22</value>
+  <data name="файлToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
   </data>
   <data name="функцииMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 22</value>
   </data>
-  <data name="tasksMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 20</value>
-  </data>
-  <data name="создатьToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
-  </data>
-  <data name="мастерToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
-  </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 6</value>
-  </data>
-  <data name="загрузитьМастерToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 22</value>
-  </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 6</value>
-  </data>
-  <data name="показатьНаДиаграммеToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
-  </data>
-  <data name="расчетыToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 20</value>
-  </data>
-  <data name="открытьИнструкцииToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 22</value>
-  </data>
-  <data name="сформироватьИнструкцииToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 22</value>
-  </data>
-  <data name="запуститьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 22</value>
-  </data>
-  <data name="остановитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 22</value>
-  </data>
-  <data name="результатыMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 20</value>
-  </data>
-  <data name="открытьToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
-  </data>
-  <data name="объединитьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
-  </data>
-  <data name="построитьГрафикToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
-  </data>
-  <data name="построитьДиаграммуToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
-  </data>
-  <data name="создатьАнимациюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
-  </data>
   <data name="экспортироватьРезультатыToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>178, 22</value>
-  </data>
-  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 22</value>
-  </data>
-  <data name="инструментыToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 20</value>
-  </data>
-  <data name="измеритьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 22</value>
-  </data>
-  <data name="скрытьПлоскостьюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 22</value>
-  </data>
-  <data name="рассечьПлоскостьюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 22</value>
-  </data>
-  <data name="настройкиToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 20</value>
-  </data>
-  <data name="справкаToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 20</value>
-  </data>
-  <data name="содержаниеToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
-  </data>
-  <data name="опрограммеToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
-  </data>
-  <data name="лицензияToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 20</value>
-  </data>
-  <data name="сведенияMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
-  </data>
-  <data name="checkPlayerControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 214</value>
-  </data>
-  <data name="checkPlayerControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 39</value>
-  </data>
-  <data name="propertiesPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 206</value>
-  </data>
-  <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 158</value>
-  </data>
-  <data name="создатьГруппуItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAClJREFUOE9jYKAVcDjA8B8Zo8sTBCPNAHTFxOLhZAA2QJJibGDUAOIBABBrv6Eu
-        ctv/AAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="создатьГруппуItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="скрытьВыбранноеItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="показатьСкрытыеItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="menuItem_InfoSelectedObjects.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="menuItem_SetRotPoint.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="показатьСопряженныеItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="показатьСопряженныеItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="menuItem_DeleteSelectedObjects.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAFVJREFUOE/NjEEKACAIBP3/D3qtUSDUlOYhqIG9uLOKfIUW0RbejbC30pNO/SKM
-        Eu/pB1G471Dywt0EZYb+Fo6ujFNPKHvhrkPpFO63DzLdRFgm+jdUPKYIOroK8iQAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="menuItem_DeleteSelectedObjects.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
-  </data>
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAFB8AAAEAIABUCgAAFgAAACgAAAAUAAAAPgAAAAEAIAAAAAAAsAkAAMITAADCEwAAAAAAAAAA
-        AAAdYOo9AID/Av///wD///8AAID/Ah5i7jwdYuyUHmLs6B5i7P8eYuz/HmLs+h5i7OceYuzKHmLskR5j
-        7EMAAP8B////AP///wD///8A////AB5i7P8eYuzjH2LrjR1g7DX///8A////AP///wAAVf8DHmLsRB1i
-        65weYuztHmLs/x5i7P8eYuz/HmLs/x5i7NMdYOo9////AP///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
-        7d0fYuyFHGTuLv///wD///8A////ACtV/wYeYetMHmPsox5i7PIeYuz/HmLs/x5i7P0fYut1////AP//
-        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs1R5h7X4bZesm////AP///wD///8AHFXjCR9i
-        7VMeYuyrHmLs9h5i7P8fYu1j////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuzVHmLrgBxj6iT///8A////AP///wAcVeMJHmPrTR1i65wcY/ESHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7NUeY+x3HWLrGv///wD///8A////AP//
-        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz9HmLrxB5j7W8hZOkX////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/H2PsliFi
-        6yceYuuAHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7PseY+ywHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuuA////AP///wAeYuvEHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7PoeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i64D///8A////AB5i648eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs7B5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLrgP//
-        /wD///8AHmHskB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYezUHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuuA////AP///wAeYuvEHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x1i
-        65weYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7IcgYN8IHWHsaR5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/H2LuSR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x9i7MgAgP8CHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuzvHmXtK///
-        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLr6x9h6zL///8A////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8fYuzqHmHtKv///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuznG17yE///
-        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7PgeYuz5HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8dYuyU////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HWLrgitV
-        /wYeYe2YHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7O4AgP8EHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuuA////ACNd6BYeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5k
-        6zMeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i64D///8AAAD/AR5i7PweYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmPrTR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLrgP//
-        /wAcYOolHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8dYe1XHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8fY+yWIGTtOB9i7MAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5j
-        7EMeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/H2TwIR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7Nj///8AHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLtcP//
-        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7M4zZv8F////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8fYuvRGGHnFf///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuzyHmPrgSBg3wj///8A////AP//
-        /wAdYezhHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz2HmLs6B5i7M0dYuucHmPsXRdd
-        6Av///8A////AP///wD///8A////ADAA8AAOAHAAAcAwAAA4EAAABwAAAADwAAAAEAAAAAAAAGAAAABg
-        AAAAYAAAAGAAAAAAAAAAAAAAAAAQAAAAMAAAADAAAAAQAAAAEAAAAAAAAEAAAABAAAAAQAAAAAAAAAAA
-        AAAAABAAAAAQAAAAEAAAADAAAABwAAAB8AA=
-</value>
   </data>
 </root>

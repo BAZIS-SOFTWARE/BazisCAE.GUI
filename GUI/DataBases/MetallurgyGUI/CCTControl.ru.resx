@@ -117,23 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="txbFinTemp.Text" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Начальная фаза</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Начальная темп.</value>
-  </data>
   <data name="cmbPhases.AccessibleName" xml:space="preserve">
     <value>InitialPhase</value>
-  </data>
-  <data name="txbMinVel.Text" xml:space="preserve">
-    <value>-0.01</value>
-  </data>
-  <data name="txbMaxVel.Text" xml:space="preserve">
-    <value>-100</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Мин. скорость</value>
@@ -144,10 +129,25 @@
   <data name="label3.Text" xml:space="preserve">
     <value>Кол - во</value>
   </data>
-  <data name="txbIniTemp.Text" xml:space="preserve">
-    <value>800</value>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Начальная фаза</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Начальная темп.</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>Конечная темп.</value>
+  </data>
+  <data name="txbFinTemp.Text" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="txbIniTemp.Text" xml:space="preserve">
+    <value>800</value>
+  </data>
+  <data name="txbMaxVel.Text" xml:space="preserve">
+    <value>-100</value>
+  </data>
+  <data name="txbMinVel.Text" xml:space="preserve">
+    <value>-0.01</value>
   </data>
 </root>

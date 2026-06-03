@@ -117,12 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="rbtVolume.AccessibleName" xml:space="preserve">
-    <value>GeomSelect.Volumes</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="rbtVolume.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 19</value>
+  <data name="rbtCurve.AccessibleName" xml:space="preserve">
+    <value>GeomSelect.Curves</value>
+  </data>
+  <data name="rbtCurve.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 19</value>
   </data>
   <data name="rbtSurface.AccessibleName" xml:space="preserve">
     <value>GeomSelect.Surfaces</value>
@@ -130,10 +130,10 @@
   <data name="rbtSurface.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 19</value>
   </data>
-  <data name="rbtCurve.AccessibleName" xml:space="preserve">
-    <value>GeomSelect.Curves</value>
+  <data name="rbtVolume.AccessibleName" xml:space="preserve">
+    <value>GeomSelect.Volumes</value>
   </data>
-  <data name="rbtCurve.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 19</value>
+  <data name="rbtVolume.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 19</value>
   </data>
 </root>

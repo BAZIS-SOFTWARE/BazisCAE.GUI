@@ -120,22 +120,22 @@
   <data name="btnCalc.Text" xml:space="preserve">
     <value>Рассчитать</value>
   </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Фаза</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Температура, °С</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Время, ч</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Нагрузка, Н</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Диаметр, мм</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Длина, мм</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Диаметр, мм</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Нагрузка, Н</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Время, ч</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Температура, °С</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Фаза</value>
   </data>
 </root>

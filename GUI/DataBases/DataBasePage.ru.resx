@@ -118,6 +118,77 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="addBranchButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAsSURBVDhPY6AZcDjA8B8ZQ4WJByPNAHTFxGKo9mFhADZA
+        kmJsYNQAYgEDAwAQa7+hv9SXOAAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="addBranchButton.Text" xml:space="preserve">
+    <value>Добавить раздел</value>
+  </data>
+  <data name="btnAddDB.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFLSURBVDhPY6ArqDipoVZ9St0KyiUdAA2YUHFc4waUSzqo
+        PKExkSwDKk+q3a48qvyl8ojyr5Ij6n/BbBA+oaXFEONvFpATa9MBw/GB5m1APYwQrRBQcUojq/KEZlnZ
+        CY0jlSc1XoLYIFx0Rk2EoaXYbca3KxX/YXjvopi3mbFWHdkxVu3I2NfFyALokslAA65BzYUAdANw4dQI
+        C7Ct5Sc1VkO1QgApBkC1oAJsBtzdn/1/97wwFBzjpb4iyF46Fhm7GElbYBhwaVPK/81t+v/vz1fFi3vT
+        Za5728vooBhwdn3C/x2duv/frlDDi2cXyJ9yNpFTQvHC8eUx/w/06mDVAMNvlqv970mVP2JvKi8B1gwC
+        IAMOLAr/f2SCNlZNMPxqmdr/5gT5Pfry/AJQrRAQ7KG7pTRK7cfMIg28uCBM6by8vDwHVBu1AAMDAEJF
+        WllKGwFfAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnAddDB.Text" xml:space="preserve">
+    <value>Добавить материалы</value>
+  </data>
+  <data name="btnAddNewRow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAsSURBVDhPY6AZcDjA8B8ZQ4WJByPNAHTFxGKo9mFhADZA
+        kmJsYNQAYgEDAwAQa7+hv9SXOAAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btnAddNewRow.Text" xml:space="preserve">
+    <value>Добавить ряд</value>
+  </data>
+  <data name="btnAscSort.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB2SURBVDhPzdAxDkAwFIDhIgaxcBYXEZdzJLvFIG4gTkD4
+        39KBp0hF/Mm39b20NW8VIVekuCzGgFWxoIIzWdBDWzCjxGUhtCck+KazG+wFOCTDHbQ/2GtwyHuB5PWE
+        f1RjxHSTnJUZWwvt01xkxpaheEhmfDNmA80TQesiw/TLAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnAscSort.Text" xml:space="preserve">
+    <value>Сортировать</value>
+  </data>
+  <data name="btnCreateCopy.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEOSURBVDhPY4ABOTExpf6+vterV616gY5joiLfenh4OEOV
+        ogJpaRHVK1eu/PmPBWzZvPn/po0bfyVER0+HKmdgyM3KWtze3r6kvr5+04L58/9t3rTpPwh3dXT8//37
+        N1wjCFy/fv1fTk7ONS0tLR6GFStWPAaLooFlS5f+7+3p+X/lyqX/165d/b91yxYwBjr9v7+//3OcGmG2
+        bNu69f+SRYvAbBgA6cGp8fDhQ3BbJk6c8L+srPT/z58/wXJ4NSKD79+//9+xY8f/W7dugvlEawSB69eu
+        /b937y6YPaoRDZCt8eKFC/8KCnI3gpInKJkSrRGUAUAZAZrEGRiKi4ruo2cjbBiU5UBZD6KLgQEAP4fW
+        7EbhAr0AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="btnCreateCopy.Text" xml:space="preserve">
+    <value>Создать копию</value>
+  </data>
+  <data name="btnDelRow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABbSURBVDhPzYvBDcAgDMSy/wadloJ0lES4x7O1dI/ITvyL
+        dkUb07lh/ZRv0clvQY6ce6DITW8VCmnKGXrIU+ahxzFpDz3mKWPogaa8QqGb3hYucq5gZefkvyDiBjym
+        CDro3cyzAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnDelRow.Text" xml:space="preserve">
+    <value>Удалить все ряды</value>
+  </data>
   <data name="btnOpenDB.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -135,21 +206,6 @@
   <data name="btnOpenDB.Text" xml:space="preserve">
     <value>Открыть файл</value>
   </data>
-  <data name="btnAddDB.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFLSURBVDhPY6ArqDipoVZ9St0KyiUdAA2YUHFc4waUSzqo
-        PKExkSwDKk+q3a48qvyl8ojyr5Ij6n/BbBA+oaXFEONvFpATa9MBw/GB5m1APYwQrRBQcUojq/KEZlnZ
-        CY0jlSc1XoLYIFx0Rk2EoaXYbca3KxX/YXjvopi3mbFWHdkxVu3I2NfFyALokslAA65BzYUAdANw4dQI
-        C7Ct5Sc1VkO1QgApBkC1oAJsBtzdn/1/97wwFBzjpb4iyF46Fhm7GElbYBhwaVPK/81t+v/vz1fFi3vT
-        Za5728vooBhwdn3C/x2duv/frlDDi2cXyJ9yNpFTQvHC8eUx/w/06mDVAMNvlqv970mVP2JvKi8B1gwC
-        IAMOLAr/f2SCNlZNMPxqmdr/5gT5Pfry/AJQrRAQ7KG7pTRK7cfMIg28uCBM6by8vDwHVBu1AAMDAEJF
-        WllKGwFfAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="btnAddDB.Text" xml:space="preserve">
-    <value>Добавить материалы</value>
-  </data>
   <data name="btnSafeFile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -165,15 +221,8 @@
   <data name="btnSafeFile.Text" xml:space="preserve">
     <value>Сохранить файл</value>
   </data>
-  <data name="addBranchButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAsSURBVDhPY6AZcDjA8B8ZQ4WJByPNAHTFxGKo9mFhADZA
-        kmJsYNQAYgEDAwAQa7+hv9SXOAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="addBranchButton.Text" xml:space="preserve">
-    <value>Добавить раздел</value>
+  <data name="dataPanel.Text" xml:space="preserve">
+    <value>Данные</value>
   </data>
   <data name="delBrachButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -186,65 +235,16 @@
   <data name="delBrachButton.Text" xml:space="preserve">
     <value>Удалить раздел</value>
   </data>
-  <data name="btnCreateCopy.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEOSURBVDhPY4ABOTExpf6+vterV616gY5joiLfenh4OEOV
-        ogJpaRHVK1eu/PmPBWzZvPn/po0bfyVER0+HKmdgyM3KWtze3r6kvr5+04L58/9t3rTpPwh3dXT8//37
-        N1wjCFy/fv1fTk7ONS0tLR6GFStWPAaLooFlS5f+7+3p+X/lyqX/165d/b91yxYwBjr9v7+//3OcGmG2
-        bNu69f+SRYvAbBgA6cGp8fDhQ3BbJk6c8L+srPT/z58/wXJ4NSKD79+//9+xY8f/W7dugvlEawSB69eu
-        /b937y6YPaoRDZCt8eKFC/8KCnI3gpInKJkSrRGUAUAZAZrEGRiKi4ruo2cjbBiU5UBZD6KLgQEAP4fW
-        7EbhAr0AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnCreateCopy.Text" xml:space="preserve">
-    <value>Создать копию</value>
-  </data>
-  <data name="btnAddNewRow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAsSURBVDhPY6AZcDjA8B8ZQ4WJByPNAHTFxGKo9mFhADZA
-        kmJsYNQAYgEDAwAQa7+hv9SXOAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="btnAddNewRow.Text" xml:space="preserve">
-    <value>Добавить ряд</value>
-  </data>
-  <data name="btnDelRow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABbSURBVDhPzYvBDcAgDMSy/wadloJ0lES4x7O1dI/ITvyL
-        dkUb07lh/ZRv0clvQY6ce6DITW8VCmnKGXrIU+ahxzFpDz3mKWPogaa8QqGb3hYucq5gZefkvyDiBjym
-        CDro3cyzAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="btnDelRow.Text" xml:space="preserve">
-    <value>Удалить все ряды</value>
-  </data>
-  <data name="btnAscSort.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB2SURBVDhPzdAxDkAwFIDhIgaxcBYXEZdzJLvFIG4gTkD4
-        39KBp0hF/Mm39b20NW8VIVekuCzGgFWxoIIzWdBDWzCjxGUhtCck+KazG+wFOCTDHbQ/2GtwyHuB5PWE
-        f1RjxHSTnJUZWwvt01xkxpaheEhmfDNmA80TQesiw/TLAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="btnAscSort.Text" xml:space="preserve">
-    <value>Сортировать</value>
-  </data>
-  <data name="treePanel.Text" xml:space="preserve">
-    <value>Список</value>
-  </data>
   <data name="graphPanel.Text" xml:space="preserve">
     <value>График</value>
   </data>
-  <data name="dataPanel.Text" xml:space="preserve">
-    <value>Данные</value>
+  <data name="itmDelete.Text" xml:space="preserve">
+    <value>Удалить</value>
   </data>
   <data name="itmRename.Text" xml:space="preserve">
     <value>Переименовать</value>
   </data>
-  <data name="itmDelete.Text" xml:space="preserve">
-    <value>Удалить</value>
+  <data name="treePanel.Text" xml:space="preserve">
+    <value>Список</value>
   </data>
 </root>

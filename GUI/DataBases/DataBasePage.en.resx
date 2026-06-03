@@ -118,6 +118,80 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="AddBranch.ExceptionMessage" xml:space="preserve">
+    <value>Error adding node</value>
+  </data>
+  <data name="addBranchButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAsSURBVDhPY6AZcDjA8B8ZQ4WJByPNAHTFxGKo9mFhADZA
+        kmJsYNQAYgEDAwAQa7+hv9SXOAAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="addBranchButton.Text" xml:space="preserve">
+    <value>Add section</value>
+  </data>
+  <data name="btnAddDB.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFLSURBVDhPY6ArqDipoVZ9St0KyiUdAA2YUHFc4waUSzqo
+        PKExkSwDKk+q3a48qvyl8ojyr5Ij6n/BbBA+oaXFEONvFpATa9MBw/GB5m1APYwQrRBQcUojq/KEZlnZ
+        CY0jlSc1XoLYIFx0Rk2EoaXYbca3KxX/YXjvopi3mbFWHdkxVu3I2NfFyALokslAA65BzYUAdANw4dQI
+        C7Ct5Sc1VkO1QgApBkC1oAJsBtzdn/1/97wwFBzjpb4iyF46Fhm7GElbYBhwaVPK/81t+v/vz1fFi3vT
+        Za5728vooBhwdn3C/x2duv/frlDDi2cXyJ9yNpFTQvHC8eUx/w/06mDVAMNvlqv970mVP2JvKi8B1gwC
+        IAMOLAr/f2SCNlZNMPxqmdr/5gT5Pfry/AJQrRAQ7KG7pTRK7cfMIg28uCBM6by8vDwHVBu1AAMDAEJF
+        WllKGwFfAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnAddDB.Text" xml:space="preserve">
+    <value>Add materials</value>
+  </data>
+  <data name="btnAddNewRow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAsSURBVDhPY6AZcDjA8B8ZQ4WJByPNAHTFxGKo9mFhADZA
+        kmJsYNQAYgEDAwAQa7+hv9SXOAAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btnAddNewRow.Text" xml:space="preserve">
+    <value>Add row</value>
+  </data>
+  <data name="btnAscSort.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB2SURBVDhPzdAxDkAwFIDhIgaxcBYXEZdzJLvFIG4gTkD4
+        39KBp0hF/Mm39b20NW8VIVekuCzGgFWxoIIzWdBDWzCjxGUhtCck+KazG+wFOCTDHbQ/2GtwyHuB5PWE
+        f1RjxHSTnJUZWwvt01xkxpaheEhmfDNmA80TQesiw/TLAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnAscSort.Text" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="btnCreateCopy.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEOSURBVDhPY4ABOTExpf6+vterV616gY5joiLfenh4OEOV
+        ogJpaRHVK1eu/PmPBWzZvPn/po0bfyVER0+HKmdgyM3KWtze3r6kvr5+04L58/9t3rTpPwh3dXT8//37
+        N1wjCFy/fv1fTk7ONS0tLR6GFStWPAaLooFlS5f+7+3p+X/lyqX/165d/b91yxYwBjr9v7+//3OcGmG2
+        bNu69f+SRYvAbBgA6cGp8fDhQ3BbJk6c8L+srPT/z58/wXJ4NSKD79+//9+xY8f/W7dugvlEawSB69eu
+        /b937y6YPaoRDZCt8eKFC/8KCnI3gpInKJkSrRGUAUAZAZrEGRiKi4ruo2cjbBiU5UBZD6KLgQEAP4fW
+        7EbhAr0AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="btnCreateCopy.Text" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="btnDelRow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABbSURBVDhPzYvBDcAgDMSy/wadloJ0lES4x7O1dI/ITvyL
+        dkUb07lh/ZRv0clvQY6ce6DITW8VCmnKGXrIU+ahxzFpDz3mKWPogaa8QqGb3hYucq5gZefkvyDiBjym
+        CDro3cyzAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnDelRow.Text" xml:space="preserve">
+    <value>Remove all rows</value>
+  </data>
   <data name="btnOpenDB.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -132,17 +206,8 @@
         RNPhAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="btnAddDB.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFLSURBVDhPY6ArqDipoVZ9St0KyiUdAA2YUHFc4waUSzqo
-        PKExkSwDKk+q3a48qvyl8ojyr5Ij6n/BbBA+oaXFEONvFpATa9MBw/GB5m1APYwQrRBQcUojq/KEZlnZ
-        CY0jlSc1XoLYIFx0Rk2EoaXYbca3KxX/YXjvopi3mbFWHdkxVu3I2NfFyALokslAA65BzYUAdANw4dQI
-        C7Ct5Sc1VkO1QgApBkC1oAJsBtzdn/1/97wwFBzjpb4iyF46Fhm7GElbYBhwaVPK/81t+v/vz1fFi3vT
-        Za5728vooBhwdn3C/x2duv/frlDDi2cXyJ9yNpFTQvHC8eUx/w/06mDVAMNvlqv970mVP2JvKi8B1gwC
-        IAMOLAr/f2SCNlZNMPxqmdr/5gT5Pfry/AJQrRAQ7KG7pTRK7cfMIg28uCBM6by8vDwHVBu1AAMDAEJF
-        WllKGwFfAAAAAElFTkSuQmCC
-</value>
+  <data name="btnOpenDB.Text" xml:space="preserve">
+    <value>Open file</value>
   </data>
   <data name="btnSafeFile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -156,12 +221,14 @@
         GBgAkQE+TOOa0YkAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="addBranchButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAsSURBVDhPY6AZcDjA8B8ZQ4WJByPNAHTFxGKo9mFhADZA
-        kmJsYNQAYgEDAwAQa7+hv9SXOAAAAABJRU5ErkJggg==
-</value>
+  <data name="btnSafeFile.Text" xml:space="preserve">
+    <value>Save file</value>
+  </data>
+  <data name="CopySuffics" xml:space="preserve">
+    <value>_copy</value>
+  </data>
+  <data name="dataPanel.Text" xml:space="preserve">
+    <value>Data</value>
   </data>
   <data name="delBrachButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -171,90 +238,23 @@
         CDro3cyzAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="btnCreateCopy.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEOSURBVDhPY4ABOTExpf6+vterV616gY5joiLfenh4OEOV
-        ogJpaRHVK1eu/PmPBWzZvPn/po0bfyVER0+HKmdgyM3KWtze3r6kvr5+04L58/9t3rTpPwh3dXT8//37
-        N1wjCFy/fv1fTk7ONS0tLR6GFStWPAaLooFlS5f+7+3p+X/lyqX/165d/b91yxYwBjr9v7+//3OcGmG2
-        bNu69f+SRYvAbBgA6cGp8fDhQ3BbJk6c8L+srPT/z58/wXJ4NSKD79+//9+xY8f/W7dugvlEawSB69eu
-        /b937y6YPaoRDZCt8eKFC/8KCnI3gpInKJkSrRGUAUAZAZrEGRiKi4ruo2cjbBiU5UBZD6KLgQEAP4fW
-        7EbhAr0AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnAddNewRow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAsSURBVDhPY6AZcDjA8B8ZQ4WJByPNAHTFxGKo9mFhADZA
-        kmJsYNQAYgEDAwAQa7+hv9SXOAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="btnDelRow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABbSURBVDhPzYvBDcAgDMSy/wadloJ0lES4x7O1dI/ITvyL
-        dkUb07lh/ZRv0clvQY6ce6DITW8VCmnKGXrIU+ahxzFpDz3mKWPogaa8QqGb3hYucq5gZefkvyDiBjym
-        CDro3cyzAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="btnAscSort.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB2SURBVDhPzdAxDkAwFIDhIgaxcBYXEZdzJLvFIG4gTkD4
-        39KBp0hF/Mm39b20NW8VIVekuCzGgFWxoIIzWdBDWzCjxGUhtCck+KazG+wFOCTDHbQ/2GtwyHuB5PWE
-        f1RjxHSTnJUZWwvt01xkxpaheEhmfDNmA80TQesiw/TLAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="toolStripContainer2.Text" xml:space="preserve">
-    <value>toolStripContainer2</value>
-  </data>
-  <data name="btnOpenDB.Text" xml:space="preserve">
-    <value>Open file</value>
-  </data>
-  <data name="btnAddDB.Text" xml:space="preserve">
-    <value>Add materials</value>
-  </data>
-  <data name="btnSafeFile.Text" xml:space="preserve">
-    <value>Save file</value>
-  </data>
-  <data name="addBranchButton.Text" xml:space="preserve">
-    <value>Add section</value>
-  </data>
   <data name="delBrachButton.Text" xml:space="preserve">
     <value>Remove section</value>
   </data>
-  <data name="btnCreateCopy.Text" xml:space="preserve">
-    <value>Copy</value>
+  <data name="DelBranchException" xml:space="preserve">
+    <value>An error occurred while deleting data!</value>
   </data>
-  <data name="treePanel.Text" xml:space="preserve">
-    <value>List</value>
+  <data name="DeletingError" xml:space="preserve">
+    <value>Removal error</value>
   </data>
   <data name="graphPanel.Text" xml:space="preserve">
     <value>Graph</value>
   </data>
-  <data name="toolStripContainer1.Text" xml:space="preserve">
-    <value>toolStripContainer1</value>
-  </data>
-  <data name="btnAddNewRow.Text" xml:space="preserve">
-    <value>Add row</value>
-  </data>
-  <data name="btnDelRow.Text" xml:space="preserve">
-    <value>Remove all rows</value>
-  </data>
-  <data name="btnAscSort.Text" xml:space="preserve">
-    <value>Sort</value>
-  </data>
-  <data name="dataPanel.Text" xml:space="preserve">
-    <value>Data</value>
-  </data>
-  <data name="itmRename.Text" xml:space="preserve">
-    <value>Rename</value>
-  </data>
   <data name="itmDelete.Text" xml:space="preserve">
     <value>Remove</value>
   </data>
-  <data name="DelBranchException" xml:space="preserve">
-    <value>An error occurred while deleting data!</value>
+  <data name="itmRename.Text" xml:space="preserve">
+    <value>Rename</value>
   </data>
   <data name="LoadDBAddIntoMissingDBException" xml:space="preserve">
     <value>Upload a database or create a new one</value>
@@ -262,13 +262,13 @@
   <data name="LoadDBCorruptedException" xml:space="preserve">
     <value>The downloaded database is corrupted</value>
   </data>
-  <data name="CopySuffics" xml:space="preserve">
-    <value>_copy</value>
+  <data name="toolStripContainer1.Text" xml:space="preserve">
+    <value>toolStripContainer1</value>
   </data>
-  <data name="AddBranch.ExceptionMessage" xml:space="preserve">
-    <value>Error adding node</value>
+  <data name="toolStripContainer2.Text" xml:space="preserve">
+    <value>toolStripContainer2</value>
   </data>
-  <data name="DeletingError" xml:space="preserve">
-    <value>Removal error</value>
+  <data name="treePanel.Text" xml:space="preserve">
+    <value>List</value>
   </data>
 </root>

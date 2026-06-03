@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="rbtVolume.Text" xml:space="preserve">
-    <value>Объемы</value>
+  <data name="rbtCurve.Text" xml:space="preserve">
+    <value>Кривые</value>
   </data>
   <data name="rbtSurface.Text" xml:space="preserve">
     <value>Поверхности</value>
   </data>
-  <data name="rbtCurve.Text" xml:space="preserve">
-    <value>Кривые</value>
+  <data name="rbtVolume.Text" xml:space="preserve">
+    <value>Объемы</value>
   </data>
 </root>

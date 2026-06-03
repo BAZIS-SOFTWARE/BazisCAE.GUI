@@ -117,22 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Licensed to:</value>
+  </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Connection IP:</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>License information:</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Licensed to:</value>
-  </data>
-  <data name="lblServerAdress.Text" xml:space="preserve">
+  <data name="lblCompanyName.Text" xml:space="preserve">
     <value>?</value>
   </data>
   <data name="lblKeyInfo.Text" xml:space="preserve">
     <value>?</value>
   </data>
-  <data name="lblCompanyName.Text" xml:space="preserve">
+  <data name="lblServerAdress.Text" xml:space="preserve">
     <value>?</value>
   </data>
 </root>

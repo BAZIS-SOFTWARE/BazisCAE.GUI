@@ -117,8 +117,103 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAFB8AAAEAIABUCgAAFgAAACgAAAAUAAAAPgAAAAEAIAAAAAAAsAkAAMITAADCEwAAAAAAAAAA
+        AAAdYOo9AID/Av///wD///8AAID/Ah5i7jwdYuyUHmLs6B5i7P8eYuz/HmLs+h5i7OceYuzKHmLskR5j
+        7EMAAP8B////AP///wD///8A////AB5i7P8eYuzjH2LrjR1g7DX///8A////AP///wAAVf8DHmLsRB1i
+        65weYuztHmLs/x5i7P8eYuz/HmLs/x5i7NMdYOo9////AP///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7d0fYuyFHGTuLv///wD///8A////ACtV/wYeYetMHmPsox5i7PIeYuz/HmLs/x5i7P0fYut1////AP//
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs1R5h7X4bZesm////AP///wD///8AHFXjCR9i
+        7VMeYuyrHmLs9h5i7P8fYu1j////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuzVHmLrgBxj6iT///8A////AP///wAcVeMJHmPrTR1i65wcY/ESHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7NUeY+x3HWLrGv///wD///8A////AP//
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz9HmLrxB5j7W8hZOkX////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/H2PsliFi
+        6yceYuuAHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7PseY+ywHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuuA////AP///wAeYuvEHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7PoeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i64D///8A////AB5i648eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs7B5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLrgP//
+        /wD///8AHmHskB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYezUHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuuA////AP///wAeYuvEHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x1i
+        65weYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7IcgYN8IHWHsaR5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/H2LuSR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x9i7MgAgP8CHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuzvHmXtK///
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLr6x9h6zL///8A////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8fYuzqHmHtKv///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuznG17yE///
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7PgeYuz5HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8dYuyU////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HWLrgitV
+        /wYeYe2YHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7O4AgP8EHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuuA////ACNd6BYeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5k
+        6zMeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i64D///8AAAD/AR5i7PweYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmPrTR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLrgP//
+        /wAcYOolHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8dYe1XHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8fY+yWIGTtOB9i7MAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5j
+        7EMeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/H2TwIR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7Nj///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLtcP//
+        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7M4zZv8F////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8fYuvRGGHnFf///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
+        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuzyHmPrgSBg3wj///8A////AP//
+        /wAdYezhHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz2HmLs6B5i7M0dYuucHmPsXRdd
+        6Av///8A////AP///wD///8A////ADAA8AAOAHAAAcAwAAA4EAAABwAAAADwAAAAEAAAAAAAAGAAAABg
+        AAAAYAAAAGAAAAAAAAAAAAAAAAAQAAAAMAAAADAAAAAQAAAAEAAAAAAAAEAAAABAAAAAQAAAAAAAAAAA
+        AAAAABAAAAAQAAAAEAAAADAAAABwAAAB8AA=
+</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Bazis. Система инженерного анализа</value>
+  </data>
+  <data name="btnBorder.ImageIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="btnDisplayViews.Text" xml:space="preserve">
+    <value>Вид</value>
+  </data>
   <data name="btnSelect.Text" xml:space="preserve">
     <value>Выбрать</value>
+  </data>
+  <data name="checkPlayerControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 214</value>
+  </data>
+  <data name="checkPlayerControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 39</value>
+  </data>
+  <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 158</value>
+  </data>
+  <data name="dataBasesMenuItem.Text" xml:space="preserve">
+    <value>Базы данных</value>
+  </data>
+  <data name="lblStatus.Text" xml:space="preserve">
+    <value>Создайте или загрузите проект или сетку</value>
+  </data>
+  <data name="menuItem_DeleteSelectedObjects.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAFVJREFUOE/NjEEKACAIBP3/D3qtUSDUlOYhqIG9uLOKfIUW0RbejbC30pNO/SKM
+        Eu/pB1G471Dywt0EZYb+Fo6ujFNPKHvhrkPpFO63DzLdRFgm+jdUPKYIOroK8iQAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="menuItem_DeleteSelectedObjects.Text" xml:space="preserve">
+    <value>Удалить выбранное</value>
+  </data>
+  <data name="menuItem_InfoSelectedObjects.Text" xml:space="preserve">
+    <value>Выбранные объекты</value>
+  </data>
+  <data name="menuItem_SetRotPoint.Text" xml:space="preserve">
+    <value>Задать точку вращения</value>
+  </data>
+  <data name="propertiesPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 206</value>
   </data>
   <data name="sceneImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -312,33 +407,80 @@
         Dwf/AgAB/gEAAQ8H/wIAAf8BAwj/AgAL
 </value>
   </data>
-  <data name="btnDisplayViews.Text" xml:space="preserve">
+  <data name="tasksMenuItem.Text" xml:space="preserve">
+    <value>Задача</value>
+  </data>
+  <data name="toolStripMenuItem2.Text" xml:space="preserve">
+    <value>Навигатор</value>
+  </data>
+  <data name="toolStripMenuItem3.Text" xml:space="preserve">
+    <value>Консоль</value>
+  </data>
+  <data name="toolStripMenuItem4.Text" xml:space="preserve">
+    <value>Отразить результаты</value>
+  </data>
+  <data name="viewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 20</value>
+  </data>
+  <data name="viewMenuItem.Text" xml:space="preserve">
     <value>Вид</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btnBorder.ImageIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+  <data name="выходToolStripMenuItem.Text" xml:space="preserve">
+    <value>Вы&amp;ход</value>
   </data>
-  <data name="lblStatus.Text" xml:space="preserve">
-    <value>Создайте или загрузите проект или сетку</value>
+  <data name="геометрияToolStripMenuItem.Text" xml:space="preserve">
+    <value>Геометрия</value>
   </data>
-  <data name="файлToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Файл</value>
+  <data name="добавитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Добавить</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="создатьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAENSURBVDhPrZHbSgJRGEZ9KX2HfI18I9ELkS5KCREMDBSN
-        VLRA0xDREQ+FTJai47mm8TDOF7NlhulHNwO14LvarHXxb4fjv4jnW6CLZRqIpKoI3Zbw3HwDdX6hC6cI
-        RnNwuT38yE1WoJ6JL5RC+rFxiAji8Uj0rkY9E+9lksnGqMu4TlSoZ7JT9yxihKjLuIoXqcfQNA2yssVo
-        KrOA8+z8eOAiVqAuY7NVMVsqEIdLfiAQyVAX6l7DSt5gIH2hI874AX84TX0o6x2k+Td6HwvUuxI/oD9a
-        0Q+3+FyjP1qh1ZuiLAztB6yHe+nPUWuP8VB9tx+wHk54naBUH+D+SbQXMP771LgB/dHOqPsnfgDYzPbD
-        7s5C8AAAAABJRU5ErkJggg==
-</value>
+  <data name="загрузитьgeoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Загрузить *.gscript</value>
   </data>
-  <data name="создатьToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Создать</value>
+  <data name="загрузитьМастерToolStripMenuItem.Text" xml:space="preserve">
+    <value>Пользовательский мастер</value>
+  </data>
+  <data name="запуститьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Запустить</value>
+  </data>
+  <data name="измеритьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Измерить</value>
+  </data>
+  <data name="инструментыToolStripMenuItem.Text" xml:space="preserve">
+    <value>Инструменты</value>
+  </data>
+  <data name="квадратизацияСуществующейToolStripMenuItem.Text" xml:space="preserve">
+    <value>Квадратизация существующей</value>
+  </data>
+  <data name="лицензияToolStripMenuItem.Text" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
+  <data name="мастерToolStripMenuItem.Text" xml:space="preserve">
+    <value>Мастер</value>
+  </data>
+  <data name="материалыMenuItem.Text" xml:space="preserve">
+    <value>Материалы</value>
+  </data>
+  <data name="наToolStripMenuItem.Text" xml:space="preserve">
+    <value>На границах 2D элементов</value>
+  </data>
+  <data name="наПоверхности3DToolStripMenuItem.Text" xml:space="preserve">
+    <value>На открытых 3D элементах</value>
+  </data>
+  <data name="наПоверхностиГеометрииToolStripMenuItem.Text" xml:space="preserve">
+    <value>На поверхностях геометрии</value>
+  </data>
+  <data name="настройкиToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Настройки</value>
+  </data>
+  <data name="объединитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Объединить</value>
+  </data>
+  <data name="опрограммеToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;О программе...</value>
+  </data>
+  <data name="остановитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Остановить</value>
   </data>
   <data name="открытьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -359,8 +501,95 @@
   <data name="открытьToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Открыть</value>
   </data>
-  <data name="добавитьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Добавить</value>
+  <data name="открытьToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="открытьИнструкцииToolStripMenuItem.Text" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="показатьНаДиаграммеToolStripMenuItem.Text" xml:space="preserve">
+    <value>Показать на диаграмме</value>
+  </data>
+  <data name="показатьСкрытыеItem.Text" xml:space="preserve">
+    <value>Показать все скрытые</value>
+  </data>
+  <data name="показатьСопряженныеItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="показатьСопряженныеItem.Text" xml:space="preserve">
+    <value>Показать сопряженные</value>
+  </data>
+  <data name="построитьГрафикToolStripMenuItem.Text" xml:space="preserve">
+    <value>Построить график</value>
+  </data>
+  <data name="построитьДиаграммуToolStripMenuItem.Text" xml:space="preserve">
+    <value>Построить диаграмму</value>
+  </data>
+  <data name="рассечьПлоскостьюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Рассечь плоскостью</value>
+  </data>
+  <data name="расчетыToolStripMenuItem.Text" xml:space="preserve">
+    <value>Расчеты</value>
+  </data>
+  <data name="результатыMenuItem.Text" xml:space="preserve">
+    <value>Результаты</value>
+  </data>
+  <data name="сведенияMenuItem.Text" xml:space="preserve">
+    <value>Сведения</value>
+  </data>
+  <data name="сеткаToolStripMenuItem.Text" xml:space="preserve">
+    <value>Сетка</value>
+  </data>
+  <data name="скрытьВыбранноеItem.Text" xml:space="preserve">
+    <value>Скрыть выбранное</value>
+  </data>
+  <data name="скрытьПлоскостьюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Скрыть плоскостью</value>
+  </data>
+  <data name="содержаниеToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Содержание</value>
+  </data>
+  <data name="создатьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAENSURBVDhPrZHbSgJRGEZ9KX2HfI18I9ELkS5KCREMDBSN
+        VLRA0xDREQ+FTJai47mm8TDOF7NlhulHNwO14LvarHXxb4fjv4jnW6CLZRqIpKoI3Zbw3HwDdX6hC6cI
+        RnNwuT38yE1WoJ6JL5RC+rFxiAji8Uj0rkY9E+9lksnGqMu4TlSoZ7JT9yxihKjLuIoXqcfQNA2yssVo
+        KrOA8+z8eOAiVqAuY7NVMVsqEIdLfiAQyVAX6l7DSt5gIH2hI874AX84TX0o6x2k+Td6HwvUuxI/oD9a
+        0Q+3+FyjP1qh1ZuiLAztB6yHe+nPUWuP8VB9tx+wHk54naBUH+D+SbQXMP771LgB/dHOqPsnfgDYzPbD
+        7s5C8AAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="создатьToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Создать</value>
+  </data>
+  <data name="создатьToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="создатьАнимациюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Создать анимацию</value>
+  </data>
+  <data name="создатьГруппуItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAClJREFUOE9jYKAVcDjA8B8Zo8sTBCPNAHTFxOLhZAA2QJJibGDUAOIBABBrv6Eu
+        ctv/AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="создатьГруппуItem.Text" xml:space="preserve">
+    <value>Создать новую группу</value>
+  </data>
+  <data name="создатьЛиниюToolStripMenuItem.Text" xml:space="preserve">
+    <value>Создать линию</value>
+  </data>
+  <data name="создатьОбъемToolStripMenuItem.Text" xml:space="preserve">
+    <value>Создать объем</value>
+  </data>
+  <data name="создатьПлоскостьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Создать плоскость</value>
+  </data>
+  <data name="создатьТочкуToolStripMenuItem.Text" xml:space="preserve">
+    <value>Создать точку</value>
   </data>
   <data name="сохранитьToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -383,254 +612,25 @@
   <data name="сохранитькакToolStripMenuItem.Text" xml:space="preserve">
     <value>Сохранить &amp;как</value>
   </data>
-  <data name="выходToolStripMenuItem.Text" xml:space="preserve">
-    <value>Вы&amp;ход</value>
-  </data>
-  <data name="viewMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 20</value>
-  </data>
-  <data name="viewMenuItem.Text" xml:space="preserve">
-    <value>Вид</value>
-  </data>
-  <data name="toolStripMenuItem2.Text" xml:space="preserve">
-    <value>Навигатор</value>
-  </data>
-  <data name="toolStripMenuItem3.Text" xml:space="preserve">
-    <value>Консоль</value>
-  </data>
-  <data name="геометрияToolStripMenuItem.Text" xml:space="preserve">
-    <value>Геометрия</value>
-  </data>
-  <data name="создатьТочкуToolStripMenuItem.Text" xml:space="preserve">
-    <value>Создать точку</value>
-  </data>
-  <data name="создатьЛиниюToolStripMenuItem.Text" xml:space="preserve">
-    <value>Создать линию</value>
-  </data>
-  <data name="создатьПлоскостьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Создать плоскость</value>
-  </data>
-  <data name="создатьОбъемToolStripMenuItem.Text" xml:space="preserve">
-    <value>Создать объем</value>
-  </data>
-  <data name="сеткаToolStripMenuItem.Text" xml:space="preserve">
-    <value>Сетка</value>
-  </data>
-  <data name="загрузитьgeoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Загрузить *.gscript</value>
+  <data name="справкаToolStripMenuItem.Text" xml:space="preserve">
+    <value>Спра&amp;вка</value>
   </data>
   <data name="сформироватьgeoToolStripMenuItem.Text" xml:space="preserve">
     <value>Сформировать *.gscript</value>
   </data>
-  <data name="наToolStripMenuItem.Text" xml:space="preserve">
-    <value>На границах 2D элементов</value>
+  <data name="сформироватьИнструкцииToolStripMenuItem.Text" xml:space="preserve">
+    <value>Сформировать</value>
   </data>
   <data name="уплотнитьToolStripMenuItem.Text" xml:space="preserve">
     <value>Уплотнить существующую</value>
   </data>
-  <data name="наПоверхности3DToolStripMenuItem.Text" xml:space="preserve">
-    <value>На открытых 3D элементах</value>
-  </data>
-  <data name="наПоверхностиГеометрииToolStripMenuItem.Text" xml:space="preserve">
-    <value>На поверхностях геометрии</value>
-  </data>
-  <data name="квадратизацияСуществующейToolStripMenuItem.Text" xml:space="preserve">
-    <value>Квадратизация существующей</value>
-  </data>
-  <data name="dataBasesMenuItem.Text" xml:space="preserve">
-    <value>Базы данных</value>
-  </data>
-  <data name="материалыMenuItem.Text" xml:space="preserve">
-    <value>Материалы</value>
+  <data name="файлToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Файл</value>
   </data>
   <data name="функцииMenuItem.Text" xml:space="preserve">
     <value>Функции</value>
   </data>
-  <data name="tasksMenuItem.Text" xml:space="preserve">
-    <value>Задача</value>
-  </data>
-  <data name="создатьToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Создать</value>
-  </data>
-  <data name="мастерToolStripMenuItem.Text" xml:space="preserve">
-    <value>Мастер</value>
-  </data>
-  <data name="загрузитьМастерToolStripMenuItem.Text" xml:space="preserve">
-    <value>Пользовательский мастер</value>
-  </data>
-  <data name="показатьНаДиаграммеToolStripMenuItem.Text" xml:space="preserve">
-    <value>Показать на диаграмме</value>
-  </data>
-  <data name="расчетыToolStripMenuItem.Text" xml:space="preserve">
-    <value>Расчеты</value>
-  </data>
-  <data name="открытьИнструкцииToolStripMenuItem.Text" xml:space="preserve">
-    <value>Открыть</value>
-  </data>
-  <data name="сформироватьИнструкцииToolStripMenuItem.Text" xml:space="preserve">
-    <value>Сформировать</value>
-  </data>
-  <data name="запуститьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Запустить</value>
-  </data>
-  <data name="остановитьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Остановить</value>
-  </data>
-  <data name="результатыMenuItem.Text" xml:space="preserve">
-    <value>Результаты</value>
-  </data>
-  <data name="открытьToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Открыть</value>
-  </data>
-  <data name="объединитьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Объединить</value>
-  </data>
-  <data name="построитьГрафикToolStripMenuItem.Text" xml:space="preserve">
-    <value>Построить график</value>
-  </data>
-  <data name="построитьДиаграммуToolStripMenuItem.Text" xml:space="preserve">
-    <value>Построить диаграмму</value>
-  </data>
-  <data name="создатьАнимациюToolStripMenuItem.Text" xml:space="preserve">
-    <value>Создать анимацию</value>
-  </data>
   <data name="экспортироватьРезультатыToolStripMenuItem.Text" xml:space="preserve">
     <value>Экспортировать результаты</value>
-  </data>
-  <data name="toolStripMenuItem4.Text" xml:space="preserve">
-    <value>Отразить результаты</value>
-  </data>
-  <data name="инструментыToolStripMenuItem.Text" xml:space="preserve">
-    <value>Инструменты</value>
-  </data>
-  <data name="измеритьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Измерить</value>
-  </data>
-  <data name="скрытьПлоскостьюToolStripMenuItem.Text" xml:space="preserve">
-    <value>Скрыть плоскостью</value>
-  </data>
-  <data name="рассечьПлоскостьюToolStripMenuItem.Text" xml:space="preserve">
-    <value>Рассечь плоскостью</value>
-  </data>
-  <data name="настройкиToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Настройки</value>
-  </data>
-  <data name="справкаToolStripMenuItem.Text" xml:space="preserve">
-    <value>Спра&amp;вка</value>
-  </data>
-  <data name="содержаниеToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Содержание</value>
-  </data>
-  <data name="опрограммеToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;О программе...</value>
-  </data>
-  <data name="лицензияToolStripMenuItem.Text" xml:space="preserve">
-    <value>Лицензия</value>
-  </data>
-  <data name="сведенияMenuItem.Text" xml:space="preserve">
-    <value>Сведения</value>
-  </data>
-  <data name="checkPlayerControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 214</value>
-  </data>
-  <data name="checkPlayerControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 39</value>
-  </data>
-  <data name="propertiesPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 206</value>
-  </data>
-  <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 158</value>
-  </data>
-  <data name="создатьГруппуItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAClJREFUOE9jYKAVcDjA8B8Zo8sTBCPNAHTFxOLhZAA2QJJibGDUAOIBABBrv6Eu
-        ctv/AAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="создатьГруппуItem.Text" xml:space="preserve">
-    <value>Создать новую группу</value>
-  </data>
-  <data name="скрытьВыбранноеItem.Text" xml:space="preserve">
-    <value>Скрыть выбранное</value>
-  </data>
-  <data name="показатьСкрытыеItem.Text" xml:space="preserve">
-    <value>Показать все скрытые</value>
-  </data>
-  <data name="menuItem_InfoSelectedObjects.Text" xml:space="preserve">
-    <value>Выбранные объекты</value>
-  </data>
-  <data name="menuItem_SetRotPoint.Text" xml:space="preserve">
-    <value>Задать точку вращения</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="показатьСопряженныеItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="показатьСопряженныеItem.Text" xml:space="preserve">
-    <value>Показать сопряженные</value>
-  </data>
-  <data name="menuItem_DeleteSelectedObjects.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAFVJREFUOE/NjEEKACAIBP3/D3qtUSDUlOYhqIG9uLOKfIUW0RbejbC30pNO/SKM
-        Eu/pB1G471Dywt0EZYb+Fo6ujFNPKHvhrkPpFO63DzLdRFgm+jdUPKYIOroK8iQAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="menuItem_DeleteSelectedObjects.Text" xml:space="preserve">
-    <value>Удалить выбранное</value>
-  </data>
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAFB8AAAEAIABUCgAAFgAAACgAAAAUAAAAPgAAAAEAIAAAAAAAsAkAAMITAADCEwAAAAAAAAAA
-        AAAdYOo9AID/Av///wD///8AAID/Ah5i7jwdYuyUHmLs6B5i7P8eYuz/HmLs+h5i7OceYuzKHmLskR5j
-        7EMAAP8B////AP///wD///8A////AB5i7P8eYuzjH2LrjR1g7DX///8A////AP///wAAVf8DHmLsRB1i
-        65weYuztHmLs/x5i7P8eYuz/HmLs/x5i7NMdYOo9////AP///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
-        7d0fYuyFHGTuLv///wD///8A////ACtV/wYeYetMHmPsox5i7PIeYuz/HmLs/x5i7P0fYut1////AP//
-        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs1R5h7X4bZesm////AP///wD///8AHFXjCR9i
-        7VMeYuyrHmLs9h5i7P8fYu1j////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuzVHmLrgBxj6iT///8A////AP///wAcVeMJHmPrTR1i65wcY/ESHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7NUeY+x3HWLrGv///wD///8A////AP//
-        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz9HmLrxB5j7W8hZOkX////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/H2PsliFi
-        6yceYuuAHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7PseY+ywHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuuA////AP///wAeYuvEHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7PoeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i64D///8A////AB5i648eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs7B5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLrgP//
-        /wD///8AHmHskB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYezUHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuuA////AP///wAeYuvEHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x1i
-        65weYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7IcgYN8IHWHsaR5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/H2LuSR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x9i7MgAgP8CHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuzvHmXtK///
-        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLr6x9h6zL///8A////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8fYuzqHmHtKv///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuznG17yE///
-        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7PgeYuz5HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8dYuyU////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HWLrgitV
-        /wYeYe2YHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7O4AgP8EHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuuA////ACNd6BYeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5k
-        6zMeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i64D///8AAAD/AR5i7PweYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmPrTR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLrgP//
-        /wAcYOolHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8dYe1XHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8fY+yWIGTtOB9i7MAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5j
-        7EMeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/H2TwIR5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7Nj///8AHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLtcP//
-        /wAeYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7M4zZv8F////AB5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8fYuvRGGHnFf///wD///8AHmLs/x5i7P8eYuz/HmLs/x5i
-        7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuzyHmPrgSBg3wj///8A////AP//
-        /wAdYezhHmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz/HmLs/x5i7P8eYuz2HmLs6B5i7M0dYuucHmPsXRdd
-        6Av///8A////AP///wD///8A////ADAA8AAOAHAAAcAwAAA4EAAABwAAAADwAAAAEAAAAAAAAGAAAABg
-        AAAAYAAAAGAAAAAAAAAAAAAAAAAQAAAAMAAAADAAAAAQAAAAEAAAAAAAAEAAAABAAAAAQAAAAAAAAAAA
-        AAAAABAAAAAQAAAAEAAAADAAAABwAAAB8AA=
-</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Bazis. Система инженерного анализа</value>
   </data>
 </root>

@@ -120,44 +120,41 @@
   <data name="AddReaction" xml:space="preserve">
     <value>Добавить реакцию</value>
   </data>
+  <data name="CalculateCreep" xml:space="preserve">
+    <value>Рассчитать ползучесть</value>
+  </data>
   <data name="CalculateDiagram" xml:space="preserve">
     <value>Рассчитать диаграмму</value>
   </data>
   <data name="CalculateHardening" xml:space="preserve">
     <value>Рассчитать упрочнение</value>
   </data>
-  <data name="CalculateCreep" xml:space="preserve">
-    <value>Рассчитать ползучесть</value>
+  <data name="CreateCopy.MatExistWarningMessagePart1" xml:space="preserve">
+    <value>Материал</value>
   </data>
-  <data name="HardeningCalculator.Text" xml:space="preserve">
-    <value>Калькулятор упрочнения</value>
+  <data name="CreateCopy.MatExistWarningMessagePart2" xml:space="preserve">
+    <value>уже существует! \nПереименуйте материал!</value>
   </data>
-  <data name="DiagramCalculator.Text" xml:space="preserve">
-    <value>Калькулятор диаграмм</value>
+  <data name="DataSuccessfulyRemovedMessage" xml:space="preserve">
+    <value>Данные удалены успешно</value>
   </data>
   <data name="DelReaction" xml:space="preserve">
     <value>Удалить реакцию</value>
   </data>
-  <data name="EditReaction" xml:space="preserve">
-    <value>Редактировать</value>
-  </data>
-  <data name="SelectReaction" xml:space="preserve">
-    <value>Выберите реакцию!</value>
+  <data name="DiagramCalculator.Text" xml:space="preserve">
+    <value>Калькулятор диаграмм</value>
   </data>
   <data name="DublicateReactionNameWarning" xml:space="preserve">
     <value>Реакция с таким названием уже существует! Выберите другое название.</value>
   </data>
-  <data name="reacForm.Text" xml:space="preserve">
-    <value>Редактировать реакцию</value>
+  <data name="EditReaction" xml:space="preserve">
+    <value>Редактировать</value>
   </data>
-  <data name="SelectMaterialsCaption" xml:space="preserve">
-    <value>Выберите материал!</value>
+  <data name="HardeningCalculator.Text" xml:space="preserve">
+    <value>Калькулятор упрочнения</value>
   </data>
   <data name="InvalidReactionPhaseCountException" xml:space="preserve">
     <value>Для реакции необходимо минимум две фазы!</value>
-  </data>
-  <data name="SelectPropertyOrReactionForDeletingWarning" xml:space="preserve">
-    <value>Выберите свойство или реакцию для удаления!</value>
   </data>
   <data name="MissingPropertyTableException" xml:space="preserve">
     <value>Таблица свойства отсутствует!</value>
@@ -168,16 +165,19 @@
   <data name="PhaseNameInvalidSymbolsWarning" xml:space="preserve">
     <value>Наименование фазы может состоять только из букв, цифр и нижнего подчёркивания \"_\"!</value>
   </data>
-  <data name="DataSuccessfulyRemovedMessage" xml:space="preserve">
-    <value>Данные удалены успешно</value>
+  <data name="reacForm.Text" xml:space="preserve">
+    <value>Редактировать реакцию</value>
   </data>
   <data name="RemoveDataException" xml:space="preserve">
     <value>Возникла ошибка при удалении данных!</value>
   </data>
-  <data name="CreateCopy.MatExistWarningMessagePart1" xml:space="preserve">
-    <value>Материал</value>
+  <data name="SelectMaterialsCaption" xml:space="preserve">
+    <value>Выберите материал!</value>
   </data>
-  <data name="CreateCopy.MatExistWarningMessagePart2" xml:space="preserve">
-    <value>уже существует! \nПереименуйте материал!</value>
+  <data name="SelectPropertyOrReactionForDeletingWarning" xml:space="preserve">
+    <value>Выберите свойство или реакцию для удаления!</value>
+  </data>
+  <data name="SelectReaction" xml:space="preserve">
+    <value>Выберите реакцию!</value>
   </data>
 </root>

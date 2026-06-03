@@ -117,209 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="toolStripMenuItem16.Text" xml:space="preserve">
-    <value>toolStripMenuItem16</value>
+  <data name="AvailableCommands" xml:space="preserve">
+    <value>Доступные команды</value>
   </data>
-  <data name="spbDictionary.Text" xml:space="preserve">
-    <value>Справка</value>
-  </data>
-  <data name="toolStripButton2.Text" xml:space="preserve">
-    <value>Очистить</value>
-  </data>
-  <data name="tlscOut.Text" xml:space="preserve">
-    <value>toolStripContainer1</value>
-  </data>
-  <data name="toolStripMenuItem32.Text" xml:space="preserve">
-    <value>Загрузить проект</value>
-  </data>
-  <data name="toolStripMenuItem34.Text" xml:space="preserve">
-    <value>Сохранить проект</value>
-  </data>
-  <data name="toolStripMenuItem37.Text" xml:space="preserve">
-    <value>Рассчитать проект</value>
-  </data>
-  <data name="toolStripMenuItem38.Text" xml:space="preserve">
-    <value>Перенумерация сетки</value>
-  </data>
-  <data name="toolStripMenuItem48.Text" xml:space="preserve">
-    <value>Переместить</value>
-  </data>
-  <data name="toolStripMenuItem50.Text" xml:space="preserve">
-    <value>Повернуть</value>
-  </data>
-  <data name="векторabcToolStripMenuItem.Text" xml:space="preserve">
-    <value>вектор(x,y,z)</value>
-  </data>
-  <data name="осьxyzУголToolStripMenuItem.Text" xml:space="preserve">
-    <value>ось(x,y,z) : угол</value>
-  </data>
-  <data name="изменитьКоToolStripMenuItem.Text" xml:space="preserve">
-    <value>Изменить координаты сетки</value>
-  </data>
-  <data name="toolStripMenuItem55.Text" xml:space="preserve">
-    <value>Переместить</value>
-  </data>
-  <data name="toolStripMenuItem57.Text" xml:space="preserve">
-    <value>Повернуть</value>
-  </data>
-  <data name="toolStripMenuItem59.Text" xml:space="preserve">
-    <value>Масштабировать</value>
-  </data>
-  <data name="toolStripMenuItem61.Text" xml:space="preserve">
-    <value>Найти свободные узлы</value>
-  </data>
-  <data name="toolStripMenuItem62.Text" xml:space="preserve">
-    <value>Найти объект</value>
-  </data>
-  <data name="toolStripMenuItem64.Text" xml:space="preserve">
-    <value>Найти совпадающие</value>
-  </data>
-  <data name="toolStripMenuItem66.Text" xml:space="preserve">
-    <value>Выход</value>
-  </data>
-  <data name="toolStripMenuItem65.Text" xml:space="preserve">
-    <value>Узлы</value>
-  </data>
-  <data name="toolStripMenuItem63.Text" xml:space="preserve">
-    <value>тип , номер</value>
-  </data>
-  <data name="toolStripMenuItem54.Text" xml:space="preserve">
-    <value>Изменить вид</value>
-  </data>
-  <data name="toolStripMenuItem60.Text" xml:space="preserve">
-    <value>фактор</value>
-  </data>
-  <data name="toolStripMenuItem58.Text" xml:space="preserve">
-    <value>угол</value>
-  </data>
-  <data name="toolStripMenuItem56.Text" xml:space="preserve">
-    <value>вектор(x,y,z)</value>
-  </data>
-  <data name="повернутьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Повернуть</value>
-  </data>
-  <data name="переместитьToolStripMenuItem.Text" xml:space="preserve">
-    <value>Переместить</value>
-  </data>
-  <data name="toolStripMenuItem47.Text" xml:space="preserve">
-    <value>Изменить координаты узла</value>
-  </data>
-  <data name="toolStripMenuItem51.Text" xml:space="preserve">
-    <value>номер : ось(x,y,z) : угол</value>
-  </data>
-  <data name="toolStripMenuItem49.Text" xml:space="preserve">
-    <value>номер : вектор(a,b,c)</value>
-  </data>
-  <data name="toolStripMenuItem39.Text" xml:space="preserve">
-    <value>тип , номер</value>
-  </data>
-  <data name="toolStripMenuItem36.Text" xml:space="preserve">
-    <value>Новый проект</value>
-  </data>
-  <data name="toolStripMenuItem35.Text" xml:space="preserve">
-    <value>путь</value>
-  </data>
-  <data name="toolStripMenuItem33.Text" xml:space="preserve">
-    <value>путь</value>
+  <data name="BeamConnectionEventArgsArgNumExc" xml:space="preserve">
+    <value>Значение параметра должно быть числом.</value>
   </data>
   <data name="btnStartMacro.Text" xml:space="preserve">
     <value>Запустить</value>
-  </data>
-  <data name="toolStripButton1.Text" xml:space="preserve">
-    <value>Изменить фон</value>
-  </data>
-  <data name="toolStripMenuItem15.Text" xml:space="preserve">
-    <value>toolStripMenuItem15</value>
-  </data>
-  <data name="toolStripMenuItem14.Text" xml:space="preserve">
-    <value>toolStripMenuItem14</value>
-  </data>
-  <data name="GenLoadProject" xml:space="preserve">
-    <value>Загрузить проект</value>
-  </data>
-  <data name="GenSaveProject" xml:space="preserve">
-    <value>Сохранить проект</value>
-  </data>
-  <data name="GenSolveProject" xml:space="preserve">
-    <value>Рассчитать проект</value>
-  </data>
-  <data name="GenRenumberMesh" xml:space="preserve">
-    <value>Перенумерация сетки</value>
-  </data>
-  <data name="GenMoveNodes" xml:space="preserve">
-    <value>Переместить узел</value>
-  </data>
-  <data name="GenMoveMesh" xml:space="preserve">
-    <value>Переместить сетку</value>
-  </data>
-  <data name="GenRotateMesh" xml:space="preserve">
-    <value>Повернуть сетку</value>
-  </data>
-  <data name="GenFindFreeNodes" xml:space="preserve">
-    <value>Найти свободные узлы</value>
-  </data>
-  <data name="GenFindCoincident" xml:space="preserve">
-    <value>Найти совпадающие</value>
-  </data>
-  <data name="GenFindVolElems" xml:space="preserve">
-    <value>Найти объемные элементы</value>
-  </data>
-  <data name="GenFindObject" xml:space="preserve">
-    <value>Найти объект</value>
-  </data>
-  <data name="GenBeamConnection" xml:space="preserve">
-    <value>Соединить стержнями</value>
-  </data>
-  <data name="GenSetLevel" xml:space="preserve">
-    <value>Задать порядок точности</value>
-  </data>
-  <data name="GenMergeElementSets" xml:space="preserve">
-    <value>Слить наборы элементов</value>
-  </data>
-  <data name="GenCreateMesh2DPoligon" xml:space="preserve">
-    <value>Построить 2D сетку</value>
-  </data>
-  <data name="GenExit" xml:space="preserve">
-    <value>Выход</value>
-  </data>
-  <data name="SubLoadProject" xml:space="preserve">
-    <value>путь</value>
-  </data>
-  <data name="SubSaveProject" xml:space="preserve">
-    <value>путь</value>
-  </data>
-  <data name="SubRenumberMesh" xml:space="preserve">
-    <value>тип:начальный номер</value>
-  </data>
-  <data name="SubMoveMesh" xml:space="preserve">
-    <value>переместить&lt;|&gt;x,y,z</value>
-  </data>
-  <data name="SubMoveNodes" xml:space="preserve">
-    <value>переместить</value>
-  </data>
-  <data name="SubRotateMesh" xml:space="preserve">
-    <value>повернуть&lt;|&gt;x,y,z:угол</value>
-  </data>
-  <data name="SubFindCoincident" xml:space="preserve">
-    <value>узлы&lt;|&gt;расстояние</value>
-  </data>
-  <data name="SubFindVolElems" xml:space="preserve">
-    <value>величина</value>
-  </data>
-  <data name="SubFindObject" xml:space="preserve">
-    <value>тип,номер</value>
-  </data>
-  <data name="SubBeamConnection" xml:space="preserve">
-    <value>радиус поиска&lt;|&gt;макс. кол-во&lt;|&gt;группа#1&lt;|&gt;группа#2</value>
-  </data>
-  <data name="SubSetLevel" xml:space="preserve">
-    <value>тип&lt;|&gt;порядок точности</value>
-  </data>
-  <data name="SubMergeElementSets" xml:space="preserve">
-    <value>тип&lt;|&gt;набор#1&lt;|&gt;набор#2</value>
-  </data>
-  <data name="SubCreateMesh2DPoligon" xml:space="preserve">
-    <value>x1,y1&lt;|&gt;x2,y2&lt;|&gt;x3,y3&lt;|&gt;x4,y4&lt;|&gt;кол-во элементов</value>
   </data>
   <data name="CurrentSession" xml:space="preserve">
     <value>Текущая сессия</value>
@@ -327,38 +132,80 @@
   <data name="ExecuteCMDFileMissing" xml:space="preserve">
     <value>Указанный коммандный файл не найден!</value>
   </data>
-  <data name="NotACommandException" xml:space="preserve">
-    <value>Введенная строка не является командой</value>
-  </data>
-  <data name="InvalidArgumentsNumberException" xml:space="preserve">
-    <value>Неверное кол-во аргументов</value>
-  </data>
-  <data name="MoveRotNodesOption" xml:space="preserve">
-    <value>переместить</value>
-  </data>
   <data name="FindCoincidentOption" xml:space="preserve">
     <value>узлы</value>
-  </data>
-  <data name="AvailableCommands" xml:space="preserve">
-    <value>Доступные команды</value>
-  </data>
-  <data name="HeaderName" xml:space="preserve">
-    <value>Консоль</value>
   </data>
   <data name="FindVolElemsEventArgsArgExc" xml:space="preserve">
     <value>Значение параметра должно быть числом.</value>
   </data>
-  <data name="UnknownTypeException" xml:space="preserve">
-    <value>Неизвестный тип объекта!</value>
+  <data name="GenBeamConnection" xml:space="preserve">
+    <value>Соединить стержнями</value>
   </data>
-  <data name="PositiveCellingNumberException" xml:space="preserve">
-    <value>Номер должен быть целым положительным числом!</value>
+  <data name="GenCreateCurve" xml:space="preserve">
+    <value>Создать кривую</value>
   </data>
-  <data name="ModelShiftCoordinateEventArgsVectorExc" xml:space="preserve">
-    <value>Вектор должен содержать три компонента координаты!</value>
+  <data name="GenCreateMesh2DPoligon" xml:space="preserve">
+    <value>Построить 2D сетку</value>
   </data>
-  <data name="BeamConnectionEventArgsArgNumExc" xml:space="preserve">
-    <value>Значение параметра должно быть числом.</value>
+  <data name="GenCreatePoint" xml:space="preserve">
+    <value>Создать точку</value>
+  </data>
+  <data name="GenCreateSurface" xml:space="preserve">
+    <value>Создать поверхность</value>
+  </data>
+  <data name="GenExit" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="GenExtrudeByRotation" xml:space="preserve">
+    <value>Экструзия по вращению</value>
+  </data>
+  <data name="GenExtrudeCurve" xml:space="preserve">
+    <value>Экструзия кривой</value>
+  </data>
+  <data name="GenFindCoincident" xml:space="preserve">
+    <value>Найти совпадающие</value>
+  </data>
+  <data name="GenFindFreeNodes" xml:space="preserve">
+    <value>Найти свободные узлы</value>
+  </data>
+  <data name="GenFindObject" xml:space="preserve">
+    <value>Найти объект</value>
+  </data>
+  <data name="GenFindVolElems" xml:space="preserve">
+    <value>Найти объемные элементы</value>
+  </data>
+  <data name="GenLoadProject" xml:space="preserve">
+    <value>Загрузить проект</value>
+  </data>
+  <data name="GenMergeElementSets" xml:space="preserve">
+    <value>Слить наборы элементов</value>
+  </data>
+  <data name="GenMoveMesh" xml:space="preserve">
+    <value>Переместить сетку</value>
+  </data>
+  <data name="GenMoveNodes" xml:space="preserve">
+    <value>Переместить узел</value>
+  </data>
+  <data name="GenRenumberMesh" xml:space="preserve">
+    <value>Перенумерация сетки</value>
+  </data>
+  <data name="GenRotateMesh" xml:space="preserve">
+    <value>Повернуть сетку</value>
+  </data>
+  <data name="GenSaveProject" xml:space="preserve">
+    <value>Сохранить проект</value>
+  </data>
+  <data name="GenSetLevel" xml:space="preserve">
+    <value>Задать порядок точности</value>
+  </data>
+  <data name="GenSolveProject" xml:space="preserve">
+    <value>Рассчитать проект</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Консоль</value>
+  </data>
+  <data name="InvalidArgumentsNumberException" xml:space="preserve">
+    <value>Неверное кол-во аргументов</value>
   </data>
   <data name="InvalidCommandException" xml:space="preserve">
     <value>Неправильный формат команды</value>
@@ -366,26 +213,32 @@
   <data name="InvalidCoordinatesException" xml:space="preserve">
     <value>Неправильно введены координаты</value>
   </data>
-  <data name="GenCreatePoint" xml:space="preserve">
-    <value>Создать точку</value>
+  <data name="ModelShiftCoordinateEventArgsVectorExc" xml:space="preserve">
+    <value>Вектор должен содержать три компонента координаты!</value>
   </data>
-  <data name="GenCreateCurve" xml:space="preserve">
-    <value>Создать кривую</value>
+  <data name="MoveRotNodesOption" xml:space="preserve">
+    <value>переместить</value>
   </data>
-  <data name="GenCreateSurface" xml:space="preserve">
-    <value>Создать поверхность</value>
+  <data name="NotACommandException" xml:space="preserve">
+    <value>Введенная строка не является командой</value>
   </data>
-  <data name="GenExtrudeCurve" xml:space="preserve">
-    <value>Экструзия кривой</value>
+  <data name="PositiveCellingNumberException" xml:space="preserve">
+    <value>Номер должен быть целым положительным числом!</value>
   </data>
-  <data name="GenExtrudeByRotation" xml:space="preserve">
-    <value>Экструзия по вращению</value>
+  <data name="spbDictionary.Text" xml:space="preserve">
+    <value>Справка</value>
   </data>
-  <data name="SubCreatePoint" xml:space="preserve">
-    <value>x,y,z</value>
+  <data name="SubBeamConnection" xml:space="preserve">
+    <value>радиус поиска&lt;|&gt;макс. кол-во&lt;|&gt;группа#1&lt;|&gt;группа#2</value>
   </data>
   <data name="SubCreateCurve" xml:space="preserve">
     <value>точка#1&lt;|&gt;точка#2</value>
+  </data>
+  <data name="SubCreateMesh2DPoligon" xml:space="preserve">
+    <value>x1,y1&lt;|&gt;x2,y2&lt;|&gt;x3,y3&lt;|&gt;x4,y4&lt;|&gt;кол-во элементов</value>
+  </data>
+  <data name="SubCreatePoint" xml:space="preserve">
+    <value>x,y,z</value>
   </data>
   <data name="SubCreateSurface" xml:space="preserve">
     <value>кривые формирующие контур&lt;|&gt;кривая#1,кривая#2,кривая#3</value>
@@ -395,5 +248,152 @@
   </data>
   <data name="SubExtrudeRotation" xml:space="preserve">
     <value>Элемент 2D&lt;|&gt;угол в градусах&lt;|&gt;точка&lt;|&gt;ось вращения XYZ&lt;|&gt;трансфинитная сетка 1-да, 0-нет</value>
+  </data>
+  <data name="SubFindCoincident" xml:space="preserve">
+    <value>узлы&lt;|&gt;расстояние</value>
+  </data>
+  <data name="SubFindObject" xml:space="preserve">
+    <value>тип,номер</value>
+  </data>
+  <data name="SubFindVolElems" xml:space="preserve">
+    <value>величина</value>
+  </data>
+  <data name="SubLoadProject" xml:space="preserve">
+    <value>путь</value>
+  </data>
+  <data name="SubMergeElementSets" xml:space="preserve">
+    <value>тип&lt;|&gt;набор#1&lt;|&gt;набор#2</value>
+  </data>
+  <data name="SubMoveMesh" xml:space="preserve">
+    <value>переместить&lt;|&gt;x,y,z</value>
+  </data>
+  <data name="SubMoveNodes" xml:space="preserve">
+    <value>переместить</value>
+  </data>
+  <data name="SubRenumberMesh" xml:space="preserve">
+    <value>тип:начальный номер</value>
+  </data>
+  <data name="SubRotateMesh" xml:space="preserve">
+    <value>повернуть&lt;|&gt;x,y,z:угол</value>
+  </data>
+  <data name="SubSaveProject" xml:space="preserve">
+    <value>путь</value>
+  </data>
+  <data name="SubSetLevel" xml:space="preserve">
+    <value>тип&lt;|&gt;порядок точности</value>
+  </data>
+  <data name="tlscOut.Text" xml:space="preserve">
+    <value>toolStripContainer1</value>
+  </data>
+  <data name="toolStripButton1.Text" xml:space="preserve">
+    <value>Изменить фон</value>
+  </data>
+  <data name="toolStripButton2.Text" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="toolStripMenuItem14.Text" xml:space="preserve">
+    <value>toolStripMenuItem14</value>
+  </data>
+  <data name="toolStripMenuItem15.Text" xml:space="preserve">
+    <value>toolStripMenuItem15</value>
+  </data>
+  <data name="toolStripMenuItem16.Text" xml:space="preserve">
+    <value>toolStripMenuItem16</value>
+  </data>
+  <data name="toolStripMenuItem32.Text" xml:space="preserve">
+    <value>Загрузить проект</value>
+  </data>
+  <data name="toolStripMenuItem33.Text" xml:space="preserve">
+    <value>путь</value>
+  </data>
+  <data name="toolStripMenuItem34.Text" xml:space="preserve">
+    <value>Сохранить проект</value>
+  </data>
+  <data name="toolStripMenuItem35.Text" xml:space="preserve">
+    <value>путь</value>
+  </data>
+  <data name="toolStripMenuItem36.Text" xml:space="preserve">
+    <value>Новый проект</value>
+  </data>
+  <data name="toolStripMenuItem37.Text" xml:space="preserve">
+    <value>Рассчитать проект</value>
+  </data>
+  <data name="toolStripMenuItem38.Text" xml:space="preserve">
+    <value>Перенумерация сетки</value>
+  </data>
+  <data name="toolStripMenuItem39.Text" xml:space="preserve">
+    <value>тип , номер</value>
+  </data>
+  <data name="toolStripMenuItem47.Text" xml:space="preserve">
+    <value>Изменить координаты узла</value>
+  </data>
+  <data name="toolStripMenuItem48.Text" xml:space="preserve">
+    <value>Переместить</value>
+  </data>
+  <data name="toolStripMenuItem49.Text" xml:space="preserve">
+    <value>номер : вектор(a,b,c)</value>
+  </data>
+  <data name="toolStripMenuItem50.Text" xml:space="preserve">
+    <value>Повернуть</value>
+  </data>
+  <data name="toolStripMenuItem51.Text" xml:space="preserve">
+    <value>номер : ось(x,y,z) : угол</value>
+  </data>
+  <data name="toolStripMenuItem54.Text" xml:space="preserve">
+    <value>Изменить вид</value>
+  </data>
+  <data name="toolStripMenuItem55.Text" xml:space="preserve">
+    <value>Переместить</value>
+  </data>
+  <data name="toolStripMenuItem56.Text" xml:space="preserve">
+    <value>вектор(x,y,z)</value>
+  </data>
+  <data name="toolStripMenuItem57.Text" xml:space="preserve">
+    <value>Повернуть</value>
+  </data>
+  <data name="toolStripMenuItem58.Text" xml:space="preserve">
+    <value>угол</value>
+  </data>
+  <data name="toolStripMenuItem59.Text" xml:space="preserve">
+    <value>Масштабировать</value>
+  </data>
+  <data name="toolStripMenuItem60.Text" xml:space="preserve">
+    <value>фактор</value>
+  </data>
+  <data name="toolStripMenuItem61.Text" xml:space="preserve">
+    <value>Найти свободные узлы</value>
+  </data>
+  <data name="toolStripMenuItem62.Text" xml:space="preserve">
+    <value>Найти объект</value>
+  </data>
+  <data name="toolStripMenuItem63.Text" xml:space="preserve">
+    <value>тип , номер</value>
+  </data>
+  <data name="toolStripMenuItem64.Text" xml:space="preserve">
+    <value>Найти совпадающие</value>
+  </data>
+  <data name="toolStripMenuItem65.Text" xml:space="preserve">
+    <value>Узлы</value>
+  </data>
+  <data name="toolStripMenuItem66.Text" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="UnknownTypeException" xml:space="preserve">
+    <value>Неизвестный тип объекта!</value>
+  </data>
+  <data name="векторabcToolStripMenuItem.Text" xml:space="preserve">
+    <value>вектор(x,y,z)</value>
+  </data>
+  <data name="изменитьКоToolStripMenuItem.Text" xml:space="preserve">
+    <value>Изменить координаты сетки</value>
+  </data>
+  <data name="осьxyzУголToolStripMenuItem.Text" xml:space="preserve">
+    <value>ось(x,y,z) : угол</value>
+  </data>
+  <data name="переместитьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Переместить</value>
+  </data>
+  <data name="повернутьToolStripMenuItem.Text" xml:space="preserve">
+    <value>Повернуть</value>
   </data>
 </root>
