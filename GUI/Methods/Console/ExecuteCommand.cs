@@ -8,6 +8,8 @@ using MaterialDB.FunctionData;
 using MaterialDB.MaterialData;
 using Model.Interfaces;
 using Newtonsoft.Json;
+using Project.Tasks;
+using Project.Tasks.Materials;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -107,8 +109,10 @@ namespace BazisGUI
             { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.SaveSTEP, new [] { "path" } },
             { GenCmd.CreateVolumeMaterial, new[] { "Material name", "groupName", "start", "stop"} },
+            { GenCmd.CreateBeamMaterial, new[] { "Material name", "groupName", "diametr", "start", "stop"} },
             { GenCmd.Exit, Array.Empty<string>() },
-            { GenCmd.GenerateMesh, Array.Empty<string>()}
+            { GenCmd.GenerateMesh, Array.Empty<string>()},
+            { GenCmd.CreateTask, Array.Empty<string>() }
         };
 
         private void PrintAllCommands()
@@ -272,6 +276,16 @@ namespace BazisGUI
                         project.CreateTask();
                         break;
                     case GenCmd.CreateVolumeMaterial:
+                        PrepareDataForCreateVolumeMaterial(cmds[1], cmds[2], cmds[3], cmds[4], out IGroup groupVolumeMaterial, out float _startV, out float _stopV);
+                        var matV = new MatData(project.MaterialsDB[cmds[1]], groupVolumeMaterial, _startV, _stopV);
+                        project.AddTaskData(matV);
+                        PresentCondDataOnTree();
+                        break;
+                    case GenCmd.CreateBeamMaterial:
+                        PrepareDataForCreateBeamMaterial(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5], out IGroup groupBeamMaterial, out float _diametr, out float _startB, out float _stopB);
+                        var matB = new BeamMatData(_diametr, project.MaterialsDB[cmds[1]], groupBeamMaterial, _startB, _stopB);
+                        project.AddTaskData(matB);
+                        PresentCondDataOnTree();
                         break;
                 }
             }
