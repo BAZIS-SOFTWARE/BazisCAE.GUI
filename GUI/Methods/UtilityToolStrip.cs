@@ -529,19 +529,40 @@ namespace BazisGUI
         public void CaptureData(object sender, EventArgs e)
         {
             var dataBuffers = new List<int>();
-            var objViews = new List<ObjView>();
+            var tboBuffers = new List<int>();
+            var queries = new List<int>();
 
-            CreateCaptureData(dataBuffers, objViews);
-            RunTransformFeedback();
-            var indices = FetchData(dataBuffers);
+            CreateCaptureData(dataBuffers, tboBuffers, queries);
+            RunTransformFeedback(tboBuffers, queries);
+            var indices = FetchData(dataBuffers, queries);
             CreateCaptureGroups(indices);
-            RemoveCaptureData(dataBuffers, objViews);
+            RemoveCaptureData(dataBuffers, tboBuffers, queries);
         }
 
-        private void RunTransformFeedback()
+        private void RunTransformFeedback(List<int> tboBuffers, List<int> queries)
         {
             GL.Enable(EnableCap.RasterizerDiscard);
-            DisplayObjects();
+            var sets = project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => v.ViewState).ToArray();
+
+            for (var i = 0; i < sets.Length; ++i)
+            {
+                var vbo = VBOController.FindVBObj(sets[i].Name);
+                if (vbo != null && vbo.ViewState)
+                {
+                    var last = vbo.ViewMode;
+                    vbo.ViewMode = ObjView.Surface;
+
+                    var pObj = vbo.ActiveDrawingObject as Advanced3DClipper;
+                    pObj.QueryId = queries[i];
+                    pObj.TBOId = tboBuffers[i];
+
+                    vbo.Load();
+
+                    vbo.ViewMode = last;
+                    pObj.QueryId = 0;
+                    pObj.TBOId = 0;
+                }
+            }
             GL.Disable(EnableCap.RasterizerDiscard);
         }
 
@@ -556,7 +577,7 @@ namespace BazisGUI
 
                 if (elems.Length > 0)
                 {
-                    var grName = sets[i].Name + $"_Capture_{i}";
+                    var grName = sets[i].Name + $"_Capture";
                     project.DeleteModelGroup(grName);
                     project.CreateGroup(grName, elems);
                 }
@@ -565,7 +586,7 @@ namespace BazisGUI
             PresentGroupDataOnTree();
         }
 
-        private List<List<int>> FetchData(List<int> dataBuffers)
+        private List<List<int>> FetchData(List<int> dataBuffers, List<int> queries)
         {
             var list = new List<List<int>>();
             var sets = project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => v.ViewState).ToArray();
@@ -576,13 +597,12 @@ namespace BazisGUI
                 if (vbo != null && vbo.ViewState)
                 {
                     var surfVbo = vbo as SurfaceObjects;
-                    var pObj = vbo.ActiveDrawingObject as Advanced3DClipper;
 
                     var indices = new List<int>();
                     list.Add(indices);
 
                     var items = 0L;
-                    GL.GetQueryObject(pObj.QueryId, GetQueryObjectParam.QueryResult, out items);
+                    GL.GetQueryObject(queries[i], GetQueryObjectParam.QueryResult, out items);
 
                     if (items > 0)
                     {
@@ -596,18 +616,15 @@ namespace BazisGUI
                         var inIndex = 0;
                         for (var j = 1; j < separators.Length && items > 0; ++j)
                         {
-                            if (items < 100)
-                            {
-
-                            }
                             var minElemIndex = separators[j - 1] * 3;
                             var maxElemIndex = separators[j] * 3;
 
                             var minIndex = data[inIndex];
-                            while (data[inIndex] >= minElemIndex && data[inIndex] < maxElemIndex)
+                            while (inIndex < data.Length && data[inIndex] >= minElemIndex && data[inIndex] < maxElemIndex)
                                 ++inIndex;
 
-                            if (minIndex != data[inIndex])
+                            var offset = inIndex < data.Length ? 0 : 1;
+                            if (minIndex != data[inIndex - offset])
                             {
                                 var maxIndex = data[inIndex - 1] + 1;
                                 items -= (maxIndex - minIndex) / 3;
@@ -620,28 +637,18 @@ namespace BazisGUI
             return list;
         }
 
-        private void RemoveCaptureData(List<int> dataBuffers, List<ObjView> objViews)
+        private void RemoveCaptureData(List<int> dataBuffers, List<int> tboBuffers, List<int> queries)
         {
-            var sets = project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => v.ViewState).ToList();
-            
-            for(var i = 0; i < sets.Count; ++i)
+            var length = dataBuffers.Count;
+            for (var i = 0; i < length; ++i)
             {
-                var vbo = VBOController.FindVBObj(sets[i].Name);
-                var pObj = vbo.ActiveDrawingObject as Advanced3DClipper;
-
-                vbo.ViewMode = objViews[i];
-
-                GL.DeleteTransformFeedback(pObj.TBOId);
-                pObj.TBOId = 0;
-
-                GL.DeleteQuery(pObj.QueryId);
-                pObj.QueryId = 0;
-
+                GL.DeleteQuery(queries[i]);
+                GL.DeleteTransformFeedback(tboBuffers[i]);
                 GL.DeleteBuffer(dataBuffers[i]);
             }
         }
 
-        private void CreateCaptureData(List<int> dataBuffers, List<ObjView> objViews)
+        private void CreateCaptureData(List<int> dataBuffers, List<int> tboBuffers, List<int> queries)
         {
             foreach (var set in project.GetModelSetsInfo(ObjType.Элемент3D))
             {
@@ -659,14 +666,13 @@ namespace BazisGUI
                         GL.BufferData(BufferTarget.ArrayBuffer, dataSize * sizeof(int), nint.Zero, BufferUsageHint.DynamicCopy);
                         dataBuffers.Add(data);
 
-                        pObj.TBOId = GL.GenTransformFeedback();
-                        GL.BindTransformFeedback(TransformFeedbackTarget.TransformFeedback, pObj.TBOId);
+                        var tbo = GL.GenTransformFeedback();
+                        GL.BindTransformFeedback(TransformFeedbackTarget.TransformFeedback, tbo);
                         GL.BindBufferBase(BufferRangeTarget.TransformFeedbackBuffer, 0, data);
+                        tboBuffers.Add(tbo);
 
-                        pObj.QueryId = GL.GenQuery();
-
-                        objViews.Add(vbo.ViewMode);
-                        vbo.ViewMode = ObjView.Surface;
+                        var query = GL.GenQuery();
+                        queries.Add(query);
                     }
                 }
             }

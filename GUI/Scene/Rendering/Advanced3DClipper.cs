@@ -35,9 +35,6 @@ namespace BazisGUI.Scene
     /// </summary>
     public class Advanced3DClipper : IDisposable, IActiveDrawingObject
     {
-        private int leftUpBuffer;//Идентификатор буффера левых верхних углов (BoundingBox) элементов
-        private int rightDownBuffer;//Идентификатор буффера правых нижних углов (BoundingBox) элементов
-
         /// <summary>
         /// Программа, для полного отображения 3д элементов в месте сечения и в положительной полуплоскости сечения
         /// </summary>

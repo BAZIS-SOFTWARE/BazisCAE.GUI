@@ -106,16 +106,16 @@ namespace BazisGUI.Clip
             foreach (var control in controls)
                 control.Enabled = checkBox1.Checked;
 
-            var isObjCliped = checkBox1.Checked ? true : false;
-            panel2.Enabled = checkBox1.Checked;
             radioButton7.Enabled = checkBox1.Checked;
             radioButton8.Enabled = checkBox1.Checked;
             radioButton9.Enabled = checkBox1.Checked;
 
-            label6.Enabled = false;
-            textBox2.Enabled = false;
+            button2.Enabled = checkBox1.Checked && !radioButton7.Checked;
 
-            SwitchOnOff?.Invoke(isObjCliped);
+            label6.Enabled = checkBox1.Checked && radioButton9.Checked;
+            textBox2.Enabled = checkBox1.Checked && radioButton9.Checked;
+
+            SwitchOnOff?.Invoke(checkBox1.Checked);
             SetClipPlaneEvent?.Invoke(plane);
             RedrawClipPlane?.Invoke();   
         }
@@ -215,10 +215,14 @@ namespace BazisGUI.Clip
 
             label6.Enabled = radioButton9.Checked;
             textBox2.Enabled = radioButton9.Checked;
+            button2.Enabled = !radioButton7.Checked;
 
-            var modeStr = control.Tag.ToString();
+            var regime = ClipRegime.Default;
+            if (control.Equals(radioButton8))
+                regime = ClipRegime.KeepElement;
+            else if (control.Equals(radioButton9))
+                regime = ClipRegime.Layered;
 
-            var regime = (ClipRegime)Enum.Parse(typeof(ClipRegime), modeStr);
             ChangeClipMode?.Invoke(regime);
             RedrawClipPlane?.Invoke();
         }
