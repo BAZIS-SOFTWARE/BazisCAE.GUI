@@ -284,7 +284,7 @@ namespace BazisGUI
                         PresentCondDataOnTree();
                         break;
                     case GenCmd.CreateBeamMaterial:
-                        var s= project.MaterialsDB;
+                        var s = project.MaterialsDB;
                         var sd = s.Select(k => k.Key);
                         var d = sd.Contains(cmds[1]);
                         PrepareDataForCreateBeamMaterial(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5], out IGroup groupBeamMaterial, out float _diametr, out float _startB, out float _stopB);
@@ -294,7 +294,7 @@ namespace BazisGUI
                         returnValue = matB.Value.ToString();
                         break;
                     case GenCmd.CreateGroup:
-                        var set= project.GetAllModelSetsInfo().Where(x=>x.Name == cmds[1]).First();
+                        var set = project.GetAllModelSetsInfo().Where(x => x.Name == cmds[1]).First();
                         var objects = set.GetNumbers().Select(num => project.GetModelObject(set.ObjType, num)).ToList();
                         project.CreateGroup(objects);
                         var group = project.GetAllModelGroups().Last();
