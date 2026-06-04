@@ -150,7 +150,7 @@ namespace BazisGUI.Console
             rtxbField.BackColor = colorDialog.Color;
         }
 
-        public void ExecuteCmdFile(string cmdFileName)
+        public async Task ExecuteCmdFile(string cmdFileName)
         {
             if (System.IO.File.Exists(cmdFileName))
             {
@@ -170,16 +170,20 @@ namespace BazisGUI.Console
                             if (!variables.ContainsKey(name))
                                 variables[name] = "default";
                         }
-                        ProcessCommandLine(line, variables);
+                        await ProcessCommandLine(line, variables);
                     }   
                     else 
-                        ConsoleCommandEnteredEvent(line); 
+                    {
+                        var task = ConsoleCommandEnteredEvent(line);
+                        await task;
+                    }
+
                 }   
             }
             else throw new Exception($"\n > {Resources.ExecuteCMDFileMissing}");
         }
 
-        private void ProcessCommandLine(string line, Dictionary<string, string> variables)
+        private async Task ProcessCommandLine(string line, Dictionary<string, string> variables)
         {
             var variableName = string.Empty;
             var newLine = string.Empty;
@@ -197,7 +201,7 @@ namespace BazisGUI.Console
             foreach (var pair in variables)
                 newLine = newLine.Replace("$" + pair.Key, pair.Value.ToString());
 
-            var returnValue = ConsoleCommandEnteredEvent(newLine).Result;
+            var returnValue = await ConsoleCommandEnteredEvent(newLine);
             //Записываем результат "number" в Value словаря с ключом variableName
             SetValue(returnValue, variableName, variables);
         }
@@ -208,7 +212,7 @@ namespace BazisGUI.Console
                 variables[variableName] = returnValue;
         }
 
-        private void btnStartMacro_Click(object sender, EventArgs e)
+        private async void btnStartMacro_Click(object sender, EventArgs e)
         {
             OpenFileDialog newDialog = new OpenFileDialog()
             {
@@ -218,15 +222,16 @@ namespace BazisGUI.Console
             if (newDialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            ExecuteCmdFile(newDialog.FileName);
+            await ExecuteCmdFile(newDialog.FileName);
         }
 
-        private void KeyDownEventHadler(object sender, KeyEventArgs e)
+        private async void KeyDownEventHadler(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 var cmds = rtxbField.Lines[rtxbField.Lines.Count() - 1];
                 var task = ConsoleCommandEnteredEvent(cmds);
+                await task;
                 if (task.Exception != null)
                     PrintInfo(task.Exception.InnerException.Message, Color.Red);
             }

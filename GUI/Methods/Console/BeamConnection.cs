@@ -19,7 +19,7 @@ namespace BazisGUI
             if (!int.TryParse(_maxBeams, out maxBeams))
                 throw new ArgumentException(Resources.BeamConnectionEventArgsArgNumExc, nameof(_maxBeams));
         }
-        private void BeamConnection(double radius, int maxBeams, string master, string slave)
+        private string BeamConnection(double radius, int maxBeams, string master, string slave)
         {
             // TO DO это пока прототип метода сшивки. Далее добавить асинхронные операции 
             // для выбора групп узлов
@@ -37,6 +37,7 @@ namespace BazisGUI
                 PresentMeshData();
             }
             Invoke(new Action(() => { console.PrintInfo($"{Resources.BeamConnection_BeamConnection_ObjectsCreated_Message} {beams.ObjType}", Color.Black); }));
+            return beams.Name;
         }
     }
 }

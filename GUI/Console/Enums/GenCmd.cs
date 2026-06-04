@@ -46,6 +46,7 @@
         CreateGroupByGeoObjs,
         CreateTask,
         CreateVolumeMaterial,
-        CreateBeamMaterial
+        CreateBeamMaterial,
+        CreateGroup
     }
 }

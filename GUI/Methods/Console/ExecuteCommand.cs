@@ -60,6 +60,7 @@ namespace BazisGUI
             { "Algo3D", GenCmd.Algo3D },
             { "Create surface nodes group", GenCmd.CreateSurfaceNodesGroup },
             { "Create group by geometry objs", GenCmd.CreateGroupByGeoObjs},
+            { "Create group", GenCmd.CreateGroup },
             { "Scale factor", GenCmd.ScaleFactor },
             { "Extrude along curve",GenCmd.ExtrudeCurve },
             { "Extrusion by rotation",GenCmd.ExtrudeRotate },
@@ -104,6 +105,7 @@ namespace BazisGUI
             { GenCmd.Algo3D, new[] { "Delaunay/InitialMeshOnly/Frontal/MMG3D/RTree/HXT" } },
             { GenCmd.CreateSurfaceNodesGroup, new []{ "set name" } },
             { GenCmd.CreateGroupByGeoObjs, new []{ "meshDim", "geoDim", "номер гео.объекта" }},
+            { GenCmd.CreateGroup, new[] { "name" } },
             { GenCmd.ScaleFactor, new[] { "scale"} },
             { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve#1,curve#2,curve#3...", "point", "step", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
@@ -184,7 +186,7 @@ namespace BazisGUI
                         break;
                     case GenCmd.BeamConnection:
                         PrepareDataForConnectionBeam(cmds[1], cmds[2], out double radius, out int maxBeams);
-                        BeamConnection(radius, maxBeams, cmds[3], cmds[4]);
+                        returnValue = BeamConnection(radius, maxBeams, cmds[3], cmds[4]);
                         break;
                     case GenCmd.SolveProject:
                         //TODO: Реализовать метод
@@ -282,10 +284,24 @@ namespace BazisGUI
                         PresentCondDataOnTree();
                         break;
                     case GenCmd.CreateBeamMaterial:
+                        var s= project.MaterialsDB;
+                        var sd = s.Select(k => k.Key);
+                        var d = sd.Contains(cmds[1]);
                         PrepareDataForCreateBeamMaterial(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5], out IGroup groupBeamMaterial, out float _diametr, out float _startB, out float _stopB);
                         var matB = new BeamMatData(_diametr, project.MaterialsDB[cmds[1]], groupBeamMaterial, _startB, _stopB);
                         project.AddTaskData(matB);
                         PresentCondDataOnTree();
+                        returnValue = matB.Value.ToString();
+                        break;
+                    case GenCmd.CreateGroup:
+                        var set= project.GetAllModelSetsInfo().Where(x=>x.Name == cmds[1]).First();
+                        var objects = set.GetNumbers().Select(num => project.GetModelObject(set.ObjType, num)).ToList();
+                        project.CreateGroup(objects);
+                        var group = project.GetAllModelGroups().Last();
+                        console.PrintInfo($"{Resources.SelectSetEvent_CreateGroupBySet_Message}: {group.Name}", Color.Black);
+
+                        PresentGroupDataOnTree();
+                        returnValue = group.Name;
                         break;
                 }
             }
