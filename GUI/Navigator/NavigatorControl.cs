@@ -459,7 +459,8 @@ namespace BazisGUI.Navigator
         private void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             treeView.SelectedNode = e.Node;
-
+            if (e.Node.Name == "VIRT") 
+                return;
             if (e.Node.Level > 0) // Assuming you store the image in the node's Tag property
             {
                 var indexes = helpImgDict[e.Node.Name.ToEnum<NodeName>()];   //e.Node.Tag.ToString().Split(',').Select(x => int.Parse(x));
