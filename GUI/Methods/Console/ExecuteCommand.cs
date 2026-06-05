@@ -102,7 +102,7 @@ namespace BazisGUI
             { GenCmd.Algo3D, new[] { "Delaunay/InitialMeshOnly/Frontal/MMG3D/RTree/HXT" } },
             { GenCmd.CreateSurfaceNodesGroup, new []{ "set name" } },
             { GenCmd.CreateGroupByGeoObjs, new []{ "meshDim", "geoDim", "номер гео.объекта" }},
-            { GenCmd.CreateGroup, new[] { "name" } },
+            { GenCmd.CreateGroup, new[] { "set name" } },
             { GenCmd.ScaleFactor, new[] { "scale"} },
             { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve#1,curve#2,curve#3...", "point", "step", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
@@ -279,11 +279,9 @@ namespace BazisGUI
                         var matV = new MatData(project.MaterialsDB[cmds[1]], groupVolumeMaterial, _startV, _stopV);
                         project.AddTaskData(matV);
                         PresentCondDataOnTree();
+                        returnValue = matV.Value.ToString();
                         break;
                     case GenCmd.CreateBeamMaterial:
-                        var s = project.MaterialsDB;
-                        var sd = s.Select(k => k.Key);
-                        var d = sd.Contains(cmds[1]);
                         PrepareDataForCreateBeamMaterial(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5], out IGroup groupBeamMaterial, out float _diametr, out float _startB, out float _stopB);
                         var matB = new BeamMatData(_diametr, project.MaterialsDB[cmds[1]], groupBeamMaterial, _startB, _stopB);
                         project.AddTaskData(matB);
@@ -296,7 +294,6 @@ namespace BazisGUI
                         project.CreateGroup(objects);
                         var group = project.GetAllModelGroups().Last();
                         console.PrintInfo($"{Resources.SelectSetEvent_CreateGroupBySet_Message}: {group.Name}", Color.Black);
-
                         PresentGroupDataOnTree();
                         returnValue = group.Name;
                         break;
