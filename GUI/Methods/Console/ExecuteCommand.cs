@@ -7,17 +7,14 @@ using GmshApi;
 using MaterialDB.FunctionData;
 using MaterialDB.MaterialData;
 using Model.Interfaces;
-using Newtonsoft.Json;
 using Project.Tasks;
 using Project.Tasks.Materials;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Community.CsharpSqlite.Sqlite3;
 
 namespace BazisGUI
 {
@@ -53,7 +50,7 @@ namespace BazisGUI
             { "Set mesh point", GenCmd.SetMeshPoint },
             { "Set mesh curve", GenCmd.SetMeshCurve },
             { "Set regular mesh surface", GenCmd.SetRegularSurface },
-            { "Set embedded mesh surface", GenCmd.SetEmbeddedSurface },
+            { "Embedded mesh", GenCmd.SetEmbedded },
             { "Set min size", GenCmd.SetMinSize },
             { "Set max size", GenCmd.SetMaxSize },
             { "Algo2D", GenCmd.Algo2D },
@@ -98,7 +95,7 @@ namespace BazisGUI
             { GenCmd.SetMeshPoint, new [] { "number", "size" }},
             { GenCmd.SetMeshCurve, new [] { "number", "points count", "Progression/Bump/Beta", "factor"}},
             { GenCmd.SetRegularSurface, new [] { "number", "corner points", "Left/Right,", "quad/tria" }},
-            { GenCmd.SetEmbeddedSurface, new [] { "number", "embedded curves" }},
+            { GenCmd.SetEmbedded, new[] { "target type", "target number", "embedded type", "embedded entities" } },
             { GenCmd.SetMinSize, new [] { "size" } },
             { GenCmd.SetMaxSize, new [] { "size" } },
             { GenCmd.Algo2D, new[] { "MeshAdapt/Automatic/InitialMeshOnly/Delaunay/FrontalDelaunay/BAMG/FrontalDelaunayQuads/PackingOfParallelograms/QuasiStructuredQuad" } },
@@ -237,9 +234,9 @@ namespace BazisGUI
                         PrepareDataForSetRegularMeshSurface(cmds[1], cmds[2], cmds[3], cmds[4], out int _numberSurface, out Arrangement _arrangement, out List<int> _cornerPoints, out bool _quadratization);
                         SetRegularMeshSurface(_numberSurface, _cornerPoints, _arrangement, _quadratization);
                         break;
-                    case GenCmd.SetEmbeddedSurface:
-                        PrepareDataForSetEmbeddedMeshSurface(cmds[1], cmds[2], out int _numberEmbeddedSurface, out List<int> _embeddedCurves);
-                        SetEmbeddedMeshSurface(_numberEmbeddedSurface, _embeddedCurves);
+                    case GenCmd.SetEmbedded:
+                        PrepareDataForSetEmbeddedMeshSurface(cmds[1], cmds[2], cmds[3], cmds[4], out int _targetType, out int _targetNumber, out int _embeddedType, out IEnumerable<int> _embeddedNumbers);
+                        SetEmbeddedMesh(_targetType, _targetNumber, _embeddedType, _embeddedNumbers);
                         break;
                     case GenCmd.SetMinSize:
                         GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(cmds[1]));

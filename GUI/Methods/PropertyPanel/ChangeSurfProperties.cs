@@ -60,25 +60,32 @@ namespace BazisGUI
             if (!valid)
                 throw new ArgumentException(Resources.InvalidCommandException);
         }
-
-        private void PrepareDataForSetEmbeddedMeshSurface(string number, string embeddedCurves, out int _numberEmbeddedSurface, out List<int> _embeddedCurves)
+        
+        private void PrepareDataForSetEmbeddedMeshSurface(string targetType, string targetNumber, string embeddedType, string embeddedNumbers, out int _targetType, out int _targetNumber, out int _embeddedType, out IEnumerable<int> _embeddedNumbers)
         {
-            var valid = int.TryParse(number, out _numberEmbeddedSurface);
-            _embeddedCurves = embeddedCurves
+            var valid = int.TryParse(targetType, out _targetType) &
+                int.TryParse(targetNumber, out _targetNumber) &
+                int.TryParse(embeddedType, out _embeddedType);
+
+            _embeddedNumbers = embeddedNumbers
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => int.Parse(x.Trim()))
                 .ToList();
 
 
-            if (!valid || _embeddedCurves == null)
+            if (!valid || _embeddedNumbers == null)
                 throw new ArgumentException(Resources.InvalidCommandException);
         }
 
-        private void SetEmbeddedMeshSurface(int number, List<int> embeddedCurves)
+        private void SetEmbeddedMesh(int hostDimension, int hostTag, int embeddedDimension, IEnumerable<int> embeddedEntities)
         {
-            if (GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number).Length > 0)
-                GmshController.Gmsh.Model.Mesh.RemoveEmbedded([2, number]);
-            GmshController.Gmsh.Model.Mesh.Embed(1, embeddedCurves.ToArray(), 2, number);
+            if (GmshController.Gmsh.Model.Mesh.GetEmbedded(hostDimension, hostTag).Length > 0)
+                GmshController.Gmsh.Model.Mesh.RemoveEmbedded([hostDimension, hostTag]);
+
+            var entities = embeddedEntities?.ToArray();
+
+            if (entities?.Length > 0)
+                GmshController.Gmsh.Model.Mesh.Embed(embeddedDimension,entities,hostDimension,hostTag);
         }
 
         private void SetRegularMeshSurface(int number, List<int> cornerPoints, Arrangement arrangement, bool quadratization) 

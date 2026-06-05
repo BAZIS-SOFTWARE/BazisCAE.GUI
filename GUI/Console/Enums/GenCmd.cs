@@ -35,7 +35,7 @@
         SetMeshPoint,
         SetMeshCurve,
         SetRegularSurface,
-        SetEmbeddedSurface,
+        SetEmbedded,
         SetMinSize,
         SetMaxSize,
         Algo2D,
