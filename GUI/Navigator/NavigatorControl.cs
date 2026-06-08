@@ -501,7 +501,9 @@ namespace BazisGUI.Navigator
         {
             try
             {
-                var node = e.Node;
+                var node = e.Node; 
+                if (e.Node.Name == "VIRT")
+                    return;
                 //node..BackColor = System.Drawing.Color.LightBlue;
 
                 if (e.Node.Level == 0)
