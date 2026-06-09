@@ -22,6 +22,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using static IronPython.Modules.PythonCsvModule;
+using OperationalController.ModelScenePresentator.GlObjsPresenters;
+using OperationalController;
+using OperationalController.ModelScenePresentator;
 
 namespace BazisGUI
 {
@@ -535,8 +538,11 @@ namespace BazisGUI
             CreateCaptureData(dataBuffers, tboBuffers, queries);
             RunTransformFeedback(tboBuffers, queries);
             var indices = FetchData(dataBuffers, queries);
-            CreateCaptureGroups(indices);
+            //CreateCaptureGroups(indices);
+            CreateCaptureElements(indices);
             RemoveCaptureData(dataBuffers, tboBuffers, queries);
+
+            DisplayObjects();
         }
 
         private void RunTransformFeedback(List<int> tboBuffers, List<int> queries)
@@ -566,6 +572,46 @@ namespace BazisGUI
             GL.Disable(EnableCap.RasterizerDiscard);
         }
 
+        /// <summary>
+        /// Вариант захвата в виде видимых
+        /// </summary>
+        /// <param name="indices">Преобразованные индексы элементов, полученные из шейдера</param>
+        private void CreateCaptureElements(List<List<int>> indices)
+        {
+            var index = 0;
+            foreach (var set in project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => v.ViewState).ToArray())
+            {
+                var obj = VBOController.FindVBObj(set.Name);
+                var program = obj.ActiveDrawingObject;
+                VBOController.DeleteVBObjects(set.Name);
+
+                var indexSet = indices[index].ToHashSet();
+
+                var indexElems = 0;
+                var visible = 0;
+                foreach(var element in project.GetModelElements(3, set.Name))
+                {
+                    element.ViewState = indexSet.Contains(indexElems);
+                    visible += Convert.ToInt32(element.ViewState);
+                    ++indexElems;
+                }
+
+                if (visible > 0)
+                {
+                    var presenter = project.CreateModelObjectsPresentor(set);
+                    var vbo = CreateVBObject(presenter);
+                    vbo.ActiveDrawingObject = program;
+                    VBOController.AddVbo(vbo);
+                }
+
+                ++index;
+            }
+        }
+
+        /// <summary>
+        /// Вариант захвата в виде групп с презентацией в дереве
+        /// </summary>
+        /// <param name="indices">Преобразованные индексы элементов, полученные из шейдера</param>
         private void CreateCaptureGroups(List<List<int>> indices)
         {
             var sets = project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => v.ViewState).ToArray();
