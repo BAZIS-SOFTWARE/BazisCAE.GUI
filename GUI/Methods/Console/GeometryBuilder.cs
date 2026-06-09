@@ -1,17 +1,21 @@
 ﻿using BazisGUI.Console.Enums;
+using BazisGUI.Properties;
 using BazisGUI.Scene.VBO;
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Security.Cryptography;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void ExtruderParser(ExtruderType type, List<string> parameters)
+        private string ExtruderParser(ExtruderType type, List<string> parameters)
         {
+            var setName = string.Empty;
             if (type == ExtruderType.Curve)
             {
                 // "TODO: Потенциальное место проблем с локалью"
@@ -28,7 +32,7 @@ namespace BazisGUI
                 if (!valid)
                     throw new ArgumentException("Введены неверные данные");
 
-                ExtrudeCurve(numberSurface, curveNumbers.ToArray(), numberStartPoint, step, transfinite);
+                setName = ExtrudeCurve(numberSurface, curveNumbers.ToArray(), numberStartPoint, step, transfinite);
             }
             else
             {
@@ -49,9 +53,10 @@ namespace BazisGUI
                 if (!valid)
                     throw new ArgumentException("Введены неверные данные");
 
-                ExtrudeRotate(numberSurface, angle, numberStartPoint, rotAxis, transfinite);
+                setName = ExtrudeRotate(numberSurface, angle, numberStartPoint, rotAxis, transfinite);
             }
             PresentExtrude();
+            return setName;
         }
 
         private int GeometryParser(CreateCommandType type, List<string> parameters)
@@ -114,14 +119,24 @@ namespace BazisGUI
             return tag;
         }
 
-        private void ExtrudeCurve(int numberSurface, int[] numbersCurve, int numberStartPoint, double step, bool transfinite)
+        private void PrepareDataForCreateGroupByGeo(string meshDim, string geoDim, string tag, out int _meshDim, out int _geoDim, out int _tag)
+        {
+            var valid = int.TryParse(meshDim, out _meshDim) &
+                int.TryParse(geoDim, out _geoDim) &
+                int.TryParse(tag, out _tag);
+
+            if (!valid)
+                throw new ArgumentException(Resources.InvalidCommandException);
+        }
+
+        private string ExtrudeCurve(int numberSurface, int[] numbersCurve, int numberStartPoint, double step, bool transfinite)
             => project.ExtrudeElement3DAlongCurve(numberSurface, numbersCurve, numberStartPoint, step, transfinite);
         
-        private void ExtrudeRotate(int numberSurface, float angle, int originPoint, Vector3 rotAxis, bool transfinite)
+        private string ExtrudeRotate(int numberSurface, float angle, int originPoint, Vector3 rotAxis, bool transfinite)
         {
             var point = project.GetModelPoint(originPoint);
             Vector3 origin = new Vector3(point._x, point._y, point._z);
-            project.ExtrudeElement3DRotate(numberSurface, angle, origin, rotAxis, transfinite);
+            return project.ExtrudeElement3DRotate(numberSurface, angle, origin, rotAxis, transfinite);
         }
         private int AddPoint(double x, double y, double z, double meshSize = 0)
         {

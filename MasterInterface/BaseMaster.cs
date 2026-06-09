@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace MasterInterface
 {
-    public partial class BaseMaster : UserControl, IBaseMasterInterface
+    public partial class BaseMaster : UserControl, IBaseMaster
     {
 
         public event EventHandler<PrintInfoEventArgs> PrintInfoEvent;

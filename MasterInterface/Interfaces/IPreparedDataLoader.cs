@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MasterInterface.Interfaces
 {
+    [Warning("Пока не использовать, так как заполнение данных это мат. , фун. и группы")]
     public interface IPreparedDataLoader : IMasterInterface
     {
         /// <summary>

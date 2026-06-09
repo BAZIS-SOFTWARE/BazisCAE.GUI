@@ -32,7 +32,7 @@ namespace BazisGUI
         private ICondData CreateMaterial(PropertyChangedEventArgs obj, IGroup _objectsGr)
         {
             if (project.ProjectType == TaskType.Linear)
-                return new BeamMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
+                return new BeamMatData(1,project.MaterialsDB.First().Value, _objectsGr, 0, 1);
             else if (project.ProjectType == TaskType.Plain)
                 return new PlateMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
             else if (project.ProjectType == TaskType.AxiPlain)
@@ -47,7 +47,7 @@ namespace BazisGUI
             else
             {
                 if (_objectsGr.ObjType == ObjType.Элемент1D)
-                    return new BeamMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
+                    return new BeamMatData(1,project.MaterialsDB.First().Value, _objectsGr, 0, 1);
                 else if (_objectsGr.ObjType == ObjType.Элемент2D)
                     return new PlateMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
                 else

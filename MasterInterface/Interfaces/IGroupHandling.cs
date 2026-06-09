@@ -1,6 +1,6 @@
 ﻿namespace MasterInterface.Interfaces
 {
-    public interface IGroupHandling : IMasterInterface
+    public interface IGroupHandling// : IMasterInterface
     {
         /// <summary>
         /// Событие, вызывающее заполнение мастера группами.

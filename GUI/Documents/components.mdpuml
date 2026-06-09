@@ -12,16 +12,30 @@ package "Core" {
 [SQLite]
 }
 
-[baseForm] --> [ClientController]
-[baseForm] --> [OpenTK Api]
-[baseForm] --> [PropertiesCalculator]
+component baseForm {
+   component "OpenTK Api" {
+  }
+  component "CmdInterpretator"
+[PropertiesCalculator.dll]
+[ClientController.dll]
+[VboController]
+} 
+
+package "Master" {
+IBaseMaster - [MasterInterface]
+[AbstractMaster] --> IBaseMaster
+}
+[baseForm] --> [MasterInterface]
+
+[CmdInterpretator] --> [proj controller]
+[CmdInterpretator] --> [preProc]
 
 [baseForm] --> [postProc]
 [baseForm] --> [preProc]
 [baseForm] --> [proj controller]
 [baseForm] --> [Geometry]
 [proj controller] --> [project]
-[proj controller] --> [preProc]
+
 [proj controller] --> [GMSH Api]
 [preProc] --> [project]
 [postProc] --> [model]
@@ -29,7 +43,7 @@ package "Core" {
 [Results DB] --> [SQLite]
 [project] --> [model]
 [project] --> [Material DB]
-[PropertiesCalculator] --> [Material DB]
+[PropertiesCalculator.dll] --> [Material DB]
 [project] --> [Geometry]
 [model] --> [Geometry]
 @enduml

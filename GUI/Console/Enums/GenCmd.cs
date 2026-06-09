@@ -39,6 +39,8 @@
         Algo2D,
         Algo3D,
         ScaleFactor,
-        SaveSTEP
+        SaveSTEP,
+        CreateSurfaceNodesGroup,
+        CreateGroupByGeoObjs
     }
 }

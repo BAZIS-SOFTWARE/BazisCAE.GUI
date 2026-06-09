@@ -27,7 +27,7 @@ namespace BazisGUI.Console
             }
         }
 
-        public Func<string, Task<int>> ConsoleCommandEnteredEvent;
+        public event Func<string, Task<string>> ConsoleCommandEnteredEvent;
         public event Action CommandsListRequestedEvent;
         public void NewItem_Click(object obj, EventArgs args)
         {
@@ -154,7 +154,7 @@ namespace BazisGUI.Console
         {
             if (System.IO.File.Exists(cmdFileName))
             {
-                var variables = new Dictionary<string, int>();
+                var variables = new Dictionary<string, string>();
                 var cmdLines = File.ReadAllLines(cmdFileName);
                 foreach (var line in cmdLines)
                 {
@@ -168,7 +168,7 @@ namespace BazisGUI.Console
                             var name = match.Groups[1].Value;
 
                             if (!variables.ContainsKey(name))
-                                variables[name] = -1;
+                                variables[name] = "default";
                         }
                         ProcessCommandLine(line, variables);
                     }   
@@ -179,7 +179,7 @@ namespace BazisGUI.Console
             else throw new Exception($"\n > {Resources.ExecuteCMDFileMissing}");
         }
 
-        private void ProcessCommandLine(string line, Dictionary<string, int> variables)
+        private void ProcessCommandLine(string line, Dictionary<string, string> variables)
         {
             var variableName = string.Empty;
             var newLine = string.Empty;
@@ -197,15 +197,15 @@ namespace BazisGUI.Console
             foreach (var pair in variables)
                 newLine = newLine.Replace("$" + pair.Key, pair.Value.ToString());
 
-            var number = ConsoleCommandEnteredEvent(newLine).Result;
+            var returnValue = ConsoleCommandEnteredEvent(newLine).Result;
             //Записываем результат "number" в Value словаря с ключом variableName
-            SetValue(number, variableName, variables);
+            SetValue(returnValue, variableName, variables);
         }
 
-        private void SetValue(int number, string variableName, Dictionary<string, int> variables)
+        private void SetValue(string returnValue, string variableName, Dictionary<string, string> variables)
         {
             if(variableName != string.Empty)
-                variables[variableName] = number;
+                variables[variableName] = returnValue;
         }
 
         private void btnStartMacro_Click(object sender, EventArgs e)
