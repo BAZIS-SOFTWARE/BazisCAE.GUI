@@ -7,31 +7,10 @@ using System.Globalization;
 using UserControlsEx;
 using System.Collections.Generic;
 using BazisGUI.Reflect;
+using BazisGUI.Scene;
 
 namespace BazisGUI.Clip
 {
-    /// <summary>
-    /// Режим отсечения, устанавливаемый при отрисовке модели
-    /// </summary>
-    public enum ClipRegime
-    {
-        /// <summary>
-        /// Отключено
-        /// </summary>
-        None,
-        /// <summary>
-        /// По умолчанию, с разрезанием элемента
-        /// </summary>
-        Default,
-        /// <summary>
-        /// Послойное, сохраняет элементы только в месте сечения
-        /// </summary>
-        Layered,
-        /// <summary>
-        /// Полное отображение 3д элементов в месте сечения и в положительной полуплоскости сечения
-        /// </summary>
-        KeepElement
-    }
     public partial class ClipControl : UserControl
     {
         private CultureInfo culture;
@@ -59,11 +38,15 @@ namespace BazisGUI.Clip
         /// <summary>
         /// Смена режима отображения для 3д элементов
         /// </summary>
-        public event Action<ClipRegime> ChangeClipMode;
+        public event Action<ClipMode> ChangeClipMode;
         /// <summary>
         /// Смена толщины слоя
         /// </summary>
         public event Action<float> ChangeLayerThickness;
+        /// <summary>
+        /// Режим отсечения
+        /// </summary>
+        public ClipMode Regime { get; private set; } = ClipMode.Default;
         public ClipControl()
         {
             InitializeComponent();
@@ -217,13 +200,13 @@ namespace BazisGUI.Clip
             textBox2.Enabled = radioButton9.Checked;
             button2.Enabled = !radioButton7.Checked;
 
-            var regime = ClipRegime.Default;
+            Regime = ClipMode.Default;
             if (control.Equals(radioButton8))
-                regime = ClipRegime.KeepElement;
+                Regime = ClipMode.KeepElement;
             else if (control.Equals(radioButton9))
-                regime = ClipRegime.Layered;
+                Regime = ClipMode.Layered;
 
-            ChangeClipMode?.Invoke(regime);
+            ChangeClipMode?.Invoke(Regime);
             RedrawClipPlane?.Invoke();
         }
     }

@@ -453,14 +453,25 @@ namespace BazisGUI
                     clip.SwitchOnOff += (v) => 
                     {
                         if (v)
+                        {
+                            foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
+                                ChangeClipMode(clip.Regime, item.Name);
                             CreateClipPlane();
+                        }
                         else
+                        {
+                            DisplayClipPlaneEvent = null;
                             DeleteClipPlane();
+                            foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
+                                ChangeClipMode(ClipMode.None, item.Name);
+                            btn.Checked = false;
+                            DisplayObjects();
+                        }
                     };
                     clip.ChangeClipMode += (mode) =>
                     {
                         foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
-                            ChangeClipMode((Scene.ClipMode)mode, item.Name);
+                            ChangeClipMode(mode, item.Name);
                     };
 
                     clip.ChangeLayerThickness += (layerThickness) => advanced3DClipper.LayerThickness = layerThickness;
@@ -468,7 +479,6 @@ namespace BazisGUI
                     clip.SetClipPlaneEvent += (plane) =>
                     {
                         var scPlane = new Geometry.Plane(new Point3D(plane.X, plane.Y, plane.Z), plane.D);
-                        DisplayClipPlaneEvent = null;
                         DisplayClipPlane(scPlane);
                     };
 
