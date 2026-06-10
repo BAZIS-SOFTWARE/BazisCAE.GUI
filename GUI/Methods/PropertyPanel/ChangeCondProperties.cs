@@ -22,6 +22,10 @@ namespace BazisGUI
             {
                 switch (condKey)
                 {
+                    case CondPropertyKeys.Value:
+                        cond.Value = double.Parse(obj.NewValue);
+                        break;
+
                     case CondPropertyKeys.ObjectsGroup:
                         HandleObjectGroupParameter(obj.NewValue, cond);
                         break;
@@ -105,8 +109,6 @@ namespace BazisGUI
                         break;
                 }
             }
-
-
         }
 
         private void HandleObjectGroupParameter(string newValue, ICondData cond)
