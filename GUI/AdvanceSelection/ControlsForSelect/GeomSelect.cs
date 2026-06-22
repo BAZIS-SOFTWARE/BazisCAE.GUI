@@ -37,7 +37,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
         {
             foreach (var rb in generalPanel.Controls.OfType<RadioButton>())
                 if (rb.Checked)
-                    return GetDimm(rb.AccessibleName);
+                    return GetDim(rb.AccessibleName);
             return -1;
         }
 
@@ -48,7 +48,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtCurve.Enabled = curve;
         }
 
-        private int GetDimm(string rbtText) 
+        private int GetDim(string rbtText) 
         {
             return Enum.Parse<SelectionType>(rbtText.Split("GeomSelect.")[1]) switch
             {
