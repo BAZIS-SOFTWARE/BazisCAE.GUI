@@ -60,7 +60,7 @@ namespace BazisGUI
                 if (IsMesh())
                 {
                     var selectionControl = new MeshSelect(SelectedObjects);
-                    //OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
+                    OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
                     //selectionControl.SelectInDirection += OnReverseChanged;
                     selectionControl.CloseForm += RefreshForm;
 
@@ -71,7 +71,7 @@ namespace BazisGUI
                 else if (IsGeometry())
                 {
                     var selectionControl = new GeomSelect(SelectedObjects);
-                    //OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
+                    OnChangeSelectedObjectsEvent += selectionControl.SetAvailableModes;
                     selectionControl.CloseForm += RefreshForm;
 
                     form.ClientSize = selectionControl.Size;
@@ -343,7 +343,7 @@ namespace BazisGUI
             var mesh = form.Controls.OfType<MeshSelect>().FirstOrDefault();
             if (mesh != null)
             {
-                //OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
+                OnChangeSelectedObjectsEvent -= mesh.SetAvailableModes;
                 //mesh.SelectInDirection -= OnReverseChanged;
                 mesh.CloseForm -= RefreshForm;
                 mesh.Dispose();
@@ -353,7 +353,7 @@ namespace BazisGUI
             var geom = form.Controls.OfType<GeomSelect>().FirstOrDefault();
             if (geom != null)
             {
-                //OnChangeSelectedObjectsEvent -= geom.SetAvailableModes;
+                OnChangeSelectedObjectsEvent -= geom.SetAvailableModes;
                 geom.CloseForm -= RefreshForm;
                 geom.Dispose();
             }
