@@ -61,6 +61,33 @@ namespace BazisGUI
                 throw new ArgumentException(Resources.InvalidCommandException);
         }
         
+        private void PrepareDataForGetRelatedGeometryObjects(string geoDim, string geoNumbers, string relatedDim, out int _geoDim, out List<int> _geoNumbers, out int _relatedDim)
+        {
+            if (!int.TryParse(geoDim, out _geoDim))
+                throw new ArgumentException(Resources.InvalidCommandException);
+
+            if (!int.TryParse(relatedDim, out _relatedDim))
+                throw new ArgumentException(Resources.InvalidCommandException);
+
+            _geoNumbers = new List<int>();
+
+            foreach (var number in geoNumbers.Split(',', StringSplitOptions.RemoveEmptyEntries))
+            {
+                if (!int.TryParse(number.Trim(), out var parsedNumber))
+                    throw new ArgumentException(Resources.InvalidCommandException);
+
+                _geoNumbers.Add(parsedNumber);
+            }
+
+            if (_geoNumbers.Count == 0)
+                throw new ArgumentException(Resources.InvalidCommandException);
+        }
+
+        private HashSet<int> GetRelatedGeometryObjects(int geoDim, List<int> geoNumbers, int relatedDim)
+        {
+            return project.SelectByScope(geoDim, geoNumbers, relatedDim);
+        }
+
         private void PrepareDataForSetEmbeddedMeshSurface(string targetType, string targetNumber, string embeddedType, string embeddedNumbers, out int _targetType, out int _targetNumber, out int _embeddedType, out IEnumerable<int> _embeddedNumbers)
         {
             var valid = int.TryParse(targetType, out _targetType) &

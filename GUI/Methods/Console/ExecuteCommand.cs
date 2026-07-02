@@ -36,6 +36,8 @@ namespace BazisGUI
             { "Find Coincident",GenCmd.FindCoincident},
             { "Find 3D elements",GenCmd.FindVolElems},
             { "Find object",GenCmd.FindObject},
+            { "Get related geometry objects", GenCmd.GetRelatedGeometryObjects },
+            { "Get coordinate point", GenCmd.GetCoordinatePoint },
             { "Connect with beams",GenCmd.BeamConnection},
             { "Set precision level",GenCmd.SetLevel },
             { "Merge elements sets",GenCmd.MergeElementSets },
@@ -86,6 +88,8 @@ namespace BazisGUI
             { GenCmd.SetLevel, new[] { "type", "precision level" } },
             { GenCmd.MergeElementSets, new[] { "type", "set#1", "set#2" } },
             { GenCmd.CreateMesh2DPoligon, new[] { "x1,y1", "x2,y2", "x3,y3", "x4,y4", "number of elements" } },
+            { GenCmd.GetRelatedGeometryObjects, new[] { "geoDim", "geoNumbers", "relatedDim" } },
+            { GenCmd.GetCoordinatePoint, new[] { "point" } },
             { GenCmd.CreatePoint, new [] { "x,y,z" } },
             { GenCmd.CreatePointByVector, new[]{ "copy_point#1", "direction_point#2", "offset" } },
             { GenCmd.CreatePointProjectionOntoCurve, new string[]{ "point", "curve" } },
@@ -296,6 +300,14 @@ namespace BazisGUI
                         console.PrintInfo($"{Resources.SelectSetEvent_CreateGroupBySet_Message}: {group.Name}", Color.Black);
                         PresentGroupDataOnTree();
                         returnValue = group.Name;
+                        break;
+                    case GenCmd.GetRelatedGeometryObjects:
+                        PrepareDataForGetRelatedGeometryObjects(cmds[1], cmds[2], cmds[3], out int _geometryDim, out List<int> _geoNumbers, out int _relatedDim);
+                        var relatedObjects = GetRelatedGeometryObjects(_geometryDim, _geoNumbers, _relatedDim);
+                        returnValue = string.Join(",", relatedObjects);
+                        break;
+                    case GenCmd.GetCoordinatePoint:
+                        returnValue = GmshController.Gmsh.Model.GetValue(0, int.Parse(cmds[1]), []).ToString();
                         break;
                 }
             }

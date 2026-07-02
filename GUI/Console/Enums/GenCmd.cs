@@ -47,6 +47,8 @@
         CreateTask,
         CreateVolumeMaterial,
         CreateBeamMaterial,
-        CreateGroup
+        CreateGroup,
+        GetRelatedGeometryObjects,
+        GetCoordinatePoint
     }
 }
