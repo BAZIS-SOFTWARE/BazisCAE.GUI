@@ -36,6 +36,8 @@ namespace BazisGUI
 
             if (master is IPreparedDataLoader pdlh) HandlePreparedDataMaster(pdlh);
 
+            if (master is ICommandSender commandSender) HandleCommandSenderMaster(commandSender);
+
             HandleBaseMaster(master);
 
             TabButtonsService.AddControl(master.Name, master);
