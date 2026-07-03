@@ -66,6 +66,7 @@ namespace BazisGUI
             { "Save STEP", GenCmd.SaveSTEP },
             { "Create volume material", GenCmd.CreateVolumeMaterial },
             { "Create beam material", GenCmd.CreateBeamMaterial },
+            { "Select objects", GenCmd.SelectObjects },
             { "Quit",GenCmd.Exit }
         };
 
@@ -115,7 +116,8 @@ namespace BazisGUI
             { GenCmd.CreateBeamMaterial, new[] { "Material name", "groupName", "diametr", "start", "stop"} },
             { GenCmd.Exit, Array.Empty<string>() },
             { GenCmd.GenerateMesh, Array.Empty<string>()},
-            { GenCmd.CreateTask, Array.Empty<string>() }
+            { GenCmd.CreateTask, Array.Empty<string>() },
+            { GenCmd.SelectObjects, new[] { "point/curve/surface/node/line/element2d/element3d" } }
         };
 
         private void PrintAllCommands()
@@ -308,6 +310,12 @@ namespace BazisGUI
                         break;
                     case GenCmd.GetCoordinatePoint:
                         returnValue = GmshController.Gmsh.Model.GetValue(0, int.Parse(cmds[1]), []).ToString();
+                        break;
+                    case GenCmd.SelectObjects:
+                        if (!TryParseObjType(cmds[1], out ObjType objType))
+                            throw new ArgumentException(Resources.InvalidCommandException);
+                        var curveNumbers = await GetSelectedObjectNumbersAsync(objType);
+                        returnValue = string.Join(",", curveNumbers);
                         break;
                 }
             }

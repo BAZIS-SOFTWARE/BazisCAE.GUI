@@ -49,6 +49,7 @@
         CreateBeamMaterial,
         CreateGroup,
         GetRelatedGeometryObjects,
-        GetCoordinatePoint
+        GetCoordinatePoint,
+        SelectObjects,
     }
 }
