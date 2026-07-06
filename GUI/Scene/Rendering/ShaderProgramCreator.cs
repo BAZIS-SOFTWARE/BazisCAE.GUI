@@ -152,8 +152,9 @@ namespace BazisGUI.Scene
         /// <summary>
         /// Связывает все шейдеры с указанной программой
         /// </summary>
+        /// <param name="tfVars">Название строк переменных для Transform Feedback, которые должны быть заданы до линковки программы</param>
         /// <exception cref="Exception">Исключение, если связывание не удалось</exception>
-        public void Link()
+        public void Link(string[] tfVars = null)
         {
             Program = GL.CreateProgram();
             if (Vertex != 0)
@@ -164,6 +165,8 @@ namespace BazisGUI.Scene
                 GL.AttachShader(Program, Geometry);
             try
             {
+                if(tfVars != null)
+                    GL.TransformFeedbackVaryings(Program, tfVars.Length, tfVars, TransformFeedbackMode.SeparateAttribs);
                 GL.LinkProgram(Program);
                 int status;
                 GL.GetProgram(Program, GetProgramParameterName.LinkStatus, out status);

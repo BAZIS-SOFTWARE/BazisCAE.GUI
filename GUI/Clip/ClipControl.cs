@@ -7,31 +7,10 @@ using System.Globalization;
 using UserControlsEx;
 using System.Collections.Generic;
 using BazisGUI.Reflect;
+using BazisGUI.Scene;
 
 namespace BazisGUI.Clip
 {
-    /// <summary>
-    /// Режим отсечения, устанавливаемый при отрисовке модели
-    /// </summary>
-    public enum ClipRegime
-    {
-        /// <summary>
-        /// Отключено
-        /// </summary>
-        None,
-        /// <summary>
-        /// По умолчанию, с разрезанием элемента
-        /// </summary>
-        Default,
-        /// <summary>
-        /// Послойное, сохраняет элементы только в месте сечения
-        /// </summary>
-        Layered,
-        /// <summary>
-        /// Полное отображение 3д элементов в месте сечения и в положительной полуплоскости сечения
-        /// </summary>
-        KeepElement
-    }
     public partial class ClipControl : UserControl
     {
         private CultureInfo culture;
@@ -59,11 +38,15 @@ namespace BazisGUI.Clip
         /// <summary>
         /// Смена режима отображения для 3д элементов
         /// </summary>
-        public event Action<ClipRegime> ChangeClipMode;
+        public event Action<ClipMode> ChangeClipMode;
         /// <summary>
         /// Смена толщины слоя
         /// </summary>
         public event Action<float> ChangeLayerThickness;
+        /// <summary>
+        /// Режим отсечения
+        /// </summary>
+        public ClipMode Regime { get; private set; } = ClipMode.Default;
         public ClipControl()
         {
             InitializeComponent();
@@ -106,16 +89,16 @@ namespace BazisGUI.Clip
             foreach (var control in controls)
                 control.Enabled = checkBox1.Checked;
 
-            var isObjCliped = checkBox1.Checked ? true : false;
-            panel2.Enabled = checkBox1.Checked;
             radioButton7.Enabled = checkBox1.Checked;
             radioButton8.Enabled = checkBox1.Checked;
             radioButton9.Enabled = checkBox1.Checked;
 
-            label6.Enabled = false;
-            textBox2.Enabled = false;
+            button2.Enabled = checkBox1.Checked && !radioButton7.Checked;
 
-            SwitchOnOff?.Invoke(isObjCliped);
+            label6.Enabled = checkBox1.Checked && radioButton9.Checked;
+            textBox2.Enabled = checkBox1.Checked && radioButton9.Checked;
+
+            SwitchOnOff?.Invoke(checkBox1.Checked);
             SetClipPlaneEvent?.Invoke(plane);
             RedrawClipPlane?.Invoke();   
         }
@@ -215,11 +198,15 @@ namespace BazisGUI.Clip
 
             label6.Enabled = radioButton9.Checked;
             textBox2.Enabled = radioButton9.Checked;
+            button2.Enabled = !radioButton7.Checked;
 
-            var modeStr = control.Tag.ToString();
+            Regime = ClipMode.Default;
+            if (control.Equals(radioButton8))
+                Regime = ClipMode.KeepElement;
+            else if (control.Equals(radioButton9))
+                Regime = ClipMode.Layered;
 
-            var regime = (ClipRegime)Enum.Parse(typeof(ClipRegime), modeStr);
-            ChangeClipMode?.Invoke(regime);
+            ChangeClipMode?.Invoke(Regime);
             RedrawClipPlane?.Invoke();
         }
     }

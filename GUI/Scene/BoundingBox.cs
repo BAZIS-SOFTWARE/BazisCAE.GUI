@@ -144,5 +144,28 @@ namespace BazisGUI.Scene
             var vec = LeftUpNear.Sub(RightDownFar);
             return Vector.GetVectorLength(vec);
         }
+
+        /// <summary>
+        /// Выполняет слияние двух BoundingBox и возвращает новый
+        /// </summary>
+        /// <param name="other">BoundingBox с которым производится слияние</param>
+        /// <returns>Результат слияния двух BoundingBox</returns>
+        public BoundingBox Merge(BoundingBox other)
+        {
+            var merge = new BoundingBox(LeftUpNear, RightDownFar);
+
+            if (other != null)
+            {
+                merge.LeftUpNear._x = Math.Min(merge.LeftUpNear._x, other.LeftUpNear._x);
+                merge.LeftUpNear._y = Math.Max(merge.LeftUpNear._y, other.LeftUpNear._y);
+                merge.LeftUpNear._z = Math.Max(merge.LeftUpNear._z, other.LeftUpNear._z);
+
+                merge.RightDownFar._x = Math.Max(merge.RightDownFar._x, other.RightDownFar._x);
+                merge.RightDownFar._y = Math.Min(merge.RightDownFar._y, other.RightDownFar._y);
+                merge.RightDownFar._z = Math.Min(merge.RightDownFar._z, other.RightDownFar._z);
+            }
+
+            return merge;
+        }
     }
 }

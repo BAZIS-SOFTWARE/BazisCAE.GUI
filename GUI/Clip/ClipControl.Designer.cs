@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClipControl));
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            button2 = new System.Windows.Forms.Button();
             textBox2 = new System.Windows.Forms.TextBox();
             radioButton6 = new System.Windows.Forms.RadioButton();
             radioButton5 = new System.Windows.Forms.RadioButton();
@@ -63,6 +64,7 @@
             // tableLayoutPanel1
             // 
             resources.ApplyResources(tableLayoutPanel1, "tableLayoutPanel1");
+            tableLayoutPanel1.Controls.Add(button2, 0, 4);
             tableLayoutPanel1.Controls.Add(textBox2, 3, 4);
             tableLayoutPanel1.Controls.Add(radioButton6, 1, 2);
             tableLayoutPanel1.Controls.Add(radioButton5, 0, 2);
@@ -79,11 +81,18 @@
             tableLayoutPanel1.Controls.Add(radioButton2, 1, 0);
             tableLayoutPanel1.Controls.Add(button1, 0, 5);
             tableLayoutPanel1.Controls.Add(panel2, 0, 3);
-            tableLayoutPanel1.Controls.Add(label6, 1, 4);
+            tableLayoutPanel1.Controls.Add(label6, 2, 4);
             tableLayoutPanel1.Controls.Add(colorSlider1, 3, 0);
             tableLayoutPanel1.Controls.Add(colorSlider2, 3, 1);
             tableLayoutPanel1.Controls.Add(colorSlider3, 3, 2);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
+            // button2
+            // 
+            tableLayoutPanel1.SetColumnSpan(button2, 2);
+            resources.ApplyResources(button2, "button2");
+            button2.Name = "button2";
+            button2.UseVisualStyleBackColor = true;
             // 
             // textBox2
             // 
@@ -159,10 +168,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(panel1, "panel1");
             tableLayoutPanel1.SetColumnSpan(panel1, 2);
             panel1.Controls.Add(domainUpDown1);
             panel1.Controls.Add(label5);
+            resources.ApplyResources(panel1, "panel1");
             panel1.Name = "panel1";
             // 
             // domainUpDown1
@@ -241,19 +250,19 @@
             // 
             // button1
             // 
-            resources.ApplyResources(button1, "button1");
             tableLayoutPanel1.SetColumnSpan(button1, 2);
+            resources.ApplyResources(button1, "button1");
             button1.Name = "button1";
             button1.UseVisualStyleBackColor = true;
             button1.Click += OnResetShifting;
             // 
             // panel2
             // 
-            resources.ApplyResources(panel2, "panel2");
             tableLayoutPanel1.SetColumnSpan(panel2, 4);
             panel2.Controls.Add(radioButton9);
             panel2.Controls.Add(radioButton8);
             panel2.Controls.Add(radioButton7);
+            resources.ApplyResources(panel2, "panel2");
             panel2.Name = "panel2";
             // 
             // radioButton9
@@ -285,12 +294,10 @@
             // label6
             // 
             resources.ApplyResources(label6, "label6");
-            tableLayoutPanel1.SetColumnSpan(label6, 2);
             label6.Name = "label6";
             // 
             // colorSlider1
             // 
-            resources.ApplyResources(colorSlider1, "colorSlider1");
             colorSlider1.BackColor = System.Drawing.Color.Transparent;
             colorSlider1.BarInnerColor = System.Drawing.Color.Silver;
             colorSlider1.BarOuterColor = System.Drawing.Color.Silver;
@@ -299,6 +306,7 @@
             colorSlider1.ElapsedInnerColor = System.Drawing.Color.Silver;
             colorSlider1.ElapsedOuterColor = System.Drawing.Color.Silver;
             colorSlider1.LargeChange = 5U;
+            resources.ApplyResources(colorSlider1, "colorSlider1");
             colorSlider1.Maximum = 200;
             colorSlider1.Name = "colorSlider1";
             colorSlider1.ShowTextValue = false;
@@ -312,7 +320,6 @@
             // 
             // colorSlider2
             // 
-            resources.ApplyResources(colorSlider2, "colorSlider2");
             colorSlider2.BackColor = System.Drawing.Color.Transparent;
             colorSlider2.BarInnerColor = System.Drawing.Color.Silver;
             colorSlider2.BarOuterColor = System.Drawing.Color.Silver;
@@ -321,6 +328,7 @@
             colorSlider2.ElapsedInnerColor = System.Drawing.Color.Silver;
             colorSlider2.ElapsedOuterColor = System.Drawing.Color.Silver;
             colorSlider2.LargeChange = 5U;
+            resources.ApplyResources(colorSlider2, "colorSlider2");
             colorSlider2.Maximum = 200;
             colorSlider2.Name = "colorSlider2";
             colorSlider2.ShowTextValue = false;
@@ -334,7 +342,6 @@
             // 
             // colorSlider3
             // 
-            resources.ApplyResources(colorSlider3, "colorSlider3");
             colorSlider3.BackColor = System.Drawing.Color.Transparent;
             colorSlider3.BarInnerColor = System.Drawing.Color.Silver;
             colorSlider3.BarOuterColor = System.Drawing.Color.Silver;
@@ -343,6 +350,7 @@
             colorSlider3.ElapsedInnerColor = System.Drawing.Color.Silver;
             colorSlider3.ElapsedOuterColor = System.Drawing.Color.Silver;
             colorSlider3.LargeChange = 5U;
+            resources.ApplyResources(colorSlider3, "colorSlider3");
             colorSlider3.Maximum = 200;
             colorSlider3.Name = "colorSlider3";
             colorSlider3.ShowTextValue = false;
@@ -397,5 +405,6 @@
         private UserControlsEx.ColorSlider colorSlider1;
         private UserControlsEx.ColorSlider colorSlider2;
         private UserControlsEx.ColorSlider colorSlider3;
+        private System.Windows.Forms.Button button2;
     }
 }

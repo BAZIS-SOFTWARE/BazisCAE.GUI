@@ -5,6 +5,7 @@ using Geometry;
 using System.Linq;
 using BazisGUI.Scene;
 using OpenTK.Graphics.OpenGL;
+using static IronPython.Runtime.Profiler;
 
 namespace BazisGUI
 {
@@ -13,7 +14,20 @@ namespace BazisGUI
         event Action DisplayClipPlaneEvent;
         public void CreateClipPlane()
         {
-            if (VBOController.GetVBObjs().Count() > 0)
+            BoundingBox current = null;
+            foreach(var set in project.GetModelSetsInfo(Model.Interfaces.ObjType.Элемент3D).Where(v => v.ViewState))
+            {
+                var vbo = VBOController.FindVBObj(set.Name);
+                if (vbo != null)
+                    current = current == null ? vbo.BoundingBox.Merge(null) : current.Merge(vbo.BoundingBox);
+            }
+
+            var data = ClipPlane.CreateBoundingBoxPlanes(current);
+            var vboObj = new ClipPlane("ClipPlane", data.Item1, data.Item2, data.Item3);
+            vboObj.Renderer = clipPlaneRenderer;
+            VBOController.AddVbo(vboObj);
+
+            /*if (VBOController.GetVBObjs().Count() > 0)
             {
                 var bbox = VBOController.GetVBObjs().OrderByDescending(v => v.BoundingBox.GetDiagonalLength()).First().BoundingBox;
 
@@ -23,7 +37,7 @@ namespace BazisGUI
                 vboObj.Renderer = clipPlaneRenderer;
 
                 VBOController.AddVbo(vboObj);
-            }
+            }*/
         }
 
         public void DeleteClipPlane() => VBOController.DeleteVBObjects("ClipPlane");

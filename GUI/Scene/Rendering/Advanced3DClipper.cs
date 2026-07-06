@@ -1,8 +1,8 @@
-﻿
-using System;
+﻿using System;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
 using OpenTK.Graphics.OpenGL;
+using System.Collections.Generic;
 
 namespace BazisGUI.Scene
 {
@@ -35,9 +35,6 @@ namespace BazisGUI.Scene
     /// </summary>
     public class Advanced3DClipper : IDisposable, IActiveDrawingObject
     {
-        private int leftUpBuffer;//Идентификатор буффера левых верхних углов (BoundingBox) элементов
-        private int rightDownBuffer;//Идентификатор буффера правых нижних углов (BoundingBox) элементов
-
         /// <summary>
         /// Программа, для полного отображения 3д элементов в месте сечения и в положительной полуплоскости сечения
         /// </summary>
@@ -86,6 +83,15 @@ namespace BazisGUI.Scene
         /// Флаг улучшенного сечения
         /// </summary>
         public bool IsEnable {  get; set; }
+        /// <summary>
+        /// Идентифкатор буффера tbo, для вытягивания данных
+        /// </summary>
+        public int TBOId { get; set; }
+
+        /// <summary>
+        /// Идентифкатор query, для запроса количества записанных примитивов
+        /// </summary>
+        public int QueryId { get; set; }
 
         /// <summary>
         /// Установить толщину слоя
@@ -181,14 +187,22 @@ namespace BazisGUI.Scene
 
                 if (ClipMode == ClipMode.Layered)
                 {
-                    program.SetUniform("layerThickness", new float[] { LayerThickness });
-                    program.SetUniform("scaleFactor", new float[] { ScaleFactor });
+                    program.SetUniform("layerThickness", [LayerThickness]);
+                    program.SetUniform("scaleFactor", [ScaleFactor]);
                 }
 
                 var sObj = vbo as SurfaceObjects;
 
                 program.SetCustomAttributes(sObj.LeftUpBuffer, "inLeftUp");
                 program.SetCustomAttributes(sObj.RightDownBuffer, "inRightDown");
+
+                if (TBOId != 0 && QueryId != 0)
+                {
+                    GL.BindTransformFeedback(TransformFeedbackTarget.TransformFeedback, TBOId);
+
+                    GL.BeginQuery(QueryTarget.TransformFeedbackPrimitivesWritten, QueryId);
+                    GL.BeginTransformFeedback(TransformFeedbackPrimitiveType.Triangles);
+                }
             }
         }
 
@@ -214,6 +228,12 @@ namespace BazisGUI.Scene
 
                 program.UnsetCustomAttributes("inLeftUp");
                 program.UnsetCustomAttributes("inRightDown");
+
+                if (TBOId != 0 && QueryId != 0)
+                {
+                    GL.EndTransformFeedback();
+                    GL.EndQuery(QueryTarget.TransformFeedbackPrimitivesWritten);
+                }
 
                 program.Unbind();
             }
@@ -271,7 +291,7 @@ namespace BazisGUI.Scene
             KeepElementSurfaceRenderer.CreateShaderFromString(ShaderType.VertexShader, ShaderCollections.baseVertex);
             KeepElementSurfaceRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
             KeepElementSurfaceRenderer.CreateShaderFromString(ShaderType.FragmentShader, ShaderCollections.baseFragment);
-            KeepElementSurfaceRenderer.Link();
+            KeepElementSurfaceRenderer.Link(["vertexId"]);
         }
 
         private void CreateKeepElementWireframeRenderer()
@@ -282,7 +302,7 @@ namespace BazisGUI.Scene
             KeepElementWireframeRenderer.Vertex = KeepElementSurfaceRenderer.Vertex;
             KeepElementWireframeRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
             KeepElementWireframeRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
-            KeepElementWireframeRenderer.Link();
+            KeepElementWireframeRenderer.Link(["vertexId"]);
         }
 
         private void CreateKeepElementPointsRenderer()
@@ -305,7 +325,7 @@ namespace BazisGUI.Scene
             LayerSurfaceRenderer.Vertex = KeepElementSurfaceRenderer.Vertex;
             LayerSurfaceRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
             LayerSurfaceRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
-            LayerSurfaceRenderer.Link();
+            LayerSurfaceRenderer.Link(["vertexId"]);
         }
 
         private void CreateLayerWireframeRenderer()
@@ -316,7 +336,7 @@ namespace BazisGUI.Scene
             LayerWireframeRenderer.Vertex = LayerSurfaceRenderer.Vertex;
             LayerWireframeRenderer.CreateShaderFromString(ShaderType.GeometryShaderExt, ShaderCollections.keepElementsGeometry);
             LayerWireframeRenderer.Fragment = LayerSurfaceRenderer.Fragment;
-            LayerWireframeRenderer.Link();
+            LayerWireframeRenderer.Link(["vertexId"]);
         }
 
         private void CreateLayerPointsRenderer()

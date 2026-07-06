@@ -80,7 +80,6 @@ namespace BazisGUI.Scene.VBO
             //Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
             //
             GL.DrawElements((PrimitiveType)obj.GL_ObjType, indexLength, DrawElementsType.UnsignedInt, IntPtr.Zero);
-
             //Gl.glDisable(Gl.GL_BLEND);
         }
         /// <summary>
