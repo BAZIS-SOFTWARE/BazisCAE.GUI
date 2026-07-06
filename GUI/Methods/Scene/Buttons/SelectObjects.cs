@@ -14,7 +14,7 @@ namespace BazisGUI
     {
         
         Dictionary<SelectionType, Button> objButtons = new();
-        //public event Action<string> OnChangeSelectedObjectsEvent;
+        public event Action<SelectionType> OnChangeSelectedObjectsEvent;
         /// <summary>
         /// Временный выбранный объект для работы со свойствами через сцену
         /// </summary>
@@ -63,7 +63,7 @@ namespace BazisGUI
         {
             var btn = sender as Button;
             SelectedObjects = Enum.Parse<SelectionType>(btn.AccessibleName.Split("SelectObjects.btnSelect.")[1]);
-            //OnChangeSelectedObjectsEvent?.Invoke(SelectedObjects);
+            OnChangeSelectedObjectsEvent?.Invoke(SelectedObjects);
             btnSelect.Tag = false;
 
             foreach (var item in objButtons)

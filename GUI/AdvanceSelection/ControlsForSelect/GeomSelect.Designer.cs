@@ -52,6 +52,7 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             rbtVolume.Checked = true;
             rbtVolume.ForeColor = System.Drawing.SystemColors.ControlText;
             rbtVolume.Name = "rbtVolume";
+            rbtVolume.AccessibleName = "GeomSelect.Volumes";
             rbtVolume.TabStop = true;
             rbtVolume.Tag = "";
             // 
@@ -59,12 +60,14 @@ namespace BazisGUI.AdvanceSelection.ControlsForSelect
             // 
             resources.ApplyResources(rbtSurface, "rbtSurface");
             rbtSurface.Name = "rbtSurface";
+            rbtSurface.AccessibleName = "GeomSelect.Surfaces";
             rbtSurface.TabStop = true;
             // 
             // rbtCurve
             // 
             resources.ApplyResources(rbtCurve, "rbtCurve");
             rbtCurve.Name = "rbtCurve";
+            rbtCurve.AccessibleName = "GeomSelect.Curves";
             rbtCurve.TabStop = true;
             // 
             // GeomSelect
