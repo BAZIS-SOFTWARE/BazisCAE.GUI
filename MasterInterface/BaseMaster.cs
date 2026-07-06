@@ -14,6 +14,7 @@ namespace MasterInterface
 {
     public partial class BaseMaster : UserControl, IBaseMaster
     {
+        private Func<string, Task<string>>? executeCommand;
 
         public event EventHandler<PrintInfoEventArgs> PrintInfoEvent;
         public event EventHandler<GenerateConditionsEventArgs> GenerateConditionsEvent;
