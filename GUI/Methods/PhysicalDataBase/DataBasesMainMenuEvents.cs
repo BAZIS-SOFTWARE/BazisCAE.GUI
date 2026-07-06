@@ -1,6 +1,7 @@
 ﻿using BazisGUI.Args;
 using BazisGUI.DataBases;
 using BazisGUI.Properties;
+using Newtonsoft.Json;
 using System;
 using System.Drawing;
 using System.IO;
@@ -11,6 +12,19 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        private T LoadDB<T>(string fileName)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Formatting.Indented
+            };
+
+            return JsonConvert.DeserializeObject<T>(
+                File.ReadAllText(fileName),
+                settings);
+        }
+
         private void материалыMenuItem_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripMenuItem;

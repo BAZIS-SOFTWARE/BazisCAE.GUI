@@ -1,4 +1,8 @@
-"Load project" "C:\Users\gav\Desktop\Models\PART_3.stp"
+//Загрузка геометрии и баз данных
+"Load project" "C:\Users\andre\Desktope\ProjectsAndModels\Models\PART_3.stp"
+"Create task"
+"Load material db" "C:\Users\andre\Desktope\ProjectsAndModels\Models\Materials_v4.jsf"
+"Load function db" "C:\Users\andre\Desktope\ProjectsAndModels\Models\functions.jsf"
 
 //Создаем точки
 $p1 = "Create point by vector" "15" "17" "-7"
@@ -10,41 +14,35 @@ $line1 = "Create curve" "$p3" "$p1"
 $line2 = "Create curve" "$p1" "$p2"
 $line3 = "Create curve" "$p2" "$p3"
 
-//Создаем поверхность
-$surface1 = "Create surface" "curves forming the contour" "$line1,$line2,$line3"
-
-//Сохпанение геометрии
-//"Save STEP" "C:\Users\gav\Documents\1.step"
-
-//Настройка геометрии
-//"Set mesh point" "$p1" "2"
-
-// Set mesh curve" "number" "points count" "Progression/Bump/Beta" "factor"
+//Настраиваем кривые
 "Set mesh curve" "$line1" "4" "Progression" "1"
 "Set mesh curve" "$line2" "4" "Progression" "1"
 "Set mesh curve" "$line3" "4" "Progression" "1"
 
-"Set regular mesh surface" "$surface1" "$p3,$p1,$p2" "Left" "quad"
-//"Set embedded mesh surface" "25" "64"
+//Создаем поверхность
+$surface1 = "Create surface" "curves forming the contour" "$line1,$line2,$line3"
 
-"Set min size" "1"
-"Set max size" "10"
+//Настройка сетки
+"Set min size" "0.1"
+"Set max size" "5"
 "Generate mesh" 
 
-//$setName = "Extrude along curve" "$surface1" "20,19,14,11,8,7,1,50,47,44,41,40,35,32,29,26" "15" "5" "1"
+//Выполнение экструзии
+$extrudeSet = "Extrude along curve" "$surface1" "20,19,14,11,8,7,1,50,47,44,41,40,35,32,29,26" "15" "5" "1"
 
-// не реализован!
-//$grNameMaster = "CreateSurfaceNodesGroup" "$setName"
-//$grNameSlave = "CreateGroupByGeoObjs" "meshDim" "geoDim" "номер гео.объекта"
-// изменить под одну группу!
-//$grBeamName = "OctreeBeamGroupConnection" "$grNameMaster" $grNameSlave "distance" "maxBeams"
+//Создание групп
+$grNameMaster = "Create surface nodes group" "$extrudeSet" 
 
-//$grElemName = "CreateGroupByMeshObjs" "meshDim" "$setName"
+$grNameSlave1 = "Create group by geometry objs" "0" "2" "25"
+$grBeamName1 = "Connect with beams" "2" "10" "$grNameMaster" "$grNameSlave1"
 
-//"CreateTask" "kind" "type"
-//"Load material db" "path"
-//"Load function db" "path"
+$grNameSlave2 = "Create group by geometry objs" "0" "2" "7"
+$grBeamName2 = "Connect with beams" "2" "10" "$grNameMaster" "$grNameSlave2"
 
-//"CreateVolumeMaterial" "1" "*" "*" "None" "$grElemName" "startTime" "finishTime" "matName"
-//"CreateBeamMaterial" "1" "*" "*" "None" "$grBeamName" "startTime" "finishTime" "matName" "diam"
+$grNameSlave3 = "Create group by geometry objs" "0" "2" "5"
+$grBeamName3 = "Connect with beams" "2" "10" "$grNameMaster" "$grNameSlave3"
 
+$gr = "Create group" "$grBeamName3"
+
+//Создание 1Д материал
+"Create beam material" "Сталь_30ХГСА" "$gr" "1" "2" "15"

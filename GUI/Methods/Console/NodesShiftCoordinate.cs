@@ -14,7 +14,6 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-   
         private async void console_NodesShiftCoordinate()
         {
             try

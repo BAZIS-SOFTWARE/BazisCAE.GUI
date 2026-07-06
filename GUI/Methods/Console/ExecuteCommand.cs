@@ -4,6 +4,11 @@ using BazisGUI.Extensions;
 using BazisGUI.Properties;
 using BazisGUI.Utilities;
 using GmshApi;
+using MaterialDB.FunctionData;
+using MaterialDB.MaterialData;
+using Model.Interfaces;
+using Project.Tasks;
+using Project.Tasks.Materials;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,6 +23,8 @@ namespace BazisGUI
         Dictionary<string, GenCmd> genCmds = new Dictionary<string, GenCmd>()
         {
             { "Load project",GenCmd.LoadProject},
+            { "Load material db", GenCmd.LoadMaterialDB },
+            { "Load function db", GenCmd.LoadFunctionDB },
             { "Save project",GenCmd.SaveProject},
             { "Solve project",GenCmd.SolveProject},
             { "Renumber mesh",GenCmd.RenumberMesh},
@@ -29,6 +36,8 @@ namespace BazisGUI
             { "Find Coincident",GenCmd.FindCoincident},
             { "Find 3D elements",GenCmd.FindVolElems},
             { "Find object",GenCmd.FindObject},
+            { "Get related geometry objects", GenCmd.GetRelatedGeometryObjects },
+            { "Get coordinate point", GenCmd.GetCoordinatePoint },
             { "Connect with beams",GenCmd.BeamConnection},
             { "Set precision level",GenCmd.SetLevel },
             { "Merge elements sets",GenCmd.MergeElementSets },
@@ -39,20 +48,25 @@ namespace BazisGUI
             { "Create point by projection onto plane", GenCmd.CreatePointProjectionOntoPlane },
             { "Create curve",GenCmd.CreateCurve },
             { "Create surface",GenCmd.CreateSurface },
+            { "Create task", GenCmd.CreateTask },
             { "Set mesh point", GenCmd.SetMeshPoint },
             { "Set mesh curve", GenCmd.SetMeshCurve },
             { "Set regular mesh surface", GenCmd.SetRegularSurface },
-            { "Set embedded mesh surface", GenCmd.SetEmbeddedSurface },
+            { "Embedded mesh", GenCmd.SetEmbedded },
             { "Set min size", GenCmd.SetMinSize },
             { "Set max size", GenCmd.SetMaxSize },
             { "Algo2D", GenCmd.Algo2D },
             { "Algo3D", GenCmd.Algo3D },
-            { "Create Surface Nodes Group", GenCmd.CreateSurfaceNodesGroup },
-            { "Create Group By Geo Objs", GenCmd.CreateGroupByGeoObjs},
+            { "Create surface nodes group", GenCmd.CreateSurfaceNodesGroup },
+            { "Create group by geometry objs", GenCmd.CreateGroupByGeoObjs},
+            { "Create group", GenCmd.CreateGroup },
             { "Scale factor", GenCmd.ScaleFactor },
             { "Extrude along curve",GenCmd.ExtrudeCurve },
             { "Extrusion by rotation",GenCmd.ExtrudeRotate },
             { "Save STEP", GenCmd.SaveSTEP },
+            { "Create volume material", GenCmd.CreateVolumeMaterial },
+            { "Create beam material", GenCmd.CreateBeamMaterial },
+            { "Select objects", GenCmd.SelectObjects },
             { "Quit",GenCmd.Exit }
         };
 
@@ -61,6 +75,8 @@ namespace BazisGUI
             { GenCmd.LoadProject, new[] { "path" } },
             { GenCmd.SaveProject, new[] { "path" } },
             { GenCmd.SolveProject,new string[] { } },
+            { GenCmd.LoadMaterialDB, new[] { "path" }  },
+            { GenCmd.LoadFunctionDB, new[] { "path" }  },
             { GenCmd.RenumberMesh, new[] { "type:initial number" } },
             { GenCmd.MoveMesh, new[] { "move", "x,y,z" } },
             { GenCmd.MoveNodes, new[] { "move" } },
@@ -73,6 +89,8 @@ namespace BazisGUI
             { GenCmd.SetLevel, new[] { "type", "precision level" } },
             { GenCmd.MergeElementSets, new[] { "type", "set#1", "set#2" } },
             { GenCmd.CreateMesh2DPoligon, new[] { "x1,y1", "x2,y2", "x3,y3", "x4,y4", "number of elements" } },
+            { GenCmd.GetRelatedGeometryObjects, new[] { "geoDim", "geoNumbers", "relatedDim" } },
+            { GenCmd.GetCoordinatePoint, new[] { "point" } },
             { GenCmd.CreatePoint, new [] { "x,y,z" } },
             { GenCmd.CreatePointByVector, new[]{ "copy_point#1", "direction_point#2", "offset" } },
             { GenCmd.CreatePointProjectionOntoCurve, new string[]{ "point", "curve" } },
@@ -82,19 +100,24 @@ namespace BazisGUI
             { GenCmd.SetMeshPoint, new [] { "number", "size" }},
             { GenCmd.SetMeshCurve, new [] { "number", "points count", "Progression/Bump/Beta", "factor"}},
             { GenCmd.SetRegularSurface, new [] { "number", "corner points", "Left/Right,", "quad/tria" }},
-            { GenCmd.SetEmbeddedSurface, new [] { "number", "embedded curves" }},
+            { GenCmd.SetEmbedded, new[] { "target type", "target number", "embedded type", "embedded entities" } },
             { GenCmd.SetMinSize, new [] { "size" } },
             { GenCmd.SetMaxSize, new [] { "size" } },
             { GenCmd.Algo2D, new[] { "MeshAdapt/Automatic/InitialMeshOnly/Delaunay/FrontalDelaunay/BAMG/FrontalDelaunayQuads/PackingOfParallelograms/QuasiStructuredQuad" } },
             { GenCmd.Algo3D, new[] { "Delaunay/InitialMeshOnly/Frontal/MMG3D/RTree/HXT" } },
             { GenCmd.CreateSurfaceNodesGroup, new []{ "set name" } },
             { GenCmd.CreateGroupByGeoObjs, new []{ "meshDim", "geoDim", "номер гео.объекта" }},
+            { GenCmd.CreateGroup, new[] { "set name" } },
             { GenCmd.ScaleFactor, new[] { "scale"} },
             { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve#1,curve#2,curve#3...", "point", "step", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.SaveSTEP, new [] { "path" } },
+            { GenCmd.CreateVolumeMaterial, new[] { "Material name", "groupName", "start", "stop"} },
+            { GenCmd.CreateBeamMaterial, new[] { "Material name", "groupName", "diametr", "start", "stop"} },
             { GenCmd.Exit, Array.Empty<string>() },
-            { GenCmd.GenerateMesh, Array.Empty<string>()}
+            { GenCmd.GenerateMesh, Array.Empty<string>()},
+            { GenCmd.CreateTask, Array.Empty<string>() },
+            { GenCmd.SelectObjects, new[] { "point/curve/surface/node/line/element2d/element3d" } }
         };
 
         private void PrintAllCommands()
@@ -107,6 +130,22 @@ namespace BazisGUI
                 console.PrintInfo($"- \"{item.Key}\" {args}", Color.Black);
             }
         }
+
+        /// <summary>
+        /// Выполняет одну команду консоли, заданную в виде строки.
+        /// </summary>
+        /// <param name="line">Строка с командой и аргументами. Разбор полей выполняется через <see cref="FieldsParser.ParseLine(string)"/>.</param>
+        /// <returns>
+        /// Асинхронно возвращает строковое значение результата выполнения команды (если команда возвращает значение),
+        /// либо пустую строку, если результат отсутствует.
+        /// </returns>
+        /// <remarks>
+        /// Поведение:
+        /// - Разбирает входную строку на поля.
+        /// - Проверяет, что первая часть соответствует зарегистрированной команде в словаре <c>genCmds</c>.
+        /// - Проверяет количество аргументов по описанию в <c>subCmds</c>.
+        /// - Добавляет команду в историю через <c>ConsoleHistory.AddComand</c>.
+        /// - Выполняет действие, соответствующее перечислению <c>GenCmd</c>, используя дополнительные парсеры и вспомогательные методы класса.
         private async Task<string> ExecuteCommand(string line)
         {
             var cmds = FieldsParser.ParseLine(line);
@@ -166,7 +205,7 @@ namespace BazisGUI
                         break;
                     case GenCmd.BeamConnection:
                         PrepareDataForConnectionBeam(cmds[1], cmds[2], out double radius, out int maxBeams);
-                        BeamConnection(radius, maxBeams, cmds[3], cmds[4]);
+                        returnValue = BeamConnection(radius, maxBeams, cmds[3], cmds[4]);
                         break;
                     case GenCmd.SolveProject:
                         //TODO: Реализовать метод
@@ -217,9 +256,9 @@ namespace BazisGUI
                         PrepareDataForSetRegularMeshSurface(cmds[1], cmds[2], cmds[3], cmds[4], out int _numberSurface, out Arrangement _arrangement, out List<int> _cornerPoints, out bool _quadratization);
                         SetRegularMeshSurface(_numberSurface, _cornerPoints, _arrangement, _quadratization);
                         break;
-                    case GenCmd.SetEmbeddedSurface:
-                        PrepareDataForSetEmbeddedMeshSurface(cmds[1], cmds[2], out int _numberEmbeddedSurface, out List<int> _embeddedCurves);
-                        SetEmbeddedMeshSurface(_numberEmbeddedSurface, _embeddedCurves);
+                    case GenCmd.SetEmbedded:
+                        PrepareDataForSetEmbeddedMeshSurface(cmds[1], cmds[2], cmds[3], cmds[4], out int _targetType, out int _targetNumber, out int _embeddedType, out IEnumerable<int> _embeddedNumbers);
+                        SetEmbeddedMesh(_targetType, _targetNumber, _embeddedType, _embeddedNumbers);
                         break;
                     case GenCmd.SetMinSize:
                         GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(cmds[1]));
@@ -247,6 +286,52 @@ namespace BazisGUI
                         PrepareDataForCreateGroupByGeo(cmds[1], cmds[2], cmds[3], out int _meshDim, out int _geoDim, out int _tag);
                         returnValue = project.CreateGroupByGeoObjs(_meshDim, _geoDim, _tag);
                         PresentGroupDataOnTree();
+                        break;
+                    case GenCmd.LoadMaterialDB:
+                        project.MaterialsDB = LoadDB<MaterialDBData>(cmds[1]);
+                        break;
+                    case GenCmd.LoadFunctionDB:
+                        project.FunctionsDB = LoadDB<FunctionDBData>(cmds[1]);
+                        break;
+                    case GenCmd.CreateTask:
+                        project.CreateTask();
+                        break;
+                    case GenCmd.CreateVolumeMaterial:
+                        PrepareDataForCreateVolumeMaterial(cmds[1], cmds[2], cmds[3], cmds[4], out IGroup groupVolumeMaterial, out float _startV, out float _stopV);
+                        var matV = new MatData(project.MaterialsDB[cmds[1]], groupVolumeMaterial, _startV, _stopV);
+                        project.AddTaskData(matV);
+                        PresentCondDataOnTree();
+                        returnValue = matV.Value.ToString();
+                        break;
+                    case GenCmd.CreateBeamMaterial:
+                        PrepareDataForCreateBeamMaterial(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5], out IGroup groupBeamMaterial, out float _diametr, out float _startB, out float _stopB);
+                        var matB = new BeamMatData(_diametr, project.MaterialsDB[cmds[1]], groupBeamMaterial, _startB, _stopB);
+                        project.AddTaskData(matB);
+                        PresentCondDataOnTree();
+                        returnValue = matB.Value.ToString();
+                        break;
+                    case GenCmd.CreateGroup:
+                        var set = project.GetAllModelSetsInfo().Where(x => x.Name == cmds[1]).First();
+                        var objects = set.GetNumbers().Select(num => project.GetModelObject(set.ObjType, num)).ToList();
+                        project.CreateGroup(objects);
+                        var group = project.GetAllModelGroups().Last();
+                        console.PrintInfo($"{Resources.SelectSetEvent_CreateGroupBySet_Message}: {group.Name}", Color.Black);
+                        PresentGroupDataOnTree();
+                        returnValue = group.Name;
+                        break;
+                    case GenCmd.GetRelatedGeometryObjects:
+                        PrepareDataForGetRelatedGeometryObjects(cmds[1], cmds[2], cmds[3], out int _geometryDim, out List<int> _geoNumbers, out int _relatedDim);
+                        var relatedObjects = GetRelatedGeometryObjects(_geometryDim, _geoNumbers, _relatedDim);
+                        returnValue = string.Join(",", relatedObjects);
+                        break;
+                    case GenCmd.GetCoordinatePoint:
+                        returnValue = GmshController.Gmsh.Model.GetValue(0, int.Parse(cmds[1]), []).ToString();
+                        break;
+                    case GenCmd.SelectObjects:
+                        if (!TryParseObjType(cmds[1], out ObjType objType))
+                            throw new ArgumentException(Resources.InvalidCommandException);
+                        var curveNumbers = await GetSelectedObjectNumbersAsync(objType);
+                        returnValue = string.Join(",", curveNumbers);
                         break;
                 }
             }

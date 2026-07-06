@@ -2,18 +2,43 @@
 using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using Geometry;
+using Model;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.Materials;
 using System;
 using System.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
       
+        private void PrepareDataForCreateVolumeMaterial(string materialName, string groupName, string start, string stop, out IGroup group, out float _start, out float _stop)
+        {
+            var valid = float.TryParse(start, out _start) & 
+                float.TryParse(stop, out _stop) & 
+                project.MaterialsDB.Select(k => k.Key).Contains(materialName);
+
+            group = project.GetModelGroup(groupName);
+            if (!valid)
+                throw new ArgumentException(Resources.InvalidCommandException);
+        }
+
+        private void PrepareDataForCreateBeamMaterial(string materialName, string groupName, string diametr, string start, string stop, out IGroup group, out float _diametr, out float _start, out float _stop)
+        {
+            var valid = float.TryParse(start, out _start) &
+                float.TryParse(stop, out _stop) &
+                float.TryParse(diametr, out _diametr) &
+                project.MaterialsDB.Select(k => k.Key).Contains(materialName);
+
+            group = project.GetModelGroup(groupName);
+            if (!valid)
+                throw new ArgumentException(Resources.InvalidCommandException);
+        }
+
         private void CheckMatsAndFuncs()
         {
             var matDB = project.MaterialsDB;

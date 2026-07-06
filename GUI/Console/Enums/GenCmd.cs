@@ -3,6 +3,8 @@
     public enum GenCmd
     {
         LoadProject,
+        LoadMaterialDB,
+        LoadFunctionDB,
         SaveProject,
         NewProject,
         CreateGraph,
@@ -33,7 +35,7 @@
         SetMeshPoint,
         SetMeshCurve,
         SetRegularSurface,
-        SetEmbeddedSurface,
+        SetEmbedded,
         SetMinSize,
         SetMaxSize,
         Algo2D,
@@ -41,6 +43,13 @@
         ScaleFactor,
         SaveSTEP,
         CreateSurfaceNodesGroup,
-        CreateGroupByGeoObjs
+        CreateGroupByGeoObjs,
+        CreateTask,
+        CreateVolumeMaterial,
+        CreateBeamMaterial,
+        CreateGroup,
+        GetRelatedGeometryObjects,
+        GetCoordinatePoint,
+        SelectObjects,
     }
 }
