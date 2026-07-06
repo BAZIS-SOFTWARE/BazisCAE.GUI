@@ -8,7 +8,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private static bool TryParseObjType(string value, out ObjType objType)
+        private bool TryParseObjType(string value, out ObjType objType)
         {
             switch (value?.Trim().ToLowerInvariant())
             {
@@ -20,7 +20,6 @@ namespace BazisGUI
                     return true;
                 case "surface":
                     objType = ObjType.Поверхность;
-                    return true;
                     return true;
                 case "node":
                     objType = ObjType.Узел;
@@ -41,11 +40,13 @@ namespace BazisGUI
         }
         private async Task<List<int>> GetSelectedObjectNumbersAsync(ObjType objType)
         {
+            // TODO: Рассмотреть возможность выбирать объекты на сцене другим способом. 
+            // Необходима консультация с дизайнером 
             SelectedObjects = Converters.ConvertObjTypeToSelectionType(objType);
             var selectedObjects = new List<int>();
             while (true)
             {
-                var message =$@"Выберите {objType} и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
+                var message =$@"Выберите {objType} и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для завершения";
 
                 var selectedObject = await SelectObjectAsync(objType, message);
                 if (selectedObject is not IModelObject typedObject)
