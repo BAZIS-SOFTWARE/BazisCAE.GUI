@@ -14,6 +14,9 @@ namespace MasterInterface
 {
     public partial class BaseMaster : UserControl, IBaseMaster
     {
+        /// <summary>
+        /// Делегат для выполнения команд. Подключается к интерпретатору.
+        /// </summary>
         private Func<string, Task<string>>? executeCommand;
 
         public event EventHandler<PrintInfoEventArgs> PrintInfoEvent;
