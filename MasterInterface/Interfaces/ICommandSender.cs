@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-
 namespace MasterInterface.Interfaces
 {
     /// <summary>
@@ -39,18 +36,5 @@ namespace MasterInterface.Interfaces
         /// Выбрасывается, если <paramref name="command"/> равен <c>null</c> (по соглашению реализации).
         /// </exception>
         Task<string> SendCommandAsync(string command);
-
-
-        /// <summary>
-        /// Асинхронно отправляет набор команд и возвращает массив ответов.
-        /// </summary>
-        /// <param name="commands">Массив команд для отправки. Не должен быть <c>null</c>; элементы не должны быть <c>null</c> (по соглашению реализации).</param>
-        /// <returns>
-        /// Задача, результат которой — массив ответов. Порядок ответов соответствует порядку входных команд.
-        /// </returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// Выбрасывается, если <paramref name="commands"/> равен <c>null</c> (по соглашению реализации).
-        /// </exception>
-        Task<string[]> SendCommandsAsync(string[] commands);
     }
 }

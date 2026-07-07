@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace MasterInterface
 {
-    public partial class BaseMaster : UserControl, IBaseMaster
+    public partial class BaseMaster : UserControl, IBaseMaster, ICommandSender
     {
         /// <summary>
         /// Делегат для выполнения команд. Подключается к интерпретатору.
@@ -39,6 +39,16 @@ namespace MasterInterface
         protected void RaiseUpdateSceneEvent()
         {
             UpdateSceneEvent?.Invoke(this, new UpdateSceneEventArgs());
+        }
+
+        public void SetCommandExecutor(Func<string, Task<string>> executeCommand)
+        {
+            this.executeCommand = executeCommand;
+        }
+
+        public async Task<string> SendCommandAsync(string command)
+        {
+            return await executeCommand(command);
         }
 
         public BaseMaster()
