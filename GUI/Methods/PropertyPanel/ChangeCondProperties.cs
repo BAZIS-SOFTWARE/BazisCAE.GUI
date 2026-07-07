@@ -22,6 +22,9 @@ namespace BazisGUI
             {
                 switch (condKey)
                 {
+                    case CondPropertyKeys.Value:
+                        cond.Value = float.Parse(obj.NewValue);
+                        break;
                     case CondPropertyKeys.ObjectsGroup:
                         HandleObjectGroupParameter(obj.NewValue, cond);
                         break;
@@ -315,11 +318,6 @@ namespace BazisGUI
         private void ChangeHeatProperties(PropertyChangedEventArgs obj, HeatData heatCond, ref bool flag)
         {
             ChangeGeneralProperties(obj, heatCond, ref flag);
-            //Мощность, Дж
-            if (Enum.TryParse<HeatPropertyKeys>(obj.Key, out var res) && res == HeatPropertyKeys.Power)
-                heatCond.Value = float.Parse(obj.NewValue);
-            //else if (obj.Header == "Функция, F(t), F - Дж.")
-            //    heatCond.TimeFunction = project.FunctionsDB[obj.NewValue];
         }
 
         private void ChangeLoadProperties(PropertyChangedEventArgs obj, LoadData loadData, ref bool flag)

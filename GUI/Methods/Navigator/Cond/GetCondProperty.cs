@@ -15,7 +15,7 @@ namespace BazisGUI
     public partial class BaseForm
     {
         enum CondPropertyKeys { ObjectsGroup, Value, Function, Parameter, ParameterValue, Table, File, Direction, StartTime, StopTime, CoordinateSystem }
-        enum HeatPropertyKeys { Power }
+        //enum HeatPropertyKeys { Power }
         public List<RowProperty> GetCondProperty(CondData obj, IEnumerable<IGroup> groups, List<string> funcTables)
         {
             var rows = new List<RowProperty>();

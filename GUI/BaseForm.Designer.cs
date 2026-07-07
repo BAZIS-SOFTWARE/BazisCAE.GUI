@@ -499,10 +499,10 @@ namespace BazisGUI
             console.HeaderName = "Console";
             console.IsPinndable = false;
             console.Name = "console";
-            console.SessionNumber = 9021;
+            console.SessionNumber = 3455;
             console.UpColor = System.Drawing.Color.Gainsboro;
-            console.CommandsListRequestedEvent += PrintAllCommands;
             console.ConsoleCommandEnteredEvent += ExecuteCommand;
+            console.CommandsListRequestedEvent += PrintAllCommands;
             // 
             // menuStrip
             // 
@@ -1058,7 +1058,7 @@ namespace BazisGUI
             // 
             // menuItem_InfoSelectedObjects
             // 
-            menuItem_InfoSelectedObjects.Image = Properties.Resources.Edit_Image;
+            menuItem_InfoSelectedObjects.Image = Properties.Resources.Инфо_со_сцены;
             resources.ApplyResources(menuItem_InfoSelectedObjects, "menuItem_InfoSelectedObjects");
             menuItem_InfoSelectedObjects.Name = "menuItem_InfoSelectedObjects";
             menuItem_InfoSelectedObjects.Click += menuItem_InfoSelectedObjects_Click;
