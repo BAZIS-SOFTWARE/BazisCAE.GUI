@@ -60,9 +60,6 @@ namespace BazisGUI
                         var cf = cond.Function as CustomFrameFunction;
                         cf.CreateEngine(obj.NewValue);
                         break;
-                    case CondPropertyKeys.Value:
-                        cond.Value = float.Parse(obj.NewValue);
-                        break;
                 }
             }
 

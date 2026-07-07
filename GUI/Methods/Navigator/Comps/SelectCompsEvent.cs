@@ -34,7 +34,7 @@ namespace BazisGUI
                 foreach (var taskName in tasks)
                 {
                     bool isExe;
-                    if (taskName.Split(' ')[2] == Resources.Выполнить)
+                    if (taskName.Split(' ')[2] == "выполнить")
                         isExe = true;
                     else
                         isExe = false;
