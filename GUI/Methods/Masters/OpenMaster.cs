@@ -27,6 +27,7 @@ namespace BazisGUI
             master.Size = cntrНавигатор.Size;
             master.Location = cntrНавигатор.Location;
             master.Anchor = cntrНавигатор.Anchor;
+            master.SetCommandExecutor(ExecuteCommand);
 
             if (master is IFunctionsHandling fh) HandleFunctionsMaster(fh);
 
@@ -35,8 +36,6 @@ namespace BazisGUI
             if (master is IGroupHandling gh) HandleGroupsMaster(gh);
 
             if (master is IPreparedDataLoader pdlh) HandlePreparedDataMaster(pdlh);
-
-            if (master is ICommandSender commandSender) HandleCommandSenderMaster(commandSender);
 
             HandleBaseMaster(master);
 
