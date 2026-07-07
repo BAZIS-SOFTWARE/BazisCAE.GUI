@@ -38,7 +38,14 @@ namespace BazisGUI
                         // TODO: проверить корректность работы с данными при их смене
                         var isExe = bool.Parse(obj.NewValue);
                         var selectedInstruction = navigator.SelectedNode;
-                        selectedInstruction.Text = selectedInstruction.Text.Replace(isExe ? Properties.Resources.Пропустить : Properties.Resources.Выполнить, isExe ? Properties.Resources.Выполнить : Properties.Resources.Пропустить);
+                        // строчка ниже приводит к проблемам с локалью. Так как перевод осуществляется только для GUI, компоненты бизнес логики остаются почти без изменений.
+                        // нужно добавить промежуточный слой, для отображения строк в нужной локали и не переопределять строки, которые используются за пределами графики
+                        //selectedInstruction.Text = selectedInstruction.Text.Replace(isExe ? Resources.Пропустить : Resources.Выполнить, isExe ? Resources.Выполнить : Resources.Пропустить);
+                        if (isExe)
+                            selectedInstruction.Text = selectedInstruction.Text.Replace("пропустить", "выполнить");
+                        else
+                            selectedInstruction.Text = selectedInstruction.Text.Replace("пропустить", "выполнить");
+
                         nodeText = selectedInstruction.Text;
                         break;
                     case CompPropertyKeys.Algorithm:
@@ -108,10 +115,16 @@ namespace BazisGUI
                     var selectedInstruction = task[0].Nodes.Cast<TreeNode>().FirstOrDefault(inst => inst.Text.Contains(name));
 
                     var isExe = bool.Parse(obj.NewValue);
+                    // строчка ниже приводит к проблемам с локалью. Так как перевод осуществляется только для GUI, компоненты бизнес логики остаются почти без изменений.
+                    // нужно добавить промежуточный слой, для отображения строк в нужной локали и не переопределять строки, которые используются за пределами графики
+                    //if (isExe)
+                    //    selectedInstruction.Text = selectedInstruction.Text.Replace(Resources.Пропустить, Resources.Выполнить);
+                    //else
+                    //    selectedInstruction.Text = selectedInstruction.Text.Replace(Resources.Выполнить, Resources.Пропустить);
                     if (isExe)
-                        selectedInstruction.Text = selectedInstruction.Text.Replace(Resources.Пропустить, Resources.Выполнить);
+                        selectedInstruction.Text = selectedInstruction.Text.Replace("пропустить", "выполнить");
                     else
-                        selectedInstruction.Text = selectedInstruction.Text.Replace(Resources.Выполнить, Resources.Пропустить);
+                        selectedInstruction.Text = selectedInstruction.Text.Replace("выполнить", "пропустить");
                 }
                 Navigator_SelectCompsEvent();
             }
