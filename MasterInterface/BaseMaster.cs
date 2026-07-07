@@ -3,7 +3,7 @@ using MasterInterface.Interfaces;
 
 namespace MasterInterface
 {
-    public partial class BaseMaster : UserControl, IBaseMaster, ICommandSender
+    public partial class BaseMaster : UserControl, IBaseMaster
     {
         /// <summary>
         /// Делегат для выполнения команд. Подключается к интерпретатору.
