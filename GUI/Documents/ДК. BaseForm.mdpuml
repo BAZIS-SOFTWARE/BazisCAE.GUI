@@ -1,0 +1,162 @@
+﻿@startuml
+
+class BaseForm {
+  + TabButtonsService : TabButtonControlService
+  + {event} OnProjectLoaded : Action
+  + {event} OnGroupCreated : Action<ObjType, int, string>
+  + {event} OnGroupRenamed : Action<ObjType, int, string>
+  + {event} OnGroupDeleted : Action<ObjType, int>
+  + {event} OnChangeMaterials : EventHandler<ChangeMaterialsEventArgs>
+  + {event} OnChangeFunctions : EventHandler<ChangeFunctionsEventArgs>
+  - ScreenMousePosition : Point
+  - MouseMoveFlag : bool
+  - WorkingDir : string
+  - projFilter : string
+  - meshFilter : string
+  - geomFilter : string
+  - selectionRectangle : ScreenRectangle
+  - clipPlaneRenderer : ClipPlaneRenderer
+  - advanced3DClipper : Advanced3DClipper
+  - averageColorRenderer : AverageColorRenderer
+  - project : ProjectController
+  - GmshController : IGmshController
+  - dataController : IODataController
+  - preProc : PreProc.PreProc
+  - resultsController : PostProcController
+  - presentersCreator : IPresentersCreator
+  - VBOController : VBOController
+  - serverConnection : ClientController
+  - settingsConfig : SettingsConfig
+  - serverConnectionPing : Thread
+  + BaseForm(string[] args)
+  + HandleArgs(string[] args) : void
+  - UnBlockGeneralMenuInterface(string moduleName, bool flag) : void
+  - CloseActivePageChildControls(string moduleName) : void
+  - SetGeneralSettings() : void
+  - BaseForm_KeyDown(object sender, KeyEventArgs e) : void
+  - содержаниеToolStripMenuItem_Click(object sender, EventArgs e) : void
+  - опрограммеToolStripMenuItem_Click(object sender, EventArgs e) : void
+  - сведенияMenuItem_Click(object sender, EventArgs e) : void
+  - StartLisenceForm(string request) : void
+  + KillAlreadyLaunchdExamples() : void
+  - BaseForm_FormClosed(object sender, FormClosedEventArgs e) : void
+  - ShowReleaseNotes() : void
+  - создатьToolStripMenuItem_Click(object sender, EventArgs e) : void
+  + OpenProject(string filePath) : Task
+  - открытьToolStripMenuItem_Click(object sender, EventArgs e) : void
+  - UnblockInterface() : void
+  - выходToolStripMenuItem_Click(object sender, EventArgs e) : void
+  - webPageLabel_Click(object sender, EventArgs e) : void
+  - сохранитькакToolStripMenuItem_Click(object sender, EventArgs e) : void
+  - сохранитьToolStripMenuItem_Click(object sender, EventArgs e) : void
+  - PresentProject() : void
+  - OnClosingForm(object sender, FormClosingEventArgs e) : void
+  - toolStripMenuItem2_Click(object sender, EventArgs e) : void
+  - toolStripMenuItem3_Click(object sender, EventArgs e) : void
+  - экспортСеткиToolStripMenuItem_Click(object sender, EventArgs e) : void
+  - добавитьСеткуToolStripMenuItem_Click(object sender, EventArgs e) : void
+}
+
+class TabButtonControlService {
+}
+
+class ProjectController {
+}
+
+interface IGmshController {
+}
+
+class IODataController {
+}
+
+class PreProc.PreProc {
+}
+
+class PostProcController {
+}
+
+interface IPresentersCreator {
+}
+
+class VBOController {
+}
+
+class ClientController {
+}
+
+class SettingsConfig {
+  + BackGroundColor : Color
+  + SelectObjectColor : Color
+  + NodeColor : Color
+  + Transparency : bool
+  + Lighting : bool
+  + BackRibbers : bool
+  + SolverPath : string
+  + Language : string
+  + Scale_Intervals : int
+  + Scale_MinValue : double
+  + Scale_MaxValue : double
+  + Scale_Precision : int
+  + TransparencyValue : float
+  + SelectGroupColor : Color
+}
+
+class ScreenRectangle {
+}
+
+class ClipPlaneRenderer {
+}
+
+class Advanced3DClipper {
+}
+
+class AverageColorRenderer {
+}
+
+class ChangeMaterialsEventArgs {
+}
+
+class ChangeFunctionsEventArgs {
+}
+
+class ObjType {
+  <<enumeration>>
+}
+
+Form <|-- BaseForm
+BaseForm *-- TabButtonControlService
+BaseForm *-- ProjectController
+BaseForm ..> IGmshController : использует
+BaseForm *-- IODataController
+BaseForm *-- PreProc.PreProc
+BaseForm *-- PostProcController
+BaseForm ..> IPresentersCreator : использует
+BaseForm *-- VBOController
+BaseForm *-- ClientController
+BaseForm *-- SettingsConfig
+BaseForm *-- ScreenRectangle
+BaseForm *-- ClipPlaneRenderer
+BaseForm *-- Advanced3DClipper
+BaseForm *-- AverageColorRenderer
+BaseForm ..> ChangeMaterialsEventArgs : использует
+BaseForm ..> ChangeFunctionsEventArgs : использует
+BaseForm ..> ObjType : использует
+
+note right of BaseForm::project
+  Основной контроллер проекта,
+  управляет данными и логикой
+end note
+
+note right of BaseForm::settingsConfig
+  Конфигурация приложения,
+  загружается из файла
+end note
+
+note right of BaseForm::HandleArgs
+  Обрабатывает аргументы командной строки:
+  -proj - открыть проект
+  -res - загрузить результаты
+  -cad - импортировать CAD
+end note
+
+@enduml

@@ -1,19 +1,10 @@
 ﻿@startuml
 
-class IODataController
 class VBOController
-class settingsConfig
-class GmshController
-class PreProc
-class PostProc
 class VBOController
-class ClientController
 class Advanced3DClipper
 class ClipPlaneRenderer
-class ScreenRectangle
-class AverageColorRenderer
-class ClientController
-class ScalePage
+
 class VBObject
 interface IVBObject
 class SurfaceObjects
