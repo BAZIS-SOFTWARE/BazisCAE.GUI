@@ -84,7 +84,7 @@ namespace BazisGUI
                 throw new ArgumentException(Resources.InvalidCommandException);
         }
 
-        private Tuple<int[], int[]> GetRelatedGeometryObjects(int geoDim, int geoNumber)
+        private Tuple<int[], int[]> GetAdjacentGeometryObjects(int geoDim, int geoNumber)
         {
             return project.SelectAdjacencies(geoDim, geoNumber);
         }
