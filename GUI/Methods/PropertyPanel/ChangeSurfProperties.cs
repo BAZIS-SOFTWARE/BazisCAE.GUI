@@ -7,6 +7,7 @@ using Model.MeshObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static IronPython.Modules._ast;
 using static IronPython.Runtime.Profiler;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -83,9 +84,9 @@ namespace BazisGUI
                 throw new ArgumentException(Resources.InvalidCommandException);
         }
 
-        private HashSet<int> GetRelatedGeometryObjects(int geoDim, List<int> geoNumbers, int relatedDim)
+        private Tuple<int[], int[]> GetRelatedGeometryObjects(int geoDim, int geoNumber)
         {
-            return project.SelectByScope(geoDim, geoNumbers, relatedDim);
+            return project.SelectAdjacencies(geoDim, geoNumber);
         }
 
         private void PrepareDataForSetEmbeddedMeshSurface(string targetType, string targetNumber, string embeddedType, string embeddedNumbers, out int _targetType, out int _targetNumber, out int _embeddedType, out IEnumerable<int> _embeddedNumbers)
