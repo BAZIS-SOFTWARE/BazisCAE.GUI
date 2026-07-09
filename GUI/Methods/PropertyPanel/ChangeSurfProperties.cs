@@ -62,31 +62,20 @@ namespace BazisGUI
                 throw new ArgumentException(Resources.InvalidCommandException);
         }
         
-        private void PrepareDataForGetRelatedGeometryObjects(string geoDim, string geoNumbers, string relatedDim, out int _geoDim, out List<int> _geoNumbers, out int _relatedDim)
+        private void PrepareDataForGetRelatedGeometryObjects(string geoDim, string geoNumber, string level, out int _geoDim, out int _geoNumber, out bool _lvlUp)
         {
             if (!int.TryParse(geoDim, out _geoDim))
                 throw new ArgumentException(Resources.InvalidCommandException);
 
-            if (!int.TryParse(relatedDim, out _relatedDim))
+            if (!int.TryParse(geoNumber, out _geoNumber))
                 throw new ArgumentException(Resources.InvalidCommandException);
 
-            _geoNumbers = new List<int>();
-
-            foreach (var number in geoNumbers.Split(',', StringSplitOptions.RemoveEmptyEntries))
-            {
-                if (!int.TryParse(number.Trim(), out var parsedNumber))
-                    throw new ArgumentException(Resources.InvalidCommandException);
-
-                _geoNumbers.Add(parsedNumber);
-            }
-
-            if (_geoNumbers.Count == 0)
-                throw new ArgumentException(Resources.InvalidCommandException);
+            _lvlUp = level == "up";
         }
 
         private Tuple<int[], int[]> GetAdjacentGeometryObjects(int geoDim, int geoNumber)
         {
-            return project.SelectAdjacencies(geoDim, geoNumber);
+            return project.GetAdjacentGeometryObjects(geoDim, geoNumber);
         }
 
         private void PrepareDataForSetEmbeddedMeshSurface(string targetType, string targetNumber, string embeddedType, string embeddedNumbers, out int _targetType, out int _targetNumber, out int _embeddedType, out IEnumerable<int> _embeddedNumbers)
