@@ -326,7 +326,8 @@ namespace BazisGUI
                         returnValue = string.Join(",", relatedObjects);
                         break;
                     case GenCmd.GetCoordinatePoint:
-                        returnValue = GmshController.Gmsh.Model.GetValue(0, int.Parse(cmds[1]), []).ToString();
+                        var coord = GmshController.Gmsh.Model.GetValue(0, int.Parse(cmds[1]), []);
+                        returnValue = string.Join(";", coord);
                         break;
                     case GenCmd.SelectObjects:
                         if (!TryParseObjType(cmds[1], out ObjType objType))
