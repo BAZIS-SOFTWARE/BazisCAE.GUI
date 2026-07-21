@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using static IronPython.Modules._ast;
 
 namespace BazisGUI
 {
@@ -70,7 +71,10 @@ namespace BazisGUI
             {
                 new RowProperty(CompPropertyKeys.IterationOnStep.ToString(), Properties.Resources.Header_comp_IterationsOnStep, parameters.Iterations),
                 new RowProperty(CompPropertyKeys.SaveRate.ToString(), Properties.Resources.Header_comp_SaveRate, parameters.SaveRate),
-                new RowProperty(CompPropertyKeys.InitTemp.ToString(), Properties.Resources.Header_comp_InitTemp, parameters.InitTemp)
+                new RowProperty(
+                    CompPropertyKeys.InitTemp.ToString(), 
+                Properties.Resources.Header_comp_InitTemp,
+                string.Join(",", parameters.InitTemp.Select(pair => $"{pair.Key} {pair.Value}")))
             };
         }
 

@@ -3,10 +3,12 @@ using BazisGUI.Localization;
 using BazisGUI.Navigator;
 using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
+using Geometry.Attribute;
 using Newtonsoft.Json;
 using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -20,7 +22,7 @@ namespace BazisGUI
         enum CompPropertyKeys { Type, Execute, Algorithm, SolveIterations, SolveAccuracy, RelaxationCoef, MaxRelaxationCoef, Priority, IterationOnStep, SaveRate, InitTemp, StartTime, StopTime, InitialSolveStep, MinSolveStep, MaxSolveStep }
         enum PriorityKeys { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий, Наивысший }
 
-        private void ChangeCompProperties(PropertyChangedEventArgs obj, string nodeText)
+        private void ChangeCompProperties(PropertiesPanel.PropertyChangedEventArgs obj, string nodeText)
         {
             var parameters = ReadTaskParametersFromFile(nodeText.Split(' ')[1]);
             if (parameters is ChemicalParameters cmp) 
@@ -73,7 +75,14 @@ namespace BazisGUI
                         parameters.SaveRate = int.Parse(obj.NewValue);
                         break;
                     case CompPropertyKeys.InitTemp:
-                        parameters.InitTemp = ParseFloatValue(obj.NewValue);
+                        var dic = obj.NewValue.Split(',').
+                            Select((md, index) => 
+                            new { 
+                                Key = md.Split(' ')[0], 
+                                Value = ConvertToNumber<double>(md.Split(' ')[1])
+                            })
+    .ToDictionary(x => x.Key, x => x.Value);
+                        parameters.InitTemp = dic;
                         break;
                     case CompPropertyKeys.StartTime:
                         parameters.TimeSettings.StartTime = ParseFloatValue(obj.NewValue);
@@ -101,7 +110,7 @@ namespace BazisGUI
                     //Navigator_SelectCompEvent(nodeName, nodeText);
         }
 
-        private void ChangeCompProperties(PropertyChangedEventArgs obj)
+        private void ChangeCompProperties(PropertiesPanel.PropertyChangedEventArgs obj)
         {
             if (Enum.TryParse(obj.Key, out CompPropertyKeys key))
             {
@@ -131,7 +140,7 @@ namespace BazisGUI
         }
 
         [Obsolete ("Отсутствует химические задачи, не протестировано")]
-        private void ChangeChemicalTask(PropertyChangedEventArgs obj, ChemicalParameters cmp)
+        private void ChangeChemicalTask(PropertiesPanel.PropertyChangedEventArgs obj, ChemicalParameters cmp)
         {
             if (Enum.TryParse(obj.Key, out ChemicalTaskPropertyKeys key))
             {
@@ -150,7 +159,7 @@ namespace BazisGUI
             }
         }
 
-        private void ChangeTermalTask(PropertyChangedEventArgs obj, TermalParameters tmp)
+        private void ChangeTermalTask(PropertiesPanel.PropertyChangedEventArgs obj, TermalParameters tmp)
         {
             if (Enum.TryParse(obj.Key, out TermalTaskPropertyKeys key))
             {
@@ -166,14 +175,14 @@ namespace BazisGUI
             }
         }
 
-        private void ChangeMechanicalTask(PropertyChangedEventArgs obj, MechanicalParameters mhp)
+        private void ChangeMechanicalTask(PropertiesPanel.PropertyChangedEventArgs obj, MechanicalParameters mhp)
         {
             if (Enum.TryParse(obj.Key, out MechanicalPropertyKeys key))
             {
                 switch (key)
                 {
                     case MechanicalPropertyKeys.MaxDiference:
-                        mhp.MechanicalConvergence.DUm = ParseFloatValue(obj.NewValue);
+                        mhp.MechanicalConvergence.DUm = ConvertToNumber<float>(obj.NewValue);
                         break;
 
                     case MechanicalPropertyKeys.MaxMove:
@@ -181,7 +190,7 @@ namespace BazisGUI
                         break;
 
                     case MechanicalPropertyKeys.MaxMoveValue:
-                        mhp.MechanicalConvergence.Um = ParseFloatValue(obj.NewValue);
+                        mhp.MechanicalConvergence.Um = ConvertToNumber<float>(obj.NewValue);
                         break;
 
                     case MechanicalPropertyKeys.PlasticDeformation:
@@ -189,7 +198,7 @@ namespace BazisGUI
                         break;
 
                     case MechanicalPropertyKeys.PlasticDeformationValue:
-                        mhp.MechanicalConvergence.PlasticityCriterion = ParseFloatValue(obj.NewValue);
+                        mhp.MechanicalConvergence.PlasticityCriterion = ConvertToNumber<float>(obj.NewValue);
                         break;
                 }
             }
@@ -264,10 +273,26 @@ namespace BazisGUI
             File.WriteAllText(path, parLine);
         }
 
+        [Obsolete("Стараться использовать дженерик метод ConvertToNumber")]
         private float ParseFloatValue(string value)
         {
             value = value.Trim().Replace(',', '.');
             return float.Parse(value);
+        }
+
+        public T ConvertToNumber<T>(string input)
+        {
+            // Получаем конвертер для нужного типа
+            TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
+
+            if (converter != null && converter.IsValid(input))
+            {
+                // Конвертируем строку и приводим к типу T
+                return (T)converter.ConvertFromString(input);
+            }
+
+            // Выбрасываем ошибку, если строка не подходит для конвертации
+            throw new ArgumentException($"Невозможно преобразовать строку '{input}' в тип {typeof(T)}.");
         }
     }
 }

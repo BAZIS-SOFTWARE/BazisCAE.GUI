@@ -94,7 +94,15 @@ namespace BazisGUI.TasksControls
 
                 parameters.Iterations = Convert.ToInt32(basicControl.Iterations);
                 parameters.SaveRate = Convert.ToInt32(basicControl.SaveRate);
-                parameters.InitTemp = Convert.ToInt32(basicControl.InitTemp);
+
+                var dic = basicControl.InitTemp.Split(',').
+        Select((md, index) =>
+        new {
+            Key = md.Split(' ')[0],
+            Value = double.Parse(md.Split(' ')[1])
+        })
+.ToDictionary(x => x.Key, x => x.Value);
+                parameters.InitTemp = dic;
 
                 parameters.SolverSettings = solverSettings;
                 parameters.TimeSettings = timeSettings;

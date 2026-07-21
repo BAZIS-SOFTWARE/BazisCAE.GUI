@@ -1,4 +1,4 @@
-﻿using LicenseInfo;
+﻿
 using System;
 
 namespace BazisGUI.PropertiesPanel
