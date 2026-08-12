@@ -53,6 +53,8 @@
     <None Remove="DataBases\Materials\materials_draft.txt" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.0" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
     <Reference Include="ClientGUI">
       <HintPath>..\Libs\ClientGUI.dll</HintPath>
     </Reference>

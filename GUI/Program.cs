@@ -21,6 +21,7 @@ namespace BazisGUI
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             ApplicationConfiguration.Initialize();
+            AvaloniaUI.Chamfer.ChamferAvaloniaHost.Initialize();
             Application.Run(new BaseForm(args));
         }
     }

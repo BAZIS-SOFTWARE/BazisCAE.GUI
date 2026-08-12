@@ -720,7 +720,7 @@ namespace BazisGUI
 
         private void addChamferToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            new AvaloniaUI.Chamfer.ChamferWindow().Show();
         }
     }
 }
