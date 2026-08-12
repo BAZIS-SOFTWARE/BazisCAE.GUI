@@ -306,7 +306,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAARCsAAAJNU0Z0AUkBTAIBARIB
-        AAGMAQQBjAEEARQBAAEUAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAVADAAFkAwABAQEAAQgF
+        AAGcAQQBnAEEARQBAAEUAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAVADAAFkAwABAQEAAQgF
         AAFAAR8YAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHAAQAB8AHKAaYBAAEzBQAB
         MwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5AQABgAF8Af8BAAJQAf8B
         AAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMAAWYDAAGZAwABzAIAATMD
@@ -1478,28 +1478,34 @@
     <value>View</value>
   </data>
   <data name="создатьТочкуToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="создатьТочкуToolStripMenuItem.Text" xml:space="preserve">
     <value>Create a point</value>
   </data>
   <data name="создатьЛиниюToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="создатьЛиниюToolStripMenuItem.Text" xml:space="preserve">
     <value>Create a line</value>
   </data>
   <data name="создатьПлоскостьToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="создатьПлоскостьToolStripMenuItem.Text" xml:space="preserve">
     <value>Create a plane</value>
   </data>
   <data name="создатьОбъемToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="создатьОбъемToolStripMenuItem.Text" xml:space="preserve">
     <value>Create a volume</value>
+  </data>
+  <data name="addChamferToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="addChamferToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add a chamfer</value>
   </data>
   <data name="геометрияToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -1511,13 +1517,13 @@
     <value>Geometry</value>
   </data>
   <data name="загрузитьgeoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="загрузитьgeoToolStripMenuItem.Text" xml:space="preserve">
     <value>Load *.gscript</value>
   </data>
   <data name="сформироватьgeoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="сформироватьgeoToolStripMenuItem.Text" xml:space="preserve">
     <value>Create *.gscript</value>
@@ -1529,7 +1535,7 @@
     <value>On the boundaries of 2D elements</value>
   </data>
   <data name="dToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="dToolStripMenuItem.Text" xml:space="preserve">
     <value>1D</value>
@@ -1565,13 +1571,13 @@
     <value>Squaring the exist mesh</value>
   </data>
   <data name="dToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="dToolStripMenuItem1.Text" xml:space="preserve">
     <value>2D</value>
   </data>
   <data name="dToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="dToolStripMenuItem2.Text" xml:space="preserve">
     <value>3D</value>
@@ -2175,7 +2181,7 @@
     <value>None</value>
   </data>
   <data name="создатьГруппуItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="создатьГруппуItem.Text" xml:space="preserve">
     <value>Create a new group</value>
@@ -2184,7 +2190,7 @@
     <value>None</value>
   </data>
   <data name="скрытьВыбранноеItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="скрытьВыбранноеItem.Text" xml:space="preserve">
     <value>Hide selected</value>
@@ -2193,7 +2199,7 @@
     <value>None</value>
   </data>
   <data name="показатьСкрытыеItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="показатьСкрытыеItem.Text" xml:space="preserve">
     <value>Show all hidden</value>
@@ -2202,7 +2208,7 @@
     <value>None</value>
   </data>
   <data name="menuItem_InfoSelectedObjects.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="menuItem_InfoSelectedObjects.Text" xml:space="preserve">
     <value>Selected objects</value>
@@ -2211,7 +2217,7 @@
     <value>None</value>
   </data>
   <data name="menuItem_SetRotPoint.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="menuItem_SetRotPoint.Text" xml:space="preserve">
     <value>Set rotation point</value>
@@ -2220,7 +2226,7 @@
     <value>None</value>
   </data>
   <data name="показатьСопряженныеItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="показатьСопряженныеItem.Text" xml:space="preserve">
     <value>Show paired</value>
@@ -2236,13 +2242,13 @@
     <value>None</value>
   </data>
   <data name="menuItem_DeleteSelectedObjects.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>177, 22</value>
   </data>
   <data name="menuItem_DeleteSelectedObjects.Text" xml:space="preserve">
     <value>Remove selected</value>
   </data>
   <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 180</value>
+    <value>178, 158</value>
   </data>
   <data name="&gt;&gt;contextMenu.Name" xml:space="preserve">
     <value>contextMenu</value>
@@ -2453,6 +2459,12 @@
     <value>создатьОбъемToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;создатьОбъемToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addChamferToolStripMenuItem.Name" xml:space="preserve">
+    <value>addChamferToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addChamferToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;сеткаToolStripMenuItem.Name" xml:space="preserve">

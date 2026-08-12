@@ -165,7 +165,7 @@ namespace BazisGUI
 
                     var fullPath = Path.GetFullPath(args[resInd + 1]);
 
-                    if (project == null) 
+                    if (project == null)
                         throw new Exception(Resources.HandleArgsResultsLoadingWithoutProjectException);
 
                     ResultDbPath = fullPath;
@@ -249,7 +249,7 @@ namespace BazisGUI
                 var transpVal = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
                 settingsConfig.SelectObjectColor = Color.FromArgb(transpVal, settingsConfig.SelectObjectColor);
                 settingsConfig.SelectGroupColor = Color.FromArgb(transpVal, settingsConfig.SelectGroupColor);
-                
+
 
                 //module.ScenePage.NodeColor = settingsConfig.NodeColor;
                 //module.ScenePage.E2DColor = settingsConfig.Elem2DColor;
@@ -318,7 +318,7 @@ namespace BazisGUI
                 {
                     var res = MessageBox.Show(
                         Resources.BazisServerPathMissingMessage,
-                        Localization.Localization.GetAttentionCaption(),MessageBoxButtons.YesNo);
+                        Localization.Localization.GetAttentionCaption(), MessageBoxButtons.YesNo);
 
                     if (res == DialogResult.Yes)
                         StartLisenceForm("");
@@ -530,6 +530,7 @@ namespace BazisGUI
 
         private void UnblockInterface()
         {
+            геометрияToolStripMenuItem.Enabled = true;
             сеткаToolStripMenuItem.Enabled = true;
             dataBasesMenuItem.Enabled = true;
             tasksMenuItem.Enabled = true;
@@ -715,6 +716,11 @@ namespace BazisGUI
                 MessageBox.Show(Localization.Localization.GetErrorWithStackMessage(ex), Localization.Localization.GetErrorCaption());
                 Application.OpenForms["Загрузка"]?.Close();
             }
+        }
+
+        private void addChamferToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
