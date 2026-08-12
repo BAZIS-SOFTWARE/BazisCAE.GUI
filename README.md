@@ -13,13 +13,4 @@
     (Содержит контрол для отображения 2д и 3д компьютерной графики, основанный на интерфейсе OpenGL. Используюется технологоия VBO в дополнении с шейдерными программами.
     Формирование nuget пакета:
     Запустить командную строку windows и затем перейти в дирректорию проекта. Далее выполнить следующее: nuGet pack Scene.csproj -Prop Configuration=Release
-
-gantt
-    title Диаграмма Ганта
-    dateFormat  YYYY-MM-DD
-    section Секция 1
-    Milestone   :milestone, a1, 2014-01-01, 15d
-    Crit        :crit, a2, 2014-01-01, 15d 
-    Active      :active, a3, 2014-01-01, 15d
-    Done        :done, a4, 2014-01-01, 15d
   
