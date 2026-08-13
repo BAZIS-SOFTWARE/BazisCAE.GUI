@@ -104,4 +104,3 @@ classDiagram
 - `SynchronizationContextChamferOperationService` — переходной адаптер, возвращающий запрос на WinForms UI-поток без зависимости от `BaseForm`.
 - `ChamferWindow` и `.axaml` — представление и только оконное поведение: отображение, перетаскивание и закрытие.
 - `ChamferMode` — внутреннее состояние UI; за пределы Chamfer-модуля не передаётся.
-
