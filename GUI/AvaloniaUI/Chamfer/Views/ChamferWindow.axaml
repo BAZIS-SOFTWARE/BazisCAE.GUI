@@ -1,6 +1,9 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        x:Class="BazisGUI.AvaloniaUI.Chamfer.ChamferWindow"
+        xmlns:viewModels="using:BazisGUI.AvaloniaUI.Chamfer.ViewModels"
+        xmlns:models="using:BazisGUI.AvaloniaUI.Chamfer.Models"
+        x:Class="BazisGUI.AvaloniaUI.Chamfer.Views.ChamferWindow"
+        x:DataType="viewModels:ChamferViewModel"
         Title="Добавить фаску"
         Width="352"
         Height="220"
@@ -14,7 +17,7 @@
         WindowStartupLocation="CenterScreen"
         FontFamily="Segoe UI">
   <Window.Styles>
-    <StyleInclude Source="avares://BazisGUI/AvaloniaUI/Chamfer/ChamferStyles.axaml" />
+    <StyleInclude Source="avares://BazisGUI/AvaloniaUI/Chamfer/Views/ChamferStyles.axaml" />
   </Window.Styles>
 
   <Viewbox Stretch="Fill">
@@ -48,54 +51,61 @@
       <Border Grid.Row="1" Background="#F5F5F5" CornerRadius="0,0,7,7">
         <Grid Margin="14,13,14,14" RowDefinitions="33,*,39">
           <Grid Grid.Row="0" ColumnDefinitions="80,97,*">
-            <Button x:Name="AngleTabButton"
-                    Grid.Column="0"
+            <Button Grid.Column="0"
                     Classes="tab"
-                    FontWeight="SemiBold"
+                    Classes.selected="{Binding IsAngleMode}"
                     Content="От угла"
-                    Click="OnAngleTabClick" />
-            <Button x:Name="LengthTabButton"
-                    Grid.Column="1"
+                    Command="{Binding SelectModeCommand}"
+                    CommandParameter="{x:Static models:ChamferMode.Angle}" />
+            <Button Grid.Column="1"
                     Classes="tab"
+                    Classes.selected="{Binding IsLengthsMode}"
                     Content="От длины"
-                    Click="OnLengthTabClick" />
+                    Command="{Binding SelectModeCommand}"
+                    CommandParameter="{x:Static models:ChamferMode.Lengths}" />
             <Border Grid.ColumnSpan="3"
                     Height="1"
                     VerticalAlignment="Bottom"
                     Background="#BEBEBE" />
-            <Border x:Name="AngleUnderline"
-                    Grid.Column="0"
-                    Height="2"
-                    VerticalAlignment="Bottom"
-                    Background="#171717" />
-            <Border x:Name="LengthUnderline"
-                    Grid.Column="1"
-                    Height="2"
-                    Margin="0,0,0,0"
-                    VerticalAlignment="Bottom"
-                    Background="#171717"
-                    IsVisible="False" />
+            <Border Grid.Column="0"
+                    Classes="tabUnderline"
+                    IsVisible="{Binding IsAngleMode}" />
+            <Border Grid.Column="1"
+                    Classes="tabUnderline"
+                    IsVisible="{Binding IsLengthsMode}" />
           </Grid>
 
           <Grid Grid.Row="1" Margin="14,14,14,10">
-            <Grid x:Name="AngleFields" RowDefinitions="31,13,31" ColumnDefinitions="113,*">
+            <Grid RowDefinitions="31,13,31"
+                  ColumnDefinitions="113,*"
+                  IsVisible="{Binding IsAngleMode}">
               <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontSize="14" Text="Длина 1" />
-              <TextBox Grid.Row="0" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left" />
+              <TextBox Grid.Row="0" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left"
+                       Text="{Binding AngleLength, Mode=TwoWay}" />
               <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" FontSize="14" Text="Угол" />
-              <TextBox Grid.Row="2" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left" />
+              <TextBox Grid.Row="2" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left"
+                       Text="{Binding Angle, Mode=TwoWay}" />
             </Grid>
 
-            <Grid x:Name="LengthFields" RowDefinitions="31,13,31" ColumnDefinitions="113,*" IsVisible="False">
+            <Grid RowDefinitions="31,13,31"
+                  ColumnDefinitions="113,*"
+                  IsVisible="{Binding IsLengthsMode}">
               <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontSize="14" Text="Длина 1" />
-              <TextBox Grid.Row="0" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left" />
+              <TextBox Grid.Row="0" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left"
+                       Text="{Binding FirstLength, Mode=TwoWay}" />
               <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" FontSize="14" Text="Длина 2" />
-              <TextBox Grid.Row="2" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left" />
+              <TextBox Grid.Row="2" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left"
+                       Text="{Binding SecondLength, Mode=TwoWay}" />
             </Grid>
           </Grid>
 
           <Grid Grid.Row="2" ColumnDefinitions="*,*">
             <Button Grid.Column="0" Classes="action" HorizontalAlignment="Left" Content="Отразить" />
-            <Button Grid.Column="1" Classes="action" HorizontalAlignment="Right" Content="Добавить" />
+            <Button Grid.Column="1"
+                    Classes="action"
+                    HorizontalAlignment="Right"
+                    Content="Добавить"
+                    Command="{Binding AddCommand}" />
           </Grid>
         </Grid>
       </Border>

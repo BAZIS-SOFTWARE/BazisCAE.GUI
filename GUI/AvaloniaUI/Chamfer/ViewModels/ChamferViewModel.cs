@@ -1,0 +1,93 @@
+using BazisGUI.AvaloniaUI.Chamfer.Models;
+using BazisGUI.AvaloniaUI.Chamfer.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Globalization;
+
+namespace BazisGUI.AvaloniaUI.Chamfer.ViewModels
+{
+    public partial class ChamferViewModel : ObservableObject
+    {
+        private readonly IChamferOperationService operationService;
+        public event EventHandler CloseRequested;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AddCommand))]
+        private string angleLength = string.Empty;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AddCommand))]
+        private string angle = string.Empty;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AddCommand))]
+        private string firstLength = string.Empty;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AddCommand))]
+        private string secondLength = string.Empty;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsAngleMode))]
+        [NotifyPropertyChangedFor(nameof(IsLengthsMode))]
+        [NotifyCanExecuteChangedFor(nameof(AddCommand))]
+        private ChamferMode mode = ChamferMode.Angle;
+
+        public ChamferViewModel(IChamferOperationService operationService)
+        {
+            this.operationService = operationService ?? throw new ArgumentNullException(nameof(operationService));
+        }
+
+        public bool IsAngleMode => Mode == ChamferMode.Angle;
+
+        public bool IsLengthsMode => Mode == ChamferMode.Lengths;
+
+        [RelayCommand]
+        private void SelectMode(ChamferMode mode)
+        {
+            Mode = mode;
+        }
+
+        [RelayCommand(CanExecute = nameof(CanAdd))]
+        private void Add()
+        {
+            if (Mode == ChamferMode.Angle)
+            {
+                if (TryParseNumber(AngleLength, out var length) &&
+                    TryParseNumber(Angle, out var angleValue))
+                {
+                    operationService.AddByAngle(length, angleValue);
+                }
+            }
+            else if (Mode == ChamferMode.Lengths)
+            {
+                if (TryParseNumber(FirstLength, out var length1) &&
+                    TryParseNumber(SecondLength, out var length2))
+                {
+                    operationService.AddByLengths(length1, length2);
+                }
+            }
+            CloseRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        private bool CanAdd()
+        {
+            return Mode == ChamferMode.Angle
+                ? TryParseNumber(AngleLength, out _) && TryParseNumber(Angle, out _)
+                : TryParseNumber(FirstLength, out _) && TryParseNumber(SecondLength, out _);
+        }
+
+        private static bool TryParseNumber(string text, out double value)
+        {
+            if (double.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out value))
+                return true;
+
+            return double.TryParse(
+                text?.Replace(',', '.'),
+                NumberStyles.Float,
+                CultureInfo.InvariantCulture,
+                out value);
+        }
+    }
+}

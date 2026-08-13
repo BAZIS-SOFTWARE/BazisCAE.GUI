@@ -9,6 +9,10 @@
     <Setter Property="Foreground" Value="#171717" />
     <Setter Property="HorizontalContentAlignment" Value="Center" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FontWeight" Value="Normal" />
+  </Style>
+  <Style Selector="Button.tab.selected">
+    <Setter Property="FontWeight" Value="SemiBold" />
   </Style>
   <Style Selector="Button.tab:pointerover /template/ ContentPresenter">
     <Setter Property="Background" Value="Transparent" />
@@ -21,6 +25,12 @@
   <Style Selector="Button.tab:pressed">
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Foreground" Value="#171717" />
+  </Style>
+
+  <Style Selector="Border.tabUnderline">
+    <Setter Property="Height" Value="2" />
+    <Setter Property="VerticalAlignment" Value="Bottom" />
+    <Setter Property="Background" Value="#171717" />
   </Style>
 
   <Style Selector="Button.action">
@@ -69,5 +79,17 @@
     <Setter Property="CornerRadius" Value="0" />
     <Setter Property="FontSize" Value="14" />
     <Setter Property="Foreground" Value="#171717" />
+    <Setter Property="CaretBrush" Value="#171717" />
+    <Setter Property="SelectionBrush" Value="#3399FF" />
+    <Setter Property="SelectionForegroundBrush" Value="White" />
+  </Style>
+  <Style Selector="TextBox.chamferInput:pointerover">
+    <Setter Property="Background" Value="White" />
+    <Setter Property="Foreground" Value="#171717" />
+  </Style>
+  <Style Selector="TextBox.chamferInput:focus">
+    <Setter Property="Background" Value="White" />
+    <Setter Property="Foreground" Value="#171717" />
+    <Setter Property="CaretBrush" Value="#171717" />
   </Style>
 </Styles>

@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Args;
+using BazisGUI.AvaloniaUI.Chamfer.Services;
 using BazisGUI.Properties;
 using BazisGUI.Scene;
 using BazisGUI.Scene.VBO;
@@ -39,6 +40,8 @@ namespace BazisGUI
         public event Action<ObjType, int> OnGroupDeleted;
         public event EventHandler<ChangeMaterialsEventArgs> OnChangeMaterials;
         public event EventHandler<ChangeFunctionsEventArgs> OnChangeFunctions;
+        public event Action<double, double> OnChamferByAngleRequested;
+        public event Action<double, double> OnChamferByLengthsRequested;
 
         Point ScreenMousePosition { get; set; } = new Point(0, 0);
         bool MouseMoveFlag { get; set; }
@@ -720,7 +723,11 @@ namespace BazisGUI
 
         private void addChamferToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new AvaloniaUI.Chamfer.ChamferWindow().Show();
+            var operationService = new SynchronizationContextChamferOperationService(SynchronizationContext.Current, RequestChamferByAngle, RequestChamferByLengths);
+            ChamferWindowService.Show(operationService);
         }
+
+        private void RequestChamferByAngle(double length, double angle) => OnChamferByAngleRequested?.Invoke(length, angle);
+        private void RequestChamferByLengths(double length1, double length2) => OnChamferByLengthsRequested?.Invoke(length1, length2);
     }
 }
