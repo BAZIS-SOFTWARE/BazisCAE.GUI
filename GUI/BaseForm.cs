@@ -40,8 +40,7 @@ namespace BazisGUI
         public event Action<ObjType, int> OnGroupDeleted;
         public event EventHandler<ChangeMaterialsEventArgs> OnChangeMaterials;
         public event EventHandler<ChangeFunctionsEventArgs> OnChangeFunctions;
-        public event Action<double, double> OnChamferByAngleRequested;
-        public event Action<double, double> OnChamferByLengthsRequested;
+
 
         Point ScreenMousePosition { get; set; } = new Point(0, 0);
         bool MouseMoveFlag { get; set; }
@@ -723,11 +722,14 @@ namespace BazisGUI
 
         private void addChamferToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var operationService = new SynchronizationContextChamferOperationService(SynchronizationContext.Current, RequestChamferByAngle, RequestChamferByLengths);
+            SelectedObjects = SelectionType.Curves;
+            var operationService = new SynchronizationContextChamferOperationService(SynchronizationContext.Current, RequestChamferByAngle, RequestChamferByLengths, RequestChamferPreview, RequestClearChamferPreview);
             ChamferWindowService.Show(operationService);
         }
 
-        private void RequestChamferByAngle(double length, double angle) => OnChamferByAngleRequested?.Invoke(length, angle);
-        private void RequestChamferByLengths(double length1, double length2) => OnChamferByLengthsRequested?.Invoke(length1, length2);
+        private void RequestChamferByAngle(double length, double angle, bool reflected) => CreateChamfer(length, angle, true, reflected);
+        private void RequestChamferByLengths(double length1, double length2, bool reflected) => CreateChamfer(length1, length2, false, reflected);
+        private void RequestChamferPreview(double length, double valueSecond, bool isAngle, bool isReflected) => PreviewChamfer(length, valueSecond, isAngle, isReflected);
+        private void RequestClearChamferPreview() => ClearChamferPreview(true);
     }
 }

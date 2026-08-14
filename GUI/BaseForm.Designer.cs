@@ -500,7 +500,7 @@ namespace BazisGUI
             console.HeaderName = "Console";
             console.IsPinndable = false;
             console.Name = "console";
-            console.SessionNumber = 4558;
+            console.SessionNumber = 4709;
             console.UpColor = System.Drawing.Color.Gainsboro;
             console.ConsoleCommandEnteredEvent += ExecuteCommand;
             console.CommandsListRequestedEvent += PrintAllCommands;
@@ -597,23 +597,23 @@ namespace BazisGUI
             // 
             // создатьТочкуToolStripMenuItem
             // 
-            создатьТочкуToolStripMenuItem.Name = "создатьТочкуToolStripMenuItem";
             resources.ApplyResources(создатьТочкуToolStripMenuItem, "создатьТочкуToolStripMenuItem");
+            создатьТочкуToolStripMenuItem.Name = "создатьТочкуToolStripMenuItem";
             // 
             // создатьЛиниюToolStripMenuItem
             // 
-            создатьЛиниюToolStripMenuItem.Name = "создатьЛиниюToolStripMenuItem";
             resources.ApplyResources(создатьЛиниюToolStripMenuItem, "создатьЛиниюToolStripMenuItem");
+            создатьЛиниюToolStripMenuItem.Name = "создатьЛиниюToolStripMenuItem";
             // 
             // создатьПлоскостьToolStripMenuItem
             // 
-            создатьПлоскостьToolStripMenuItem.Name = "создатьПлоскостьToolStripMenuItem";
             resources.ApplyResources(создатьПлоскостьToolStripMenuItem, "создатьПлоскостьToolStripMenuItem");
+            создатьПлоскостьToolStripMenuItem.Name = "создатьПлоскостьToolStripMenuItem";
             // 
             // создатьОбъемToolStripMenuItem
             // 
-            создатьОбъемToolStripMenuItem.Name = "создатьОбъемToolStripMenuItem";
             resources.ApplyResources(создатьОбъемToolStripMenuItem, "создатьОбъемToolStripMenuItem");
+            создатьОбъемToolStripMenuItem.Name = "создатьОбъемToolStripMenuItem";
             // 
             // addChamferToolStripMenuItem
             // 

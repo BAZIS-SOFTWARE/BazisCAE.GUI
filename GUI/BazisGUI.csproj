@@ -41,6 +41,9 @@
     <None Remove="Console\consoleBtn_x16\**" />
     <None Remove="DataBases\Resources\**" />
   </ItemGroup>
+	<ItemGroup>
+		<AvaloniaResource Include="Resources\*.png" />
+	</ItemGroup>
   <ItemGroup>
     <Compile Remove="Localization\ILocalizableHeaderControl.cs" />
     <Compile Remove="Methods\MeshMainMenuEvents.cs" />
@@ -68,7 +71,7 @@
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
-    <PackageReference Include="OperationalController" Version="4.6.7" />
+    <PackageReference Include="OperationalController" Version="4.6.7.2882" />
     <PackageReference Include="PostProc" Version="2.2.1" />
     <PackageReference Include="PreProc" Version="2.5.1" />
     <PackageReference Include="PropertiesCalculator" Version="1.1.2" />
@@ -220,6 +223,7 @@
     <Content Include="IconShort_32.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AvaloniaUI\Documents\" />
     <Folder Include="Projects\" />
   </ItemGroup>
   <ItemGroup>
@@ -239,9 +243,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="BaseForm.resx">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

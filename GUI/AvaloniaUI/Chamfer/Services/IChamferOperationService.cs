@@ -5,8 +5,12 @@ namespace BazisGUI.AvaloniaUI.Chamfer.Services
     /// </summary>
     public interface IChamferOperationService
     {
-        void AddByAngle(double length, double angle);
+        void AddByAngle(double length, double angle, bool isReflected);
 
-        void AddByLengths(double length1, double length2);
+        void AddByLengths(double length1, double length2, bool isReflected);
+
+        void Prewiew(double length, double valueSecond, bool isAngle, bool isReflected);
+
+        void ClearPreview();
     }
 }

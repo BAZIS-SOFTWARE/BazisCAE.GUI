@@ -77,30 +77,44 @@
 
           <Grid Grid.Row="1" Margin="14,14,14,10">
             <Grid RowDefinitions="31,13,31"
-                  ColumnDefinitions="113,*"
+                  ColumnDefinitions="80,*"
                   IsVisible="{Binding IsAngleMode}">
               <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontSize="14" Text="Длина 1" />
-              <TextBox Grid.Row="0" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left"
+              <TextBox Grid.Row="0" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Stretch"
                        Text="{Binding AngleLength, Mode=TwoWay}" />
               <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" FontSize="14" Text="Угол" />
-              <TextBox Grid.Row="2" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left"
+              <TextBox Grid.Row="2" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Stretch"
                        Text="{Binding Angle, Mode=TwoWay}" />
             </Grid>
 
             <Grid RowDefinitions="31,13,31"
-                  ColumnDefinitions="113,*"
+                  ColumnDefinitions="80,*"
                   IsVisible="{Binding IsLengthsMode}">
               <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontSize="14" Text="Длина 1" />
-              <TextBox Grid.Row="0" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left"
+              <TextBox Grid.Row="0" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Stretch"
                        Text="{Binding FirstLength, Mode=TwoWay}" />
               <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" FontSize="14" Text="Длина 2" />
-              <TextBox Grid.Row="2" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Left"
+              <TextBox Grid.Row="2" Grid.Column="1" Classes="chamferInput" HorizontalAlignment="Stretch"
                        Text="{Binding SecondLength, Mode=TwoWay}" />
             </Grid>
           </Grid>
 
           <Grid Grid.Row="2" ColumnDefinitions="*,*">
-            <Button Grid.Column="0" Classes="action" HorizontalAlignment="Left" Content="Отразить" />
+              <Button Grid.Column="0"
+                      Classes="reverse"
+                      HorizontalAlignment="Left"
+                      ToolTip.Tip="Отразить фаску"
+                      Command="{Binding ReflectCommand}">
+                  <Image Source="/Resources/reverse.png"
+                         Width="19"
+                         Height="8"
+                         RenderTransformOrigin="50%,50%">
+                      <Image.RenderTransform>
+                          <ScaleTransform ScaleX="{Binding ReflectScaleX}"
+                                          ScaleY="1"/>
+                      </Image.RenderTransform>
+                  </Image>
+              </Button>
             <Button Grid.Column="1"
                     Classes="action"
                     HorizontalAlignment="Right"

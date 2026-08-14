@@ -34,6 +34,7 @@ namespace BazisGUI.AvaloniaUI.Chamfer.Services
 
                 viewModel.CloseRequested += (_, _) => window.Close();
 
+                window.Closed += (_, _) => operationService.ClearPreview();
                 window.Show();
             });
         }
