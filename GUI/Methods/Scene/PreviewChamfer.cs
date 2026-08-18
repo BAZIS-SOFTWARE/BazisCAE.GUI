@@ -50,10 +50,9 @@ namespace BazisGUI
                     var edgeEnd = ToPoint3D(project.GmshController.Gmsh.Model.GetValue(1, curveTag, new[] { maximum[0] }));
                     var edgeMiddle = ToPoint3D(project.GmshController.Gmsh.Model.GetValue(1, curveTag, new[] { middleParameter }));
                     var tangent = Normalize(edgeEnd.Sub(edgeStart), $"Кривая {curveTag} имеет нулевую длину.");
-                    
-                    var secondLength = isByAngle ? CalculateSecondLength() : secondValue;
-                    var firstDirection = GetOffsetDirection(surfaceTags[0]);
-                    var secondDirection = GetOffsetDirection(surfaceTags[1]);
+                    var secondLength = isByAngle ? CalculateSecondLength(length, secondValue, edgeMiddle, surfaceTags, volumeTag) : secondValue;
+                    var firstDirection = GetOffsetDirection(surfaceTags[0], volumeTag, edgeMiddle, tangent);
+                    var secondDirection = GetOffsetDirection(surfaceTags[1], volumeTag, edgeMiddle, tangent);
                     var firstOffset = firstDirection.Mult((float)(reflected ? secondLength : length));
                     var secondOffset = secondDirection.Mult((float)(reflected ? length : secondLength));
                     var firstStart = edgeStart.Sum(firstOffset);
@@ -65,115 +64,114 @@ namespace BazisGUI
                     segments.Add(new Segment3D(secondStart, secondEnd));
                     segments.Add(new Segment3D(firstStart, secondStart));
                     segments.Add(new Segment3D(firstEnd, secondEnd));
-
-                    // Возвращает внешнюю нормаль поверхности в точке (нормаль нормализована и ориентирована наружу относительно объёма).
-                    double[] GetOutwardNormal(int surfaceTag, int volumeTag, double[] point)
-                    {
-                        var parameters = project.GmshController.Gmsh.Model.GetParametrization(2, surfaceTag, point);
-                        var normal = project.GmshController.Gmsh.Model.GetNormal(surfaceTag, parameters);
-                        if (normal.Length != 3)
-                            throw new InvalidOperationException($"Не удалось получить нормаль поверхности {surfaceTag}.");
-
-                        var length = Math.Sqrt(normal.Sum(component => component * component));
-                        if (!double.IsFinite(length) || length == 0)
-                            throw new InvalidOperationException($"Поверхность {surfaceTag} имеет некорректную нормаль.");
-
-                        var orientation = GetSurfaceOrientation(volumeTag, surfaceTag);
-                        return normal.Select(component => orientation * component / length).ToArray();
-                    }
-
-                    // Возвращает ориентацию поверхности (1 или -1) относительно границы указанного объёма.
-                    int GetSurfaceOrientation(int volumeTag, int surfaceTag)
-                    {
-                        var boundary = project.GmshController.Gmsh.Model.GetBoundary(new[] { 3, volumeTag }, oriented: true);
-                        for (var index = 1; index < boundary.Length; index += 2)
-                        {
-                            if (Math.Abs(boundary[index]) == surfaceTag)
-                                return Math.Sign(boundary[index]);
-                        }
-
-                        throw new InvalidOperationException($"Поверхность {surfaceTag} не найдена на границе объёма {volumeTag}.");
-                    }
-
-                    // Вычисляет направление смещения (вдоль ребра) для поверхности: вектор, лежащий в касательной к поверхности,
-                    // ортогональный тангенте ребра и направленный к центру поверхности.
-                    Point3D GetOffsetDirection(int surfaceTag)
-                    {
-                        var normal = ToPoint3D(GetOutwardNormal(surfaceTag,volumeTag, new[] { (double)edgeMiddle._x, edgeMiddle._y, edgeMiddle._z }));
-                        var direction = Normalize( Vector.CrossProd(normal, tangent), $"Не удалось определить направление смещения на поверхности {surfaceTag}.");
-                        var (X,Y,Z) = project.GmshController.Gmsh.Model.Occ.GetCenterOfMass(2, surfaceTag);
-                        var toSurfaceCenter = new Point3D((float)X - edgeMiddle._x, (float)Y - edgeMiddle._y, (float)Z - edgeMiddle._z);
-
-                        return Vector.DotProd(direction, toSurfaceCenter) < 0 ? direction.Mult(-1) : direction;
-                    }
-
-                    double CalculateSecondLength()
-                    {
-                        if (!double.IsFinite(secondValue) || secondValue <= 0 || secondValue >= 180)
-                            throw new ArgumentOutOfRangeException(
-                                nameof(secondValue),
-                                "Угол фаски должен находиться в диапазоне от 0° до 180°.");
-
-                        var point = new[]
-                        {
-                            (double)edgeMiddle._x,
-                            edgeMiddle._y,
-                            edgeMiddle._z
-                        };
-                        var firstNormal = GetOutwardNormal(surfaceTags[0], volumeTag, point);
-                        var secondNormal =  GetOutwardNormal(surfaceTags[1], volumeTag, point);
-                        var dotProduct = firstNormal[0] * secondNormal[0] + firstNormal[1] * secondNormal[1] + firstNormal[2] * secondNormal[2];
-                        var normalsAngle = Math.Acos(Math.Clamp(dotProduct, -1.0, 1.0));
-                        var surfaceAngle = Math.PI - normalsAngle;
-
-                        if (surfaceAngle <= 0 || surfaceAngle >= Math.PI)
-                            throw new InvalidOperationException(
-                                "Не удалось определить корректный угол между смежными поверхностями.");
-
-                        var chamferAngle = secondValue * Math.PI / 180.0;
-                        if (surfaceAngle + chamferAngle >= Math.PI)
-                            throw new ArgumentOutOfRangeException(
-                                nameof(secondValue),
-                                $"Для угла между поверхностями {surfaceAngle * 180.0 / Math.PI:F3}° " +
-                                $"угол фаски должен быть меньше {180.0 - surfaceAngle * 180.0 / Math.PI:F3}°.");
-
-                        var calculatedLength = length
-                            * Math.Sin(chamferAngle)
-                            / Math.Sin(surfaceAngle + chamferAngle);
-
-                        if (!double.IsFinite(calculatedLength) || calculatedLength <= 0)
-                            throw new ArgumentOutOfRangeException(
-                                nameof(secondValue),
-                                "Рассчитанная длина фаски должна быть конечным положительным числом.");
-
-                        return calculatedLength;
-                    }
                 }
 
                 DisplayChamferPreview(segments.ToArray());
-
-                Point3D ToPoint3D(double[] coordinates)
-                {
-                    if (coordinates == null || coordinates.Length != 3)
-                        throw new InvalidOperationException("Ядро вернуло некорректные координаты геометрии.");
-
-                    return new Point3D((float)coordinates[0], (float)coordinates[1], (float)coordinates[2]);
-                }
-
-                Point3D Normalize(Point3D vector, string errorMessage)
-                {
-                    var vectorLength = Vector.GetVectorLength(vector);
-                    if (!float.IsFinite(vectorLength) || vectorLength == 0)
-                        throw new InvalidOperationException(errorMessage);
-
-                    return vector.Mult(1.0f / vectorLength);
-                }
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
                 RequestClearChamferPreview();
             }
+        }
+
+        private double[] GetOutwardNormal(int surfaceTag, int volumeTag, double[] point)
+        {
+            var parameters = project.GmshController.Gmsh.Model.GetParametrization(2, surfaceTag, point);
+            var normal = project.GmshController.Gmsh.Model.GetNormal(surfaceTag, parameters);
+            if (normal.Length != 3)
+                throw new InvalidOperationException($"Не удалось получить нормаль поверхности {surfaceTag}.");
+
+            var length = Math.Sqrt(normal.Sum(component => component * component));
+            if (!double.IsFinite(length) || length == 0)
+                throw new InvalidOperationException($"Поверхность {surfaceTag} имеет некорректную нормаль.");
+
+            var orientation = GetSurfaceOrientation(volumeTag, surfaceTag);
+            return normal.Select(component => orientation * component / length).ToArray();
+        }
+
+        private int GetSurfaceOrientation(int volumeTag, int surfaceTag)
+        {
+            var boundary = project.GmshController.Gmsh.Model.GetBoundary(new[] { 3, volumeTag }, oriented: true);
+            for (var index = 1; index < boundary.Length; index += 2)
+            {
+                if (Math.Abs(boundary[index]) == surfaceTag)
+                    return Math.Sign(boundary[index]);
+            }
+
+            throw new InvalidOperationException($"Поверхность {surfaceTag} не найдена на границе объёма {volumeTag}.");
+        }
+
+        private Point3D GetOffsetDirection(int surfaceTag, int volumeTag, Point3D edgeMiddle, Point3D tangent)
+        {
+            var point = new[] { (double)edgeMiddle._x, edgeMiddle._y, edgeMiddle._z };
+            var outwardNormal = ToPoint3D(GetOutwardNormal(surfaceTag, volumeTag, point));
+            var direction = Normalize(
+                Vector.CrossProd(outwardNormal, tangent),
+                $"Не удалось определить направление смещения на поверхности {surfaceTag}.");
+            var (x, y, z) = project.GmshController.Gmsh.Model.Occ.GetCenterOfMass(2, surfaceTag);
+            var toSurfaceCenter = new Point3D(
+                (float)x - edgeMiddle._x,
+                (float)y - edgeMiddle._y,
+                (float)z - edgeMiddle._z);
+
+            return Vector.DotProd(direction, toSurfaceCenter) < 0 ? direction.Mult(-1) : direction;
+        }
+
+        private double CalculateSecondLength(double firstLength, double angleInDegrees, Point3D edgeMiddle, int[] surfaceTags, int volumeTag)
+        {
+            if (!double.IsFinite(angleInDegrees) || angleInDegrees <= 0 || angleInDegrees >= 180)
+                throw new ArgumentOutOfRangeException(
+                    nameof(angleInDegrees),
+                    "Угол фаски должен находиться в диапазоне от 0° до 180°.");
+
+            var point = new[] { (double)edgeMiddle._x, edgeMiddle._y, edgeMiddle._z };
+            var firstNormal = GetOutwardNormal(surfaceTags[0], volumeTag, point);
+            var secondNormal = GetOutwardNormal(surfaceTags[1], volumeTag, point);
+            var dotProduct = firstNormal[0] * secondNormal[0]
+                + firstNormal[1] * secondNormal[1]
+                + firstNormal[2] * secondNormal[2];
+            var normalsAngle = Math.Acos(Math.Clamp(dotProduct, -1.0, 1.0));
+            var surfaceAngle = Math.PI - normalsAngle;
+
+            if (surfaceAngle <= 0 || surfaceAngle >= Math.PI)
+                throw new InvalidOperationException(
+                    "Не удалось определить корректный угол между смежными поверхностями.");
+
+            var chamferAngle = angleInDegrees * Math.PI / 180.0;
+            if (surfaceAngle + chamferAngle >= Math.PI)
+                throw new ArgumentOutOfRangeException(
+                    nameof(angleInDegrees),
+                    $"Для угла между поверхностями {surfaceAngle * 180.0 / Math.PI:F3}° " +
+                    $"угол фаски должен быть меньше {180.0 - surfaceAngle * 180.0 / Math.PI:F3}°.");
+
+            var calculatedLength = firstLength
+                * Math.Sin(chamferAngle)
+                / Math.Sin(surfaceAngle + chamferAngle);
+
+            if (!double.IsFinite(calculatedLength) || calculatedLength <= 0)
+                throw new ArgumentOutOfRangeException(
+                    nameof(angleInDegrees),
+                    "Рассчитанная длина фаски должна быть конечным положительным числом.");
+
+            return calculatedLength;
+        }
+
+        private Point3D ToPoint3D(double[] coordinates)
+        {
+            if (coordinates == null || coordinates.Length != 3)
+                throw new InvalidOperationException("Ядро вернуло некорректные координаты геометрии.");
+
+            return new Point3D((float)coordinates[0], (float)coordinates[1], (float)coordinates[2]);
+        }
+
+        private Point3D Normalize(Point3D vector, string errorMessage)
+        {
+            var vectorLength = Vector.GetVectorLength(vector);
+            if (!float.IsFinite(vectorLength) || vectorLength == 0)
+                throw new InvalidOperationException(errorMessage);
+
+            return vector.Mult(1.0f / vectorLength);
         }
 
         private void DisplayChamferPreview(Segment3D[] segments)
