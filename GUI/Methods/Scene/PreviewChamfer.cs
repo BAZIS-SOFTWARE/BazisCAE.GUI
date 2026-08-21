@@ -36,19 +36,19 @@ namespace BazisGUI
                             $"Для построения фаски соседние поверхности должны принадлежать одному общему объёму. Найдено: {commonVolumes.Length}.");
 
                     var volumeTag = commonVolumes[0];
-                    var curveType = project.GmshController.Gmsh.Model.GetType(1, curveTag);
+                    var curveType = project.GetType(1, curveTag);
                     if (!curveType.Contains("Line", StringComparison.OrdinalIgnoreCase))
                         throw new NotSupportedException(
                             "Линейный предпросмотр фаски поддерживается только для прямолинейных кривых.");
 
-                    var (minimum, maximum) = project.GmshController.Gmsh.Model.GetParametrizationBounds(1, curveTag);
+                    var (minimum, maximum) = project.GetParametrizationBounds(1, curveTag);
                     if (minimum.Length == 0 || maximum.Length == 0)
                         throw new InvalidOperationException("Не удалось получить параметризацию кривой.");
 
                     var middleParameter = (minimum[0] + maximum[0]) / 2.0;
-                    var edgeStart = ToPoint3D(project.GmshController.Gmsh.Model.GetValue(1, curveTag, new[] { minimum[0] }));
-                    var edgeEnd = ToPoint3D(project.GmshController.Gmsh.Model.GetValue(1, curveTag, new[] { maximum[0] }));
-                    var edgeMiddle = ToPoint3D(project.GmshController.Gmsh.Model.GetValue(1, curveTag, new[] { middleParameter }));
+                    var edgeStart = ToPoint3D(project.GetGeoObjPoints(1, curveTag, new[] { minimum[0] }));
+                    var edgeEnd = ToPoint3D(project.GetGeoObjPoints(1, curveTag, new[] { maximum[0] }));
+                    var edgeMiddle = ToPoint3D(project.GetGeoObjPoints(1, curveTag, new[] { middleParameter }));
                     var tangent = Normalize(edgeEnd.Sub(edgeStart), $"Кривая {curveTag} имеет нулевую длину.");
                     var secondLength = isByAngle ? CalculateSecondLength(length, secondValue, edgeMiddle, surfaceTags, volumeTag) : secondValue;
                     var firstDirection = GetOffsetDirection(surfaceTags[0], volumeTag, edgeMiddle, tangent);
@@ -92,7 +92,7 @@ namespace BazisGUI
 
         private int GetSurfaceOrientation(int volumeTag, int surfaceTag)
         {
-            var boundary = project.GmshController.Gmsh.Model.GetBoundary(new[] { 3, volumeTag }, oriented: true);
+            var boundary = project.GetBoundary(new[] { 3, volumeTag }, oriented: true);
             for (var index = 1; index < boundary.Length; index += 2)
             {
                 if (Math.Abs(boundary[index]) == surfaceTag)
@@ -109,7 +109,7 @@ namespace BazisGUI
             var direction = Normalize(
                 Vector.CrossProd(outwardNormal, tangent),
                 $"Не удалось определить направление смещения на поверхности {surfaceTag}.");
-            var (x, y, z) = project.GmshController.Gmsh.Model.Occ.GetCenterOfMass(2, surfaceTag);
+            var (x, y, z) = project.GetCenterOfMass(2, surfaceTag);
             var toSurfaceCenter = new Point3D(
                 (float)x - edgeMiddle._x,
                 (float)y - edgeMiddle._y,
