@@ -72,7 +72,7 @@ namespace BazisGUI
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
-                RequestClearChamferPreview();
+                ClearChamferPreview(true);
             }
         }
 

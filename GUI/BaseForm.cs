@@ -725,12 +725,26 @@ namespace BazisGUI
             SelectedObjects = SelectionType.Curves;
             var operationService = new SynchronizationContextChamferOperationService(SynchronizationContext.Current, RequestChamferByAngle, RequestChamferByLengths, RequestChamferPreview, RequestClearChamferPreview);
             ChamferWindowService.Show(operationService);
-            OnChangeSelectedObjectsEvent += (_) => operationService.ReapplyLastPreview();
         }
+
+        /// <summary>
+        /// Действие, выполняемое после изменения выбора на сцене.
+        /// <c>null</c>, если дополнительное обновление сцены не требуется.
+        /// </summary>
+        private Action sceneSelectionChangedAction;
 
         private void RequestChamferByAngle(double length, double angle, bool reflected) => CreateChamfer(length, angle, true, reflected);
         private void RequestChamferByLengths(double length1, double length2, bool reflected) => CreateChamfer(length1, length2, false, reflected);
-        private void RequestChamferPreview(double length, double valueSecond, bool isAngle, bool isReflected) => PreviewChamfer(length, valueSecond, isAngle, isReflected);
-        private void RequestClearChamferPreview() => ClearChamferPreview(true);
+        private void RequestChamferPreview(double length, double valueSecond, bool isAngle, bool isReflected)
+        {
+            sceneSelectionChangedAction = () => PreviewChamfer(length, valueSecond, isAngle, isReflected);
+            sceneSelectionChangedAction();
+        }
+
+        private void RequestClearChamferPreview()
+        {
+            sceneSelectionChangedAction = null;
+            ClearChamferPreview(true);
+        }
     }
 }
