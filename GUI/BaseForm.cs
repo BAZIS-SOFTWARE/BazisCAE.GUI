@@ -725,11 +725,29 @@ namespace BazisGUI
             if(addChamferToolStripMenuItem.Checked)
             {
                 SelectedObjects = SelectionType.Curves;
-                var operationService = new SynchronizationContextChamferOperationService(SynchronizationContext.Current, RequestChamferByAngle, RequestChamferByLengths, RequestChamferPreview, RequestClearChamferPreview);
-                ChamferWindowService.Show(operationService);
+                var synchronizationContext = SynchronizationContext.Current;
+                var operationService = new SynchronizationContextChamferOperationService(synchronizationContext, RequestChamferByAngle, RequestChamferByLengths, RequestChamferPreview, RequestClearChamferPreview);
+                ChamferWindowService.Show(operationService, () => synchronizationContext.Post(_ => OnChamferWindowClosed(), null));
             }
             else
                 ChamferWindowService.Close();
+        }
+
+        /// <summary>
+        /// Приводит состояние пункта меню построения фаски в соответствие с фактическим состоянием окна.
+        /// </summary>
+        /// <remarks>
+        /// Вызывается после закрытия окна любым способом: как по команде <see cref="ChamferWindowService.Close"/>,
+        /// так и при закрытии окна самим пользователем. Программное снятие флажка не вызывает событие
+        /// <see cref="ToolStripItem.Click"/>, поэтому повторного закрытия окна не происходит.
+        /// Выполняется в UI-потоке WinForms.
+        /// </remarks>
+        private void OnChamferWindowClosed()
+        {
+            if (IsDisposed || Disposing)
+                return;
+
+            addChamferToolStripMenuItem.Checked = false;
         }
 
         /// <summary>
