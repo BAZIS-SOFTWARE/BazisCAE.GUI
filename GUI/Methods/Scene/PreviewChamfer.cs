@@ -5,12 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private const string ChamferPreviewName = "ChamferPreview";
+        // These are CPU-side preview data only. They are rendered from DisplayObjects
+        // while the OpenGL context is current.
+        private Segment3D[] chamferPreviewSegments = Array.Empty<Segment3D>();
 
         private void PreviewChamfer(double length, double secondValue, bool isByAngle, bool reflected)
         {
@@ -67,7 +70,7 @@ namespace BazisGUI
                     segments.Add(new Segment3D(firstEnd, secondEnd));
                 }
 
-                DisplayChamferPreview(segments.ToArray());
+                UpdateChamferPreview(segments.ToArray());
             }
             catch (Exception ex)
             {
@@ -176,63 +179,38 @@ namespace BazisGUI
             return vector.Mult(1.0f / vectorLength);
         }
 
-        private void DisplayChamferPreview(Segment3D[] segments)
+        private void UpdateChamferPreview(Segment3D[] segments)
         {
-            // Создание/удаление VBO должно выполняться в потоке WinForms/GL.
             if (InvokeRequired)
             {
-                BeginInvoke(new Action(
-                    () => DisplayChamferPreview(segments)));
-
+                BeginInvoke(new Action(() => UpdateChamferPreview(segments)));
                 return;
             }
 
-            ClearChamferPreview(redraw: false);
-
-            if (segments == null || segments.Length == 0)
-            {
-                DisplayObjects();
-                return;
-            }
-
-            // GL.Lines воспринимает каждую пару вершин как отдельный отрезок.
-            float[] coordinates = segments
-                .SelectMany(segment => new[]
-                {
-                    segment.P0._x,
-                    segment.P0._y,
-                    segment.P0._z,
-
-                    segment.P1._x,
-                    segment.P1._y,
-                    segment.P1._z
-                })
-                .ToArray();
-
-            int vertexCount = coordinates.Length / 3;
-
-            int[] indices = Enumerable
-                .Range(0, vertexCount)
-                .ToArray();
-
-            // Чёрный цвет RGBA для каждой вершины.
-            float[] colors = Enumerable
-                .Range(0, vertexCount)
-                .SelectMany(_ => new[] {0.0f,0.0f,0.0f, 1.0f})
-                .ToArray();
-
-            // LineObjects нормали не использует, но конструктор их ожидает.
-            float[] normals = new float[vertexCount * 3];
-
-            var previewVbo = VBOController.CreateLineVBObjects(indices, coordinates, colors, normals, Array.Empty<bool>(), ChamferPreviewName);
-
-            previewVbo.Gl_LineWidth = 3.0f;
-
-            // Необходимо для существующего режима усреднённого рендера.
-            previewVbo.ActiveDrawingObject = averageColorRenderer.IsEnable ? averageColorRenderer : null;
-
-            VBOController.AddVbo(previewVbo);
+            chamferPreviewSegments = segments ?? Array.Empty<Segment3D>();
             DisplayObjects();
+        }
+
+        /// <summary>
+        /// Draws the current chamfer preview as immediate-mode OpenGL lines.
+        /// Must be called from the regular OpenGL render pass.
+        /// </summary>
+        private void DisplayChamferPreview()
+        {
+            if (chamferPreviewSegments.Length == 0)
+                return;
+
+            GL.Color4(0.0f, 0.0f, 0.0f, 1.0f);
+            GL.LineWidth(3.0f);
+            GL.Begin(PrimitiveType.Lines);
+
+            foreach (var segment in chamferPreviewSegments)
+            {
+                GL.Vertex3(segment.P0._x, segment.P0._y, segment.P0._z);
+                GL.Vertex3(segment.P1._x, segment.P1._y, segment.P1._z);
+            }
+
+            GL.End();
         }
     }
 }

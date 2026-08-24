@@ -1,4 +1,5 @@
 ﻿using Model.Interfaces;
+using Geometry;
 using OperationalController.GeomObjsCreator;
 using System;
 using System.Drawing;
@@ -31,9 +32,13 @@ namespace BazisGUI
 
         private void ClearChamferPreview(bool redraw = true)
         {
-            const string ChamferPreviewName = "ChamferPreview";
-            if (!VBOController.DeleteVBObjects(ChamferPreviewName))
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(() => ClearChamferPreview(redraw)));
                 return;
+            }
+
+            chamferPreviewSegments = Array.Empty<Segment3D>();
 
             if (redraw)
                 DisplayObjects();
