@@ -188,6 +188,8 @@ namespace BazisGUI
             }
 
             chamferPreviewSegments = segments ?? Array.Empty<Segment3D>();
+            DisplayGeometryObjectEvent -= DisplayChamferPreview;
+            DisplayGeometryObjectEvent += DisplayChamferPreview;
             DisplayObjects();
         }
 
@@ -200,6 +202,8 @@ namespace BazisGUI
             if (chamferPreviewSegments.Length == 0)
                 return;
 
+            GL.PushMatrix();
+            GL.Translate(-Position._x, -Position._y, -Position._z);
             GL.Color4(0.0f, 0.0f, 0.0f, 1.0f);
             GL.LineWidth(3.0f);
             GL.Begin(PrimitiveType.Lines);
@@ -211,6 +215,7 @@ namespace BazisGUI
             }
 
             GL.End();
+            GL.PopMatrix();
         }
     }
 }

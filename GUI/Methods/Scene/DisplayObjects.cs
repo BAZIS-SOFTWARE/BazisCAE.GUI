@@ -187,8 +187,6 @@ namespace BazisGUI
                 GL.PopMatrix();
             }
 
-            DisplayChamferPreview();
-
             GL.Disable(EnableCap.Blend);
             GL.Disable(EnableCap.CullFace);
             GL.Disable(EnableCap.ColorMaterial);
