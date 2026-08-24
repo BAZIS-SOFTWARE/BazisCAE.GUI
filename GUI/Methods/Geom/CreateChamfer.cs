@@ -19,6 +19,7 @@ namespace BazisGUI
                 CreateVBObjects("Объекты");
                 PresentMeshData();
                 DisplayObjects();
+                PresentGeoData();
             }
             catch (Exception ex) 
             {
