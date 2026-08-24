@@ -2053,4 +2053,26 @@ Create variable?</value>
   <data name="FailedCreateGeometry" xml:space="preserve">
     <value>Failed to create geometry</value>
   </data>
+  <data name="ChamferPreview_CurveMustBelongToTwoSurfaces" xml:space="preserve"><value>To create a chamfer, a curve must belong to two surfaces. Found: {0}.</value></data>
+  <data name="ChamferPreview_SurfacesMustBelongToOneVolume" xml:space="preserve"><value>To create a chamfer, adjacent surfaces must belong to one common volume. Found: {0}.</value></data>
+  <data name="ChamferPreview_OnlyStraightCurvesSupported" xml:space="preserve"><value>Linear chamfer preview is supported only for straight curves.</value></data>
+  <data name="ChamferPreview_CurveParametrizationUnavailable" xml:space="preserve"><value>Failed to obtain curve parametrization.</value></data>
+  <data name="ChamferPreview_CurveHasZeroLength" xml:space="preserve"><value>Curve {0} has zero length.</value></data>
+  <data name="ChamferPreview_SurfaceNormalUnavailable" xml:space="preserve"><value>Failed to obtain normal for surface {0}.</value></data>
+  <data name="ChamferPreview_SurfaceHasInvalidNormal" xml:space="preserve"><value>Surface {0} has an invalid normal.</value></data>
+  <data name="ChamferPreview_SurfaceNotOnVolumeBoundary" xml:space="preserve"><value>Surface {0} was not found on the boundary of volume {1}.</value></data>
+  <data name="ChamferPreview_OffsetDirectionUnavailable" xml:space="preserve"><value>Failed to determine offset direction on surface {0}.</value></data>
+  <data name="ChamferPreview_AngleOutOfRange" xml:space="preserve"><value>Chamfer angle must be between 0° and 180°.</value></data>
+  <data name="ChamferPreview_InvalidSurfaceAngle" xml:space="preserve"><value>Failed to determine a valid angle between adjacent surfaces.</value></data>
+  <data name="ChamferPreview_AngleMustBeLessThan" xml:space="preserve"><value>For a {0:F3}° angle between surfaces, the chamfer angle must be less than {1:F3}°.</value></data>
+  <data name="ChamferPreview_CalculatedLengthMustBePositive" xml:space="preserve"><value>Calculated chamfer length must be a finite positive number.</value></data>
+  <data name="ChamferPreview_InvalidGeometryCoordinates" xml:space="preserve"><value>The geometry kernel returned invalid coordinates.</value></data>
+  <data name="ChamferWindow_Title" xml:space="preserve"><value>Add chamfer</value></data>
+  <data name="ChamferWindow_AngleModeTab" xml:space="preserve"><value>By angle</value></data>
+  <data name="ChamferWindow_LengthsModeTab" xml:space="preserve"><value>By length</value></data>
+  <data name="ChamferWindow_FirstLength" xml:space="preserve"><value>Length 1</value></data>
+  <data name="ChamferWindow_SecondLength" xml:space="preserve"><value>Length 2</value></data>
+  <data name="ChamferWindow_Angle" xml:space="preserve"><value>Angle</value></data>
+  <data name="ChamferWindow_ReflectTooltip" xml:space="preserve"><value>Reflect chamfer</value></data>
+  <data name="ChamferWindow_AddButton" xml:space="preserve"><value>Add</value></data>
 </root>

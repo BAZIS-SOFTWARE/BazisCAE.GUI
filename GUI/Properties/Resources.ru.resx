@@ -2053,4 +2053,26 @@
   <data name="FailedCreateGeometry" xml:space="preserve">
     <value>Не удалось создать геометрию</value>
   </data>
+  <data name="ChamferPreview_CurveMustBelongToTwoSurfaces" xml:space="preserve"><value>Для построения фаски кривая должна принадлежать двум поверхностям. Найдено: {0}.</value></data>
+  <data name="ChamferPreview_SurfacesMustBelongToOneVolume" xml:space="preserve"><value>Для построения фаски соседние поверхности должны принадлежать одному общему объёму. Найдено: {0}.</value></data>
+  <data name="ChamferPreview_OnlyStraightCurvesSupported" xml:space="preserve"><value>Линейный предпросмотр фаски поддерживается только для прямолинейных кривых.</value></data>
+  <data name="ChamferPreview_CurveParametrizationUnavailable" xml:space="preserve"><value>Не удалось получить параметризацию кривой.</value></data>
+  <data name="ChamferPreview_CurveHasZeroLength" xml:space="preserve"><value>Кривая {0} имеет нулевую длину.</value></data>
+  <data name="ChamferPreview_SurfaceNormalUnavailable" xml:space="preserve"><value>Не удалось получить нормаль поверхности {0}.</value></data>
+  <data name="ChamferPreview_SurfaceHasInvalidNormal" xml:space="preserve"><value>Поверхность {0} имеет некорректную нормаль.</value></data>
+  <data name="ChamferPreview_SurfaceNotOnVolumeBoundary" xml:space="preserve"><value>Поверхность {0} не найдена на границе объёма {1}.</value></data>
+  <data name="ChamferPreview_OffsetDirectionUnavailable" xml:space="preserve"><value>Не удалось определить направление смещения на поверхности {0}.</value></data>
+  <data name="ChamferPreview_AngleOutOfRange" xml:space="preserve"><value>Угол фаски должен находиться в диапазоне от 0° до 180°.</value></data>
+  <data name="ChamferPreview_InvalidSurfaceAngle" xml:space="preserve"><value>Не удалось определить корректный угол между смежными поверхностями.</value></data>
+  <data name="ChamferPreview_AngleMustBeLessThan" xml:space="preserve"><value>Для угла между поверхностями {0:F3}° угол фаски должен быть меньше {1:F3}°.</value></data>
+  <data name="ChamferPreview_CalculatedLengthMustBePositive" xml:space="preserve"><value>Рассчитанная длина фаски должна быть конечным положительным числом.</value></data>
+  <data name="ChamferPreview_InvalidGeometryCoordinates" xml:space="preserve"><value>Ядро вернуло некорректные координаты геометрии.</value></data>
+  <data name="ChamferWindow_Title" xml:space="preserve"><value>Добавить фаску</value></data>
+  <data name="ChamferWindow_AngleModeTab" xml:space="preserve"><value>От угла</value></data>
+  <data name="ChamferWindow_LengthsModeTab" xml:space="preserve"><value>От длины</value></data>
+  <data name="ChamferWindow_FirstLength" xml:space="preserve"><value>Длина 1</value></data>
+  <data name="ChamferWindow_SecondLength" xml:space="preserve"><value>Длина 2</value></data>
+  <data name="ChamferWindow_Angle" xml:space="preserve"><value>Угол</value></data>
+  <data name="ChamferWindow_ReflectTooltip" xml:space="preserve"><value>Отразить фаску</value></data>
+  <data name="ChamferWindow_AddButton" xml:space="preserve"><value>Добавить</value></data>
 </root>

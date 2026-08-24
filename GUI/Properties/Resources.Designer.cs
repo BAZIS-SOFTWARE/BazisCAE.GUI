@@ -5196,6 +5196,16 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap reverse {
+            get {
+                object obj = ResourceManager.GetObject("reverse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на .
         /// </summary>
         internal static string rtxbField_Text {
@@ -6402,6 +6412,50 @@ namespace BazisGUI.Properties {
             }
         }
         
+        internal static string ChamferPreview_CurveMustBelongToTwoSurfaces => ResourceManager.GetString("ChamferPreview_CurveMustBelongToTwoSurfaces", resourceCulture);
+
+        internal static string ChamferPreview_SurfacesMustBelongToOneVolume => ResourceManager.GetString("ChamferPreview_SurfacesMustBelongToOneVolume", resourceCulture);
+
+        internal static string ChamferPreview_OnlyStraightCurvesSupported => ResourceManager.GetString("ChamferPreview_OnlyStraightCurvesSupported", resourceCulture);
+
+        internal static string ChamferPreview_CurveParametrizationUnavailable => ResourceManager.GetString("ChamferPreview_CurveParametrizationUnavailable", resourceCulture);
+
+        internal static string ChamferPreview_CurveHasZeroLength => ResourceManager.GetString("ChamferPreview_CurveHasZeroLength", resourceCulture);
+
+        internal static string ChamferPreview_SurfaceNormalUnavailable => ResourceManager.GetString("ChamferPreview_SurfaceNormalUnavailable", resourceCulture);
+
+        internal static string ChamferPreview_SurfaceHasInvalidNormal => ResourceManager.GetString("ChamferPreview_SurfaceHasInvalidNormal", resourceCulture);
+
+        internal static string ChamferPreview_SurfaceNotOnVolumeBoundary => ResourceManager.GetString("ChamferPreview_SurfaceNotOnVolumeBoundary", resourceCulture);
+
+        internal static string ChamferPreview_OffsetDirectionUnavailable => ResourceManager.GetString("ChamferPreview_OffsetDirectionUnavailable", resourceCulture);
+
+        internal static string ChamferPreview_AngleOutOfRange => ResourceManager.GetString("ChamferPreview_AngleOutOfRange", resourceCulture);
+
+        internal static string ChamferPreview_InvalidSurfaceAngle => ResourceManager.GetString("ChamferPreview_InvalidSurfaceAngle", resourceCulture);
+
+        internal static string ChamferPreview_AngleMustBeLessThan => ResourceManager.GetString("ChamferPreview_AngleMustBeLessThan", resourceCulture);
+
+        internal static string ChamferPreview_CalculatedLengthMustBePositive => ResourceManager.GetString("ChamferPreview_CalculatedLengthMustBePositive", resourceCulture);
+
+        internal static string ChamferPreview_InvalidGeometryCoordinates => ResourceManager.GetString("ChamferPreview_InvalidGeometryCoordinates", resourceCulture);
+
+        internal static string ChamferWindow_Title => ResourceManager.GetString("ChamferWindow_Title", resourceCulture);
+
+        internal static string ChamferWindow_AngleModeTab => ResourceManager.GetString("ChamferWindow_AngleModeTab", resourceCulture);
+
+        internal static string ChamferWindow_LengthsModeTab => ResourceManager.GetString("ChamferWindow_LengthsModeTab", resourceCulture);
+
+        internal static string ChamferWindow_FirstLength => ResourceManager.GetString("ChamferWindow_FirstLength", resourceCulture);
+
+        internal static string ChamferWindow_SecondLength => ResourceManager.GetString("ChamferWindow_SecondLength", resourceCulture);
+
+        internal static string ChamferWindow_Angle => ResourceManager.GetString("ChamferWindow_Angle", resourceCulture);
+
+        internal static string ChamferWindow_ReflectTooltip => ResourceManager.GetString("ChamferWindow_ReflectTooltip", resourceCulture);
+
+        internal static string ChamferWindow_AddButton => ResourceManager.GetString("ChamferWindow_AddButton", resourceCulture);
+
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>

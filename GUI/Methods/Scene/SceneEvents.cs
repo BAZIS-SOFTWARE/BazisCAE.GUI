@@ -379,6 +379,8 @@ namespace BazisGUI
                             SetVBObjectAttribute(pres, "цвет");
                         }
                         DisplayObjects();
+
+                        sceneSelectionChangedAction?.Invoke();
                     }
                 }
             }
@@ -395,7 +397,9 @@ namespace BazisGUI
                 if(project != null)
                 {
                     var sets = GetModelSetsInfo(SelectedObjects);
-                    SelectByRect(sets, rectangleBox, isSelected);   
+                    SelectByRect(sets, rectangleBox, isSelected);
+
+                    sceneSelectionChangedAction?.Invoke();
                 }
             }
             catch (Exception ex)

@@ -37,7 +37,7 @@ namespace BazisGUI
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             toolStripContainer = new ToolStripContainer();
             statusStrip = new StatusStrip();
             lblStatus = new ToolStripStatusLabel();
@@ -87,6 +87,7 @@ namespace BazisGUI
             создатьЛиниюToolStripMenuItem = new ToolStripMenuItem();
             создатьПлоскостьToolStripMenuItem = new ToolStripMenuItem();
             создатьОбъемToolStripMenuItem = new ToolStripMenuItem();
+            addChamferToolStripMenuItem = new ToolStripMenuItem();
             сеткаToolStripMenuItem = new ToolStripMenuItem();
             загрузитьgeoToolStripMenuItem = new ToolStripMenuItem();
             сформироватьgeoToolStripMenuItem = new ToolStripMenuItem();
@@ -499,7 +500,7 @@ namespace BazisGUI
             console.HeaderName = "Console";
             console.IsPinndable = false;
             console.Name = "console";
-            console.SessionNumber = 3455;
+            console.SessionNumber = 7742;
             console.UpColor = System.Drawing.Color.Gainsboro;
             console.ConsoleCommandEnteredEvent += ExecuteCommand;
             console.CommandsListRequestedEvent += PrintAllCommands;
@@ -590,7 +591,7 @@ namespace BazisGUI
             // 
             // геометрияToolStripMenuItem
             // 
-            геометрияToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { создатьТочкуToolStripMenuItem, создатьЛиниюToolStripMenuItem, создатьПлоскостьToolStripMenuItem, создатьОбъемToolStripMenuItem });
+            геометрияToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { создатьТочкуToolStripMenuItem, создатьЛиниюToolStripMenuItem, создатьПлоскостьToolStripMenuItem, создатьОбъемToolStripMenuItem, addChamferToolStripMenuItem });
             resources.ApplyResources(геометрияToolStripMenuItem, "геометрияToolStripMenuItem");
             геометрияToolStripMenuItem.Name = "геометрияToolStripMenuItem";
             // 
@@ -613,6 +614,13 @@ namespace BazisGUI
             // 
             создатьОбъемToolStripMenuItem.Name = "создатьОбъемToolStripMenuItem";
             resources.ApplyResources(создатьОбъемToolStripMenuItem, "создатьОбъемToolStripMenuItem");
+            // 
+            // addChamferToolStripMenuItem
+            // 
+            addChamferToolStripMenuItem.CheckOnClick = true;
+            addChamferToolStripMenuItem.Name = "addChamferToolStripMenuItem";
+            resources.ApplyResources(addChamferToolStripMenuItem, "addChamferToolStripMenuItem");
+            addChamferToolStripMenuItem.Click += addChamferToolStripMenuItem_Click;
             // 
             // сеткаToolStripMenuItem
             // 
@@ -1240,6 +1248,7 @@ namespace BazisGUI
         private ToolStripMenuItem создатьЛиниюToolStripMenuItem;
         private ToolStripMenuItem создатьПлоскостьToolStripMenuItem;
         private ToolStripMenuItem создатьОбъемToolStripMenuItem;
+        private ToolStripMenuItem addChamferToolStripMenuItem;
     }
 }
 

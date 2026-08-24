@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Args;
+using BazisGUI.AvaloniaUI.Chamfer.Services;
 using BazisGUI.Properties;
 using BazisGUI.Scene;
 using BazisGUI.Scene.VBO;
@@ -39,6 +40,7 @@ namespace BazisGUI
         public event Action<ObjType, int> OnGroupDeleted;
         public event EventHandler<ChangeMaterialsEventArgs> OnChangeMaterials;
         public event EventHandler<ChangeFunctionsEventArgs> OnChangeFunctions;
+
 
         Point ScreenMousePosition { get; set; } = new Point(0, 0);
         bool MouseMoveFlag { get; set; }
@@ -165,7 +167,7 @@ namespace BazisGUI
 
                     var fullPath = Path.GetFullPath(args[resInd + 1]);
 
-                    if (project == null) 
+                    if (project == null)
                         throw new Exception(Resources.HandleArgsResultsLoadingWithoutProjectException);
 
                     ResultDbPath = fullPath;
@@ -249,7 +251,7 @@ namespace BazisGUI
                 var transpVal = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
                 settingsConfig.SelectObjectColor = Color.FromArgb(transpVal, settingsConfig.SelectObjectColor);
                 settingsConfig.SelectGroupColor = Color.FromArgb(transpVal, settingsConfig.SelectGroupColor);
-                
+
 
                 //module.ScenePage.NodeColor = settingsConfig.NodeColor;
                 //module.ScenePage.E2DColor = settingsConfig.Elem2DColor;
@@ -318,7 +320,7 @@ namespace BazisGUI
                 {
                     var res = MessageBox.Show(
                         Resources.BazisServerPathMissingMessage,
-                        Localization.Localization.GetAttentionCaption(),MessageBoxButtons.YesNo);
+                        Localization.Localization.GetAttentionCaption(), MessageBoxButtons.YesNo);
 
                     if (res == DialogResult.Yes)
                         StartLisenceForm("");
@@ -530,6 +532,7 @@ namespace BazisGUI
 
         private void UnblockInterface()
         {
+            геометрияToolStripMenuItem.Enabled = true;
             сеткаToolStripMenuItem.Enabled = true;
             dataBasesMenuItem.Enabled = true;
             tasksMenuItem.Enabled = true;
@@ -715,6 +718,55 @@ namespace BazisGUI
                 MessageBox.Show(Localization.Localization.GetErrorWithStackMessage(ex), Localization.Localization.GetErrorCaption());
                 Application.OpenForms["Загрузка"]?.Close();
             }
+        }
+
+        private void addChamferToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(addChamferToolStripMenuItem.Checked)
+            {
+                SelectedObjects = SelectionType.Curves;
+                var synchronizationContext = SynchronizationContext.Current;
+                var operationService = new SynchronizationContextChamferOperationService(synchronizationContext, RequestChamferByAngle, RequestChamferByLengths, RequestChamferPreview, RequestClearChamferPreview);
+                ChamferWindowService.Show(operationService, () => synchronizationContext.Post(_ => OnChamferWindowClosed(), null));
+            }
+            else
+                ChamferWindowService.Close();
+        }
+
+        /// <summary>
+        /// Приводит состояние пункта меню построения фаски в соответствие с фактическим состоянием окна.
+        /// </summary>
+        /// <remarks>
+        /// Вызывается после закрытия окна любым способом: как по команде <see cref="ChamferWindowService.Close"/>,
+        /// так и при закрытии окна самим пользователем. Программное снятие флажка не вызывает событие
+        /// <see cref="ToolStripItem.Click"/>, поэтому повторного закрытия окна не происходит.
+        /// Выполняется в UI-потоке WinForms.
+        /// </remarks>
+        private void OnChamferWindowClosed()
+        {
+            if (IsDisposed || Disposing)
+                return;
+
+            addChamferToolStripMenuItem.Checked = false;
+        }
+
+        /// <summary>
+        /// Действие, выполняемое после изменения выбора на сцене.
+        /// <c>null</c>, если дополнительное обновление сцены не требуется.
+        /// </summary>
+        private Action sceneSelectionChangedAction;
+
+        private void RequestChamferByAngle(double length, double angle, bool reflected) => CreateChamfer(length, angle, true, reflected);
+        private void RequestChamferByLengths(double length1, double length2, bool reflected) => CreateChamfer(length1, length2, false, reflected);
+        private void RequestChamferPreview(double length, double valueSecond, bool isAngle, bool isReflected)
+        {
+            sceneSelectionChangedAction = () => PreviewChamfer(length, valueSecond, isAngle, isReflected);
+            sceneSelectionChangedAction();
+        }
+        private void RequestClearChamferPreview()
+        {
+            sceneSelectionChangedAction = null;
+            ClearChamferPreview(true);
         }
     }
 }

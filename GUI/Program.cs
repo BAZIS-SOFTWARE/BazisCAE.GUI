@@ -2,9 +2,7 @@
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
-using System.Drawing;
-using System.Runtime.CompilerServices;
-using System.Diagnostics;
+using BazisGUI.AvaloniaUI.Hosting;
 
 namespace BazisGUI
 {
@@ -21,6 +19,7 @@ namespace BazisGUI
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             ApplicationConfiguration.Initialize();
+            AvaloniaHost.Initialize();
             Application.Run(new BaseForm(args));
         }
     }

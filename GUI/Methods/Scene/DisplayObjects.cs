@@ -1,10 +1,9 @@
-﻿using BazisGUI.Scene.Interfaces;
+﻿using BazisGUI.Scene;
+using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
-using BazisGUI.Scene;
-using System.Linq;
-using System.Drawing;
 using OpenTK.Graphics.OpenGL;
-using BazisGUI.SettingsControls;
+using System.Drawing;
+using System.Linq;
 
 namespace BazisGUI
 {
