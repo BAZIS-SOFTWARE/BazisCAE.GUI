@@ -1,6 +1,7 @@
 using BazisGUI.AvaloniaUI.Chamfer.ViewModels;
 using BazisGUI.AvaloniaUI.Chamfer.Views;
 using BazisGUI.AvaloniaUI.Hosting;
+using System;
 
 namespace BazisGUI.AvaloniaUI.Chamfer.Services
 {
@@ -19,7 +20,7 @@ namespace BazisGUI.AvaloniaUI.Chamfer.Services
         /// </summary>
         /// <param name="operationService">Сервис, реализующий операции построения фаски. Не может быть <c>null</c>.</param>
         /// <exception cref="System.ArgumentNullException">Если <paramref name="operationService"/> равен <c>null</c>.</exception>
-        public static void Show(IChamferOperationService operationService)
+        public static void Show(IChamferOperationService operationService, Action? closed = null)
         {
             if (operationService == null)
                 throw new System.ArgumentNullException(nameof(operationService));
@@ -34,7 +35,12 @@ namespace BazisGUI.AvaloniaUI.Chamfer.Services
 
                 viewModel.CloseRequested += (_, _) => window.Close();
 
-                window.Closed += (_, _) => operationService.ClearPreview();
+                window.Closed += (_, _) =>
+                {
+                    operationService.ClearPreview();
+                    closed?.Invoke();
+                };
+                
                 window.Show();
             });
         }

@@ -1,5 +1,6 @@
 ﻿using Geometry;
 using Model.Interfaces;
+using BazisGUI.Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -26,30 +27,30 @@ namespace BazisGUI
 
                     if (surfaceTags.Length != 2)
                         throw new InvalidOperationException(
-                            $"Для построения фаски кривая должна принадлежать двум поверхностям. Найдено: {surfaceTags.Length}.");
+                            string.Format(Resources.ChamferPreview_CurveMustBelongToTwoSurfaces, surfaceTags.Length));
 
                     var (firstVolumes, _) = project.GetAdjacentGeometryObjects(2, surfaceTags[0]);
                     var (secondVolumes, _) = project.GetAdjacentGeometryObjects(2, surfaceTags[1]);
                     var commonVolumes = firstVolumes.Intersect(secondVolumes).Distinct().ToArray();
                     if (commonVolumes.Length != 1)
                         throw new InvalidOperationException(
-                            $"Для построения фаски соседние поверхности должны принадлежать одному общему объёму. Найдено: {commonVolumes.Length}.");
+                            string.Format(Resources.ChamferPreview_SurfacesMustBelongToOneVolume, commonVolumes.Length));
 
                     var volumeTag = commonVolumes[0];
                     var curveType = project.GetType(1, curveTag);
                     if (!curveType.Contains("Line", StringComparison.OrdinalIgnoreCase))
                         throw new NotSupportedException(
-                            "Линейный предпросмотр фаски поддерживается только для прямолинейных кривых.");
+                            Resources.ChamferPreview_OnlyStraightCurvesSupported);
 
                     var (minimum, maximum) = project.GetParametrizationBounds(1, curveTag);
                     if (minimum.Length == 0 || maximum.Length == 0)
-                        throw new InvalidOperationException("Не удалось получить параметризацию кривой.");
+                        throw new InvalidOperationException(Resources.ChamferPreview_CurveParametrizationUnavailable);
 
                     var middleParameter = (minimum[0] + maximum[0]) / 2.0;
                     var edgeStart = ToPoint3D(project.GetGeoObjPoints(1, curveTag, new[] { minimum[0] }));
                     var edgeEnd = ToPoint3D(project.GetGeoObjPoints(1, curveTag, new[] { maximum[0] }));
                     var edgeMiddle = ToPoint3D(project.GetGeoObjPoints(1, curveTag, new[] { middleParameter }));
-                    var tangent = Normalize(edgeEnd.Sub(edgeStart), $"Кривая {curveTag} имеет нулевую длину.");
+                    var tangent = Normalize(edgeEnd.Sub(edgeStart), string.Format(Resources.ChamferPreview_CurveHasZeroLength, curveTag));
                     var secondLength = isByAngle ? CalculateSecondLength(length, secondValue, edgeMiddle, surfaceTags, volumeTag) : secondValue;
                     var firstDirection = GetOffsetDirection(surfaceTags[0], volumeTag, edgeMiddle, tangent);
                     var secondDirection = GetOffsetDirection(surfaceTags[1], volumeTag, edgeMiddle, tangent);
@@ -80,11 +81,11 @@ namespace BazisGUI
             var parameters = project.GmshController.Gmsh.Model.GetParametrization(2, surfaceTag, point);
             var normal = project.GmshController.Gmsh.Model.GetNormal(surfaceTag, parameters);
             if (normal.Length != 3)
-                throw new InvalidOperationException($"Не удалось получить нормаль поверхности {surfaceTag}.");
+                throw new InvalidOperationException(string.Format(Resources.ChamferPreview_SurfaceNormalUnavailable, surfaceTag));
 
             var length = Math.Sqrt(normal.Sum(component => component * component));
             if (!double.IsFinite(length) || length == 0)
-                throw new InvalidOperationException($"Поверхность {surfaceTag} имеет некорректную нормаль.");
+                throw new InvalidOperationException(string.Format(Resources.ChamferPreview_SurfaceHasInvalidNormal, surfaceTag));
 
             var orientation = GetSurfaceOrientation(volumeTag, surfaceTag);
             return normal.Select(component => orientation * component / length).ToArray();
@@ -99,7 +100,7 @@ namespace BazisGUI
                     return Math.Sign(boundary[index]);
             }
 
-            throw new InvalidOperationException($"Поверхность {surfaceTag} не найдена на границе объёма {volumeTag}.");
+            throw new InvalidOperationException(string.Format(Resources.ChamferPreview_SurfaceNotOnVolumeBoundary, surfaceTag, volumeTag));
         }
 
         private Point3D GetOffsetDirection(int surfaceTag, int volumeTag, Point3D edgeMiddle, Point3D tangent)
@@ -108,7 +109,7 @@ namespace BazisGUI
             var outwardNormal = ToPoint3D(GetOutwardNormal(surfaceTag, volumeTag, point));
             var direction = Normalize(
                 Vector.CrossProd(outwardNormal, tangent),
-                $"Не удалось определить направление смещения на поверхности {surfaceTag}.");
+                string.Format(Resources.ChamferPreview_OffsetDirectionUnavailable, surfaceTag));
             var (x, y, z) = project.GetCenterOfMass(2, surfaceTag);
             var toSurfaceCenter = new Point3D(
                 (float)x - edgeMiddle._x,
@@ -123,7 +124,7 @@ namespace BazisGUI
             if (!double.IsFinite(angleInDegrees) || angleInDegrees <= 0 || angleInDegrees >= 180)
                 throw new ArgumentOutOfRangeException(
                     nameof(angleInDegrees),
-                    "Угол фаски должен находиться в диапазоне от 0° до 180°.");
+                    Resources.ChamferPreview_AngleOutOfRange);
 
             var point = new[] { (double)edgeMiddle._x, edgeMiddle._y, edgeMiddle._z };
             var firstNormal = GetOutwardNormal(surfaceTags[0], volumeTag, point);
@@ -136,14 +137,15 @@ namespace BazisGUI
 
             if (surfaceAngle <= 0 || surfaceAngle >= Math.PI)
                 throw new InvalidOperationException(
-                    "Не удалось определить корректный угол между смежными поверхностями.");
+                    Resources.ChamferPreview_InvalidSurfaceAngle);
 
             var chamferAngle = angleInDegrees * Math.PI / 180.0;
             if (surfaceAngle + chamferAngle >= Math.PI)
                 throw new ArgumentOutOfRangeException(
                     nameof(angleInDegrees),
-                    $"Для угла между поверхностями {surfaceAngle * 180.0 / Math.PI:F3}° " +
-                    $"угол фаски должен быть меньше {180.0 - surfaceAngle * 180.0 / Math.PI:F3}°.");
+                    string.Format(Resources.ChamferPreview_AngleMustBeLessThan,
+                        surfaceAngle * 180.0 / Math.PI,
+                        180.0 - surfaceAngle * 180.0 / Math.PI));
 
             var calculatedLength = firstLength
                 * Math.Sin(chamferAngle)
@@ -152,7 +154,7 @@ namespace BazisGUI
             if (!double.IsFinite(calculatedLength) || calculatedLength <= 0)
                 throw new ArgumentOutOfRangeException(
                     nameof(angleInDegrees),
-                    "Рассчитанная длина фаски должна быть конечным положительным числом.");
+                    Resources.ChamferPreview_CalculatedLengthMustBePositive);
 
             return calculatedLength;
         }
@@ -160,7 +162,7 @@ namespace BazisGUI
         private Point3D ToPoint3D(double[] coordinates)
         {
             if (coordinates == null || coordinates.Length != 3)
-                throw new InvalidOperationException("Ядро вернуло некорректные координаты геометрии.");
+                throw new InvalidOperationException(Resources.ChamferPreview_InvalidGeometryCoordinates);
 
             return new Point3D((float)coordinates[0], (float)coordinates[1], (float)coordinates[2]);
         }

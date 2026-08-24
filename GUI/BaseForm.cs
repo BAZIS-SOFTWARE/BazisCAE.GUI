@@ -725,6 +725,7 @@ namespace BazisGUI
             SelectedObjects = SelectionType.Curves;
             var operationService = new SynchronizationContextChamferOperationService(SynchronizationContext.Current, RequestChamferByAngle, RequestChamferByLengths, RequestChamferPreview, RequestClearChamferPreview);
             ChamferWindowService.Show(operationService);
+            OnChangeSelectedObjectsEvent += (_) => operationService.ReapplyLastPreview();
         }
 
         private void RequestChamferByAngle(double length, double angle, bool reflected) => CreateChamfer(length, angle, true, reflected);

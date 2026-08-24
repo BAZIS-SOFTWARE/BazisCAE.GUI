@@ -9,6 +9,7 @@ namespace BazisGUI.AvaloniaUI.Chamfer.Services
     /// </summary>
     internal sealed class SynchronizationContextChamferOperationService : IChamferOperationService
     {
+        private sealed record ChamferPreviewRequest(double Length,double SecondValue,bool IsAngle,bool IsReflected);
         private readonly SynchronizationContext synchronizationContext;
         private readonly Action<double, double, bool> addByAngle;
         private readonly Action<double, double, bool> addByLengths;
@@ -70,7 +71,11 @@ namespace BazisGUI.AvaloniaUI.Chamfer.Services
         /// </param>
         /// <param name="isAngle">Флаг, указывающий, интерпретируется ли <paramref name="valueSecond"/> как угол.</param>
         /// <param name="isReflected">Флаг, указывающий, должен ли предварительный просмотр отображать отражённую фаску.</param>
-        public void Prewiew(double length, double valueSecond, bool isAngle, bool isReflected) => synchronizationContext.Post(_ => preview(length, valueSecond, isAngle, isReflected), null);
+        public void Prewiew(double length, double valueSecond, bool isAngle, bool isReflected)
+        {
+            var request = new ChamferPreviewRequest(length, valueSecond, isAngle, isReflected);
+            synchronizationContext.Post( _ => preview(request.Length, request.SecondValue, request.IsAngle, request.IsReflected), null);
+        }
         /// <summary>
         /// Запрашивает очистку предварительного просмотра фаски в контексте синхронизации.
         /// </summary>

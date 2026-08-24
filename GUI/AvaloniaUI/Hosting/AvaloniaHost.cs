@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Themes.Fluent;
 using Avalonia.Threading;
 using System;
+using System.Globalization;
 using System.Threading;
 
 namespace BazisGUI.AvaloniaUI.Hosting
@@ -32,12 +33,27 @@ namespace BazisGUI.AvaloniaUI.Hosting
             isInitialized = true;
         }
 
+        /// <summary>
+        /// Выполнить действие в UI-потоке Avalonia.
+        /// </summary>
+        /// <remarks>
+        /// Avalonia работает в отдельном потоке, а языковая культура задаётся для потока,
+        /// поэтому текущая языковая культура вызывающего потока переносится в UI-поток Avalonia.
+        /// Благодаря этому окна Avalonia отображаются на языке, выбранном в настройках приложения.
+        /// </remarks>
+        /// <param name="action">Действие, выполняемое в UI-потоке Avalonia.</param>
         public static void Post(Action action)
         {
             if (!isInitialized)
                 throw new InvalidOperationException("Avalonia is not initialized.");
 
-            Dispatcher.UIThread.Post(action);
+            var uiCulture = CultureInfo.CurrentUICulture;
+
+            Dispatcher.UIThread.Post(() =>
+            {
+                Thread.CurrentThread.CurrentUICulture = uiCulture;
+                action();
+            });
         }
 
         private static void RunAvalonia()

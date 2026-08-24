@@ -80,12 +80,12 @@ namespace BazisGUI.AvaloniaUI.Chamfer.ViewModels
                 ? TryParseNumber(AngleLength, out angle) && TryParseNumber(Angle, out angleValue)
                 : TryParseNumber(FirstLength, out length1) && TryParseNumber(SecondLength, out length2);
             if (canAdd)
-            {
                 if (Mode == ChamferMode.Angle)
                     operationService.Prewiew(angle, angleValue, true, isReflected);
                 else
                     operationService.Prewiew(length1, length2, false, isReflected);
-            }
+            else
+                operationService.ClearPreview();
             return canAdd;
         }
 
