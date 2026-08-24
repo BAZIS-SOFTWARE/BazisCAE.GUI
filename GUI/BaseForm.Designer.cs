@@ -500,7 +500,7 @@ namespace BazisGUI
             console.HeaderName = "Console";
             console.IsPinndable = false;
             console.Name = "console";
-            console.SessionNumber = 3614;
+            console.SessionNumber = 7742;
             console.UpColor = System.Drawing.Color.Gainsboro;
             console.ConsoleCommandEnteredEvent += ExecuteCommand;
             console.CommandsListRequestedEvent += PrintAllCommands;
@@ -617,6 +617,7 @@ namespace BazisGUI
             // 
             // addChamferToolStripMenuItem
             // 
+            addChamferToolStripMenuItem.CheckOnClick = true;
             addChamferToolStripMenuItem.Name = "addChamferToolStripMenuItem";
             resources.ApplyResources(addChamferToolStripMenuItem, "addChamferToolStripMenuItem");
             addChamferToolStripMenuItem.Click += addChamferToolStripMenuItem_Click;

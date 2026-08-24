@@ -722,9 +722,14 @@ namespace BazisGUI
 
         private void addChamferToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SelectedObjects = SelectionType.Curves;
-            var operationService = new SynchronizationContextChamferOperationService(SynchronizationContext.Current, RequestChamferByAngle, RequestChamferByLengths, RequestChamferPreview, RequestClearChamferPreview);
-            ChamferWindowService.Show(operationService);
+            if(addChamferToolStripMenuItem.Checked)
+            {
+                SelectedObjects = SelectionType.Curves;
+                var operationService = new SynchronizationContextChamferOperationService(SynchronizationContext.Current, RequestChamferByAngle, RequestChamferByLengths, RequestChamferPreview, RequestClearChamferPreview);
+                ChamferWindowService.Show(operationService);
+            }
+            else
+                ChamferWindowService.Close();
         }
 
         /// <summary>
@@ -740,7 +745,6 @@ namespace BazisGUI
             sceneSelectionChangedAction = () => PreviewChamfer(length, valueSecond, isAngle, isReflected);
             sceneSelectionChangedAction();
         }
-
         private void RequestClearChamferPreview()
         {
             sceneSelectionChangedAction = null;
