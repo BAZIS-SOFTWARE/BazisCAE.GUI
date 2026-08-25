@@ -6472,6 +6472,26 @@ namespace BazisGUI.Properties {
 
         internal static string MeasurementWindow_MeasureButton => ResourceManager.GetString("MeasurementWindow_MeasureButton", resourceCulture);
 
+        internal static string ClipWindow_Title => ResourceManager.GetString("ClipWindow_Title", resourceCulture);
+
+        internal static string ClipWindow_EnableCheckBox => ResourceManager.GetString("ClipWindow_EnableCheckBox", resourceCulture);
+
+        internal static string ClipWindow_DeltaDLabel => ResourceManager.GetString("ClipWindow_DeltaDLabel", resourceCulture);
+
+        internal static string ClipWindow_OffsetDLabel => ResourceManager.GetString("ClipWindow_OffsetDLabel", resourceCulture);
+
+        internal static string ClipWindow_LayerThicknessLabel => ResourceManager.GetString("ClipWindow_LayerThicknessLabel", resourceCulture);
+
+        internal static string ClipWindow_ResetButton => ResourceManager.GetString("ClipWindow_ResetButton", resourceCulture);
+
+        internal static string ClipWindow_CaptureButton => ResourceManager.GetString("ClipWindow_CaptureButton", resourceCulture);
+
+        internal static string ClipWindow_ModeDefault => ResourceManager.GetString("ClipWindow_ModeDefault", resourceCulture);
+
+        internal static string ClipWindow_ModeKeepElement => ResourceManager.GetString("ClipWindow_ModeKeepElement", resourceCulture);
+
+        internal static string ClipWindow_ModeLayered => ResourceManager.GetString("ClipWindow_ModeLayered", resourceCulture);
+
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>

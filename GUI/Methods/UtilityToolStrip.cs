@@ -1,4 +1,5 @@
-﻿using BazisGUI.AvaloniaUI.Measurement.Models;
+﻿using BazisGUI.AvaloniaUI.Clip.Services;
+using BazisGUI.AvaloniaUI.Measurement.Models;
 using BazisGUI.AvaloniaUI.Measurement.Services;
 using BazisGUI.CrossSection;
 using BazisGUI.Extensions;
@@ -428,92 +429,113 @@ namespace BazisGUI
         {
             try
             {
-                var btn = sender as ToolStripMenuItem;
-                if (btn.Checked)
+                if (скрытьПлоскостьюToolStripMenuItem.Checked)
                 {
-                    var clip = new Clip.ClipControl() { Dock = DockStyle.Fill };
-                    var clipForm = new Form()
-                    {
-                        Name = "clipPlaneForm",
-                        TopMost = true,
-                        ShowIcon = true,
-                        Icon = this.Icon,
-                        ClientSize = clip.Size,
-                        MaximizeBox = false,
-                        Text = Resources.UtilityToolStip_ClipForm_Text,
-                        Owner = Application.OpenForms[0]
-                    };
+                    var synchronizationContext = SynchronizationContext.Current;
+                    var operationService = new SynchronizationContextClipOperationService(
+                        synchronizationContext,
+                        RequestClipSwitchOnOff,
+                        RequestClipChangeMode,
+                        RequestClipSetPlane,
+                        RequestClipRedraw,
+                        RequestClipSetLayerThickness,
+                        RequestClipCapture,
+                        RequestClipReset);
 
-                    clipForm.Controls.Add(clip);
+                    // При открытии окна сбрасываем режим отсечения всех 3D-элементов.
+                    operationService.ChangeClipMode(ClipMode.Default);
 
-                    foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
-                        ChangeClipMode(Scene.ClipMode.Default, item.Name);
-
-                    clip.SwitchOnOff += (v) => 
-                    {
-                        if (v)
-                        {
-                            foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
-                                ChangeClipMode(clip.Regime, item.Name);
-                            CreateClipPlane();
-                        }
-                        else
-                        {
-                            DisplayClipPlaneEvent = null;
-                            DeleteClipPlane();
-                            foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
-                                ChangeClipMode(ClipMode.None, item.Name);
-                            btn.Checked = false;
-                            DisplayObjects();
-                        }
-                    };
-                    clip.ChangeClipMode += (mode) =>
-                    {
-                        foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
-                            ChangeClipMode(mode, item.Name);
-                    };
-
-                    clip.ChangeLayerThickness += (layerThickness) => advanced3DClipper.LayerThickness = layerThickness;
-
-                    clip.SetClipPlaneEvent += (plane) =>
-                    {
-                        var scPlane = new Geometry.Plane(new Point3D(plane.X, plane.Y, plane.Z), plane.D);
-                        DisplayClipPlane(scPlane);
-                    };
-
-                    clip.RedrawClipPlane += () => DisplayObjects();
-                    clip.Controls.Find("button2", true).First().Click += CaptureData;
-
-                    clipForm.FormClosing += (o, ev) =>
-                    {
-                        DisplayClipPlaneEvent = null;
-                        DeleteClipPlane();
-                        foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
-                            ChangeClipMode(ClipMode.None, item.Name);
-                        btn.Checked = false;
-                        DisplayObjects();
-                    };
-
-                    clipForm.Show();
-                    var location = PointToScreen(Point.Empty);
-                    clipForm.Location = location;
+                    ClipWindowService.Show(operationService, () => synchronizationContext.Post(_ => OnClipWindowClosed(), null));
                 }
                 else
-                {
-                    var forms = Application.OpenForms.Cast<Form>().ToList();
-                    var form = forms.Find(x => x.Name == "clipPlaneForm");
-                    if (form != null)
-                    {
-                        VBOController.DeleteVBObjects("ClipPlane");
-                        form.Close();
-                    }
-                }
+                    ClipWindowService.Close();
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
         }
+
+        /// <summary>
+        /// Включение/выключение отсечения плоскостью. Вызывается в UI-потоке WinForms
+        /// из окна Avalonia при переключении чекбокса «Включить».
+        /// </summary>
+        private void RequestClipSwitchOnOff(bool enabled, ClipMode mode)
+        {
+            if (enabled)
+            {
+                foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
+                    ChangeClipMode(mode, item.Name);
+                CreateClipPlane();
+            }
+            else
+            {
+                DisplayClipPlaneEvent = null;
+                DeleteClipPlane();
+                foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
+                    ChangeClipMode(ClipMode.None, item.Name);
+                DisplayObjects();
+            }
+        }
+
+        /// <summary>
+        /// Смена режима отсечения для всех 3D-элементов.
+        /// </summary>
+        private void RequestClipChangeMode(ClipMode mode)
+        {
+            foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
+                ChangeClipMode(mode, item.Name);
+        }
+
+        /// <summary>
+        /// Задание плоскости отсечения на сцене.
+        /// </summary>
+        private void RequestClipSetPlane(double x, double y, double z, double d)
+        {
+            var scPlane = new Geometry.Plane(new Point3D((float)x, (float)y, (float)z), (float)d);
+            DisplayClipPlane(scPlane);
+        }
+
+        /// <summary>
+        /// Перерисовка сцены.
+        /// </summary>
+        private void RequestClipRedraw() => DisplayObjects();
+
+        /// <summary>
+        /// Задание толщины слоя для режима «Слой 3D».
+        /// </summary>
+        private void RequestClipSetLayerThickness(double thickness) => advanced3DClipper.LayerThickness = (float)thickness;
+
+        /// <summary>
+        /// Захват данных (GL TransformFeedback).
+        /// </summary>
+        private void RequestClipCapture() => CaptureData(this, EventArgs.Empty);
+
+        /// <summary>
+        /// Сброс состояния сцены при закрытии окна отсечения.
+        /// </summary>
+        private void RequestClipReset()
+        {
+            DisplayClipPlaneEvent = null;
+            DeleteClipPlane();
+            foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
+                ChangeClipMode(ClipMode.None, item.Name);
+            DisplayObjects();
+        }
+
+        /// <summary>
+        /// Приводит состояние пункта меню в соответствие с фактическим состоянием окна.
+        /// Программное снятие флажка не вызывает событие <see cref="ToolStripItem.Click"/>,
+        /// поэтому повторного открытия окна не происходит. Выполняется в UI-потоке WinForms.
+        /// </summary>
+        private void OnClipWindowClosed()
+        {
+            if (IsDisposed || Disposing)
+                return;
+
+            скрытьПлоскостьюToolStripMenuItem.Checked = false;
+        }
+
 
         /// <summary>
         /// Смена режима отсечения для 3д элементов

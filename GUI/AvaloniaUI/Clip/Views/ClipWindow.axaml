@@ -1,0 +1,143 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModels="using:BazisGUI.AvaloniaUI.Clip.ViewModels"
+        xmlns:models="using:BazisGUI.AvaloniaUI.Clip.Models"
+        xmlns:scene="using:BazisGUI.Scene"
+        xmlns:loc="using:BazisGUI.Localization"
+        x:Class="BazisGUI.AvaloniaUI.Clip.Views.ClipWindow"
+        x:DataType="viewModels:ClipViewModel"
+        Title="{x:Static loc:ClipWindowLocalization.Title}"
+        Width="410"
+        Height="320"
+        CanResize="False"
+        Topmost="True"
+        WindowDecorations="None"
+        TransparencyLevelHint="Transparent"
+        Background="Transparent"
+        Foreground="#171717"
+        RequestedThemeVariant="Light"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Segoe UI">
+  <Window.Styles>
+    <StyleInclude Source="avares://BazisGUI/AvaloniaUI/Clip/Views/ClipStyles.axaml" />
+  </Window.Styles>
+
+  <!-- Окно «Скрыть плоскостью» -->
+  <Border Margin="4"
+          Background="White"
+          BorderBrush="#8D8D8D"
+          BorderThickness="1"
+          CornerRadius="8"
+          ClipToBounds="True"
+          BoxShadow="0 2 4 0 #50000000">
+    <Grid RowDefinitions="31,*">
+      <!-- Заголовок окна -->
+      <Grid Grid.Row="0" Background="Transparent" PointerPressed="OnTitleBarPointerPressed">
+        <TextBlock Margin="14,0,36,0"
+                   VerticalAlignment="Center"
+                   Foreground="#7D7D7D"
+                   FontSize="15"
+                   Text="{x:Static loc:ClipWindowLocalization.Title}" />
+        <Button Width="31"
+                Height="31"
+                Classes="closeButton"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Padding="0"
+                BorderThickness="0"
+                FontSize="15"
+                Content="X"
+                Click="OnCloseClick" />
+      </Grid>
+
+      <!-- Тело окна -->
+      <Border Grid.Row="1" Background="#F5F5F5" CornerRadius="0,0,7,7">
+        <Grid Margin="14,13,14,14" RowDefinitions="*,Auto">
+          <!-- Основные элементы управления (активны только при включённом отсечении) -->
+          <Grid Grid.Row="0" IsEnabled="{Binding IsEnabled}"
+                RowDefinitions="30,30,30,36,42,42"
+                ColumnDefinitions="Auto,Auto,44,*">
+
+            <!-- Наборы плоскостей + компоненты нормали -->
+            <RadioButton Grid.Row="0" Grid.Column="0" GroupName="planePreset" Classes="clipPresetButton"
+                         Content="YZ" Command="{Binding SelectPresetCommand}" CommandParameter="{x:Static models:PlanePreset.YZ}" />
+            <RadioButton Grid.Row="0" Grid.Column="1" GroupName="planePreset" Classes="clipPresetButton"
+                         Content="ZY" Command="{Binding SelectPresetCommand}" CommandParameter="{x:Static models:PlanePreset.ZY}" />
+            <TextBlock Grid.Row="0" Grid.Column="2" Classes="axisLabel" VerticalAlignment="Center" Text="{Binding AxisXText}" />
+            <Slider Grid.Row="0" Grid.Column="3" Classes="clipSlider" Minimum="-1" Maximum="1" VerticalAlignment="Center"
+                    Value="{Binding AxisX, Mode=TwoWay}" />
+
+            <RadioButton Grid.Row="1" Grid.Column="0" GroupName="planePreset" Classes="clipPresetButton"
+                         Content="ZX" Command="{Binding SelectPresetCommand}" CommandParameter="{x:Static models:PlanePreset.ZX}" />
+            <RadioButton Grid.Row="1" Grid.Column="1" GroupName="planePreset" Classes="clipPresetButton"
+                         Content="XZ" Command="{Binding SelectPresetCommand}" CommandParameter="{x:Static models:PlanePreset.XZ}" />
+            <TextBlock Grid.Row="1" Grid.Column="2" Classes="axisLabel" VerticalAlignment="Center" Text="{Binding AxisYText}" />
+            <Slider Grid.Row="1" Grid.Column="3" Classes="clipSlider" Minimum="-1" Maximum="1" VerticalAlignment="Center"
+                    Value="{Binding AxisY, Mode=TwoWay}" />
+
+            <RadioButton Grid.Row="2" Grid.Column="0" GroupName="planePreset" Classes="clipPresetButton"
+                         Content="XY" Command="{Binding SelectPresetCommand}" CommandParameter="{x:Static models:PlanePreset.XY}" />
+            <RadioButton Grid.Row="2" Grid.Column="1" GroupName="planePreset" Classes="clipPresetButton" IsChecked="True"
+                         Content="YX" Command="{Binding SelectPresetCommand}" CommandParameter="{x:Static models:PlanePreset.YX}" />
+            <TextBlock Grid.Row="2" Grid.Column="2" Classes="axisLabel" VerticalAlignment="Center" Text="{Binding AxisZText}" />
+            <Slider Grid.Row="2" Grid.Column="3" Classes="clipSlider" Minimum="-1" Maximum="1" VerticalAlignment="Center"
+                    Value="{Binding AxisZ, Mode=TwoWay}" />
+
+            <!-- Режимы отображения 3D-элементов -->
+            <StackPanel Grid.Row="3" Grid.ColumnSpan="4" Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
+              <RadioButton GroupName="clipMode" Classes="clipRadio" IsChecked="True"
+                           Content="{x:Static loc:ClipWindowLocalization.ModeDefault}"
+                           Command="{Binding SelectModeCommand}" CommandParameter="{x:Static scene:ClipMode.Default}" />
+              <RadioButton GroupName="clipMode" Classes="clipRadio"
+                           Content="{x:Static loc:ClipWindowLocalization.ModeKeepElement}"
+                           Command="{Binding SelectModeCommand}" CommandParameter="{x:Static scene:ClipMode.KeepElement}" />
+              <RadioButton GroupName="clipMode" Classes="clipRadio"
+                           Content="{x:Static loc:ClipWindowLocalization.ModeLayered}"
+                           Command="{Binding SelectModeCommand}" CommandParameter="{x:Static scene:ClipMode.Layered}" />
+            </StackPanel>
+
+            <!-- Захват + толщина слоя -->
+            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Classes="action"
+                    HorizontalAlignment="Left" MinWidth="96"
+                    Content="{x:Static loc:ClipWindowLocalization.CaptureButton}"
+                    Command="{Binding CaptureCommand}" IsEnabled="{Binding CanCapture}" />
+            <TextBlock Grid.Row="4" Grid.Column="2" Classes="fieldLabel" VerticalAlignment="Center"
+                       Text="{x:Static loc:ClipWindowLocalization.LayerThicknessLabel}" />
+            <TextBox Grid.Row="4" Grid.Column="3" Classes="clipInput" Name="ThicknessInput"
+                     IsReadOnly="True" VerticalContentAlignment="Center"
+                     Text="{Binding LayerThickness, Mode=OneWay}"
+                     IsEnabled="{Binding IsThicknessEnabled}" />
+
+            <!-- Сброс + смещение D -->
+            <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Classes="action"
+                    HorizontalAlignment="Left" MinWidth="96"
+                    Content="{x:Static loc:ClipWindowLocalization.ResetButton}"
+                    Command="{Binding ResetOffsetCommand}" />
+            <TextBlock Grid.Row="5" Grid.Column="2" Classes="fieldLabel" VerticalAlignment="Center"
+                       Text="{x:Static loc:ClipWindowLocalization.OffsetDLabel}" />
+            <TextBox Grid.Row="5" Grid.Column="3" Classes="clipInput" Name="OffsetDInput"
+                     IsReadOnly="True" VerticalContentAlignment="Center"
+                     Text="{Binding OffsetD, Mode=OneWay}" />
+          </Grid>
+
+          <!-- Нижняя строка: включение отсечения + шаг смещения -->
+          <Grid Grid.Row="1" Margin="0,12,0,0" ColumnDefinitions="Auto,Auto,*" VerticalAlignment="Center">
+            <CheckBox Grid.Column="0" VerticalAlignment="Center"
+                      Content="{x:Static loc:ClipWindowLocalization.EnableCheckBox}"
+                      IsChecked="{Binding IsEnabled, Mode=TwoWay}" />
+            <TextBlock Grid.Column="1" Classes="fieldLabel" VerticalAlignment="Center" Margin="20,0,6,0"
+                       Text="{x:Static loc:ClipWindowLocalization.DeltaDLabel}" />
+            <ComboBox Grid.Column="2" Classes="clipCombo" VerticalAlignment="Center" Width="74"
+                      IsEnabled="{Binding IsEnabled}"
+                      SelectedIndex="{Binding DeltaDIndex, Mode=TwoWay}">
+              <ComboBoxItem Content="1" />
+              <ComboBoxItem Content="0.1" />
+              <ComboBoxItem Content="0.01" />
+              <ComboBoxItem Content="0.001" />
+            </ComboBox>
+          </Grid>
+        </Grid>
+      </Border>
+    </Grid>
+  </Border>
+</Window>

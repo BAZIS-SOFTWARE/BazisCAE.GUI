@@ -2261,4 +2261,14 @@ Create variable?</value>
   <data name="MeasurementWindow_BetweenTwoPoints" xml:space="preserve"><value>Between two points</value></data>
   <data name="MeasurementWindow_BetweenPointAndPlane" xml:space="preserve"><value>Between a point and a plane</value></data>
   <data name="MeasurementWindow_MeasureButton" xml:space="preserve"><value>Measure</value></data>
+  <data name="ClipWindow_Title" xml:space="preserve"><value>Hide with plane</value></data>
+  <data name="ClipWindow_EnableCheckBox" xml:space="preserve"><value>Turn on</value></data>
+  <data name="ClipWindow_DeltaDLabel" xml:space="preserve"><value>Delta D:</value></data>
+  <data name="ClipWindow_OffsetDLabel" xml:space="preserve"><value>D:</value></data>
+  <data name="ClipWindow_LayerThicknessLabel" xml:space="preserve"><value>Layer thickness:</value></data>
+  <data name="ClipWindow_ResetButton" xml:space="preserve"><value>Reset</value></data>
+  <data name="ClipWindow_CaptureButton" xml:space="preserve"><value>Capture</value></data>
+  <data name="ClipWindow_ModeDefault" xml:space="preserve"><value>Regular</value></data>
+  <data name="ClipWindow_ModeKeepElement" xml:space="preserve"><value>3D stay</value></data>
+  <data name="ClipWindow_ModeLayered" xml:space="preserve"><value>Layer 3D</value></data>
 </root>
