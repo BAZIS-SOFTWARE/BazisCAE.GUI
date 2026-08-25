@@ -1,6 +1,7 @@
-﻿using BazisGUI.CrossSection;
+﻿using BazisGUI.AvaloniaUI.Measurement.Models;
+using BazisGUI.AvaloniaUI.Measurement.Services;
+using BazisGUI.CrossSection;
 using BazisGUI.Extensions;
-using BazisGUI.Measurement;
 using BazisGUI.Properties;
 using BazisGUI.Reflect;
 using BazisGUI.Scene;
@@ -34,64 +35,49 @@ namespace BazisGUI
         {
             try
             {
-                var btn = sender as ToolStripMenuItem;
-                if (btn.Checked)
+                if (измеритьToolStripMenuItem.Checked)
                 {
-
-                    var form = new Form()
-                    {
-                        Name = "measureForm",
-                        Text = "Панель измерений",
-                        Icon = this.Icon,
-                        ShowIcon = true,
-                        Owner = Application.OpenForms[0],
-                        TopMost = true
-                    };
-
-                    form.FormClosed += (s1, s2) =>
-                    {
-                        btn.Checked = false;
-                        DisplayGeometryObjectEvent = null;
-                        DisplayText3DEvent = null;
-                        DisplayObjects();
-                    };
-
-                    var measuringControl = new MeasuringSet() 
-                    { 
-                        Dock = DockStyle.Fill
-                    };
-                    measuringControl.PreparingMeasureEvent += (ar) =>
-                    {
-                        SelectedObjects = Converters.ConvertObjTypeToSelectionType(ar);
-                        DisplayGeometryObjectEvent = null;
-                        DisplayText3DEvent = null;
-                        DisplayObjects();
-                    };
-                    measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;
-                    form.ClientSize = measuringControl.Size;
-                    form.Controls.Add(measuringControl);
-
-                    form.Show();
-                    var location = PointToScreen(Point.Empty);
-                    form.Location = location;
+                    var synchronizationContext = SynchronizationContext.Current;
+                    var operationService = new SynchronizationContextMeasurementOperationService(
+                        synchronizationContext,
+                        RequestPrepareMeasurementObjects,
+                        RequestMakeMeasurement,
+                        RequestResetMeasurement);
+                    MeasurementWindowService.Show(operationService, () => synchronizationContext.Post(_ => OnMeasurementWindowClosed(), null));
                 }
                 else
-                {
-                    var forms = Application.OpenForms.Cast<Form>().ToList();
-                    var form = forms.Find(x => x.Name == "measureForm");
-                    if (form != null)
-                    {
-                        form.Close();
-                        btn.Checked = false;
-                    }
-                }
+                    MeasurementWindowService.Close();
             }
             catch (Exception ex)
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
         }
-        private async void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
+
+        /// <summary>
+        /// Готовит сцену к выбору объектов для указанного вида измерения.
+        /// Вызывается в UI-потоке WinForms из окна Avalonia.
+        /// </summary>
+        private void RequestPrepareMeasurementObjects(MeasureKind kind)
+        {
+            ObjType objType = kind switch
+            {
+                MeasureKind.Square => ObjType.Элемент2D,
+                MeasureKind.Volume => ObjType.Элемент3D,
+                _ => ObjType.Узел
+            };
+
+            SelectedObjects = Converters.ConvertObjTypeToSelectionType(objType);
+            DisplayGeometryObjectEvent = null;
+            DisplayText3DEvent = null;
+            DisplayObjects();
+        }
+
+        /// <summary>
+        /// Выполняет измерение выбранного вида. Вызывается в UI-потоке WinForms
+        /// из окна Avalonia по нажатию кнопки «Измерить».
+        /// </summary>
+        private void RequestMakeMeasurement(MeasureKind kind)
         {
             if (!Converters.TryConvertSelectionTypeToObjType(SelectedObjects, out ObjType res))
             {
@@ -100,34 +86,23 @@ namespace BazisGUI
             }
             try
             {
-                switch (arg2.Kind)
+                switch (kind)
                 {
                     case MeasureKind.DistancePointToPoint:
-                        {
-                            DistancePointToPoint(SelectedObjects);
-                            break;
-                        }
+                        DistancePointToPoint(SelectedObjects);
+                        break;
                     case MeasureKind.DistancePointToPlane:
-                        {
-                            DistancePointToPlane(SelectedObjects);
-                            break;
-                        }
+                        DistancePointToPlane(SelectedObjects);
+                        break;
                     case MeasureKind.Path:
                         CreatePathAsync();
                         break;
                     case MeasureKind.Square:
-                        {
-                            CalcSquare(SelectedObjects);
-                            break;
-                        }
-
+                        CalcSquare(SelectedObjects);
+                        break;
                     case MeasureKind.Volume:
-                        {
-
-                            CalcVolume(SelectedObjects);
-                            break;
-                        }
-
+                        CalcVolume(SelectedObjects);
+                        break;
                     default:
                         break;
                 }
@@ -136,6 +111,30 @@ namespace BazisGUI
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        /// <summary>
+        /// Сбрасывает состояние сцены после закрытия окна измерений.
+        /// </summary>
+        private void RequestResetMeasurement()
+        {
+            DisplayGeometryObjectEvent = null;
+            DisplayText3DEvent = null;
+            DisplayObjects();
+        }
+
+        /// <summary>
+        /// Приводит состояние пункта меню измерений в соответствие с фактическим
+        /// состоянием окна. Программное снятие флажка не вызывает событие
+        /// <see cref="ToolStripItem.Click"/>, поэтому повторного открытия окна не происходит.
+        /// Выполняется в UI-потоке WinForms.
+        /// </summary>
+        private void OnMeasurementWindowClosed()
+        {
+            if (IsDisposed || Disposing)
+                return;
+
+            измеритьToolStripMenuItem.Checked = false;
         }
 
         public async Task<List<IPoint>> CreatePathAsync()

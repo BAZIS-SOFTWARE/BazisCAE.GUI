@@ -1,0 +1,99 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModels="using:BazisGUI.AvaloniaUI.Measurement.ViewModels"
+        xmlns:loc="using:BazisGUI.Localization"
+        x:Class="BazisGUI.AvaloniaUI.Measurement.Views.MeasurementWindow"
+        x:DataType="viewModels:MeasurementViewModel"
+        Title="{x:Static loc:MeasurementWindowLocalization.Title}"
+        Width="420"
+        Height="255"
+        CanResize="False"
+        Topmost="True"
+        WindowDecorations="None"
+        TransparencyLevelHint="Transparent"
+        Background="Transparent"
+        Foreground="#171717"
+        RequestedThemeVariant="Light"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Segoe UI">
+  <Window.Styles>
+    <StyleInclude Source="avares://BazisGUI/AvaloniaUI/Measurement/Views/MeasurementStyles.axaml" />
+  </Window.Styles>
+
+  <!-- Окно измерений -->
+  <Border Margin="4"
+          Background="White"
+          BorderBrush="#8D8D8D"
+          BorderThickness="1"
+          CornerRadius="8"
+          ClipToBounds="True"
+          BoxShadow="0 2 4 0 #50000000">
+    <Grid RowDefinitions="31,*">
+      <!-- Заголовок окна -->
+      <Grid Grid.Row="0" Background="Transparent" PointerPressed="OnTitleBarPointerPressed">
+        <TextBlock Margin="14,0,36,0"
+                   VerticalAlignment="Center"
+                   Foreground="#7D7D7D"
+                   FontSize="15"
+                   Text="{x:Static loc:MeasurementWindowLocalization.Title}" />
+        <Button Width="31"
+                Height="31"
+                Classes="closeButton"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Padding="0"
+                BorderThickness="0"
+                FontSize="15"
+                Content="X"
+                Click="OnCloseClick" />
+      </Grid>
+
+      <!-- Тело окна -->
+      <Border Grid.Row="1" Background="#F5F5F5" CornerRadius="0,0,7,7">
+        <Grid Margin="14,13,14,14" RowDefinitions="*,42">
+          <Grid Grid.Row="0" ColumnDefinitions="*,*">
+            <!-- Переключатели видов измерения -->
+            <StackPanel Grid.Column="0" VerticalAlignment="Top" Spacing="8">
+              <RadioButton GroupName="measureKind"
+                           Content="{x:Static loc:MeasurementWindowLocalization.Distance}"
+                           IsChecked="{Binding IsDistanceSelected, Mode=TwoWay}"
+                           Classes="measureRadio" />
+              <RadioButton GroupName="measureKind"
+                           Content="{x:Static loc:MeasurementWindowLocalization.Path}"
+                           IsChecked="{Binding IsPathSelected, Mode=TwoWay}"
+                           Classes="measureRadio" />
+              <RadioButton GroupName="measureKind"
+                           Content="{x:Static loc:MeasurementWindowLocalization.Area}"
+                           IsChecked="{Binding IsAreaSelected, Mode=TwoWay}"
+                           Classes="measureRadio" />
+              <RadioButton GroupName="measureKind"
+                           Content="{x:Static loc:MeasurementWindowLocalization.Volume}"
+                           IsChecked="{Binding IsVolumeSelected, Mode=TwoWay}"
+                           Classes="measureRadio" />
+            </StackPanel>
+
+            <!-- Комбобокс подвидов для режима «Расстояние» -->
+            <ComboBox Grid.Column="1"
+                      Classes="measureCombo"
+                      VerticalAlignment="Top"
+                      HorizontalAlignment="Stretch"
+                      IsEnabled="{Binding IsDistanceMode}"
+                      SelectedIndex="{Binding DistanceKindIndex, Mode=TwoWay}">
+              <ComboBoxItem Content="{x:Static loc:MeasurementWindowLocalization.BetweenTwoPoints}" />
+              <ComboBoxItem Content="{x:Static loc:MeasurementWindowLocalization.BetweenPointAndPlane}" />
+            </ComboBox>
+          </Grid>
+
+          <!-- Кнопка измерения -->
+          <Grid Grid.Row="1" ColumnDefinitions="*,*">
+            <Button Grid.Column="1"
+                    Classes="action"
+                    HorizontalAlignment="Right"
+                    Content="{x:Static loc:MeasurementWindowLocalization.MeasureButton}"
+                    Command="{Binding MeasureCommand}" />
+          </Grid>
+        </Grid>
+      </Border>
+    </Grid>
+  </Border>
+</Window>

@@ -2075,4 +2075,12 @@
   <data name="ChamferWindow_Angle" xml:space="preserve"><value>Угол</value></data>
   <data name="ChamferWindow_ReflectTooltip" xml:space="preserve"><value>Отразить фаску</value></data>
   <data name="ChamferWindow_AddButton" xml:space="preserve"><value>Добавить</value></data>
+  <data name="MeasurementWindow_Title" xml:space="preserve"><value>Измерения</value></data>
+  <data name="MeasurementWindow_Distance" xml:space="preserve"><value>Расстояние, мм</value></data>
+  <data name="MeasurementWindow_Path" xml:space="preserve"><value>Путь, мм</value></data>
+  <data name="MeasurementWindow_Area" xml:space="preserve"><value>Площадь, мм^2</value></data>
+  <data name="MeasurementWindow_Volume" xml:space="preserve"><value>Объем, мм^3</value></data>
+  <data name="MeasurementWindow_BetweenTwoPoints" xml:space="preserve"><value>Между двумя точками</value></data>
+  <data name="MeasurementWindow_BetweenPointAndPlane" xml:space="preserve"><value>Между точкой и плоскостью</value></data>
+  <data name="MeasurementWindow_MeasureButton" xml:space="preserve"><value>Измерить</value></data>
 </root>

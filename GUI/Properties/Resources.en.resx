@@ -2075,4 +2075,12 @@ Create variable?</value>
   <data name="ChamferWindow_Angle" xml:space="preserve"><value>Angle</value></data>
   <data name="ChamferWindow_ReflectTooltip" xml:space="preserve"><value>Reflect chamfer</value></data>
   <data name="ChamferWindow_AddButton" xml:space="preserve"><value>Add</value></data>
+  <data name="MeasurementWindow_Title" xml:space="preserve"><value>Measurements</value></data>
+  <data name="MeasurementWindow_Distance" xml:space="preserve"><value>Distance, mm</value></data>
+  <data name="MeasurementWindow_Path" xml:space="preserve"><value>Path, mm</value></data>
+  <data name="MeasurementWindow_Area" xml:space="preserve"><value>Area, mm^2</value></data>
+  <data name="MeasurementWindow_Volume" xml:space="preserve"><value>Volume, mm^3</value></data>
+  <data name="MeasurementWindow_BetweenTwoPoints" xml:space="preserve"><value>Between two points</value></data>
+  <data name="MeasurementWindow_BetweenPointAndPlane" xml:space="preserve"><value>Between a point and a plane</value></data>
+  <data name="MeasurementWindow_MeasureButton" xml:space="preserve"><value>Measure</value></data>
 </root>

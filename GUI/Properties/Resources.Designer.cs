@@ -6456,6 +6456,22 @@ namespace BazisGUI.Properties {
 
         internal static string ChamferWindow_AddButton => ResourceManager.GetString("ChamferWindow_AddButton", resourceCulture);
 
+        internal static string MeasurementWindow_Title => ResourceManager.GetString("MeasurementWindow_Title", resourceCulture);
+
+        internal static string MeasurementWindow_Distance => ResourceManager.GetString("MeasurementWindow_Distance", resourceCulture);
+
+        internal static string MeasurementWindow_Path => ResourceManager.GetString("MeasurementWindow_Path", resourceCulture);
+
+        internal static string MeasurementWindow_Area => ResourceManager.GetString("MeasurementWindow_Area", resourceCulture);
+
+        internal static string MeasurementWindow_Volume => ResourceManager.GetString("MeasurementWindow_Volume", resourceCulture);
+
+        internal static string MeasurementWindow_BetweenTwoPoints => ResourceManager.GetString("MeasurementWindow_BetweenTwoPoints", resourceCulture);
+
+        internal static string MeasurementWindow_BetweenPointAndPlane => ResourceManager.GetString("MeasurementWindow_BetweenPointAndPlane", resourceCulture);
+
+        internal static string MeasurementWindow_MeasureButton => ResourceManager.GetString("MeasurementWindow_MeasureButton", resourceCulture);
+
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>

@@ -1,0 +1,60 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- Кнопка действия (Измерить) -->
+  <Style Selector="Button.action">
+    <Setter Property="Width" Value="93" />
+    <Setter Property="Height" Value="31" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Background" Value="#E3E3E3" />
+    <Setter Property="BorderBrush" Value="#B8B8B8" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Foreground" Value="#171717" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Button.action:pointerover">
+    <Setter Property="Background" Value="#E3E3E3" />
+    <Setter Property="Foreground" Value="#171717" />
+  </Style>
+  <Style Selector="Button.action:pressed">
+    <Setter Property="Background" Value="#D5D5D5" />
+    <Setter Property="Foreground" Value="#171717" />
+  </Style>
+
+  <!-- Кнопка закрытия окна -->
+  <Style Selector="Button.closeButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="#777777" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Button.closeButton:pointerover">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="#777777" />
+  </Style>
+
+  <!-- Переключатели видов измерения -->
+  <Style Selector="RadioButton.measureRadio">
+    <Setter Property="Foreground" Value="#171717" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="MinHeight" Value="24" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+
+  <!-- Комбобокс подвидов измерения -->
+  <Style Selector="ComboBox.measureCombo">
+    <Setter Property="Height" Value="28" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Foreground" Value="#171717" />
+    <Setter Property="Background" Value="White" />
+    <Setter Property="BorderBrush" Value="#969696" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+  </Style>
+</Styles>
