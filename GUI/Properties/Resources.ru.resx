@@ -2093,4 +2093,28 @@
   <data name="ClipWindow_ModeDefault" xml:space="preserve"><value>Обычное</value></data>
   <data name="ClipWindow_ModeKeepElement" xml:space="preserve"><value>Сохранять 3D</value></data>
   <data name="ClipWindow_ModeLayered" xml:space="preserve"><value>Слой 3D</value></data>
+  <data name="SettingsWindow_Title" xml:space="preserve"><value>Настройки</value></data>
+  <data name="SettingsWindow_TabScene" xml:space="preserve"><value>Сцена</value></data>
+  <data name="SettingsWindow_TabObjects" xml:space="preserve"><value>Объекты</value></data>
+  <data name="SettingsWindow_TabSolver" xml:space="preserve"><value>Решатель</value></data>
+  <data name="SettingsWindow_TabLanguage" xml:space="preserve"><value>Язык</value></data>
+  <data name="SettingsWindow_BackgroundColorButton" xml:space="preserve"><value>выбрать цвет заднего фона</value></data>
+  <data name="SettingsWindow_BackRibbersLabel" xml:space="preserve"><value>Внутренние ребра элементов</value></data>
+  <data name="SettingsWindow_LightingLabel" xml:space="preserve"><value>Освещение</value></data>
+  <data name="SettingsWindow_LightingIntensityLabel" xml:space="preserve"><value>Интенсивность</value></data>
+  <data name="SettingsWindow_TransparencyLabel" xml:space="preserve"><value>Прозрачность</value></data>
+  <data name="SettingsWindow_TransparencyValueLabel" xml:space="preserve"><value>Значение прозрачности</value></data>
+  <data name="SettingsWindow_OrtoProjectionLabel" xml:space="preserve"><value>Ортографическая проекция</value></data>
+  <data name="SettingsWindow_OnOff" xml:space="preserve"><value>Вкл/Выкл</value></data>
+  <data name="SettingsWindow_SelectObjectColorButton" xml:space="preserve"><value>выбрать цвет выделения объектов</value></data>
+  <data name="SettingsWindow_SelectGroupColorButton" xml:space="preserve"><value>выбрать цвет выделения групп</value></data>
+  <data name="SettingsWindow_Select3DElemColorButton" xml:space="preserve"><value>выбрать цвет 3D элементов</value></data>
+  <data name="SettingsWindow_Select2DElemColorButton" xml:space="preserve"><value>выбрать цвет 2D элементов</value></data>
+  <data name="SettingsWindow_SelectNodeColorButton" xml:space="preserve"><value>выбрать цвет узлов</value></data>
+  <data name="SettingsWindow_SolverPathLabel" xml:space="preserve"><value>Путь до решателя</value></data>
+  <data name="SettingsWindow_BrowseButton" xml:space="preserve"><value>Обзор...</value></data>
+  <data name="SettingsWindow_LanguageLabel" xml:space="preserve"><value>Язык</value></data>
+  <data name="SettingsWindow_ColorPickerTitle" xml:space="preserve"><value>Выбор цвета</value></data>
+  <data name="SettingsWindow_Ok" xml:space="preserve"><value>OK</value></data>
+  <data name="SettingsWindow_Cancel" xml:space="preserve"><value>Отмена</value></data>
 </root>

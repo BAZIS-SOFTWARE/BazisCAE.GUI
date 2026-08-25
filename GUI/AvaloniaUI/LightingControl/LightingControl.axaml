@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="BazisGUI.AvaloniaUI.LightingControl.LightingControl"
+             Width="230"
+             Height="233"
+             MinWidth="230"
+             MinHeight="233"
+             Background="Transparent"
+             ClipToBounds="True" />
+

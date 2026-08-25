@@ -1,0 +1,78 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModels="using:BazisGUI.AvaloniaUI.SettingsControl.ViewModels"
+        xmlns:loc="using:BazisGUI.Localization"
+        x:Class="BazisGUI.AvaloniaUI.SettingsControl.Views.ColorPickerWindow"
+        x:DataType="viewModels:ColorPickerViewModel"
+        Title="{x:Static loc:SettingsWindowLocalization.ColorPickerTitle}"
+        Width="380"
+        Height="440"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Foreground="#171717"
+        RequestedThemeVariant="Light"
+        FontFamily="Segoe UI">
+  <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="16">
+    <!-- Готовые цвета -->
+    <ItemsControl Grid.Row="0" ItemsSource="{Binding PresetColors}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <WrapPanel />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="SolidColorBrush">
+          <Button Width="26"
+                  Height="26"
+                  Margin="2"
+                  Padding="0"
+                  CornerRadius="0"
+                  Background="{Binding}"
+                  BorderBrush="#808080"
+                  BorderThickness="1"
+                  Command="{Binding $parent[ItemsControl].DataContext.SelectPresetCommand}"
+                  CommandParameter="{Binding}" />
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+    <!-- Компоненты RGB -->
+    <Grid Grid.Row="1" Margin="0,18,0,0" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*,46">
+      <TextBlock Grid.Row="0" Grid.Column="0" Text="R" VerticalAlignment="Center" Margin="0,0,10,0" />
+      <Slider Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="255" VerticalAlignment="Center"
+              Value="{Binding Red, Mode=TwoWay}" />
+      <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Red}" VerticalAlignment="Center" HorizontalAlignment="Right" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" Text="G" VerticalAlignment="Center" Margin="0,0,10,0" />
+      <Slider Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="255" VerticalAlignment="Center"
+              Value="{Binding Green, Mode=TwoWay}" />
+      <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Green}" VerticalAlignment="Center" HorizontalAlignment="Right" />
+
+      <TextBlock Grid.Row="2" Grid.Column="0" Text="B" VerticalAlignment="Center" Margin="0,0,10,0" />
+      <Slider Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="255" VerticalAlignment="Center"
+              Value="{Binding Blue, Mode=TwoWay}" />
+      <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Blue}" VerticalAlignment="Center" HorizontalAlignment="Right" />
+    </Grid>
+
+    <!-- Предпросмотр -->
+    <Border Grid.Row="2" Margin="0,18,0,18" Height="48"
+            Background="{Binding SelectedColorBrush}"
+            BorderBrush="#808080"
+            BorderThickness="1" />
+
+    <!-- Кнопки -->
+    <Grid Grid.Row="3" ColumnDefinitions="*,*">
+      <Button Grid.Column="0"
+              Content="{x:Static loc:SettingsWindowLocalization.Ok}"
+              HorizontalAlignment="Right"
+              Width="88"
+              Click="OnOkClick" />
+      <Button Grid.Column="1"
+              Content="{x:Static loc:SettingsWindowLocalization.Cancel}"
+              HorizontalAlignment="Left"
+              Width="88"
+              Margin="12,0,0,0"
+              Click="OnCancelClick" />
+    </Grid>
+  </Grid>
+</Window>

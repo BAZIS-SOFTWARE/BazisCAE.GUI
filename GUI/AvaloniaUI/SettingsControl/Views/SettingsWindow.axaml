@@ -1,0 +1,193 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModels="using:BazisGUI.AvaloniaUI.SettingsControl.ViewModels"
+        xmlns:models="using:BazisGUI.AvaloniaUI.SettingsControl.Models"
+        xmlns:lighting="using:BazisGUI.AvaloniaUI.LightingControl"
+        xmlns:loc="using:BazisGUI.Localization"
+        x:Class="BazisGUI.AvaloniaUI.SettingsControl.Views.SettingsWindow"
+        x:DataType="viewModels:SettingsViewModel"
+        Title="{x:Static loc:SettingsWindowLocalization.Title}"
+        Width="520"
+        Height="680"
+        CanResize="False"
+        Topmost="True"
+        WindowDecorations="None"
+        TransparencyLevelHint="Transparent"
+        Background="Transparent"
+        Foreground="#171717"
+        RequestedThemeVariant="Light"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Segoe UI">
+  <Window.Styles>
+    <StyleInclude Source="avares://BazisGUI/AvaloniaUI/SettingsControl/Views/SettingsStyles.axaml" />
+  </Window.Styles>
+
+  <Border Margin="4"
+          Background="White"
+          BorderBrush="#8D8D8D"
+          BorderThickness="1"
+          CornerRadius="8"
+          ClipToBounds="True"
+          BoxShadow="0 2 4 0 #50000000">
+    <Grid RowDefinitions="31,*">
+      <!-- Заголовок окна -->
+      <Grid Grid.Row="0" Background="Transparent" PointerPressed="OnTitleBarPointerPressed">
+        <TextBlock Margin="14,0,36,0"
+                   VerticalAlignment="Center"
+                   Foreground="#7D7D7D"
+                   FontSize="15"
+                   Text="{x:Static loc:SettingsWindowLocalization.Title}" />
+        <Button Width="31"
+                Height="31"
+                Classes="closeButton"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Padding="0"
+                BorderThickness="0"
+                FontSize="15"
+                Content="X"
+                Click="OnCloseClick" />
+      </Grid>
+
+      <!-- Тело окна -->
+      <Border Grid.Row="1" Background="#F5F5F5" CornerRadius="0,0,7,7">
+        <TabControl Margin="10" Background="Transparent" BorderThickness="0">
+          <!-- Вкладка «Сцена» -->
+          <TabItem Header="{x:Static loc:SettingsWindowLocalization.TabScene}">
+            <Grid Margin="10,14,10,10" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*,*">
+
+              <Button Grid.Row="0" Grid.Column="0" Classes="action" HorizontalAlignment="Stretch"
+                      Content="{x:Static loc:SettingsWindowLocalization.BackgroundColorButton}"
+                      Click="OnPickBackgroundColorClick" />
+              <Border Grid.Row="0" Grid.Column="1" Width="46" Height="24" Margin="8,0,0,0"
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Background="{Binding BackgroundColorBrush}"
+                      BorderBrush="#808080" BorderThickness="1" />
+
+              <TextBlock Grid.Row="1" Grid.Column="0" Classes="fieldLabel" VerticalAlignment="Center"
+                         Text="{x:Static loc:SettingsWindowLocalization.BackRibbersLabel}" />
+              <CheckBox Grid.Row="1" Grid.Column="1" Classes="fieldCheck" VerticalAlignment="Center"
+                        Content="{x:Static loc:SettingsWindowLocalization.OnOff}"
+                        IsChecked="{Binding IsBackRibbers, Mode=TwoWay}" />
+
+              <TextBlock Grid.Row="2" Grid.Column="0" Classes="fieldLabel" VerticalAlignment="Center"
+                         Text="{x:Static loc:SettingsWindowLocalization.LightingLabel}" />
+              <CheckBox Grid.Row="2" Grid.Column="1" Classes="fieldCheck" VerticalAlignment="Center"
+                        Content="{x:Static loc:SettingsWindowLocalization.OnOff}"
+                        IsChecked="{Binding IsLighting, Mode=TwoWay}" />
+
+              <lighting:LightingControl x:Name="LightingBallControl"
+                                        Grid.Row="3" Grid.ColumnSpan="2"
+                                        HorizontalAlignment="Center" Margin="0,8"
+                                        BallPosition="{Binding LighterPosition, Mode=TwoWay}" />
+
+              <TextBlock Grid.Row="4" Grid.Column="0" Classes="fieldLabel" VerticalAlignment="Center"
+                         Text="{x:Static loc:SettingsWindowLocalization.LightingIntensityLabel}" />
+              <Grid Grid.Row="4" Grid.Column="1" ColumnDefinitions="*,44" VerticalAlignment="Center">
+                <Slider Grid.Column="0" Classes="settingsSlider" Minimum="0" Maximum="100"
+                        Value="{Binding LightingIntensity, Mode=TwoWay}" />
+                <TextBlock Grid.Column="1" Classes="valueLabel" Text="{Binding LightingIntensity}" />
+              </Grid>
+
+              <TextBlock Grid.Row="5" Grid.Column="0" Classes="fieldLabel" VerticalAlignment="Center"
+                         Text="{x:Static loc:SettingsWindowLocalization.TransparencyLabel}" />
+              <CheckBox Grid.Row="5" Grid.Column="1" Classes="fieldCheck" VerticalAlignment="Center"
+                        Content="{x:Static loc:SettingsWindowLocalization.OnOff}"
+                        IsChecked="{Binding IsTransparency, Mode=TwoWay}" />
+
+              <TextBlock Grid.Row="6" Grid.Column="0" Classes="fieldLabel" VerticalAlignment="Center"
+                         Text="{x:Static loc:SettingsWindowLocalization.TransparencyValueLabel}" />
+              <Grid Grid.Row="6" Grid.Column="1" ColumnDefinitions="*,44" VerticalAlignment="Center">
+                <Slider Grid.Column="0" Classes="settingsSlider" Minimum="0" Maximum="100"
+                        Value="{Binding TransparencyValue, Mode=TwoWay}" />
+                <TextBlock Grid.Column="1" Classes="valueLabel" Text="{Binding TransparencyValue}" />
+              </Grid>
+
+              <TextBlock Grid.Row="7" Grid.Column="0" Classes="fieldLabel" VerticalAlignment="Center"
+                         Text="{x:Static loc:SettingsWindowLocalization.OrtoProjectionLabel}" />
+              <CheckBox Grid.Row="7" Grid.Column="1" Classes="fieldCheck" VerticalAlignment="Center"
+                        Content="{x:Static loc:SettingsWindowLocalization.OnOff}"
+                        IsChecked="{Binding IsOrtoProjection, Mode=TwoWay}" />
+            </Grid>
+          </TabItem>
+
+          <!-- Вкладка «Объекты» -->
+          <TabItem Header="{x:Static loc:SettingsWindowLocalization.TabObjects}">
+            <Grid Margin="10,14,10,10" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*,*">
+
+              <Button Grid.Row="0" Grid.Column="0" Classes="action" HorizontalAlignment="Stretch"
+                      Content="{x:Static loc:SettingsWindowLocalization.SelectObjectColorButton}"
+                      Click="OnPickSelectionObjectColorClick" />
+              <Border Grid.Row="0" Grid.Column="1" Width="46" Height="24" Margin="8,0,0,0"
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Background="{Binding SelectionObjectColorBrush}"
+                      BorderBrush="#808080" BorderThickness="1" />
+
+              <Button Grid.Row="1" Grid.Column="0" Classes="action" HorizontalAlignment="Stretch"
+                      Content="{x:Static loc:SettingsWindowLocalization.SelectGroupColorButton}"
+                      Click="OnPickSelectionGroupColorClick" />
+              <Border Grid.Row="1" Grid.Column="1" Width="46" Height="24" Margin="8,0,0,0"
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Background="{Binding SelectionGroupColorBrush}"
+                      BorderBrush="#808080" BorderThickness="1" />
+
+              <Button Grid.Row="2" Grid.Column="0" Classes="action" HorizontalAlignment="Stretch"
+                      Content="{x:Static loc:SettingsWindowLocalization.Select3DElemColorButton}"
+                      Click="OnPick3DElementColorClick" />
+              <Border Grid.Row="2" Grid.Column="1" Width="46" Height="24" Margin="8,0,0,0"
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Background="{Binding Color3DElementBrush}"
+                      BorderBrush="#808080" BorderThickness="1" />
+
+              <Button Grid.Row="3" Grid.Column="0" Classes="action" HorizontalAlignment="Stretch"
+                      Content="{x:Static loc:SettingsWindowLocalization.Select2DElemColorButton}"
+                      Click="OnPick2DElementColorClick" />
+              <Border Grid.Row="3" Grid.Column="1" Width="46" Height="24" Margin="8,0,0,0"
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Background="{Binding Color2DElementBrush}"
+                      BorderBrush="#808080" BorderThickness="1" />
+
+              <Button Grid.Row="4" Grid.Column="0" Classes="action" HorizontalAlignment="Stretch"
+                      Content="{x:Static loc:SettingsWindowLocalization.SelectNodeColorButton}"
+                      Click="OnPickNodeColorClick" />
+              <Border Grid.Row="4" Grid.Column="1" Width="46" Height="24" Margin="8,0,0,0"
+                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Background="{Binding NodeColorBrush}"
+                      BorderBrush="#808080" BorderThickness="1" />
+            </Grid>
+          </TabItem>
+
+          <!-- Вкладка «Решатель» -->
+          <TabItem Header="{x:Static loc:SettingsWindowLocalization.TabSolver}">
+            <Grid Margin="10,14,10,10" RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*">
+              <TextBlock Grid.Row="0" Grid.Column="0" Classes="fieldLabel" VerticalAlignment="Top" Margin="0,4,12,0"
+                         Text="{x:Static loc:SettingsWindowLocalization.SolverPathLabel}" />
+              <TextBlock Grid.Row="0" Grid.Column="1" Classes="fieldLabel" VerticalAlignment="Top" Margin="0,4,0,0"
+                         Text="{Binding SolverPath}" TextWrapping="Wrap" />
+              <Button Grid.Row="1" Grid.Column="1" Classes="action" HorizontalAlignment="Left" Margin="0,12,0,0"
+                      Content="{x:Static loc:SettingsWindowLocalization.BrowseButton}"
+                      Click="OnBrowseSolverClick" />
+            </Grid>
+          </TabItem>
+
+          <!-- Вкладка «Язык» -->
+          <TabItem Header="{x:Static loc:SettingsWindowLocalization.TabLanguage}">
+            <Grid Margin="10,14,10,10" RowDefinitions="Auto" ColumnDefinitions="Auto,*">
+              <TextBlock Grid.Column="0" Classes="fieldLabel" VerticalAlignment="Center" Margin="0,0,12,0"
+                         Text="{x:Static loc:SettingsWindowLocalization.LanguageLabel}" />
+              <ComboBox Grid.Column="1" Width="160" HorizontalAlignment="Left"
+                        ItemsSource="{Binding Languages}"
+                        SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="models:LanguageOption">
+                    <TextBlock Text="{Binding DisplayName}" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </Grid>
+          </TabItem>
+        </TabControl>
+      </Border>
+    </Grid>
+  </Border>
+</Window>

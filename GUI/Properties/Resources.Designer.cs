@@ -6492,6 +6492,54 @@ namespace BazisGUI.Properties {
 
         internal static string ClipWindow_ModeLayered => ResourceManager.GetString("ClipWindow_ModeLayered", resourceCulture);
 
+        internal static string SettingsWindow_Title => ResourceManager.GetString("SettingsWindow_Title", resourceCulture);
+
+        internal static string SettingsWindow_TabScene => ResourceManager.GetString("SettingsWindow_TabScene", resourceCulture);
+
+        internal static string SettingsWindow_TabObjects => ResourceManager.GetString("SettingsWindow_TabObjects", resourceCulture);
+
+        internal static string SettingsWindow_TabSolver => ResourceManager.GetString("SettingsWindow_TabSolver", resourceCulture);
+
+        internal static string SettingsWindow_TabLanguage => ResourceManager.GetString("SettingsWindow_TabLanguage", resourceCulture);
+
+        internal static string SettingsWindow_BackgroundColorButton => ResourceManager.GetString("SettingsWindow_BackgroundColorButton", resourceCulture);
+
+        internal static string SettingsWindow_BackRibbersLabel => ResourceManager.GetString("SettingsWindow_BackRibbersLabel", resourceCulture);
+
+        internal static string SettingsWindow_LightingLabel => ResourceManager.GetString("SettingsWindow_LightingLabel", resourceCulture);
+
+        internal static string SettingsWindow_LightingIntensityLabel => ResourceManager.GetString("SettingsWindow_LightingIntensityLabel", resourceCulture);
+
+        internal static string SettingsWindow_TransparencyLabel => ResourceManager.GetString("SettingsWindow_TransparencyLabel", resourceCulture);
+
+        internal static string SettingsWindow_TransparencyValueLabel => ResourceManager.GetString("SettingsWindow_TransparencyValueLabel", resourceCulture);
+
+        internal static string SettingsWindow_OrtoProjectionLabel => ResourceManager.GetString("SettingsWindow_OrtoProjectionLabel", resourceCulture);
+
+        internal static string SettingsWindow_OnOff => ResourceManager.GetString("SettingsWindow_OnOff", resourceCulture);
+
+        internal static string SettingsWindow_SelectObjectColorButton => ResourceManager.GetString("SettingsWindow_SelectObjectColorButton", resourceCulture);
+
+        internal static string SettingsWindow_SelectGroupColorButton => ResourceManager.GetString("SettingsWindow_SelectGroupColorButton", resourceCulture);
+
+        internal static string SettingsWindow_Select3DElemColorButton => ResourceManager.GetString("SettingsWindow_Select3DElemColorButton", resourceCulture);
+
+        internal static string SettingsWindow_Select2DElemColorButton => ResourceManager.GetString("SettingsWindow_Select2DElemColorButton", resourceCulture);
+
+        internal static string SettingsWindow_SelectNodeColorButton => ResourceManager.GetString("SettingsWindow_SelectNodeColorButton", resourceCulture);
+
+        internal static string SettingsWindow_SolverPathLabel => ResourceManager.GetString("SettingsWindow_SolverPathLabel", resourceCulture);
+
+        internal static string SettingsWindow_BrowseButton => ResourceManager.GetString("SettingsWindow_BrowseButton", resourceCulture);
+
+        internal static string SettingsWindow_LanguageLabel => ResourceManager.GetString("SettingsWindow_LanguageLabel", resourceCulture);
+
+        internal static string SettingsWindow_ColorPickerTitle => ResourceManager.GetString("SettingsWindow_ColorPickerTitle", resourceCulture);
+
+        internal static string SettingsWindow_Ok => ResourceManager.GetString("SettingsWindow_Ok", resourceCulture);
+
+        internal static string SettingsWindow_Cancel => ResourceManager.GetString("SettingsWindow_Cancel", resourceCulture);
+
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>

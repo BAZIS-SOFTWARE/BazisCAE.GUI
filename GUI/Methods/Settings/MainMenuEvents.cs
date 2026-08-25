@@ -1,4 +1,5 @@
-﻿using BazisGUI.DataBases;
+﻿using BazisGUI.AvaloniaUI.SettingsControl.Services;
+using BazisGUI.DataBases;
 using BazisGUI.Properties;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.SettingsControls;
@@ -7,6 +8,7 @@ using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace BazisGUI
@@ -15,136 +17,197 @@ namespace BazisGUI
     {
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var btn = sender as ToolStripMenuItem;
-            var name = Resources.BaseForm_настройкиToolStripMenuItem_Click_Settings;
-
-            if (btn.Checked)
+            try
             {
-                var settings = new SettingsControl();
-                settings.Leave += Settings_Leave;
-                settings.SetSettings(settingsConfig);
-                SetSettingsToConfig(settings);
-                //Resources.SettingsControl_headerName_text;
-                TabButtonsService.AddControl(name, settings);
+                if (настройкиToolStripMenuItem.Checked)
+                {
+                    var synchronizationContext = SynchronizationContext.Current;
+                    var operationService = new SynchronizationContextSettingsOperationService(
+                        synchronizationContext,
+                        RequestSetBackgroundColor,
+                        RequestSetSelectionObjectColor,
+                        RequestSetSelectionGroupColor,
+                        RequestSetNodeColor,
+                        RequestSetSolverPath,
+                        RequestSetLighting,
+                        RequestSetLightingIntensity,
+                        RequestSetLighterPosition,
+                        RequestSetTransparency,
+                        RequestSetTransparencyValue,
+                        RequestSetOrtoProjection,
+                        RequestSetLanguage,
+                        RequestSaveSettings);
+
+                    SettingsWindowService.Show(operationService, settingsConfig, () => synchronizationContext.Post(_ => OnSettingsWindowClosed(), null));
+                }
+                else
+                    SettingsWindowService.Close();
             }
-            else
-                TabButtonsService.RemoveControl(name);
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
-        private void Settings_Leave(object sender, EventArgs e)
+        /// <summary>
+        /// Применение цвета заднего фона. Вызывается в UI-потоке WinForms из окна Avalonia.
+        /// </summary>
+        private void RequestSetBackgroundColor(Color color)
         {
+            settingsConfig.BackGroundColor = color;
+            averageColorRenderer.BackgroundColor = color;
+            DisplayObjects();
             SaveConfig(settingsConfig);
         }
 
-        private void SetSettingsToConfig(SettingsControl settings)
+        /// <summary>
+        /// Применение цвета выделения объектов.
+        /// </summary>
+        private void RequestSetSelectionObjectColor(Color color)
         {
+            settingsConfig.SelectObjectColor = color;
+            SaveConfig(settingsConfig);
+        }
 
-            settings.SetSelectionGroupColorEvent += (ar) =>
+        /// <summary>
+        /// Применение цвета выделения групп.
+        /// </summary>
+        private void RequestSetSelectionGroupColor(Color color)
+        {
+            settingsConfig.SelectGroupColor = color;
+            SaveConfig(settingsConfig);
+        }
 
+        /// <summary>
+        /// Применение цвета узлов.
+        /// </summary>
+        private void RequestSetNodeColor(Color color)
+        {
+            settingsConfig.NodeColor = color;
+            if (project != null)
             {
-                settingsConfig.SelectGroupColor = ar;
-            };
-            settings.SetSelectionObjectColorEvent += (ar) =>
-            { 
-                settingsConfig.SelectObjectColor = ar;
-            };
-
-            settings.SetNodeColorEvent += (ar) =>
-            {
-                //NodeColor = ar;
                 var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
                 SetVBObjectAttribute(pres, "цвет");
                 DisplayObjects();
-            };
+            }
+            SaveConfig(settingsConfig);
+        }
 
-            settings.SetSolverPathEvent += (ar) =>
-            {
-                settingsConfig.SolverPath = ar;
-            };
-            settings.SetBackGroundColorEvent += (ar) =>
-            {
-                settingsConfig.BackGroundColor = ar;
-                averageColorRenderer.BackgroundColor = ar;
-                DisplayObjects();
-            };
+        /// <summary>
+        /// Применение пути до решателя.
+        /// </summary>
+        private void RequestSetSolverPath(string path) => settingsConfig.SolverPath = path;
 
+        /// <summary>
+        /// Включение/выключение освещения.
+        /// </summary>
+        private void RequestSetLighting(bool enabled)
+        {
+            settingsConfig.Lighting = enabled;
+            averageColorRenderer.IsLighting = enabled;
+            DisplayObjects();
+        }
 
-            settings.SetLightingEvent += (ar) =>
-            {
-                settingsConfig.Lighting = ar;
-                averageColorRenderer.IsLighting = ar;
-                DisplayObjects();
-            };
+        /// <summary>
+        /// Применение интенсивности освещения (0..100).
+        /// </summary>
+        private void RequestSetLightingIntensity(int intensity)
+        {
+            settingsConfig.LightingIntensity = intensity;
+            var lightAttenuation = 1 - intensity / 100.0f;
+            GL.Light(LightName.Light0, LightParameter.LinearAttenuation, lightAttenuation);
+            DisplayObjects();
+        }
 
-            settings.SetTransparencyEvent += (ar) =>
-            {
-                settingsConfig.Transparency = ar;
-                averageColorRenderer.IsEnable = ar;
-                ClearAllDataOnScene();
-                if(project != null)
-                    CreateVBObjects("Объекты");
-                DisplayObjects();
-            };
+        /// <summary>
+        /// Применение положения источника света с масштабированием координат
+        /// контрола выбора света к размерам сцены.
+        /// </summary>
+        private void RequestSetLighterPosition(double x, double y, double controlWidth, double controlHeight)
+        {
+            var kx = controlWidth > 0 ? (float)(Width / controlWidth) : 1f;
+            var ky = controlHeight > 0 ? (float)(Height / controlHeight) : 1f;
 
-            settings.SetOrtoProjectionEvent += (ar) =>
-            {
-                settingsConfig.Projection = ar ? ViewProjection.Parallel : ViewProjection.Perspective;
-                UpdateProjection();
-                DisplayObjects();
-            };
+            settingsConfig.LighterPosition.X = (int)(x * kx);
+            settingsConfig.LighterPosition.Y = (int)(y * ky);
 
-            settings.SetTransparencyValueEvent += (ar1) =>
-            {
-                settingsConfig.TransparencyValue = (int)(ar1 / 100.0f * 255);
+            DisplayObjects();
+        }
 
-                settingsConfig.SelectObjectColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectObjectColor);
-                settingsConfig.SelectGroupColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectGroupColor);
-
-                var objs = project.GetAllModelObjects();
-
-                foreach (var obj in objs)
-                {
-                    var preColor = obj.Color;
-                    var newColor = Color.FromArgb(settingsConfig.TransparencyValue, preColor);
-                    obj.Color = newColor;
-                }
-
-                ClearAllDataOnScene();
+        /// <summary>
+        /// Включение/выключение прозрачности.
+        /// </summary>
+        private void RequestSetTransparency(bool enabled)
+        {
+            settingsConfig.Transparency = enabled;
+            averageColorRenderer.IsEnable = enabled;
+            ClearAllDataOnScene();
+            if (project != null)
                 CreateVBObjects("Объекты");
-                DisplayObjects();
-            };
+            DisplayObjects();
+        }
 
-            settings.SetLightingIntensityEvent += (ar) =>
+        /// <summary>
+        /// Применение значения прозрачности (0..100) ко всем объектам сцены.
+        /// </summary>
+        private void RequestSetTransparencyValue(int value)
+        {
+            settingsConfig.TransparencyValue = (int)(value / 100.0f * 255);
+
+            settingsConfig.SelectObjectColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectObjectColor);
+            settingsConfig.SelectGroupColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectGroupColor);
+
+            var objs = project.GetAllModelObjects();
+            foreach (var obj in objs)
             {
-                settingsConfig.LightingIntensity = ar;
-                var lightAttenuation = 1 - ar / 100.0f;
-                GL.Light(LightName.Light0, LightParameter.LinearAttenuation, lightAttenuation);
-                DisplayObjects();
-            };
+                var preColor = obj.Color;
+                var newColor = Color.FromArgb(settingsConfig.TransparencyValue, preColor);
+                obj.Color = newColor;
+            }
 
+            ClearAllDataOnScene();
+            CreateVBObjects("Объекты");
+            DisplayObjects();
+        }
 
-            settings.SetLighterPositionEvent += (ar) =>
+        /// <summary>
+        /// Включение ортографической проекции.
+        /// </summary>
+        private void RequestSetOrtoProjection(bool enabled)
+        {
+            settingsConfig.Projection = enabled ? ViewProjection.Parallel : ViewProjection.Perspective;
+            UpdateProjection();
+            DisplayObjects();
+        }
+
+        /// <summary>
+        /// Применение языка интерфейса (код «ru»/«en»).
+        /// </summary>
+        private void RequestSetLanguage(string language)
+        {
+            if (settingsConfig.Language != language)
             {
-                var kx = (float)(Width / settings.Width);
-                var ky = (float)(Height / settings.Height);
+                MessageBox.Show(Resources.MainMenuEvents_ChangeLanguage_Message, Localization.Localization.GetAttentionCaption());
+                settingsConfig.Language = language;
+            }
+        }
 
-                var x = ar.X * kx;
-                var y = ar.Y * ky;
+        /// <summary>
+        /// Сохранение конфигурации настроек при закрытии окна.
+        /// </summary>
+        private void RequestSaveSettings() => SaveConfig(settingsConfig);
 
-                settingsConfig.LighterPosition.X = (int)x;
-                settingsConfig.LighterPosition.Y = (int)y;
+        /// <summary>
+        /// Приводит состояние пункта меню в соответствие с фактическим состоянием окна.
+        /// Программное снятие флажка не вызывает событие <see cref="ToolStripItem.Click"/>.
+        /// Выполняется в UI-потоке WinForms.
+        /// </summary>
+        private void OnSettingsWindowClosed()
+        {
+            if (IsDisposed || Disposing)
+                return;
 
-                DisplayObjects();
-            };
-
-            settings.SetLanguageEvent += (ar) => 
-            {
-                if (settingsConfig.Language != ar)
-                {
-                    MessageBox.Show(Resources.MainMenuEvents_ChangeLanguage_Message, Localization.Localization.GetAttentionCaption());
-                    settingsConfig.Language = ar;
-                }
-            };
+            настройкиToolStripMenuItem.Checked = false;
         }
     }
 }

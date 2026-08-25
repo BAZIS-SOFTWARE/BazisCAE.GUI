@@ -2093,4 +2093,28 @@ Create variable?</value>
   <data name="ClipWindow_ModeDefault" xml:space="preserve"><value>Regular</value></data>
   <data name="ClipWindow_ModeKeepElement" xml:space="preserve"><value>3D stay</value></data>
   <data name="ClipWindow_ModeLayered" xml:space="preserve"><value>Layer 3D</value></data>
+  <data name="SettingsWindow_Title" xml:space="preserve"><value>Settings</value></data>
+  <data name="SettingsWindow_TabScene" xml:space="preserve"><value>Scene</value></data>
+  <data name="SettingsWindow_TabObjects" xml:space="preserve"><value>Objects</value></data>
+  <data name="SettingsWindow_TabSolver" xml:space="preserve"><value>Solver</value></data>
+  <data name="SettingsWindow_TabLanguage" xml:space="preserve"><value>Language</value></data>
+  <data name="SettingsWindow_BackgroundColorButton" xml:space="preserve"><value>select background color</value></data>
+  <data name="SettingsWindow_BackRibbersLabel" xml:space="preserve"><value>Inner elements ribbers</value></data>
+  <data name="SettingsWindow_LightingLabel" xml:space="preserve"><value>Lighting</value></data>
+  <data name="SettingsWindow_LightingIntensityLabel" xml:space="preserve"><value>Intensity</value></data>
+  <data name="SettingsWindow_TransparencyLabel" xml:space="preserve"><value>Transparency</value></data>
+  <data name="SettingsWindow_TransparencyValueLabel" xml:space="preserve"><value>Transparency value</value></data>
+  <data name="SettingsWindow_OrtoProjectionLabel" xml:space="preserve"><value>Orthographic projection</value></data>
+  <data name="SettingsWindow_OnOff" xml:space="preserve"><value>On/Off</value></data>
+  <data name="SettingsWindow_SelectObjectColorButton" xml:space="preserve"><value>select object highlight color</value></data>
+  <data name="SettingsWindow_SelectGroupColorButton" xml:space="preserve"><value>select group highlight color</value></data>
+  <data name="SettingsWindow_Select3DElemColorButton" xml:space="preserve"><value>select the color of 3D elements</value></data>
+  <data name="SettingsWindow_Select2DElemColorButton" xml:space="preserve"><value>select the color of 2D elements</value></data>
+  <data name="SettingsWindow_SelectNodeColorButton" xml:space="preserve"><value>select node color</value></data>
+  <data name="SettingsWindow_SolverPathLabel" xml:space="preserve"><value>The path to the solver</value></data>
+  <data name="SettingsWindow_BrowseButton" xml:space="preserve"><value>Browse...</value></data>
+  <data name="SettingsWindow_LanguageLabel" xml:space="preserve"><value>Language</value></data>
+  <data name="SettingsWindow_ColorPickerTitle" xml:space="preserve"><value>Select color</value></data>
+  <data name="SettingsWindow_Ok" xml:space="preserve"><value>OK</value></data>
+  <data name="SettingsWindow_Cancel" xml:space="preserve"><value>Cancel</value></data>
 </root>
