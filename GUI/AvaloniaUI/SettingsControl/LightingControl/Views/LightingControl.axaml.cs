@@ -24,15 +24,19 @@ namespace BazisGUI.AvaloniaUI.LightingControl
         /// Радиус шарика в пикселях.
         /// </summary>
         private const double BallRadius = 6;
-
+        /// <summary>
+        /// Флаг нахождения координат мыши внутри шарика
+        /// </summary>
         private bool isPointInsideBall;
+        /// <summary>
+        /// Флаг нажатия мыши
+        /// </summary>
         private bool isMouseDown;
 
         /// <summary>
         /// Положение шарика относительно центра поля.
         /// </summary>
-        public static readonly StyledProperty<Point> BallPositionProperty =
-            AvaloniaProperty.Register<LightingControl, Point>(nameof(BallPosition));
+        public static readonly StyledProperty<Point> BallPositionProperty = AvaloniaProperty.Register<LightingControl, Point>(nameof(BallPosition));
 
         /// <summary>
         /// Событие фиксации положения шарика (поднимается при отпускании кнопки мыши).
@@ -46,10 +50,10 @@ namespace BazisGUI.AvaloniaUI.LightingControl
             BallPositionProperty.Changed.AddClassHandler<LightingControl>(OnBallPositionChanged);
 
             // Перехватываем события указателя, чтобы шарик гарантированно реагировал на мышь.
-            AddHandler(InputElement.PointerPressedEvent, OnPointerPressed, RoutingStrategies.Tunnel, true);
-            AddHandler(InputElement.PointerMovedEvent, OnPointerMoved, RoutingStrategies.Tunnel, true);
-            AddHandler(InputElement.PointerReleasedEvent, OnPointerReleased, RoutingStrategies.Tunnel, true);
-            AddHandler(InputElement.PointerExitedEvent, OnPointerExited, RoutingStrategies.Tunnel, true);
+            AddHandler(PointerPressedEvent, OnPointerPressed, RoutingStrategies.Tunnel, true);
+            AddHandler(PointerMovedEvent, OnPointerMoved, RoutingStrategies.Tunnel, true);
+            AddHandler(PointerReleasedEvent, OnPointerReleased, RoutingStrategies.Tunnel, true);
+            AddHandler(PointerExitedEvent, OnPointerExited, RoutingStrategies.Tunnel, true);
         }
 
         /// <summary>
@@ -60,24 +64,12 @@ namespace BazisGUI.AvaloniaUI.LightingControl
             get => GetValue(BallPositionProperty);
             set => SetValue(BallPositionProperty, value);
         }
-
-        protected override Size MeasureOverride(Size availableSize)
-            => new Size(230, 233);
-
-        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
-        {
-            base.OnAttachedToVisualTree(e);
-            InvalidateVisual();
-        }
-
-        protected override void OnSizeChanged(SizeChangedEventArgs e)
-        {
-            base.OnSizeChanged(e);
-            InvalidateVisual();
-        }
-
-        private static void OnBallPositionChanged(LightingControl control, AvaloniaPropertyChangedEventArgs e)
-            => control.InvalidateVisual();
+        /// <summary>
+        /// Вызывается при изменении свойства BallPosition
+        /// </summary>
+        /// <param name="control">Экземпляр LightingControl</param>
+        /// <param name="e">Событие типа AvaloniaPropertyChangedEventArgs</param>
+        private static void OnBallPositionChanged(LightingControl control, AvaloniaPropertyChangedEventArgs e) => control.InvalidateVisual();
 
         /// <summary>
         /// Отрисовка контрола (аналог события Paint в WinForms).
@@ -102,7 +94,11 @@ namespace BazisGUI.AvaloniaUI.LightingControl
 
             context.DrawEllipse(Brushes.Black, null, center, BallRadius, BallRadius);
         }
-
+        /// <summary>
+        /// Обработчик события нажатий мыши
+        /// </summary>
+        /// <param name="sender">Отправитель события</param>
+        /// <param name="e">Событие типа PointerPressedEventArgs</param>
         private void OnPointerPressed(object sender, PointerPressedEventArgs e)
         {
             if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
@@ -117,7 +113,11 @@ namespace BazisGUI.AvaloniaUI.LightingControl
             e.Pointer.Capture(this);
             e.Handled = true;
         }
-
+        /// <summary>
+        /// Обработчик события передвижения мыши
+        /// </summary>
+        /// <param name="sender">Отправитель события</param>
+        /// <param name="e">Событие типа PointerEventArgs</param>
         private void OnPointerMoved(object sender, PointerEventArgs e)
         {
             if (!isMouseDown || !isPointInsideBall)
@@ -135,7 +135,11 @@ namespace BazisGUI.AvaloniaUI.LightingControl
 
             e.Handled = true;
         }
-
+        /// <summary>
+        /// Обработчик события отжатия кнопок мыши
+        /// </summary>
+        /// <param name="sender">Отправитель события</param>
+        /// <param name="e">Событие типа PointerReleasedEventArgs</param>
         private void OnPointerReleased(object sender, PointerReleasedEventArgs e)
         {
             isMouseDown = false;
@@ -143,7 +147,11 @@ namespace BazisGUI.AvaloniaUI.LightingControl
             BallPositionCommitted?.Invoke(BallPosition);
             e.Handled = true;
         }
-
+        /// <summary>
+        /// Обработчик события выхода мыши за пределы границ элемента управления
+        /// </summary>
+        /// <param name="sender">Отправитель события</param>
+        /// <param name="e">Событие типа PointerEventArgs</param>
         private void OnPointerExited(object sender, PointerEventArgs e)
         {
             isPointInsideBall = false;

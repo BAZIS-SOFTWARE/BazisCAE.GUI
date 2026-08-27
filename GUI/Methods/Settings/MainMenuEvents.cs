@@ -152,6 +152,8 @@ namespace BazisGUI
         /// </summary>
         private void RequestSetTransparencyValue(int value)
         {
+            if(project == null)
+                return;
             settingsConfig.TransparencyValue = (int)(value / 100.0f * 255);
 
             settingsConfig.SelectObjectColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectObjectColor);
