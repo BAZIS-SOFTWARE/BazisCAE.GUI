@@ -72,7 +72,7 @@ namespace BazisGUI
             try
             {
                 return curveNumbers
-                    .Split(',', StringSplitOptions.TrimEntries)
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
                     .Select(int.Parse)
                     .ToArray();
             }
