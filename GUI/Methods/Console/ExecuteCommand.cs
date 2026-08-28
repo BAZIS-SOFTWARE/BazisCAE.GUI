@@ -62,6 +62,8 @@ namespace BazisGUI
             { "Create group", GenCmd.CreateGroup },
             { "Scale factor", GenCmd.ScaleFactor },
             { "Extrude along curve",GenCmd.ExtrudeCurve },
+            { "Extrude along curve by set name", GenCmd.ExtrudeCurveBySetName },
+            { "Extrude 1D from point", GenCmd.Extrude1DFromPoint },
             { "Extrusion by rotation",GenCmd.ExtrudeRotate },
             { "Save STEP", GenCmd.SaveSTEP },
             { "Create volume material", GenCmd.CreateVolumeMaterial },
@@ -109,7 +111,9 @@ namespace BazisGUI
             { GenCmd.CreateGroupByGeoObjs, new []{ "meshDim", "geoDim", "номер гео.объекта" }},
             { GenCmd.CreateGroup, new[] { "set name" } },
             { GenCmd.ScaleFactor, new[] { "scale"} },
-            { GenCmd.ExtrudeCurve, new[] { "Element 2D", "curve#1,curve#2,curve#3...", "point", "step", "transfinite mesh 1-yes, 0-no" } },
+            { GenCmd.ExtrudeCurve, new[] { "Surface number", "curve#1,curve#2,curve#3...", "point", "step", "transfinite mesh 1-yes, 0-no" } },
+            { GenCmd.ExtrudeCurveBySetName, new[] { "Set name", "curve#1,curve#2,curve#3...", "point", "step", "transfinite mesh 1-yes, 0-no" } },
+            { GenCmd.Extrude1DFromPoint, new[] { "Node number", "curve#1,curve#2,curve#3...", "point", "step" } },
             { GenCmd.ExtrudeRotate, new[] { "Element 2D", "angle in degrees", "point", "XYZ rotation axi", "transfinite mesh 1-yes, 0-no" } },
             { GenCmd.SaveSTEP, new [] { "path" } },
             { GenCmd.CreateVolumeMaterial, new[] { "Material name", "groupName", "start", "stop"} },
@@ -226,7 +230,13 @@ namespace BazisGUI
                         returnValue = GeometryParser(CreateCommandType.AddSurface, [cmds[2]]).ToString();
                         break;
                     case GenCmd.ExtrudeCurve:
-                        returnValue = ExtruderParser(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
+                        returnValue = ExtrudeCurveBySurface(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5]);
+                        break;
+                    case GenCmd.ExtrudeCurveBySetName:
+                        returnValue = ExtrudeCurveBySetName(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5]);
+                        break;
+                    case GenCmd.Extrude1DFromPoint:
+                        returnValue = Extrude1DFromPoint(cmds[1], cmds[2], cmds[3], cmds[4]);
                         break;
                     //case GenCmd.ExtrudeRotate:
                     //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));
