@@ -4,15 +4,27 @@ using BazisGUI.Scene.VBO;
 using Model.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Numerics;
-using System.Security.Cryptography;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BazisGUI
 {
     public partial class BaseForm
     {
+        private void PrepareForPointExtrusion(string nodeNumber, string numbersCurves, string point, string step, out int _nodeNumber, out List<int> _numbersCurves, out int _point, out double _step)
+        {
+            // "TODO: Потенциальное место проблем с локалью"
+            var valid = int.TryParse(nodeNumber, out _nodeNumber) &
+                int.TryParse(point, out _point) &
+                double.TryParse(step.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out _step);
+
+            if (!valid)
+                throw new ArgumentException(Resources.InvalidCommandException);
+
+            _numbersCurves = numbersCurves.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x.Trim())).ToList();
+        }
+
         private string ExtruderParser(ExtruderType type, List<string> parameters)
         {
             var setName = string.Empty;
@@ -21,7 +33,6 @@ namespace BazisGUI
                 // "TODO: Потенциальное место проблем с локалью"
                 string input = parameters[3].Replace(',', '.');
                 var valid =
-                    int.TryParse(parameters[0], out var numberSurface) &
                     int.TryParse(parameters[2], out var numberStartPoint) &
                     double.TryParse(input, out var step);
                 bool transfinite = parameters[4] == "1";
@@ -32,7 +43,15 @@ namespace BazisGUI
                 if (!valid)
                     throw new ArgumentException("Введены неверные данные");
 
-                setName = ExtrudeCurve(numberSurface, curveNumbers.ToArray(), numberStartPoint, step, transfinite);
+                if (!int.TryParse(parameters[0], out var numberSurface))
+                {
+                    if (project.GetModelSetInfo(ObjType.Элемент2D, parameters[0]) == null)
+                        throw new ArgumentException(Resources.InvalidCommandException);
+
+                    setName = ExtrudeCurve(parameters[0], curveNumbers.ToArray(), numberStartPoint, step, transfinite);
+                }
+                else
+                    setName = ExtrudeCurve(numberSurface, curveNumbers.ToArray(), numberStartPoint, step, transfinite);
             }
             else
             {
@@ -131,13 +150,22 @@ namespace BazisGUI
 
         private string ExtrudeCurve(int numberSurface, int[] numbersCurve, int numberStartPoint, double step, bool transfinite)
             => project.ExtrudeElement3DAlongCurve(numberSurface, numbersCurve, numberStartPoint, step, transfinite);
-        
+        private string ExtrudeCurve(string setName, int[] numbersCurve, int numberStartPoint, double step, bool transfinite)
+            => project.ExtrudeElement3DAlongCurve(setName, numbersCurve, numberStartPoint, step, transfinite);
+        private string Extrude1DFromPoint(int pointTag, int[] curveTags, int numberStartPoint, double step)
+        {
+            var setName = project.ExtrudeElement1DAlongCurve(curveTags, numberStartPoint, pointTag, step);
+            PresentExtrude();
+            return setName;
+        }
+
         private string ExtrudeRotate(int numberSurface, float angle, int originPoint, Vector3 rotAxis, bool transfinite)
         {
             var point = project.GetModelPoint(originPoint);
             Vector3 origin = new Vector3(point._x, point._y, point._z);
             return project.ExtrudeElement3DRotate(numberSurface, angle, origin, rotAxis, transfinite);
         }
+
         private int AddPoint(double x, double y, double z, double meshSize = 0)
         {
             var pointTag = project.CreatePoint(x, y, z);
@@ -179,6 +207,7 @@ namespace BazisGUI
             RefreshGeometry(ObjType.Точка);
             return pointTag;
         }
+
         private void RefreshGeometry(ObjType objType)
         {
             VBOController.DeleteVBObjects(objType.ToString());
@@ -191,14 +220,6 @@ namespace BazisGUI
 
         private void PresentExtrude()
         {
-           // RefreshGeometry(ObjType.Точка); RefreshGeometry(ObjType.Элемент3D);
-
-            //var set = project.GetModelSetsInfo(ObjType.Элемент3D).Where(x => x.Name.Contains("extrude")).Last();
-            //var pre = project.CreateModelObjectsPresentor(set);
-            //var vbo = CreateVBObject(pre);
-            //VBOController.AddVbo(vbo);
-
-
             VBOController.DeleteAllVBObjects();
             CreateVBObjects("Объекты");
 

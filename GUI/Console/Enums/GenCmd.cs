@@ -30,6 +30,8 @@
         CreatePointProjectionOntoPlane,
         CreateSurface,
         ExtrudeCurve,
+        ExtrudeCurveBySetName,
+        Extrude1DFromPoint,
         ExtrudeRotate,
         GenerateMesh,
         SetMeshPoint,
