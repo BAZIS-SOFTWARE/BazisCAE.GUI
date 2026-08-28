@@ -229,10 +229,11 @@ namespace BazisGUI
                     case GenCmd.CreateSurface:
                         returnValue = GeometryParser(CreateCommandType.AddSurface, [cmds[2]]).ToString();
                         break;
-                    // ExtruderParser сам определяет, задана ли поверхность номером или именем набора
                     case GenCmd.ExtrudeCurve:
-                    case GenCmd.ExtrudeCurveBySetName:
                         returnValue = ExtruderParser(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
+                        break;
+                    case GenCmd.ExtrudeCurveBySetName:
+                        returnValue = ExtruderParser(ExtruderType.CurveBySetName, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
                         break;
                     case GenCmd.Extrude1DFromPoint:
                         PrepareForPointExtrusion(cmds[1], cmds[2], cmds[3], cmds[4], out int _nodeNumber, out List<int> _numbersCurves, out int _point, out double _step);

@@ -28,7 +28,7 @@ namespace BazisGUI
         private string ExtruderParser(ExtruderType type, List<string> parameters)
         {
             var setName = string.Empty;
-            if (type == ExtruderType.Curve)
+            if (type == ExtruderType.Curve || type == ExtruderType.CurveBySetName)
             {
                 // "TODO: Потенциальное место проблем с локалью"
                 string input = parameters[3].Replace(',', '.');
@@ -43,7 +43,9 @@ namespace BazisGUI
                 if (!valid)
                     throw new ArgumentException("Введены неверные данные");
 
-                if (!int.TryParse(parameters[0], out var numberSurface))
+                // Перегрузка выбирается по команде, а не по содержимому аргумента:
+                // имя набора может состоять только из цифр.
+                if (type == ExtruderType.CurveBySetName)
                 {
                     if (project.GetModelSetInfo(ObjType.Элемент2D, parameters[0]) == null)
                         throw new ArgumentException(Resources.InvalidCommandException);
@@ -51,7 +53,12 @@ namespace BazisGUI
                     setName = ExtrudeCurve(parameters[0], curveNumbers.ToArray(), numberStartPoint, step, transfinite);
                 }
                 else
+                {
+                    if (!int.TryParse(parameters[0], out var numberSurface))
+                        throw new ArgumentException(Resources.InvalidCommandException);
+
                     setName = ExtrudeCurve(numberSurface, curveNumbers.ToArray(), numberStartPoint, step, transfinite);
+                }
             }
             else
             {
