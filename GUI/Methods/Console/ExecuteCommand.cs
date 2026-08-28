@@ -230,14 +230,13 @@ namespace BazisGUI
                         returnValue = GeometryParser(CreateCommandType.AddSurface, [cmds[2]]).ToString();
                         break;
                     case GenCmd.ExtrudeCurve:
-                        returnValue = ExtruderParser(ExtruderType.Curve, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
+                        returnValue = ExtrudeCurveBySurface(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5]);
                         break;
                     case GenCmd.ExtrudeCurveBySetName:
-                        returnValue = ExtruderParser(ExtruderType.CurveBySetName, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] });
+                        returnValue = ExtrudeCurveBySetName(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5]);
                         break;
                     case GenCmd.Extrude1DFromPoint:
-                        PrepareForPointExtrusion(cmds[1], cmds[2], cmds[3], cmds[4], out int _nodeNumber, out List<int> _numbersCurves, out int _point, out double _step);
-                        returnValue = Extrude1DFromPoint(_nodeNumber, _numbersCurves.ToArray(), _point, _step);
+                        returnValue = Extrude1DFromPoint(cmds[1], cmds[2], cmds[3], cmds[4]);
                         break;
                     //case GenCmd.ExtrudeRotate:
                     //    ExtrudeEvent(new CreateExtruderEventArgs(ExtruderType.Rotate, new List<string> { cmds[1], cmds[2], cmds[3], cmds[4], cmds[5] }));

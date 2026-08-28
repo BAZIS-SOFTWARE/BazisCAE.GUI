@@ -12,77 +12,74 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void PrepareForPointExtrusion(string nodeNumber, string numbersCurves, string point, string step, out int _nodeNumber, out List<int> _numbersCurves, out int _point, out double _step)
+        private string ExtrudeCurveBySurface(string surfaceNumber, string curveNumbers, string startPoint, string step, string transfinite)
         {
-            // "TODO: Потенциальное место проблем с локалью"
-            var valid = int.TryParse(nodeNumber, out _nodeNumber) &
-                int.TryParse(point, out _point) &
-                double.TryParse(step.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out _step);
-
-            if (!valid)
+            if (!int.TryParse(surfaceNumber, out var surfaceTag))
                 throw new ArgumentException(Resources.InvalidCommandException);
 
-            _numbersCurves = numbersCurves.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x.Trim())).ToList();
-        }
+            ParseCurvePathParameters(curveNumbers, startPoint, step, out var curveTags, out var startPointTag, out var extrusionStep);
+            var useTransfiniteMesh = ParseTransfiniteOption(transfinite);
 
-        private string ExtruderParser(ExtruderType type, List<string> parameters)
-        {
-            var setName = string.Empty;
-            if (type == ExtruderType.Curve || type == ExtruderType.CurveBySetName)
-            {
-                // "TODO: Потенциальное место проблем с локалью"
-                string input = parameters[3].Replace(',', '.');
-                var valid =
-                    int.TryParse(parameters[2], out var numberStartPoint) &
-                    double.TryParse(input, out var step);
-                bool transfinite = parameters[4] == "1";
-                var curveNumbers = parameters[1]
-                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(x => int.Parse(x.Trim()))
-                    .ToList();
-                if (!valid)
-                    throw new ArgumentException("Введены неверные данные");
-
-                // Перегрузка выбирается по команде, а не по содержимому аргумента:
-                // имя набора может состоять только из цифр.
-                if (type == ExtruderType.CurveBySetName)
-                {
-                    if (project.GetModelSetInfo(ObjType.Элемент2D, parameters[0]) == null)
-                        throw new ArgumentException(Resources.InvalidCommandException);
-
-                    setName = ExtrudeCurve(parameters[0], curveNumbers.ToArray(), numberStartPoint, step, transfinite);
-                }
-                else
-                {
-                    if (!int.TryParse(parameters[0], out var numberSurface))
-                        throw new ArgumentException(Resources.InvalidCommandException);
-
-                    setName = ExtrudeCurve(numberSurface, curveNumbers.ToArray(), numberStartPoint, step, transfinite);
-                }
-            }
-            else
-            {
-                var valid =
-                    int.TryParse(parameters[0], out var numberSurface) &
-                    float.TryParse(parameters[1], out var angle) &
-                    int.TryParse(parameters[2], out var numberStartPoint);
-                bool transfinite = parameters[4] == "1";
-
-                var rotAxis = parameters[3].Trim().ToUpper() switch
-                {
-                    "X" => Vector3.UnitX,
-                    "Y" => Vector3.UnitY,
-                    "Z" => Vector3.UnitZ,
-                    _ => throw new ArgumentException("Ось поворота указана не верно")
-                };
-
-                if (!valid)
-                    throw new ArgumentException("Введены неверные данные");
-
-                setName = ExtrudeRotate(numberSurface, angle, numberStartPoint, rotAxis, transfinite);
-            }
+            var setName = ExtrudeCurve(surfaceTag, curveTags, startPointTag, extrusionStep, useTransfiniteMesh);
             PresentExtrude();
             return setName;
+        }
+
+        private string ExtrudeCurveBySetName(string setName, string curveNumbers, string startPoint, string step, string transfinite)
+        {
+            if (string.IsNullOrWhiteSpace(setName) || project.GetModelSetInfo(ObjType.Элемент2D, setName) == null)
+                throw new ArgumentException(Resources.InvalidCommandException);
+
+            ParseCurvePathParameters(curveNumbers, startPoint, step, out var curveTags, out var startPointTag, out var extrusionStep);
+            var useTransfiniteMesh = ParseTransfiniteOption(transfinite);
+
+            var resultSetName = ExtrudeCurve(setName, curveTags, startPointTag, extrusionStep, useTransfiniteMesh);
+            PresentExtrude();
+            return resultSetName;
+        }
+
+        private string Extrude1DFromPoint(string nodeNumber, string curveNumbers, string startPoint, string step)
+        {
+            if (!int.TryParse(nodeNumber, out var nodeTag))
+                throw new ArgumentException(Resources.InvalidCommandException);
+
+            ParseCurvePathParameters(curveNumbers, startPoint, step, out var curveTags, out var startPointTag, out var extrusionStep);
+
+            var setName = project.ExtrudeElement1DAlongCurve(curveTags, startPointTag, nodeTag, extrusionStep);
+            PresentExtrude();
+            return setName;
+        }
+
+        private void ParseCurvePathParameters(string curveNumbers, string startPoint, string step, out int[] curveTags, out int startPointTag, out double extrusionStep)
+        {
+            curveTags = ParseCurveTags(curveNumbers);
+
+            if (!int.TryParse(startPoint, out startPointTag) ||
+                !double.TryParse(step.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out extrusionStep))
+                throw new ArgumentException(Resources.InvalidCommandException);
+        }
+
+        private bool ParseTransfiniteOption(string transfinite)
+        {
+            if (transfinite != "0" && transfinite != "1")
+                throw new ArgumentException(Resources.InvalidCommandException);
+
+            return transfinite == "1";
+        }
+
+        private int[] ParseCurveTags(string curveNumbers)
+        {
+            try
+            {
+                return curveNumbers
+                    .Split(',', StringSplitOptions.TrimEntries)
+                    .Select(int.Parse)
+                    .ToArray();
+            }
+            catch (Exception exception) when (exception is FormatException or OverflowException)
+            {
+                throw new ArgumentException(Resources.InvalidCommandException, exception);
+            }
         }
 
         private int GeometryParser(CreateCommandType type, List<string> parameters)
@@ -155,17 +152,12 @@ namespace BazisGUI
                 throw new ArgumentException(Resources.InvalidCommandException);
         }
 
+        private bool TryParseInvariantDouble(string value, out double result)
+            => double.TryParse(value.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out result);
         private string ExtrudeCurve(int numberSurface, int[] numbersCurve, int numberStartPoint, double step, bool transfinite)
             => project.ExtrudeElement3DAlongCurve(numberSurface, numbersCurve, numberStartPoint, step, transfinite);
         private string ExtrudeCurve(string setName, int[] numbersCurve, int numberStartPoint, double step, bool transfinite)
             => project.ExtrudeElement3DAlongCurve(setName, numbersCurve, numberStartPoint, step, transfinite);
-        private string Extrude1DFromPoint(int pointTag, int[] curveTags, int numberStartPoint, double step)
-        {
-            var setName = project.ExtrudeElement1DAlongCurve(curveTags, numberStartPoint, pointTag, step);
-            PresentExtrude();
-            return setName;
-        }
-
         private string ExtrudeRotate(int numberSurface, float angle, int originPoint, Vector3 rotAxis, bool transfinite)
         {
             var point = project.GetModelPoint(originPoint);

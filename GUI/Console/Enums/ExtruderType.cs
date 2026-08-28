@@ -3,7 +3,6 @@
     public enum ExtruderType
     {
         Rotate,
-        Curve,
-        CurveBySetName
+        Curve
     }
 }
