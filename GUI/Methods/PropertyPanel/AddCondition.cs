@@ -115,7 +115,7 @@ namespace BazisGUI
                 var refLine = project.GetModelGroup(values[1]);
 
                 if (baseLine == null || refLine == null || baseLine.ObjType != ObjType.Узел || refLine.ObjType != ObjType.Узел ||
-                    !float.TryParse(values[2].Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out var speed))
+                    !float.TryParse(values[2].Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out var speed) || !float.IsFinite(speed))
                     throw new ArgumentException(Resources.InvalidCommandException);
                 
                 heat.LocalFrame = new MovedFrame(baseLine, refLine, speed);
