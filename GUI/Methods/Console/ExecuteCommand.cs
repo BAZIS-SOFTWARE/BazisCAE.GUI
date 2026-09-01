@@ -12,6 +12,7 @@ using Project.Tasks.Materials;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -68,6 +69,7 @@ namespace BazisGUI
             { "Save STEP", GenCmd.SaveSTEP },
             { "Create volume material", GenCmd.CreateVolumeMaterial },
             { "Create beam material", GenCmd.CreateBeamMaterial },
+            { "Create heat", GenCmd.CreateHeat },
             { "Select objects", GenCmd.SelectObjects },
             { "Quit",GenCmd.Exit }
         };
@@ -118,6 +120,7 @@ namespace BazisGUI
             { GenCmd.SaveSTEP, new [] { "path" } },
             { GenCmd.CreateVolumeMaterial, new[] { "Material name", "groupName", "start", "stop"} },
             { GenCmd.CreateBeamMaterial, new[] { "Material name", "groupName", "diametr", "start", "stop"} },
+            { GenCmd.CreateHeat, new[] { "value", "SPH/CIL", "source parameter values", "MRF/SRF", "frame parameter values", "group", "start", "stop"} },
             { GenCmd.Exit, Array.Empty<string>() },
             { GenCmd.GenerateMesh, Array.Empty<string>()},
             { GenCmd.CreateTask, Array.Empty<string>() },
@@ -319,6 +322,16 @@ namespace BazisGUI
                         project.AddTaskData(matB);
                         PresentCondDataOnTree();
                         returnValue = matB.Value.ToString();
+                        break;
+                    case GenCmd.CreateHeat:
+                        CheckMatsAndFuncs();
+                        PrepareBasicDataForCreateHeat(cmds[6], cmds[1], cmds[7], cmds[8], out IGroup heatGroup, out float heatValue, out float heatStart, out float heatStop);
+                        var heat = new HeatData(heatGroup, heatStart, heatStop) { Value = heatValue };
+                        heat = PrepareSourceDataForCreateHeat(cmds[2], cmds[3], heat);
+                        heat = PrepareFrameDataForCreateHeat(cmds[4], cmds[5], heat);
+                        project.AddTaskData(heat);
+                        PresentCondDataOnTree();
+                        returnValue = heat.Value.ToString(CultureInfo.InvariantCulture);
                         break;
                     case GenCmd.CreateGroup:
                         var set = project.GetAllModelSetsInfo().Where(x => x.Name == cmds[1]).First();
