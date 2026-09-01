@@ -114,12 +114,13 @@ namespace BazisGUI
                 var baseLine = project.GetModelGroup(values[0]);
                 var refLine = project.GetModelGroup(values[1]);
 
-                if (baseLine == null || refLine == null || baseLine.ObjType != ObjType.Узел || refLine.ObjType != ObjType.Узел ||
-                    !float.TryParse(values[2].Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out var speed) || !float.IsFinite(speed))
+                var isValidNodes = baseLine is not null && refLine is not null && baseLine.ObjType == ObjType.Узел && refLine.ObjType == ObjType.Узел;
+                var isValidSpeed = float.TryParse(values[2].Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out var speed) && float.IsFinite(speed);
+
+                if (!isValidNodes || !isValidSpeed)
                     throw new ArgumentException(Resources.InvalidCommandException);
                 
                 heat.LocalFrame = new MovedFrame(baseLine, refLine, speed);
-
             }
             else if (type == "SRF")
             {
