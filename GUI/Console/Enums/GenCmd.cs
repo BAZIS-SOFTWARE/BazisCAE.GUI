@@ -49,6 +49,7 @@
         CreateTask,
         CreateVolumeMaterial,
         CreateBeamMaterial,
+        CreateHeat,
         CreateGroup,
         GetRelatedGeometryObjects,
         GetCoordinatePoint,

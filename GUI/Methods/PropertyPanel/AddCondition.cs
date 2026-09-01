@@ -6,8 +6,14 @@ using Model;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
+using Project.Tasks.Functions;
+using Project.Tasks.Functions.FrameFunctions;
+using Project.Tasks.LocalFrames;
 using Project.Tasks.Materials;
+using ResultDB.IO;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -39,6 +45,99 @@ namespace BazisGUI
                 throw new ArgumentException(Resources.InvalidCommandException);
         }
 
+        private void PrepareBasicDataForCreateHeat(string groupName, string value, string start, string stop, out IGroup group, out float heatValue, out float startTime, out float stopTime)
+        {
+            group = project.GetModelGroup(groupName);
+
+            var valid = float.TryParse(value.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out heatValue) &
+                float.TryParse(start.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out startTime) &
+                float.TryParse(stop.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out stopTime);
+
+            if (group == null || !valid ||
+                !float.IsFinite(heatValue) || !float.IsFinite(startTime) || !float.IsFinite(stopTime) ||
+                startTime >= stopTime)
+                throw new ArgumentException(Resources.InvalidCommandException);
+        }
+
+        private HeatData PrepareSourceDataForCreateHeat(string type, string parameterValues, HeatData heat)
+        {
+            var values = parameterValues.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+            var parameters = new List<double>();
+            foreach (var value in values)
+            {
+                if (!double.TryParse(value.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out var parsedValue) ||
+                    !double.IsFinite(parsedValue))
+                    throw new ArgumentException(Resources.InvalidCommandException);
+
+                parameters.Add(parsedValue);
+            }
+
+            if (type == "SPH")
+            {
+                if (parameters.Count != 2 || parameters[0] <= 0)
+                    throw new ArgumentException(Resources.InvalidCommandException);
+
+                var function = new SPH();
+                function["Width"].SetValue(parameters[0]);
+                function["Pulse"].SetValue(parameters[1]);
+                heat.Function = function;
+            }
+            else if (type == "CIL")
+            {
+                if (parameters.Count != 3 || parameters.Any(value => value <= 0))
+                    throw new ArgumentException(Resources.InvalidCommandException);
+
+                var function = new CIL
+                {
+                    Length = parameters[0],
+                    UpperDiam = parameters[1],
+                    BottomDiam = parameters[2]
+                };
+                heat.Function = function;
+            }
+            else
+                throw new ArgumentException(Resources.InvalidCommandException);
+
+            return heat;
+        }
+
+        private HeatData PrepareFrameDataForCreateHeat(string type, string parameterValues, HeatData heat)
+        {
+            var values = parameterValues.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+            if (type == "MRF")
+            {
+                if (values.Length != 3)
+                    throw new ArgumentException(Resources.InvalidCommandException);
+
+                var baseLine = project.GetModelGroup(values[0]);
+                var refLine = project.GetModelGroup(values[1]);
+
+                if (baseLine == null || refLine == null || baseLine.ObjType != ObjType.Узел || refLine.ObjType != ObjType.Узел ||
+                    !float.TryParse(values[2].Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out var speed))
+                    throw new ArgumentException(Resources.InvalidCommandException);
+                
+                heat.LocalFrame = new MovedFrame(baseLine, refLine, speed);
+
+            }
+            else if (type == "SRF")
+            {
+                if (values.Length != 1)
+                    throw new ArgumentException(Resources.InvalidCommandException);
+
+                if (values[0] == "*")
+                    heat.LocalFrame = new StaticFrame();
+                else
+                {
+                    var plane = project.GetModelGroup(values[0]);
+                    if (plane == null)
+                        throw new ArgumentException(Resources.InvalidCommandException);
+                    heat.LocalFrame = new StaticFrame(plane);
+                }
+            }
+            return heat;
+        }
         private void CheckMatsAndFuncs()
         {
             var matDB = project.MaterialsDB;
