@@ -33,23 +33,17 @@ namespace BazisGUI
 
                 foreach (var taskName in tasks)
                 {
-                    bool isExe;
-                    if (taskName.Split(' ')[2] == "выполнить")
-                        isExe = true;
-                    else
-                        isExe = false;
+                    var path = GetInstructionPath(taskName, out var status);
+                    var isExe = status == "выполнить";
+                    var name = Path.GetFileName(path);
+
                     if (selectInstruction == "все")
                     {
-                        var name = Path.GetFileName(taskName.Split(' ')[1]);
                         rows.Add(new RowProperty(CompPropertyKeys.Execute.ToString(),$"{Resources.Execute} {name}", isExe));
                     }
-                    else
+                    else if (GetInstructionType(taskName) == selectInstruction)
                     {
-                        if (taskName.Contains(selectInstruction))
-                        {
-                            var name = Path.GetFileName(taskName.Split(' ')[1]);
-                            rows.Add(new RowProperty(CompPropertyKeys.Execute.ToString(), $"{Resources.Execute} {name}", isExe));
-                        }
+                        rows.Add(new RowProperty(CompPropertyKeys.Execute.ToString(), $"{Resources.Execute} {name}", isExe));
                     }
                 }
 

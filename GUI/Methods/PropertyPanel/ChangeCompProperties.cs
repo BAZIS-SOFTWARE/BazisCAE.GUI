@@ -15,7 +15,32 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        enum CompPropertyKeys { Type, Execute, Algorithm, MatrixStorage, SolveIterations, SolveAccuracy, RelaxationCoef, MaxRelaxationCoef, Priority, IterationOnStep, SaveRate, StartTime, StopTime, InitialSolveStep, MinSolveStep, MaxSolveStep, InitialStateSource, InitialStateValue, InitialStateFile, InputEnabled, InputSource, InputConstant, InputFile }
+        enum CompPropertyKeys
+        {
+            Type,
+            Execute,
+            Algorithm,
+            MatrixStorage,
+            SolveIterations,
+            SolveAccuracy,
+            RelaxationCoef,
+            MaxRelaxationCoef,
+            Priority,
+            IterationOnStep,
+            SaveRate,
+            StartTime,
+            StopTime,
+            InitialSolveStep,
+            MinSolveStep,
+            MaxSolveStep,
+            InitialStateSource,
+            InitialStateValue,
+            InitialStateFile,
+            InputEnabled,
+            InputSource,
+            InputConstant,
+            InputFile
+        }
 
         /// <summary>Разделитель ключа строки и физического поля: «InputSource:Temperature».</summary>
         private const char FieldKeySeparator = ':';
@@ -49,7 +74,7 @@ namespace BazisGUI
                         if (isExe)
                             selectedInstruction.Text = selectedInstruction.Text.Replace("пропустить", "выполнить");
                         else
-                            selectedInstruction.Text = selectedInstruction.Text.Replace("пропустить", "выполнить");
+                            selectedInstruction.Text = selectedInstruction.Text.Replace("выполнить", "пропустить");
 
                         nodeText = selectedInstruction.Text;
                         break;
@@ -260,7 +285,7 @@ namespace BazisGUI
             try
             {
                 var selectedNode = navigator.SelectedNode;
-                var compType = selectedNode.Text.Split(' ')[0];
+                var compType = GetInstructionType(selectedNode.Text);
                 var sample = ReadTaskParametersFromFile(GetInstructionPath(selectedNode.Text));
 
                 var tasks = new List<string>();
@@ -269,7 +294,7 @@ namespace BazisGUI
                     tasks.Add(item.Text);
 
                 foreach (var taskName in tasks)
-                    if (taskName.Contains(compType))
+                    if (GetInstructionType(taskName) == compType)
                     {
                         var temp = ReadTaskParametersFromFile(GetInstructionPath(taskName));
 

@@ -33,8 +33,10 @@ namespace BazisGUI
                 rows.AddRange(GetPropertySolverSettings(parameters));
                 rows.AddRange(GetPropertyBasic(parameters));
                 rows.AddRange(GetPropertyTimeSettings(parameters));
+                var taskType = GetInstructionType(arg2);
                 var availableResults = GetInstructionResultNames(path);
-                rows.AddRange(GetPropertyInitialState(parameters, availableResults));
+                var availableInitialResults = GetInstructionResultNames(path, taskType);
+                rows.AddRange(GetPropertyInitialState(parameters, availableInitialResults));
                 rows.AddRange(GetPropertyInputFields(parameters, availableResults));
                 rows.Add(new RowProperty(SelectCompKeys.ApplyForAll.ToString(), Properties.Resources.Header_comp_ApplyForAll, new ButtonPropertyValue(Properties.Resources.OK, () => ApplySettingsToAllInstructions())));
                 propertiesPanel.DrawTable(rows);
@@ -120,7 +122,7 @@ namespace BazisGUI
 
             // Значения задаются по группам модели, а имена групп приходят из файла:
             // их формирует PreProc по условиям материала, поэтому строки строятся по факту.
-            var conditions = state.Conditions ?? new List<InitialCondition>();
+            var conditions = GetInitialConditionsToShow(parameters);
 
             foreach (var condition in conditions)
                 rows.Add(new RowProperty(
@@ -131,6 +133,22 @@ namespace BazisGUI
                     FormatInitialValues(parameters, condition.Field)));
 
             return rows;
+        }
+
+        private static List<InitialCondition> GetInitialConditionsToShow(GeneralParameters parameters)
+        {
+            var conditions = parameters.InitialState?.Conditions?.ToList()
+                ?? new List<InitialCondition>();
+
+            if (conditions.Count != 0)
+                return conditions;
+
+            if (parameters is TermalParameters)
+                conditions.Add(new InitialCondition { Field = PhysicalField.Temperature });
+            else if (parameters is ChemicalParameters)
+                conditions.Add(new InitialCondition { Field = PhysicalField.Concentration });
+
+            return conditions;
         }
 
         /// <summary>
@@ -207,8 +225,9 @@ namespace BazisGUI
         /// а имя её результата выводится из имени файла инструкции: так же его формирует PreProc
         /// (см. PreProc.CreateFilesForSingleProcess, где .tsf и .db имеют общую основу имени).
         /// </summary>
-        /// <param name="currentPath">Файл текущей инструкции; на свой результат ссылаться нельзя.</param>
-        private List<string> GetInstructionResultNames(string currentPath)
+        /// <param name="currentPath">Файл текущей инструкции. В список попадают только предыдущие инструкции.</param>
+        /// <param name="taskType">Если указан, в список попадают только задачи того же типа.</param>
+        private List<string> GetInstructionResultNames(string currentPath, string taskType = null)
         {
             var names = new List<string> { string.Empty };
 
@@ -222,12 +241,22 @@ namespace BazisGUI
 
                 var path = GetInstructionPath(instruction.Text);
                 if (string.Equals(path, currentPath, StringComparison.OrdinalIgnoreCase))
+                    break;
+
+                if (taskType != null && !string.Equals(
+                    GetInstructionType(instruction.Text), taskType, StringComparison.OrdinalIgnoreCase))
                     continue;
 
                 names.Add(Path.ChangeExtension(Path.GetFileName(path), ".db"));
             }
 
             return names;
+        }
+
+        private static string GetInstructionType(string nodeText)
+        {
+            var separator = nodeText.IndexOf(' ');
+            return separator < 0 ? nodeText : nodeText[..separator];
         }
 
         /// <summary>
