@@ -2253,4 +2253,14 @@ Create variable?</value>
   <data name="ChamferWindow_Angle" xml:space="preserve"><value>Angle</value></data>
   <data name="ChamferWindow_ReflectTooltip" xml:space="preserve"><value>Reflect chamfer</value></data>
   <data name="ChamferWindow_AddButton" xml:space="preserve"><value>Add</value></data>
+  <data name="Header_comp_MatrixStorage" xml:space="preserve"><value>Matrix storage</value></data>
+  <data name="Header_comp_InputSource" xml:space="preserve"><value>Data source</value></data>
+  <data name="Header_comp_InitialStateSource" xml:space="preserve"><value>Initial state</value></data>
+  <data name="Header_comp_Value" xml:space="preserve"><value>Value</value></data>
+  <data name="Header_comp_FileName" xml:space="preserve"><value>File name</value></data>
+  <data name="Header_comp_SourceConstant" xml:space="preserve"><value>Constant</value></data>
+  <data name="Header_comp_SourceFile" xml:space="preserve"><value>File</value></data>
+  <data name="Header_comp_FieldTemperature" xml:space="preserve"><value>T - temperature</value></data>
+  <data name="Header_comp_FieldConcentration" xml:space="preserve"><value>C - concentration</value></data>
+  <data name="Header_comp_FieldVelocity" xml:space="preserve"><value>V - velocity</value></data>
 </root>

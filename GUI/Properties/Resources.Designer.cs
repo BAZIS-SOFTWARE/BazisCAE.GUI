@@ -6465,5 +6465,25 @@ namespace BazisGUI.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        internal static string Header_comp_MatrixStorage => ResourceManager.GetString("Header_comp_MatrixStorage", resourceCulture);
+
+        internal static string Header_comp_InputSource => ResourceManager.GetString("Header_comp_InputSource", resourceCulture);
+
+        internal static string Header_comp_InitialStateSource => ResourceManager.GetString("Header_comp_InitialStateSource", resourceCulture);
+
+        internal static string Header_comp_Value => ResourceManager.GetString("Header_comp_Value", resourceCulture);
+
+        internal static string Header_comp_FileName => ResourceManager.GetString("Header_comp_FileName", resourceCulture);
+
+        internal static string Header_comp_SourceConstant => ResourceManager.GetString("Header_comp_SourceConstant", resourceCulture);
+
+        internal static string Header_comp_SourceFile => ResourceManager.GetString("Header_comp_SourceFile", resourceCulture);
+
+        internal static string Header_comp_FieldTemperature => ResourceManager.GetString("Header_comp_FieldTemperature", resourceCulture);
+
+        internal static string Header_comp_FieldConcentration => ResourceManager.GetString("Header_comp_FieldConcentration", resourceCulture);
+
+        internal static string Header_comp_FieldVelocity => ResourceManager.GetString("Header_comp_FieldVelocity", resourceCulture);
     }
 }

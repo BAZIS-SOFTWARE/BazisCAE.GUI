@@ -5,7 +5,6 @@ using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 
 namespace BazisGUI
 {

@@ -2075,4 +2075,14 @@
   <data name="ChamferWindow_Angle" xml:space="preserve"><value>Угол</value></data>
   <data name="ChamferWindow_ReflectTooltip" xml:space="preserve"><value>Отразить фаску</value></data>
   <data name="ChamferWindow_AddButton" xml:space="preserve"><value>Добавить</value></data>
+  <data name="Header_comp_MatrixStorage" xml:space="preserve"><value>Хранение матрицы</value></data>
+  <data name="Header_comp_InputSource" xml:space="preserve"><value>Источник данных</value></data>
+  <data name="Header_comp_InitialStateSource" xml:space="preserve"><value>Начальное состояние</value></data>
+  <data name="Header_comp_Value" xml:space="preserve"><value>Значение</value></data>
+  <data name="Header_comp_FileName" xml:space="preserve"><value>Имя файла</value></data>
+  <data name="Header_comp_SourceConstant" xml:space="preserve"><value>Константа</value></data>
+  <data name="Header_comp_SourceFile" xml:space="preserve"><value>Файл</value></data>
+  <data name="Header_comp_FieldTemperature" xml:space="preserve"><value>T - температура</value></data>
+  <data name="Header_comp_FieldConcentration" xml:space="preserve"><value>C - концентрация</value></data>
+  <data name="Header_comp_FieldVelocity" xml:space="preserve"><value>V - скорость</value></data>
 </root>

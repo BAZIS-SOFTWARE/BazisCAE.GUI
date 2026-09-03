@@ -27,7 +27,6 @@ namespace BazisGUI.TasksControls
             {
                 chemicalControl.BringToFront();
                 chemicalControl.MaxConcentr = cmp.ChemicalConvergence.Cm.ToString();
-                chemicalControl.InitConcentr = cmp.InitConcentration.ToString();
                 chemicalControl.IsMaxConcentrSwitch = cmp.ChemicalConvergence.Is_Switched_Cm;
             }
             else if(_parameters is TermalParameters tmp)
@@ -49,7 +48,6 @@ namespace BazisGUI.TasksControls
 
             basicControl.Iterations = parameters.Iterations.ToString();
             basicControl.SaveRate = _parameters.SaveRate.ToString();
-            basicControl.InitTemp = _parameters.InitTemp.ToString();
         }
 
         public bool GetValidationResult()
@@ -77,7 +75,6 @@ namespace BazisGUI.TasksControls
                 {
                     cmp.ChemicalConvergence.Is_Switched_Cm = chemicalControl.IsMaxConcentrSwitch;
                     cmp.ChemicalConvergence.Cm = Convert.ToSingle(chemicalControl.MaxConcentr);
-                    cmp.InitConcentration = Convert.ToSingle(chemicalControl.InitConcentr);
                 }
 
                 else if (parameters is TermalParameters tmp)
@@ -95,14 +92,8 @@ namespace BazisGUI.TasksControls
                 parameters.Iterations = Convert.ToInt32(basicControl.Iterations);
                 parameters.SaveRate = Convert.ToInt32(basicControl.SaveRate);
 
-                var dic = basicControl.InitTemp.Split(',').
-        Select((md, index) =>
-        new {
-            Key = md.Split(' ')[0],
-            Value = double.Parse(md.Split(' ')[1])
-        })
-.ToDictionary(x => x.Key, x => x.Value);
-                parameters.InitTemp = dic;
+                // Начальные значения в Project 6.x задаются по группам через InitialState
+                // и этим окном не редактируются — только через панель свойств.
 
                 parameters.SolverSettings = solverSettings;
                 parameters.TimeSettings = timeSettings;

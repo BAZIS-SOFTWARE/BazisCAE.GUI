@@ -28,11 +28,17 @@ namespace BazisGUI.TasksControls
             return checks.All(x => x);
         }
 
+        // Окно относится к устаревшему редактору tsf (BaseForm.EditTSFFile помечен Obsolete).
+        // Здесь только адаптация к Project 6.x: Solver стал перечислением и доступен на чтение,
+        // поэтому настройки пересоздаются конструктором. Хранение матрицы этим окном не правится.
+        private MatrixStorageKind matrixStorage = MatrixStorageKind.SymmetricCsr;
+
         internal SolverSettings GetSolverSettings()
         {
-            return new SolverSettings()
+            Enum.TryParse<LinearSolverKind>(cmbSolver.Text, out var solver);
+
+            return new SolverSettings(solver, matrixStorage)
             {
-                Solver = cmbSolver.Text,
                 MaxIter = Convert.ToInt32(txbSolverIterations.Text),
                 Precision = Convert.ToSingle(txbPrecision.Text),
                 Relaxation = Convert.ToSingle(txbRelaxation.Text),
@@ -47,7 +53,8 @@ namespace BazisGUI.TasksControls
             txbRelaxation.Text = solverSettings.Relaxation.ToString();
             txbSolverIterations.Text = solverSettings.MaxIter.ToString();
             cmbPriority.Text = solverSettings.Priority;
-            cmbSolver.Text = solverSettings.Solver;
+            cmbSolver.Text = solverSettings.Solver.ToString();
+            matrixStorage = solverSettings.MatrixStorage;
         }
     }
 }
