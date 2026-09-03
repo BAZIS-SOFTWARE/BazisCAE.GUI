@@ -102,15 +102,15 @@
             this.cmbSolver.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbSolver.IsValidating = true;
             this.cmbSolver.Items.AddRange(new object[] {
-            "Gauss_direct",
-            "SOR_iterative",
-            "CG_iterative"});
+            "BiCGStab",
+            "ConjugateGradient",
+            "SymmetricUtdu"});
             this.cmbSolver.Location = new System.Drawing.Point(170, 34);
             this.cmbSolver.Margin = new System.Windows.Forms.Padding(0, 0, 20, 0);
             this.cmbSolver.Name = "cmbSolver";
             this.cmbSolver.Size = new System.Drawing.Size(236, 21);
             this.cmbSolver.TabIndex = 140;
-            this.cmbSolver.Text = "SOR_iterative";
+            this.cmbSolver.Text = "ConjugateGradient";
             this.cmbSolver.UserRegExCheck = null;
             this.cmbSolver.UserRegExCheckErrorMessage = null;
             // 
