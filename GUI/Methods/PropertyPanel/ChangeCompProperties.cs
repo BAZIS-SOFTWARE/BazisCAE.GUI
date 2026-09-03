@@ -43,9 +43,9 @@ namespace BazisGUI
         }
 
         /// <summary>Разделитель ключа строки и физического поля: «InputSource:Temperature».</summary>
-        private const char FieldKeySeparator = ':';
+        private readonly char FieldKeySeparator = ':';
 
-        private static string ComposeFieldKey(CompPropertyKeys key, PhysicalField field) =>
+        private string ComposeFieldKey(CompPropertyKeys key, PhysicalField field) =>
             $"{key}{FieldKeySeparator}{field}";
         enum PriorityKeys { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий, Наивысший }
 
@@ -166,7 +166,7 @@ namespace BazisGUI
         /// <summary>
         /// Отделяет от ключа строки физическое поле, если оно в нём закодировано.
         /// </summary>
-        private static string SplitFieldKey(string key, out PhysicalField field)
+        private string SplitFieldKey(string key, out PhysicalField field)
         {
             field = default;
 
@@ -179,11 +179,11 @@ namespace BazisGUI
         }
 
         /// <summary>Выбран ли в списке источника данных файл, а не константа.</summary>
-        private static bool IsFileSource(string value) =>
+        private bool IsFileSource(string value) =>
             value == Properties.Resources.Header_comp_SourceFile;
 
         /// <summary>Нужно ли перестроить строки панели после изменения параметра.</summary>
-        private static bool NeedsRedraw(string key)
+        private bool NeedsRedraw(string key)
         {
             return key == CompPropertyKeys.InputEnabled.ToString()
                 || key == CompPropertyKeys.InputSource.ToString()

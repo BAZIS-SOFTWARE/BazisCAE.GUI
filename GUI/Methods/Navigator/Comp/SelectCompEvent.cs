@@ -135,7 +135,7 @@ namespace BazisGUI
             return rows;
         }
 
-        private static List<InitialCondition> GetInitialConditionsToShow(GeneralParameters parameters)
+        private List<InitialCondition> GetInitialConditionsToShow(GeneralParameters parameters)
         {
             var conditions = parameters.InitialState?.Conditions?.ToList()
                 ?? new List<InitialCondition>();
@@ -192,7 +192,7 @@ namespace BazisGUI
         /// Физические поля, для которых показываются флажки: температура, концентрация,
         /// скорость и всё, что уже есть в файле, чтобы ничего не пропало из виду.
         /// </summary>
-        private static List<PhysicalField> InputFieldsToShow(GeneralParameters parameters)
+        private List<PhysicalField> InputFieldsToShow(GeneralParameters parameters)
         {
             var fields = new List<PhysicalField>
             {
@@ -208,7 +208,7 @@ namespace BazisGUI
             return fields;
         }
 
-        private static string InputFieldHeader(PhysicalField field)
+        private string InputFieldHeader(PhysicalField field)
         {
             switch (field)
             {
@@ -253,7 +253,7 @@ namespace BazisGUI
             return names;
         }
 
-        private static string GetInstructionType(string nodeText)
+        private string GetInstructionType(string nodeText)
         {
             var separator = nodeText.IndexOf(' ');
             return separator < 0 ? nodeText : nodeText[..separator];
@@ -263,7 +263,7 @@ namespace BazisGUI
         /// Ячейка выбора результата. Сохранённая ссылка могла остаться от инструкции,
         /// которой больше нет, — тогда она добавляется в список, иначе он её потеряет.
         /// </summary>
-        private static DropDownPropertyValue ResultValue(string current, List<string> availableResults)
+        private DropDownPropertyValue ResultValue(string current, List<string> availableResults)
         {
             var values = new List<string>(availableResults);
 
@@ -277,16 +277,16 @@ namespace BazisGUI
         /// Отступ строки настройки, подчинённой строке выше: источник данных и зависящая
         /// от него строка «Значение» либо «Имя файла».
         /// </summary>
-        private static string Indent(string header) => "   " + header;
+        private string Indent(string header) => "   " + header;
 
         /// <summary>Локализованные значения выпадающего списка источника данных.</summary>
-        private static List<string> SourceNames() => new List<string>
+        private List<string> SourceNames() => new List<string>
         {
             Properties.Resources.Header_comp_SourceConstant,
             Properties.Resources.Header_comp_SourceFile
         };
 
-        private static string SourceName(bool isFile) => isFile
+        private string SourceName(bool isFile) => isFile
             ? Properties.Resources.Header_comp_SourceFile
             : Properties.Resources.Header_comp_SourceConstant;
     }
