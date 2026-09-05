@@ -1,0 +1,48 @@
+﻿flowchart TD
+    subgraph Core["Core"]
+        proj_controller["proj controller"]
+        preProc["preProc"]
+        postProc["postProc"]
+        project["project"]
+        Material_DB["Material DB"]
+        model["model"]
+        Geometry["Geometry"]
+        GMSH_Api["GMSH Api"]
+        Results_DB["Results DB"]
+        SQLite["SQLite"]
+    end
+
+    subgraph baseForm["baseForm"]
+        OpenTK_Api["OpenTK Api"]
+        CmdInterpretator["CmdInterpretator"]
+        PropertiesCalculator_dll["PropertiesCalculator.dll"]
+        ClientController_dll["ClientController.dll"]
+        VboController["VboController"]
+    end
+
+    subgraph Master["Master"]
+        IBaseMaster["IBaseMaster"]
+        AbstractMaster["AbstractMaster"]
+        MasterInterface["MasterInterface"]
+    end
+
+    IBaseMaster -.- AbstractMaster
+    AbstractMaster --> IBaseMaster
+    baseForm --> MasterInterface
+    CmdInterpretator --> proj_controller
+    CmdInterpretator --> preProc
+    baseForm --> postProc
+    baseForm --> preProc
+    baseForm --> proj_controller
+    baseForm --> Geometry
+    proj_controller --> project
+    proj_controller --> GMSH_Api
+    preProc --> project
+    postProc --> model
+    postProc --> Results_DB
+    Results_DB --> SQLite
+    project --> model
+    project --> Material_DB
+    PropertiesCalculator_dll --> Material_DB
+    project --> Geometry
+    model --> Geometry
