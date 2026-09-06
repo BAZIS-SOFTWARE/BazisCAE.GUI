@@ -97,126 +97,187 @@ namespace BazisGUI
         }
 
         /// <summary>
-        /// Строки начального состояния: источник данных и зависящая от него строка ввода.
-        /// Заменяют прежние GeneralParameters.InitTemp и ChemicalParameters.InitConcentration.
+        /// Строки родного начального набора полей: источник данных и значения по группам.
         /// </summary>
         private List<RowProperty> GetPropertyInitialState(GeneralParameters parameters, List<string> availableResults)
         {
-            var state = EnsureInitialState(parameters);
+            var fieldSet = GetNativeFieldSet(parameters);
+            var field = FindInitialField(parameters, fieldSet);
+            var source = field?.Source ?? PhysicalFieldSource.Values;
 
             var rows = new List<RowProperty>
             {
-                new RowProperty(CompPropertyKeys.InitialStateSource.ToString(),
+                new RowProperty(ComposeFieldKey(CompPropertyKeys.InitialStateSource, fieldSet),
                     Properties.Resources.Header_comp_InitialStateSource,
-                    new DropDownPropertyValue(SourceName(state.Source == InitialStateSource.Result), SourceNames()))
+                    new DropDownPropertyValue(SourceName(source == PhysicalFieldSource.ResultFile), SourceNames()))
             };
 
-            if (state.Source == InitialStateSource.Result)
+            if (source == PhysicalFieldSource.ResultFile)
             {
-                rows.Add(new RowProperty(CompPropertyKeys.InitialStateFile.ToString(),
+                rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InitialStateFile, fieldSet),
                     Indent(Properties.Resources.Header_comp_FileName),
-                    ResultValue(state.Result?.FileName, availableResults)));
+                    ResultValue(field?.FileName, availableResults)));
 
                 return rows;
             }
 
-            // Значения задаются по группам модели, а имена групп приходят из файла:
-            // их формирует PreProc по условиям материала, поэтому строки строятся по факту.
-            var conditions = GetInitialConditionsToShow(parameters);
-
-            foreach (var condition in conditions)
+            var quantities = PhysicalQuantitiesToShow(fieldSet, field);
+            foreach (var quantity in quantities)
                 rows.Add(new RowProperty(
-                    ComposeFieldKey(CompPropertyKeys.InitialStateValue, condition.Field),
-                    Indent(conditions.Count > 1
-                        ? $"{Properties.Resources.Header_comp_Value} — {InputFieldHeader(condition.Field)}"
+                    ComposeQuantityKey(CompPropertyKeys.InitialStateValue, fieldSet, quantity),
+                    Indent(quantities.Count > 1
+                        ? $"{Properties.Resources.Header_comp_Value} — {PhysicalQuantityHeader(quantity)}"
                         : Properties.Resources.Header_comp_Value),
-                    FormatInitialValues(parameters, condition.Field)));
+                    FormatFieldValues(field, quantity)));
 
             return rows;
         }
 
-        private List<InitialCondition> GetInitialConditionsToShow(GeneralParameters parameters)
-        {
-            var conditions = parameters.InitialState?.Conditions?.ToList()
-                ?? new List<InitialCondition>();
-
-            if (conditions.Count != 0)
-                return conditions;
-
-            if (parameters is TermalParameters)
-                conditions.Add(new InitialCondition { Field = PhysicalField.Temperature });
-            else if (parameters is ChemicalParameters)
-                conditions.Add(new InitialCondition { Field = PhysicalField.Concentration });
-
-            return conditions;
-        }
-
         /// <summary>
-        /// Строки входных полей (InputFields): флажок на каждое физическое поле, а под
-        /// включённым — источник данных и зависящая от него строка ввода.
-        /// Заменяют прежние ThermalLoad / ThermalFile механической и химической задачи
-        /// и ConvectionParameters тепловой.
+        /// Строки внешних наборов полей: флажок, источник и значения по группам.
         /// </summary>
         private List<RowProperty> GetPropertyInputFields(GeneralParameters parameters, List<string> availableResults)
         {
             var rows = new List<RowProperty>();
 
-            foreach (var field in InputFieldsToShow(parameters))
+            foreach (var fieldSet in InputFieldSetsToShow(parameters))
             {
-                var input = FindInputField(parameters, field);
+                var field = FindInputField(parameters, fieldSet);
 
-                rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputEnabled, field),
-                    InputFieldHeader(field), input != null));
+                rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputEnabled, fieldSet),
+                    PhysicalFieldSetHeader(fieldSet), field != null));
 
-                if (input == null)
+                if (field == null)
                     continue;
 
-                rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputSource, field),
+                rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputSource, fieldSet),
                     Indent(Properties.Resources.Header_comp_InputSource),
-                    new DropDownPropertyValue(SourceName(input.Source == InputFieldSource.ResultFile), SourceNames())));
+                    new DropDownPropertyValue(SourceName(field.Source == PhysicalFieldSource.ResultFile), SourceNames())));
 
-                if (input.Source == InputFieldSource.Constant)
-                    rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputConstant, field),
-                        Indent(Properties.Resources.Header_comp_Value),
-                        FormatComponents(input.ConstantValues)));
+                if (field.Source == PhysicalFieldSource.Values)
+                {
+                    var quantities = PhysicalQuantitiesToShow(fieldSet, field);
+                    foreach (var quantity in quantities)
+                        rows.Add(new RowProperty(
+                            ComposeQuantityKey(CompPropertyKeys.InputValue, fieldSet, quantity),
+                            Indent(quantities.Count > 1
+                                ? $"{Properties.Resources.Header_comp_Value} — {PhysicalQuantityHeader(quantity)}"
+                                : Properties.Resources.Header_comp_Value),
+                            FormatFieldValues(field, quantity)));
+                }
                 else
-                    rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputFile, field),
+                    rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputFile, fieldSet),
                         Indent(Properties.Resources.Header_comp_FileName),
-                        ResultValue(input.FileName, availableResults)));
+                        ResultValue(field.FileName, availableResults)));
             }
 
             return rows;
         }
 
         /// <summary>
-        /// Физические поля, для которых показываются флажки: температура, концентрация,
-        /// скорость и всё, что уже есть в файле, чтобы ничего не пропало из виду.
+        /// Наборы, которые задача способна получить от других физических задач.
+        /// Уже сохранённые наборы также отображаются, чтобы настройки не терялись.
         /// </summary>
-        private List<PhysicalField> InputFieldsToShow(GeneralParameters parameters)
+        private List<PhysicalFieldSet> InputFieldSetsToShow(GeneralParameters parameters)
         {
-            var fields = new List<PhysicalField>
+            var fieldSets = parameters switch
             {
-                PhysicalField.Temperature,
-                PhysicalField.Concentration,
-                PhysicalField.Velocity
+                TermalParameters => new List<PhysicalFieldSet>
+                {
+                    PhysicalFieldSet.Chemical,
+                    PhysicalFieldSet.Hydrodynamic
+                },
+                MechanicalParameters => new List<PhysicalFieldSet>
+                {
+                    PhysicalFieldSet.Thermal,
+                    PhysicalFieldSet.Chemical,
+                    PhysicalFieldSet.Hydrodynamic
+                },
+                ChemicalParameters => new List<PhysicalFieldSet>
+                {
+                    PhysicalFieldSet.Thermal
+                },
+                _ => new List<PhysicalFieldSet>()
             };
 
-            foreach (var field in parameters.InputFields?.Select(input => input.Field) ?? Enumerable.Empty<PhysicalField>())
-                if (!fields.Contains(field))
-                    fields.Add(field);
+            foreach (var field in parameters.InputFields ?? Enumerable.Empty<PhysicalField>())
+                if (!fieldSets.Contains(field.FieldSet))
+                    fieldSets.Add(field.FieldSet);
 
-            return fields;
+            return fieldSets;
         }
 
-        private string InputFieldHeader(PhysicalField field)
+        /// <summary>Возвращает заголовок набора физических полей.</summary>
+        private string PhysicalFieldSetHeader(PhysicalFieldSet fieldSet)
         {
-            switch (field)
+            return fieldSet switch
             {
-                case PhysicalField.Temperature: return Properties.Resources.Header_comp_FieldTemperature;
-                case PhysicalField.Concentration: return Properties.Resources.Header_comp_FieldConcentration;
-                case PhysicalField.Velocity: return Properties.Resources.Header_comp_FieldVelocity;
-                default: return field.ToString();
-            }
+                PhysicalFieldSet.Thermal => "Термический",
+                PhysicalFieldSet.Mechanical => "Механический",
+                PhysicalFieldSet.Chemical => "Химический",
+                PhysicalFieldSet.Hydrodynamic => "Гидродинамический",
+                _ => fieldSet.ToString()
+            };
+        }
+
+        /// <summary>Возвращает заголовок физической величины.</summary>
+        private string PhysicalQuantityHeader(PhysicalQuantity quantity)
+        {
+            return quantity switch
+            {
+                PhysicalQuantity.Temperature => Properties.Resources.Header_comp_FieldTemperature,
+                PhysicalQuantity.Concentration => Properties.Resources.Header_comp_FieldConcentration,
+                PhysicalQuantity.Velocity => Properties.Resources.Header_comp_FieldVelocity,
+                PhysicalQuantity.PhaseComposition => "Фазовый состав",
+                PhysicalQuantity.Displacement => "Перемещение",
+                PhysicalQuantity.Pressure => "Давление",
+                PhysicalQuantity.Stress => "Напряжение",
+                PhysicalQuantity.Strain => "Деформация",
+                _ => quantity.ToString()
+            };
+        }
+
+        /// <summary>Возвращает величины, относящиеся к набору полей.</summary>
+        private List<PhysicalQuantity> PhysicalQuantitiesToShow(PhysicalFieldSet fieldSet, PhysicalField field)
+        {
+            var quantities = fieldSet switch
+            {
+                PhysicalFieldSet.Thermal => new List<PhysicalQuantity>
+                {
+                    PhysicalQuantity.Temperature,
+                    PhysicalQuantity.PhaseComposition
+                },
+                PhysicalFieldSet.Mechanical => new List<PhysicalQuantity>
+                {
+                    PhysicalQuantity.Temperature,
+                    PhysicalQuantity.PhaseComposition,
+                    PhysicalQuantity.Displacement,
+                    PhysicalQuantity.Stress,
+                    PhysicalQuantity.Strain
+                },
+                PhysicalFieldSet.Chemical => new List<PhysicalQuantity>
+                {
+                    PhysicalQuantity.Concentration,
+                    PhysicalQuantity.Temperature
+                },
+                PhysicalFieldSet.Hydrodynamic => new List<PhysicalQuantity>
+                {
+                    PhysicalQuantity.Velocity,
+                    PhysicalQuantity.Pressure,
+                    PhysicalQuantity.Temperature
+                },
+                _ => new List<PhysicalQuantity>()
+            };
+
+            if (field?.Values == null)
+                return quantities;
+
+            foreach (var values in field.Values.Values)
+                foreach (var value in values ?? Enumerable.Empty<PhysicalFieldValue>())
+                    if (!quantities.Contains(value.Quantity))
+                        quantities.Add(value.Quantity);
+
+            return quantities;
         }
 
         /// <summary>
