@@ -39,6 +39,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_19233A1B007C4AF49D26B0C7AF8EC601"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_20BA79FD8B6B4136B4C0F2F4F326E553"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -57,19 +63,13 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_31147D06D07D47948B0A933634F011C8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_31EFB92964A3455EA4E2E33E93E5EA61"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3F5D67BF706F4A2FBA3C2F05F26559A6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4586C43C17A44B9AB5930EF2085FEAB0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -87,12 +87,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_56E228796FB14D07BC5AADA132412ED5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_6A7B98F4396145F388F93CC1A91C7402"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -100,12 +94,6 @@
         "Entry"
         {
         "MsmKey" = "8:_75359B9CA2D24DEBB7136E34058AFD65"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_75D3250645884C5880EC7D3BC067C9C4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -123,18 +111,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_816FB904EA904574B897C60D3B301FA4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_945D31F1BB5C41A1A6C9050601A4EDA7"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9483ABD453D64A08B814B638E67900D0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -142,6 +118,12 @@
         "Entry"
         {
         "MsmKey" = "8:_A0B8C9C4A3044C28B0EE98B3B43F8A15"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A29CD49717474977889BCF4579C6F7EB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -165,19 +147,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A7F2C4AEC171490E8B0DBEF491DAC433"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_B3071848C86D424A80B31FB69816ED58"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B4B8C557C2D248A4815EAC59B17399EC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -201,6 +171,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_DCE79FE6989D4C84914052BF5C0717F7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_DF0A3AD7D4714D219D76A3C1111EBD6F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -214,6 +190,12 @@
         "Entry"
         {
         "MsmKey" = "8:_FCC5D432F1D14579A09799A7C1F6617D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FFEF1985D8D84636B9777DDDEB945386"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -438,6 +420,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_19233A1B007C4AF49D26B0C7AF8EC601"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\BazisCore\\TestModel\\Examples\\3D\\Korpus.inp"
+            "TargetName" = "8:Korpus.inp"
+            "Tag" = "8:"
+            "Folder" = "8:_A6015E462E904E0B897AEB946290727F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_20BA79FD8B6B4136B4C0F2F4F326E553"
             {
             "SourcePath" = "8:C:\\BazisComponents\\Tutorials\\Tutorial_01.pdf"
@@ -498,6 +500,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_31147D06D07D47948B0A933634F011C8"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\BazisCore\\GmshApi\\gmsh.dll"
+            "TargetName" = "8:gmsh.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_82A90498F81743969E2D1E23673AE515"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_31EFB92964A3455EA4E2E33E93E5EA61"
             {
             "SourcePath" = "8:..\\GUI\\Help\\ПО Bazis 5.2. Руководство пользователя.pdf"
@@ -518,72 +540,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3F5D67BF706F4A2FBA3C2F05F26559A6"
-            {
-            "SourcePath" = "8:C:\\BazisComponents\\ModelSolution\\TestModel\\Examples\\2D_axi\\2Dval.inp"
-            "TargetName" = "8:2Dval.inp"
-            "Tag" = "8:"
-            "Folder" = "8:_59197CFA64D94D5EAF28467CA5B122FC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4586C43C17A44B9AB5930EF2085FEAB0"
-            {
-            "SourcePath" = "8:C:\\BazisComponents\\ModelSolution\\TestModel\\Examples\\CAD\\nasos.step"
-            "TargetName" = "8:nasos.step"
-            "Tag" = "8:"
-            "Folder" = "8:_6A52D81E902A4714A69DB937050A30FE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_476D5A36A8D14D7BB8C3BA7E0D7FCD99"
             {
             "SourcePath" = "8:C:\\BazisComponents\\WeldingCADMerge\\model1.stp"
             "TargetName" = "8:model1.stp"
             "Tag" = "8:"
             "Folder" = "8:_6A52D81E902A4714A69DB937050A30FE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_56E228796FB14D07BC5AADA132412ED5"
-            {
-            "SourcePath" = "8:C:\\BazisComponents\\ModelSolution\\GmshApi\\gmsh.dll"
-            "TargetName" = "8:gmsh.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_82A90498F81743969E2D1E23673AE515"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -638,26 +600,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_75D3250645884C5880EC7D3BC067C9C4"
-            {
-            "SourcePath" = "8:C:\\BazisComponents\\ModelSolution\\GmshApi\\Инструкция по использованию сеточного генератора_v4.4.pdf"
-            "TargetName" = "8:Инструкция по использованию сеточного генератора_v4.4.pdf"
-            "Tag" = "8:"
-            "Folder" = "8:_4C63950A38B540BDB1A50D4F19B6BD2B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_781EF5146DE745D29FD5B97AAE31E616"
             {
             "SourcePath" = "8:C:\\BazisComponents\\WeldingCADMerge\\model7v3.stp"
@@ -698,46 +640,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_816FB904EA904574B897C60D3B301FA4"
-            {
-            "SourcePath" = "8:C:\\BazisComponents\\ModelSolution\\GmshApi\\Инструкция по использованию сеточного генератора.pdf"
-            "TargetName" = "8:Инструкция по использованию сеточного генератора.pdf"
-            "Tag" = "8:"
-            "Folder" = "8:_82A90498F81743969E2D1E23673AE515"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_945D31F1BB5C41A1A6C9050601A4EDA7"
-            {
-            "SourcePath" = "8:C:\\BazisComponents\\ModelSolution\\TestModel\\Examples\\3D\\Korpus.inp"
-            "TargetName" = "8:Korpus.inp"
-            "Tag" = "8:"
-            "Folder" = "8:_A6015E462E904E0B897AEB946290727F"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9483ABD453D64A08B814B638E67900D0"
             {
             "SourcePath" = "8:C:\\BazisComponents\\Tutorials\\Tutorial_03.pdf"
@@ -764,6 +666,26 @@
             "TargetName" = "8:IconShort_32.ico"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A29CD49717474977889BCF4579C6F7EB"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\BazisCore\\GmshApi\\Инструкция по использованию сеточного генератора.pdf"
+            "TargetName" = "8:Инструкция по использованию сеточного генератора.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_4C63950A38B540BDB1A50D4F19B6BD2B"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -838,52 +760,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A7F2C4AEC171490E8B0DBEF491DAC433"
-            {
-            "SourcePath" = "8:C:\\BazisComponents\\ModelSolution\\TestModel\\Examples\\CAD\\cilindr.step"
-            "TargetName" = "8:cilindr.step"
-            "Tag" = "8:"
-            "Folder" = "8:_6A52D81E902A4714A69DB937050A30FE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B3071848C86D424A80B31FB69816ED58"
             {
             "SourcePath" = "8:C:\\BazisComponents\\WeldingCADMerge\\model4.stp"
             "TargetName" = "8:model4.stp"
             "Tag" = "8:"
             "Folder" = "8:_6A52D81E902A4714A69DB937050A30FE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B4B8C557C2D248A4815EAC59B17399EC"
-            {
-            "SourcePath" = "8:C:\\BazisComponents\\ModelSolution\\TestModel\\Examples\\3D\\Lazer.inp"
-            "TargetName" = "8:Lazer.inp"
-            "Tag" = "8:"
-            "Folder" = "8:_A6015E462E904E0B897AEB946290727F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -924,6 +806,26 @@
             "TargetName" = "8:functions.jsf"
             "Tag" = "8:"
             "Folder" = "8:_D1E434C130BE42E1AEE8D65AF0642946"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DCE79FE6989D4C84914052BF5C0717F7"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\BazisCore\\TestModel\\Examples\\2D_axi\\2Dval.inp"
+            "TargetName" = "8:2Dval.inp"
+            "Tag" = "8:"
+            "Folder" = "8:_59197CFA64D94D5EAF28467CA5B122FC"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -984,6 +886,26 @@
             "TargetName" = "8:Tutorial_04.pdf"
             "Tag" = "8:"
             "Folder" = "8:_4C63950A38B540BDB1A50D4F19B6BD2B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FFEF1985D8D84636B9777DDDEB945386"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\BazisCore\\TestModel\\Examples\\3D\\Lazer.inp"
+            "TargetName" = "8:Lazer.inp"
+            "Tag" = "8:"
+            "Folder" = "8:_A6015E462E904E0B897AEB946290727F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1207,16 +1129,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisGUI_5.2.45"
-        "ProductCode" = "8:{15F8AD67-3B67-4A7C-8C73-D41E06C76142}"
-        "PackageCode" = "8:{2035418B-9C28-4E29-AAB6-089088AC03D2}"
+        "ProductName" = "8:BazisGUI_5.2.48"
+        "ProductCode" = "8:{2411DCDA-09D6-492D-94DA-B7661A713FB5}"
+        "PackageCode" = "8:{ED6BEDD4-4D09-472F-8144-3268DFF6A377}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:5.2.45"
+        "ProductVersion" = "8:5.2.48"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
@@ -1838,7 +1760,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_566BC26F33134E439179C4CA3A447DDD"
             {
-            "SourcePath" = "8:..\\GUI\\obj\\Debug\\net8.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\GUI\\obj\\Release\\net8.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
@@ -1866,7 +1788,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CFDF33F093614CCDB9719E5B41DB933C"
             {
-            "SourcePath" = "8:..\\InstallerAction\\obj\\Debug\\InstallerAction.dll"
+            "SourcePath" = "8:..\\InstallerAction\\obj\\Release\\InstallerAction.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"

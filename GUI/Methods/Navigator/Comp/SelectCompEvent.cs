@@ -103,20 +103,20 @@ namespace BazisGUI
         {
             var fieldSet = GetNativeFieldSet(parameters);
             var field = FindInitialField(parameters, fieldSet);
-            var source = field?.Source ?? PhysicalFieldSource.Values;
+            var source = field?.Source ?? PhysicalSetSource.Values;
 
             var rows = new List<RowProperty>
             {
                 new RowProperty(ComposeFieldKey(CompPropertyKeys.InitialStateSource, fieldSet),
                     Properties.Resources.Header_comp_InitialStateSource,
-                    new DropDownPropertyValue(SourceName(source == PhysicalFieldSource.ResultFile), SourceNames()))
+                    new DropDownPropertyValue(SourceName(source == PhysicalSetSource.ResultFile), SourceNames()))
             };
 
-            if (source == PhysicalFieldSource.ResultFile)
+            if (source == PhysicalSetSource.ResultFile)
             {
                 rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InitialStateFile, fieldSet),
                     Indent(Properties.Resources.Header_comp_FileName),
-                    ResultValue(field?.FileName, availableResults)));
+                    ResultValue(field?.File, availableResults)));
 
                 return rows;
             }
@@ -152,9 +152,9 @@ namespace BazisGUI
 
                 rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputSource, fieldSet),
                     Indent(Properties.Resources.Header_comp_InputSource),
-                    new DropDownPropertyValue(SourceName(field.Source == PhysicalFieldSource.ResultFile), SourceNames())));
+                    new DropDownPropertyValue(SourceName(field.Source == PhysicalSetSource.ResultFile), SourceNames())));
 
-                if (field.Source == PhysicalFieldSource.Values)
+                if (field.Source == PhysicalSetSource.Values)
                 {
                     var quantities = PhysicalQuantitiesToShow(fieldSet, field);
                     foreach (var quantity in quantities)
@@ -168,7 +168,7 @@ namespace BazisGUI
                 else
                     rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputFile, fieldSet),
                         Indent(Properties.Resources.Header_comp_FileName),
-                        ResultValue(field.FileName, availableResults)));
+                        ResultValue(field.File, availableResults)));
             }
 
             return rows;
@@ -178,104 +178,104 @@ namespace BazisGUI
         /// Наборы, которые задача способна получить от других физических задач.
         /// Уже сохранённые наборы также отображаются, чтобы настройки не терялись.
         /// </summary>
-        private List<PhysicalFieldSet> InputFieldSetsToShow(GeneralParameters parameters)
+        private List<PhysicalSetName> InputFieldSetsToShow(GeneralParameters parameters)
         {
             var fieldSets = parameters switch
             {
-                TermalParameters => new List<PhysicalFieldSet>
+                TermalParameters => new List<PhysicalSetName>
                 {
-                    PhysicalFieldSet.Chemical,
-                    PhysicalFieldSet.Hydrodynamic
+                    PhysicalSetName.Chemical,
+                    PhysicalSetName.Hydrodynamic
                 },
-                MechanicalParameters => new List<PhysicalFieldSet>
+                MechanicalParameters => new List<PhysicalSetName>
                 {
-                    PhysicalFieldSet.Thermal,
-                    PhysicalFieldSet.Chemical,
-                    PhysicalFieldSet.Hydrodynamic
+                    PhysicalSetName.Thermal,
+                    PhysicalSetName.Chemical,
+                    PhysicalSetName.Hydrodynamic
                 },
-                ChemicalParameters => new List<PhysicalFieldSet>
+                ChemicalParameters => new List<PhysicalSetName>
                 {
-                    PhysicalFieldSet.Thermal
+                    PhysicalSetName.Thermal
                 },
-                _ => new List<PhysicalFieldSet>()
+                _ => new List<PhysicalSetName>()
             };
 
-            foreach (var field in parameters.InputFields ?? Enumerable.Empty<PhysicalField>())
-                if (!fieldSets.Contains(field.FieldSet))
-                    fieldSets.Add(field.FieldSet);
+            foreach (var field in parameters.InputSets ?? Enumerable.Empty<PhysicalSet>())
+                if (!fieldSets.Contains(field.Name))
+                    fieldSets.Add(field.Name);
 
             return fieldSets;
         }
 
         /// <summary>Возвращает заголовок набора физических полей.</summary>
-        private string PhysicalFieldSetHeader(PhysicalFieldSet fieldSet)
+        private string PhysicalFieldSetHeader(PhysicalSetName fieldSet)
         {
             return fieldSet switch
             {
-                PhysicalFieldSet.Thermal => "Термический",
-                PhysicalFieldSet.Mechanical => "Механический",
-                PhysicalFieldSet.Chemical => "Химический",
-                PhysicalFieldSet.Hydrodynamic => "Гидродинамический",
+                PhysicalSetName.Thermal => "Термический",
+                PhysicalSetName.Mechanical => "Механический",
+                PhysicalSetName.Chemical => "Химический",
+                PhysicalSetName.Hydrodynamic => "Гидродинамический",
                 _ => fieldSet.ToString()
             };
         }
 
         /// <summary>Возвращает заголовок физической величины.</summary>
-        private string PhysicalQuantityHeader(PhysicalQuantity quantity)
+        private string PhysicalQuantityHeader(PhysicalFieldName quantity)
         {
             return quantity switch
             {
-                PhysicalQuantity.Temperature => Properties.Resources.Header_comp_FieldTemperature,
-                PhysicalQuantity.Concentration => Properties.Resources.Header_comp_FieldConcentration,
-                PhysicalQuantity.Velocity => Properties.Resources.Header_comp_FieldVelocity,
-                PhysicalQuantity.PhaseComposition => "Фазовый состав",
-                PhysicalQuantity.Displacement => "Перемещение",
-                PhysicalQuantity.Pressure => "Давление",
-                PhysicalQuantity.Stress => "Напряжение",
-                PhysicalQuantity.Strain => "Деформация",
+                PhysicalFieldName.Temperature => Properties.Resources.Header_comp_FieldTemperature,
+                PhysicalFieldName.Concentration => Properties.Resources.Header_comp_FieldConcentration,
+                PhysicalFieldName.Velocity => Properties.Resources.Header_comp_FieldVelocity,
+                PhysicalFieldName.PhaseComposition => "Фазовый состав",
+                PhysicalFieldName.Displacement => "Перемещение",
+                PhysicalFieldName.Pressure => "Давление",
+                PhysicalFieldName.Stress => "Напряжение",
+                PhysicalFieldName.Strain => "Деформация",
                 _ => quantity.ToString()
             };
         }
 
         /// <summary>Возвращает величины, относящиеся к набору полей.</summary>
-        private List<PhysicalQuantity> PhysicalQuantitiesToShow(PhysicalFieldSet fieldSet, PhysicalField field)
+        private List<PhysicalFieldName> PhysicalQuantitiesToShow(PhysicalSetName fieldSet, PhysicalSet field)
         {
             var quantities = fieldSet switch
             {
-                PhysicalFieldSet.Thermal => new List<PhysicalQuantity>
+                PhysicalSetName.Thermal => new List<PhysicalFieldName>
                 {
-                    PhysicalQuantity.Temperature,
-                    PhysicalQuantity.PhaseComposition
+                    PhysicalFieldName.Temperature,
+                    PhysicalFieldName.PhaseComposition
                 },
-                PhysicalFieldSet.Mechanical => new List<PhysicalQuantity>
+                PhysicalSetName.Mechanical => new List<PhysicalFieldName>
                 {
-                    PhysicalQuantity.Temperature,
-                    PhysicalQuantity.PhaseComposition,
-                    PhysicalQuantity.Displacement,
-                    PhysicalQuantity.Stress,
-                    PhysicalQuantity.Strain
+                    PhysicalFieldName.Temperature,
+                    PhysicalFieldName.PhaseComposition,
+                    PhysicalFieldName.Displacement,
+                    PhysicalFieldName.Stress,
+                    PhysicalFieldName.Strain
                 },
-                PhysicalFieldSet.Chemical => new List<PhysicalQuantity>
+                PhysicalSetName.Chemical => new List<PhysicalFieldName>
                 {
-                    PhysicalQuantity.Concentration,
-                    PhysicalQuantity.Temperature
+                    PhysicalFieldName.Concentration,
+                    PhysicalFieldName.Temperature
                 },
-                PhysicalFieldSet.Hydrodynamic => new List<PhysicalQuantity>
+                PhysicalSetName.Hydrodynamic => new List<PhysicalFieldName>
                 {
-                    PhysicalQuantity.Velocity,
-                    PhysicalQuantity.Pressure,
-                    PhysicalQuantity.Temperature
+                    PhysicalFieldName.Velocity,
+                    PhysicalFieldName.Pressure,
+                    PhysicalFieldName.Temperature
                 },
-                _ => new List<PhysicalQuantity>()
+                _ => new List<PhysicalFieldName>()
             };
 
             if (field?.Values == null)
                 return quantities;
 
             foreach (var values in field.Values.Values)
-                foreach (var value in values ?? Enumerable.Empty<PhysicalFieldValue>())
-                    if (!quantities.Contains(value.Quantity))
-                        quantities.Add(value.Quantity);
+                foreach (var value in values ?? Enumerable.Empty<PhysicalField>())
+                    if (!quantities.Contains(value.Name))
+                        quantities.Add(value.Name);
 
             return quantities;
         }

@@ -45,10 +45,10 @@ namespace BazisGUI
         /// <summary>Разделитель частей ключа строки: «InputSource:Thermal».</summary>
         private readonly char FieldKeySeparator = ':';
 
-        private string ComposeFieldKey(CompPropertyKeys key, PhysicalFieldSet fieldSet) =>
+        private string ComposeFieldKey(CompPropertyKeys key, PhysicalSetName fieldSet) =>
             $"{key}{FieldKeySeparator}{fieldSet}";
 
-        private string ComposeQuantityKey(CompPropertyKeys key, PhysicalFieldSet fieldSet, PhysicalQuantity quantity) =>
+        private string ComposeQuantityKey(CompPropertyKeys key, PhysicalSetName fieldSet, PhysicalFieldName quantity) =>
             $"{key}{FieldKeySeparator}{fieldSet}{FieldKeySeparator}{quantity}";
         enum PriorityKeys { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий, Наивысший }
 
@@ -130,14 +130,14 @@ namespace BazisGUI
 
                     case CompPropertyKeys.InitialStateSource:
                         SetFieldSource(EnsureInitialField(parameters, fieldSet),
-                            IsFileSource(obj.NewValue) ? PhysicalFieldSource.ResultFile : PhysicalFieldSource.Values);
+                            IsFileSource(obj.NewValue) ? PhysicalSetSource.ResultFile : PhysicalSetSource.Values);
                         break;
                     case CompPropertyKeys.InitialStateValue:
                         ApplyFieldValues(EnsureInitialField(parameters, fieldSet), quantity, obj.NewValue);
                         break;
                     case CompPropertyKeys.InitialStateFile:
                         // Core хранит имя файла результата или шаблон поиска, каталог не хранится.
-                        EnsureInitialField(parameters, fieldSet).FileName = Path.GetFileName(obj.NewValue);
+                        EnsureInitialField(parameters, fieldSet).File = Path.GetFileName(obj.NewValue);
                         break;
 
                     case CompPropertyKeys.InputEnabled:
@@ -145,13 +145,13 @@ namespace BazisGUI
                         break;
                     case CompPropertyKeys.InputSource:
                         SetFieldSource(EnsureInputField(parameters, fieldSet),
-                            IsFileSource(obj.NewValue) ? PhysicalFieldSource.ResultFile : PhysicalFieldSource.Values);
+                            IsFileSource(obj.NewValue) ? PhysicalSetSource.ResultFile : PhysicalSetSource.Values);
                         break;
                     case CompPropertyKeys.InputValue:
                         ApplyFieldValues(EnsureInputField(parameters, fieldSet), quantity, obj.NewValue);
                         break;
                     case CompPropertyKeys.InputFile:
-                        EnsureInputField(parameters, fieldSet).FileName = Path.GetFileName(obj.NewValue);
+                        EnsureInputField(parameters, fieldSet).File = Path.GetFileName(obj.NewValue);
                         break;
                 }
             }
@@ -168,7 +168,7 @@ namespace BazisGUI
         /// <summary>
         /// Отделяет от ключа строки набор и физическую величину, если они в нём закодированы.
         /// </summary>
-        private string SplitFieldKey(string key, out PhysicalFieldSet fieldSet, out PhysicalQuantity quantity)
+        private string SplitFieldKey(string key, out PhysicalSetName fieldSet, out PhysicalFieldName quantity)
         {
             fieldSet = default;
             quantity = default;
@@ -380,50 +380,56 @@ namespace BazisGUI
         }
 
         /// <summary>Возвращает внешний набор полей, не изменяя модель.</summary>
-        private PhysicalField FindInputField(GeneralParameters parameters, PhysicalFieldSet fieldSet) =>
-            FindField(parameters.InputFields, fieldSet);
+        private PhysicalSet FindInputField(GeneralParameters parameters, PhysicalSetName fieldSet) =>
+            FindField(parameters.InputSets, fieldSet);
 
         /// <summary>Возвращает родной начальный набор полей, не изменяя модель.</summary>
-        private PhysicalField FindInitialField(GeneralParameters parameters, PhysicalFieldSet fieldSet) =>
-            FindField(parameters.InitialFields, fieldSet);
+        private PhysicalSet FindInitialField(GeneralParameters parameters, PhysicalSetName fieldSet)
+        {
+            return parameters.InitialSet?.Name == fieldSet
+                ? parameters.InitialSet
+                : null;
+        }
 
         /// <summary>Возвращает набор полей по его виду.</summary>
-        private PhysicalField FindField(IEnumerable<PhysicalField> fields, PhysicalFieldSet fieldSet)
+        private PhysicalSet FindField(IEnumerable<PhysicalSet> fields, PhysicalSetName fieldSet)
         {
-            return fields?.FirstOrDefault(field => field.FieldSet == fieldSet);
+            return fields?.FirstOrDefault(field => field.Name == fieldSet);
         }
 
         /// <summary>Создаёт внешний набор полей, если он ещё не задан.</summary>
-        private PhysicalField EnsureInputField(GeneralParameters parameters, PhysicalFieldSet fieldSet)
+        private PhysicalSet EnsureInputField(GeneralParameters parameters, PhysicalSetName fieldSet)
         {
-            parameters.InputFields ??= new List<PhysicalField>();
-            return EnsureField(parameters.InputFields, fieldSet);
+            parameters.InputSets ??= new List<PhysicalSet>();
+            return EnsureField(parameters.InputSets, fieldSet);
         }
 
         /// <summary>Создаёт родной начальный набор полей, если он ещё не задан.</summary>
-        private PhysicalField EnsureInitialField(GeneralParameters parameters, PhysicalFieldSet fieldSet)
+        private PhysicalSet EnsureInitialField(GeneralParameters parameters, PhysicalSetName fieldSet)
         {
-            parameters.InitialFields ??= new List<PhysicalField>();
-            return EnsureField(parameters.InitialFields, fieldSet);
+            if (parameters.InitialSet?.Name != fieldSet)
+                parameters.InitialSet = new PhysicalSet { Name = fieldSet };
+
+            return parameters.InitialSet;
         }
 
         /// <summary>Возвращает единственный набор полей указанного вида.</summary>
-        private PhysicalField EnsureField(List<PhysicalField> fields, PhysicalFieldSet fieldSet)
+        private PhysicalSet EnsureField(List<PhysicalSet> fields, PhysicalSetName fieldSet)
         {
             var field = FindField(fields, fieldSet);
             if (field == null)
             {
-                field = new PhysicalField { FieldSet = fieldSet };
+                field = new PhysicalSet { Name = fieldSet };
                 fields.Add(field);
                 return field;
             }
 
-            fields.RemoveAll(existing => existing != field && existing.FieldSet == fieldSet);
+            fields.RemoveAll(existing => existing != field && existing.Name == fieldSet);
             return field;
         }
 
         /// <summary>Включает или выключает внешний набор полей.</summary>
-        private void SetInputFieldEnabled(GeneralParameters parameters, PhysicalFieldSet fieldSet, bool enabled)
+        private void SetInputFieldEnabled(GeneralParameters parameters, PhysicalSetName fieldSet, bool enabled)
         {
             if (enabled)
             {
@@ -431,16 +437,16 @@ namespace BazisGUI
                 return;
             }
 
-            parameters.InputFields?.RemoveAll(field => field.FieldSet == fieldSet);
+            parameters.InputSets?.RemoveAll(field => field.Name == fieldSet);
         }
 
         /// <summary>Переключает источник набора, очищая неактуальные данные.</summary>
-        private void SetFieldSource(PhysicalField field, PhysicalFieldSource source)
+        private void SetFieldSource(PhysicalSet field, PhysicalSetSource source)
         {
             field.Source = source;
 
-            if (source == PhysicalFieldSource.Values)
-                field.FileName = "";
+            if (source == PhysicalSetSource.Values)
+                field.File = "";
             else
                 field.Values.Clear();
         }
@@ -467,19 +473,19 @@ namespace BazisGUI
         }
 
         /// <summary>Возвращает родной набор полей текущей физической задачи.</summary>
-        private PhysicalFieldSet GetNativeFieldSet(GeneralParameters parameters)
+        private PhysicalSetName GetNativeFieldSet(GeneralParameters parameters)
         {
             return parameters switch
             {
-                TermalParameters => PhysicalFieldSet.Thermal,
-                MechanicalParameters => PhysicalFieldSet.Mechanical,
-                ChemicalParameters => PhysicalFieldSet.Chemical,
+                TermalParameters => PhysicalSetName.Thermal,
+                MechanicalParameters => PhysicalSetName.Mechanical,
+                ChemicalParameters => PhysicalSetName.Chemical,
                 _ => throw new ArgumentOutOfRangeException(nameof(parameters), "The task does not have a native field set.")
             };
         }
 
         /// <summary>Формирует строку значений одной физической величины по группам.</summary>
-        private string FormatFieldValues(PhysicalField field, PhysicalQuantity quantity)
+        private string FormatFieldValues(PhysicalSet field, PhysicalFieldName quantity)
         {
             if (field?.Values == null)
                 return string.Empty;
@@ -487,7 +493,7 @@ namespace BazisGUI
             var values = new List<string>();
             foreach (var pair in field.Values)
             {
-                var fieldValue = pair.Value?.FirstOrDefault(value => value.Quantity == quantity);
+                var fieldValue = pair.Value?.FirstOrDefault(value => value.Name == quantity);
                 if (fieldValue != null)
                     values.Add($"{pair.Key} {FormatComponents(fieldValue.Components)}");
             }
@@ -496,10 +502,10 @@ namespace BazisGUI
         }
 
         /// <summary>Записывает значения одной физической величины по группам.</summary>
-        private void ApplyFieldValues(PhysicalField field, PhysicalQuantity quantity, string newValue)
+        private void ApplyFieldValues(PhysicalSet field, PhysicalFieldName quantity, string newValue)
         {
-            SetFieldSource(field, PhysicalFieldSource.Values);
-            field.Values ??= new Dictionary<string, List<PhysicalFieldValue>>();
+            SetFieldSource(field, PhysicalSetSource.Values);
+            field.Values ??= new Dictionary<string, List<PhysicalField>>();
 
             var pairs = newValue
                 .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
@@ -513,7 +519,7 @@ namespace BazisGUI
                     "Expected 'group value,group value'. The decimal separator must be a dot.");
 
             foreach (var values in field.Values.Values)
-                values?.RemoveAll(value => value.Quantity == quantity);
+                values?.RemoveAll(value => value.Name == quantity);
 
             var emptyGroups = field.Values
                 .Where(pair => pair.Value == null || pair.Value.Count == 0)
@@ -526,13 +532,13 @@ namespace BazisGUI
             {
                 if (!field.Values.TryGetValue(pair[0], out var values))
                 {
-                    values = new List<PhysicalFieldValue>();
+                    values = new List<PhysicalField>();
                     field.Values.Add(pair[0], values);
                 }
 
-                values.Add(new PhysicalFieldValue
+                values.Add(new PhysicalField
                 {
-                    Quantity = quantity,
+                    Name = quantity,
                     Components = ParseComponents(pair[1])
                 });
             }

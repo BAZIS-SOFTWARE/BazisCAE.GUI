@@ -11,6 +11,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <RepositoryUrl>https://github.com/ONEGOCH/UserControlEx</RepositoryUrl>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -49,6 +50,7 @@
     <AssemblyOriginatorKeyFile>UserControlExKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -59,6 +61,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Resources.Extensions">
+      <HintPath>$(NuGetPackageRoot)system.resources.extensions\9.0.0\lib\net462\System.Resources.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
