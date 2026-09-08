@@ -1,4 +1,5 @@
 ﻿using BazisGUI.Navigator;
+using BazisGUI.PropertiesPanel.PhysicalSets;
 using Newtonsoft.Json;
 using Project.TaskParameters;
 using System;
@@ -32,25 +33,14 @@ namespace BazisGUI
             StopTime,
             InitialSolveStep,
             MinSolveStep,
-            MaxSolveStep,
-            InitialStateSource,
-            InitialStateValue,
-            InitialStateFile,
-            InputEnabled,
-            InputSource,
-            InputValue,
-            InputFile
+            MaxSolveStep
         }
 
-        /// <summary>Разделитель частей ключа строки: «InputSource:Thermal».</summary>
-        private readonly char FieldKeySeparator = ':';
-
-        private string ComposeFieldKey(CompPropertyKeys key, PhysicalSetName fieldSet) =>
-            $"{key}{FieldKeySeparator}{fieldSet}";
-
-        private string ComposeQuantityKey(CompPropertyKeys key, PhysicalSetName fieldSet, PhysicalFieldName quantity) =>
-            $"{key}{FieldKeySeparator}{fieldSet}{FieldKeySeparator}{quantity}";
         enum PriorityKeys { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий, Наивысший }
+
+        // Строки физических наборов имеют собственные ключи и применяются PhysicalSetEditor:
+        // отдельных значений CompPropertyKeys на каждую комбинацию набора и величины не нужно.
+        private readonly PhysicalSetEditor physicalSetEditor = new PhysicalSetEditor(new PhysicalSetCatalog());
 
         private void ChangeCompProperties(PropertiesPanel.PropertyChangedEventArgs obj, string nodeText)
         {
@@ -62,10 +52,9 @@ namespace BazisGUI
             else if (parameters is TermalParameters tmp)
                 ChangeTermalTask(obj, tmp);
 
-            // Ключи строк несут набор полей и, при вводе значений, физическую величину.
-            var rowKey = SplitFieldKey(obj.Key, out var fieldSet, out var quantity);
+            var appliedToSet = physicalSetEditor.TryApply(parameters, obj.Key, obj.NewValue);
 
-            if (Enum.TryParse(rowKey, out CompPropertyKeys key))
+            if (!appliedToSet && Enum.TryParse(obj.Key, out CompPropertyKeys key))
             {
                 switch (key)
                 {
@@ -127,32 +116,6 @@ namespace BazisGUI
                     case CompPropertyKeys.MaxSolveStep:
                         parameters.TimeSettings.MaxTimeStep = ParseFloatValue(obj.NewValue);
                         break;
-
-                    case CompPropertyKeys.InitialStateSource:
-                        SetFieldSource(EnsureInitialField(parameters, fieldSet),
-                            IsFileSource(obj.NewValue) ? PhysicalSetSource.ResultFile : PhysicalSetSource.Values);
-                        break;
-                    case CompPropertyKeys.InitialStateValue:
-                        ApplyFieldValues(EnsureInitialField(parameters, fieldSet), quantity, obj.NewValue);
-                        break;
-                    case CompPropertyKeys.InitialStateFile:
-                        // Core хранит имя файла результата или шаблон поиска, каталог не хранится.
-                        EnsureInitialField(parameters, fieldSet).File = Path.GetFileName(obj.NewValue);
-                        break;
-
-                    case CompPropertyKeys.InputEnabled:
-                        SetInputFieldEnabled(parameters, fieldSet, bool.Parse(obj.NewValue));
-                        break;
-                    case CompPropertyKeys.InputSource:
-                        SetFieldSource(EnsureInputField(parameters, fieldSet),
-                            IsFileSource(obj.NewValue) ? PhysicalSetSource.ResultFile : PhysicalSetSource.Values);
-                        break;
-                    case CompPropertyKeys.InputValue:
-                        ApplyFieldValues(EnsureInputField(parameters, fieldSet), quantity, obj.NewValue);
-                        break;
-                    case CompPropertyKeys.InputFile:
-                        EnsureInputField(parameters, fieldSet).File = Path.GetFileName(obj.NewValue);
-                        break;
                 }
             }
 
@@ -161,40 +124,14 @@ namespace BazisGUI
             // перерисовывает панель свойств, если изменился параметр, от которого зависит
             // состав строк или показанное значение отличается от введённого.
             // Отложенно, потому что метод вызывается из обработчика изменения ячейки DataGridView.
-            if (NeedsRedraw(rowKey))
+            if (NeedsRedraw(obj.Key) || physicalSetEditor.ChangesRowSet(obj.Key))
                 BeginInvoke(new Action(() => Navigator_SelectCompEvent(nodeText)));
         }
-
-        /// <summary>
-        /// Отделяет от ключа строки набор и физическую величину, если они в нём закодированы.
-        /// </summary>
-        private string SplitFieldKey(string key, out PhysicalSetName fieldSet, out PhysicalFieldName quantity)
-        {
-            fieldSet = default;
-            quantity = default;
-
-            var parts = key?.Split(FieldKeySeparator) ?? Array.Empty<string>();
-            if (parts.Length < 2)
-                return key;
-
-            Enum.TryParse(parts[1], out fieldSet);
-            if (parts.Length > 2)
-                Enum.TryParse(parts[2], out quantity);
-
-            return parts[0];
-        }
-
-        /// <summary>Выбран ли в списке источника данных файл, а не константа.</summary>
-        private bool IsFileSource(string value) =>
-            value == Properties.Resources.Header_comp_SourceFile;
 
         /// <summary>Нужно ли перестроить строки панели после изменения параметра.</summary>
         private bool NeedsRedraw(string key)
         {
-            return key == CompPropertyKeys.InputEnabled.ToString()
-                || key == CompPropertyKeys.InputSource.ToString()
-                || key == CompPropertyKeys.InitialStateSource.ToString()
-                || key == TermalTaskPropertyKeys.MaxTemperture.ToString()
+            return key == TermalTaskPropertyKeys.MaxTemperture.ToString()
                 || key == MechanicalPropertyKeys.MaxMove.ToString()
                 || key == MechanicalPropertyKeys.PlasticDeformation.ToString()
                 || key == ChemicalTaskPropertyKeys.MaxConсentration.ToString();
@@ -379,78 +316,6 @@ namespace BazisGUI
             return nodeText[start..end].Trim();
         }
 
-        /// <summary>Возвращает внешний набор полей, не изменяя модель.</summary>
-        private PhysicalSet FindInputField(GeneralParameters parameters, PhysicalSetName fieldSet) =>
-            FindField(parameters.InputSets, fieldSet);
-
-        /// <summary>Возвращает родной начальный набор полей, не изменяя модель.</summary>
-        private PhysicalSet FindInitialField(GeneralParameters parameters, PhysicalSetName fieldSet)
-        {
-            return parameters.InitialSet?.Name == fieldSet
-                ? parameters.InitialSet
-                : null;
-        }
-
-        /// <summary>Возвращает набор полей по его виду.</summary>
-        private PhysicalSet FindField(IEnumerable<PhysicalSet> fields, PhysicalSetName fieldSet)
-        {
-            return fields?.FirstOrDefault(field => field.Name == fieldSet);
-        }
-
-        /// <summary>Создаёт внешний набор полей, если он ещё не задан.</summary>
-        private PhysicalSet EnsureInputField(GeneralParameters parameters, PhysicalSetName fieldSet)
-        {
-            parameters.InputSets ??= new List<PhysicalSet>();
-            return EnsureField(parameters.InputSets, fieldSet);
-        }
-
-        /// <summary>Создаёт родной начальный набор полей, если он ещё не задан.</summary>
-        private PhysicalSet EnsureInitialField(GeneralParameters parameters, PhysicalSetName fieldSet)
-        {
-            if (parameters.InitialSet?.Name != fieldSet)
-                parameters.InitialSet = new PhysicalSet { Name = fieldSet };
-
-            return parameters.InitialSet;
-        }
-
-        /// <summary>Возвращает единственный набор полей указанного вида.</summary>
-        private PhysicalSet EnsureField(List<PhysicalSet> fields, PhysicalSetName fieldSet)
-        {
-            var field = FindField(fields, fieldSet);
-            if (field == null)
-            {
-                field = new PhysicalSet { Name = fieldSet };
-                fields.Add(field);
-                return field;
-            }
-
-            fields.RemoveAll(existing => existing != field && existing.Name == fieldSet);
-            return field;
-        }
-
-        /// <summary>Включает или выключает внешний набор полей.</summary>
-        private void SetInputFieldEnabled(GeneralParameters parameters, PhysicalSetName fieldSet, bool enabled)
-        {
-            if (enabled)
-            {
-                EnsureInputField(parameters, fieldSet);
-                return;
-            }
-
-            parameters.InputSets?.RemoveAll(field => field.Name == fieldSet);
-        }
-
-        /// <summary>Переключает источник набора, очищая неактуальные данные.</summary>
-        private void SetFieldSource(PhysicalSet field, PhysicalSetSource source)
-        {
-            field.Source = source;
-
-            if (source == PhysicalSetSource.Values)
-                field.File = "";
-            else
-                field.Values.Clear();
-        }
-
         private SolverSettings EnsureSolverSettings(GeneralParameters parameters)
         {
             return parameters.SolverSettings ??=
@@ -472,77 +337,6 @@ namespace BazisGUI
             };
         }
 
-        /// <summary>Возвращает родной набор полей текущей физической задачи.</summary>
-        private PhysicalSetName GetNativeFieldSet(GeneralParameters parameters)
-        {
-            return parameters switch
-            {
-                TermalParameters => PhysicalSetName.Thermal,
-                MechanicalParameters => PhysicalSetName.Mechanical,
-                ChemicalParameters => PhysicalSetName.Chemical,
-                _ => throw new ArgumentOutOfRangeException(nameof(parameters), "The task does not have a native field set.")
-            };
-        }
-
-        /// <summary>Формирует строку значений одной физической величины по группам.</summary>
-        private string FormatFieldValues(PhysicalSet field, PhysicalFieldName quantity)
-        {
-            if (field?.Values == null)
-                return string.Empty;
-
-            var values = new List<string>();
-            foreach (var pair in field.Values)
-            {
-                var fieldValue = pair.Value?.FirstOrDefault(value => value.Name == quantity);
-                if (fieldValue != null)
-                    values.Add($"{pair.Key} {FormatComponents(fieldValue.Components)}");
-            }
-
-            return string.Join(",", values);
-        }
-
-        /// <summary>Записывает значения одной физической величины по группам.</summary>
-        private void ApplyFieldValues(PhysicalSet field, PhysicalFieldName quantity, string newValue)
-        {
-            SetFieldSource(field, PhysicalSetSource.Values);
-            field.Values ??= new Dictionary<string, List<PhysicalField>>();
-
-            var pairs = newValue
-                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                .Select(pair => pair.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
-                .ToList();
-
-            // Запятая разделяет группы, поэтому десятичный разделитель здесь только точка.
-            // Без проверки «Металл 21,5» молча создало бы группу «5».
-            if (pairs.Any(pair => pair.Length != 2))
-                throw new ArgumentException(
-                    "Expected 'group value,group value'. The decimal separator must be a dot.");
-
-            foreach (var values in field.Values.Values)
-                values?.RemoveAll(value => value.Name == quantity);
-
-            var emptyGroups = field.Values
-                .Where(pair => pair.Value == null || pair.Value.Count == 0)
-                .Select(pair => pair.Key)
-                .ToList();
-            foreach (var groupName in emptyGroups)
-                field.Values.Remove(groupName);
-
-            foreach (var pair in pairs)
-            {
-                if (!field.Values.TryGetValue(pair[0], out var values))
-                {
-                    values = new List<PhysicalField>();
-                    field.Values.Add(pair[0], values);
-                }
-
-                values.Add(new PhysicalField
-                {
-                    Name = quantity,
-                    Components = ParseComponents(pair[1])
-                });
-            }
-        }
 
         /// <summary>
         /// Компоненты значения через «;» — запятая занята под десятичный разделитель

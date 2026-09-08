@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -2082,7 +2082,18 @@
   <data name="Header_comp_FileName" xml:space="preserve"><value>Имя файла</value></data>
   <data name="Header_comp_SourceConstant" xml:space="preserve"><value>Константа</value></data>
   <data name="Header_comp_SourceFile" xml:space="preserve"><value>Файл</value></data>
-  <data name="Header_comp_FieldTemperature" xml:space="preserve"><value>T - температура</value></data>
-  <data name="Header_comp_FieldConcentration" xml:space="preserve"><value>C - концентрация</value></data>
-  <data name="Header_comp_FieldVelocity" xml:space="preserve"><value>V - скорость</value></data>
+  <data name="Header_comp_FieldTemperature" xml:space="preserve"><value>Температура</value></data>
+  <data name="Header_comp_FieldConcentration" xml:space="preserve"><value>Концентрация</value></data>
+  <data name="Header_comp_FieldVelocity" xml:space="preserve"><value>Скорость</value></data>
+  <data name="Header_comp_ForeignSets" xml:space="preserve"><value>Внешние поля</value></data>
+  <data name="Header_comp_FieldPhaseComposition" xml:space="preserve"><value>Фазовый состав</value></data>
+  <data name="Header_comp_SetThermal" xml:space="preserve"><value>Термический</value></data>
+  <data name="Header_comp_FieldPressure" xml:space="preserve"><value>Давление</value></data>
+  <data name="Header_comp_FieldStrain" xml:space="preserve"><value>Деформация</value></data>
+  <data name="Header_comp_FieldDisplacement" xml:space="preserve"><value>Перемещение</value></data>
+  <data name="Header_comp_SetHydrodynamic" xml:space="preserve"><value>Гидродинамический</value></data>
+  <data name="Header_comp_NativeSet" xml:space="preserve"><value>Начальное поле</value></data>
+  <data name="Header_comp_SetChemical" xml:space="preserve"><value>Химический</value></data>
+  <data name="Header_comp_SetMechanical" xml:space="preserve"><value>Механический</value></data>
+  <data name="Header_comp_FieldStress" xml:space="preserve"><value>Напряжение</value></data>
 </root>
