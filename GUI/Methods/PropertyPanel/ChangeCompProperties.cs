@@ -43,13 +43,18 @@ namespace BazisGUI
         }
 
         /// <summary>Разделитель частей ключа строки: «InputSource:Thermal».</summary>
-        private readonly char FieldKeySeparator = ':';
+        private const char FieldKeySeparator = ':';
 
         private string ComposeFieldKey(CompPropertyKeys key, PhysicalSetName fieldSet) =>
             $"{key}{FieldKeySeparator}{fieldSet}";
 
-        private string ComposeQuantityKey(CompPropertyKeys key, PhysicalSetName fieldSet, PhysicalFieldName quantity) =>
-            $"{key}{FieldKeySeparator}{fieldSet}{FieldKeySeparator}{quantity}";
+        /// <summary>
+        /// Ключ строки значения. Имя элементной группы идёт последним и при разборе берётся
+        /// остатком строки, поэтому разделитель внутри имени группы разбор не ломает.
+        /// </summary>
+        private string ComposeQuantityKey(
+            CompPropertyKeys key, PhysicalSetName fieldSet, PhysicalFieldName quantity, string groupName) =>
+            $"{key}{FieldKeySeparator}{fieldSet}{FieldKeySeparator}{quantity}{FieldKeySeparator}{groupName}";
         enum PriorityKeys { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий, Наивысший }
 
         private void ChangeCompProperties(PropertiesPanel.PropertyChangedEventArgs obj, string nodeText)
@@ -62,8 +67,8 @@ namespace BazisGUI
             else if (parameters is TermalParameters tmp)
                 ChangeTermalTask(obj, tmp);
 
-            // Ключи строк несут набор полей и, при вводе значений, физическую величину.
-            var rowKey = SplitFieldKey(obj.Key, out var fieldSet, out var quantity);
+            // Ключи строк несут набор полей и, при вводе значений, величину и элементную группу.
+            var rowKey = SplitFieldKey(obj.Key, out var fieldSet, out var quantity, out var groupName);
 
             if (Enum.TryParse(rowKey, out CompPropertyKeys key))
             {
@@ -133,7 +138,7 @@ namespace BazisGUI
                             IsFileSource(obj.NewValue) ? PhysicalSetSource.ResultFile : PhysicalSetSource.Values);
                         break;
                     case CompPropertyKeys.InitialStateValue:
-                        ApplyFieldValues(EnsureInitialField(parameters, fieldSet), quantity, obj.NewValue);
+                        ApplyFieldComponents(EnsureInitialField(parameters, fieldSet), groupName, quantity, obj.NewValue);
                         break;
                     case CompPropertyKeys.InitialStateFile:
                         // Core хранит имя файла результата или шаблон поиска, каталог не хранится.
@@ -148,7 +153,7 @@ namespace BazisGUI
                             IsFileSource(obj.NewValue) ? PhysicalSetSource.ResultFile : PhysicalSetSource.Values);
                         break;
                     case CompPropertyKeys.InputValue:
-                        ApplyFieldValues(EnsureInputField(parameters, fieldSet), quantity, obj.NewValue);
+                        ApplyFieldComponents(EnsureInputField(parameters, fieldSet), groupName, quantity, obj.NewValue);
                         break;
                     case CompPropertyKeys.InputFile:
                         EnsureInputField(parameters, fieldSet).File = Path.GetFileName(obj.NewValue);
@@ -166,20 +171,25 @@ namespace BazisGUI
         }
 
         /// <summary>
-        /// Отделяет от ключа строки набор и физическую величину, если они в нём закодированы.
+        /// Отделяет от ключа строки набор, физическую величину и имя элементной группы,
+        /// если они в нём закодированы. Имя группы берётся остатком строки.
         /// </summary>
-        private string SplitFieldKey(string key, out PhysicalSetName fieldSet, out PhysicalFieldName quantity)
+        private string SplitFieldKey(
+            string key, out PhysicalSetName fieldSet, out PhysicalFieldName quantity, out string groupName)
         {
             fieldSet = default;
             quantity = default;
+            groupName = null;
 
-            var parts = key?.Split(FieldKeySeparator) ?? Array.Empty<string>();
+            var parts = key?.Split(FieldKeySeparator, 4) ?? Array.Empty<string>();
             if (parts.Length < 2)
                 return key;
 
             Enum.TryParse(parts[1], out fieldSet);
             if (parts.Length > 2)
                 Enum.TryParse(parts[2], out quantity);
+            if (parts.Length > 3)
+                groupName = parts[3];
 
             return parts[0];
         }
@@ -484,84 +494,80 @@ namespace BazisGUI
             };
         }
 
-        /// <summary>Формирует строку значений одной физической величины по группам.</summary>
-        private string FormatFieldValues(PhysicalSet field, PhysicalFieldName quantity)
+        /// <summary>Формирует строку компонент величины одной элементной группы.</summary>
+        private string FormatFieldComponents(PhysicalSet field, string groupName, PhysicalFieldName quantity)
         {
-            if (field?.Values == null)
+            if (field?.Values == null || groupName == null || !field.Values.TryGetValue(groupName, out var fields))
                 return string.Empty;
 
-            var values = new List<string>();
-            foreach (var pair in field.Values)
-            {
-                var fieldValue = pair.Value?.FirstOrDefault(value => value.Name == quantity);
-                if (fieldValue != null)
-                    values.Add($"{pair.Key} {FormatComponents(fieldValue.Components)}");
-            }
-
-            return string.Join(",", values);
-        }
-
-        /// <summary>Записывает значения одной физической величины по группам.</summary>
-        private void ApplyFieldValues(PhysicalSet field, PhysicalFieldName quantity, string newValue)
-        {
-            SetFieldSource(field, PhysicalSetSource.Values);
-            field.Values ??= new Dictionary<string, List<PhysicalField>>();
-
-            var pairs = newValue
-                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                .Select(pair => pair.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
-                .ToList();
-
-            // Запятая разделяет группы, поэтому десятичный разделитель здесь только точка.
-            // Без проверки «Металл 21,5» молча создало бы группу «5».
-            if (pairs.Any(pair => pair.Length != 2))
-                throw new ArgumentException(
-                    "Expected 'group value,group value'. The decimal separator must be a dot.");
-
-            foreach (var values in field.Values.Values)
-                values?.RemoveAll(value => value.Name == quantity);
-
-            var emptyGroups = field.Values
-                .Where(pair => pair.Value == null || pair.Value.Count == 0)
-                .Select(pair => pair.Key)
-                .ToList();
-            foreach (var groupName in emptyGroups)
-                field.Values.Remove(groupName);
-
-            foreach (var pair in pairs)
-            {
-                if (!field.Values.TryGetValue(pair[0], out var values))
-                {
-                    values = new List<PhysicalField>();
-                    field.Values.Add(pair[0], values);
-                }
-
-                values.Add(new PhysicalField
-                {
-                    Name = quantity,
-                    Components = ParseComponents(pair[1])
-                });
-            }
+            var components = fields?.FirstOrDefault(value => value.Name == quantity)?.Components;
+            return FormatComponents(components);
         }
 
         /// <summary>
-        /// Компоненты значения через «;» — запятая занята под десятичный разделитель
-        /// (см. ParseFloatValue) и под разделитель групп начального состояния.
+        /// Записывает компоненты величины для одной элементной группы.
+        /// Пустая строка означает, что величина для группы не задана.
         /// </summary>
+        private void ApplyFieldComponents(
+            PhysicalSet field, string groupName, PhysicalFieldName quantity, string newValue)
+        {
+            if (string.IsNullOrEmpty(groupName))
+                throw new ArgumentException("The row key does not contain an element group name.");
+
+            SetFieldSource(field, PhysicalSetSource.Values);
+            field.Values ??= new Dictionary<string, List<PhysicalField>>();
+
+            if (!field.Values.TryGetValue(groupName, out var fields) || fields == null)
+            {
+                fields = new List<PhysicalField>();
+                field.Values[groupName] = fields;
+            }
+
+            var components = ParseComponents(newValue);
+            var value = fields.FirstOrDefault(item => item.Name == quantity);
+
+            if (components.Length == 0)
+            {
+                if (value != null)
+                    fields.Remove(value);
+
+                if (fields.Count == 0)
+                    field.Values.Remove(groupName);
+
+                return;
+            }
+
+            if (value == null)
+            {
+                value = new PhysicalField { Name = quantity };
+                fields.Add(value);
+            }
+
+            value.Components = components;
+        }
+
+        /// <summary>Компоненты величины через запятую — так они записаны в схеме данных.</summary>
         private string FormatComponents(double[] values)
         {
             if (values == null || values.Length == 0)
                 return string.Empty;
 
-            return string.Join("; ", values.Select(x => x.ToString(CultureInfo.InvariantCulture)));
+            return string.Join(", ", values.Select(x => x.ToString(CultureInfo.InvariantCulture)));
         }
 
+        /// <summary>
+        /// Разбирает компоненты величины. Разделителем выбрана запятая, поэтому
+        /// десятичный разделитель здесь только точка.
+        /// </summary>
         private double[] ParseComponents(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 return Array.Empty<double>();
 
-            return value.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(x => double.Parse(x.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture)).ToArray();
+            return value
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(x => double.Parse(x, NumberStyles.Float, CultureInfo.InvariantCulture))
+                .ToArray();
         }
 
         [Obsolete("Стараться использовать дженерик метод ConvertToNumber")]
