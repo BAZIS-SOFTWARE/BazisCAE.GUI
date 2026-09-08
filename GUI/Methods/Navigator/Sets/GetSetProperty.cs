@@ -12,7 +12,7 @@ namespace BazisGUI
         {
             return new List<RowProperty>
             {
-               new RowProperty(SetPropertyKeys.Name.ToString(), Resources.Header_set_name, _objectsSet.Name),
+               new RowProperty(SetPropertyKeys.Name.ToString(), Resources.Header_set_name, _objectsSet.Name, isReadOnly: true),
 
                new RowProperty(SetPropertyKeys.Color.ToString(), Resources.Header_set_color, _objectsSet.Color),
 
