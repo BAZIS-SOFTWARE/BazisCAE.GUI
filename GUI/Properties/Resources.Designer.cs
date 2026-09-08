@@ -526,6 +526,204 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на For a {0:F3}° angle between surfaces, the chamfer angle must be less than {1:F3}°..
+        /// </summary>
+        internal static string ChamferPreview_AngleMustBeLessThan {
+            get {
+                return ResourceManager.GetString("ChamferPreview_AngleMustBeLessThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Chamfer angle must be between 0° and 180°..
+        /// </summary>
+        internal static string ChamferPreview_AngleOutOfRange {
+            get {
+                return ResourceManager.GetString("ChamferPreview_AngleOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Calculated chamfer length must be a finite positive number..
+        /// </summary>
+        internal static string ChamferPreview_CalculatedLengthMustBePositive {
+            get {
+                return ResourceManager.GetString("ChamferPreview_CalculatedLengthMustBePositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Curve {0} has zero length..
+        /// </summary>
+        internal static string ChamferPreview_CurveHasZeroLength {
+            get {
+                return ResourceManager.GetString("ChamferPreview_CurveHasZeroLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на To create a chamfer, a curve must belong to two surfaces. Found: {0}..
+        /// </summary>
+        internal static string ChamferPreview_CurveMustBelongToTwoSurfaces {
+            get {
+                return ResourceManager.GetString("ChamferPreview_CurveMustBelongToTwoSurfaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Failed to obtain curve parametrization..
+        /// </summary>
+        internal static string ChamferPreview_CurveParametrizationUnavailable {
+            get {
+                return ResourceManager.GetString("ChamferPreview_CurveParametrizationUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The geometry kernel returned invalid coordinates..
+        /// </summary>
+        internal static string ChamferPreview_InvalidGeometryCoordinates {
+            get {
+                return ResourceManager.GetString("ChamferPreview_InvalidGeometryCoordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Failed to determine a valid angle between adjacent surfaces..
+        /// </summary>
+        internal static string ChamferPreview_InvalidSurfaceAngle {
+            get {
+                return ResourceManager.GetString("ChamferPreview_InvalidSurfaceAngle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Failed to determine offset direction on surface {0}..
+        /// </summary>
+        internal static string ChamferPreview_OffsetDirectionUnavailable {
+            get {
+                return ResourceManager.GetString("ChamferPreview_OffsetDirectionUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Linear chamfer preview is supported only for straight curves..
+        /// </summary>
+        internal static string ChamferPreview_OnlyStraightCurvesSupported {
+            get {
+                return ResourceManager.GetString("ChamferPreview_OnlyStraightCurvesSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Surface {0} has an invalid normal..
+        /// </summary>
+        internal static string ChamferPreview_SurfaceHasInvalidNormal {
+            get {
+                return ResourceManager.GetString("ChamferPreview_SurfaceHasInvalidNormal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Failed to obtain normal for surface {0}..
+        /// </summary>
+        internal static string ChamferPreview_SurfaceNormalUnavailable {
+            get {
+                return ResourceManager.GetString("ChamferPreview_SurfaceNormalUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Surface {0} was not found on the boundary of volume {1}..
+        /// </summary>
+        internal static string ChamferPreview_SurfaceNotOnVolumeBoundary {
+            get {
+                return ResourceManager.GetString("ChamferPreview_SurfaceNotOnVolumeBoundary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на To create a chamfer, adjacent surfaces must belong to one common volume. Found: {0}..
+        /// </summary>
+        internal static string ChamferPreview_SurfacesMustBelongToOneVolume {
+            get {
+                return ResourceManager.GetString("ChamferPreview_SurfacesMustBelongToOneVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Add.
+        /// </summary>
+        internal static string ChamferWindow_AddButton {
+            get {
+                return ResourceManager.GetString("ChamferWindow_AddButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Angle.
+        /// </summary>
+        internal static string ChamferWindow_Angle {
+            get {
+                return ResourceManager.GetString("ChamferWindow_Angle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на By angle.
+        /// </summary>
+        internal static string ChamferWindow_AngleModeTab {
+            get {
+                return ResourceManager.GetString("ChamferWindow_AngleModeTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Length 1.
+        /// </summary>
+        internal static string ChamferWindow_FirstLength {
+            get {
+                return ResourceManager.GetString("ChamferWindow_FirstLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на By length.
+        /// </summary>
+        internal static string ChamferWindow_LengthsModeTab {
+            get {
+                return ResourceManager.GetString("ChamferWindow_LengthsModeTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Reflect chamfer.
+        /// </summary>
+        internal static string ChamferWindow_ReflectTooltip {
+            get {
+                return ResourceManager.GetString("ChamferWindow_ReflectTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Length 2.
+        /// </summary>
+        internal static string ChamferWindow_SecondLength {
+            get {
+                return ResourceManager.GetString("ChamferWindow_SecondLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Add chamfer.
+        /// </summary>
+        internal static string ChamferWindow_Title {
+            get {
+                return ResourceManager.GetString("ChamferWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на File is not selected.
         /// </summary>
         internal static string ChangeCondProperties_ChangeGeneralProperties_FileNotSelected_Message {
@@ -2653,11 +2851,110 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Concentration.
+        /// </summary>
+        internal static string Header_comp_FieldConcentration {
+            get {
+                return ResourceManager.GetString("Header_comp_FieldConcentration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Displacement.
+        /// </summary>
+        internal static string Header_comp_FieldDisplacement {
+            get {
+                return ResourceManager.GetString("Header_comp_FieldDisplacement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Phase composition.
+        /// </summary>
+        internal static string Header_comp_FieldPhaseComposition {
+            get {
+                return ResourceManager.GetString("Header_comp_FieldPhaseComposition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Pressure.
+        /// </summary>
+        internal static string Header_comp_FieldPressure {
+            get {
+                return ResourceManager.GetString("Header_comp_FieldPressure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Strain.
+        /// </summary>
+        internal static string Header_comp_FieldStrain {
+            get {
+                return ResourceManager.GetString("Header_comp_FieldStrain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Stress.
+        /// </summary>
+        internal static string Header_comp_FieldStress {
+            get {
+                return ResourceManager.GetString("Header_comp_FieldStress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Temperature.
+        /// </summary>
+        internal static string Header_comp_FieldTemperature {
+            get {
+                return ResourceManager.GetString("Header_comp_FieldTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Velocity.
+        /// </summary>
+        internal static string Header_comp_FieldVelocity {
+            get {
+                return ResourceManager.GetString("Header_comp_FieldVelocity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на File name.
+        /// </summary>
+        internal static string Header_comp_FileName {
+            get {
+                return ResourceManager.GetString("Header_comp_FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Initial field.
+        /// </summary>
+        internal static string Header_comp_ForeignSets {
+            get {
+                return ResourceManager.GetString("Header_comp_ForeignSets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Initial calculation step, sec.
         /// </summary>
         internal static string Header_comp_InitialSolveStep {
             get {
                 return ResourceManager.GetString("Header_comp_InitialSolveStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Initial state.
+        /// </summary>
+        internal static string Header_comp_InitialStateSource {
+            get {
+                return ResourceManager.GetString("Header_comp_InitialStateSource", resourceCulture);
             }
         }
         
@@ -2671,11 +2968,29 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Data source.
+        /// </summary>
+        internal static string Header_comp_InputSource {
+            get {
+                return ResourceManager.GetString("Header_comp_InputSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Iterations number per step.
         /// </summary>
         internal static string Header_comp_IterationsOnStep {
             get {
                 return ResourceManager.GetString("Header_comp_IterationsOnStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Matrix storage.
+        /// </summary>
+        internal static string Header_comp_MatrixStorage {
+            get {
+                return ResourceManager.GetString("Header_comp_MatrixStorage", resourceCulture);
             }
         }
         
@@ -2707,6 +3022,15 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Native set.
+        /// </summary>
+        internal static string Header_comp_NativeSet {
+            get {
+                return ResourceManager.GetString("Header_comp_NativeSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Priority.
         /// </summary>
         internal static string Header_comp_Priority {
@@ -2734,6 +3058,42 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Chemical.
+        /// </summary>
+        internal static string Header_comp_SetChemical {
+            get {
+                return ResourceManager.GetString("Header_comp_SetChemical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Hydrodynamic.
+        /// </summary>
+        internal static string Header_comp_SetHydrodynamic {
+            get {
+                return ResourceManager.GetString("Header_comp_SetHydrodynamic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Mechanical.
+        /// </summary>
+        internal static string Header_comp_SetMechanical {
+            get {
+                return ResourceManager.GetString("Header_comp_SetMechanical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Thermal.
+        /// </summary>
+        internal static string Header_comp_SetThermal {
+            get {
+                return ResourceManager.GetString("Header_comp_SetThermal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Solving accuracy, CU.
         /// </summary>
         internal static string Header_comp_SolveAccuracy {
@@ -2748,6 +3108,24 @@ namespace BazisGUI.Properties {
         internal static string Header_comp_SolveIterations {
             get {
                 return ResourceManager.GetString("Header_comp_SolveIterations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Constant.
+        /// </summary>
+        internal static string Header_comp_SourceConstant {
+            get {
+                return ResourceManager.GetString("Header_comp_SourceConstant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на File.
+        /// </summary>
+        internal static string Header_comp_SourceFile {
+            get {
+                return ResourceManager.GetString("Header_comp_SourceFile", resourceCulture);
             }
         }
         
@@ -2775,6 +3153,15 @@ namespace BazisGUI.Properties {
         internal static string Header_comp_Type {
             get {
                 return ResourceManager.GetString("Header_comp_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Value.
+        /// </summary>
+        internal static string Header_comp_Value {
+            get {
+                return ResourceManager.GetString("Header_comp_Value", resourceCulture);
             }
         }
         
@@ -6412,50 +6799,6 @@ namespace BazisGUI.Properties {
             }
         }
         
-        internal static string ChamferPreview_CurveMustBelongToTwoSurfaces => ResourceManager.GetString("ChamferPreview_CurveMustBelongToTwoSurfaces", resourceCulture);
-
-        internal static string ChamferPreview_SurfacesMustBelongToOneVolume => ResourceManager.GetString("ChamferPreview_SurfacesMustBelongToOneVolume", resourceCulture);
-
-        internal static string ChamferPreview_OnlyStraightCurvesSupported => ResourceManager.GetString("ChamferPreview_OnlyStraightCurvesSupported", resourceCulture);
-
-        internal static string ChamferPreview_CurveParametrizationUnavailable => ResourceManager.GetString("ChamferPreview_CurveParametrizationUnavailable", resourceCulture);
-
-        internal static string ChamferPreview_CurveHasZeroLength => ResourceManager.GetString("ChamferPreview_CurveHasZeroLength", resourceCulture);
-
-        internal static string ChamferPreview_SurfaceNormalUnavailable => ResourceManager.GetString("ChamferPreview_SurfaceNormalUnavailable", resourceCulture);
-
-        internal static string ChamferPreview_SurfaceHasInvalidNormal => ResourceManager.GetString("ChamferPreview_SurfaceHasInvalidNormal", resourceCulture);
-
-        internal static string ChamferPreview_SurfaceNotOnVolumeBoundary => ResourceManager.GetString("ChamferPreview_SurfaceNotOnVolumeBoundary", resourceCulture);
-
-        internal static string ChamferPreview_OffsetDirectionUnavailable => ResourceManager.GetString("ChamferPreview_OffsetDirectionUnavailable", resourceCulture);
-
-        internal static string ChamferPreview_AngleOutOfRange => ResourceManager.GetString("ChamferPreview_AngleOutOfRange", resourceCulture);
-
-        internal static string ChamferPreview_InvalidSurfaceAngle => ResourceManager.GetString("ChamferPreview_InvalidSurfaceAngle", resourceCulture);
-
-        internal static string ChamferPreview_AngleMustBeLessThan => ResourceManager.GetString("ChamferPreview_AngleMustBeLessThan", resourceCulture);
-
-        internal static string ChamferPreview_CalculatedLengthMustBePositive => ResourceManager.GetString("ChamferPreview_CalculatedLengthMustBePositive", resourceCulture);
-
-        internal static string ChamferPreview_InvalidGeometryCoordinates => ResourceManager.GetString("ChamferPreview_InvalidGeometryCoordinates", resourceCulture);
-
-        internal static string ChamferWindow_Title => ResourceManager.GetString("ChamferWindow_Title", resourceCulture);
-
-        internal static string ChamferWindow_AngleModeTab => ResourceManager.GetString("ChamferWindow_AngleModeTab", resourceCulture);
-
-        internal static string ChamferWindow_LengthsModeTab => ResourceManager.GetString("ChamferWindow_LengthsModeTab", resourceCulture);
-
-        internal static string ChamferWindow_FirstLength => ResourceManager.GetString("ChamferWindow_FirstLength", resourceCulture);
-
-        internal static string ChamferWindow_SecondLength => ResourceManager.GetString("ChamferWindow_SecondLength", resourceCulture);
-
-        internal static string ChamferWindow_Angle => ResourceManager.GetString("ChamferWindow_Angle", resourceCulture);
-
-        internal static string ChamferWindow_ReflectTooltip => ResourceManager.GetString("ChamferWindow_ReflectTooltip", resourceCulture);
-
-        internal static string ChamferWindow_AddButton => ResourceManager.GetString("ChamferWindow_AddButton", resourceCulture);
-
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
@@ -6465,25 +6808,5 @@ namespace BazisGUI.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-
-        internal static string Header_comp_MatrixStorage => ResourceManager.GetString("Header_comp_MatrixStorage", resourceCulture);
-
-        internal static string Header_comp_InputSource => ResourceManager.GetString("Header_comp_InputSource", resourceCulture);
-
-        internal static string Header_comp_InitialStateSource => ResourceManager.GetString("Header_comp_InitialStateSource", resourceCulture);
-
-        internal static string Header_comp_Value => ResourceManager.GetString("Header_comp_Value", resourceCulture);
-
-        internal static string Header_comp_FileName => ResourceManager.GetString("Header_comp_FileName", resourceCulture);
-
-        internal static string Header_comp_SourceConstant => ResourceManager.GetString("Header_comp_SourceConstant", resourceCulture);
-
-        internal static string Header_comp_SourceFile => ResourceManager.GetString("Header_comp_SourceFile", resourceCulture);
-
-        internal static string Header_comp_FieldTemperature => ResourceManager.GetString("Header_comp_FieldTemperature", resourceCulture);
-
-        internal static string Header_comp_FieldConcentration => ResourceManager.GetString("Header_comp_FieldConcentration", resourceCulture);
-
-        internal static string Header_comp_FieldVelocity => ResourceManager.GetString("Header_comp_FieldVelocity", resourceCulture);
     }
 }

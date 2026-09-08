@@ -1,5 +1,6 @@
 ﻿using BazisGUI.Navigator;
 using BazisGUI.PropertiesPanel;
+using Project.Interfaces.Tasks;
 using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
@@ -97,81 +98,132 @@ namespace BazisGUI
         }
 
         /// <summary>
-        /// Строки родного начального набора полей: источник данных и значения по группам.
+        /// Строки родного начального набора полей: имя набора, источник данных
+        /// и значения величин по элементным группам.
         /// </summary>
         private List<RowProperty> GetPropertyInitialState(GeneralParameters parameters, List<string> availableResults)
         {
             var fieldSet = GetNativeFieldSet(parameters);
             var field = FindInitialField(parameters, fieldSet);
-            var source = field?.Source ?? PhysicalSetSource.Values;
 
             var rows = new List<RowProperty>
             {
+                // Подпись: показывает, какой набор для задачи родной. Ключ ничего не настраивает.
+                new RowProperty(PhysicalSetLabelKey, Properties.Resources.Header_comp_NativeSet,
+                    PhysicalFieldSetHeader(fieldSet), true),
+
                 new RowProperty(ComposeFieldKey(CompPropertyKeys.InitialStateSource, fieldSet),
-                    Properties.Resources.Header_comp_InitialStateSource,
-                    new DropDownPropertyValue(SourceName(source == PhysicalSetSource.ResultFile), SourceNames()))
+                    Indent(1, Properties.Resources.Header_comp_InputSource),
+                    SourceValue(field))
             };
 
-            if (source == PhysicalSetSource.ResultFile)
+            rows.AddRange(GetPropertySetValues(CompPropertyKeys.InitialStateValue,
+                CompPropertyKeys.InitialStateFile, parameters, fieldSet, field, availableResults, 1));
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Строки внешних наборов полей: флажок наличия, источник данных
+        /// и значения величин по элементным группам.
+        /// </summary>
+        private List<RowProperty> GetPropertyInputFields(GeneralParameters parameters, List<string> availableResults)
+        {
+            var rows = new List<RowProperty>();
+            var fieldSets = InputFieldSetsToShow(parameters);
+
+            if (fieldSets.Count == 0)
+                return rows;
+
+            // Подпись, отделяющая неродные наборы от родного.
+            rows.Add(new RowProperty(PhysicalSetLabelKey,
+                Properties.Resources.Header_comp_ForeignSets, string.Empty, true));
+
+            foreach (var fieldSet in fieldSets)
             {
-                rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InitialStateFile, fieldSet),
-                    Indent(Properties.Resources.Header_comp_FileName),
+                var field = FindInputField(parameters, fieldSet);
+
+                rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputEnabled, fieldSet),
+                    Indent(1, PhysicalFieldSetHeader(fieldSet)), field != null));
+
+                if (field == null)
+                    continue;
+
+                rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputSource, fieldSet),
+                    Indent(2, Properties.Resources.Header_comp_InputSource),
+                    SourceValue(field)));
+
+                rows.AddRange(GetPropertySetValues(CompPropertyKeys.InputValue,
+                    CompPropertyKeys.InputFile, parameters, fieldSet, field, availableResults, 2));
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Строки, состав которых зависит от источника набора: имя файла результатов
+        /// либо значения величин по элементным группам. Устройство родного и внешнего
+        /// наборов одинаково, поэтому эти строки строятся для них одним методом.
+        /// </summary>
+        private List<RowProperty> GetPropertySetValues(
+            CompPropertyKeys valueKey,
+            CompPropertyKeys fileKey,
+            GeneralParameters parameters,
+            PhysicalSetName fieldSet,
+            PhysicalSet field,
+            List<string> availableResults,
+            int level)
+        {
+            var rows = new List<RowProperty>();
+
+            if ((field?.Source ?? PhysicalSetSource.Values) == PhysicalSetSource.ResultFile)
+            {
+                rows.Add(new RowProperty(ComposeFieldKey(fileKey, fieldSet),
+                    Indent(level, Properties.Resources.Header_comp_FileName),
                     ResultValue(field?.File, availableResults)));
 
                 return rows;
             }
 
             var quantities = PhysicalQuantitiesToShow(fieldSet, field);
-            foreach (var quantity in quantities)
-                rows.Add(new RowProperty(
-                    ComposeQuantityKey(CompPropertyKeys.InitialStateValue, fieldSet, quantity),
-                    Indent(quantities.Count > 1
-                        ? $"{Properties.Resources.Header_comp_Value} — {PhysicalQuantityHeader(quantity)}"
-                        : Properties.Resources.Header_comp_Value),
-                    FormatFieldValues(field, quantity)));
+
+            foreach (var groupName in ElementGroupsToShow(parameters, field))
+                foreach (var quantity in quantities)
+                    rows.Add(new RowProperty(
+                        ComposeQuantityKey(valueKey, fieldSet, quantity, groupName),
+                        Indent(level, quantities.Count > 1
+                            ? $"{groupName} — {PhysicalQuantityHeader(quantity)}"
+                            : groupName),
+                        FormatFieldComponents(field, groupName, quantity)));
 
             return rows;
         }
 
         /// <summary>
-        /// Строки внешних наборов полей: флажок, источник и значения по группам.
+        /// Элементные группы, для которых задаются значения. Значения набора Core хранит
+        /// по группам MatData, а их состав для инструкции перечислен в ActiveConditions.
+        /// Группа, оставшаяся в значениях от убранного условия, тоже показывается.
         /// </summary>
-        private List<RowProperty> GetPropertyInputFields(GeneralParameters parameters, List<string> availableResults)
+        private List<string> ElementGroupsToShow(GeneralParameters parameters, PhysicalSet field)
         {
-            var rows = new List<RowProperty>();
+            var groups = new List<string>();
 
-            foreach (var fieldSet in InputFieldSetsToShow(parameters))
-            {
-                var field = FindInputField(parameters, fieldSet);
+            foreach (var condition in parameters.ActiveConditions ?? Enumerable.Empty<ConditionReference>())
+                if (condition.Kind == DataKind.Материал && !groups.Contains(condition.GroupName))
+                    groups.Add(condition.GroupName);
 
-                rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputEnabled, fieldSet),
-                    PhysicalFieldSetHeader(fieldSet), field != null));
+            foreach (var groupName in field?.Values?.Keys ?? Enumerable.Empty<string>())
+                if (!groups.Contains(groupName))
+                    groups.Add(groupName);
 
-                if (field == null)
-                    continue;
+            return groups;
+        }
 
-                rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputSource, fieldSet),
-                    Indent(Properties.Resources.Header_comp_InputSource),
-                    new DropDownPropertyValue(SourceName(field.Source == PhysicalSetSource.ResultFile), SourceNames())));
-
-                if (field.Source == PhysicalSetSource.Values)
-                {
-                    var quantities = PhysicalQuantitiesToShow(fieldSet, field);
-                    foreach (var quantity in quantities)
-                        rows.Add(new RowProperty(
-                            ComposeQuantityKey(CompPropertyKeys.InputValue, fieldSet, quantity),
-                            Indent(quantities.Count > 1
-                                ? $"{Properties.Resources.Header_comp_Value} — {PhysicalQuantityHeader(quantity)}"
-                                : Properties.Resources.Header_comp_Value),
-                            FormatFieldValues(field, quantity)));
-                }
-                else
-                    rows.Add(new RowProperty(ComposeFieldKey(CompPropertyKeys.InputFile, fieldSet),
-                        Indent(Properties.Resources.Header_comp_FileName),
-                        ResultValue(field.File, availableResults)));
-            }
-
-            return rows;
+        /// <summary>Ячейка выбора источника набора.</summary>
+        private DropDownPropertyValue SourceValue(PhysicalSet field)
+        {
+            var isFile = (field?.Source ?? PhysicalSetSource.Values) == PhysicalSetSource.ResultFile;
+            return new DropDownPropertyValue(SourceName(isFile), SourceNames());
         }
 
         /// <summary>
@@ -212,10 +264,10 @@ namespace BazisGUI
         {
             return fieldSet switch
             {
-                PhysicalSetName.Thermal => "Термический",
-                PhysicalSetName.Mechanical => "Механический",
-                PhysicalSetName.Chemical => "Химический",
-                PhysicalSetName.Hydrodynamic => "Гидродинамический",
+                PhysicalSetName.Thermal => Properties.Resources.Header_comp_SetThermal,
+                PhysicalSetName.Mechanical => Properties.Resources.Header_comp_SetMechanical,
+                PhysicalSetName.Chemical => Properties.Resources.Header_comp_SetChemical,
+                PhysicalSetName.Hydrodynamic => Properties.Resources.Header_comp_SetHydrodynamic,
                 _ => fieldSet.ToString()
             };
         }
@@ -228,11 +280,11 @@ namespace BazisGUI
                 PhysicalFieldName.Temperature => Properties.Resources.Header_comp_FieldTemperature,
                 PhysicalFieldName.Concentration => Properties.Resources.Header_comp_FieldConcentration,
                 PhysicalFieldName.Velocity => Properties.Resources.Header_comp_FieldVelocity,
-                PhysicalFieldName.PhaseComposition => "Фазовый состав",
-                PhysicalFieldName.Displacement => "Перемещение",
-                PhysicalFieldName.Pressure => "Давление",
-                PhysicalFieldName.Stress => "Напряжение",
-                PhysicalFieldName.Strain => "Деформация",
+                PhysicalFieldName.PhaseComposition => Properties.Resources.Header_comp_FieldPhaseComposition,
+                PhysicalFieldName.Displacement => Properties.Resources.Header_comp_FieldDisplacement,
+                PhysicalFieldName.Pressure => Properties.Resources.Header_comp_FieldPressure,
+                PhysicalFieldName.Stress => Properties.Resources.Header_comp_FieldStress,
+                PhysicalFieldName.Strain => Properties.Resources.Header_comp_FieldStrain,
                 _ => quantity.ToString()
             };
         }
@@ -249,11 +301,11 @@ namespace BazisGUI
                 },
                 PhysicalSetName.Mechanical => new List<PhysicalFieldName>
                 {
-                    PhysicalFieldName.Temperature,
-                    PhysicalFieldName.PhaseComposition,
                     PhysicalFieldName.Displacement,
                     PhysicalFieldName.Stress,
-                    PhysicalFieldName.Strain
+                    PhysicalFieldName.Strain,
+                    PhysicalFieldName.Temperature,
+                    PhysicalFieldName.PhaseComposition
                 },
                 PhysicalSetName.Chemical => new List<PhysicalFieldName>
                 {
@@ -334,11 +386,14 @@ namespace BazisGUI
             return new DropDownPropertyValue(current ?? string.Empty, values);
         }
 
+        /// <summary>Отступ строки настройки, подчинённой строке выше.</summary>
+        private string Indent(int level, string header) => new string(' ', 3 * level) + header;
+
         /// <summary>
-        /// Отступ строки настройки, подчинённой строке выше: источник данных и зависящая
-        /// от него строка «Значение» либо «Имя файла».
+        /// Ключ строк-подписей. Такие строки только поясняют структуру: их не разбирает
+        /// ни switch по CompPropertyKeys, ни разбор ключей физических наборов.
         /// </summary>
-        private string Indent(string header) => "   " + header;
+        private const string PhysicalSetLabelKey = "PhysicalSetLabel";
 
         /// <summary>Локализованные значения выпадающего списка источника данных.</summary>
         private List<string> SourceNames() => new List<string>
