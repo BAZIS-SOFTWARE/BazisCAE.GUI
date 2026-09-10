@@ -47,6 +47,8 @@
         CreateSurfaceNodesGroup,
         CreateGroupByGeoObjs,
         CreateTask,
+        ChangeTaskType,
+        ChangeTaskKind,
         CreateVolumeMaterial,
         CreateBeamMaterial,
         CreateHeat,

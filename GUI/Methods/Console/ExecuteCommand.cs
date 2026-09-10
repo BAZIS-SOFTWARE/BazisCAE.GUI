@@ -50,6 +50,8 @@ namespace BazisGUI
             { "Create curve",GenCmd.CreateCurve },
             { "Create surface",GenCmd.CreateSurface },
             { "Create task", GenCmd.CreateTask },
+            { "Change task type", GenCmd.ChangeTaskType },
+            { "Change task kind", GenCmd.ChangeTaskKind },
             { "Set mesh point", GenCmd.SetMeshPoint },
             { "Set mesh curve", GenCmd.SetMeshCurve },
             { "Set regular mesh surface", GenCmd.SetRegularSurface },
@@ -124,6 +126,8 @@ namespace BazisGUI
             { GenCmd.Exit, Array.Empty<string>() },
             { GenCmd.GenerateMesh, Array.Empty<string>()},
             { GenCmd.CreateTask, Array.Empty<string>() },
+            { GenCmd.ChangeTaskType, new[] { "type" } },
+            { GenCmd.ChangeTaskKind, new[] { "Chemical/Termal/Mechanical/Termo_mechanical" }},                 
             { GenCmd.SelectObjects, new[] { "point/curve/surface/node/line/element2d/element3d" } }
         };
 
@@ -308,6 +312,12 @@ namespace BazisGUI
                         break;
                     case GenCmd.CreateTask:
                         project.CreateTask();
+                        break;
+                    case GenCmd.ChangeTaskType:
+                        ChangeTaskType(cmds[1]);
+                        break;
+                    case GenCmd.ChangeTaskKind: 
+                        ChangeTaskKind(cmds[1]);
                         break;
                     case GenCmd.CreateVolumeMaterial:
                         PrepareDataForCreateVolumeMaterial(cmds[1], cmds[2], cmds[3], cmds[4], out IGroup groupVolumeMaterial, out float _startV, out float _stopV);

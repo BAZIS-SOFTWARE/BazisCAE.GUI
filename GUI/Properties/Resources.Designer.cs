@@ -733,6 +733,24 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Invalid format.
+        /// </summary>
+        internal static string ChangeTaskInvalidExc {
+            get {
+                return ResourceManager.GetString("ChangeTaskInvalidExc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The task is undefined.
+        /// </summary>
+        internal static string ChangeTaskTypeWithoutProjectExc {
+            get {
+                return ResourceManager.GetString("ChangeTaskTypeWithoutProjectExc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Change direction.
         /// </summary>
         internal static string chbChangeDirection_Text {
@@ -2932,7 +2950,7 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Initial field.
+        ///   Ищет локализованную строку, похожую на External fields.
         /// </summary>
         internal static string Header_comp_ForeignSets {
             get {
@@ -3022,7 +3040,7 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Native set.
+        ///   Ищет локализованную строку, похожую на Initial field.
         /// </summary>
         internal static string Header_comp_NativeSet {
             get {
