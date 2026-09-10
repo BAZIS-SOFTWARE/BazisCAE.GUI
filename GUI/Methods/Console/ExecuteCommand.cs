@@ -126,7 +126,7 @@ namespace BazisGUI
             { GenCmd.Exit, Array.Empty<string>() },
             { GenCmd.GenerateMesh, Array.Empty<string>()},
             { GenCmd.CreateTask, Array.Empty<string>() },
-            { GenCmd.ChangeTaskType, new[] { "type" } },
+            { GenCmd.ChangeTaskType, new[] { "Linear/Plain/AxiPlain/Volume/Volume_mixed" } },
             { GenCmd.ChangeTaskKind, new[] { "Chemical/Termal/Mechanical/Termo_mechanical" }},                 
             { GenCmd.SelectObjects, new[] { "point/curve/surface/node/line/element2d/element3d" } }
         };

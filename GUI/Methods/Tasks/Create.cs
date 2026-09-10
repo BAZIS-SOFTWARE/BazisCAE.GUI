@@ -55,7 +55,10 @@ namespace BazisGUI
         private void ChangeTaskKind(string taskKind)
         {
             if (!CheckTask())
+            {
                 console.PrintInfo(Resources.ChangeTaskTypeWithoutProjectExc, Color.Red);
+                return;
+            }
 
             if (!Enum.TryParse(taskKind, out TaskKindPropertyKeys _taskKind))
             {
