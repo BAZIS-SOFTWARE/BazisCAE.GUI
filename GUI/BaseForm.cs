@@ -637,8 +637,8 @@ namespace BazisGUI
 
         private void PresentTask()
         {
-            navigator.TrySearchNodes(NodeName.Task, out List<TreeNode> tasks);
-            tasks[0].Nodes.Clear();
+            if (navigator.TrySearchNodes(NodeName.Task, out List<TreeNode> tasks) && tasks.Count > 0)
+                tasks[0].Nodes.Clear();
         }
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)

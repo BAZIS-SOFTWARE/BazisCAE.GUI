@@ -34,7 +34,8 @@ namespace BazisGUI
                 }
 
                 if (clearFlag)
-                    PresentTask();
+                    if (navigator.TrySearchNodes(NodeName.Task, out List<TreeNode> tasks) && tasks.Count > 0)
+                        tasks[0].Nodes.Clear();
             }
         }
     }
