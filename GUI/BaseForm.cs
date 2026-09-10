@@ -1,5 +1,6 @@
 ﻿using BazisGUI.Args;
 using BazisGUI.AvaloniaUI.Chamfer.Services;
+using BazisGUI.Navigator;
 using BazisGUI.Properties;
 using BazisGUI.Scene;
 using BazisGUI.Scene.VBO;
@@ -632,6 +633,12 @@ namespace BazisGUI
             PresentGroupDataOnTree();
             PresentCondDataOnTree();
             PresentModelObjectsForSelection();
+        }
+
+        private void PresentTask()
+        {
+            navigator.TrySearchNodes(NodeName.Task, out List<TreeNode> tasks);
+            tasks[0].Nodes.Clear();
         }
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)

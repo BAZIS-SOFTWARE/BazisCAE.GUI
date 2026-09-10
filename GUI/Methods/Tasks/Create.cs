@@ -50,6 +50,7 @@ namespace BazisGUI
                 return; 
             }
             project.ChangeTaskType(_taskType);
+            PresentTask();   
         }
 
         private void ChangeTaskKind(string taskKind)
@@ -66,6 +67,7 @@ namespace BazisGUI
                 return;
             }
             project.ProjectKind = Converters.ConvertTaskKindPropertyKeysToTaskKind(_taskKind);
+            PresentTask();
         }
 
         private bool CheckTask() => 
