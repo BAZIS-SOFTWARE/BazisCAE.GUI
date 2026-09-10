@@ -1,5 +1,6 @@
 ﻿using BazisGUI.Args;
 using BazisGUI.AvaloniaUI.Chamfer.Services;
+using BazisGUI.Navigator;
 using BazisGUI.Properties;
 using BazisGUI.Scene;
 using BazisGUI.Scene.VBO;

@@ -2182,4 +2182,10 @@ Create variable?</value>
   <data name="Header_comp_ForeignSets" xml:space="preserve">
     <value>External fields</value>
   </data>
+  <data name="ChangeTaskTypeWithoutProjectExc" xml:space="preserve">
+    <value>The task is undefined</value>
+  </data>
+  <data name="ChangeTaskInvalidExc" xml:space="preserve">
+    <value>Invalid format</value>
+  </data>
 </root>

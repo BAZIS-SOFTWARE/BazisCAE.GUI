@@ -7,6 +7,7 @@ using GmshApi;
 using MaterialDB.FunctionData;
 using MaterialDB.MaterialData;
 using Model.Interfaces;
+using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.Materials;
 using System;
@@ -50,6 +51,8 @@ namespace BazisGUI
             { "Create curve",GenCmd.CreateCurve },
             { "Create surface",GenCmd.CreateSurface },
             { "Create task", GenCmd.CreateTask },
+            { "Change task type", GenCmd.ChangeTaskType },
+            { "Change task kind", GenCmd.ChangeTaskKind },
             { "Set mesh point", GenCmd.SetMeshPoint },
             { "Set mesh curve", GenCmd.SetMeshCurve },
             { "Set regular mesh surface", GenCmd.SetRegularSurface },
@@ -124,6 +127,8 @@ namespace BazisGUI
             { GenCmd.Exit, Array.Empty<string>() },
             { GenCmd.GenerateMesh, Array.Empty<string>()},
             { GenCmd.CreateTask, Array.Empty<string>() },
+            { GenCmd.ChangeTaskType, new[] { "Linear/Plain/AxiPlain/Volume/Volume_mixed" } },
+            { GenCmd.ChangeTaskKind, new[] { "Chemical/Termal/Mechanical/Termo_mechanical" }},                 
             { GenCmd.SelectObjects, new[] { "point/curve/surface/node/line/element2d/element3d" } }
         };
 
@@ -309,6 +314,12 @@ namespace BazisGUI
                     case GenCmd.CreateTask:
                         project.CreateTask();
                         break;
+                    case GenCmd.ChangeTaskType:
+                        ChangeTaskType(cmds[1]);
+                        break;
+                    case GenCmd.ChangeTaskKind: 
+                        ChangeTaskKind(cmds[1]);
+                        break;
                     case GenCmd.CreateVolumeMaterial:
                         PrepareDataForCreateVolumeMaterial(cmds[1], cmds[2], cmds[3], cmds[4], out IGroup groupVolumeMaterial, out float _startV, out float _stopV);
                         var matV = new MatData(project.MaterialsDB[cmds[1]], groupVolumeMaterial, _startV, _stopV);
@@ -362,5 +373,43 @@ namespace BazisGUI
             }
             return returnValue;
         }
+
+        //TODO: вынести в отдельный файл, чтобы не засорять ExecuteCommand
+        private void ChangeTaskType(string taskType)
+        {
+            if (!CheckTask())
+            {
+                console.PrintInfo(Resources.ChangeTaskTypeWithoutProjectExc, Color.Red);
+                return;
+            }
+            if (!Enum.TryParse(taskType, out TaskType _taskType))
+            {
+                console.PrintInfo(Resources.ChangeTaskInvalidExc, Color.Red);
+                return;
+            }
+            project.ChangeTaskType(_taskType);
+            PresentCondDataOnTree();
+        }
+
+        private void ChangeTaskKind(string taskKind)
+        {
+            if (!CheckTask())
+            {
+                console.PrintInfo(Resources.ChangeTaskTypeWithoutProjectExc, Color.Red);
+                return;
+            }
+
+            if (!Enum.TryParse(taskKind, out TaskKindPropertyKeys _taskKind))
+            {
+                console.PrintInfo(Resources.ChangeTaskInvalidExc, Color.Red);
+                return;
+            }
+            project.ProjectKind = Converters.ConvertTaskKindPropertyKeysToTaskKind(_taskKind);
+            PresentCondDataOnTree();
+        }
+
+        private bool CheckTask() =>
+            project?.ProjectKind is not null &&
+            project?.ProjectType is not null;
     }
 }

@@ -1,5 +1,8 @@
 ﻿using BazisGUI.Navigator;
 using BazisGUI.Properties;
+using BazisGUI.Utilities;
+using Microsoft.Scripting.Hosting.Shell;
+using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
