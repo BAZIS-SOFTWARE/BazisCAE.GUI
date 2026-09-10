@@ -7,6 +7,7 @@ using GmshApi;
 using MaterialDB.FunctionData;
 using MaterialDB.MaterialData;
 using Model.Interfaces;
+using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.Materials;
 using System;
@@ -372,5 +373,43 @@ namespace BazisGUI
             }
             return returnValue;
         }
+
+        //TODO: вынести в отдельный файл, чтобы не засорять ExecuteCommand
+        private void ChangeTaskType(string taskType)
+        {
+            if (!CheckTask())
+            {
+                console.PrintInfo(Resources.ChangeTaskTypeWithoutProjectExc, Color.Red);
+                return;
+            }
+            if (!Enum.TryParse(taskType, out TaskType _taskType))
+            {
+                console.PrintInfo(Resources.ChangeTaskInvalidExc, Color.Red);
+                return;
+            }
+            project.ChangeTaskType(_taskType);
+            PresentCondDataOnTree();
+        }
+
+        private void ChangeTaskKind(string taskKind)
+        {
+            if (!CheckTask())
+            {
+                console.PrintInfo(Resources.ChangeTaskTypeWithoutProjectExc, Color.Red);
+                return;
+            }
+
+            if (!Enum.TryParse(taskKind, out TaskKindPropertyKeys _taskKind))
+            {
+                console.PrintInfo(Resources.ChangeTaskInvalidExc, Color.Red);
+                return;
+            }
+            project.ProjectKind = Converters.ConvertTaskKindPropertyKeysToTaskKind(_taskKind);
+            PresentCondDataOnTree();
+        }
+
+        private bool CheckTask() =>
+            project?.ProjectKind is not null &&
+            project?.ProjectType is not null;
     }
 }
