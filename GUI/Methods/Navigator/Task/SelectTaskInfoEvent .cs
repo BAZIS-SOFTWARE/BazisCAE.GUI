@@ -33,7 +33,7 @@ namespace BazisGUI
                 {
                     rows.Add(new RowProperty(TaskPropertyKeys.Kind.ToString(),
                         Indent(2, Converters.GetDisplayName(taskKind)),
-                        project.ProjectKind.HasFlag(taskKind)));
+                        project.TaskKind.HasFlag(taskKind)));
                 }
 
                 if(project.MaterialsDB != null)

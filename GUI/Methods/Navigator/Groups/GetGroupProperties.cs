@@ -100,7 +100,7 @@ namespace BazisGUI
 
         private void CreateNodesConditionsProperties(IGroup obj, List<RowProperty> rows)
         {
-            if (project.ProjectKind == TaskKind.термическая)
+            if (project.TaskKind == TaskKind.термическая)
             {
                 rows.Add(new RowProperty(GroupPropertyKeys.CreateCond.ToString(),
                     Resources.Header_groups_createCond,
@@ -127,12 +127,12 @@ namespace BazisGUI
 
         private void CreateElementsConditionsProperties(IGroup obj, List<RowProperty> rows)
         {
-            if (project.ProjectType == TaskType.Volume)
+            if (project.TaskType == TaskType.Volume)
             {
                 if (obj.ObjType == ObjType.Элемент3D)
                 {
-                    if (project.ProjectKind == TaskKind.термическая | 
-                        project.ProjectKind == (TaskKind.термическая | TaskKind.механическая))
+                    if (project.TaskKind == TaskKind.термическая | 
+                        project.TaskKind == (TaskKind.термическая | TaskKind.механическая))
                         rows.Add(new RowProperty(GroupPropertyKeys.CreateCond.ToString(),
                             Resources.Header_groups_createCond,
                             new DropDownPropertyValue("*",
@@ -142,7 +142,7 @@ namespace BazisGUI
                                 CreateCondByGroup.Heat.ToString(),
                             })));
 
-                    else if (project.ProjectKind == TaskKind.механическая)
+                    else if (project.TaskKind == TaskKind.механическая)
                         rows.Add(new RowProperty(GroupPropertyKeys.CreateCond.ToString(),
                             Resources.Header_groups_createCond,
                             new DropDownPropertyValue("*",
@@ -153,8 +153,8 @@ namespace BazisGUI
                 }
 
                 else if (obj.ObjType == ObjType.Элемент2D)
-                    if (project.ProjectKind == TaskKind.термическая |
-                        project.ProjectKind == (TaskKind.термическая | TaskKind.механическая))
+                    if (project.TaskKind == TaskKind.термическая |
+                        project.TaskKind == (TaskKind.термическая | TaskKind.механическая))
                         rows.Add(new RowProperty(GroupPropertyKeys.CreateCond.ToString(),
                             Resources.Header_groups_createCond,
                             new DropDownPropertyValue("*",
@@ -164,7 +164,7 @@ namespace BazisGUI
                             })));
             }
 
-            else if (project.ProjectType == TaskType.AxiPlain | project.ProjectType == TaskType.Plain)
+            else if (project.TaskType == TaskType.AxiPlain | project.TaskType == TaskType.Plain)
             {
                 if (obj.ObjType == ObjType.Элемент2D)
                     rows.Add(new RowProperty(GroupPropertyKeys.CreateCond.ToString(),
@@ -177,8 +177,8 @@ namespace BazisGUI
 
                 else if (obj.ObjType == ObjType.Элемент1D)
                 {
-                    if (project.ProjectKind == TaskKind.термическая |
-                        project.ProjectKind == (TaskKind.термическая | TaskKind.механическая))
+                    if (project.TaskKind == TaskKind.термическая |
+                        project.TaskKind == (TaskKind.термическая | TaskKind.механическая))
                         rows.Add(new RowProperty(GroupPropertyKeys.CreateCond.ToString(),
                             Resources.Header_groups_createCond,
                             new DropDownPropertyValue("*",
@@ -188,7 +188,7 @@ namespace BazisGUI
                                 CreateCondByGroup.Media.ToString()
                             })));
 
-                    else if (project.ProjectKind == TaskKind.механическая)
+                    else if (project.TaskKind == TaskKind.механическая)
                         rows.Add(new RowProperty(GroupPropertyKeys.CreateCond.ToString(),
                             Resources.Header_groups_createCond,
                             new DropDownPropertyValue("*",
@@ -199,7 +199,7 @@ namespace BazisGUI
                 } 
             }
 
-            else if (project.ProjectType == TaskType.Linear)
+            else if (project.TaskType == TaskType.Linear)
             {
                 if (obj.ObjType == ObjType.Элемент1D)
                     rows.Add(new RowProperty(GroupPropertyKeys.CreateCond.ToString(),

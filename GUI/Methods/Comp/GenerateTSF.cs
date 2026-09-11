@@ -29,7 +29,7 @@ namespace BazisGUI
 
                 var procProp = new ProcessProperty()
                 {
-                    TaskKind = project.ProjectKind,
+                    TaskKind = project.TaskKind,
                     CommonTaskType = ProcessType.Welding // убрать из препроцессора
                 };
 

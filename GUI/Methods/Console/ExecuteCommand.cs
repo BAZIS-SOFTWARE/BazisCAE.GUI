@@ -419,7 +419,7 @@ namespace BazisGUI
                 parsedTaskKind |= parsedTaskKindPart.Value;
             }
 
-            project.ProjectKind = parsedTaskKind;
+            project.ChangeTaskKind(parsedTaskKind);
             PresentCondDataOnTree();
         }
 
