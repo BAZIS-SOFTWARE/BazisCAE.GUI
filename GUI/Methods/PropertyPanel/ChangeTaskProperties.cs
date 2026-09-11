@@ -1,11 +1,13 @@
 ﻿using BazisGUI.Extensions;
-using BazisGUI.PropertiesPanel;
 using BazisGUI.Navigator;
+using BazisGUI.Properties;
+using BazisGUI.PropertiesPanel;
+using BazisGUI.Utilities;
 using Project.Interfaces.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System;
-using BazisGUI.Utilities;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -19,12 +21,23 @@ namespace BazisGUI
                 switch (key)
                 {
                     case TaskPropertyKeys.Type:
-                        project.ProjectType = obj.NewValue.ToEnum<TaskType>();
+                        project.ChangeTaskType(obj.NewValue.ToEnum<TaskType>());
                         clearFlag = true;
                         break;
 
                     case TaskPropertyKeys.Kind:
-                        project.ProjectKind = Converters.ConvertTaskKindPropertyKeysToTaskKind(obj.NewValue.ToEnum<TaskKindPropertyKeys>());
+                        var taskKind = Converters.GetTaskKind(obj.LocalizedHeader.TrimStart());
+                        var updatedProjectKind = bool.Parse(obj.NewValue)
+                            ? project.ProjectKind | taskKind
+                            : project.ProjectKind & ~taskKind;
+
+                        if (updatedProjectKind == 0)
+                        {
+                            navigator_SelectTaskEvent();
+                            break;
+                        }
+
+                        project.ChangeTaskKind(updatedProjectKind);
                         clearFlag = true;
                         break;
 
