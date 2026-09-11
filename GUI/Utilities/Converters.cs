@@ -26,7 +26,7 @@ namespace BazisGUI.Utilities
 
         public static ClampKind ConvertClampKindKeysToClampKind(ClampKindKeys key)
         {
-            switch (key) 
+            switch (key)
             {
                 case ClampKindKeys.Hard: return ClampKind.Жесткое;
                 case ClampKindKeys.Flexable: return ClampKind.Упругое;
@@ -46,28 +46,29 @@ namespace BazisGUI.Utilities
             }
         }
 
-        public static TaskKind ConvertTaskKindPropertyKeysToTaskKind(TaskKindPropertyKeys key)
+        public static string GetDisplayName(TaskKind type)
         {
-            switch (key)
+            return type switch
             {
-                case TaskKindPropertyKeys.Chemical: return TaskKind.химическая;
-                case TaskKindPropertyKeys.Termal: return TaskKind.термическая;
-                case TaskKindPropertyKeys.Mechanical: return TaskKind.механическая;
-                case TaskKindPropertyKeys.Termo_mechanical: return TaskKind.термическая | TaskKind.механическая;
-                default: throw new InvalidCastException(string.Format(Resources.Converters_ConvertClampKindKeysToClampKind_CastExc, "TaskKindPropertyKeys", "TaskKind"));
-            }
+                TaskKind.химическая => Resources.TaskKind_Chemical,
+                TaskKind.термическая => Resources.TaskKind_Termal,
+                TaskKind.механическая => Resources.TaskKind_Mechanical,
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
         }
 
-        public static TaskKindPropertyKeys ConvertTaskKindToTaskKindPropertyKeys(TaskKind key)
+        public static TaskKind GetTaskKind(string displayName)
         {
-            switch (key)
-            {
-                case TaskKind.химическая: return TaskKindPropertyKeys.Chemical;
-                case TaskKind.термическая: return TaskKindPropertyKeys.Termal;
-                case TaskKind.механическая: return TaskKindPropertyKeys.Mechanical;
-                case TaskKind.термическая | TaskKind.механическая: return TaskKindPropertyKeys.Termo_mechanical;
-                default: throw new InvalidCastException(string.Format(Resources.Converters_ConvertClampKindKeysToClampKind_CastExc, "TaskKind", "TaskKindPropertyKeys"));
-            }
+            if (displayName == Resources.TaskKind_Chemical)
+                return TaskKind.химическая;
+
+            if (displayName == Resources.TaskKind_Termal)
+                return TaskKind.термическая;
+
+            if (displayName == Resources.TaskKind_Mechanical)
+                return TaskKind.механическая;
+
+            throw new ArgumentOutOfRangeException(nameof(displayName), displayName, null);
         }
 
         public static ObjType ConvertSelectionTypeToObjType(SelectionType st)
@@ -93,7 +94,7 @@ namespace BazisGUI.Utilities
                 res = ConvertSelectionTypeToObjType(st);
                 return true;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 res = ObjType.Узел;
                 return false;

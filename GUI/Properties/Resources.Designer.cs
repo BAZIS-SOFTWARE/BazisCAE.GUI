@@ -6154,6 +6154,33 @@ namespace BazisGUI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Chemical.
+        /// </summary>
+        internal static string TaskKind_Chemical {
+            get {
+                return ResourceManager.GetString("TaskKind_Chemical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Mechanical.
+        /// </summary>
+        internal static string TaskKind_Mechanical {
+            get {
+                return ResourceManager.GetString("TaskKind_Mechanical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Termal.
+        /// </summary>
+        internal static string TaskKind_Termal {
+            get {
+                return ResourceManager.GetString("TaskKind_Termal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на 0.
         /// </summary>
         internal static string textBox1_Text {

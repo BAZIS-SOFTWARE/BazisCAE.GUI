@@ -399,12 +399,12 @@ namespace BazisGUI
                 return;
             }
 
-            if (!Enum.TryParse(taskKind, out TaskKindPropertyKeys _taskKind))
+            if (!Enum.TryParse(taskKind, out TaskKind _taskKind))
             {
                 console.PrintInfo(Resources.ChangeTaskInvalidExc, Color.Red);
                 return;
             }
-            project.ProjectKind = Converters.ConvertTaskKindPropertyKeysToTaskKind(_taskKind);
+            project.ProjectKind = _taskKind;
             PresentCondDataOnTree();
         }
 

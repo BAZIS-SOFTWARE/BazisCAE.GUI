@@ -2188,4 +2188,13 @@ Create variable?</value>
   <data name="ChangeTaskInvalidExc" xml:space="preserve">
     <value>Invalid format</value>
   </data>
+  <data name="TaskKind_Chemical" xml:space="preserve">
+    <value>Chemical</value>
+  </data>
+  <data name="TaskKind_Termal" xml:space="preserve">
+    <value>Termal</value>
+  </data>
+  <data name="TaskKind_Mechanical" xml:space="preserve">
+    <value>Mechanical</value>
+  </data>
 </root>

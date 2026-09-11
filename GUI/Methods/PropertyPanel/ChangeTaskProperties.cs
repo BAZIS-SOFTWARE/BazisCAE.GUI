@@ -1,11 +1,13 @@
 ﻿using BazisGUI.Extensions;
-using BazisGUI.PropertiesPanel;
 using BazisGUI.Navigator;
+using BazisGUI.Properties;
+using BazisGUI.PropertiesPanel;
+using BazisGUI.Utilities;
 using Project.Interfaces.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System;
-using BazisGUI.Utilities;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -24,7 +26,11 @@ namespace BazisGUI
                         break;
 
                     case TaskPropertyKeys.Kind:
-                        project.ProjectKind = Converters.ConvertTaskKindPropertyKeysToTaskKind(obj.NewValue.ToEnum<TaskKindPropertyKeys>());
+                        var taskKind = Converters.GetTaskKind(obj.LocalizedHeader.TrimStart());
+                        if (obj.NewValue == "True")
+                            project.ProjectKind |= taskKind;
+                        else
+                            project.ProjectKind &= ~taskKind;
                         clearFlag = true;
                         break;
 
