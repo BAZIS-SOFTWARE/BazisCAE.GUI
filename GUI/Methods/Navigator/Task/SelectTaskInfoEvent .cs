@@ -12,7 +12,6 @@ namespace BazisGUI
     public partial class BaseForm
     {
         enum TaskPropertyKeys { Type, Kind, Materials, Functions, CheckCondValues }
-        //public enum TaskKindPropertyKeys { Chemical, Termal, Mechanical, Termo_mechanical }
         private void navigator_SelectTaskEvent()
         {
             try

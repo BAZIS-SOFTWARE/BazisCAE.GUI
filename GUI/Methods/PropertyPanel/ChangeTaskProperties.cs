@@ -27,10 +27,17 @@ namespace BazisGUI
 
                     case TaskPropertyKeys.Kind:
                         var taskKind = Converters.GetTaskKind(obj.LocalizedHeader.TrimStart());
-                        if (obj.NewValue == "True")
-                            project.ProjectKind |= taskKind;
-                        else
-                            project.ProjectKind &= ~taskKind;
+                        var updatedProjectKind = bool.Parse(obj.NewValue)
+                            ? project.ProjectKind | taskKind
+                            : project.ProjectKind & ~taskKind;
+
+                        if (updatedProjectKind == 0)
+                        {
+                            navigator_SelectTaskEvent();
+                            break;
+                        }
+
+                        project.ProjectKind = updatedProjectKind;
                         clearFlag = true;
                         break;
 

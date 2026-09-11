@@ -128,7 +128,7 @@ namespace BazisGUI
             { GenCmd.GenerateMesh, Array.Empty<string>()},
             { GenCmd.CreateTask, Array.Empty<string>() },
             { GenCmd.ChangeTaskType, new[] { "Linear/Plain/AxiPlain/Volume/Volume_mixed" } },
-            { GenCmd.ChangeTaskKind, new[] { "Chemical/Termal/Mechanical/Termo_mechanical" }},                 
+            { GenCmd.ChangeTaskKind, new[] { "Chemical/Termal/Mechanical" }},
             { GenCmd.SelectObjects, new[] { "point/curve/surface/node/line/element2d/element3d" } }
         };
 
@@ -399,12 +399,27 @@ namespace BazisGUI
                 return;
             }
 
-            if (!Enum.TryParse(taskKind, out TaskKind _taskKind))
+            var parsedTaskKind = (TaskKind)0;
+            foreach (var taskKindPart in taskKind.Split('/'))
             {
-                console.PrintInfo(Resources.ChangeTaskInvalidExc, Color.Red);
-                return;
+                TaskKind? parsedTaskKindPart = taskKindPart switch
+                {
+                    "Chemical" => TaskKind.химическая,
+                    "Termal" => TaskKind.термическая,
+                    "Mechanical" => TaskKind.механическая,
+                    _ => null
+                };
+
+                if (parsedTaskKindPart is null)
+                {
+                    console.PrintInfo(Resources.ChangeTaskInvalidExc, Color.Red);
+                    return;
+                }
+
+                parsedTaskKind |= parsedTaskKindPart.Value;
             }
-            project.ProjectKind = _taskKind;
+
+            project.ProjectKind = parsedTaskKind;
             PresentCondDataOnTree();
         }
 
