@@ -1,5 +1,5 @@
 ﻿using BazisGUI.Properties;
-using MasterInterface;
+using MasterInterface.Interfaces;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
@@ -15,7 +15,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public void HandleBaseMaster(BaseMaster master)
+        public void HandleBaseMaster(IBaseMaster master)
         {
             master.UpdateSceneEvent += (s, e) =>
             {
