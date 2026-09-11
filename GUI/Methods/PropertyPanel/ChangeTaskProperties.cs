@@ -28,8 +28,8 @@ namespace BazisGUI
                     case TaskPropertyKeys.Kind:
                         var taskKind = Converters.GetTaskKind(obj.LocalizedHeader.TrimStart());
                         var updatedProjectKind = bool.Parse(obj.NewValue)
-                            ? project.ProjectKind | taskKind
-                            : project.ProjectKind & ~taskKind;
+                            ? project.TaskKind | taskKind
+                            : project.TaskKind & ~taskKind;
 
                         if (updatedProjectKind == 0)
                         {
