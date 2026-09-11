@@ -25,7 +25,7 @@ namespace BazisGUI
 
                 rows.Add(new RowProperty(TaskPropertyKeys.Type.ToString(),
                     Resources.Header_task_type,
-                    new DropDownPropertyValue(project.ProjectType, type)));
+                    new DropDownPropertyValue(project.TaskType, type)));
 
                 rows.Add(new RowProperty(string.Empty,
                     Properties.Resources.Headers_task_kind, string.Empty, true));

@@ -424,7 +424,7 @@ namespace BazisGUI
         }
 
         private bool CheckTask() =>
-            project?.ProjectKind is not null &&
-            project?.ProjectType is not null;
+            project?.TaskKind is not null &&
+            project?.TaskType is not null;
     }
 }

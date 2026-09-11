@@ -156,18 +156,18 @@ namespace BazisGUI
 
         private ICondData CreateMaterial(PropertyChangedEventArgs obj, IGroup _objectsGr)
         {
-            if (project.ProjectType == TaskType.Linear)
+            if (project.TaskType == TaskType.Linear)
                 return new BeamMatData(1,project.MaterialsDB.First().Value, _objectsGr, 0, 1);
-            else if (project.ProjectType == TaskType.Plain)
+            else if (project.TaskType == TaskType.Plain)
                 return new PlateMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
-            else if (project.ProjectType == TaskType.AxiPlain)
+            else if (project.TaskType == TaskType.AxiPlain)
             {
                 if (_objectsGr.ObjType == ObjType.Элемент1D)
                     return new PlateMatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
                 else
                     return new MatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
             }
-            else if(project.ProjectType == TaskType.Volume)
+            else if(project.TaskType == TaskType.Volume)
                 return new MatData(project.MaterialsDB.First().Value, _objectsGr, 0, 1);
             else
             {
