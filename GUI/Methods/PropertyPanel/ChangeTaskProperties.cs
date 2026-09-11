@@ -21,7 +21,7 @@ namespace BazisGUI
                 switch (key)
                 {
                     case TaskPropertyKeys.Type:
-                        project.ProjectType = obj.NewValue.ToEnum<TaskType>();
+                        project.ChangeTaskType(obj.NewValue.ToEnum<TaskType>());
                         clearFlag = true;
                         break;
 
@@ -37,7 +37,7 @@ namespace BazisGUI
                             break;
                         }
 
-                        project.ProjectKind = updatedProjectKind;
+                        project.ChangeTaskKind(updatedProjectKind);
                         clearFlag = true;
                         break;
 
