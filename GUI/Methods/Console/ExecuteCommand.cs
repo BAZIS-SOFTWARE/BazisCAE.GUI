@@ -40,6 +40,7 @@ namespace BazisGUI
             { "Find object",GenCmd.FindObject},
             { "Get related geometry objects", GenCmd.GetRelatedGeometryObjects },
             { "Get coordinate point", GenCmd.GetCoordinatePoint },
+            { "Get curve length", GenCmd.GetCurveLength },
             { "Connect with beams",GenCmd.BeamConnection},
             { "Set precision level",GenCmd.SetLevel },
             { "Merge elements sets",GenCmd.MergeElementSets },
@@ -98,6 +99,7 @@ namespace BazisGUI
             { GenCmd.CreateMesh2DPoligon, new[] { "x1,y1", "x2,y2", "x3,y3", "x4,y4", "number of elements" } },
             { GenCmd.GetRelatedGeometryObjects, new[] { "geoDim", "geoNumbers", "up/low" } },
             { GenCmd.GetCoordinatePoint, new[] { "point" } },
+            { GenCmd.GetCurveLength, new[] { "curve" } },
             { GenCmd.CreatePoint, new [] { "x,y,z" } },
             { GenCmd.CreatePointByVector, new[]{ "copy_point#1", "direction_point#2", "offset" } },
             { GenCmd.CreatePointProjectionOntoCurve, new string[]{ "point", "curve" } },
@@ -368,6 +370,11 @@ namespace BazisGUI
                             throw new ArgumentException(Resources.InvalidCommandException);
                         var curveNumbers = await GetSelectedObjectNumbersAsync(objType);
                         returnValue = string.Join(",", curveNumbers);
+                        break;
+                    case GenCmd.GetCurveLength:
+                        if (!int.TryParse(cmds[1], out int curveId))
+                            throw new ArgumentException(Resources.InvalidCommandException);
+                        returnValue = project.GetCurveLength(curveId).ToString(CultureInfo.InvariantCulture);
                         break;
                 }
             }
