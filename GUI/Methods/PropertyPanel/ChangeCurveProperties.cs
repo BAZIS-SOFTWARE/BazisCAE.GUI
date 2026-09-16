@@ -2,9 +2,9 @@
 using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using GmshApi;
+using OperationalController;
 using Project.Interfaces.Tasks;
 using System;
-using System.Linq;
 
 namespace BazisGUI
 {
@@ -12,52 +12,42 @@ namespace BazisGUI
     {
         private void ChangeCurveProperty(PropertyChangedEventArgs obj, int number)
         {
-            var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite curve {number}");
+            if (!Enum.TryParse(obj.Key, out CurvePropertyKeys key))
+                return;
 
-            if (attributes.Length == 0)
-                attributes = new string[] { "0", MeshType.Progression.ToString(), "1" };
+            var current = project.GetCurveMeshingSettings(number);
+            var nodesCount = current.NodesCount;
+            var meshType = current.MeshType;
+            var coefficient = current.Coefficient;
 
-            if (Enum.TryParse(obj.Key, out CurvePropertyKeys key))
-            {
-                switch (key)
-                {
-                    case CurvePropertyKeys.Algorithm:
-                        attributes[1] = obj.NewValue;
-                        break;
-                    case CurvePropertyKeys.PointsNumber:
-                        attributes[0] = obj.NewValue;
-                        break;
-                    case CurvePropertyKeys.Coefficient:
-                        attributes[2] = obj.NewValue;
-                        break;
-                }
-                
-                SetMeshCurve(number, attributes);
-            }
+            if (key == CurvePropertyKeys.Algorithm)
+                meshType = obj.NewValue.ToEnum<MeshType>();
+            else if (key == CurvePropertyKeys.PointsNumber && !int.TryParse(obj.NewValue, out nodesCount))
+                throw new ArgumentException(Resources.InvalidCommandException);
+            else if (key == CurvePropertyKeys.Coefficient && !double.TryParse(obj.NewValue, out coefficient))
+                throw new ArgumentException(Resources.InvalidCommandException);
+
+            var settings = new CurveMeshingSettings(true, nodesCount, meshType, coefficient);
+            SetMeshCurve(number, settings);
         }
 
-        private void PrepareDataForSetMeshCurve(string number, string pointsCount, string algorithm, string factor, out int _number, out string[] attributes)
+        private void PrepareDataForSetMeshCurve(string number, string pointsCount, string algorithm, string factor, out int _number, out CurveMeshingSettings settings)
         {
             var valid = int.TryParse(number, out _number) & 
-                        double.TryParse(factor, out var _factor);
+                        int.TryParse(pointsCount, out var points) &
+                        double.TryParse(factor, out var coefficient) &
+                        algorithm.TryToEnum<MeshType>(out var meshType);
 
             if (!valid)
                 throw new ArgumentException(Resources.InvalidCommandException);
-            attributes = new[] { pointsCount, algorithm, factor };
+
+            settings = new CurveMeshingSettings(true, points, meshType, coefficient);
         }
 
-        private void SetMeshCurve(int number, string[] attributes)
+        private void SetMeshCurve(int number, CurveMeshingSettings settings)
         {
-           // var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite curve {number}");
-            GmshController.Gmsh.Model.SetAttribute($"transfinite curve {number}", attributes);
+            project.SetCurveMeshingSettings(number, settings);
 
-            // записываем трансфиницию кривой
-            var points = int.Parse(attributes[0]);
-            var meshType = attributes[1].ToEnum<MeshType>();
-            var coeff = double.Parse(attributes[2]);
-            GmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(number, points, meshType, coeff);
-
-            // динамически обновляем картину разбиения
             if (settingsConfig.ShowNodesOnCurves)
                 ShowNodesOnCurves(true);
         }

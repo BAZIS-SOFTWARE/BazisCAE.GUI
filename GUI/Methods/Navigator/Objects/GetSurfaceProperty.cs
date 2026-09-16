@@ -1,6 +1,7 @@
 ﻿using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using Model.Interfaces;
+using OperationalController;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,10 +19,10 @@ namespace BazisGUI
                 number,
                 true));
 
-            var attributes = GmshController.GetTransfiniteSurface(number);
+            var settings = project.GetSurfaceMeshingSettings(number);
             var meshTypes = new List<string>() { "*", "регулярная" };
 
-            if (attributes.Length == 0)
+            if (!settings.IsTransfinite)
                 rows.Add(new RowProperty(SurfacePropertyKeys.MeshType.ToString(),
                     Resources.Header_surface_meshType,
                     new DropDownPropertyValue("*", meshTypes)));
@@ -33,34 +34,29 @@ namespace BazisGUI
 
                 rows.Add(new RowProperty(SurfacePropertyKeys.CornerPoints.ToString(),
                     Resources.Header_surface_cornerPoints,
-                    attributes[0]));
+                    string.Join(",", settings.CornerPointNumbers)));
 
                 rows.Add(new RowProperty(SurfacePropertyKeys.RibersOrientation.ToString(),
                     Resources.Header_surface_ribersOrientation,
-                    attributes[1]));
+                    settings.Arrangement));
 
                 rows.Add(new RowProperty(SurfacePropertyKeys.Quadratization.ToString(),
                     Resources.Header_surface_quadratization,
-                    GmshController.GetRecombineSurface(number)));
+                    settings.IsRecombined));
             }
 
-            var numbersCurves = GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number).Where((v, i) => (i & 1) == 1).ToArray();
-            var strCurvesNumber = string.Join(",", numbersCurves);
+            var embeddedCurveNumbers = string.Join(",", settings.EmbeddedCurveNumbers);
 
             rows.Add(new RowProperty(SurfacePropertyKeys.AddedCurves.ToString(),
                 Resources.Header_surface_addedCurves,
-                strCurvesNumber));
+                embeddedCurveNumbers));
 
             rows.Add(new RowProperty(SurfacePropertyKeys.PointsNumbers.ToString(), 
                 Resources.Header_surface_pointsNumbers,
                 new ButtonPropertyValue(Resources.Показать, () =>
                 {
-                    var all = GmshController.Gmsh.Model.GetAdjacencies(2, number).Item2
-                    .Select(x => GmshController.Gmsh.Model
-                    .GetAdjacencies(1, x).Item2);
-
-                    var distComb = all.SelectMany(x => x).Distinct().ToArray();
-                    ShowObjectsNumbers(ObjType.Точка, distComb);
+                    var boundaryPointNumbers = settings.BoundaryPointNumbers.ToArray();
+                    ShowObjectsNumbers(ObjType.Точка, boundaryPointNumbers);
                     DisplayObjects();
                 })));
 

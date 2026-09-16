@@ -3,7 +3,6 @@ using BazisGUI.PropertiesPanel;
 using GmshApi;
 using Model.GeometryObjects;
 using OperationalController;
-using OperationalController.GmshController;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
@@ -16,67 +15,49 @@ namespace BazisGUI
     {
         private void ChangeVolProperty(PropertyChangedEventArgs obj, int number, ref bool flag)
         {
-            // Тут задаем настройки сетки в объемах геометрии
-            if (Enum.TryParse(obj.Key, out VolumePropertyKeys key))
+            if (!Enum.TryParse(obj.Key, out VolumePropertyKeys key))
+                return;
+
+            var current = project.GetVolumeMeshingSettings(number);
+            var type = current.Type;
+            var gradientSettings = current.GradientSettings;
+
+            if (key == VolumePropertyKeys.MeshType)
             {
-                if (key == VolumePropertyKeys.MeshType)
-                {
-                    var value = Enum.Parse<VolGenMeshTypes>(obj.NewValue);
-                    flag = true;
-                    if (value == VolGenMeshTypes.Regular)
-                        GmshController.SetTransfiniteVolume(number);
+                if (!Enum.TryParse(obj.NewValue, out VolumeMeshingType parsedType))
+                    throw new ArgumentException("Volume meshing type is invalid.");
 
-                    else if (value == VolGenMeshTypes.Gradient)
-                        GmshController.SetGradientVolume(number, 1, 1, 1, 10);
+                type = parsedType;
+                if (type == VolumeMeshingType.Gradient && gradientSettings == null)
+                    gradientSettings = new GradientVolumeMeshingSettings(1, 1, 1, 10);
 
-                    else
-                        RemoveTransfition(number);
-                }
-
-                else
-                {
-                    var attributes = GmshController.GetTransfiniteVolume(number);
-
-                    if (key == VolumePropertyKeys.TransitionGradientDegree)
-                        attributes[1] = obj.NewValue;
-
-                    else if (key == VolumePropertyKeys.LayerThickness)
-                        attributes[2] = obj.NewValue;
-
-                    else if (key == VolumePropertyKeys.SurfaceElementsSize)
-                        attributes[3] = obj.NewValue;
-
-                    else if (key == VolumePropertyKeys.CenterElementsSize)
-                        attributes[4] = obj.NewValue;
-
-                    var power = double.Parse(attributes[1]);
-                    var distMax = double.Parse(attributes[2]);
-                    var surfSize = double.Parse(attributes[3]);
-                    var coreSize = double.Parse(attributes[4]);
-
-                    GmshController.SetGradientVolume(number, power, distMax, surfSize, coreSize);
-                }
+                flag = true;
             }
-        }
+            else
+            {
+                var power = gradientSettings?.Power ?? 1;
+                var distanceMaximum = gradientSettings?.DistanceMaximum ?? 1;
+                var surfaceElementSize = gradientSettings?.SurfaceElementSize ?? 1;
+                var coreElementSize = gradientSettings?.CoreElementSize ?? 10;
 
-        private void DelMeshGradientSettings(int number)
-        {
-            GmshController.Gmsh.Model.Mesh.Field.Remove(number);
+                if (!double.TryParse(obj.NewValue, out var value))
+                    throw new ArgumentException("Volume meshing value is invalid.");
 
-            // TODO переписать так чтобы снимались ограничения только с узлов объема
-            var points = GmshController.Gmsh.Model.GetEntities(0);
-            GmshController.Gmsh.Model.Mesh.RemoveConstraints(points);
-            GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeExtendFromBoundary", 1);
-        }
+                if (key == VolumePropertyKeys.TransitionGradientDegree)
+                    power = value;
+                else if (key == VolumePropertyKeys.LayerThickness)
+                    distanceMaximum = value;
+                else if (key == VolumePropertyKeys.SurfaceElementsSize)
+                    surfaceElementSize = value;
+                else if (key == VolumePropertyKeys.CenterElementsSize)
+                    coreElementSize = value;
 
-        private void RemoveTransfition(int number)
-        {
-            // тут спросить у Николая достаточно ли одной команды для снятия транфиниции объема?
-            GmshController.Gmsh.Model.Mesh.RemoveConstraints(new int[] { 3, number });
-            //удаляем запись из словаря атрибутов
-            GmshController.Gmsh.Model.RemoveAttribute($"transfinite vol {number}");
-            // удаление фильтра градиентной сетки
-            DelMeshGradientSettings(number);
+                gradientSettings = new GradientVolumeMeshingSettings(power, distanceMaximum, surfaceElementSize, coreElementSize);
+                type = VolumeMeshingType.Gradient;
+            }
+
+            var settings = new VolumeMeshingSettings(type, gradientSettings);
+            project.SetVolumeMeshingSettings(number, settings);
         }
     }
 }

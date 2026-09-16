@@ -22,6 +22,6 @@ namespace BazisGUI
                 throw new ArgumentException(Resources.InvalidCommandException);
         }
 
-        private void SetMeshPoint(int number, double meshSize) => GmshController.SetSize(number, meshSize);
+        private void SetMeshPoint(int number, double meshSize) => project.SetMeshPointSize(number, meshSize);
     }
 }

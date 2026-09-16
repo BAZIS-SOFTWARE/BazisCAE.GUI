@@ -11,9 +11,8 @@ namespace BazisGUI
         {
             try
             {
-                var file = GmshController.Gmsh.Model.GetFileName();
-
-                var changed = Path.ChangeExtension(file, "gscript");
+                var filePath = project.GetGeometryFilePath();
+                var changed = Path.ChangeExtension(filePath, "gscript");
 
                 project.LoadSMF(changed);
 
@@ -30,9 +29,8 @@ namespace BazisGUI
         {
             try
             {
-                var file = GmshController.Gmsh.Model.GetFileName();
-
-                var changed = Path.ChangeExtension(file, "gscript");
+                var filePath = project.GetGeometryFilePath();
+                var changed = Path.ChangeExtension(filePath, "gscript");
                 
                 project.SaveSMF(changed);
 

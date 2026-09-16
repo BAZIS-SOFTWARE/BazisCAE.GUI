@@ -8,24 +8,19 @@ namespace BazisGUI
     {
         private void квадратизацияСуществующейToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //var cntr = (GMSHGeneralMeshControl)obj;
-            //var filename = GmshController.Gmsh.Model.GetFileName();
-            //var ext = Path.GetExtension(filename);
-            //if (ext.Contains("igs") || ext.Contains("iges"))
-            //{
-                GmshController.Gmsh.Model.Mesh.Recombine();
-                var error = GmshController.Gmsh.Logger.GetLastError();
-                if (!string.IsNullOrEmpty(error))
-                    console.PrintInfo(error, Color.Red);
-                //cntr.ShowHideTabControls(3, false);
-                //cntr.ClearTreeView(3);
+            project.RecombineMesh();
 
+            var error = project.GetGeometryLastError();
+            if (!string.IsNullOrEmpty(error))
+                console.PrintInfo(error, Color.Red);
 
-                //TODO довнедрить!
-                var objs = GmshController.GetMeshObjects();
-
-                project.ClearModelCollection(ObjType.Узел);
-            //}
+            DeleteVBObjsByObjsType(ObjType.Узел);
+            CreateVBObjsByObjsType(ObjType.Узел);
+            DeleteVBObjects("Элементы");
+            CreateVBObjects("Элементы");
+            PresentMeshData();
+            PresentModelObjectsForSelection();
+            DisplayObjects();
         }
     }
 }

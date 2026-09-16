@@ -16,10 +16,10 @@ namespace BazisGUI
         {
             try
             {
-                // заглушка
-                if (GmshController.Gmsh == null)
-                    throw new NullReferenceException(Resources.GenerateMesh3DEvents_Generate3D_GMSHNull_Exception);
-                DeleteGMSHMeshObjects(ObjType.Узел);
+                if (project == null || !project.IsGeometryInitialized)
+                    throw new InvalidOperationException(Resources.GenerateMesh3DEvents_Generate3D_GMSHNull_Exception);
+
+                DeleteMeshObjects(ObjType.Узел);
                 project.ClearModelCollection(ObjType.Узел);
                 project.GenerateMesh(3);
 
@@ -30,21 +30,18 @@ namespace BazisGUI
                     project.HideMesh(3);
                 }
                     
-            //gmshController.Gmsh.Model.Mesh.Generate(3);
-            //var nds = gmshController.GetNodes();
+                var error = project.GetGeometryLastError();
+                if (!string.IsNullOrEmpty(error))
+                    console.PrintInfo(error, Color.Red);
 
-            var error = GmshController.Gmsh.Logger.GetLastError();
-            if (!string.IsNullOrEmpty(error))
-                console.PrintInfo(error, Color.Red);
-
-            DeleteVBObjsByObjsType(ObjType.Узел);
-            CreateVBObjsByObjsType(ObjType.Узел);
-            DeleteVBObjects("Элементы");
-            CreateVBObjects("Элементы");
-            PresentMeshData();
-            PresentModelObjectsForSelection();
-            FitObjectsToScreen();
-            DisplayObjects();
+                DeleteVBObjsByObjsType(ObjType.Узел);
+                CreateVBObjsByObjsType(ObjType.Узел);
+                DeleteVBObjects("Элементы");
+                CreateVBObjects("Элементы");
+                PresentMeshData();
+                PresentModelObjectsForSelection();
+                FitObjectsToScreen();
+                DisplayObjects();
 
                 console.PrintInfo(Resources.GenerateMesh3DEvents_Generate3D_GeneratedElements_Message +
                     $" 1D: {project.GetModelObjects(ObjType.Элемент1D).Count()}," +
@@ -59,30 +56,25 @@ namespace BazisGUI
             }
         }
 
-        private void DeleteGMSHMeshObjects(ObjType type)
+        private void DeleteMeshObjects(ObjType type)
         {
-            int[] dimTags = null;
-            var dim = 0;
-            if (type == ObjType.Узел) //удаляем всю сетку узлы,1d,2d,3d
+            switch (type)
             {
-                dimTags = new int[0];
+                case ObjType.Узел:
+                    project.ClearGeometryMesh();
+                    break;
+                case ObjType.Элемент1D:
+                    project.ClearGeometryMesh(1);
+                    break;
+                case ObjType.Элемент2D:
+                    project.ClearGeometryMesh(2);
+                    break;
+                case ObjType.Элемент3D:
+                    project.ClearGeometryMesh(3);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type));
             }
-            if (type == ObjType.Элемент1D)//удаляем все 1d элементы
-            {
-                dim = 1;
-                dimTags = GmshController.Gmsh.Model.GetEntities(dim);
-            }
-            else if (type == ObjType.Элемент2D)//удаляем все 2d элементы
-            {
-                dim = 2;
-                dimTags = GmshController.Gmsh.Model.GetEntities(dim);
-            }
-            else if (type == ObjType.Элемент3D)//удаляем все 3d элементы
-            {
-                dim = 3;
-                GmshController.Gmsh.Model.GetEntities(dim);
-            }
-            GmshController.Gmsh.Model.Mesh.Clear(dimTags);
         }
     }
 }
