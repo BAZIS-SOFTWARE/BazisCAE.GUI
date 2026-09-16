@@ -84,11 +84,10 @@ namespace BazisGUI
 
         private int GeometryParser(CreateCommandType type, List<string> parameters)
         {
+            // -1 означает ошибка
             var tag = -1;
-            if (GmshController == null)
-            {
+            if (project == null || !project.IsGeometryInitialized)
                 return tag;
-            }
 
             switch (type)
             {

@@ -1,5 +1,6 @@
 ﻿using Model.Interfaces;
 using System;
+using System.Drawing;
 
 namespace BazisGUI
 {
@@ -7,10 +8,18 @@ namespace BazisGUI
     {
         private void уплотнитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //TODO довнедрить
-            GmshController.Gmsh.Model.Mesh.Refine();
+            project.RefineMesh();
 
-            project.ClearModelCollection(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
+            var error = project.GetGeometryLastError();
+            if (!string.IsNullOrEmpty(error))
+                console.PrintInfo(error, Color.Red);
+
+            DeleteVBObjsByObjsType(ObjType.Узел);
+            CreateVBObjsByObjsType(ObjType.Узел);
+            DeleteVBObjects("Элементы");
+            CreateVBObjects("Элементы");
+            PresentMeshData();
+            PresentModelObjectsForSelection();
 
             FitObjectsToScreen();
             DisplayObjects();

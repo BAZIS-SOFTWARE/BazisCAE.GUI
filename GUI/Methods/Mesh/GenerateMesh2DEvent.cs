@@ -16,14 +16,14 @@ namespace BazisGUI
         {
             try
             {
-                DeleteGMSHMeshObjects(ObjType.Узел);
+                DeleteMeshObjects(ObjType.Узел);
                 project.ClearModelCollection(ObjType.Узел);
                 project.GenerateMesh(2);
 
                 //gmshController.Gmsh.Model.Mesh.Generate(3);
                 //var nds = gmshController.GetNodes();
 
-                var error = GmshController.Gmsh.Logger.GetLastError();
+                var error = project.GetGeometryLastError();
                 if (!string.IsNullOrEmpty(error))
                     console.PrintInfo(error, Color.Red);
 

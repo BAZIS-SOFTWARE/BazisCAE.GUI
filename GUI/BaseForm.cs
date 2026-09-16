@@ -77,10 +77,6 @@ namespace BazisGUI
 
         //BasePage module;
         ProjectController project;
-        IGmshController GmshController
-        {
-            get { return project?.GmshController; }
-        }
         IODataController dataController = new();
         PreProc.PreProc preProc = new();
         PostProcController resultsController = new();
@@ -483,7 +479,6 @@ namespace BazisGUI
                 if (projFilter.Contains(ext))
                 {
                     project = await dataController.OpenProject(filePath);
-                    GmshController?.Gmsh?.Clear();
                 }
 
                 else if (geomFilter.Contains(ext))
@@ -491,15 +486,23 @@ namespace BazisGUI
                     if (project == null)
                         project = new ProjectController();
 
-                    if (GmshController.Gmsh == null)
-                        project.GmshController = dataController.LoadGMSH();
+                    if (!project.IsGeometryInitialized)
+                    {
+                        var gmshLibraryPath = dataController.GetGmshLibraryPath();
+                        if (string.IsNullOrWhiteSpace(gmshLibraryPath))
+                            return;
+
+                        project.InitializeGeometry(gmshLibraryPath);
+
+                        //GmshController.Gmsh.Option.SetNumber("General.AbortOnError", 0);
+                    }
+
                     project.ImportCAD(filePath);
                 }
 
                 else
                 {
                     project = await dataController.ImportMesh(filePath);
-                    GmshController?.Gmsh?.Clear();
                 }
 
                 lblStatus.Text = filePath;
@@ -637,7 +640,7 @@ namespace BazisGUI
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)
         {
-            GmshController?.Gmsh?.finalize();
+            project?.UnloadGeometry();
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)

@@ -20,17 +20,17 @@ namespace BazisGUI
         {
             try
             {
-                if (GmshController.Gmsh == null)
+                if (project == null || !project.IsGeometryInitialized)
                     return;
-                var rows = new List<RowProperty>();
 
-                var actMinSize = GmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeMin");
-                var actMaxSize = GmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeMax");
-                var actAlgo2d = GmshController.Gmsh.Option.GetNumber("Mesh.Algorithm");
-                var alg2D = actAlgo2d.ToString().ToEnum<MeshAlgorithm2D>();
-                var actAlgo3d = GmshController.Gmsh.Option.GetNumber("Mesh.Algorithm3D");
-                var alg3D = actAlgo2d.ToString().ToEnum<MeshAlgorithm3D>();
-                var actSizeFactor = GmshController.Gmsh.Option.GetNumber("Mesh.MeshSizeFactor");
+                var rows = new List<RowProperty>();
+                var meshSettings = project.GetMeshSettings();
+
+                var actMinSize = meshSettings.MinimumSize;
+                var actMaxSize = meshSettings.MaximumSize;
+                var alg2D = meshSettings.Algorithm2D;
+                var alg3D = meshSettings.Algorithm3D;
+                var actSizeFactor = meshSettings.SizeFactor;
 
                 var algs2D = Enum.GetValues(typeof(MeshAlgorithm2D)).
                     Cast<MeshAlgorithm2D>().Select(x => x.ToString());
@@ -89,16 +89,25 @@ namespace BazisGUI
             {
                 VBOController.DeleteVBObjects("transPoints");
 
-                if(flag)
+                if (flag && (project == null || !project.IsGeometryInitialized))
                 {
-                    // генерисуем 1д элементы для сбора информации об узлах
-                    GmshController.Gmsh.Model.Mesh.Generate(1);
-                    var dic = GetCurvesNumbersAndNodes();
+                    DisplayObjects();
+                    return;
+                }
+
+                if (flag)
+                {
+                    var curveNumbers = new List<int>();
+                    foreach (var curve in project.GetModelObjects(ObjType.Кривая))
+                        if (curve.ViewState)
+                            curveNumbers.Add(curve.Number);
 
                     var points = new List<GeometryPoint>();
-                    foreach (var item in dic.Keys)
+                    foreach (var node in project.GetGeometryMeshNodes(1, curveNumbers))
                     {
-                        points.AddRange(GetTransPointsCoords(item));
+                        var point = new GeometryPoint(node.Number, node.Position);
+                        point.Color = settingsConfig.SelectObjectColor;
+                        points.Add(point);
                     }
 
                     var presentor = presentersCreator.CreatePointObjectsPresenter(points);
@@ -113,58 +122,6 @@ namespace BazisGUI
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        private List<GeometryPoint> GetTransPointsCoords(int curveTag)
-        {
-            var data = GmshController.Gmsh.Model.Mesh.GetNodes(1, curveTag, false, false);
-            var nodeTags = data.Item1;
-            var coords = data.Item2;
-            var parametric = data.Item3;
-
-            var gPoints = new List<GeometryPoint>();
-            var num = 0;
-            for (int i = 0; i < coords.Length; i += 3)
-            {
-                var gPoint = new GeometryPoint(num++, new Point3D((float)coords[i], (float)coords[i + 1], (float)coords[i + 2]));
-                gPoint.Color = settingsConfig.SelectObjectColor;
-                gPoints.Add(gPoint);
-            }
-            return gPoints;
-        }
-
-        private Dictionary<int, int> GetCurvesNumbersAndNodes()
-        {
-            var curveDict = new Dictionary<int, int>();
-            //1)Добавляем в словарь сначала размеченные кривые
-            var attribList = GmshController.Gmsh.Model.GetAttributeNames().Where(x => x.Contains("curve"));
-            foreach (var item in project.GetModelObjects(ObjType.Кривая))
-            {
-                //var tag = Int32.Parse(item.Split(' ')[2]);
-
-                // тут будем учитывать видна кривая илиь нет
-                if(item.ViewState)
-                {
-                    var attributes = GetCurrentCurveAttributes(item.Number);
-                    var points = attributes.Length == 3 && !string.IsNullOrEmpty(attributes[0]) ? Int32.Parse(attributes[0]) : 0;
-                    curveDict.Add(item.Number, points);
-                }
-            }
-            //2)Добавляем в словарь неразмеченные кривые, которых нет в словаре (со значением ноль)
-            
-            // TODO Это место нужно переписать. Все можно хранить в классе SurfaceFigure
-            var dimTags = GmshController.Gmsh.Model.GetEntities(1);
-            for (var i = 1; i < dimTags.Length; i += 2)
-                if (project.GetModelObject(ObjType.Кривая, dimTags[i]).ViewState)
-                    if (!curveDict.ContainsKey(dimTags[i]))
-                        curveDict.Add(dimTags[i], 0);
-            return curveDict;
-        }
-
-        private string[] GetCurrentCurveAttributes(int tag)
-        {
-            var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite curve {tag}");
-            return attributes;
         }
 
         private void ShowObjectsNumbers(ObjType objType)
@@ -245,20 +202,16 @@ namespace BazisGUI
 
         private void ShowNumberOfCurveNodes()
         {
-            var attribList = GmshController.Gmsh.Model.GetAttributeNames();
-
-            foreach (var item in attribList)
+            foreach (var curve in project.GetModelObjects(ObjType.Кривая))
             {
-                var tag = Int32.Parse(item.Split(' ')[2]);
-                if (project.GetModelObject(ObjType.Кривая, tag).ViewState)
+                if (curve.ViewState)
                 {
-                    var attributes = GetCurrentCurveAttributes(tag);
+                    var settings = project.GetCurveMeshingSettings(curve.Number);
 
-                    if (attributes.Length == 3)
+                    if (settings.IsTransfinite)
                     {
-                        // var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
-                        var text = $"{attributes[0]}";
-                        var point = GetCenterOfGeometryEntity(1, tag);
+                        var text = $"{settings.NodesCount}";
+                        var point = GetCenterOfGeometryEntity(1, curve.Number);
 
                         DisplayText3D(text, Color.Black, point);
                     }
@@ -275,8 +228,8 @@ namespace BazisGUI
         /// <returns>Центр масс</returns>
         private Point3D GetCenterOfGeometryEntity(int dim, int tag)
         {
-            var data = GmshController.Gmsh.Model.Occ.GetCenterOfMass(dim, tag);
-            var point = new Point3D((float)data.Item1, (float)data.Item2, (float)data.Item3);
+            var center = project.GetCenterOfMass(dim, tag);
+            var point = new Point3D((float)center.X, (float)center.Y, (float)center.Z);
             return point;
         }
     }

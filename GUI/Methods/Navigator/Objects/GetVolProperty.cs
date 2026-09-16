@@ -3,6 +3,7 @@ using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
 using GmshApi;
 using Model.GeometryObjects;
+using OperationalController;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,16 @@ namespace BazisGUI
     public partial class BaseForm
     {
         enum VolumePropertyKeys { Number, MeshType, TransitionGradientDegree, LayerThickness, SurfaceElementsSize, CenterElementsSize }
-        enum VolGenMeshTypes { Undefined, Gradient, Regular }
         private List<RowProperty> GetVolProperties(int number)
         {
             var rows = new List<RowProperty>();
             rows.Add(new RowProperty(VolumePropertyKeys.Number.ToString(), Resources.Header_volume_number, number));
 
-            var attributes = GmshController.GetTransfiniteVolume(number);
-            var meshTypes = Enum.GetValues<VolGenMeshTypes>().Select(x => x.ToString()).ToList();
+            var settings = project.GetVolumeMeshingSettings(number);
+            var meshTypes = Enum.GetValues<VolumeMeshingType>().Select(x => x.ToString()).ToList();
 
 
-            if (attributes.Length == 0)
+            if (settings.Type == VolumeMeshingType.Undefined)
                 rows.Add(new RowProperty(VolumePropertyKeys.MeshType.ToString(), 
                     Resources.Header_volume_meshType,
                     new DropDownPropertyValue("Undefined", meshTypes)));
@@ -30,24 +30,24 @@ namespace BazisGUI
             {
                 rows.Add(new RowProperty(VolumePropertyKeys.MeshType.ToString(),
                     Resources.Header_volume_meshType,
-                    new DropDownPropertyValue(attributes[0], meshTypes)));
-                if (attributes[0] == meshTypes[1])
+                    new DropDownPropertyValue(settings.Type, meshTypes)));
+                if (settings.Type == VolumeMeshingType.Gradient)
                 {
                     rows.Add(new RowProperty(VolumePropertyKeys.TransitionGradientDegree.ToString(),
                         Resources.Header_volume_TransitionGradientDegree,
-                        attributes[1]));
+                        settings.GradientSettings.Power));
 
                     rows.Add(new RowProperty(VolumePropertyKeys.LayerThickness.ToString(),
                         Resources.Header_volume_layerThickness,
-                        attributes[2]));
+                        settings.GradientSettings.DistanceMaximum));
 
                     rows.Add(new RowProperty(VolumePropertyKeys.SurfaceElementsSize.ToString(),
                         Resources.Header_volume_surfaceElementsSize,
-                        attributes[3]));
+                        settings.GradientSettings.SurfaceElementSize));
 
                     rows.Add(new RowProperty(VolumePropertyKeys.CenterElementsSize.ToString(),
                         Resources.Header_volume_centerElementsSize,
-                        attributes[4]));
+                        settings.GradientSettings.CoreElementSize));
                 }
             }
             

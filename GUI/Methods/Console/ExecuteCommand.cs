@@ -7,6 +7,7 @@ using GmshApi;
 using MaterialDB.FunctionData;
 using MaterialDB.MaterialData;
 using Model.Interfaces;
+using OperationalController;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.Materials;
@@ -267,8 +268,8 @@ namespace BazisGUI
                         SetMeshPoint(_numberPoint, _meshSize);
                         break;
                     case GenCmd.SetMeshCurve:
-                        PrepareDataForSetMeshCurve(cmds[1], cmds[2], cmds[3], cmds[4], out int _number, out string[] attributes);
-                        SetMeshCurve(_number, attributes);
+                        PrepareDataForSetMeshCurve(cmds[1], cmds[2], cmds[3], cmds[4], out int _number, out CurveMeshingSettings settings);
+                        SetMeshCurve(_number, settings);
                         break;
                     case GenCmd.SetRegularSurface:
                         PrepareDataForSetRegularMeshSurface(cmds[1], cmds[2], cmds[3], cmds[4], out int _numberSurface, out Arrangement _arrangement, out List<int> _cornerPoints, out bool _quadratization);
@@ -279,22 +280,22 @@ namespace BazisGUI
                         SetEmbeddedMesh(_targetType, _targetNumber, _embeddedType, _embeddedNumbers);
                         break;
                     case GenCmd.SetMinSize:
-                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", double.Parse(cmds[1]));
+                        project.SetMeshMinimumSize(double.Parse(cmds[1]));
                         break;
                     case GenCmd.SetMaxSize:
-                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", double.Parse(cmds[1]));
+                        project.SetMeshMaximumSize(double.Parse(cmds[1]));
                         break;
                     case GenCmd.Algo2D:
-                        GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", (double)cmds[1].ToEnum<MeshAlgorithm2D>());
+                        project.SetMeshAlgorithm2D(cmds[1].ToEnum<MeshAlgorithm2D>());
                         break;
                     case GenCmd.Algo3D:
-                        GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm3D", (double)cmds[1].ToEnum<MeshAlgorithm3D>());
+                        project.SetMeshAlgorithm3D(cmds[1].ToEnum<MeshAlgorithm3D>());
                         break;
                     case GenCmd.ScaleFactor:
-                        GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", double.Parse(cmds[1]));
+                        project.SetMeshSizeFactor(double.Parse(cmds[1]));
                         break;
                     case GenCmd.SaveSTEP:
-                        GmshController.Gmsh.Write(cmds[1]);
+                        project.ExportGeometry(cmds[1]);
                         break;
                     case GenCmd.CreateSurfaceNodesGroup:
                         returnValue = project.CreateOpenSurfaceNodesGroup(cmds[1]);
@@ -360,7 +361,7 @@ namespace BazisGUI
                         returnValue = string.Join(",", relatedObjects);
                         break;
                     case GenCmd.GetCoordinatePoint:
-                        var coord = GmshController.Gmsh.Model.GetValue(0, int.Parse(cmds[1]), []);
+                        var coord = project.GetGeoObjPoints(0, int.Parse(cmds[1]), []);
                         returnValue = string.Join(";", coord);
                         break;
                     case GenCmd.SelectObjects:

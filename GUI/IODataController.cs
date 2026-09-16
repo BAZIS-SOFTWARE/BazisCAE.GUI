@@ -33,7 +33,7 @@ namespace BazisGUI
             }
             else return null;
         }
-        public GmshController LoadGMSH()
+        public string GetGmshLibraryPath()
         {
             var path = Environment.GetEnvironmentVariable("BazisMeshPath", EnvironmentVariableTarget.Machine);
 
@@ -50,12 +50,7 @@ namespace BazisGUI
                 path = $@"{path}";
 
 
-            var gmshController = new GmshController();
-            gmshController.Load(path);
-            //ObjectData = new ObjectsData();
-            gmshController.Gmsh.Option.SetNumber("General.AbortOnError", 0);//Запретить изделию Кристофа обваливать Базис
-            
-            return gmshController;
+            return path;
         }
 
         public async Task<ProjectController> ImportMesh(string fullPath)

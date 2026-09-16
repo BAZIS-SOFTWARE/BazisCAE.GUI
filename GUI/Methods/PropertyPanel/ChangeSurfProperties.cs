@@ -4,6 +4,7 @@ using BazisGUI.PropertiesPanel;
 using GmshApi;
 using LicenseInfo;
 using Model.MeshObjects;
+using OperationalController;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,33 +18,38 @@ namespace BazisGUI
     {
         private void ChangeSurfaceProperty(PropertyChangedEventArgs obj, int number, ref bool flag)
         {
-            if (Enum.TryParse(obj.Key, out SurfacePropertyKeys key))
+            if (!Enum.TryParse(obj.Key, out SurfacePropertyKeys key))
+                return;
+
+            var current = project.GetSurfaceMeshingSettings(number);
+            var isTransfinite = current.IsTransfinite;
+            var cornerPointNumbers = current.CornerPointNumbers;
+            var arrangement = current.Arrangement;
+            var isRecombined = current.IsRecombined;
+            var embeddedCurveNumbers = current.EmbeddedCurveNumbers;
+
+            if (key == SurfacePropertyKeys.MeshType)
             {
-                if (key == SurfacePropertyKeys.MeshType)
-                    HandleMeshTypeParameter(obj.NewValue, number, ref flag);
+                isTransfinite = obj.NewValue == "регулярная";
+                if (isTransfinite && cornerPointNumbers.Count == 0)
+                    cornerPointNumbers = current.BoundaryPointNumbers;
 
-                else if (key == SurfacePropertyKeys.AddedCurves)
-                    HandleAddedCurvesParameter(obj.NewValue, number);
-
-                else
-                {
-                    var attributes = GmshController.GetTransfiniteSurface(number);
-
-                    if (key == SurfacePropertyKeys.Quadratization)
-                        HandleQuadratizationParameter(obj.NewValue, number);
-
-                    else if (key == SurfacePropertyKeys.CornerPoints)
-                        attributes[0] = obj.NewValue;
-
-                    else if (key == SurfacePropertyKeys.RibersOrientation)
-                        attributes[1] = obj.NewValue;
-
-                    var arrangement = attributes[1].ToEnum<Arrangement>();
-                    var points = attributes[0].Split(',').Select(int.Parse);
-
-                    project.GmshController.SetTransfiniteSurface(number, arrangement, points.ToArray());
-                }
+                flag = true;
             }
+            else if (key == SurfacePropertyKeys.AddedCurves)
+                embeddedCurveNumbers = ParseObjectNumbers(obj.NewValue);
+            else if (key == SurfacePropertyKeys.Quadratization)
+            {
+                if (!bool.TryParse(obj.NewValue, out isRecombined))
+                    throw new ArgumentException(Resources.InvalidCommandException);
+            }
+            else if (key == SurfacePropertyKeys.CornerPoints)
+                cornerPointNumbers = ParseObjectNumbers(obj.NewValue);
+            else if (key == SurfacePropertyKeys.RibersOrientation)
+                arrangement = obj.NewValue.ToEnum<Arrangement>();
+
+            var settings = new SurfaceMeshingSettings(isTransfinite, cornerPointNumbers, arrangement, isRecombined, embeddedCurveNumbers, current.BoundaryPointNumbers);
+            project.SetSurfaceMeshingSettings(number, settings);
         }
 
         private void PrepareDataForSetRegularMeshSurface(string number, string cornerPoints, string ribersOrientation, string quadratization, out int _number, out Arrangement _arrangement, out List<int> _cornerPoints, out bool _quadratization)
@@ -96,60 +102,29 @@ namespace BazisGUI
 
         private void SetEmbeddedMesh(int hostDimension, int hostTag, int embeddedDimension, IEnumerable<int> embeddedEntities)
         {
-            if (GmshController.Gmsh.Model.Mesh.GetEmbedded(hostDimension, hostTag).Length > 0)
-                GmshController.Gmsh.Model.Mesh.RemoveEmbedded([hostDimension, hostTag]);
-
-            var entities = embeddedEntities?.ToArray();
-
-            if (entities?.Length > 0)
-                GmshController.Gmsh.Model.Mesh.Embed(embeddedDimension,entities,hostDimension,hostTag);
+            project.SetEmbeddedGeometryEntities(hostDimension, hostTag, embeddedDimension, embeddedEntities);
         }
 
         private void SetRegularMeshSurface(int number, List<int> cornerPoints, Arrangement arrangement, bool quadratization) 
         {
-            project.GmshController.SetTransfiniteSurface(number, arrangement, cornerPoints.ToArray());
-
-            if(quadratization)
-                project.GmshController.SetRecombineSurface(number);
+            var current = project.GetSurfaceMeshingSettings(number);
+            var settings = new SurfaceMeshingSettings(true, cornerPoints, arrangement, quadratization, current.EmbeddedCurveNumbers, current.BoundaryPointNumbers);
+            project.SetSurfaceMeshingSettings(number, settings);
         }
 
-        private void HandleMeshTypeParameter(string newValue, int number, ref bool flag)
+        private List<int> ParseObjectNumbers(string value)
         {
-            flag = true;
-            if (newValue == "регулярная")
+            var values = value.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            var numbers = new List<int>();
+            foreach (var item in values)
             {
-                var surfPoints = project.GmshController.GetSurfaceNodes(number);
-                project.GmshController.SetTransfiniteSurface(number, Arrangement.Left, surfPoints);
-            }
-            else
-            {
-                // тут спросить у Николая достаточно ли одной команды для снятия транфиниции объема?
-                GmshController.Gmsh.Model.Mesh.RemoveConstraints(new int[] { 2, number });
-                //удаляем запись из словаря атрибутов
-                GmshController.Gmsh.Model.RemoveAttribute($"transfinite surface {number}");
-            }
-        }
+                if (!int.TryParse(item.Trim(), out var number))
+                    throw new ArgumentException(Resources.InvalidCommandException);
 
-        private void HandleAddedCurvesParameter(string newValue, int number)
-        {
-            if (GmshController.Gmsh.Model.Mesh.GetEmbedded(2, number).Length > 0)
-                GmshController.Gmsh.Model.Mesh.RemoveEmbedded([2, number]);
-
-            var arrayStr = newValue.Split(',');
-            var tags = arrayStr.Where(s => int.TryParse(s, out _)).Select(int.Parse).ToArray();
-            if (tags != null)
-                GmshController.Gmsh.Model.Mesh.Embed(1, tags, 2, number);
-        }
-
-        private void HandleQuadratizationParameter(string newValue, int number)
-        {
-            if (bool.Parse(newValue))
-                project.GmshController.SetRecombineSurface(number);
-            else
-            {
-                GmshController.Gmsh.Model.Mesh.RemoveConstraints(new int[] { 2, number });
-                GmshController.Gmsh.Model.RemoveAttribute($"recombine surface {number}");
+                numbers.Add(number);
             }
+
+            return numbers;
         }
     }
 }

@@ -16,8 +16,7 @@ namespace BazisGUI
 
         private List<RowProperty> GetPointProperty(int number) 
         {
-            var dimTags = new int[] { 0, number };
-            var meshSize = GmshController.GetSize(number);  //GmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
+            var meshSize = project.GetMeshPointSize(number);
 
             var rows = new List<RowProperty>
             {
