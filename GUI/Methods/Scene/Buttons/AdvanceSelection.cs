@@ -261,9 +261,9 @@ namespace BazisGUI
 
             var startDim = GetModelObjects(SelectedObjects).Where(x => x.Number == numbers[0]).First().Dim;
             var objType = Converters.ConvertSelectionTypeToObjType(SelectedObjects);
-            var volumes = project.SelectByScope(startDim, numbers, targetDim);
+            var scopedNumbers = project.SelectByScope(startDim, numbers, targetDim);
 
-            foreach (var number in volumes)
+            foreach (var number in scopedNumbers)
             {
                 var element = project.GetModelObject(objType, number);
 

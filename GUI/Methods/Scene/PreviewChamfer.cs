@@ -81,8 +81,8 @@ namespace BazisGUI
 
         private double[] GetOutwardNormal(int surfaceTag, int volumeTag, double[] point)
         {
-            var parameters = project.GmshController.Gmsh.Model.GetParametrization(2, surfaceTag, point);
-            var normal = project.GmshController.Gmsh.Model.GetNormal(surfaceTag, parameters);
+            var parameters = project.GetParametrization(2, surfaceTag, point);
+            var normal = project.GetSurfaceNormal(surfaceTag, parameters);
             if (normal.Length != 3)
                 throw new InvalidOperationException(string.Format(Resources.ChamferPreview_SurfaceNormalUnavailable, surfaceTag));
 
