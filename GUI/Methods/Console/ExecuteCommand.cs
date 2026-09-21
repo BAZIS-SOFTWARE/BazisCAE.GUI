@@ -40,6 +40,7 @@ namespace BazisGUI
             { "Find 3D elements",GenCmd.FindVolElems},
             { "Find object",GenCmd.FindObject},
             { "Get related geometry objects", GenCmd.GetRelatedGeometryObjects },
+            { "Find adjacent elements", GenCmd.FindAdjacentElements },
             { "Get coordinate point", GenCmd.GetCoordinatePoint },
             { "Get curve length", GenCmd.GetCurveLength },
             { "Connect with beams",GenCmd.BeamConnection},
@@ -99,6 +100,7 @@ namespace BazisGUI
             { GenCmd.MergeElementSets, new[] { "type", "set#1", "set#2" } },
             { GenCmd.CreateMesh2DPoligon, new[] { "x1,y1", "x2,y2", "x3,y3", "x4,y4", "number of elements" } },
             { GenCmd.GetRelatedGeometryObjects, new[] { "geoDim", "geoNumbers", "up/low" } },
+            { GenCmd.FindAdjacentElements, new[] { "geoDim", "geoNumber" } },
             { GenCmd.GetCoordinatePoint, new[] { "point" } },
             { GenCmd.GetCurveLength, new[] { "curve" } },
             { GenCmd.CreatePoint, new [] { "x,y,z" } },
@@ -361,6 +363,13 @@ namespace BazisGUI
                         var (upper, lower) = GetAdjacentGeometryObjects(_geometryDim, _geoNumber);
                         var relatedObjects = _lvl ? upper : lower;
                         returnValue = string.Join(",", relatedObjects);
+                        break;
+                    case GenCmd.FindAdjacentElements:
+                        if (!int.TryParse(cmds[1], out int boundaryDim) || boundaryDim is < 1 or > 3 ||
+                            !int.TryParse(cmds[2], out int boundaryNumber) || boundaryNumber <= 0)
+                            throw new ArgumentException(Resources.InvalidCommandException);
+                        var boundary = project.GetBoundary(new[] { boundaryDim, boundaryNumber }, oriented: false);
+                        returnValue = string.Join(",", boundary.Where((_, index) => index % 2 == 1));
                         break;
                     case GenCmd.GetCoordinatePoint:
                         var coord = project.GetGeoObjPoints(0, int.Parse(cmds[1]), []);

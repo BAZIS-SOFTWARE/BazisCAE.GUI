@@ -54,6 +54,7 @@
         CreateHeat,
         CreateGroup,
         GetRelatedGeometryObjects,
+        FindAdjacentElements,
         GetCoordinatePoint,
         SelectObjects,
         GetCurveLength,
