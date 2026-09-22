@@ -30,9 +30,7 @@ namespace BazisGUI
                 else
                 {
                     //CreatedMeshGroupEvent?.Invoke(this, spbSelectObject.ToolTipText);
-                    var objTypeStr = SelectedObjects;
-                    var selObjs = GetModelObjects(SelectedObjects).
-                        Where(x => x.Color == settingsConfig.SelectObjectColor);
+                    var selObjs = project.ModelView.GetSelection().ToList();
 
                     if (selObjs.Count() > 0)
                     {
@@ -61,38 +59,7 @@ namespace BazisGUI
         {
             try
             {
-                var objTypeStr = SelectedObjects;
-
-                var selObjs = GetModelObjects(objTypeStr).
-                    Where(x => x.Color == settingsConfig.SelectObjectColor);
-                //& x.ViewState == true);
-                
-                foreach (var selObj in selObjs)
-                    selObj.ViewState = false;  
-
-
-                var sets = selObjs
-                    .Select(x => project.GetModelSetInfo(x.ObjType,x.Number))
-                    .Distinct(new DefaultSetInfoComparer())
-                    .Where(x => x.NumberOfObjects > 0);
-
-                foreach (var set in sets)
-                {
-                    VBOController.DeleteVBObjects(set.Name);
-                    set.SetBackColor();
-                    if (set.ViewState)
-                    {
-                        var pre = project.CreateModelObjectsPresentor(set);
-                        VBObject vb;
-                        if(TryCreateVBObject(pre, out vb))
-                            VBOController.AddVbo(vb);
-
-                        //var vbo = CreateVBObject(pre);
-                        //VBOController.AddVbo(vbo);
-                    }
-                }
-
-                DisplayObjects();
+                project.ModelView.HideSelected();
             }
             catch (Exception ex)
             {
@@ -104,12 +71,7 @@ namespace BazisGUI
         {
             try
             {
-                foreach (var obj in project.GetAllModelObjects())
-                    obj.ViewState = true;
-
-                VBOController.DeleteAllVBObjects();
-                CreateVBObjects("Объекты");
-                DisplayObjects();
+                project.ModelView.ShowAll();
             }
             catch (Exception ex)
             {
@@ -121,8 +83,7 @@ namespace BazisGUI
         {
             try
             {
-                var objs = GetModelObjects(SelectedObjects);
-                var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
+                var selObjs = project.ModelView.GetSelection().ToList();
 
                 var message = $"{Resources.SceneEvents_Info_Selected} {SelectedObjects}: {selObjs.Count()}";
 
@@ -188,8 +149,7 @@ namespace BazisGUI
                     SelectedObjects == SelectionType.Surfaces)
                     return;
 
-                    var selObjs = GetModelObjects(SelectedObjects)
-                    .Where(x => x.Color == settingsConfig.SelectObjectColor);
+                    var selObjs = project.ModelView.GetSelection().ToList();
 
                 foreach (var item in selObjs)
                     item.ExistState = false;
@@ -200,25 +160,8 @@ namespace BazisGUI
                     CreateVBObjects("Элементы");
                 }
  
-                var sets = selObjs
-                    .Select(x => project.GetModelSetInfo(x.ObjType, x.Number))
-                    .Distinct(new DefaultSetInfoComparer())
-                    .Where(x => x.NumberOfObjects > 0);
-
-                foreach (var set in sets)
-                {
-                    VBOController.DeleteVBObjects(set.Name);
-                    if (set.ViewState)
-                    {
-                        var pre = project.CreateModelObjectsPresentor(set);
-                        var vbo = CreateVBObject(pre);
-                        VBOController.AddVbo(vbo);
-                    }
-                }
-
-                DisplayObjects();
-
                 project.ClearNotExistedModelData();
+                project.ModelView.Prune();
                 //project.ClearEmptySet();
                 //project.ClearNotExistedGroupData();
                 //project.ClearNotExistedCondData();
@@ -246,19 +189,8 @@ namespace BazisGUI
 
         internal void SetBackColorToAllObjects()
         {
-            foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
-            {
-                // Управляем возвратом цвета через контроллер
-                //project?.SetModelObjectsBackColor(type);
-                if(project != null)
-                    foreach (var set in project.GetModelSetsInfo(type))
-                    {
-                        set.SetBackColor();
-                        var pres = project.CreateModelObjectsPresentor(set);
-                        if (pres != null)
-                            SetVBObjectAttribute(pres, "цвет");
-                    }
-            }
+            if (project != null)
+                project.ModelView.ClearSelection();
         }
 
         private void GlControl_KeyDown(object sender, KeyEventArgs e)
@@ -373,13 +305,6 @@ namespace BazisGUI
                     //var sets = project.GetModelSetsInfo(spbSelectObject.ToolTipText);
                     if (SelectByPoint(sets, point, isSelected))
                     {
-                        foreach (var set in sets)
-                        {
-                            var pres = project.CreateModelObjectsPresentor(set);
-                            SetVBObjectAttribute(pres, "цвет");
-                        }
-                        DisplayObjects();
-
                         sceneSelectionChangedAction?.Invoke();
                     }
                 }

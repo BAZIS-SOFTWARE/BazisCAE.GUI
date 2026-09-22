@@ -13,8 +13,7 @@ namespace BazisGUI
         {
             try
             {
-                var objs = project.GetModelObjects(ObjType.Кривая);
-                var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x => x.Number).ToArray();
+                var selObjs = project.ModelView.GetSelected(ObjType.Кривая).ToArray();
                 var s = project.CreateChamfer(selObjs, length, angle, isByAngle, reflected);
                 VBOController.DeleteAllVBObjects();
                 CreateVBObjects("Объекты");

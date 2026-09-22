@@ -116,8 +116,11 @@ namespace BazisGUI
                     if(resFlag)
                     {
                         var objType = Converters.ConvertSelectionTypeToObjType(SelectedObjects);
-                        var pres = project.CreateModelObjectsPresentor(objType);
-                        SetVBObjectAttribute(pres, "цвет");
+                        foreach (var setInfo in project.GetModelSetsInfo(objType))
+                        {
+                            var presenter = project.CreateModelObjectsPresentor(setInfo);
+                            SetVBObjectAttribute(presenter, "цвет");
+                        }
                         DisplayObjects();
                     } 
                 }
@@ -229,21 +232,17 @@ namespace BazisGUI
 
             var uniqueSets = numbers.Select(number => project.GetModelSetInfo(selectType, number)).GroupBy(setInfo => setInfo.Name).Select(g => g.First()).ToList();
 
+            ApplySelectionColor();
             foreach (var setInfo in uniqueSets)
             {
-                foreach (var number in setInfo.GetNumbers())
-                {
-                    var element = project.GetModelObject(selectType, number);
-                    element.Color = GetColor(selectType, number, isSelected);
-                }
-
-                var pres = project.CreateModelObjectsPresentor(setInfo);
-                SetVBObjectAttribute(pres, "цвет");
+                var setNumbers = setInfo.GetNumbers();
+                if (isSelected)
+                    project.ModelView.Select(selectType, setNumbers);
+                else
+                    project.ModelView.Deselect(selectType, setNumbers);
             }
 
-            var selectedCount = selectType == ObjType.Узел
-                ? project.GetAllModelNodes().Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x => x.Number).ToList()
-                : project.GetAllModelElements().Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x => x.Number).ToList();
+            var selectedCount = project.ModelView.GetSelected(selectType).ToList();
 
             console.PrintInfo($"{selectType}, {Resources.AdvaneSelectionSelectedCaption}: {selectedCount}", Color.Black);
             DisplayObjects();
@@ -263,33 +262,17 @@ namespace BazisGUI
             var objType = Converters.ConvertSelectionTypeToObjType(SelectedObjects);
             var scopedNumbers = project.SelectByScope(startDim, numbers, targetDim);
 
-            foreach (var number in scopedNumbers)
-            {
-                var element = project.GetModelObject(objType, number);
+            ApplySelectionColor();
+            if (isSelected)
+                project.ModelView.Select(objType, scopedNumbers);
+            else
+                project.ModelView.Deselect(objType, scopedNumbers);
 
-                element.Color = GetColor(objType, number, isSelected);
-            }
-
-            foreach (var number in numbers)
-            {
-                var setInfo = project.GetModelSetInfo(objType, number);
-                var pres = project.CreateModelObjectsPresentor(setInfo);
-                SetVBObjectAttribute(pres, "цвет");
-            }
-
-            var selectedCount = project.GetAllModelObjects().Count(x => x.Color == settingsConfig.SelectObjectColor);
+            var selectedCount = project.ModelView.SelectedCount;
             
             console.PrintInfo($"{objType}, {Resources.AdvaneSelectionSelectedCaption}: {selectedCount}", Color.Black);
             
             DisplayObjects();
-        }
-
-        private Color GetColor(ObjType objType, int number, bool isSelected)
-        {
-            var color = settingsConfig.SelectObjectColor;
-            if (!isSelected)
-                color = project.GetModelSetInfo(objType, number).Color;
-            return color;
         }
 
         private List<int> SelectE2DInPlane(List<int> selectedE2D, float angle)

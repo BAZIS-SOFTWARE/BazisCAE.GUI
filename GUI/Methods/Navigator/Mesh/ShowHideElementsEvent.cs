@@ -41,15 +41,7 @@ namespace BazisGUI
 
         public void NewMethod1(ISetInfo item, bool state)
         {  
-            VBOController.DeleteVBObjects(item.Name);
-
-            item.SetViewState(state);
-            if (state)
-            {
-                var pre = project.CreateModelObjectsPresentor(item);
-                var vbo = CreateVBObject(pre);
-                VBOController.AddVbo(vbo);
-            }
+            project.ModelView.SetVisible(item.ObjType, item.GetNumbers(), state);
 
         }
     }

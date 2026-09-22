@@ -25,11 +25,8 @@ namespace BazisGUI
             {
                 set = project.GetModelSetInfo(ObjType.Поверхность, ObjType.Поверхность.ToString());
 
-                foreach (var item in project.GetModelVolumes())
-                {
-                    foreach (var surface in item.GetSurfaceFigures())
-                        surface.ViewState = viewState;
-                }
+                var numbers = set.GetNumbers();
+                project.ModelView.SetVisible(set.ObjType, numbers, viewState);
             }
             else
             {
@@ -40,22 +37,12 @@ namespace BazisGUI
                 //}
                 //var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
                 set = project.GetModelSetInfo(objType, setName);
-                set.SetViewState(viewState);
-                set.SetBackColor();
+                var numbers = set.GetNumbers();
+                project.ModelView.SetVisible(objType, numbers, viewState);
             }
             // Сделать выключение vbo не получиться. Потеряется синхронизация.
             //VBOController.SwitchVBObject(setName, viewState);
 
-            VBOController.DeleteVBObjects(set.Name);
-
-            if (viewState)
-            {    
-                var pres = project.CreateModelObjectsPresentor(set);
-                var vb = CreateVBObject(pres);
-                VBOController.AddVbo(vb);
-            }
-
-            DisplayObjects();
         }
     }
 }

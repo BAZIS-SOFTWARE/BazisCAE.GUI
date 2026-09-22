@@ -29,16 +29,13 @@ namespace BazisGUI
 
                 PresentMeshData();
 
-                project.SetModelObjectsBackColor(objType);
+                project.ModelView.ClearSelection();
                 VBOController.DeleteVBObjects(slaveSet);
                 VBOController.DeleteVBObjects(masterSet);
 
                 var set = project.GetModelSetInfo(objType, masterSet);
                 var pre = project.CreateModelObjectsPresentor(set);
-                var vbo = CreateVBObject(pre);
-                VBOController.AddVbo(vbo);
-
-                DisplayObjects();
+                RefreshModelSetBuffer(set);
             }
             catch (Exception ex)
             {

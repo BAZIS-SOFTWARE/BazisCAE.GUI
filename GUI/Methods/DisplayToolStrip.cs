@@ -4,6 +4,7 @@ using BazisGUI.Scene.VBO;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
 using Model.Interfaces.ObjectsCollections;
+using OperationalController;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -37,23 +38,16 @@ namespace BazisGUI
         {
             try
             {
-                foreach (var item in project.GetModelSetsInfo(ObjType.Поверхность))
-                    item.SetViewMode(arg2);
-                foreach (var item in project.GetModelSetsInfo(ObjType.Элемент2D))
-                    item.SetViewMode(arg2);
-                foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
-                    item.SetViewMode(arg2);
-
-                var vbobjs = VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle);
-
-                foreach (var obj in vbobjs)
-                    if (arg2 == ViewMode.Line)
-                        obj.ViewMode = Scene.Interfaces.ObjView.Lines;
-                    else if (arg2 == ViewMode.LineSurface)
-                        obj.ViewMode = Scene.Interfaces.ObjView.LinesSurface;
-                    else obj.ViewMode = Scene.Interfaces.ObjView.Surface;
-
-                DisplayObjects();
+                var modelView = project.ModelView;
+                using (modelView.BeginUpdate())
+                {
+                    foreach (var item in project.GetModelSetsInfo(ObjType.Поверхность))
+                        modelView.SetViewMode(item, arg2);
+                    foreach (var item in project.GetModelSetsInfo(ObjType.Элемент2D))
+                        modelView.SetViewMode(item, arg2);
+                    foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
+                        modelView.SetViewMode(item, arg2);
+                }
             }
             catch (Exception ex)
             {
@@ -76,7 +70,7 @@ namespace BazisGUI
                     {
                         var elemsNormals = project.CalcElemsNormals(3);
 
-                        var linePresenter = presentersCreator.CreateLineObjectsPresenter(elemsNormals);
+                        var linePresenter = presentersCreator.CreateLineObjectsPresenter(elemsNormals.ToList(), Color.DarkGray);
                         linePresenter.Name = "Normals";
                         var vbo = CreateVBObject(linePresenter);
                         VBOController.AddVbo(vbo);

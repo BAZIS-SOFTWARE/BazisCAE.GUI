@@ -44,33 +44,12 @@ namespace BazisGUI
 
         public void ChangeInsideObjects(bool flag)
         {
-            project.ChangeInsideSurfacesState(flag);
-            
-            foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
-            {
-                if(item.ViewState)
-                {
-                    VBOController.DeleteVBObjects(item.Name);
-                    var presenter = project.CreateModelObjectsPresentor(item);
-
-                    // тут введем проверку возможности создать vbo объект. Это необходимо в случае если у нас набор 3д
-                    // находится внутри другого набора. 
-                    VBObject vbo;
-                    if (TryCreateVBObject(presenter, out vbo))
-                        VBOController.AddVbo(vbo);
-
-                    //var vbo = CreateVBObject(presenter);
-                    //VBOController.AddVbo(vbo);
-                }
-
-            }
+            project.ModelView.HideInsideSurfaces = !flag;
 
             if (!flag)
                 console.PrintInfo(Resources.ShowInsideObjects_HideInnerObjects_Message, Color.Black);
             else
                 console.PrintInfo(Resources.ShowInsideObjects_ShowAllObjects_Message, Color.Black);
-
-            DisplayObjects();
         }
     }
 }

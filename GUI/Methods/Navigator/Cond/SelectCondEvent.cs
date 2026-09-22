@@ -54,28 +54,8 @@ namespace BazisGUI
 
                 propertiesPanel.DrawTable(rows);
 
-                foreach (var item in project.GetAllModelSetsInfo()) // возврат цвета всем объектам, которые были выделены
-                    item.SetBackColor();
-
-                ColorObjects("Объекты"); // возврат цвета всем объектам уже на сцене
-
-                /*
-                 * TO DO в целях инкапсуляции: 
-                 * Group.SetBackColor(Color color);
-                 */
-                
-                foreach (var obj in data.Group) // закраска объектов в выделяемой группе
-                    obj.Color = settingsConfig.SelectGroupColor;
-
-
-                foreach (var set in data.Group.Select(x => project.
-                GetModelSetInfo(x.ObjType, x.Number)).
-                Distinct(new DefaultSetInfoComparer()))
-                {
-                    var pres = project.CreateModelObjectsPresentor(set);
-                    SetVBObjectAttribute(pres, "цвет");
-                }
-                DisplayObjects();
+                project.ModelView.SelectionColor = settingsConfig.SelectGroupColor;
+                project.ModelView.SetSelection(data.Group.ObjType, data.Group.Select(x => x.Number));
 
 
                 checkPlayerControl.StartValue = 0;

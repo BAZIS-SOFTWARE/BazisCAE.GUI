@@ -13,28 +13,17 @@ namespace BazisGUI
         {
             try
             {  
-                foreach (var item in project.GetAllModelSetsInfo()) // возврат цвета всем объектам, которые были выделены
-                    item.SetBackColor();
-                
-                ColorObjects("Объекты"); // возврат цвета всем объектам уже на сцене
-
-                /*
-                 * TO DO в целях инкапсуляции: 
-                 * Group.SetBackColor(Color color);
-                 */
                 var group = project.GetModelGroup(grIndex); // закраска объектов в выделяемой группе
-                foreach (var obj in group)
-                    obj.Color = settingsConfig.SelectGroupColor;
-
-
-                foreach (var set in group.Select(x => project.
-                GetModelSetInfo(x.ObjType, x.Number)).
-                Distinct(new DefaultSetInfoComparer()))
+                project.ModelView.SelectionColor = settingsConfig.SelectGroupColor;
+                using (project.ModelView.BeginUpdate())
                 {
-                    var pres = project.CreateModelObjectsPresentor(set);
-                    SetVBObjectAttribute(pres, "цвет");
-                }          
-                DisplayObjects();
+                    project.ModelView.ClearSelection();
+                    foreach (var objType in group.Select(x => x.ObjType).Distinct())
+                    {
+                        var numbers = group.Where(x => x.ObjType == objType).Select(x => x.Number);
+                        project.ModelView.Select(objType, numbers);
+                    }
+                }
 
                 var rows = GetGroupProperty(group);
                 propertiesPanel.DrawTable(rows);

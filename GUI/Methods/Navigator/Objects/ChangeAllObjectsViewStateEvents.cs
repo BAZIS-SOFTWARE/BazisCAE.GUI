@@ -41,20 +41,8 @@ namespace BazisGUI
                 foreach (var type in types)
                 {
                     foreach (var set in project.GetModelSetsInfo(type))
-                    {
-                        set.SetViewState(state);
-                        VBOController.DeleteVBObjects(set.Name);
-
-                        if (set.ViewState)
-                        {
-                            var pre = project.CreateModelObjectsPresentor(set);
-                            var vbo = CreateVBObject(pre);
-                            VBOController.AddVbo(vbo);
-                        }
-                    }
+                        project.ModelView.SetVisible(type, set.GetNumbers(), state);
                 }
-
-                DisplayObjects();
 
             }
             catch (Exception ex)

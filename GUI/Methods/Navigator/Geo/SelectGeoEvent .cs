@@ -99,18 +99,17 @@ namespace BazisGUI
                 {
                     var curveNumbers = new List<int>();
                     foreach (var curve in project.GetModelObjects(ObjType.Кривая))
-                        if (curve.ViewState)
+                        if (project.ModelView.GetVisible(ObjType.Кривая, curve.Number))
                             curveNumbers.Add(curve.Number);
 
                     var points = new List<GeometryPoint>();
                     foreach (var node in project.GetGeometryMeshNodes(1, curveNumbers))
                     {
                         var point = new GeometryPoint(node.Number, node.Position);
-                        point.Color = settingsConfig.SelectObjectColor;
                         points.Add(point);
                     }
 
-                    var presentor = presentersCreator.CreatePointObjectsPresenter(points);
+                    var presentor = presentersCreator.CreatePointObjectsPresenter(points.ToList(), Color.DarkGray);
                     presentor.Name = "transPoints";
                     var vbo = CreateVBObject(presentor);
                     VBOController.AddVbo(vbo);
@@ -133,7 +132,7 @@ namespace BazisGUI
 
             foreach (var item in project.GetModelObjects(objType))
             {
-                if(item.ViewState)
+                if (project.ModelView.GetVisible(item.ObjType, item.Number))
                 {
                     var point = objType == ObjType.Точка 
                         ? item.CalcCentr() 
@@ -157,7 +156,7 @@ namespace BazisGUI
             {
                 var obj = project.GetModelObject(objType, item);
 
-                if (obj.ViewState)
+                if (project.ModelView.GetVisible(obj.ObjType, obj.Number))
                 {
                     var point = objType == ObjType.Точка 
                         ? obj.CalcCentr() 
@@ -175,7 +174,7 @@ namespace BazisGUI
         {
             foreach (var item in project.GetModelVolumes())
             {
-                if (item.GetSurfaceFigures().Any(x => x.ViewState))
+                if (item.GetSurfaceFigures().Any(x => project.ModelView.GetVisible(ObjType.Поверхность, x.Number)))
                 {
                     var point = GetCenterOfGeometryEntity(3, item.Number);
                     //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
@@ -204,7 +203,7 @@ namespace BazisGUI
         {
             foreach (var curve in project.GetModelObjects(ObjType.Кривая))
             {
-                if (curve.ViewState)
+                if (project.ModelView.GetVisible(ObjType.Кривая, curve.Number))
                 {
                     var settings = project.GetCurveMeshingSettings(curve.Number);
 

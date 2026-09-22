@@ -10,15 +10,7 @@ namespace BazisGUI
             try
             {
                 foreach (var group in project.GetAllModelGroups())
-                {
-                    foreach (var iobj in group)
-                    {
-                        iobj.ViewState = false;
-                    }
-                }
-                VBOController.DeleteAllVBObjects();
-                CreateVBObjects("Объекты");
-                DisplayObjects();
+                    ChangeGroupViewState(group, false);
             }
             catch (Exception ex)
             {
@@ -33,15 +25,7 @@ namespace BazisGUI
             try
             {
                 foreach (var group in project.GetAllModelGroups())
-                {
-                    foreach (var iobj in group)
-                    {
-                        iobj.ViewState = true;
-                    }
-                }
-                VBOController.DeleteAllVBObjects();
-                CreateVBObjects("Объекты");
-                DisplayObjects();
+                    ChangeGroupViewState(group, true);
             }
             catch (Exception ex)
             {

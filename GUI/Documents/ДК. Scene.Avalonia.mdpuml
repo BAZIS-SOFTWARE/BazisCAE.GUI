@@ -1,0 +1,439 @@
+﻿@startuml
+
+title Перевод рендеринга 3D-сцены BazisGUI на Avalonia\nЦелевые платформы: Windows и Linux. Хост — Avalonia OpenGlControlBase (WGL / GLX)\nПояснения к классам, этапы и ограничения — scene.avalonia.md
+
+hide empty members
+skinparam classAttributeIconSize 0
+skinparam nodesep 20
+skinparam ranksep 45
+
+legend top left
+  <b>Стереотипы</b>
+  <<new>>      — создать с нуля
+  <<rewrite>>  — переписать из partial-методов BaseForm
+  <<reuse>>    — существующий класс, меняется мало или не меняется
+  <<x-plat>>   — обязателен для Linux, снимает зависимость от Win32 API
+  <<temp>>     — временный, удаляется вместе с WinForms-оболочкой
+  <<win>>      — работает только на Windows
+  <<drop>>     — удаляется
+end legend
+
+' =====================================================================
+package "BazisGUI/Scene/Core — отдельная сборка net8.0, без WinForms и Avalonia" {
+
+  interface ISceneControl <<reuse>> {
+    + Initialization() : void
+    + GetCamera() : ISceneCamera
+    + DisplayObjects() : void
+    + FitObjectsToScreen() : void
+    + GetVBObjs() : IEnumerable<IVBObject>
+  }
+
+  class SceneController <<rewrite>> {
+    - camera : ISceneCamera
+    - renderer : ISceneRenderer
+    - input : SceneInputController
+    - picker : ScenePicker
+    - layers : SceneLayerCollection
+    - settings : SceneRenderSettings
+    - vboController : VBOController
+    + {event} RenderRequested : Action
+    + {event} SelectionChanged : EventHandler<SelectObjectsEventArgs>
+    + {event} InfoRequested : EventHandler<InfoObjectsEventArgs>
+    + Initialization() : void
+    + DisplayObjects() : void
+    + FitObjectsToScreen() : void
+    + SetRotationCentre(modelPoint : Point3D) : void
+    + GetVBObjs() : IEnumerable<IVBObject>
+  }
+
+  ' ---------------- камера ----------------
+  interface ISceneCamera <<reuse>>
+
+  class SceneCamera <<new>> {
+    - viewMatrix : Matrix<float>
+    - position : Point3D
+    - viewport : Viewport
+    + AngleOfProjection : float
+    + ScaleFactor : float
+    + GetViewMatrix() : Matrix<float>
+    + SetViewMatrix(matrix : Matrix<float>) : void
+    + Move(from : Point2D, to : Point2D, scaleFactor : float) : void
+    + Rotate(axis : ViewAxis, angle : float) : void
+    + Rotate(dx : float, dy : float, axis : ViewAxis, angle : float) : void
+    + SetOnPlane(plane : ViewPlane, scaleFactor : float) : void
+    + GetSceenCoord(point : Point3D) : Point3D
+    + GetScreenCoord(coord : Point3D) : Point2D
+    + GetSceneCoordOfScreenVector(x : float, y : float) : Point3D
+  }
+
+  class CameraProjection <<new>> {
+    + Projection : ViewProjection
+    + Near : float
+    + Far : float
+    + GetProjectionMatrix(viewport : Viewport, distance : float) : Matrix<float>
+  }
+
+  class Viewport <<new,struct>> {
+    + Width : int
+    + Height : int
+    + Scaling : double
+    + AspectRatio : float
+  }
+
+  ' ---------------- рендер ----------------
+  interface ISceneRenderer <<new>> {
+    + Render(context : IRenderContext) : void
+  }
+
+  class SceneRenderer <<rewrite>> {
+    - layers : SceneLayerCollection
+    - vboController : VBOController
+    - transparency : AverageColorRenderer
+    - clipper : Advanced3DClipper
+    + Render(context : IRenderContext) : void
+    - DrawModelObjects(context : IRenderContext) : void
+  }
+
+  interface IRenderContext <<new>> {
+    + Camera : ISceneCamera
+    + Viewport : Viewport
+    + Settings : SceneRenderSettings
+    + TargetFramebuffer : int
+  }
+
+  class GlRenderContext <<new>>
+
+  class SceneRenderSettings <<new>> {
+    + BackGroundColor : Color
+    + SelectionColor : Color
+    + IsLighting : bool
+    + IsBlending : bool
+    + IsCutting : bool
+    + IsClipPlane : bool
+    + DisplayBasis : bool
+    + DisplayCompass : bool
+    + LighterPosition : Point2D
+  }
+
+  ' ---------------- слои ----------------
+  interface ISceneLayer <<new>> {
+    + Name : string
+    + Order : int
+    + IsVisible : bool
+    + Draw(context : IRenderContext) : void
+  }
+
+  class SceneLayerCollection <<new>> {
+    + Add(layer : ISceneLayer) : void
+    + Remove(name : string) : bool
+    + GetOrdered() : IEnumerable<ISceneLayer>
+  }
+
+  class BasisLayer <<rewrite>>
+  class CompassLayer <<rewrite>>
+  class RotationPointLayer <<rewrite>>
+  class ModelObjectsLayer <<rewrite>>
+  class GeometryObjectsLayer <<rewrite>>
+  class ClipPlaneLayer <<rewrite>>
+  class ReflectionPlaneLayer <<rewrite>>
+  class SceneScaleLayer <<rewrite>>
+  class TextLayer <<rewrite>>
+  class SelectionRectangleLayer <<rewrite>>
+
+  ' ---------------- текст ----------------
+  interface ISceneTextRenderer <<new>> {
+    + SetFont(family : string, size : float) : void
+    + DrawText3D(label : TextLabel, context : IRenderContext) : void
+    + DrawText2D(label : TextLabel, context : IRenderContext) : void
+  }
+
+  class WglBitmapFontTextRenderer <<new,temp,win>> {
+    - fontBase : int
+    - deviceContext : IntPtr
+  }
+
+  class SkiaGlyphAtlasTextRenderer <<new,x-plat>> {
+    - atlas : GlyphAtlas
+  }
+
+  class GlyphAtlas <<new,x-plat>> {
+    - texture : int
+    + Build(family : string, size : float) : void
+    + GetGlyph(symbol : char) : GlyphMetrics
+  }
+
+  class TextLabel <<new>> {
+    + Text : string
+    + Color : Color
+    + Position3D : Point3D
+    + Position2D : Point2D
+    + IsScreenSpace : bool
+  }
+
+  class TextLabelCollection <<new>>
+
+  ' ---------------- примитивы ----------------
+  interface IQuadricMeshFactory <<new>> {
+    + CreateCylinder(baseR : double, topR : double, height : double) : VBObject
+    + CreateSphere(radius : double) : VBObject
+    + CreateCone(baseR : double, height : double) : VBObject
+  }
+
+  class QuadricMeshFactory <<new,x-plat>>
+
+  ' ---------------- ввод ----------------
+  class SceneInputController <<rewrite>> {
+    - camera : ISceneCamera
+    - picker : ScenePicker
+    - rubberBand : RubberBandSelection
+    + OnPointerPressed(args : SceneMouseEventArgs) : void
+    + OnPointerMoved(args : SceneMouseEventArgs) : void
+    + OnPointerReleased(args : SceneMouseEventArgs) : void
+    + OnWheelChanged(args : SceneMouseEventArgs) : void
+    + OnKeyDown(args : SceneKeyEventArgs) : void
+  }
+
+  class SceneMouseEventArgs <<new>> {
+    + Position : Point2D
+    + Button : SceneMouseButton
+    + Modifiers : SceneModifierKeys
+    + Delta : int
+  }
+
+  class SceneKeyEventArgs <<new>>
+
+  enum SceneMouseButton <<new>> {
+    None
+    Left
+    Middle
+    Right
+  }
+
+  enum SceneModifierKeys <<new>> {
+    None
+    Shift
+    Control
+    Alt
+  }
+
+  class RubberBandSelection <<new>>
+
+  ' ---------------- выбор ----------------
+  class ScenePicker <<rewrite>> {
+    - camera : ISceneCamera
+    + SelectByPoint(sets : IEnumerable<ISetInfo>, point : Point2D, isSelected : bool) : bool
+    + SelectByRect(sets : IEnumerable<ISetInfo>, box : RectangleBox, isSelected : bool) : void
+    - IsObjectSelected(point : Point2D, objType : ObjType, scrPoints : List<Point2D>) : bool
+  }
+
+  interface IFrameGrabber <<new>> {
+    + Capture(viewport : Viewport) : byte[]
+  }
+
+  class GlFrameGrabber <<new,x-plat>>
+}
+
+' =====================================================================
+package "BazisGUI/Scene — существующий GL-слой (переиспользуется)" {
+  class VBOController <<reuse>>
+  interface IVBObject <<reuse>>
+  class VBObject <<reuse>>
+  class AverageColorRenderer <<reuse>>
+  class Advanced3DClipper <<reuse>>
+  class ClipPlaneRenderer <<reuse>>
+  class ScreenRectangle <<reuse>>
+  class SceneScale <<reuse>>
+}
+
+' =====================================================================
+package "BazisGUI/AvaloniaUI/Scene — хост сцены" {
+
+  class SceneView <<new>> {
+    <<Avalonia OpenGlControlBase>>
+    - controller : SceneController
+    - bindings : AvaloniaGlBindingsContext
+    # OnOpenGlInit(gl : GlInterface) : void
+    # OnOpenGlRender(gl : GlInterface, fb : int) : void
+    # OnOpenGlDeinit(gl : GlInterface) : void
+    # OnOpenGlLost() : void
+    # OnPointerPressed(e : PointerPressedEventArgs) : void
+    # OnPointerMoved(e : PointerEventArgs) : void
+    # OnPointerWheelChanged(e : PointerWheelEventArgs) : void
+    + RequestNextFrameRendering() : void
+  }
+
+  class AvaloniaGlBindingsContext <<new>> {
+    <<OpenTK.IBindingsContext>>
+    + GetProcAddress(name : string) : IntPtr
+  }
+
+  class GlPlatformConfigurator <<new>> {
+    + Configure(builder : AppBuilder) : AppBuilder
+    - ApplyWin32(builder : AppBuilder) : AppBuilder
+    - ApplyX11(builder : AppBuilder) : AppBuilder
+  }
+
+  class SceneViewModel <<new>> {
+    + Projection : ViewProjection
+    + BackGroundColor : Color
+    + IsLighting : bool
+    + IsBlending : bool
+    + IsCutting : bool
+    + DisplayBasis : bool
+    + DisplayCompass : bool
+    + ScaleFactor : float
+    + FitToScreenCommand : IRelayCommand
+    + SetPlaneCommand : IRelayCommand<ViewPlane>
+    + RotateCommand : IRelayCommand<ViewAxis>
+  }
+
+  class SceneToolbarViewModel <<rewrite>>
+  class SceneContextMenuViewModel <<rewrite>>
+  class SceneColorConverter <<new>>
+  class SceneView_axaml <<new>> {
+    <<View>>
+  }
+}
+
+' =====================================================================
+package "BazisGUI/AvaloniaUI — оболочка" {
+  class AvaloniaHost <<reuse>> {
+    <<static>>
+    + Initialize() : void
+    + Post(action : Action) : void
+  }
+
+  class MainWindow <<new>> {
+    <<Avalonia Window>>
+  }
+  class MainWindowViewModel <<new>> {
+    + Scene : SceneViewModel
+    + Navigator : NavigatorViewModel
+    + Properties : PropertiesPanelViewModel
+    + Console : ConsoleViewModel
+    + Masters : MasterAreaViewModel
+  }
+  class NavigatorViewModel <<rewrite>>
+  class PropertiesPanelViewModel <<rewrite>>
+  class ConsoleViewModel <<rewrite>>
+  class MasterAreaViewModel <<new>>
+  interface IAvaloniaMaster <<reuse>>
+}
+
+' =====================================================================
+package "WinForms — снимается" {
+  class BaseForm <<rewrite>> {
+    <<Form>>
+    - sceneController : SceneController
+    - sceneHost : WinFormsSceneHost
+  }
+  class "OpenTK.GLControl.GLControl" as GLControl <<drop>>
+  class WinFormsSceneHost <<new,temp,win>> {
+    <<WinFormsAvaloniaControlHost>>
+  }
+  class AvaloniaMasterHost <<temp,win>>
+  class TabButtonControlService <<temp,win>>
+  class PlatformSpecific <<drop>> {
+    <<static>>
+  }
+  class Gle <<drop>>
+}
+
+' =====================================================================
+' связи ядра
+ISceneControl <|.. SceneController
+ISceneCamera <|.. SceneCamera
+ISceneRenderer <|.. SceneRenderer
+IRenderContext <|.. GlRenderContext
+ISceneTextRenderer <|.. WglBitmapFontTextRenderer
+ISceneTextRenderer <|.. SkiaGlyphAtlasTextRenderer
+SkiaGlyphAtlasTextRenderer *-- GlyphAtlas
+IQuadricMeshFactory <|.. QuadricMeshFactory
+IFrameGrabber <|.. GlFrameGrabber
+
+ISceneLayer <|.. BasisLayer
+ISceneLayer <|.. CompassLayer
+ISceneLayer <|.. RotationPointLayer
+ISceneLayer <|.. ModelObjectsLayer
+ISceneLayer <|.. GeometryObjectsLayer
+ISceneLayer <|.. ClipPlaneLayer
+ISceneLayer <|.. ReflectionPlaneLayer
+ISceneLayer <|.. SceneScaleLayer
+ISceneLayer <|.. TextLayer
+ISceneLayer <|.. SelectionRectangleLayer
+
+SceneController *-- SceneCamera
+SceneController *-- SceneRenderer
+SceneController *-- SceneInputController
+SceneController *-- ScenePicker
+SceneController *-- SceneLayerCollection
+SceneController *-- SceneRenderSettings
+SceneController --> VBOController : использует
+SceneController --> IFrameGrabber : использует
+
+SceneCamera *-- CameraProjection
+SceneCamera *-- Viewport
+
+SceneRenderer --> SceneLayerCollection : порядок отрисовки
+SceneRenderer --> IRenderContext : создаёт
+SceneRenderer --> AverageColorRenderer : прозрачность
+SceneRenderer --> Advanced3DClipper : сечение
+SceneRenderer --> VBOController : GetVBObjs()
+
+SceneLayerCollection o-- ISceneLayer
+GlRenderContext --> Viewport
+GlRenderContext --> SceneRenderSettings
+GlRenderContext --> ISceneCamera
+
+TextLayer --> ISceneTextRenderer : рисует через
+TextLayer o-- TextLabelCollection
+TextLabelCollection o-- TextLabel
+BasisLayer --> IQuadricMeshFactory : использует
+CompassLayer --> IQuadricMeshFactory : использует
+SelectionRectangleLayer --> ScreenRectangle
+SceneScaleLayer --> SceneScale
+ClipPlaneLayer --> ClipPlaneRenderer
+
+SceneInputController --> ISceneCamera : управляет
+SceneInputController --> ScenePicker : вызывает
+SceneInputController *-- RubberBandSelection
+SceneInputController ..> SceneMouseEventArgs
+SceneInputController ..> SceneKeyEventArgs
+SceneMouseEventArgs --> SceneMouseButton
+SceneMouseEventArgs --> SceneModifierKeys
+ScenePicker --> ISceneCamera : проецирует координаты
+
+' существующий GL-слой
+IVBObject <|.. VBObject
+VBOController *-- VBObject
+
+' хост
+SceneView *-- AvaloniaGlBindingsContext
+SceneView --> SceneController : владеет
+SceneView --> SceneViewModel : DataContext
+SceneView ..> SceneMouseEventArgs : транслирует ввод
+SceneView_axaml ..> SceneViewModel : Binding / Command
+SceneViewModel --> SceneController : команды
+SceneToolbarViewModel --> SceneViewModel
+SceneContextMenuViewModel --> SceneController
+AvaloniaHost --> GlPlatformConfigurator : настраивает AppBuilder
+
+' оболочка
+MainWindow --> MainWindowViewModel : DataContext
+MainWindowViewModel *-- SceneViewModel
+MainWindowViewModel *-- NavigatorViewModel
+MainWindowViewModel *-- PropertiesPanelViewModel
+MainWindowViewModel *-- ConsoleViewModel
+MainWindowViewModel *-- MasterAreaViewModel
+MasterAreaViewModel --> IAvaloniaMaster
+
+' временная связка с WinForms
+BaseForm *-- SceneController
+BaseForm *-- WinFormsSceneHost
+WinFormsSceneHost --> SceneView : размещает
+BaseForm ..> GLControl : удаляется
+BaseForm ..> PlatformSpecific : удаляется
+TabButtonControlService ..> AvaloniaMasterHost
+
+@enduml

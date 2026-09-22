@@ -15,7 +15,7 @@ namespace BazisGUI
         public void CreateClipPlane()
         {
             BoundingBox current = null;
-            foreach(var set in project.GetModelSetsInfo(Model.Interfaces.ObjType.Элемент3D).Where(v => v.ViewState))
+            foreach(var set in project.GetModelSetsInfo(Model.Interfaces.ObjType.Элемент3D).Where(v => GetVisibleNumbers(v).Any()))
             {
                 var vbo = VBOController.FindVBObj(set.Name);
                 if (vbo != null)

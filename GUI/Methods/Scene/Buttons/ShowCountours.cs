@@ -28,7 +28,7 @@ namespace BazisGUI
             //Select(x => (ISurfaceElement)x);
                     var linesNodes = project.FindBoundaryEdges();
                     var edges = project.CreateBoundaryEdges(linesNodes);
-                    var linePresenter = presentersCreator.CreateLineObjectsPresenter(edges);
+                    var linePresenter = presentersCreator.CreateLineObjectsPresenter(edges.ToList(), Color.DarkGray);
                     linePresenter.Name = "Boundary";
                     var vbo = CreateVBObject(linePresenter);
                     VBOController.AddVbo(vbo);

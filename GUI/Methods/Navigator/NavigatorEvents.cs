@@ -45,7 +45,8 @@ namespace BazisGUI
                 ClearAllDataOnScene();
 
                 foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-                    CreateVBObject(project.CreateModelObjectsPresentor(item));
+                    foreach (var setInfo in project.GetModelSetsInfo(item))
+                        CreateVBObject(project.CreateModelObjectsPresentor(setInfo));
 
                 DisplayObjects();
             }

@@ -64,10 +64,7 @@ namespace BazisGUI
             var set = project?.GetModelSetsInfo(objType).FirstOrDefault();
             if (set == null)
                 return;
-            set.SetBackColor();
-            var pres = project?.CreateModelObjectsPresentor(set);
-            if (pres != null)
-                SetVBObjectAttribute(pres, "цвет");
+            project.ModelView.ClearSelection(objType);
         }
     }
 }

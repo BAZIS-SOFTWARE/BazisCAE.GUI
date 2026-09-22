@@ -39,8 +39,9 @@ namespace BazisGUI
             var message = @$"{Resources.BasePage_CreateSurfaceAsync_AsyncContainer_Message}";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var pointObjs = project.GetModelObjects(objType);
-                var selObjs = pointObjs.Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
+                var selObjs = project.ModelView.GetSelection()
+                    .Where(x => x.ObjType == objType)
+                    .ToArray();
 
                 if (selObjs.Length < 3)
                 {

@@ -38,11 +38,11 @@ namespace BazisGUI
         {         
             foreach (var setInfo in project.GetModelSetsInfo(objType))
             {
-                if (setInfo.NumberOfObjects > 0 && setInfo.ViewState)
+                if (setInfo.NumberOfObjects > 0)
                 {
                     var pre = project.CreateModelObjectsPresentor(setInfo);
-                    var vbo = CreateVBObject(pre);
-                    VBOController.AddVbo(vbo);
+                    if (TryCreateVBObject(pre, out var vbo))
+                        VBOController.AddVbo(vbo);
                 }
             }
         }

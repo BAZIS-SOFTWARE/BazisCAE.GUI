@@ -49,8 +49,8 @@ namespace BazisGUI
                 // выбор объектов
                 await SelectContainerAsync(Resources.CreatePlot_BuildGraph_SelectContainerAsync_SelectNodes_Message);
 
-                var nodes = project.GetModelObjects(ObjType.Узел).
-                    Where(x => x.Color == settingsConfig.SelectObjectColor);
+                var nodes = project.ModelView.GetSelected(ObjType.Узел)
+                    .Select(number => project.GetModelObject(ObjType.Узел, number));
 
                 if (nodes.Count() == 0)
                     throw new Exception(Resources.Result_BuildDiagram_NoNodesSelectedException);

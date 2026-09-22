@@ -23,18 +23,14 @@ namespace BazisGUI
             {
                 ClearAllDataOnScene();
 
-                foreach (var item in coincidentNodes)
-                    item.ForEach(x => project.GetModelObject(ObjType.Узел, x).
-                    Color = settingsConfig.SelectObjectColor);
+                var numbers = coincidentNodes.SelectMany(x => x).ToList();
+                ApplySelectionColor();
+                project.ModelView.SetSelection(ObjType.Узел, numbers);
 
                 //var ndSet = project.GetModelSetsInfo(ObjType.Узел).First();
                 //var pres = project.CreateModelObjectsPresentor(ndSet);
                 //SetVBObjectAttribute(pres, "цвет");
 
-                var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
-                var vbo = CreateVBObject(pres);
-                VBOController.AddVbo(vbo);
-                DisplayObjects();
             }));
             var actConfirm = new Func<Tuple<bool, object>>(() =>
             {

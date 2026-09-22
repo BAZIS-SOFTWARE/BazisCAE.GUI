@@ -208,12 +208,10 @@ namespace BazisGUI
 
         private void RefreshGeometry(ObjType objType)
         {
-            VBOController.DeleteVBObjects(objType.ToString());
+            foreach (var setInfo in project.GetModelSetsInfo(objType))
+                VBOController.DeleteVBObjects(setInfo.Name);
 
-            var presenter = project.CreateModelObjectsPresentor(objType);
-            var vbObject = CreateVBObject(presenter);
-
-            VBOController.AddVbo(vbObject);
+            CreateVBObjsByObjsType(objType);
         }
 
         private void PresentExtrude()

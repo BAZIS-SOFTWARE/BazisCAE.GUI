@@ -59,18 +59,13 @@ namespace BazisGUI
 
                 if (obj != null)
                 {
-                    foreach (var item in project.GetModelSetsInfo(objType))
-                        item.SetViewState(false);
-                    obj.ViewState = true;
+                    using (project.ModelView.BeginUpdate())
+                    {
+                        foreach (var item in project.GetModelSetsInfo(objType))
+                            project.ModelView.SetVisible(objType, item.GetNumbers(), false);
 
-                    var set = project.GetModelSetInfo(objType, ((int)number));
-                    var pres = project.CreateModelObjectsPresentor(set);
-                    var vbo = CreateVBObject(pres);
-
-                    ClearAllDataOnScene();
-
-                    VBOController.AddVbo(vbo);
-                    DisplayObjects();
+                        project.ModelView.SetVisible(objType, [(int)number], true);
+                    }
                 }
                 else
                     console.PrintInfo(Resources.ConsoleEvents_ConsoleInEvent_ObjectNotFound_Message, Color.Orange);
@@ -94,17 +89,9 @@ namespace BazisGUI
             {
                 // TO DO потом можно поискать способ более быстрый и
                 // технологичный для отображения найденных элементов
-                foreach (var item in findElmems)
-                    item.Color = settingsConfig.SelectObjectColor;
-
-                foreach (var set in findElmems.Select(x => project.
-                GetModelSetInfo(x.ObjType, x.Number)).
-                Distinct(new DefaultSetInfoComparer()))
-                {
-                    var pres = project.CreateModelObjectsPresentor(set);
-                    SetVBObjectAttribute(pres, "цвет");
-                }
-                DisplayObjects();
+                var numbers = findElmems.Select(x => x.Number).ToList();
+                ApplySelectionColor();
+                project.ModelView.SetSelection(ObjType.Элемент3D, numbers);
             }
             Invoke(new Action(() => { console.PrintInfo($"{Resources.ConsoleEvents_ConsoleInEvent_ObjectFound_Message} {findElmems.Count()} {Resources.ConsoleEvents_ConsoleInEvents_VolumeElements_Message}", Color.Black); }));
         }
@@ -179,8 +166,11 @@ namespace BazisGUI
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
-                var pres = project.CreateModelObjectsPresentor(item);
-                SetVBObjectAttribute(pres, "координаты");
+                foreach (var setInfo in project.GetModelSetsInfo(item))
+                {
+                    var pres = project.CreateModelObjectsPresentor(setInfo);
+                    SetVBObjectAttribute(pres, "координаты");
+                }
             }
             DisplayObjects();
         }

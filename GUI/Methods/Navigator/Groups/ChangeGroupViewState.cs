@@ -10,25 +10,14 @@ namespace BazisGUI
         private void ChangeGroupViewState(IGroup group, bool viewState)
         {
             // TO DO сделать метод group.HideObjects() в целях инкапсуляции
-            foreach (var iobj in group)
-                iobj.ViewState = viewState;
-
-
-            foreach (var set in group.Select(x => project.
-            GetModelSetInfo(x.ObjType, x.Number)).
-            Distinct(new DefaultSetInfoComparer()))
+            using (project.ModelView.BeginUpdate())
             {
-                VBOController.DeleteVBObjects(set.Name);
-
-                if(set.ViewState)
+                foreach (var objType in group.Select(x => x.ObjType).Distinct())
                 {
-                    var pres = project.CreateModelObjectsPresentor(set);
-                    var vb = CreateVBObject(pres);
-                    VBOController.AddVbo(vb);
+                    var numbers = group.Where(x => x.ObjType == objType).Select(x => x.Number);
+                    project.ModelView.SetVisible(objType, numbers, viewState);
                 }
             }
-
-            DisplayObjects();
         }
     }
 }

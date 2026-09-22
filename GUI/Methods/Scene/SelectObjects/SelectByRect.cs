@@ -18,13 +18,12 @@ namespace BazisGUI
         {
             var creator = new Hull2DCreator();
             var counter = 0;
-            var numbersSelevtedElement = new List<int>();
+            var selectedNumbers = new Dictionary<Model.Interfaces.ObjType, List<int>>();
             foreach (var set in sets)
             {
-                var changeFlag = false;
                 foreach (var numb in set.GetNumbers())
                 {
-                    if (set.GetViewState(numb))
+                    if (project.ModelView.GetVisible(set.ObjType, numb))
                     {
                         var coords = set.GetCoords(numb);
                         var scrPoints = new HashSet<Point2D>();
@@ -42,22 +41,27 @@ namespace BazisGUI
                         if (selectionFlag)
                         {
                             counter++;
-                            changeFlag = true;
-                            if (isSelected)
+                            if (!selectedNumbers.TryGetValue(set.ObjType, out var numbers))
                             {
-                                set.SetColor(settingsConfig.SelectObjectColor, numb);
-                                numbersSelevtedElement.Add(numb);
+                                numbers = new List<int>();
+                                selectedNumbers.Add(set.ObjType, numbers);
                             }
-                            else
-                                set.SetBackColor(numb);
+
+                            numbers.Add(numb);
                         }
                     }
                 }
+            }
 
-                if(changeFlag)
+            ApplySelectionColor();
+            using (project.ModelView.BeginUpdate())
+            {
+                foreach (var pair in selectedNumbers)
                 {
-                    var pres = project.CreateModelObjectsPresentor(set);
-                    SetVBObjectAttribute(pres, "цвет");
+                    if (isSelected)
+                        project.ModelView.Select(pair.Key, pair.Value);
+                    else
+                        project.ModelView.Deselect(pair.Key, pair.Value);
                 }
             }
             var objStr = Declination(counter);

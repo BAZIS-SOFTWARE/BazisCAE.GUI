@@ -245,11 +245,6 @@ namespace BazisGUI
                 averageColorRenderer.BackgroundColor = settingsConfig.BackGroundColor;
                 averageColorRenderer.IsEnable = settingsConfig.Transparency;
                 averageColorRenderer.IsLighting = settingsConfig.Lighting;//Синхронизация с рендером прозрачности
-                var transpVal = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
-                settingsConfig.SelectObjectColor = Color.FromArgb(transpVal, settingsConfig.SelectObjectColor);
-                settingsConfig.SelectGroupColor = Color.FromArgb(transpVal, settingsConfig.SelectGroupColor);
-
-
                 //module.ScenePage.NodeColor = settingsConfig.NodeColor;
                 //module.ScenePage.E2DColor = settingsConfig.Elem2DColor;
                 //module.ScenePage.E3DColor = settingsConfig.Elem3DColor;
@@ -629,6 +624,7 @@ namespace BazisGUI
 
         private void PresentProject()
         {
+            SubscribeToModelView();
             CreateVBObjects("Объекты");
 
             PresentGeoData();

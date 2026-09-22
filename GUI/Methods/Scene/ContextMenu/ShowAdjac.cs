@@ -16,43 +16,35 @@ namespace BazisGUI
         {
             try
             {
-                var objTypes = new HashSet<ObjType>();
                 // TODO подумать над улучшением производительности
-                var selObjs = GetModelObjects(SelectedObjects).
-                    Where(x => x.Color == settingsConfig.SelectObjectColor).ToList();
+                var selObjs = project.ModelView.GetSelection().ToList();
                 foreach (var item in selObjs)
                 {
-                    var down = project.GetAdjacentGeometryObjects(item, 1);
-                    var up = project.GetAdjacentGeometryObjects(item, 2);
+                    var adjacentObjects = project.GetAdjacentGeometryObjects(item.Dim, item.Number);
+                    var upperNumbers = adjacentObjects.Item1;
+                    var lowerNumbers = adjacentObjects.Item2;
 
-                    if (down.Count() > 0)
-                        objTypes.Add(down.First().ObjType);
-                    if (up.Count() > 0)
-                        objTypes.Add(up.First().ObjType);
-
-                    var temp = up.Concat(down);
-
-                    foreach (var obj in temp)
-                        obj.ViewState = true;
-                }
-
-                foreach (var objType in objTypes)
-                {
-                    foreach (var set in project.GetModelSetsInfo(objType))
+                    if (item.Dim > 0)
                     {
-                        VBOController.DeleteVBObjects(set.Name);
-                        //set.SetBackColor();
-                        if (set.ViewState)
+                        var lowerType = (ObjType)(item.Dim - 1);
+                        foreach (var number in lowerNumbers)
                         {
-                            var pre = project.CreateModelObjectsPresentor(set);
-                            VBObject vb;
-                            if (TryCreateVBObject(pre, out vb))
-                                VBOController.AddVbo(vb);
+                            var obj = project.GetModelObject(lowerType, number);
+                            project.ModelView.SetVisible(obj.ObjType, [obj.Number], true);
+                        }
+                    }
+
+                    if (item.Dim < 2)
+                    {
+                        var upperType = (ObjType)(item.Dim + 1);
+                        foreach (var number in upperNumbers)
+                        {
+                            var obj = project.GetModelObject(upperType, number);
+                            project.ModelView.SetVisible(obj.ObjType, [obj.Number], true);
                         }
                     }
                 }
 
-                DisplayObjects();
 
             }
             catch (Exception ex)

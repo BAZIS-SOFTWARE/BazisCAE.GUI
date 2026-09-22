@@ -155,11 +155,7 @@ namespace BazisGUI
                 if (res.Result is IPoint node)
                 {
                     nodes.Add(node);
-                    var set = project?.GetModelSetsInfo(ObjType.Узел).First();
-                    set.SetBackColor();
-                    var pres = project.CreateModelObjectsPresentor(set);
-                    if (pres != null)
-                        SetVBObjectAttribute(pres, "цвет");
+                    project.ModelView.ClearSelection(ObjType.Узел);
                 }
                 else break;
 
@@ -188,9 +184,8 @@ namespace BazisGUI
 
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objs = project.GetModelObjects(objType);
-
-                var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
+                var selObjs = project.ModelView.GetSelected(objType)
+                    .Select(number => project.GetModelObject(objType, number));
 
                 if (selObjs.Count() == 0)
                 {
@@ -217,8 +212,9 @@ namespace BazisGUI
 
         private void CalcVolume(SelectionType selection)
         {
-            var objs = project.GetModelObjects(Converters.ConvertSelectionTypeToObjType(selection));
-            var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
+            var objType = Converters.ConvertSelectionTypeToObjType(selection);
+            var selObjs = project.ModelView.GetSelected(objType)
+                .Select(number => project.GetModelObject(objType, number));
 
             var vol = 0.0f;
             foreach (var obj in selObjs)
@@ -231,9 +227,9 @@ namespace BazisGUI
 
         private void CalcSquare(SelectionType select)
         {
-            var objs = project.GetModelObjects(Converters.ConvertSelectionTypeToObjType(select));
-
-            var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor);
+            var objType = Converters.ConvertSelectionTypeToObjType(select);
+            var selObjs = project.ModelView.GetSelected(objType)
+                .Select(number => project.GetModelObject(objType, number));
             var square = 0.0;
             foreach (var obj in selObjs)
             {
@@ -251,12 +247,7 @@ namespace BazisGUI
             if (plane is null)
                 return;
 
-                project.SetModelObjectsBackColor(objType);
-
-            var pres = project.CreateModelObjectsPresentor(objType);
-
-            SetVBObjectAttribute(pres, "цвет");
-            DisplayObjects();
+            project.ModelView.ClearSelection(objType);
             var message = $@"{Resources.UtilityToolStrip_DistancePointToPlane_InstructionPart1} {Localization.Localization.GetSelectionTypeLocalization(SelectionType.Nodes)} {Resources.UtilityToolStrip_DistancePointToPlane_InstructionPart1}";
             var res = SelectObjectAsync(objType, message);
             await res;
@@ -274,9 +265,9 @@ namespace BazisGUI
         private void DistancePointToPoint(SelectionType objTypeStr)
         {
             var objType = Converters.ConvertSelectionTypeToObjType(objTypeStr);
-            var objs = project.GetModelObjects(objType);
-            var color = settingsConfig.SelectObjectColor;
-            var selObjs = objs.Where(x => x.Color == color).ToList();
+            var selObjs = project.ModelView.GetSelected(objType)
+                .Select(number => project.GetModelObject(objType, number))
+                .ToList();
 
             if (selObjs.Count() > 1)
             {
@@ -367,8 +358,9 @@ namespace BazisGUI
 
         private void CreateSectionSurfacesFromNodes()
         {
-            var objs = project.GetModelObjects(ObjType.Узел);
-            var selObjs = objs.Where(x => x.Color == settingsConfig.SelectObjectColor).ToArray();
+            var selObjs = project.ModelView.GetSelected(ObjType.Узел)
+                .Select(number => project.GetModelObject(ObjType.Узел, number))
+                .ToArray();
             if (selObjs.Length < 3)
             {
                 console.PrintInfo(Resources.UtilityToolStrip_CreateCrossSection_InvalidNodeNumerErrorMessage, Color.Red);
@@ -386,7 +378,8 @@ namespace BazisGUI
             var plane = CreateSectionPlane(p0, p1, p2);
 
             var surface = project.GetSectionSurfaces(plane);
-            var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
+            var sections = new List<SurfaceFigure> { surface };
+            var presenter = presentersCreator.CreateSurfaceObjectsPresenter(sections, Color.DarkGray);
             presenter.Name = "crossSection";
             var vbo = CreateVBObject(presenter);
             VBOController.AddVbo(vbo);
@@ -407,7 +400,8 @@ namespace BazisGUI
 
             var surface = project.GetSectionSurfaces(plane);
 
-            var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
+            var sections = new List<SurfaceFigure> { surface };
+            var presenter = presentersCreator.CreateSurfaceObjectsPresenter(sections, Color.DarkGray);
             presenter.Name = "crossSection";
             CreateVBObject(presenter);
         }
@@ -558,7 +552,7 @@ namespace BazisGUI
         private void RunTransformFeedback(List<int> tboBuffers, List<int> queries)
         {
             GL.Enable(EnableCap.RasterizerDiscard);
-            var sets = project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => v.ViewState).ToArray();
+            var sets = project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => GetVisibleNumbers(v).Any()).ToArray();
 
             for (var i = 0; i < sets.Length; ++i)
             {
@@ -589,7 +583,7 @@ namespace BazisGUI
         private void CreateCaptureElements(List<List<int>> indices)
         {
             var index = 0;
-            foreach (var set in project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => v.ViewState).ToArray())
+            foreach (var set in project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => GetVisibleNumbers(v).Any()).ToArray())
             {
                 var obj = VBOController.FindVBObj(set.Name);
                 var program = obj.ActiveDrawingObject;
@@ -601,8 +595,9 @@ namespace BazisGUI
                 var visible = 0;
                 foreach(var element in project.GetModelElements(3, set.Name))
                 {
-                    element.ViewState = indexSet.Contains(indexElems);
-                    visible += Convert.ToInt32(element.ViewState);
+                    var isVisible = indexSet.Contains(indexElems);
+                    project.ModelView.SetVisible(ObjType.Элемент3D, [element.Number], isVisible);
+                    visible += Convert.ToInt32(isVisible);
                     ++indexElems;
                 }
 
@@ -624,7 +619,7 @@ namespace BazisGUI
         /// <param name="indices">Преобразованные индексы элементов, полученные из шейдера</param>
         private void CreateCaptureGroups(List<List<int>> indices)
         {
-            var sets = project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => v.ViewState).ToArray();
+            var sets = project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => GetVisibleNumbers(v).Any()).ToArray();
 
             for (var i = 0; i < sets.Length; ++i)
             {
@@ -645,7 +640,7 @@ namespace BazisGUI
         private List<List<int>> FetchData(List<int> dataBuffers, List<int> queries)
         {
             var list = new List<List<int>>();
-            var sets = project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => v.ViewState).ToArray();
+            var sets = project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => GetVisibleNumbers(v).Any()).ToArray();
 
             for (var i = 0; i < sets.Length; ++i)
             {
@@ -708,7 +703,7 @@ namespace BazisGUI
         {
             foreach (var set in project.GetModelSetsInfo(ObjType.Элемент3D))
             {
-                if (set.ViewState)
+                if (GetVisibleNumbers(set).Any())
                 {
                     var vbo = VBOController.FindVBObj(set.Name);
                     if (vbo != null && vbo.ViewState)

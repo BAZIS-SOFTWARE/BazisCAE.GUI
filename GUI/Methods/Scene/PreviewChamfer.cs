@@ -19,21 +19,23 @@ namespace BazisGUI
         {
             try
             {
-                var objs = project.GetModelObjects(ObjType.Кривая);
-                var curveTags = objs.Where(x => x.Color == settingsConfig.SelectObjectColor).Select(x => x.Number).ToArray();
+                var curveTags = project.ModelView.GetSelected(ObjType.Кривая).ToArray();
 
                 var segments = new List<Segment3D>(curveTags.Length * 4);
 
                 foreach (var curveTag in curveTags)
                 {
-                    var (surfaceTags, _) = project.GetAdjacentGeometryObjects(1, curveTag);
+                    var adjacencies = project.GetAdjacentGeometryObjects(1, curveTag);
+                    var surfaceTags = adjacencies.Item1;
 
                     if (surfaceTags.Length != 2)
                         throw new InvalidOperationException(
                             string.Format(Resources.ChamferPreview_CurveMustBelongToTwoSurfaces, surfaceTags.Length));
 
-                    var (firstVolumes, _) = project.GetAdjacentGeometryObjects(2, surfaceTags[0]);
-                    var (secondVolumes, _) = project.GetAdjacentGeometryObjects(2, surfaceTags[1]);
+                    var firstAdjacencies = project.GetAdjacentGeometryObjects(2, surfaceTags[0]);
+                    var firstVolumes = firstAdjacencies.Item1;
+                    var secondAdjacencies = project.GetAdjacentGeometryObjects(2, surfaceTags[1]);
+                    var secondVolumes = secondAdjacencies.Item1;
                     var commonVolumes = firstVolumes.Intersect(secondVolumes).Distinct().ToArray();
                     if (commonVolumes.Length != 1)
                         throw new InvalidOperationException(

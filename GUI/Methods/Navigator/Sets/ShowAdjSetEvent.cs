@@ -5,6 +5,7 @@ using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using System.Drawing;
 using System;
+using System.Linq;
 
 namespace BazisGUI
 {
@@ -24,18 +25,8 @@ namespace BazisGUI
                     dim = 3;
                 var elements = project.GetModelElements(dim, setName);
 
-                foreach (var element in elements)
-                {
-                    foreach (var node in element.GetVertexes())
-                        node.ViewState = true;
-                }
-
-                VBOController.DeleteVBObjects(ObjType.Узел.ToString());
-                var set = project.GetModelSetInfo(ObjType.Узел, setName);
-                var pre = project.CreateModelObjectsPresentor(set);
-                var vbo = CreateVBObject(pre);
-                VBOController.AddVbo(vbo);
-                DisplayObjects();
+                var numbers = elements.SelectMany(x => x.GetVertexes()).Select(x => x.Number);
+                project.ModelView.SetVisible(ObjType.Узел, numbers, true);
             }                    
         }
     }

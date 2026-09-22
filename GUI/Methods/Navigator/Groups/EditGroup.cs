@@ -18,18 +18,16 @@ namespace BazisGUI
             var group = project.GetModelGroup(ind);
             //SelectedObjects = group.ObjType.ToString();
 
-            foreach (var iobj in group)
-                iobj.Color = settingsConfig.SelectObjectColor;
-
-            foreach (var set in group.Select(x => project.
-            GetModelSetInfo(x.ObjType, x.Number)).
-            Distinct(new DefaultSetInfoComparer()))
+            ApplySelectionColor();
+            using (project.ModelView.BeginUpdate())
             {
-                var pres = project.CreateModelObjectsPresentor(set);
-                SetVBObjectAttribute(pres, "цвет");
+                project.ModelView.ClearSelection();
+                foreach (var objType in group.Select(x => x.ObjType).Distinct())
+                {
+                    var numbers = group.Where(x => x.ObjType == objType).Select(x => x.Number);
+                    project.ModelView.Select(objType, numbers);
+                }
             }
-
-            DisplayObjects();
             //Thread.Sleep(100);
             await EditGroupAsync(group);
 
@@ -42,7 +40,7 @@ namespace BazisGUI
         {
             var actConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var selObj = GetModelObjects(SelectedObjects).Where(x => x.Color == settingsConfig.SelectObjectColor).ToList();
+                var selObj = project.ModelView.GetSelection().ToList();
 
                 if (selObj.Count() == 0)
                 {

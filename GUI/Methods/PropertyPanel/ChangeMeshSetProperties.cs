@@ -4,6 +4,7 @@ using BazisGUI.PropertiesPanel;
 using BazisGUI.Scene.Interfaces;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
+using OperationalController;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -37,30 +38,14 @@ namespace BazisGUI
                     {
                         var color = HandleSetColorParameter(obj.NewValue.ToString());
                         if (_objectsSet != null)
-                        {
-                            _objectsSet.SetColor(color);
-                            ColorObjects(_objectsSet.ObjType.ToString());
-                        }
+                            project.ModelView.SetSetColor(_objectsSet, color);
                         break;  
                     }
 
                     case SetPropertyKeys.View:
                     {
                         var viewMode = obj.NewValue.ToString().ToEnum<ViewMode>();
-                        _objectsSet.SetViewMode(viewMode);
-
-                        ObjView objView;
-                        if (viewMode == ViewMode.Line)
-                            objView = ObjView.Lines;
-
-                        else if (viewMode == ViewMode.Surface)
-                            objView = ObjView.Surface;
-
-                        else
-                            objView = ObjView.LinesSurface;
-
-                        VBOController.ChangeViewModeVBObjects(setName, objView);
-                        DisplayObjects();
+                        project.ModelView.SetViewMode(_objectsSet, viewMode);
                         break;
                     }
 

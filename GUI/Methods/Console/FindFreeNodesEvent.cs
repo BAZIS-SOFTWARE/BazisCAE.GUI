@@ -18,22 +18,13 @@ namespace BazisGUI
 
                 if(freeNodes.Count() != 0)
                 {
-                    VBOController.DeleteAllVBObjects();
-                    project.GetModelSetsInfo(ObjType.Узел).First().SetViewState(false);
+                    using (project.ModelView.BeginUpdate())
+                    {
+                        foreach (var set in project.GetModelSetsInfo(ObjType.Узел))
+                            project.ModelView.SetVisible(ObjType.Узел, set.GetNumbers(), false);
 
-                    foreach (var freeNode in freeNodes)
-                        project.GetModelObject(ObjType.Узел, freeNode).ViewState = true;
-
-
-                    var objsTypeStr = ObjType.Узел.ToString();
-                    VBOController.DeleteVBObjects(objsTypeStr);
-
-                    var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
-
-                    var vbo = CreateVBObject(pres);
-                    VBOController.AddVbo(vbo);
-
-                    DisplayObjects();
+                        project.ModelView.SetVisible(ObjType.Узел, freeNodes, true);
+                    }
                 }
             }));
         }

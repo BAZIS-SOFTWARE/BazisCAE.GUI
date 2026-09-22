@@ -35,8 +35,11 @@ namespace BazisGUI
                 var objTypes = new List<ObjType> { ObjType.Узел, ObjType.Элемент1D, ObjType.Элемент2D, ObjType.Элемент3D };
                 foreach (var type in objTypes)
                 {
-                    var presentor = project.CreateModelObjectsPresentor(type);
-                    SetVBObjectAttribute(presentor, "координаты");
+                    foreach (var setInfo in project.GetModelSetsInfo(type))
+                    {
+                        var presentor = project.CreateModelObjectsPresentor(setInfo);
+                        SetVBObjectAttribute(presentor, "координаты");
+                    }
                 }
 
                 navigator.SelectedNode.Text = mObj.ToString();

@@ -36,33 +36,17 @@ namespace BazisGUI
                 {
                     //var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
                     set = project.GetModelSetInfo(objType, number);
-                    set.SetBackColor();
-
-                    var obj = project.GetModelObject(objType, number);
-                    obj.ViewState = flag;
+                    project.ModelView.SetVisible(objType, [number], flag);
                 }
                 else
                 {
                     set = project.GetModelSetsInfo(ObjType.Поверхность).First();
-                    set.SetBackColor();
-
                     var vol = project.GetModelVolumes().First(x => x.Number == number);
-
-                    foreach (var item in vol.GetSurfaceFigures())
-                        item.ViewState = flag;
+                    var numbers = vol.GetSurfaceFigures().Select(x => x.Number);
+                    project.ModelView.SetVisible(ObjType.Поверхность, numbers, flag);
                 }
 
 
-                VBOController.DeleteVBObjects(set.Name);
-                set.SetBackColor();
-                if (set.ViewState)
-                {
-                    var pre = project.CreateModelObjectsPresentor(set);
-                    var vbo = CreateVBObject(pre);
-                    VBOController.AddVbo(vbo);
-                }
-
-                DisplayObjects();             
             }
             catch (Exception ex)
             {
@@ -103,17 +87,8 @@ namespace BazisGUI
                     }
 
                     var set = project.GetModelSetInfo(objType, number);
-                    VBOController.DeleteVBObjects(set.Name);
-                    if (set.ViewState)
-                    {
-                        var pre = project.CreateModelObjectsPresentor(set);
-                        var vbo = CreateVBObject(pre);
-                        VBOController.AddVbo(vbo);
-                    }
-
-                    DisplayObjects();
-
                     project.ClearNotExistedModelData();
+                    project.ModelView.Prune();
                     PresentMeshData();
                     PresentGroupDataOnTree();
                     PresentCondDataOnTree();

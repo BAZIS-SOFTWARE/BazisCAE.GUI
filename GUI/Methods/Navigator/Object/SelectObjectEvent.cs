@@ -21,35 +21,17 @@ namespace BazisGUI
                 // пока заглушим обработку объема
                 if (objInfo.TryToEnum(out objType))
                 {
-                    var setIndo = project.GetModelSetInfo(objType, number);
-                    setIndo.SetBackColor();
-
-                    var pres = project.CreateModelObjectsPresentor(setIndo);
-                    SetVBObjectAttribute(pres, "цвет");
-
-                    var obj = project.GetModelObject(objType, number);
-                    obj.Color = settingsConfig.SelectObjectColor;
-
-                    //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
-                    SetVBObjectAttribute(pres, "цвет");
-                    DisplayObjects();
+                    ApplySelectionColor();
+                    project.ModelView.SetSelection(objType, [number]);
 
                     CreateObjectProperties(objType, number);
                 }
                 else
                 {
-                    var set = project.GetModelSetsInfo(ObjType.Поверхность).First();
-                    set.SetBackColor();
-                    var pres = project.CreateModelObjectsPresentor(set);
-                    SetVBObjectAttribute(pres, "цвет");
-                    
                     var vol = project.GetModelVolumes().First(x => x.Number == number);
-
-                    foreach (var item in vol.GetSurfaceFigures())
-                        item.Color = settingsConfig.SelectObjectColor;
-
-                    SetVBObjectAttribute(pres, "цвет");
-                    DisplayObjects();
+                    var numbers = vol.GetSurfaceFigures().Select(x => x.Number);
+                    ApplySelectionColor();
+                    project.ModelView.SetSelection(ObjType.Поверхность, numbers);
 
                     CreateVolProperties(number);
                 }

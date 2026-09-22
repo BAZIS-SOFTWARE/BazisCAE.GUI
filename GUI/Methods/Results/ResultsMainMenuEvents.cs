@@ -192,8 +192,9 @@ namespace BazisGUI
             else
                 elems = project.GetModelSurfaceElements(2);
 
-            var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, tableName, resName, elems);
-            var pre = presentersCreator.CreateSurfaceObjectsPresenter(elsResults);
+            var resultFigures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, tableName, resName, elems).ToList();
+            var colors = resultFigures.Select(resultFigure => resultFigure.Color).ToList();
+            var pre = presentersCreator.CreateSurfaceObjectsPresenter(resultFigures, colors);
             pre.Name = resName;
 
             VBOController.DeleteAllVBObjects();
@@ -254,7 +255,7 @@ namespace BazisGUI
 
             foreach (var obj in objs)
             {
-                if (obj.Color == settingsConfig.SelectObjectColor)
+                if (project.ModelView.IsSelected(obj.ObjType, obj.Number))
                 {
                     var coord = obj.CalcCentr();
                     var res = result.GetValue((int)resType, obj.Number, resName);

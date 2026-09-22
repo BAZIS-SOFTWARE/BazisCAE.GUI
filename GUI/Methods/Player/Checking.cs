@@ -61,23 +61,12 @@ namespace BazisGUI
                                         //}
                                     }
 
-                                if (data.Kind == DataKind.Материал)
-                                    iobj.Color = Color.FromArgb(255, 255, 0);
-                                else if (data.Kind == DataKind.Среда)
-                                    iobj.Color = Color.FromArgb(255, 155, 0);
-                                else if (data.Kind == DataKind.Закрепление | data.Kind == DataKind.Нагрузка)
-                                    iobj.Color = Color.FromArgb(255, 0, 0);
-                                else if (data.Kind == DataKind.Нагрев)
-                                    iobj.Color = Color.FromArgb(125, 155, 255, 0);
-
                                 //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
                             }
                             if (data.Direction != Direction.None)
                                 DisplayDirection(arg2, data, group);
-                            var pres = project.CreateModelObjectsPresentor(group.ObjType);
-                            SetVBObjectAttribute(pres, "цвет");
-
-                            DisplayObjects();
+                            project.ModelView.SelectionColor = GetConditionColor(data.Kind);
+                            project.ModelView.SetSelection(group.ObjType, group.Select(x => x.Number));
                         }
                     }
                     else if (nodeName == NodeName.Result)

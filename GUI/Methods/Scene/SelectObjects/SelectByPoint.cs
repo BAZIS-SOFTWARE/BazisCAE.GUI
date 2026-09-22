@@ -24,7 +24,7 @@ namespace BazisGUI
             {
                 foreach (var numb in set.GetNumbers())
                 {
-                    if (set.GetViewState(numb))
+                    if (project.ModelView.GetVisible(set.ObjType, numb))
                     {
                         var coords = set.GetCoords(numb);
                         var scrPoints = new List<Point2D>();//[coords.Count()];
@@ -77,10 +77,11 @@ namespace BazisGUI
             if (selFlag)
             {
                 var tempNumb = tempNumbs.Last();
+                ApplySelectionColor();
                 if (isSelected)
-                    tempSetInfo.SetColor(settingsConfig.SelectObjectColor, tempNumb);
+                    project.ModelView.Select(tempSetInfo.ObjType, [tempNumb]);
                 else
-                    tempSetInfo.SetBackColor(tempNumb);
+                    project.ModelView.Deselect(tempSetInfo.ObjType, [tempNumb]);
 
                 if (bool.Parse(btnAdvSelection.Tag.ToString()))
                     DispatchSelection(new List<int>() {tempNumb}, isSelected);

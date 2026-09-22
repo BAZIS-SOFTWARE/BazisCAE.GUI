@@ -47,14 +47,15 @@ namespace BazisGUI
             settings.SetSelectionObjectColorEvent += (ar) =>
             { 
                 settingsConfig.SelectObjectColor = ar;
+                ApplySelectionColor();
             };
 
             settings.SetNodeColorEvent += (ar) =>
             {
-                //NodeColor = ar;
-                var pres = project.CreateModelObjectsPresentor(ObjType.Узел);
-                SetVBObjectAttribute(pres, "цвет");
-                DisplayObjects();
+                settingsConfig.NodeColor = ar;
+                var setInfo = project.GetModelSetsInfo(ObjType.Узел).FirstOrDefault();
+                if (setInfo != null)
+                    project.ModelView.SetSetColor(setInfo, ar);
             };
 
             settings.SetSolverPathEvent += (ar) =>
@@ -95,23 +96,9 @@ namespace BazisGUI
 
             settings.SetTransparencyValueEvent += (ar1) =>
             {
-                settingsConfig.TransparencyValue = (int)(ar1 / 100.0f * 255);
-
-                settingsConfig.SelectObjectColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectObjectColor);
-                settingsConfig.SelectGroupColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectGroupColor);
-
-                var objs = project.GetAllModelObjects();
-
-                foreach (var obj in objs)
-                {
-                    var preColor = obj.Color;
-                    var newColor = Color.FromArgb(settingsConfig.TransparencyValue, preColor);
-                    obj.Color = newColor;
-                }
-
-                ClearAllDataOnScene();
-                CreateVBObjects("Объекты");
-                DisplayObjects();
+                settingsConfig.TransparencyValue = ar1;
+                if (project != null)
+                    project.ModelView.Transparency = GetModelViewTransparency();
             };
 
             settings.SetLightingIntensityEvent += (ar) =>

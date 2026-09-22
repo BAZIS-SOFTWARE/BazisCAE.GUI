@@ -23,28 +23,20 @@ namespace BazisGUI
                 var firstRes = await SelectObjectAsync(ObjType.Узел, message);
                 var fNode = firstRes as Node;
 
-                var set = project.GetModelSetInfo(ObjType.Узел, fNode.Number);
-                set.SetBackColor();
-
-                var pres = project.CreateModelObjectsPresentor(set);
-                if (pres != null)
-                    SetVBObjectAttribute(pres, "цвет");
+                project.ModelView.ClearSelection();
 
                 message = $@"Выберите второй узел и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
                 var secondRes = await SelectObjectAsync(ObjType.Узел, message);
                 var sNode = secondRes as Node;
 
-                set = project.GetModelSetInfo(ObjType.Узел, sNode.Number);
-                set.SetBackColor();
-
-                pres = project.CreateModelObjectsPresentor(set);
-                if (pres != null)
-                    SetVBObjectAttribute(pres, "цвет");
+                project.ModelView.ClearSelection();
 
                 await SelectContainerAsync(@"Выберите узлы для перемещения и нажмите на клавишу ""E"" для подтверждения");
 
-                var nodes = project.GetAllModelNodes().
-    Where(x => x.Color == settingsConfig.SelectObjectColor);
+                var nodes = project.ModelView.GetSelected(ObjType.Узел)
+                    .Select(number => project.GetModelObject(ObjType.Узел, number) as Node)
+                    .Where(node => node != null)
+                    .ToList();
 
                 if (nodes.Count() == 0)
                     throw new Exception("Не выбран ни один узел");
