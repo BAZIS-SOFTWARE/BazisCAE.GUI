@@ -18,7 +18,7 @@ namespace BazisGUI
                 VBOController.DeleteAllVBObjects();
                 CreateVBObjects("Объекты");
                 PresentMeshData();
-                DisplayObjects();
+                RequestRedraw();
                 PresentGeoData();
             }
             catch (Exception ex) 
@@ -41,7 +41,7 @@ namespace BazisGUI
             DisplayGeometryObjectEvent -= DisplayChamferPreview;
 
             if (redraw)
-                DisplayObjects();
+                RequestRedraw();
         }
     }
 }

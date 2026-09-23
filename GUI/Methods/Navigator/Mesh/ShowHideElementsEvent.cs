@@ -31,7 +31,6 @@ namespace BazisGUI
                     foreach (var item in project.GetModelSetsInfo(ObjType.Узел))
                         NewMethod1(item, flag);
                 }
-                DisplayObjects();
             }
             catch (Exception ex)
             {

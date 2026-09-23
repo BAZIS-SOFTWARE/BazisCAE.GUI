@@ -71,7 +71,7 @@ namespace BazisGUI
                 {
                     Navigator_DeleteGeometry(3, number);
                 }
-                DisplayObjects();
+                RequestRedraw();
             }
             else if(node.Parent.Parent.Text == Resources.Navigator_TreeView_Node_Text_Mesh)
             {

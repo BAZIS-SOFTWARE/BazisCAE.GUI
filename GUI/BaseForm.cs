@@ -112,7 +112,7 @@ namespace BazisGUI
 
 
             SetGeneralSettings();
-            DisplayObjects();
+            RequestRedraw();
         }
 
 
@@ -463,7 +463,7 @@ namespace BazisGUI
                 UnblockInterface();
                 OnProjectLoaded?.Invoke();
 
-                DisplayObjects();
+                RequestRedraw();
             }
             catch (Exception ex)
             {
@@ -515,7 +515,7 @@ namespace BazisGUI
                 UnblockInterface();
 
                 FitObjectsToScreen();
-                DisplayObjects();
+                RequestRedraw();
             }
             catch (Exception ex)
             {
@@ -715,7 +715,7 @@ namespace BazisGUI
                     UnblockInterface();
 
                     FitObjectsToScreen();
-                    DisplayObjects();
+                    RequestRedraw();
                 }
             }
 

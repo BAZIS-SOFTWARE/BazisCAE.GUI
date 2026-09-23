@@ -192,7 +192,7 @@ namespace BazisGUI
             chamferPreviewSegments = segments ?? Array.Empty<Segment3D>();
             DisplayGeometryObjectEvent -= DisplayChamferPreview;
             DisplayGeometryObjectEvent += DisplayChamferPreview;
-            DisplayObjects();
+            RequestRedraw();
         }
 
         /// <summary>

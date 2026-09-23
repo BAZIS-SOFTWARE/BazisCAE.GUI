@@ -46,7 +46,7 @@ namespace BazisGUI
                         HideGeometryObj("DisplayBoundingBox");
                         DisplayBoundingBox(vbo);
 
-                        DisplayObjects();
+                        RequestRedraw();
                     };
 
                     reflect.CreateReflectObj += (ar1, ar2) =>
@@ -59,7 +59,7 @@ namespace BazisGUI
                         HideGeometryObj("DisplayBoundingBox");
 
                         reflect.SetGlObjs(copyObjs);
-                        DisplayObjects();
+                        RequestRedraw();
                     };
 
                     reflect.MatrixEvent += (s, ev) =>
@@ -72,7 +72,7 @@ namespace BazisGUI
                     {
                         HideGeometryObj("DisplayReflectionPlane");
                         DisplayReflectionPlane(p);
-                        DisplayObjects();
+                        RequestRedraw();
                     };
 
                     reflectForm.FormClosing += (o, ev) =>
@@ -86,7 +86,7 @@ namespace BazisGUI
                         // скорректировать решение на основе выводов выше
                         VBOController.DeleteAllVBObjects();
                         CreateVBObjects("Объекты");
-                        DisplayObjects();
+                        RequestRedraw();
                     };
                     reflectForm.Show();
 

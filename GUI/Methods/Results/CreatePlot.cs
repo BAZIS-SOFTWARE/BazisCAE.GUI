@@ -20,7 +20,7 @@ namespace BazisGUI
             PressedKey = Keys.None;
 
             DisplayText2D(message, Color.Black, new Point2D(10, 10));
-            DisplayObjects();
+            RequestRedraw();
             await System.Threading.Tasks.Task.Run(() =>
             {
                 while (true)
@@ -35,7 +35,7 @@ namespace BazisGUI
                 }
             });
             DisplayText2DEvent = null;
-            DisplayObjects();
+            RequestRedraw();
             PressedKey = Keys.None;
         }
 
@@ -45,7 +45,7 @@ namespace BazisGUI
             {
                 ClearAllDataOnScene();
                 CreateVBObjects("Объекты");
-                DisplayObjects();
+                RequestRedraw();
                 // выбор объектов
                 await SelectContainerAsync(Resources.CreatePlot_BuildGraph_SelectContainerAsync_SelectNodes_Message);
 
@@ -95,7 +95,7 @@ namespace BazisGUI
                     var grData = new GraphData($"{Resources.CreatePlot_GraphData_Header_Part1}_{obj.Number}", color, Resources.CreatePlot_GraphData_XUnit, resDes, grPoints.ToArray());
                     grDataAr.Add(grData);
                 }
-                DisplayObjects();
+                RequestRedraw();
                 var grContainer = new GraphContainer();
 
                 if (grDataAr.Count != 0)

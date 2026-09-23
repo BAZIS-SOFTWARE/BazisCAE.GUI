@@ -49,27 +49,27 @@ namespace BazisGUI
                     new ButtonPropertyValue(Resources.Показать,() => 
                         {
                             ShowNumberOfCurveNodes();
-                            DisplayObjects();
+                            RequestRedraw();
                         })));
                 rows.Add(new RowProperty(GeoPropertyKeys.ShowSurfaceNumbers.ToString(),
                     Resources.Header_geo_showSurfacesNumbers,
                     new ButtonPropertyValue(Resources.Показать, () => 
                         {
                             ShowObjectsNumbers(ObjType.Поверхность);
-                            DisplayObjects();
+                            RequestRedraw();
                         })));
                 rows.Add(new RowProperty(GeoPropertyKeys.ShowPointsNumbers.ToString(),
                     Resources.Header_geo_showPointsNumbers,
                     new ButtonPropertyValue(Resources.Показать, () =>
                         {
                             ShowObjectsNumbers(ObjType.Точка);
-                            DisplayObjects();
+                            RequestRedraw();
                         })));
                 rows.Add(new RowProperty(GeoPropertyKeys.ShowVolumeNumbers.ToString(), Resources.Header_geo_showVolumesNumbers,
                     new ButtonPropertyValue(Resources.Показать, () => 
                         {
                             ShowVolNumbers();
-                            DisplayObjects();
+                            RequestRedraw();
                         })));
                 rows.Add(new RowProperty(GeoPropertyKeys.ShowMeshOnGeneration.ToString(),
                     Resources.Header_geo_showMeshOnGeneration,
@@ -91,7 +91,7 @@ namespace BazisGUI
 
                 if (flag && (project == null || !project.IsGeometryInitialized))
                 {
-                    DisplayObjects();
+                    RequestRedraw();
                     return;
                 }
 
@@ -115,7 +115,7 @@ namespace BazisGUI
                     VBOController.AddVbo(vbo);
                 }
 
-                DisplayObjects();
+                RequestRedraw();
             }
             catch (Exception ex)
             {

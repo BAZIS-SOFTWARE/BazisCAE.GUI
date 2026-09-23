@@ -54,7 +54,7 @@ namespace BazisGUI
                         nodes.First().Expand();
                     }
 
-                    DisplayObjects();
+                    RequestRedraw();
 
                 }
                 else

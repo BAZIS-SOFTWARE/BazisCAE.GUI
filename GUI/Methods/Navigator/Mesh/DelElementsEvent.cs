@@ -36,7 +36,7 @@ namespace BazisGUI
                     project.DeleteModelSet(objType, item);
                     VBOController.DeleteVBObjects(item);
                 }
-                DisplayObjects();
+                RequestRedraw();
                 PresentMeshData();
                 PresentModelObjectsForSelection();
             }

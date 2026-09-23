@@ -39,7 +39,7 @@ namespace BazisGUI
                     VBOController.DeleteVBObjects("Boundary");
                 }
                     
-                DisplayObjects();
+                RequestRedraw();
             }
             catch (Exception ex)
             {

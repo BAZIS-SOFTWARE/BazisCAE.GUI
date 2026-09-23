@@ -41,13 +41,13 @@ namespace BazisGUI
                 sceneController.SelectionRectangle.winScreneCoord.X = e.Location.X;
                 sceneController.SelectionRectangle.winScreneCoord.Y = scene.Height - e.Location.Y;
 
-                DisplayObjects();
+                RequestRedraw();
             }
 
             else if (e.Button == MouseButtons.Right)
             {
                 MoveCamera(new_mousePosition, ScreenMousePosition, ScaleFactor);
-                DisplayObjects();
+                RequestRedraw();
             }
 
 
@@ -58,7 +58,7 @@ namespace BazisGUI
                 var dy = (new_mousePosition.Y - ScreenMousePosition.Y) * (2 * (-moveCam_z)) / (float)(scene.Height);
                 RotateCamera(dx, dy, settingsConfig.RotationAxis, settingsConfig.RotationAngle);
 
-                DisplayObjects();
+                RequestRedraw();
             }
             ScreenMousePosition = new_mousePosition;
         }
@@ -71,7 +71,7 @@ namespace BazisGUI
                 if (Math.Sign(e.Delta) > 0)
                     ScaleObjs(1.1f);
                 else ScaleObjs(0.9f);
-                DisplayObjects();
+                RequestRedraw();
             }
         }
 
@@ -129,13 +129,13 @@ namespace BazisGUI
                         
                     }
                     sceneController.SelectionRectangle.Remove();
-                    DisplayObjects();
+                    RequestRedraw();
                 }
             }
             else if (e.Button == MouseButtons.Middle)
             {
                 DisplayRotationPointEvent = null;
-                DisplayObjects();
+                RequestRedraw();
             }
         }
 

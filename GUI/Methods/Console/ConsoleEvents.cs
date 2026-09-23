@@ -38,7 +38,7 @@ namespace BazisGUI
             var vbo = CreateVBObject(pres);
 
             VBOController.AddVbo(vbo);
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void FindObjectParserStr(string str, out ObjType objType, out uint number)
@@ -136,7 +136,7 @@ namespace BazisGUI
                 var pres = project.CreateModelObjectsPresentor(set);
                 SetVBObjectAttribute(pres, "координаты");
             }
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void console_ModelRotateEvent(string v)
@@ -172,7 +172,7 @@ namespace BazisGUI
                     SetVBObjectAttribute(pres, "координаты");
                 }
             }
-            DisplayObjects();
+            RequestRedraw();
         }
     }
 }

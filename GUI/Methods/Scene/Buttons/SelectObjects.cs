@@ -27,7 +27,6 @@ namespace BazisGUI
                 btnSelect.AccessibleName = $"SelectObjects.btnSelect.{value.ToString()}";
                 btnSelect.Text = Localization.Localization.GetSelectionTypeLocalization(value);
                 SetBackColorToAllObjects();
-                DisplayObjects();
             }
         }
 

@@ -78,7 +78,7 @@ namespace BazisGUI
                     var vbo = CreateVBObject(pre);
                     VBOController.AddVbo(vbo);
 
-                    DisplayObjects();
+                    RequestRedraw();
                     console.PrintInfo($"{Resources.GenerateBoundaryMesh_CreateBoundaryMeh_ObjectsGenerated_Message} {set.ObjType.ToString()}: {set.NumberOfObjects}. {Resources.GenerateBoundaryMesh_CreateBoundaryMeh_CheckRecommendation_Message}", Color.Orange);
                 }
             }

@@ -53,7 +53,7 @@ namespace BazisGUI
                         btn.Checked = false;
                         DisplayGeometryObjectEvent = null;
                         DisplayText3DEvent = null;
-                        DisplayObjects();
+                        RequestRedraw();
                     };
 
                     var measuringControl = new MeasuringSet() 
@@ -65,7 +65,7 @@ namespace BazisGUI
                         SelectedObjects = Converters.ConvertObjTypeToSelectionType(ar);
                         DisplayGeometryObjectEvent = null;
                         DisplayText3DEvent = null;
-                        DisplayObjects();
+                        RequestRedraw();
                     };
                     measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;
                     form.ClientSize = measuringControl.Size;
@@ -169,7 +169,7 @@ namespace BazisGUI
 
                     DisplayText3D(path.ToString(), Color.FromArgb(0, 0, 0), coord);
 
-                    DisplayObjects();
+                    RequestRedraw();
                 }
             }
             return nodes;
@@ -258,7 +258,7 @@ namespace BazisGUI
                 var line = new Segment3D(point.Position, proj);
                 console.PrintInfo($"{Resources.UtilityToolStrip_Distance_Output} : {line.GetLength()}", Color.Black);
                 DisplayDistance(line);
-                DisplayObjects();
+                RequestRedraw();
             }
         }
 
@@ -279,7 +279,7 @@ namespace BazisGUI
                 console.PrintInfo($"{Resources.UtilityToolStrip_Distance_Output} : {line.GetLength()}", Color.Black);
 
                 DisplayDistance(line);
-                DisplayObjects();
+                RequestRedraw();
             }
             else console.PrintInfo($"{Resources.UtilityToolStrip_DistancePointToPoint_EmptySelectionErrorMessage}: {Localization.Localization.GetSelectionTypeLocalization(objTypeStr)}", Color.Red);
         }
@@ -308,7 +308,7 @@ namespace BazisGUI
                     crossSection.RemoveCrossEvent += () =>
                     {
                         VBOController.DeleteVBObjects("crossSection");
-                        DisplayObjects();
+                        RequestRedraw();
                     };
 
                     crossSection.SelectNodesEvent += () => SelectedObjects = SelectionType.Nodes;
@@ -342,7 +342,7 @@ namespace BazisGUI
                         btn.Checked = false;
 
                         VBOController.DeleteVBObjects("crossSection");
-                        DisplayObjects();
+                        RequestRedraw();
                     };
 
                     form.Show();
@@ -383,7 +383,7 @@ namespace BazisGUI
             presenter.Name = "crossSection";
             var vbo = CreateVBObject(presenter);
             VBOController.AddVbo(vbo);
-            DisplayObjects();
+            RequestRedraw();
         }
 
         public Geometry.Plane CreateSectionPlane(Vector3 p0, Vector3 p1, Vector3 p2)
@@ -459,7 +459,7 @@ namespace BazisGUI
                             foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
                                 ChangeClipMode(ClipMode.None, item.Name);
                             btn.Checked = false;
-                            DisplayObjects();
+                            RequestRedraw();
                         }
                     };
                     clip.ChangeClipMode += (mode) =>
@@ -476,7 +476,7 @@ namespace BazisGUI
                         DisplayClipPlane(scPlane);
                     };
 
-                    clip.RedrawClipPlane += () => DisplayObjects();
+                    clip.RedrawClipPlane += () => RequestRedraw();
                     clip.Controls.Find("button2", true).First().Click += CaptureData;
 
                     clipForm.FormClosing += (o, ev) =>
@@ -486,7 +486,7 @@ namespace BazisGUI
                         foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
                             ChangeClipMode(ClipMode.None, item.Name);
                         btn.Checked = false;
-                        DisplayObjects();
+                        RequestRedraw();
                     };
 
                     clipForm.Show();
@@ -546,7 +546,7 @@ namespace BazisGUI
             CreateCaptureElements(indices);
             RemoveCaptureData(dataBuffers, tboBuffers, queries);
 
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void RunTransformFeedback(List<int> tboBuffers, List<int> queries)

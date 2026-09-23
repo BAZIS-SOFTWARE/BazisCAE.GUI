@@ -33,21 +33,18 @@ namespace BazisGUI
                     new ButtonPropertyValue(Resources.Header_projectMesh_show,() => 
                     {
                         ShowElements(1,true);
-                        DisplayObjects();
                     })),
 
                     new RowProperty(ProjectMeshPropertyKeys.Hide.ToString(), "",
                     new ButtonPropertyValue(Resources.Header_projectMesh_hide,() => 
                     {
                         ShowElements(1, false);
-                        DisplayObjects();
                     })),
 
                     new RowProperty(ProjectMeshPropertyKeys.Delete.ToString(), "",
                     new ButtonPropertyValue(Resources.Header_projectMesh_delete,() => 
                     {
                         DelElements(1);
-                        DisplayObjects();
                     })),
 
                     // Элементы 2D
@@ -60,21 +57,18 @@ namespace BazisGUI
                     new ButtonPropertyValue(Resources.Header_projectMesh_show, () => 
                     {
                         ShowElements(2, true);
-                        DisplayObjects();
                     })),
 
                     new RowProperty(ProjectMeshPropertyKeys.Hide.ToString(), "",
                     new ButtonPropertyValue(Resources.Header_projectMesh_hide, () => 
                     {
                         ShowElements(2, false);
-                        DisplayObjects();
                     })),
 
                     new RowProperty(ProjectMeshPropertyKeys.Delete.ToString(), "",
                     new ButtonPropertyValue(Resources.Header_projectMesh_delete, () => 
                     {
                         DelElements(2);
-                        DisplayObjects();
                     })),
 
                     // Элементы 3D
@@ -87,21 +81,18 @@ namespace BazisGUI
                     new ButtonPropertyValue(Resources.Header_projectMesh_show, () => 
                     {
                         ShowElements(3, true);
-                        DisplayObjects();
                     })),
 
                     new RowProperty(ProjectMeshPropertyKeys.Hide.ToString(), "",
                     new ButtonPropertyValue(Resources.Header_projectMesh_hide, () => 
                     {
                         ShowElements(3, false);
-                        DisplayObjects();
                     })),
 
                     new RowProperty(ProjectMeshPropertyKeys.Delete.ToString(), "",
                     new ButtonPropertyValue(Resources.Header_projectMesh_delete, () => 
                     {
                         DelElements(3);
-                        DisplayObjects();
                     }))
                 };
 

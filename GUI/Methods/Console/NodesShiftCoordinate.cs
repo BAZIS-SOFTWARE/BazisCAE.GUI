@@ -48,7 +48,7 @@ namespace BazisGUI
                 ClearAllDataOnScene();
                 CreateVBObjects("Объекты");
 
-                DisplayObjects();
+                RequestRedraw();
             }
             catch (Exception ex)
             {

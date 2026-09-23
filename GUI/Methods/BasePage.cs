@@ -80,7 +80,7 @@ namespace BazisGUI
                 var color = GetTextColor();
 
                 DisplayText2D(cmdMessage, color, new Point2D(10, 10));
-                DisplayObjects();
+                RequestRedraw();
             }));
             await System.Threading.Tasks.Task.Run(() =>
             {
@@ -105,7 +105,7 @@ namespace BazisGUI
             });
 
             DisplayText2DEvent = null;
-            DisplayObjects();
+            RequestRedraw();
 
             PressedKey = Keys.None;
             return resObject;

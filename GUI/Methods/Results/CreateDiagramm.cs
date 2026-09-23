@@ -19,7 +19,7 @@ namespace BazisGUI
             {
                 ClearAllDataOnScene();
                 CreateVBObjects("Объекты");
-                DisplayObjects();
+                RequestRedraw();
 
                 var objs = await CreatePathAsync();
 

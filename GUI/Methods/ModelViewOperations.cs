@@ -36,17 +36,17 @@ namespace BazisGUI
         /// </summary>
         private void ModelView_Changed(object sender, EventArgs e)
         {
-            if (IsDisposed || project == null)
+            if (IsDisposed || project == null) // если форма уже закрыта или проект не загружен, то не перерисовываем сцену
                 return;
 
-            if (InvokeRequired)
+            if (InvokeRequired) // перенаправление в UI-поток, если вызов из другого потока (например, из BackgroundWorker)
             {
                 BeginInvoke(new Action(() => ModelView_Changed(sender, e)));
                 return;
             }
 
             RefreshModelViewBuffers();
-            DisplayObjects();
+            RequestRedraw();
         }
 
         /// <summary>

@@ -22,7 +22,7 @@ namespace BazisGUI
             PresentModelObjectsForSelection();
 
             FitObjectsToScreen();
-            DisplayObjects();
+            RequestRedraw();
         }
     }
 }

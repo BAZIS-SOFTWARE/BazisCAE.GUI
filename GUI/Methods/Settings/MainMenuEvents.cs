@@ -66,7 +66,7 @@ namespace BazisGUI
             {
                 settingsConfig.BackGroundColor = ar;
                 sceneController.BackGroundColor = ar; // сам averageColorRenderer.BackgroundColor обновит sceneController
-                DisplayObjects();
+                RequestRedraw();
             };
 
 
@@ -74,7 +74,7 @@ namespace BazisGUI
             {
                 settingsConfig.Lighting = ar;
                 sceneController.IsLighting = ar; // тоже синхронизирует averageColorRenderer.IsLighting
-                DisplayObjects();
+                RequestRedraw();
             };
 
             settings.SetTransparencyEvent += (ar) =>
@@ -84,7 +84,7 @@ namespace BazisGUI
                 ClearAllDataOnScene();
                 if(project != null)
                     CreateVBObjects("Объекты");
-                DisplayObjects();
+                RequestRedraw();
             };
 
             settings.SetOrtoProjectionEvent += (ar) =>
@@ -92,7 +92,7 @@ namespace BazisGUI
                 settingsConfig.Projection = ar ? ViewProjection.Parallel : ViewProjection.Perspective;
                 sceneController.Projection = settingsConfig.Projection;
                 UpdateProjection();
-                DisplayObjects();
+                RequestRedraw();
             };
 
             settings.SetTransparencyValueEvent += (ar1) =>
@@ -107,7 +107,7 @@ namespace BazisGUI
                 settingsConfig.LightingIntensity = ar;
                 var lightAttenuation = 1 - ar / 100.0f;
                 GL.Light(LightName.Light0, LightParameter.LinearAttenuation, lightAttenuation);
-                DisplayObjects();
+                RequestRedraw();
             };
 
 
@@ -124,7 +124,7 @@ namespace BazisGUI
                 sceneController.LightTranslateX = x;
                 sceneController.LightTranslateY = y;
 
-                DisplayObjects();
+                RequestRedraw();
             };
 
             settings.SetLanguageEvent += (ar) => 

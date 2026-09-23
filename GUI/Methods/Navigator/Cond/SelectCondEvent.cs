@@ -61,7 +61,6 @@ namespace BazisGUI
                 checkPlayerControl.StartValue = 0;
                 checkPlayerControl.StopValue = (int)(data.StopTime - data.StartTime);
 
-                DisplayObjects();
             }
             catch (Exception ex)
             {

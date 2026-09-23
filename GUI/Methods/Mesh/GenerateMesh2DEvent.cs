@@ -34,7 +34,7 @@ namespace BazisGUI
                 PresentMeshData();
                 PresentModelObjectsForSelection();
                 FitObjectsToScreen();
-                DisplayObjects();
+                RequestRedraw();
 
                 console.PrintInfo($"{Resources.GenerateMesh2DEvent_GenerateOnGeometry_GenElements_Message}"+
                     $" 1D: {project.GetModelObjects(ObjType.Элемент1D).Count()}," +

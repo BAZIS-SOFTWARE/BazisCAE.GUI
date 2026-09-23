@@ -136,7 +136,7 @@ namespace BazisGUI
             if (selection.Count > 0)
                 SetRotationCentre(selection.First());
 
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void menuItem_DeleteSelectedObjects_Click(object sender, EventArgs e)
@@ -205,7 +205,7 @@ namespace BazisGUI
                 SelectedObjects = SelectionType.Select;
                 CloseAdvancedSelectionForm();
                 SetBackColorToAllObjects();
-                DisplayObjects();
+                RequestRedraw();
             }
             else if (e.KeyCode == Keys.C)
             {
@@ -256,12 +256,12 @@ namespace BazisGUI
                         }
                     }
                 }
-                DisplayObjects();
+                RequestRedraw();
             }
             else if (e.KeyCode == Keys.F)
             {
                 FitObjectsToScreen();
-                DisplayObjects();
+                RequestRedraw();
             }
         }
 

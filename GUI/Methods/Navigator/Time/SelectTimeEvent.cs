@@ -71,7 +71,7 @@ namespace BazisGUI
                     ShowResultValue(ResultType.elements, resName, result);
                 }
 
-                DisplayObjects();
+                RequestRedraw();
 
             }
             catch (Exception ex)

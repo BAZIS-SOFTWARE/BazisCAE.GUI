@@ -36,6 +36,7 @@ namespace BazisGUI
                 var set = project.GetModelSetInfo(objType, masterSet);
                 var pre = project.CreateModelObjectsPresentor(set);
                 RefreshModelSetBuffer(set);
+                RequestRedraw();
             }
             catch (Exception ex)
             {

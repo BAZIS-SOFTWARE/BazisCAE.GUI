@@ -20,7 +20,7 @@ namespace BazisGUI
             CreateVBObjects("Элементы");
             PresentMeshData();
             PresentModelObjectsForSelection();
-            DisplayObjects();
+            RequestRedraw();
         }
     }
 }

@@ -43,7 +43,7 @@ namespace BazisGUI
                 }
 
                 navigator.SelectedNode.Text = mObj.ToString();
-                DisplayObjects();
+                RequestRedraw();
             }
         }
 
@@ -67,7 +67,7 @@ namespace BazisGUI
             
 
             navigator.SelectedNode.Text = mObj.ToString();
-            DisplayObjects();
+            RequestRedraw();
         }
     }
 }

@@ -48,7 +48,7 @@ namespace BazisGUI
                     foreach (var setInfo in project.GetModelSetsInfo(item))
                         CreateVBObject(project.CreateModelObjectsPresentor(setInfo));
 
-                DisplayObjects();
+                RequestRedraw();
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace BazisGUI
                 CreateVBObjects("Объекты");
 
                 FitObjectsToScreen();
-                DisplayObjects();
+                RequestRedraw();
             }
             catch (Exception ex)
             {

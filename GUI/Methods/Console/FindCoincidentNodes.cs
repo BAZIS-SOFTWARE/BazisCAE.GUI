@@ -48,7 +48,7 @@ namespace BazisGUI
 
                     VBOController.DeleteAllVBObjects();
                     CreateVBObjects("Объекты");
-                    DisplayObjects();
+                    RequestRedraw();
 
                 }));
                 return new Tuple<bool, object>(true, new object());

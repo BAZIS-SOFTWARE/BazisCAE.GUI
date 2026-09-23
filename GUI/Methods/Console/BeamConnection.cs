@@ -32,7 +32,7 @@ namespace BazisGUI
                 var pre = project.CreateModelObjectsPresentor(beams);
                 var vbo = CreateVBObject(pre);
                 VBOController.AddVbo(vbo);
-                DisplayObjects();
+                RequestRedraw();
 
                 PresentMeshData();
             }

@@ -43,7 +43,7 @@ namespace BazisGUI
 
                                 rows.Add(new RowProperty(SetPropertyKeys.AdjacentNodes.ToString(),
                                     Resources.Header_set_adjacentNodes, 
-                                    new ButtonPropertyValue(Resources.Header_set_show,() => {ShowAdjacenciesSet(objType, setName);DisplayObjects();})));
+                                    new ButtonPropertyValue(Resources.Header_set_show,() => {ShowAdjacenciesSet(objType, setName);})));
 
                                 rows.Add(new RowProperty(SetPropertyKeys.Group.ToString(),
                                     Resources.Header_set_group,

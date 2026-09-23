@@ -121,7 +121,7 @@ namespace BazisGUI
                             var presenter = project.CreateModelObjectsPresentor(setInfo);
                             SetVBObjectAttribute(presenter, "цвет");
                         }
-                        DisplayObjects();
+                        RequestRedraw();
                     } 
                 }
                 else if (IsGeometry())
@@ -245,7 +245,6 @@ namespace BazisGUI
             var selectedCount = project.ModelView.GetSelected(selectType).ToList();
 
             console.PrintInfo($"{selectType}, {Resources.AdvaneSelectionSelectedCaption}: {selectedCount}", Color.Black);
-            DisplayObjects();
             return selectedCount;
         }
 
@@ -271,8 +270,6 @@ namespace BazisGUI
             var selectedCount = project.ModelView.SelectedCount;
             
             console.PrintInfo($"{objType}, {Resources.AdvaneSelectionSelectedCaption}: {selectedCount}", Color.Black);
-            
-            DisplayObjects();
         }
 
         private List<int> SelectE2DInPlane(List<int> selectedE2D, float angle)
@@ -300,7 +297,6 @@ namespace BazisGUI
         private void BackColorToAllObjects()
         {
             SetBackColorToAllObjects();
-            DisplayObjects();
         }
 
         private void CloseAdvancedSelectionForm()

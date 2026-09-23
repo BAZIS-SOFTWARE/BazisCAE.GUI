@@ -57,7 +57,7 @@ namespace BazisGUI
                 {
                     var boundaryPointNumbers = settings.BoundaryPointNumbers.ToArray();
                     ShowObjectsNumbers(ObjType.Точка, boundaryPointNumbers);
-                    DisplayObjects();
+                    RequestRedraw();
                 })));
 
             return rows;

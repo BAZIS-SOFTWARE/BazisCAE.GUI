@@ -44,7 +44,6 @@ namespace BazisGUI
             else
                 console.PrintInfo($"{Resources.SelectByRect_Hidden_Message} {counter} {objStr}", Color.Black);
 
-            DisplayObjects();
         }
 
         private string Declination(int input)

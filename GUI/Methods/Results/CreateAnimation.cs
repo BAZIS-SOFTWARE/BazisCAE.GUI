@@ -36,7 +36,7 @@ namespace BazisGUI
                         btn.Checked = false;
                         DisplayGeometryObjectEvent = null;
                         DisplayText3DEvent = null;
-                        DisplayObjects();
+                        RequestRedraw();
                     };
 
                     var animationControl = new AnimationPage() { Dock = DockStyle.Fill };
@@ -111,6 +111,8 @@ namespace BazisGUI
                     var result = loader.GetResult(ResultDbPath, tables, list[i]); //resultData.FindByTime(args.ResltsKind, args.Times[i]);
                     //var resName = navigator.SelectedNode.Text;
                     ShowResults(result, resName);
+                    // ShowResults() только запрашивает кадр, а снимок копирует экран — рисуем сразу
+                    RenderNow();
                     //var image = $@"screenShot_{list[i]}";
                     //var imagePath = $@"{WorkingDir}\{image}.bmp";
                     var image = CreateScreenShot();

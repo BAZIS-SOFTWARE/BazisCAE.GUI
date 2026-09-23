@@ -82,7 +82,7 @@ namespace BazisGUI
                 {
                     VBOController.DeleteVBObjects("Normals");
                 }
-                DisplayObjects();
+                RequestRedraw();
             }
             catch (Exception ex)
             {

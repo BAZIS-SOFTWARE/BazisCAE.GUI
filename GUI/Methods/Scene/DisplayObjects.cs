@@ -2,6 +2,7 @@
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
 using OpenTK.Graphics.OpenGL;
+using System;
 using System.Drawing;
 using System.Linq;
 
@@ -19,8 +20,10 @@ namespace BazisGUI
         /// до модельных объектов/компаса, а текст — после компаса; теперь оба блока рисуются после
         /// всего, что рисует sceneController. Тест глубины включён всегда, так что для непрозрачной
         /// геометрии (подавляющее большинство случаев) видимой разницы нет.
+        /// Вызывается только из scene.Paint (SceneInitialization.cs). Кадр запрашивается через
+        /// RequestRedraw(), синхронно — через RenderNow() (GUI/Documents/DisplayObjects.md).
         /// </summary>
-        public void DisplayObjects()
+        private void DisplayObjects()
         {
             sceneController.DisplayObjects();
 
@@ -42,6 +45,31 @@ namespace BazisGUI
 
             GL.Finish(); // Обработка драйвером буффера команд. См Khronos
             scene.SwapBuffers(); // Поменять местами буфферы кадров.
+        }
+
+        /// <summary>
+        /// Запрашивает перерисовку сцены. Несколько запросов до ближайшего WM_PAINT дают один кадр.
+        /// </summary>
+        public void RequestRedraw()
+        {
+            if (IsDisposed) // если форма уже закрыта, то не перерисовываем сцену
+                return;
+
+            if (InvokeRequired) // перенаправление в UI-поток, если вызов из другого потока (например, из BackgroundWorker)
+            {
+                BeginInvoke(new Action(RequestRedraw)); // реализация вызова в UI-потоке
+                return;
+            }
+
+            scene.Invalidate();
+        }
+
+        /// <summary>
+        /// Рисует кадр синхронно, до возврата из метода. Только для захвата изображения с экрана.
+        /// </summary>
+        public void RenderNow()
+        {
+            scene.Refresh();
         }
 
         private void DisplayControlStatus()

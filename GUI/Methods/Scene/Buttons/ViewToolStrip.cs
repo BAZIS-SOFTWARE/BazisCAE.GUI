@@ -20,19 +20,19 @@ namespace BazisGUI
         private void btnXY_Click(object sender, EventArgs e)
         {
             SetOnPlane(ViewPlane.XY, ScaleFactor);
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void btnZX_Click(object sender, EventArgs e)
         {
             SetOnPlane(ViewPlane.XZ, ScaleFactor);
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void btnZY_Click(object sender, EventArgs e)
         {
             SetOnPlane(ViewPlane.YZ, ScaleFactor);
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void btnRotX_Click(object sender, EventArgs e)
@@ -51,7 +51,7 @@ namespace BazisGUI
                 btnRotX.Tag = false;
                 settingsConfig.RotationAxis = ViewAxis.XYZ;
             }
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void btnRotY_Click(object sender, EventArgs e)
@@ -70,7 +70,7 @@ namespace BazisGUI
                 btnRotY.Tag = false;
                 settingsConfig.RotationAxis = ViewAxis.XYZ;
             }
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void btnRotZ_Click(object sender, EventArgs e)
@@ -89,19 +89,19 @@ namespace BazisGUI
                 btnRotZ.Tag = false;
                 settingsConfig.RotationAxis = ViewAxis.XYZ;
             }
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void btnRotHor90_Click(object sender, EventArgs e)
         {
             RotateCamera(ViewAxis.Y, 90);
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void btnRotVert90_Click(object sender, EventArgs e)
         {
             RotateCamera(ViewAxis.X, 90);
-            DisplayObjects();
+            RequestRedraw();
         }  
     }
 }

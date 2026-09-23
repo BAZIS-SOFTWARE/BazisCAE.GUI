@@ -32,7 +32,7 @@ namespace BazisGUI
             }
 
 
-            DisplayObjects();
+            RequestRedraw();
         }
 
         public void ColorVBObjsByObjsType(ObjType objType)

@@ -97,7 +97,7 @@ namespace BazisGUI
             DisplayGeometryObjectEvent = null;
             DisplayText3DEvent = null;
             SetBackColorToAllObjects();
-            DisplayObjects();
+            RequestRedraw();
         }
 
         private void CheckPlayerControl_StartCheckingEvent(object obj)

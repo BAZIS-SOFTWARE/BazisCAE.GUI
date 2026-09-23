@@ -25,7 +25,7 @@ namespace BazisGUI
                     ClearAllDataOnScene();
                 }
 
-                DisplayObjects();
+                RequestRedraw();
             }
             catch (Exception ex)
             {

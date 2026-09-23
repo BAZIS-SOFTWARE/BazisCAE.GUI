@@ -137,7 +137,7 @@ namespace BazisGUI
                     throw new NotSupportedException();
             }
             PresentGeoData();
-            DisplayObjects();
+            RequestRedraw();
             return tag;
         }
 
@@ -220,7 +220,7 @@ namespace BazisGUI
             CreateVBObjects("Объекты");
 
             PresentMeshData();
-            DisplayObjects();
+            RequestRedraw();
         }
     }
 }
