@@ -89,9 +89,18 @@ namespace BazisGUI
                     var set = project.GetModelSetInfo(objType, number);
                     project.ClearNotExistedModelData();
                     project.ModelView.Prune();
+
+                    // Объект удаляется прямым выбором в навигаторе, а не через выделение
+                    // вида, поэтому он мог не быть выделен или скрыт — тогда Prune() не
+                    // отметит набор изменённым и не поднимет Changed. Буфер набора и кадр
+                    // обновляются явно, не полагаясь на этот побочный эффект.
+                    if (set != null)
+                        RefreshModelSetBuffer(set);
+
                     PresentMeshData();
                     PresentGroupDataOnTree();
                     PresentCondDataOnTree();
+                    RequestRedraw();
                 }
             }
         }

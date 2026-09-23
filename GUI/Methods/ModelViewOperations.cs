@@ -31,10 +31,13 @@ namespace BazisGUI
                 subscribedModelView.Changed += ModelView_Changed;
         }
 
+        const ModelViewChange RebuildChanges = ModelViewChange.Visibility | ModelViewChange.InsideSurfaces | ModelViewChange.ViewMode;
+        const ModelViewChange ColorChanges = ModelViewChange.Selection | ModelViewChange.SetColor | ModelViewChange.SelectionColor | ModelViewChange.Transparency;
+
         /// <summary>
-        /// Обновляет буферы модели после изменения состояния представления.
+        /// Обновляет буферы наборов, затронутых изменением представления, и запрашивает кадр.
         /// </summary>
-        private void ModelView_Changed(object sender, EventArgs e)
+        private void ModelView_Changed(object sender, ModelViewChangedEventArgs e)
         {
             if (IsDisposed || project == null) // если форма уже закрыта или проект не загружен, то не перерисовываем сцену
                 return;
@@ -45,19 +48,26 @@ namespace BazisGUI
                 return;
             }
 
-            RefreshModelViewBuffers();
+            foreach (var setInfo in GetModelSets())
+            {
+                if (e.HasAny(setInfo, RebuildChanges))
+                    RefreshModelSetBuffer(setInfo);
+                else if (e.HasAny(setInfo, ColorChanges))
+                    RecolorModelSetBuffer(setInfo);
+            }
+
             RequestRedraw();
         }
 
         /// <summary>
-        /// Пересоздаёт буферы наборов расчётной модели без затрагивания служебных объектов сцены.
+        /// Возвращает все наборы расчётной модели.
         /// </summary>
-        private void RefreshModelViewBuffers()
+        private IEnumerable<ISetInfo> GetModelSets()
         {
             foreach (ObjType objType in Enum.GetValues(typeof(ObjType)))
             {
                 foreach (var setInfo in project.GetModelSetsInfo(objType))
-                    RefreshModelSetBuffer(setInfo);
+                    yield return setInfo;
             }
         }
 
@@ -73,6 +83,15 @@ namespace BazisGUI
             var presenter = project.CreateModelObjectsPresentor(setInfo);
             if (TryCreateVBObject(presenter, out var vbo))
                 VBOController.AddVbo(vbo);
+        }
+
+        /// <summary>
+        /// Обновляет цвета буфера набора без пересборки геометрии.
+        /// </summary>
+        private void RecolorModelSetBuffer(ISetInfo setInfo)
+        {
+            var presenter = project.CreateModelObjectsPresentor(setInfo);
+            SetVBObjectAttribute(presenter, "цвет");
         }
 
         /// <summary>

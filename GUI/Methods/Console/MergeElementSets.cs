@@ -25,11 +25,15 @@ namespace BazisGUI
                 if (!ObjType.TryParse(objTypeStr, out objType))
                     throw new Exception("Неизвестный тип объектов");
 
+                // Выделение снимается до слияния: событие Changed от ClearSelection
+                // перекрашивает буферы наборов по их текущему составу, а состав
+                // master/slave меняется только ниже, явным пересозданием буферов.
+                project.ModelView.ClearSelection();
+
                 project.MergeElements(objType, masterSet, slaveSet);
 
                 PresentMeshData();
 
-                project.ModelView.ClearSelection();
                 VBOController.DeleteVBObjects(slaveSet);
                 VBOController.DeleteVBObjects(masterSet);
 

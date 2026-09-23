@@ -123,3 +123,11 @@ public void RenderNow()
 - при переходе на `SceneView` (Avalonia) тело `RequestRedraw()` меняется на `RequestNextFrameRendering()`, а обработчики не меняются.
 
 Отдельный шаг — передавать в `IModelView.Changed` затронутые наборы, чтобы `RefreshModelViewBuffers()` не пересобирал VBO всех наборов на каждое изменение. От схемы запроса кадра он не зависит.
+
+**Сделано** (`ModelViewChanged.md`). `IModelView.Changed` теперь несёт `ModelViewChangedEventArgs` — что изменилось и у каких наборов. `ModelView_Changed` в `ModelViewOperations.cs` для каждого набора расчётной модели решает по правилу «пересобрать или перекрасить»:
+
+- видимость, внутренние грани, режим отображения набора изменились → `RefreshModelSetBuffer` (пересобрать VBO набора: состав объектов или способ отрисовки могли поменяться);
+- иначе, если изменились выделение, цвет набора, цвет выделения или прозрачность → `RecolorModelSetBuffer` (`SetVBObjectAttribute(presenter, "цвет")`: число объектов то же, буфер просто перекрашивается);
+- иначе набор не трогается.
+
+`RefreshModelViewBuffers()` убран за ненадобностью. Места, где модель менялась в обход выделения вида (значит, `Prune()`/`ClearSelection()` могли не отметить набор изменившимся), теперь обновляют свои буферы явно — см. раздел 5.4 `ModelViewChanged.md`.

@@ -154,12 +154,17 @@ namespace BazisGUI
                 foreach (var item in selObjs)
                     item.ExistState = false;
 
-                if(SelectedObjects == SelectionType.Nodes)
+                // Удаление узла каскадно гасит владеющие элементы (см. ModelView.md,
+                // "Внутренние грани объёмных элементов"), а эти элементы могли не входить
+                // в выделение и остаться не отмеченными изменением вида в Prune() —
+                // поэтому их буферы обновляются явно, независимо от текущего режима
+                // SelectedObjects (это фильтр выбора в тулбаре, а не тип удаляемых объектов).
+                if (selObjs.Any(item => item.ObjType == ObjType.Узел))
                 {
                     DeleteVBObjects("Элементы");
                     CreateVBObjects("Элементы");
                 }
- 
+
                 project.ClearNotExistedModelData();
                 project.ModelView.Prune();
                 //project.ClearEmptySet();
