@@ -65,7 +65,7 @@ namespace BazisGUI
             settings.SetBackGroundColorEvent += (ar) =>
             {
                 settingsConfig.BackGroundColor = ar;
-                averageColorRenderer.BackgroundColor = ar;
+                sceneController.BackGroundColor = ar; // сам averageColorRenderer.BackgroundColor обновит sceneController
                 DisplayObjects();
             };
 
@@ -73,7 +73,7 @@ namespace BazisGUI
             settings.SetLightingEvent += (ar) =>
             {
                 settingsConfig.Lighting = ar;
-                averageColorRenderer.IsLighting = ar;
+                sceneController.IsLighting = ar; // тоже синхронизирует averageColorRenderer.IsLighting
                 DisplayObjects();
             };
 
@@ -90,6 +90,7 @@ namespace BazisGUI
             settings.SetOrtoProjectionEvent += (ar) =>
             {
                 settingsConfig.Projection = ar ? ViewProjection.Parallel : ViewProjection.Perspective;
+                sceneController.Projection = settingsConfig.Projection;
                 UpdateProjection();
                 DisplayObjects();
             };
@@ -120,6 +121,8 @@ namespace BazisGUI
 
                 settingsConfig.LighterPosition.X = (int)x;
                 settingsConfig.LighterPosition.Y = (int)y;
+                sceneController.LightTranslateX = x;
+                sceneController.LightTranslateY = y;
 
                 DisplayObjects();
             };

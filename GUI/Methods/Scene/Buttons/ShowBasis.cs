@@ -36,6 +36,7 @@ namespace BazisGUI
             }
             btnBazis.Tag = flag;
             settingsConfig.DisplayBasis = flag;
+            sceneController.DisplayBasis = flag;
             DisplayObjects();
         }
     }

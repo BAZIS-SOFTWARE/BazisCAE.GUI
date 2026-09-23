@@ -38,8 +38,8 @@ namespace BazisGUI
 
             if (e.Button == MouseButtons.Left)
             {
-                selectionRectangle.winScreneCoord.X = e.Location.X;
-                selectionRectangle.winScreneCoord.Y = scene.Height - e.Location.Y;
+                sceneController.SelectionRectangle.winScreneCoord.X = e.Location.X;
+                sceneController.SelectionRectangle.winScreneCoord.Y = scene.Height - e.Location.Y;
 
                 DisplayObjects();
             }
@@ -82,10 +82,10 @@ namespace BazisGUI
                 DisplayRotationPointEvent += CreateRotationPoint();
             else if (e.Button == MouseButtons.Left)
             {
-                selectionRectangle.winScrenePosit.X = e.X;
-                selectionRectangle.winScrenePosit.Y = -e.Y + scene.Height;
-                selectionRectangle.winScreneCoord.X = selectionRectangle.winScrenePosit.X + 10;
-                selectionRectangle.winScreneCoord.Y = selectionRectangle.winScrenePosit.Y - 10;
+                sceneController.SelectionRectangle.winScrenePosit.X = e.X;
+                sceneController.SelectionRectangle.winScrenePosit.Y = -e.Y + scene.Height;
+                sceneController.SelectionRectangle.winScreneCoord.X = sceneController.SelectionRectangle.winScrenePosit.X + 10;
+                sceneController.SelectionRectangle.winScreneCoord.Y = sceneController.SelectionRectangle.winScrenePosit.Y - 10;
             }
         }
 
@@ -101,10 +101,10 @@ namespace BazisGUI
                         IsSceneExpand = false;
                 else
                 {
-                    var left = selectionRectangle.winScrenePosit.X - scene.Width / 2;
-                    var rigth = selectionRectangle.winScreneCoord.X - scene.Width / 2;
-                    var top = selectionRectangle.winScrenePosit.Y - scene.Height / 2;
-                    var bottom = selectionRectangle.winScreneCoord.Y - scene.Height / 2;
+                    var left = sceneController.SelectionRectangle.winScrenePosit.X - scene.Width / 2;
+                    var rigth = sceneController.SelectionRectangle.winScreneCoord.X - scene.Width / 2;
+                    var top = sceneController.SelectionRectangle.winScrenePosit.Y - scene.Height / 2;
+                    var bottom = sceneController.SelectionRectangle.winScreneCoord.Y - scene.Height / 2;
 
                     var selectionBox = new RectangleBox(left, rigth, bottom, top);
 
@@ -128,7 +128,7 @@ namespace BazisGUI
                             SelectObjects(selectionBox, false);
                         
                     }
-                    selectionRectangle.Remove();
+                    sceneController.SelectionRectangle.Remove();
                     DisplayObjects();
                 }
             }

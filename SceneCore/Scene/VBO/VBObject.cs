@@ -1,5 +1,4 @@
-﻿using BazisGUI.Properties;
-using BazisGUI.Scene.Interfaces;
+﻿using BazisGUI.Scene.Interfaces;
 using OpenTK.Graphics.OpenGL;
 using System;
 
@@ -76,7 +75,7 @@ namespace BazisGUI.Scene.VBO
         public VBObject(string objName, int[] pointers, float[] glCoords)
         {
             if (pointers.Length == 0)
-                throw new ArgumentException(Resources.VBObjectCtor_EmptyArrayArgumentException);
+                throw new ArgumentException("VBObject Error: Index array length cannot be zero");
             ObjName = objName;
 
             PtrLength = pointers.Length;

@@ -8,13 +8,13 @@ using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI.Scene.VBO
 {
-    internal class ClipPlane :  SurfaceObjects
+    public class ClipPlane : SurfaceObjects
     {
         private float normalSize;
 
-        internal ClipPlaneRenderer Renderer { get; set; }
+        public ClipPlaneRenderer Renderer { get; set; }
 
-        internal float[] ViewMatrix { get; set; } = new float[16];
+        public float[] ViewMatrix { get; set; } = new float[16];
         /// <param name="pointers">Индексы</param>
         /// <param name="glCoords">Координаты</param>
         /// <param name="glColors">Цвета</param>

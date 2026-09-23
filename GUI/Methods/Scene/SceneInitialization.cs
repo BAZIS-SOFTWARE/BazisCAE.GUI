@@ -1,5 +1,8 @@
-﻿using BazisGUI.Scene.Interfaces;
+﻿using BazisGUI.Scene.Core;
+using BazisGUI.Scene.Core.Text;
+using BazisGUI.Scene.Interfaces;
 using System;
+using System.Collections.Generic;
 using Geometry;
 using System.Drawing;
 using BazisGUI.Scene.VBO;
@@ -13,50 +16,49 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        // Следующий шаг миграции (GUI/Documents/scene.avalonia.md, шаг 4): камера, VBOController,
+        // рендер базиса/компаса/точки вращения/модельных объектов и матрицы вида/проекции
+        // теперь считает SceneController (см. BaseForm.cs — VBOController/averageColorRenderer/
+        // advanced3DClipper там же переведены в проброс к нему).
+        //
+        // DisplayGeometryObjectEvent/DisplayText3DEvent/DisplayText2DEvent/DisplayClipPlaneEvent
+        // сознательно НЕ тронуты: на них напрямую завязаны ~20 файлов вне Methods/Scene
+        // (Navigator, Console, Results, UtilityToolStrip и т.д.), полный перенос которых —
+        // отдельный шаг с проверкой каждого сценария. DisplayObjects() по-прежнему их вызывает,
+        // поэтому старый шрифт (FontBase/ChangeTextFont, ниже) тоже остаётся: это их источник
+        // глифов. SceneController заводит для СВОИХ слоёв (компас) отдельный текстовый рендерер —
+        // это два независимых диапазона display list'ов, конфликта нет.
+        /// <summary>
+        /// Результат последнего ScenePicker.SelectByPoint/SelectByRect внутри sceneController —
+        /// см. SelectByPoint.cs/SelectByRect.cs. Core не знает о "project"/IModelView, поэтому
+        /// сообщает о найденных объектах через InfoRequested, а не выполняет выбор сам.
+        /// </summary>
+        private readonly List<(string Name, IEnumerable<int> Numbers)> pickHits = new();
+
         public void SceneInitialization(object sender, EventArgs args)
         {
             if (scene.Profile != OpenTK.Windowing.Common.ContextProfile.Compatability)
                 throw new Exception("Используется deprecated код, задайте для экземпляра класса GLControl свойство Profile = Compatability");
 
-            //basis = new SceneBasis();
-            DisplayBasis();
-            DisplayRotationPointEvent = CreateRotationPoint();
-            CameraInitialization(0, 0, -5);
-            UpdateProjection();        
-            DisplayCompass();
-
-            selectionRectangle = new ScreenRectangle();
-
-            /*
-            IntPtr hdc = Wgl.wglGetCurrentDC();
-            Wgl.wglUseFontBitmapsW(hdc, 0, 1150, 1000); // Ниже заменю на проверенный корректный вызов
-            */
+            sceneController = new SceneController(new WglBitmapFontTextRenderer());
+            sceneController.GetCamera().Width = scene.Width;
+            sceneController.GetCamera().Height = scene.Height;
+            sceneController.Initialization();
+            sceneController.InfoRequested += (s, e) => pickHits.Add((e.ObjsName, e.GetObjectsIndexes()));
 
             FontBase = GL.GenLists(1150);//кол-во глифов (элементов для рисования букв 256 - только латиница, 1150 - поддержка еще и кирилицы)
             ChangeTextFont();//Используем шрифт по-умолчанию
-            
-            //ChangeTextFont(fontBase, "Comic Sans", 18, FontStyle.Italic);//Проверка различного типа шрифтов
-            //FontBase = fontBase;
-            //После этого мы должны передавать fontBase в любой класс, который использует шрифты!          
 
-            //Gle.Load();
-            //AverageColorRenderer.CreateAverageColorRenderer(scene.Width, scene.Height);
-            averageColorRenderer = new AverageColorRenderer(scene.Width, scene.Height);
-            clipPlaneRenderer = new ClipPlaneRenderer();
-            advanced3DClipper = new Advanced3DClipper();
+            if (sceneController.TextRenderer is WglBitmapFontTextRenderer wglTextRenderer)
+                wglTextRenderer.AttachToCurrentContext(GetDeviceContext());
+
             Disposed += (s, e) =>
             {
                 foreach (var obj in VBOController.GetVBObjs())
                     VBO.DeleteAllBuffers(obj);
-                averageColorRenderer.Dispose();
-                clipPlaneRenderer.Dispose();
-                advanced3DClipper.Dispose();
+                sceneController.Dispose();
                 GL.DeleteLists(FontBase, 1150);
             };
-
-            //Disposed += (s, e) => AverageColorRenderer.Dispose();
-            //Disposed += (s, e) => clipPlaneRenderer.Dispose();
-            //DisplayClipPlane();//Регистрируем обработчик визуализации сечения
 
             scene.Paint += (arg1, arg2) => DisplayObjects();
             scene.SizeChanged += GlControl_Resize;
@@ -69,48 +71,11 @@ namespace BazisGUI
         }
 
         /// <summary>
-        /// SceneCamera
-        /// </summary>
-        /// <param name="moveX"></param>
-        /// <param name="moveY"></param>
-        /// <param name="moveZ"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="angleOfProjection"></param>
-        public void CameraInitialization(float moveX, float moveY, float moveZ)
-        {
-            //ScaleFactor = 1;
-            // подклюение функции проверки буфера глубины 
-            GL.Enable(EnableCap.DepthTest);
-
-            // задать цвет очистки экрана
-            GL.ClearColor(1f, 1f, 1f, 0);
-
-            // выполнение очистки буфера цвета и буфера глубины в заданный цвет glClearColor(1, 1, 1, 0) 
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            // установка порта вывода в соответствии с размерами элемента anT 
-            GL.Viewport(0, 0, scene.Width, scene.Height);
-
-            // настройка матрицы проекции 
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadIdentity();
-            //Gl.glOrtho(0, baseScene.Width, 0, baseScene.Height, 0.1, 2000);
-            gluPerspective(settingsConfig.AngleOfProjection, (double)scene.Width / scene.Height, 1, 2000);
-
-            // настройка матрицы видовых преобразований  
-            GL.MatrixMode(MatrixMode.Modelview);
-            GL.LoadIdentity();
-            GL.Translate(moveX, moveY, moveZ);
-        }
-
-
-        /// <summary>
         /// Для корректного отображения шрифтов нужен HDC окна, созданного на этапе вызова метода scene.InitializeContexts();
         /// Однако оно приватное, мы можем получить его через рефлексию
         /// </summary>
         /// <returns>IntPtr - deviceContext</returns>
-        private IntPtr GetDeviceContext() 
+        private IntPtr GetDeviceContext()
         {
             scene.MakeCurrent();
             return GetCurrentDC();

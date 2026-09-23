@@ -1,86 +1,21 @@
-﻿using BazisGUI.Scene.Interfaces;
-using Geometry;
-using MathNet.Numerics.LinearAlgebra;
-using System;
+﻿using Geometry;
 
 namespace BazisGUI
 {
+    // Пересчёт экранных/сценовых координат теперь делает SceneCamera —
+    // см. GUI/Documents/scene.avalonia.md, раздел 6.
     public partial class BaseForm
     {
-        public Point3D GetSceenCoord(float x, float y, float z)
-        {
-            float[] point = new float[4]
-            {
-                x - Position._x,
-                y - Position._y,
-                z - Position._z,
-                1
-            }; // первоначальные видовые координаты искомой точки точки
+        public Point3D GetSceenCoord(float x, float y, float z) => sceneController.GetCamera().GetSceenCoord(x, y, z);
 
-            //Matrix<float> operate = Matrix<float>.Build.DenseOfArray(viewMatrix);
-            Vector<float> vector = Vector<float>.Build.DenseOfArray(point); // видовые координаты искомой точки точки после преобразования
-
-            ViewMatrix.Multiply(vector, vector);
-
-            return new Point3D(vector[0], vector[1], vector[2]);
-        }
         /// <inheritdoc/>
-        public Point3D GetSceenCoord(Point3D point)
-        {
-            var shift = point.Sub(Position);
-            float[] pointV = new float[4] { shift._x, shift._y, shift._z, 1 }; // первоначальные видовые координаты искомой точки точки
+        public Point3D GetSceenCoord(Point3D point) => sceneController.GetCamera().GetSceenCoord(point);
 
-
-            var vector = Vector<float>.Build.DenseOfArray(pointV); // видовые координаты искомой точки точки после преобразования
-
-            ViewMatrix.Multiply(vector, vector);
-
-            return new Point3D(vector[0], vector[1], vector[2]);
-        }
         /// <inheritdoc/>
-        public Point3D GetSceenCoord(Point2D point2D, float depth, float ScaleFactor)
-        {
-            var view_port_koeff = ((float)scene.Height / scene.Width);
-            var tan = (float)Math.Tan(settingsConfig.AngleOfProjection * 3.14f / 180);
-            var xs = point2D._x * tan * depth / view_port_koeff / scene.Width; //вычисление экранной Хэ координат искомой точки узлов (2, 4)
-            var ys = point2D._y * tan * depth / scene.Height; //вычисление экранной Уэ координат искомой точки
+        public Point3D GetSceenCoord(Point2D point2D, float depth, float ScaleFactor) =>
+            sceneController.GetCamera().GetSceenCoord(point2D, depth, ScaleFactor);
 
-            xs = xs / ScaleFactor / ScaleFactor;
-            ys = ys / ScaleFactor / ScaleFactor;
-
-            var scnc = GetSceneCoordOfScreenVector((float)xs, (float)ys);
-
-            return new Point3D(scnc._x, scnc._y, scnc._z);
-        }
         /// <inheritdoc/>
-        public Point2D GetScreenCoord(Point3D coord)
-        {
-            if (settingsConfig.Projection == ViewProjection.Perspective)
-            {
-                var zn = coord._z;
-                var xn = -(coord._x / coord._z);
-                var yn = -(coord._y / coord._z);
-                var view_port_koeff = ((float)scene.Height / scene.Width);
-                var tan = (float)Math.Tan(settingsConfig.AngleOfProjection * 3.14f / 180);
-                var x_scr = xn * view_port_koeff * (scene.Width / tan); //вычисление экранной Хэ координат искомой точки узлов (2, 4)
-                var y_scr = yn * (scene.Height / tan); //вычисление экранной Уэ координат искомой точки
-
-                return new Point2D(x_scr, y_scr);
-            }
-            else
-            {
-                var v = new float[4] { coord._x, coord._y, coord._z, 1 }; // первоначальные видовые координаты искомой точки точки
-                var vector = Vector<float>.Build.DenseOfArray(v); // видовые координаты искомой точки точки после преобразования
-
-                ProjectionMatrix.Multiply(vector, vector);
-
-                // Преобразование в пиксельные координаты экрана
-                var screenX = vector[0] * 0.5f * scene.Width;
-                var screenY = vector[1] * 0.5f * scene.Height;
-
-                return new Point2D(screenX, screenY);
-            }
-
-        }
+        public Point2D GetScreenCoord(Point3D coord) => sceneController.GetCamera().GetScreenCoord(coord);
     }
 }

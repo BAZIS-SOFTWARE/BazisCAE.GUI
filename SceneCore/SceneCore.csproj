@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Ядро 3D-сцены: net8.0 без суффикса "-windows" и без UseWindowsForms.
+    Это намеренно — компилятор не даёт случайно затащить сюда WinForms,
+    System.Drawing.Common или Win32 P/Invoke обратно в BazisGUI.
+    См. GUI/Documents/scene.avalonia.md, раздел 3.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>BazisGUI.Scene</RootNamespace>
+    <AssemblyName>SceneCore</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\GUI\BazisGUIKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTK.Graphics" Version="4.9.3" />
+    <PackageReference Include="MathNet.Numerics.Signed" Version="5.0.0" />
+    <PackageReference Include="Geometry" Version="2.2.6" />
+    <PackageReference Include="Model" Version="5.0.1" />
+    <PackageReference Include="PostProc" Version="2.2.6" />
+    <PackageReference Include="SkiaSharp" Version="3.119.4" />
+  </ItemGroup>
+
+</Project>

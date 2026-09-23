@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
 using OpenTK.Graphics.OpenGL;
 
 namespace BazisGUI.Scene
@@ -144,9 +143,7 @@ namespace BazisGUI.Scene
             {
                 var sb = string.Empty;
                 GL.GetShaderInfoLog(shader, 1024, out length, out sb);
-                if (MessageBox.Show(sb.ToString(), "Compile shader exception",
-                                MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Cancel)
-                    Environment.Exit(1);
+                throw new InvalidOperationException($"Shader compile error ({type}): {sb}");
             }
         }
         /// <summary>
@@ -178,9 +175,7 @@ namespace BazisGUI.Scene
                 var length = 0;
                 var sb = string.Empty;
                 GL.GetProgramInfoLog(Program, 1024, out length, out sb);
-                if (MessageBox.Show(sb.ToString(), "Link program exception",
-                                MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Cancel)
-                    Environment.Exit(1);
+                throw new InvalidOperationException($"Shader program link error: {sb}");
             }
         }
         /// <summary>

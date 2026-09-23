@@ -1,5 +1,4 @@
-﻿using BazisGUI.Properties;
-using BazisGUI.Scene.EventsArgs;
+﻿using BazisGUI.Scene.EventsArgs;
 using BazisGUI.Scene.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -160,7 +159,7 @@ namespace BazisGUI.Scene.VBO
         {
             var glObj = glObjs[objsName];
             if (glObj == null)
-                MessageEvent?.Invoke(this, new MessageEventArgs(Resources.VBObjectController_ChangeViewMode_Message));
+                MessageEvent?.Invoke(this, new MessageEventArgs("No objects of the specified type found!"));
             else
                 glObj.ViewMode = objView;
         }
@@ -169,7 +168,7 @@ namespace BazisGUI.Scene.VBO
         {
             var glObj = glObjs[objsName];
             if (glObj == null)
-                MessageEvent?.Invoke(this, new MessageEventArgs(Resources.VBObjectController_ChangeViewMode_Message));
+                MessageEvent?.Invoke(this, new MessageEventArgs("No objects of the specified type found!"));
             else
             {
                 glObj.Gl_PointSize = pointsSize;

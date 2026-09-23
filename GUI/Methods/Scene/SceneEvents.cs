@@ -266,34 +266,10 @@ namespace BazisGUI
         }
 
         /// <inheritdoc/>
-        //TO DO добавить тест
-        public void SetRotationCentre(Point3D modelPoint)
-        {
-            var viewMatrix = ViewMatrix;
+        // Перенесено в SceneCamera.SetRotationCentre — см. GUI/Documents/scene.avalonia.md, раздел 6.
+        public void SetRotationCentre(Point3D modelPoint) => sceneController.SetRotationCentre(modelPoint);
 
-            Position = modelPoint; // Может быть не хранить мировые кординаты выбранной точки как позицию камеры
-
-            viewMatrix[0, 3] = 0; viewMatrix[1, 3] = 0;
-            var tempViewMatrixAr = viewMatrix.AsColumnMajorArray();
-            GL.LoadMatrix(tempViewMatrixAr);
-        }
-
-        private void GlControl_Resize(object sender, EventArgs e)
-        {
-            // установка порта вывода в соответствии с размерами элемента anT 
-            GL.Viewport(0, 0, scene.Width, scene.Height);
-            // настройка матрицы проекции 
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadIdentity();
-
-            //Glu.gluPerspective(camera.AngleOfProjection, (double)scene.Width / scene.Height, 1, 2000);//Учтется при UpdateProjection
-            GL.MatrixMode(MatrixMode.Modelview);
-            var matrix = ViewMatrix.AsColumnMajorArray();
-            GL.LoadMatrix(matrix);
-
-            UpdateProjection();
-            averageColorRenderer.Reshape(scene.Width, scene.Height);
-        }
+        private void GlControl_Resize(object sender, EventArgs e) => sceneController.Resize(scene.Width, scene.Height);
 
         private void SelectObjects(Point2D point, bool isSelected)
         {

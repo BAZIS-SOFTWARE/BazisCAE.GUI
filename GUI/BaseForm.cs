@@ -3,6 +3,7 @@ using BazisGUI.AvaloniaUI.Chamfer.Services;
 using BazisGUI.Navigator;
 using BazisGUI.Properties;
 using BazisGUI.Scene;
+using BazisGUI.Scene.Core;
 using BazisGUI.Scene.VBO;
 using BazisGUI.SettingsControls;
 using ClientGUI;
@@ -70,10 +71,16 @@ namespace BazisGUI
         //private System.Windows.Forms.Timer connectTimer = new System.Windows.Forms.Timer();
         //ProjectData project;
 
-        ScreenRectangle selectionRectangle;
-        ClipPlaneRenderer clipPlaneRenderer;
-        Advanced3DClipper advanced3DClipper;
-        AverageColorRenderer averageColorRenderer;
+        // Ядро сцены (BazisGUI.Scene.Core.SceneController) — см. GUI/Documents/scene.avalonia.md,
+        // шаг 4 плана перехода. Камера, VBOController, рендер базиса/компаса/точки вращения/модельных
+        // объектов и матрицы вида/проекции теперь считаются там; ниже — прежние имена полей,
+        // оставленные как проброс к sceneController, чтобы не трогать остальные ~500 файлов проекта,
+        // которые их читают (VBOController, ScaleFactor, Position, ViewMatrix и т.д.).
+        SceneController sceneController;
+
+        Advanced3DClipper advanced3DClipper => sceneController.Advanced3DClipper;
+        AverageColorRenderer averageColorRenderer => sceneController.AverageColorRenderer;
+        VBOController VBOController => sceneController.VboController;
 
         //BasePage module;
         ProjectController project;
@@ -81,7 +88,6 @@ namespace BazisGUI
         PreProc.PreProc preProc = new();
         PostProcController resultsController = new();
         IPresentersCreator presentersCreator = new PresentersCreator();
-        VBOController VBOController = new();
 
         ClientController serverConnection;
 

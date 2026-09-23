@@ -9,12 +9,12 @@ namespace BazisGUI.Scene
     /// <summary>
     /// Класс для визуализации отсекающей плоскости
     /// </summary>
-    internal class ClipPlaneRenderer
+    public class ClipPlaneRenderer
     {
         /// <summary>
         /// Возвращает программу для отрисовки
         /// </summary>
-        internal ShaderProgramCreator Program { get; set; }
+        public ShaderProgramCreator Program { get; set; }
         /// <summary>
         /// Конструктор класса-визуализатора отсекающей плоскости
         /// </summary>

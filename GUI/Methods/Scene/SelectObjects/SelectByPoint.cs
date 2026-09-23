@@ -1,4 +1,4 @@
-﻿using BazisGUI.Properties;
+using BazisGUI.Properties;
 using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
 using Geometry;
@@ -11,72 +11,27 @@ using System.Linq;
 
 namespace BazisGUI
 {
+    // Геометрический подбор (проекция координат, попадание в полигон/сегмент) теперь считает
+    // ScenePicker внутри sceneController — см. GUI/Documents/scene.avalonia.md, раздел 6.
+    // Здесь остаётся то, что Core сознательно не делает: применение выбора к модели
+    // (project.ModelView.Select/Deselect), вывод в консоль/панель свойств. Результат подбора
+    // (какой набор/номер задет) сообщается через sceneController.InfoRequested — см. pickHits
+    // в SceneInitialization.cs.
     public partial class BaseForm
     {
         public bool SelectByPoint(IEnumerable<ISetInfo> sets, Point2D selectionPoint, bool isSelected)
         {
-            var selFlag = false;
-            var tempNumbs = new List<int>();
-            ISetInfo tempSetInfo = null;
-            var cur_z_depth = 0.0f;
+            var setList = sets.ToList();
+            pickHits.Clear();
 
-            foreach (var set in sets)
+            var selFlag = sceneController.SelectByPoint(setList, selectionPoint, isSelected);
+
+            if (selFlag && pickHits.Count > 0)
             {
-                foreach (var numb in set.GetNumbers())
-                {
-                    if (project.ModelView.GetVisible(set.ObjType, numb))
-                    {
-                        var coords = set.GetCoords(numb);
-                        var scrPoints = new List<Point2D>();//[coords.Count()];
-                        var scnPoints = new List<Point3D>();//[coords.Count()];
+                var (setName, numbers) = pickHits[0];
+                var tempSetInfo = setList.First(s => s.Name == setName);
+                var tempNumb = numbers.Last();
 
-                        foreach (var point in coords)
-                        {
-                            var scnPoint = GetSceenCoord(point);
-                            scnPoints.Add(scnPoint);
-
-                            var scrPoint = GetScreenCoord(scnPoint);
-                            scrPoints.Add(scrPoint);
-                        }
-
-                        if (IsObjectSelected(selectionPoint, set.ObjType, scrPoints))
-                        {
-                            selFlag = true;
-
-                            bool isObjectCloser;
-
-                            var temp_z_depth = 0.0f;
-
-                            if (scnPoints.Count == 1)
-                                temp_z_depth = scnPoints[0]._z;
-                            else
-                                // вычисление центральной z координаты объекта
-                                temp_z_depth = scnPoints.Sum(x => x._z) / scnPoints.Count;
-
-                            if (cur_z_depth == 0)
-                                isObjectCloser = true;
-                            else
-                                isObjectCloser = temp_z_depth > cur_z_depth ? true : false;
-
-                            if (isObjectCloser)
-                            {
-                                tempNumbs.Add(numb);
-                                //tempSetInfo?.SetBackColor(tempNumb);
-                                tempSetInfo = set;
-                                //tempNumb = numb;
-                                cur_z_depth = temp_z_depth;
-                            }
-                            else
-                                tempNumbs.Insert(0, numb);// set.SetBackColor(numb);
-                        }
-                    }
-                }
-
-            }
-
-            if (selFlag)
-            {
-                var tempNumb = tempNumbs.Last();
                 ApplySelectionColor();
                 if (isSelected)
                     project.ModelView.Select(tempSetInfo.ObjType, [tempNumb]);
@@ -84,8 +39,8 @@ namespace BazisGUI
                     project.ModelView.Deselect(tempSetInfo.ObjType, [tempNumb]);
 
                 if (bool.Parse(btnAdvSelection.Tag.ToString()))
-                    DispatchSelection(new List<int>() {tempNumb}, isSelected);
-                else 
+                    DispatchSelection(new List<int>() { tempNumb }, isSelected);
+                else
                 {
                     console.PrintInfo($"{Resources.SelectByPoint_ObjectSelected_Message} : {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(tempSetInfo.ObjType))} {tempNumb}", Color.Black);
                     CreateObjectProperties(tempSetInfo, tempNumb);
@@ -94,50 +49,11 @@ namespace BazisGUI
             return selFlag;
         }
 
-        private bool IsObjectSelected(Point2D selectionPoint, ObjType objType, List<Point2D> scrPoints)
-        {
-            var temp = false;
-            if (objType == ObjType.Кривая)
-                temp = IsCurveSelected(selectionPoint, scrPoints);
-            else if (objType == ObjType.Поверхность)
-                temp = IsSurfaceSelected(selectionPoint, scrPoints);
-            else
-                temp = IsObjectSelected(selectionPoint, scrPoints);
-            return temp;
-        }
-
-        private bool IsSurfaceSelected(Point2D selectionPoint, List<Point2D> scrPoints)
-        {
-            var rect = new RectangleBox(scrPoints);
-            if (rect.IsPointInside(selectionPoint))
-            // пока добавим дополнительную проверку, без нее работает гораздо хуже на изогнутых поверхностях
-            {
-                var creator = new Hull2DCreator();
-                var count = scrPoints.Count/3;
-                for (int i = 0; i < count; i++)
-                {
-                    var temp = new Point2D[]
-                    {
-                        scrPoints[3 * i + 0],
-                        scrPoints[3 * i + 1],
-                        scrPoints[3 * i + 2]
-                    };
-                    if (creator.TryCreateHullGraham(temp, out Polygon polygon))
-                        if (polygon.IsPointInsidePolygon(selectionPoint))
-                            return true;
-                        //return polygon.IsPointInsidePolygon(selectionPoint) ? true :;
-                }
-                return false;
-            }
-            else 
-                return false;
-        }
-
         private void CreateObjectProperties(ISetInfo setName, int number)
         {
 
-            var rows = new List<RowProperty> 
-            { 
+            var rows = new List<RowProperty>
+            {
                 new RowProperty(ObjectPropertyKey.Type.ToString(),
                 Resources.Header_object_object,
                 setName.ObjType,
@@ -171,64 +87,6 @@ namespace BazisGUI
 
             var objInfo = $"{number} {setName.ObjType}";
             propertiesPanel.DrawTable(rows, objInfo, 1);
-        }
-
-        private bool IsObjectCloser(ref ISetInfo tempSetInfo, ref Point3D tempScnPoint, List<Point3D> scnPoints)
-        {
-            if (scnPoints.Count == 1)
-                return scnPoints[0]._z > tempScnPoint._z ? true : false;
-            else
-            {
-                var _z = scnPoints.Sum(x => x._z) / scnPoints.Count;
-                return _z > tempScnPoint._z ? true : false;
-            }
-        }
-
-        private bool IsCurveSelected(Point2D selectionPoint, List<Point2D> scrPoints)
-        {
-            var rect = new RectangleBox(scrPoints);
-            if (rect.IsPointInside(selectionPoint))
-            // пока добавим дополнительную проверку, без нее работает гораздо хуже на изогнутых поверхностях
-            {
-                if (scrPoints.Count == 2)
-                {
-                    var seg = new Segment2D(scrPoints[0], scrPoints[1]);
-
-                    return seg.IsPointBelongSegment(selectionPoint, 5) ? true : false;
-                }
-                else
-                {
-                    var count = scrPoints.Count/2;
-                    for (int i = 0; i < count; i++)
-                    {          
-                        var seg = new Segment2D(scrPoints[2 * i + 0], scrPoints[2 * i + 1]);
-                        if (seg.IsPointBelongSegment(selectionPoint, 5))
-                            return true;
-                    }            
-                }
-            }
-            return false;
-        }
-
-        private bool IsObjectSelected(Point2D selectionPoint, List<Point2D> scrPoints)
-        {
-            if (scrPoints.Count == 1)
-            {
-                return scrPoints[0]._x > selectionPoint._x - 10 & scrPoints[0]._x < selectionPoint._x + 5
-                    && scrPoints[0]._y > selectionPoint._y - 5 & scrPoints[0]._y < selectionPoint._y + 5;
-            }
-            else
-            {
-                var rect = new RectangleBox(scrPoints);
-                if (rect.IsPointInside(selectionPoint))
-                // пока добавим дополнительную проверку, без нее работает гораздо хуже на изогнутых поверхностях
-                {
-                    var creator = new Hull2DCreator();
-                    if (creator.TryCreateHullGraham(scrPoints, out Polygon polygon))
-                        return polygon.IsPointInsidePolygon(selectionPoint);
-                }
-                return false;
-            }
         }
     }
 }

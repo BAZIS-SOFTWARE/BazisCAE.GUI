@@ -1,21 +1,11 @@
-﻿using BazisGUI.Scene.Interfaces;
-using System;
-using Geometry;
-using System.Drawing;
-using MathNet.Numerics.LinearAlgebra;
-using OpenTK.Graphics.OpenGL;
-
-namespace BazisGUI
+﻿namespace BazisGUI
 {
+    // Масштаб сцены и его пересчёт теперь на стороне SceneCamera —
+    // см. GUI/Documents/scene.avalonia.md, раздел 6.
     public partial class BaseForm
     {
-        public float ScaleFactor { get; set; } = 1.0f;
+        public float ScaleFactor => sceneController.ScaleFactor;
 
-        public void ScaleObjs(float scaleFactor)
-        {
-            GL.Scale(scaleFactor, scaleFactor, scaleFactor);
-            var crd = GetSceneCoordOfScreenVector(0, 1);
-            ScaleFactor = (float)Math.Sqrt(Math.Pow(crd._x, 2) + Math.Pow(crd._y, 2) + Math.Pow(crd._z, 2));
-        }
+        public void ScaleObjs(float scaleFactor) => sceneController.ScaleObjs(scaleFactor);
     }
 }

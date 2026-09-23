@@ -230,6 +230,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MasterInterface\MasterInterface.csproj" />
     <ProjectReference Include="..\UserControlEx\UserControlsEx.csproj" />
+    <ProjectReference Include="..\SceneCore\SceneCore.csproj" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
