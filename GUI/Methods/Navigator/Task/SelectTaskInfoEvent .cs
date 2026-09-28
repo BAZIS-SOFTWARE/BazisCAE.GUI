@@ -5,6 +5,7 @@ using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
@@ -12,12 +13,26 @@ namespace BazisGUI
     public partial class BaseForm
     {
         enum TaskPropertyKeys { Type, Kind, Materials, Functions, CheckCondValues }
+        /// <summary>
+        /// Показывает свойства задачи и настраивает общий диапазон проверки условий.
+        /// </summary>
         private void navigator_SelectTaskEvent()
         {
             try
             {
                 if (project == null)
                     return;
+
+                checkPlayerControl.StopChecking();
+                CheckPlayerControl_StopCheckingEvent(checkPlayerControl);
+                var conditions = project.GetAllCondData().ToList();
+                conditionCheckStartTime = conditions.Count == 0 ? 0 : conditions.Min(data => data.StartTime);
+                conditionCheckStopTime = conditions.Count == 0 ? 0 : conditions.Max(data => data.StopTime);
+                var duration = Math.Max(0, conditionCheckStopTime - conditionCheckStartTime);
+                var steps = Math.Ceiling(duration);
+                checkPlayerControl.StartValue = 0;
+                checkPlayerControl.StopValue = checked((int)steps);
+                checkPlayerControl.CurrentValue = 0;
 
                 List<RowProperty> rows = new List<RowProperty>();
 

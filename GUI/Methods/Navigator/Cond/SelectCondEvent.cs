@@ -12,6 +12,9 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        /// <summary>
+        /// Показывает свойства и окрашивает группу выбранного условия, останавливая плеер.
+        /// </summary>
         private void Navigator_SelectCondEvent(int arg1)
         {
             try
@@ -54,13 +57,16 @@ namespace BazisGUI
 
                 propertiesPanel.DrawTable(rows);
 
+                checkPlayerControl.StopChecking();
+                CheckPlayerControl_StopCheckingEvent(checkPlayerControl);
+                var modelView = project.ModelView;
                 var color = settingsConfig.SelectGroupColor;
                 var numbers = data.Group.Select(x => x.Number);
-                project.ModelView.SetColor(data.Group.ObjType, numbers, color);
-
-
-                checkPlayerControl.StartValue = 0;
-                checkPlayerControl.StopValue = (int)(data.StopTime - data.StartTime);
+                using (modelView.BeginUpdate())
+                {
+                    modelView.ClearColor();
+                    modelView.SetColor(data.Group.ObjType, numbers, color);
+                }
 
             }
             catch (Exception ex)

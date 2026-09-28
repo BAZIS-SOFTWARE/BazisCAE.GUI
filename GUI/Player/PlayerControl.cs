@@ -16,6 +16,7 @@ namespace BazisGUI.Player
     public partial class PlayerControl: UserControl
     {
         System.Windows.Forms.Timer timer;
+        int stopValue = 100;
 
         public bool Cancelation { get; set; } = false;
 
@@ -69,8 +70,16 @@ namespace BazisGUI.Player
         [Category("General")]
         public int CurrentValue 
         {
-            get { return colorSlider.Value; }
-            set { colorSlider.Value = value; }
+            get
+            {
+                var value = colorSlider.Value;
+                return Math.Min(value, StopValue);
+            }
+            set
+            {
+                var position = Math.Min(value, StopValue);
+                colorSlider.Value = position;
+            }
         }
 
         [Category("General")]
@@ -82,8 +91,18 @@ namespace BazisGUI.Player
         [Category("General")]
         public int StopValue 
         { 
-            get { return colorSlider.Maximum; }
-            set { colorSlider.Maximum = value; } 
+            get { return stopValue; }
+            set
+            {
+                if (value < StartValue)
+                    throw new ArgumentOutOfRangeException(nameof(value), "The stop value must not precede the start value.");
+
+                // Ползунку нужен ненулевой диапазон, даже если плеер показывает один кадр.
+                var maximum = value == StartValue ? checked(value + 1) : value;
+                colorSlider.Maximum = maximum;
+                colorSlider.Enabled = value > StartValue;
+                stopValue = value;
+            }
         }
 
         [Category("General")]
@@ -103,12 +122,16 @@ namespace BazisGUI.Player
             StopCheckingEvent?.Invoke(this);
         }
 
+        /// <summary>
+        /// Останавливает плеер и сбрасывает позицию и отмену проверки.
+        /// </summary>
         public void StopChecking()
         {
             timer.Stop();
             timer.Enabled = false;
 
             CheckState = CheckState.start;
+            Cancelation = false;
             CurrentValue = StartValue;
             SetCheckButtonState();
         }
@@ -126,6 +149,8 @@ namespace BazisGUI.Player
             }
             else if (CheckState == CheckState.start)
             {
+                if (CurrentValue >= StopValue)
+                    CurrentValue = StartValue;
                 CheckState = CheckState.pause;
 
                 timer.Enabled = true;
@@ -147,17 +172,14 @@ namespace BazisGUI.Player
 
         }
 
+        /// <summary>
+        /// Проверяет текущую позицию и завершает воспроизведение, сохраняя конечный кадр.
+        /// </summary>
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (CurrentValue == StopValue | Cancelation)
+            if (Cancelation)
             {
-                timer.Stop();
-                timer.Enabled = false;
-
-                CheckState = CheckState.start;
-                CurrentValue = StartValue;
-                SetCheckButtonState();
-                Cancelation = false;
+                StopChecking();
 
                 StopCheckingEvent?.Invoke(this);
             }
@@ -165,7 +187,15 @@ namespace BazisGUI.Player
             {
                 CheckingEvent?.Invoke(this, CurrentValue);
                 Thread.Sleep(100);
-                CurrentValue ++;
+                if (CurrentValue >= StopValue)
+                {
+                    timer.Stop();
+                    timer.Enabled = false;
+                    CheckState = CheckState.start;
+                    SetCheckButtonState();
+                }
+                else
+                    CurrentValue++;
             }
 
         }

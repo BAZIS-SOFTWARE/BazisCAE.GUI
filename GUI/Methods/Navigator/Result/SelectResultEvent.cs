@@ -15,6 +15,8 @@ namespace BazisGUI
         {
             try
             {
+                checkPlayerControl.StopChecking();
+                CheckPlayerControl_StopCheckingEvent(checkPlayerControl);
                 var row = new RowProperty(ResultPropertyKeys.Result.ToString(), Resources.Header_result_result, arg2);
                 propertiesPanel.DrawTable(new List<RowProperty>() { row });
 

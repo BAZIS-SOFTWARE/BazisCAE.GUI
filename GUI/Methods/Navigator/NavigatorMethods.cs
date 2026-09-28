@@ -42,6 +42,9 @@ namespace BazisGUI
             }
         }
 
+        /// <summary>
+        /// Добавляет направления условия к обозначениям текущего кадра без очистки предыдущих условий.
+        /// </summary>
         public void DisplayDirection(float time, ICondData data, IEnumerable<IModelObject> modelObjs)
         {
             var vector = new Point3D();
@@ -65,8 +68,6 @@ namespace BazisGUI
                 color = Color.FromArgb(0, 0, 255);
             }
 
-            DisplayGeometryObjectEvent = null;
-            
             foreach (var obj in modelObjs)
             {
                 foreach (var point in obj.GetCoordinates())

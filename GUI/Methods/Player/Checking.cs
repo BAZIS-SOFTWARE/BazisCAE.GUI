@@ -12,6 +12,13 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        float conditionCheckStartTime;
+        float conditionCheckStopTime;
+        bool checkingConditions;
+
+        /// <summary>
+        /// Показывает все условия, активные в текущий момент проверки задачи, или кадр результатов.
+        /// </summary>
         private void CheckPlayerControl_CheckingEvent(object arg1, int arg2)
         {
             try
@@ -20,55 +27,51 @@ namespace BazisGUI
 
                 if (name.TryToEnum(out NodeName nodeName))
                 {
-                    if (nodeName == NodeName.Heat | 
-                        nodeName == NodeName.Clamp |
-                        nodeName == NodeName.Load |
-                        nodeName == NodeName.Material |
-                        nodeName == NodeName.Media )
+                    if (nodeName == NodeName.Task)
                     {
                         DisplayGeometryObjectEvent = null;
                         DisplayText3DEvent = null;
 
-                        var index = navigator.SelectedNode.Index;
-                        var data = project.GetCondData(index);
-                        var refTime = arg2 + data.StartTime;
-                        if (refTime >= data.StartTime & refTime <= data.StopTime)
+                        var time = Math.Min(conditionCheckStartTime + arg2, conditionCheckStopTime);
+                        var modelView = project.ModelView;
+                        var conditions = project.GetAllCondData();
+                        using (modelView.BeginUpdate())
                         {
-                            if (data.LocalFrame != null)
-                                DisplayMRF(refTime, data);
-
-                            var group = data.Group;
-
-                            var lf = data.LocalFrame;
-
-                            foreach (var iobj in group)
+                            modelView.ClearColor();
+                            foreach (var data in conditions)
                             {
-                                if(settingsConfig.CheckCondValue)
-                                    if (data.Function != null)
+                                if (time < data.StartTime || time > data.StopTime)
+                                    continue;
+
+                                if (data.LocalFrame != null)
+                                    DisplayMRF(time, data);
+
+                                var group = data.Group;
+                                var localFrame = data.LocalFrame;
+                                if (settingsConfig.CheckCondValue && data.Function != null && localFrame != null)
+                                {
+                                    foreach (var modelObject in group)
                                     {
-                                        //if (data.Function.FunctionType == Project.Tasks.Functions.FuncType.CPF)
-                                        //{
-                                            if (lf != null)
-                                            {
-                                                var pos = lf.Frame.GetCoordsInFrame(iobj.CalcCentr());
-                                                data.Function["X"].SetValue(pos._x);
-                                                data.Function["Y"].SetValue(pos._y);
-                                                data.Function["Z"].SetValue(pos._z);
-
-                                                var val = data.Value * data.Function.CalcValue();
-                                                DisplayText3D(val.ToString(), Color.Black, iobj.CalcCentr());
-                                            }
-                                        //}
+                                        var center = modelObject.CalcCentr();
+                                        var position = localFrame.Frame.GetCoordsInFrame(center);
+                                        data.Function["X"].SetValue(position._x);
+                                        data.Function["Y"].SetValue(position._y);
+                                        data.Function["Z"].SetValue(position._z);
+                                        var functionValue = data.Function.CalcValue();
+                                        var value = data.Value * functionValue;
+                                        var text = value.ToString();
+                                        DisplayText3D(text, Color.Black, center);
                                     }
+                                }
 
-                                //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
+                                if (data.Direction != Direction.None)
+                                    DisplayDirection(time, data, group);
+                                var color = GetConditionColor(data.Kind);
+                                var numbers = group.Select(modelObject => modelObject.Number);
+                                modelView.SetColor(group.ObjType, numbers, color);
                             }
-                            if (data.Direction != Direction.None)
-                                DisplayDirection(arg2, data, group);
-                            var color = GetConditionColor(data.Kind);
-                            var numbers = group.Select(x => x.Number);
-                            project.ModelView.SetColor(group.ObjType, numbers, color);
                         }
+                        RequestRedraw();
                     }
                     else if (nodeName == NodeName.Result)
                     {
@@ -93,26 +96,32 @@ namespace BazisGUI
             }
         }
 
+        /// <summary>
+        /// Очищает обозначения и окраску завершённой проверки условий.
+        /// </summary>
         private void CheckPlayerControl_StopCheckingEvent(object obj)
         {
             DisplayGeometryObjectEvent = null;
             DisplayText3DEvent = null;
+            if (checkingConditions)
+            {
+                checkingConditions = false;
+                project?.ModelView.ClearColor();
+            }
             RequestRedraw();
         }
 
+        /// <summary>
+        /// Разрешает проверку задачи целиком и просмотр результатов.
+        /// </summary>
         private void CheckPlayerControl_StartCheckingEvent(object obj)
         {
             var name = navigator.SelectedNode.Name;
 
             var nodeName = name.ToEnum<NodeName>();
 
-            if (nodeName != NodeName.Result &
-                nodeName != NodeName.Material &
-                    nodeName != NodeName.Media &
-                    nodeName != NodeName.Heat &
-                    nodeName != NodeName.Load &
-                    nodeName != NodeName.Clamp
-                    )
+            checkingConditions = nodeName == NodeName.Task;
+            if (nodeName != NodeName.Result && (!checkingConditions || !project.GetAllCondData().Any()))
             {
                 checkPlayerControl.Cancelation = true;
                 console.PrintInfo(Resources.Checking_StartCheckingEvent_SelectedDataIsNotCheckable_Message, Color.Orange);
