@@ -4,6 +4,7 @@ using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
@@ -80,20 +81,25 @@ namespace BazisGUI
                     var obj = project.GetModelObject(objType, number);
                     obj.ExistState = false;
 
+                    var set = project.GetModelSetInfo(objType, number);
+                    var elementSets = new List<ISetInfo>();
                     if (objType == ObjType.Узел)
                     {
-                        DeleteVBObjects("Элементы");
-                        CreateVBObjects("Элементы");
+                        foreach (var elementType in new[] { ObjType.Элемент1D, ObjType.Элемент2D, ObjType.Элемент3D })
+                        {
+                            var setsOfType = project.GetModelSetsInfo(elementType);
+                            elementSets.AddRange(setsOfType);
+                        }
                     }
 
-                    var set = project.GetModelSetInfo(objType, number);
                     project.ClearNotExistedModelData();
-                    project.ModelView.Prune();
+
+                    foreach (var elementSet in elementSets)
+                        RefreshModelSetBuffer(elementSet);
 
                     // Объект удаляется прямым выбором в навигаторе, а не через выделение
-                    // вида, поэтому он мог не быть выделен или скрыт — тогда Prune() не
-                    // отметит набор изменённым и не поднимет Changed. Буфер набора и кадр
-                    // обновляются явно, не полагаясь на этот побочный эффект.
+                    // вида, поэтому собственный буфер набора обновляется явно даже
+                    // после очистки состояния представления.
                     if (set != null)
                         RefreshModelSetBuffer(set);
 
