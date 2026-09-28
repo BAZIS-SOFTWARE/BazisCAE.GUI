@@ -53,8 +53,9 @@ namespace BazisGUI
                         }
                         if (data.Direction != Direction.None)
                             DisplayDirection(arg2.Time, data, group);
-                        project.ModelView.SelectionColor = GetConditionColor(data.Kind);
-                        project.ModelView.SetSelection(group.ObjType, group.Select(x => x.Number));
+                        var color = GetConditionColor(data.Kind);
+                        var numbers = group.Select(x => x.Number);
+                        project.ModelView.SetColor(group.ObjType, numbers, color);
                     }
                 }
             }

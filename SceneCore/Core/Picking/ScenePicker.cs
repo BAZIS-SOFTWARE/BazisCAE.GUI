@@ -27,7 +27,7 @@ namespace BazisGUI.Scene.Core.Picking
             this.camera = camera;
         }
 
-        public bool SelectByPoint(IEnumerable<ISetInfo> sets, Point2D selectionPoint, bool isSelected)
+        public bool SelectByPoint(IEnumerable<ISetInfo> sets, Point2D selectionPoint, bool isSelected, Func<ObjType, int, bool> isVisible = null)
         {
             var selFlag = false;
             var tempNumbs = new List<int>();
@@ -38,6 +38,9 @@ namespace BazisGUI.Scene.Core.Picking
             {
                 foreach (var numb in set.GetNumbers())
                 {
+                    if (isVisible != null && !isVisible(set.ObjType, numb))
+                        continue;
+
                     var scrPoints = new List<Point2D>();
                     var scnPoints = new List<Point3D>();
 
@@ -76,7 +79,7 @@ namespace BazisGUI.Scene.Core.Picking
             return selFlag;
         }
 
-        public void SelectByRect(IEnumerable<ISetInfo> sets, RectangleBox selectionBox, bool isSelected)
+        public void SelectByRect(IEnumerable<ISetInfo> sets, RectangleBox selectionBox, bool isSelected, Func<ObjType, int, bool> isVisible = null)
         {
             var creator = new Hull2DCreator();
             var selectedNumbers = new Dictionary<ISetInfo, List<int>>();
@@ -85,6 +88,9 @@ namespace BazisGUI.Scene.Core.Picking
             {
                 foreach (var numb in set.GetNumbers())
                 {
+                    if (isVisible != null && !isVisible(set.ObjType, numb))
+                        continue;
+
                     var scrPoints = new HashSet<Point2D>();
                     foreach (var point in set.GetCoords(numb))
                         scrPoints.Add(camera.GetScreenCoord(camera.GetSceenCoord(point)));

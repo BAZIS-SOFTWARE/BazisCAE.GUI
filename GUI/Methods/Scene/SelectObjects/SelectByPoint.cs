@@ -24,7 +24,7 @@ namespace BazisGUI
             var setList = sets.ToList();
             pickHits.Clear();
 
-            var selFlag = sceneController.SelectByPoint(setList, selectionPoint, isSelected);
+            var selFlag = sceneController.SelectByPoint(setList, selectionPoint, isSelected, project.ModelView.GetVisible);
 
             if (selFlag && pickHits.Count > 0)
             {

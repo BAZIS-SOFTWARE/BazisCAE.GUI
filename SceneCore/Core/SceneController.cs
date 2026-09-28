@@ -16,6 +16,7 @@ using BazisGUI.Scene.VBO;
 using BazisGUI.Scene; // AverageColorRenderer, Advanced3DClipper, ClipPlaneRenderer, SceneScale, ScenePath
 using Geometry;
 using MathNet.Numerics.LinearAlgebra;
+using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using OpenTK.Graphics.OpenGL;
 using PostProc;
@@ -574,11 +575,11 @@ namespace BazisGUI.Scene.Core
         }
 
         /// <summary>Геометрический подбор без обращения к "project"/IModelView — см. ScenePicker.</summary>
-        public bool SelectByPoint(IEnumerable<ISetInfo> sets, Point2D point, bool isSelected) =>
-            picker.SelectByPoint(sets, point, isSelected);
+        public bool SelectByPoint(IEnumerable<ISetInfo> sets, Point2D point, bool isSelected, Func<ObjType, int, bool> isVisible = null) =>
+            picker.SelectByPoint(sets, point, isSelected, isVisible);
 
-        public void SelectByRect(IEnumerable<ISetInfo> sets, RectangleBox box, bool isSelected) =>
-            picker.SelectByRect(sets, box, isSelected);
+        public void SelectByRect(IEnumerable<ISetInfo> sets, RectangleBox box, bool isSelected, Func<ObjType, int, bool> isVisible = null) =>
+            picker.SelectByRect(sets, box, isSelected, isVisible);
 
         public byte[] CaptureScreenshot(IFrameGrabber grabber) => grabber.Capture(new Viewport(camera.Width, camera.Height));
 

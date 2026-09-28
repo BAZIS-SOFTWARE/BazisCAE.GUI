@@ -16,7 +16,7 @@ namespace BazisGUI
             {
                new RowProperty(SetPropertyKeys.Name.ToString(), Resources.Header_set_name, _objectsSet.Name, isReadOnly: true),
 
-               new RowProperty(SetPropertyKeys.Color.ToString(), Resources.Header_set_color, modelView.GetSetColor(_objectsSet)),
+               new RowProperty(SetPropertyKeys.Color.ToString(), Resources.Header_set_color, modelView.GetColor(_objectsSet)),
 
                new RowProperty(SetPropertyKeys.View.ToString(), Resources.Header_set_view,
                new DropDownPropertyValue(modelView.GetViewMode(_objectsSet), Converters.GetEnumNames<ViewMode>()))

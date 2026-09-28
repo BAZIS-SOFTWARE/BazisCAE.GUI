@@ -14,9 +14,9 @@ namespace BazisGUI
             try
             {  
                 var group = project.GetModelGroup(grIndex); // закраска объектов в выделяемой группе
-                project.ModelView.SelectionColor = settingsConfig.SelectGroupColor;
                 using (project.ModelView.BeginUpdate())
                 {
+                    project.ModelView.SelectionColor = settingsConfig.SelectGroupColor;
                     project.ModelView.ClearSelection();
                     foreach (var objType in group.Select(x => x.ObjType).Distinct())
                     {

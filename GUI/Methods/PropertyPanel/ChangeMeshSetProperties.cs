@@ -38,7 +38,7 @@ namespace BazisGUI
                     {
                         var color = HandleSetColorParameter(obj.NewValue.ToString());
                         if (_objectsSet != null)
-                            project.ModelView.SetSetColor(_objectsSet, color);
+                            project.ModelView.SetColor(_objectsSet, color);
                         break;  
                     }
 

@@ -54,8 +54,9 @@ namespace BazisGUI
 
                 propertiesPanel.DrawTable(rows);
 
-                project.ModelView.SelectionColor = settingsConfig.SelectGroupColor;
-                project.ModelView.SetSelection(data.Group.ObjType, data.Group.Select(x => x.Number));
+                var color = settingsConfig.SelectGroupColor;
+                var numbers = data.Group.Select(x => x.Number);
+                project.ModelView.SetColor(data.Group.ObjType, numbers, color);
 
 
                 checkPlayerControl.StartValue = 0;

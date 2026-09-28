@@ -19,7 +19,7 @@ namespace BazisGUI
             var setList = sets.ToList();
             pickHits.Clear();
 
-            sceneController.SelectByRect(setList, selectionBox, isSelected);
+            sceneController.SelectByRect(setList, selectionBox, isSelected, project.ModelView.GetVisible);
 
             var counter = 0;
             ApplySelectionColor();

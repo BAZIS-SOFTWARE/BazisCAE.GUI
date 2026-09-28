@@ -583,33 +583,21 @@ namespace BazisGUI
         private void CreateCaptureElements(List<List<int>> indices)
         {
             var index = 0;
-            foreach (var set in project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => GetVisibleNumbers(v).Any()).ToArray())
+            using (project.ModelView.BeginUpdate())
             {
-                var obj = VBOController.FindVBObj(set.Name);
-                var program = obj.ActiveDrawingObject;
-                VBOController.DeleteVBObjects(set.Name);
-
-                var indexSet = indices[index].ToHashSet();
-
-                var indexElems = 0;
-                var visible = 0;
-                foreach(var element in project.GetModelElements(3, set.Name))
+                foreach (var set in project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => GetVisibleNumbers(v).Any()).ToArray())
                 {
-                    var isVisible = indexSet.Contains(indexElems);
-                    project.ModelView.SetVisible(ObjType.Элемент3D, [element.Number], isVisible);
-                    visible += Convert.ToInt32(isVisible);
-                    ++indexElems;
-                }
+                    var indexSet = indices[index].ToHashSet();
+                    var indexElems = 0;
+                    foreach (var element in project.GetModelElements(3, set.Name))
+                    {
+                        var isVisible = indexSet.Contains(indexElems);
+                        project.ModelView.SetVisible(ObjType.Элемент3D, [element.Number], isVisible);
+                        ++indexElems;
+                    }
 
-                if (visible > 0)
-                {
-                    var presenter = project.CreateModelObjectsPresentor(set);
-                    var vbo = CreateVBObject(presenter);
-                    vbo.ActiveDrawingObject = program;
-                    VBOController.AddVbo(vbo);
+                    ++index;
                 }
-
-                ++index;
             }
         }
 

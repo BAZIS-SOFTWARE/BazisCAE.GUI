@@ -55,7 +55,7 @@ namespace BazisGUI
                 settingsConfig.NodeColor = ar;
                 var setInfo = project.GetModelSetsInfo(ObjType.Узел).FirstOrDefault();
                 if (setInfo != null)
-                    project.ModelView.SetSetColor(setInfo, ar);
+                    project.ModelView.SetColor(setInfo, ar);
             };
 
             settings.SetSolverPathEvent += (ar) =>

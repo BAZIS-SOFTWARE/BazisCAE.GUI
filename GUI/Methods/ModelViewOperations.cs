@@ -1,3 +1,4 @@
+﻿using BazisGUI.Scene;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using OperationalController;
@@ -32,14 +33,15 @@ namespace BazisGUI
         }
 
         const ModelViewChange RebuildChanges = ModelViewChange.Visibility | ModelViewChange.InsideSurfaces | ModelViewChange.ViewMode;
-        const ModelViewChange ColorChanges = ModelViewChange.Selection | ModelViewChange.SetColor | ModelViewChange.SelectionColor | ModelViewChange.Transparency;
+        const ModelViewChange ColorChanges = ModelViewChange.Selection | ModelViewChange.SetColor | ModelViewChange.ObjectColor | ModelViewChange.SelectionColor | ModelViewChange.Transparency;
 
         /// <summary>
         /// Обновляет буферы наборов, затронутых изменением представления, и запрашивает кадр.
+        /// Событие само перечисляет затронутые наборы, поэтому обходить всю модель не нужно.
         /// </summary>
         private void ModelView_Changed(object sender, ModelViewChangedEventArgs e)
         {
-            if (IsDisposed || project == null) // если форма уже закрыта или проект не загружен, то не перерисовываем сцену
+            if (IsDisposed || project == null || !ReferenceEquals(sender, project.ModelView))
                 return;
 
             if (InvokeRequired) // перенаправление в UI-поток, если вызов из другого потока (например, из BackgroundWorker)
@@ -48,7 +50,7 @@ namespace BazisGUI
                 return;
             }
 
-            foreach (var setInfo in GetModelSets())
+            foreach (var setInfo in e.GetChangedSets())
             {
                 if (e.HasAny(setInfo, RebuildChanges))
                     RefreshModelSetBuffer(setInfo);
@@ -60,29 +62,25 @@ namespace BazisGUI
         }
 
         /// <summary>
-        /// Возвращает все наборы расчётной модели.
-        /// </summary>
-        private IEnumerable<ISetInfo> GetModelSets()
-        {
-            foreach (ObjType objType in Enum.GetValues(typeof(ObjType)))
-            {
-                foreach (var setInfo in project.GetModelSetsInfo(objType))
-                    yield return setInfo;
-            }
-        }
-
-        /// <summary>
         /// Пересоздаёт буфер заданного набора с учётом состояния представления.
         /// </summary>
         private void RefreshModelSetBuffer(ISetInfo setInfo)
         {
+            var oldBuffer = VBOController.FindVBObj(setInfo.Name);
+            var drawingObject = oldBuffer?.ActiveDrawingObject;
             VBOController.DeleteVBObjects(setInfo.Name);
             if (setInfo.NumberOfObjects == 0)
                 return;
 
             var presenter = project.CreateModelObjectsPresentor(setInfo);
             if (TryCreateVBObject(presenter, out var vbo))
+            {
+                if (drawingObject != null)
+                    vbo.ActiveDrawingObject = drawingObject;
+                else if (setInfo.ObjType == ObjType.Элемент3D && advanced3DClipper.ClipMode != ClipMode.None)
+                    vbo.ActiveDrawingObject = advanced3DClipper;
                 VBOController.AddVbo(vbo);
+            }
         }
 
         /// <summary>

@@ -98,31 +98,19 @@ namespace BazisGUI
                 {
                     var mesh = form.Controls.OfType<MeshSelect>().FirstOrDefault();
                     var additionalMode = mesh.GetSelectedAdditionalMode();
-                    var resFlag = false;
-
                     if (additionalMode is SelectInDirectionEventArgs sdArgs)
                     {
                         sdArgs.SelectedNumbers.AddRange(numbers);
-                        resFlag = SelectInDirection(sdArgs);
+                        SelectInDirection(sdArgs);
                     }
                     else if (additionalMode is SelectInPlainEventArgs spArgs)
                     {
                         spArgs.SelectedNumbers.AddRange(numbers);
-                        resFlag = SelectInPlane(spArgs);
+                        SelectInPlane(spArgs);
                     }
                     else if (additionalMode is ObjType setType)
                         SelectionControl_SelectInSet(setType, numbers, isSelected);
 
-                    if(resFlag)
-                    {
-                        var objType = Converters.ConvertSelectionTypeToObjType(SelectedObjects);
-                        foreach (var setInfo in project.GetModelSetsInfo(objType))
-                        {
-                            var presenter = project.CreateModelObjectsPresentor(setInfo);
-                            SetVBObjectAttribute(presenter, "цвет");
-                        }
-                        RequestRedraw();
-                    } 
                 }
                 else if (IsGeometry())
                 {       
