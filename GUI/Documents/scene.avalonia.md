@@ -268,6 +268,7 @@ Compatibility-профиль на Linux — подпорка с оговорка
 ## Источники
 
 - Диаграмма: `ДК. Scene.Avalonia.mdpuml`, `ДК. Scene.Avalonia.png`
+- Подробная диаграмма с сеансом проекта: [ДК. Scene.Avalonia.Detail.mdpuml](<../../BazisAvaloniaGUI/Documents/ДК. Scene.Avalonia.Detail.mdpuml>)
 - Смежные документы: `ДК. BaseForm.mdpuml`, `ДК. Scene.VBOController.mdpuml`,
   `AvaloniaUI/Documents/AvaloniaMasterHosting.md`
 - Avalonia: [`OpenGlControlBase`](https://github.com/AvaloniaUI/Avalonia/blob/master/src/Avalonia.OpenGL/Controls/OpenGlControlBase.cs),
