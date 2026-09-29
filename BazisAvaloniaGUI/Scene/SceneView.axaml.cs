@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Model.GeometryObjects;
 
 namespace BazisAvaloniaGUI;
 
@@ -12,4 +13,6 @@ internal partial class SceneView : UserControl
     {
         InitializeComponent();
     }
+
+    public SceneSurface Surface { get => surface; }
 }
