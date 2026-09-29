@@ -16,7 +16,11 @@ using OperationalController;
 
 namespace BazisAvaloniaGUI;
 
-internal class SceneView : OpenGlControlBase, ICustomHitTest
+/// <summary>
+/// OpenGL-поверхность сцены: рендер, ввод (мышь/клавиатура) и выбор объектов.
+/// Разметки нет — OpenGlControlBase рисуется кодом; контейнер/представление — SceneView.axaml.
+/// </summary>
+internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 {
     private readonly SceneProjectPresenter presenter = new();
     private readonly SceneSelection selection = new();
@@ -43,7 +47,7 @@ internal class SceneView : OpenGlControlBase, ICustomHitTest
         }
     }
 
-    public SceneView()
+    public SceneSurface()
     {
         Focusable = true;
     }
