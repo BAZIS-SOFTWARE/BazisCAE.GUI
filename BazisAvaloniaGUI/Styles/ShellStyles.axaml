@@ -1,0 +1,51 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style Selector="Button">
+    <Setter Property="Background" Value="#E1E1E1" />
+    <Setter Property="Foreground" Value="#000000" />
+    <Setter Property="BorderBrush" Value="#969696" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Padding" Value="12,8" />
+  </Style>
+  <Style Selector="Button:pointerover">
+    <Setter Property="Background" Value="#C5C5C5" />
+  </Style>
+  <Style Selector="Button:pressed">
+    <Setter Property="Background" Value="#C5C5C5" />
+    <Setter Property="BorderThickness" Value="2" />
+  </Style>
+  <Style Selector="Button:disabled">
+    <Setter Property="Background" Value="#F0F0F0" />
+    <Setter Property="Foreground" Value="#626262" />
+    <Setter Property="BorderBrush" Value="#CBCBCB" />
+  </Style>
+  <Style Selector="ComboBox">
+    <Setter Property="Background" Value="#FFFFFF" />
+    <Setter Property="Foreground" Value="#000000" />
+    <Setter Property="BorderBrush" Value="#7A7A7A" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+  <Style Selector="ComboBox:pointerover">
+    <Setter Property="BorderThickness" Value="2" />
+  </Style>
+  <Style Selector="ComboBox:pressed">
+    <Setter Property="BorderThickness" Value="3" />
+  </Style>
+  <Style Selector="ComboBox:disabled">
+    <Setter Property="Background" Value="#F8F8F8" />
+    <Setter Property="BorderBrush" Value="#CACACA" />
+  </Style>
+  <Style Selector="MenuItem">
+    <Setter Property="Background" Value="#DCDCDC" />
+    <Setter Property="Foreground" Value="#000000" />
+    <Setter Property="Padding" Value="8,3" />
+  </Style>
+  <Style Selector="MenuItem:pointerover">
+    <Setter Property="Background" Value="#C5C5C5" />
+  </Style>
+  <Style Selector="MenuItem:disabled">
+    <Setter Property="Foreground" Value="#7B7B7B" />
+  </Style>
+</Styles>
