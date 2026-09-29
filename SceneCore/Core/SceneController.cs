@@ -344,7 +344,10 @@ namespace BazisGUI.Scene.Core
 
         public void PlaneObjs(ViewPlane plane) => camera.SetOnPlane(plane, camera.ScaleFactor);
 
-        public void DisplayObjects() => renderer.Render(BuildContext());
+        public void DisplayObjects() => DisplayObjects(0);
+
+        /// <summary>Рисует сцену в буфер, предоставленный графическим хостом.</summary>
+        public void DisplayObjects(int targetFramebuffer) => renderer.Render(BuildContext(targetFramebuffer));
 
         public IEnumerable<IVBObject> GetVBObjs() => vboController.GetVBObjs().Cast<IVBObject>();
 
@@ -583,12 +586,13 @@ namespace BazisGUI.Scene.Core
 
         public byte[] CaptureScreenshot(IFrameGrabber grabber) => grabber.Capture(new Viewport(camera.Width, camera.Height));
 
-        private GlRenderContext BuildContext() => new GlRenderContext
+        private GlRenderContext BuildContext(int targetFramebuffer) => new GlRenderContext
         {
             Camera = camera,
             Viewport = new Viewport(camera.Width, camera.Height),
             Settings = settings,
-            ScaleFactor = camera.ScaleFactor
+            ScaleFactor = camera.ScaleFactor,
+            TargetFramebuffer = targetFramebuffer
         };
     }
 }

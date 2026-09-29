@@ -248,7 +248,7 @@ namespace BazisGUI
                 var pre = settingsConfig.Scale_Precision;
                 resultsController.FillRange(min, max, intervals, pre);
                 //BackGroundColor = settingsConfig.BackGroudColor;
-                averageColorRenderer.BackgroundColor = settingsConfig.BackGroundColor;
+                sceneController.BackGroundColor = settingsConfig.BackGroundColor;
                 averageColorRenderer.IsEnable = settingsConfig.Transparency;
                 averageColorRenderer.IsLighting = settingsConfig.Lighting;//Синхронизация с рендером прозрачности
                 //module.ScenePage.NodeColor = settingsConfig.NodeColor;

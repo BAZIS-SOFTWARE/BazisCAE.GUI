@@ -33,7 +33,11 @@ namespace BazisGUI.Scene.Core.Rendering
 
         public void Render(IRenderContext context)
         {
+            transparency.TargetFramebuffer = context.TargetFramebuffer;
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, context.TargetFramebuffer);
+            GL.DrawBuffer(context.TargetFramebuffer == 0 ? DrawBufferMode.Back : DrawBufferMode.ColorAttachment0);
             ClearBuffers(context);
+            GL.DrawBuffer(context.TargetFramebuffer == 0 ? DrawBufferMode.Back : DrawBufferMode.ColorAttachment0);
             ResetViewMatrix(context);
 
             foreach (var layer in layers.GetOrdered())

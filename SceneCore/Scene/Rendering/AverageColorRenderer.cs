@@ -49,6 +49,8 @@ namespace BazisGUI.Scene
         /// Включение\выключения усредненного рендера
         /// </summary>
         public bool IsEnable { get; set; }
+        /// <summary>Целевой буфер графического хоста после операций с внутренними FBO.</summary>
+        public int TargetFramebuffer { get; set; }
         ///
         public AverageColorRenderer(int width, int height)
         {
@@ -70,7 +72,7 @@ namespace BazisGUI.Scene
 
             InitBuffers(width, height);
             MakeFullScreenQuad();
-            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, TargetFramebuffer);
         }
 
 
@@ -128,7 +130,7 @@ namespace BazisGUI.Scene
                     GL.Disable(EnableCap.CullFace);
             }
             SurfaceShader.Unbind();
-            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, TargetFramebuffer);
             GL.PolygonMode(TriangleFace.FrontAndBack, PolygonMode.Fill);//Необходимо вызывать чтобы избежать артефакты при рендеринге
         }
         /// <summary>
@@ -136,8 +138,8 @@ namespace BazisGUI.Scene
         /// </summary>
         public void BlendFramebuffers()
         {
-            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
-            GL.DrawBuffer(DrawBufferMode.Back);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, TargetFramebuffer);
+            GL.DrawBuffer(TargetFramebuffer == 0 ? DrawBufferMode.Back : DrawBufferMode.ColorAttachment0);
             GL.Enable(EnableCap.DepthTest);
             GL.Disable(EnableCap.Blend);
 
@@ -178,7 +180,7 @@ namespace BazisGUI.Scene
             GL.ClearColor(0, 0, 0, 0);
             GL.ClearDepth(1);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, TargetFramebuffer);
         }
         /// <summary>
         /// Изменяет размеры текстур при изменении окна
@@ -189,7 +191,7 @@ namespace BazisGUI.Scene
         {
             DeleteBuffersAndTextures();
             InitBuffers(width, height);
-            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
+            GL.BindFramebuffer(FramebufferTarget.FramebufferExt, TargetFramebuffer);
         }
         /// <summary>
         /// Освобождает все привязанные объекты OpenGL
