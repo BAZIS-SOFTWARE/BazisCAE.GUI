@@ -2,5 +2,101 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:scene="using:BazisAvaloniaGUI"
              x:Class="BazisAvaloniaGUI.SceneView">
-    <scene:SceneSurface x:Name="surface" Focusable="True" />
+
+    <UserControl.Resources>
+		<ControlTheme x:Key="SceneToggleButtonTheme" TargetType="ToggleButton">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Name="PART_Border"
+							Background="{TemplateBinding Background}"
+							CornerRadius="4">
+						<ContentPresenter Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+										  HorizontalAlignment="Center"
+										  VerticalAlignment="Center"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+
+			<!-- Базовый цвет (не нажат) -->
+			<Setter Property="Background" Value="LightGray"/>
+			<Setter Property="Foreground" Value="Black"/>
+
+			<!-- Наведение -->
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="LightGray"/>
+			</Style>
+
+			<!-- Нажата в момент клика -->
+			<Style Selector="^:pressed">
+				<Setter Property="Background" Value="LightGray"/>
+			</Style>
+
+			<!-- Включена (checked) -->
+			<Style Selector="^:checked">
+				<Setter Property="Background" Value="LightGray"/>
+				<Setter Property="Foreground" Value="Black"/>
+			</Style>
+
+			<!-- Включена + наведение -->
+			<Style Selector="^:checked:pointerover">
+				<Setter Property="Background" Value="LightGray"/>
+			</Style>
+		</ControlTheme>
+	</UserControl.Resources>
+
+    <UserControl.Styles>
+        <Style Selector="Path#ExpandArrow">
+            <Setter Property="RenderTransform" Value="rotate(0deg)" />
+            <Setter Property="Transitions">
+                <Transitions> 
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="ToggleButton:checked Path#ExpandArrow">
+            <Setter Property="RenderTransform" Value="rotate(90deg)" />
+        </Style>
+    </UserControl.Styles>
+
+    <Panel>
+        <scene:SceneSurface x:Name="surface" Focusable="True" />
+        <StackPanel Margin="10" Spacing="4"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top">
+            <ToggleButton x:Name="OverlayToggle" 
+                         Theme="{StaticResource SceneToggleButtonTheme}"
+                          Padding="8,4"
+                          Foreground="Black"
+                          HorizontalAlignment="Left"
+                          Width="120"
+                          Height="25">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock Text="  Select  " 
+                               VerticalAlignment="Center" />
+                    <Path x:Name="ExpandArrow"
+                          Data="M 0,0 L 4,4 L 0,8"
+                          Stroke="#FF000000" StrokeThickness="1.5"
+                          VerticalAlignment="Center" />
+                </StackPanel>
+            </ToggleButton>
+
+            <StackPanel x:Name="ExtraButtonsPanel"
+                        Spacing="1"
+                        IsVisible="False">
+                <ItemsControl x:Name="SetsList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="scene:SetButton">
+                            <Button Content="{Binding Title}"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Center"
+                                    Background="LightGray"
+                                    Click="OnSetButtonClick" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </StackPanel>
+    </Panel>
 </UserControl>

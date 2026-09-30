@@ -55,5 +55,4 @@ internal class SceneSelection
         }
         return count;
     }
-
 }

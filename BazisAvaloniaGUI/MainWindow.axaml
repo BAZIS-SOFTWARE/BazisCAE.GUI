@@ -13,6 +13,11 @@
             <TextBlock x:Name="Status" VerticalAlignment="Center" />
         </StackPanel>
 
-        <scene:SceneView Grid.Row="1" x:Name="scene" />
+        <!-- ВРЕМЕННО: бортик для контроля границ SceneView внутри окна.
+             Удалить: заменить <Border>...</Border> обратно на <scene:SceneView Grid.Row="1" x:Name="scene" />
+             (и убрать временный вывод размера в MainWindow.axaml.cs). -->
+        <Border Grid.Row="1" BorderBrush="Red" BorderThickness="1">
+            <scene:SceneView x:Name="scene" />
+        </Border>
     </Grid>
 </Window>

@@ -35,6 +35,9 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     public event EventHandler<Exception>? ProjectDisplayFailed;
     public event Action<int, bool>? SelectionApplied;
 
+    /// <summary>Сцена получила проект — UI может перечитать его наборы.</summary>
+    public event Action<ProjectController>? ProjectShown;
+
     public ObjType? SelectedObjectType { get; set; }
 
     public bool HideInsideSurfaces
@@ -65,6 +68,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         changedSets.Clear();
         projectNeedsDisplay = true;
         RequestNextFrameRendering();
+        ProjectShown?.Invoke(project);
     }
 
     /// <summary>Ставит изменённые наборы в очередь обновления на следующем кадре OpenGL.</summary>
