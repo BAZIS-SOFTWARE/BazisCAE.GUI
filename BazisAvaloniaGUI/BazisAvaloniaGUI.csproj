@@ -6,6 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <!-- Картинки сцены встраиваются как avares:// ресурсы: avares://BazisAvaloniaGUI/Scene/Assets/<file> -->
+    <AvaloniaResource Include="Scene\Assets\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="12.1.0" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
     <PackageReference Include="OperationalController" Version="4.10.5" />

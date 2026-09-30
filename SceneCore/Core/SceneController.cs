@@ -340,6 +340,9 @@ namespace BazisGUI.Scene.Core
         /// <summary>В исходном коде метод интерфейса нигде не был реализован; здесь — разовый поворот по текущим RotationAxis/RotationAngle.</summary>
         public void RotateObjs() => camera.Rotate(RotationAxis, RotationAngle);
 
+        /// <summary>Разовый поворот сцены на заданный угол вокруг оси — ответная часть кнопок поворота на 90°.</summary>
+        public void RotateObjs(ViewAxis axis, float angle) => camera.Rotate(axis, angle);
+
         public void ScaleObjs(float scaleFactor) => camera.Scale(scaleFactor);
 
         public void PlaneObjs(ViewPlane plane) => camera.SetOnPlane(plane, camera.ScaleFactor);

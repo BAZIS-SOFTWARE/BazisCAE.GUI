@@ -43,6 +43,14 @@
 				<Setter Property="Background" Value="LightGray"/>
 			</Style>
 		</ControlTheme>
+        <Bitmap x:Key="XY">avares://BazisAvaloniaGUI/Scene/Assets/xy.png</Bitmap>
+        <Bitmap x:Key="ZX">avares://BazisAvaloniaGUI/Scene/Assets/zx.png</Bitmap>
+        <Bitmap x:Key="ZY">avares://BazisAvaloniaGUI/Scene/Assets/zy.png</Bitmap>
+        <Bitmap x:Key="rotX">avares://BazisAvaloniaGUI/Scene/Assets/rotX.png</Bitmap>
+        <Bitmap x:Key="rotY">avares://BazisAvaloniaGUI/Scene/Assets/rotY.png</Bitmap>
+        <Bitmap x:Key="rotZ">avares://BazisAvaloniaGUI/Scene/Assets/rotZ.png</Bitmap>
+        <Bitmap x:Key="rotHor">avares://BazisAvaloniaGUI/Scene/Assets/rotHor90.png</Bitmap>
+        <Bitmap x:Key="rotVer">avares://BazisAvaloniaGUI/Scene/Assets/rotVer90.png</Bitmap>
 	</UserControl.Resources>
 
     <UserControl.Styles>
@@ -56,6 +64,20 @@
         </Style>
         <Style Selector="ToggleButton:checked Path#ExpandArrow">
             <Setter Property="RenderTransform" Value="rotate(90deg)" />
+        </Style>
+
+        <!-- Кнопка с чёрной обводкой: рамка всегда толщиной 1, меняется только цвет (Transparent ↔ Black),
+             чтобы содержимое не смещалось на пиксель при переключении. -->
+        <Style Selector="ToggleButton.OutlineButton /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+        <Style Selector="ToggleButton.OutlineButton:checked /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="BorderBrush" Value="Black" />
+        </Style>
+        <!-- У включённой кнопки фон оставляем тем же: Fluent по умолчанию красит его в акцентный. -->
+        <Style Selector="ToggleButton.OutlineButton:checked /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="WhiteSmoke" />
         </Style>
     </UserControl.Styles>
 
@@ -74,7 +96,7 @@
                 <StackPanel Orientation="Horizontal" Spacing="6">
                     <TextBlock Text="  Select  " 
                                VerticalAlignment="Center" />
-                    <Path x:Name="ExpandArrow"
+                    <Path x:Name="ExpandArrow_1"
                           Data="M 0,0 L 4,4 L 0,8"
                           Stroke="#FF000000" StrokeThickness="1.5"
                           VerticalAlignment="Center" />
@@ -97,6 +119,91 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
+        </StackPanel>
+
+        <StackPanel Margin="0,10,20,0" Spacing="4"
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Top">
+            <ToggleButton x:Name="ViewToggle" 
+                         Theme="{StaticResource SceneToggleButtonTheme}"
+                          Padding="8,4"
+                          Foreground="Black"
+                          HorizontalAlignment="Left"
+                          Width="120"
+                          Height="25">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock Text="View" 
+                               VerticalAlignment="Center" />
+                    <Path x:Name="ExpandArrow_2"
+                          Data="M 0,0 L 4,4 L 0,8"
+                          Stroke="#FF000000" StrokeThickness="1.5"
+                          VerticalAlignment="Center"/>
+                </StackPanel>
+            </ToggleButton>
+
+            <Canvas x:Name="ViewButtonsPanel"
+                        IsVisible="False">
+                <Button Name="btnXY" Background="WhiteSmoke" 
+                        Canvas.Right="10" 
+                        Canvas.Top="40"
+                        Click="OnViewChangeClick">
+                    <Image Source="{StaticResource XY}"/>
+                </Button>
+                <Button Name="btnZX" 
+                        Background="WhiteSmoke" 
+                        Canvas.Right="10" 
+                        Canvas.Top="80"
+                        Click="OnViewChangeClick">
+                    <Image Source="{StaticResource ZX}"/>
+                </Button>
+                <Button Name="btnZY" 
+                        Background="WhiteSmoke" 
+                        Canvas.Right="10"
+                        Canvas.Top="120"
+                        Click="OnViewChangeClick">
+                    <Image Source="{StaticResource ZY}"/>
+                </Button>
+                <ToggleButton Name="btnRotX" 
+                              Classes="OutlineButton"
+                              Background="WhiteSmoke"
+                              Canvas.Right="10"
+                              Canvas.Top="160"
+                              Click = "OnRotateChangeModeClick">
+                    <Image Source="{StaticResource rotX}"/>
+                </ToggleButton>
+                <ToggleButton Name="btnRotY" 
+                              Classes="OutlineButton"
+                              Background="WhiteSmoke"
+                              Canvas.Right="10"
+                              Canvas.Top="200"
+                              Click = "OnRotateChangeModeClick">
+                    <Image Source="{StaticResource rotY}"/>
+                </ToggleButton>
+                <ToggleButton Name="btnRotZ" 
+                              Classes="OutlineButton"
+                              Background="WhiteSmoke"
+                              Canvas.Right="10"
+                              Canvas.Top="240"
+                              Click = "OnRotateChangeModeClick">
+                    <Image Source="{StaticResource rotZ}"/>
+                </ToggleButton>
+                <ToggleButton Name="btnRotHor" 
+                              Classes="OutlineButton"
+                              Background="WhiteSmoke"
+                              Canvas.Right="10"
+                              Canvas.Top="280"
+                              Click = "OnRotateByRightAngle">
+                    <Image Source="{StaticResource rotHor}"/>
+                </ToggleButton>
+                <ToggleButton Name="btnRotVer" 
+                              Classes="OutlineButton"
+                              Background="WhiteSmoke"
+                              Canvas.Right="10"
+                              Canvas.Top="320"
+                              Click = "OnRotateByRightAngle">
+                    <Image Source="{StaticResource rotVer}"/>
+                </ToggleButton>
+            </Canvas>
         </StackPanel>
     </Panel>
 </UserControl>

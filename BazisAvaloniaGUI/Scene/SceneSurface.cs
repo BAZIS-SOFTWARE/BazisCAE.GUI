@@ -8,6 +8,7 @@ using Avalonia.Threading;
 using BazisGUI.Scene.Core;
 using BazisGUI.Scene.Core.Input;
 using BazisGUI.Scene.EventsArgs;
+using BazisGUI.Scene.Interfaces;
 using Geometry;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
@@ -69,6 +70,43 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         projectNeedsDisplay = true;
         RequestNextFrameRendering();
         ProjectShown?.Invoke(project);
+    }
+
+    /// <summary>
+    /// Выравнивает камеру по координатной плоскости (XY/XZ/YZ) и запрашивает перерисовку.
+    /// Масштаб сохраняется: SceneController.PlaneObjs берёт текущий ScaleFactor камеры.
+    /// </summary>
+    public void SetPlane(ViewPlane plane)
+    {
+        if (controller == null)
+            return;
+
+        controller.PlaneObjs(plane);
+        RequestNextFrameRendering();
+    }
+
+    /// <summary>
+    /// Задаёт ось вращения для протягивания мышью: X/Y/Z — только вокруг этой оси, XYZ — свободный поворот.
+    /// Перерисовка не нужна: вид не меняется, режим влияет только на последующие движения мыши.
+    /// </summary>
+    public void SetRotationAxis(ViewAxis axis)
+    {
+        if (controller == null)
+            return;
+
+        controller.RotationAxis = axis;
+    }
+
+    /// <summary>
+    /// Разовый поворот сцены на заданный угол вокруг оси (кнопки поворота на 90°) с перерисовкой.
+    /// </summary>
+    public void RotateBy(ViewAxis axis, float angle)
+    {
+        if (controller == null)
+            return;
+
+        controller.RotateObjs(axis, angle);
+        RequestNextFrameRendering();
     }
 
     /// <summary>Ставит изменённые наборы в очередь обновления на следующем кадре OpenGL.</summary>
