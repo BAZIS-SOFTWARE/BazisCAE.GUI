@@ -1,0 +1,58 @@
+using Avalonia.Threading;
+using BazisAvaloniaGUI.Localization;
+using Model.Interfaces;
+using System;
+using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace BazisAvaloniaGUI.Shell
+{
+    internal partial class MainWindow
+    {
+        private async Task FindCoincidentNodes(float distance)
+        {
+            if (project == null)
+                return;
+            Dispatcher.UIThread.Invoke(new Action(() => { console.PrintInfo(Resources.FindCoincidentNodes_Action_Message, Color.Black); }));
+
+            var coincidentNodes = project.FindCoincidentObjects(ObjType.Узел, distance);
+
+            Dispatcher.UIThread.Invoke(new Action(() => { console.PrintInfo($"{Resources.FindCoincidentNodes_Action_Found_Message} {coincidentNodes.Count()} {Resources.FindCoincidentNodes_Action_Matches_Message}", Color.Black); }));
+            Dispatcher.UIThread.Invoke(new Action(() =>
+            {
+                ClearAllDataOnScene();
+
+                var numbers = coincidentNodes.SelectMany(x => x).ToList();
+                ApplySelectionColor();
+                project.ModelView.SetSelection(ObjType.Узел, numbers);
+
+            }));
+            var actConfirm = new Func<Tuple<bool, object>>(() =>
+            {
+                project.MergeNodes(coincidentNodes);
+
+                Dispatcher.UIThread.Invoke(new Action(() =>
+                {
+                    var set = project.GetModelSetsInfo(ObjType.Узел).First();
+
+                    console.PrintInfo(Resources.FindCoincidentNodes_ActionConfirm_MergeNodes_Message, Color.Green);
+                    PresentMeshData();
+                    PresentCondDataOnTree();
+
+                    VBOController.DeleteAllVBObjects();
+                    CreateVBObjects("Объекты");
+                    RequestRedraw();
+
+                }));
+                return new Tuple<bool, object>(true, new object());
+            });
+
+            var actBreak = new Action(() =>
+            {
+                Dispatcher.UIThread.Invoke(new Action(() => console.PrintInfo(Resources.FindCoincidentNodes_Action_OperationCanceled_Message, Color.Black)));
+            });
+            await AsyncMethodContainer(actConfirm, actBreak, $@"{Resources.FindCoincidentNodes_AsyncContainer_Message}");
+        }
+    }
+}

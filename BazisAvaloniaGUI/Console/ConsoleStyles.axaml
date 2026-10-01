@@ -1,0 +1,35 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style Selector="Button.console-log">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Foreground" Value="#0000FF" />
+    <Setter Property="MinHeight" Value="0" />
+  </Style>
+  <Style Selector="Button.console-action">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+  </Style>
+  <Style Selector="Button.console-action:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#C5C5C5" />
+    <Setter Property="BorderBrush" Value="#969696" />
+  </Style>
+  <Style Selector="Button.console-action:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#C5C5C5" />
+    <Setter Property="BorderBrush" Value="#969696" />
+    <Setter Property="BorderThickness" Value="2" />
+  </Style>
+  <Style Selector="TextBox.console-input">
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Height" Value="20" />
+    <Setter Property="Foreground" Value="#000000" />
+    <Setter Property="CaretBrush" Value="#000000" />
+  </Style>
+  <Style Selector="TextBox.console-input:focus-within">
+    <Setter Property="BorderBrush" Value="#7A7A7A" />
+    <Setter Property="BorderThickness" Value="2" />
+  </Style>
+  <Style Selector="TextBox.console-input:disabled">
+    <Setter Property="Background" Value="#F8F8F8" />
+    <Setter Property="BorderBrush" Value="#CACACA" />
+  </Style>
+</Styles>

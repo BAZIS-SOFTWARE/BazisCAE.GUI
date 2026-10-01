@@ -1,0 +1,58 @@
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Layout;
+using Avalonia.Media;
+using System.Threading.Tasks;
+
+namespace BazisAvaloniaGUI
+{
+    internal enum MessageBoxButtons { OK, YesNo }
+    internal enum DialogResult { None, OK, Yes, No }
+
+    /// <summary>
+    /// Avalonia-аналог System.Windows.Forms.MessageBox. Окно модальное, но вызов асинхронный.
+    /// </summary>
+    internal static class MessageBox
+    {
+        public static Task<DialogResult> Show(Visual owner, string text, string caption = null, MessageBoxButtons buttons = MessageBoxButtons.OK)
+        {
+            var actions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, HorizontalAlignment = HorizontalAlignment.Right };
+            var dialog = new Window
+            {
+                Title = caption ?? string.Empty,
+                Width = 420,
+                MinHeight = 130,
+                SizeToContent = SizeToContent.Height,
+                CanResize = false,
+                FontFamily = new FontFamily("Microsoft Sans Serif"),
+                FontSize = 11,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Content = new StackPanel
+                {
+                    Margin = new Thickness(16),
+                    Spacing = 16,
+                    Children = { new SelectableTextBlock { Text = text, TextWrapping = TextWrapping.Wrap }, actions }
+                }
+            };
+            if (buttons == MessageBoxButtons.YesNo)
+            {
+                actions.Children.Add(Button("Да", () => dialog.Close(DialogResult.Yes)));
+                actions.Children.Add(Button("Нет", () => dialog.Close(DialogResult.No)));
+            }
+            else
+                actions.Children.Add(Button("OK", () => dialog.Close(DialogResult.OK)));
+
+            if (TopLevel.GetTopLevel(owner) is Window window)
+                return dialog.ShowDialog<DialogResult>(window);
+            dialog.Show();
+            return Task.FromResult(DialogResult.None);
+        }
+
+        private static Button Button(string text, System.Action click)
+        {
+            var button = new Button { Content = text, MinWidth = 80 };
+            button.Click += (_, _) => click();
+            return button;
+        }
+    }
+}

@@ -37,6 +37,18 @@
     <Setter Property="Background" Value="#F8F8F8" />
     <Setter Property="BorderBrush" Value="#CACACA" />
   </Style>
+  <Style Selector="TextBox">
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Background" Value="#FFFFFF" />
+    <Setter Property="BorderBrush" Value="#7A7A7A" />
+    <Setter Property="BorderThickness" Value="1" />
+  </Style>
+  <Style Selector="TextBox:pointerover">
+    <Setter Property="BorderThickness" Value="2" />
+  </Style>
+  <Style Selector="TextBox:focus">
+    <Setter Property="BorderThickness" Value="2" />
+  </Style>
   <Style Selector="MenuItem">
     <Setter Property="Background" Value="#DCDCDC" />
     <Setter Property="Foreground" Value="#000000" />

@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Themes.Fluent;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Styling;
+using BazisAvaloniaGUI.Shell;
 
 namespace BazisAvaloniaGUI;
 
@@ -16,12 +17,24 @@ internal class App : Application
         {
             Source = new Uri("avares://BazisAvaloniaGUI/Styles/ShellStyles.axaml")
         });
+        Styles.Add(new StyleInclude(new Uri("avares://BazisAvaloniaGUI/"))
+        {
+            Source = new Uri("avares://BazisAvaloniaGUI/Navigator/NavigatorStyles.axaml")
+        });
+        Styles.Add(new StyleInclude(new Uri("avares://BazisAvaloniaGUI/"))
+        {
+            Source = new Uri("avares://BazisAvaloniaGUI/Properties/PropertiesStyles.axaml")
+        });
+        Styles.Add(new StyleInclude(new Uri("avares://BazisAvaloniaGUI/"))
+        {
+            Source = new Uri("avares://BazisAvaloniaGUI/Console/ConsoleStyles.axaml")
+        });
     }
 
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            desktop.MainWindow = new MainWindow();
+            desktop.MainWindow = new MainWindow(desktop.Args ?? []);
 
         base.OnFrameworkInitializationCompleted();
     }

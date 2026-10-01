@@ -1,0 +1,17 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style Selector="TreeView.navigator-tree TreeViewItem /template/ Panel#PART_ExpandCollapseChevronContainer">
+    <Setter Property="Margin" Value="4,0,4,0" />
+  </Style>
+  <Style Selector="TreeView.navigator-tree TreeViewItem:selected /template/ Border#PART_LayoutRoot">
+    <Setter Property="Background" Value="#C4C4C4" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+  </Style>
+  <Style Selector="TreeView.navigator-tree TreeViewItem:selected /template/ Border#PART_LayoutRoot:pointerover">
+    <Setter Property="Background" Value="#C4C4C4" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+  </Style>
+  <Style Selector="TreeView.navigator-tree TreeViewItem:selected /template/ ContentPresenter#PART_HeaderPresenter">
+    <Setter Property="Foreground" Value="#000000" />
+  </Style>
+</Styles>
