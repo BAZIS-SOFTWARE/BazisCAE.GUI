@@ -115,20 +115,23 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     {
         if (controller == null || project == null)
             return;
-
-        var edges = new List<ILineObject<Model.MeshObjects.Node>>();
-        if (visible)
+        Task.Run(()=> 
         {
-            var nodes = project.FindBoundaryEdges();
-            var newEdges = project.CreateBoundaryEdges(nodes);
-            edges.AddRange(newEdges);
-        }
-        var linePresenter = new PresentersCreator().CreateLineObjectsPresenter(edges.ToList(), System.Drawing.Color.DarkGray);
-        linePresenter.Name = "Boundary";
+            var edges = new List<ILineObject<Model.MeshObjects.Node>>();
+            if (visible)
+            {
+                var nodes = project.FindBoundaryEdges();
+                var newEdges = project.CreateBoundaryEdges(nodes);
+                edges.AddRange(newEdges);
+            }
+            var linePresenter = new PresentersCreator().CreateLineObjectsPresenter(edges.ToList(), System.Drawing.Color.DarkGray);
+            linePresenter.Name = "Boundary";
 
-        customObjects.Enqueue(linePresenter);
-        
-        RequestNextFrameRendering();
+            Dispatcher.UIThread.Post(() => {
+                customObjects.Enqueue(linePresenter); 
+                RequestNextFrameRendering();
+            });
+        });
     }
 
     /// <summary>Просит снять текущий кадр в PNG: снимок делается сразу после ближайшей отрисовки.</summary>
