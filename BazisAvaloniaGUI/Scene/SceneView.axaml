@@ -1,46 +1,384 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:scene="using:BazisAvaloniaGUI"
-             x:Class="BazisAvaloniaGUI.SceneView">
+             x:Class="BazisAvaloniaGUI.SceneView"
+             FontFamily="Sans Serif"
+             FontSize="12"
+             Foreground="#FF000000">
 
+    <!--
+        Оформление оверлея сцены по «Правилам для переноса на Авалонию» (.vscode).
+        «Select» — настоящий ComboBox со списком наборов; «View» — ToggleButton, эмулирующий
+        ComboBox и раскрывающий панель кнопок-иконок. Кнопки внутри панелей — по правилу Button.
+        Шрифт: Sans Serif, 12 кегль, цвет 000000. Скруглений нет — сохраняем угловатость исходного интерфейса.
+
+        Палитра:
+            Button        Default  фон E1E1E1, обводка 1px 969696
+                          Hover    фон C5C5C5, обводка 1px 969696
+                          Pressed  фон C5C5C5, обводка 2px 969696
+                          Disabled фон F0F0F0, обводка 1px CBCBCB, текст 626262, иконка 50%
+            ComboBox /    Default  фон FFFFFF, обводка 1px 7A7A7A, стрелка вниз
+            ToggleButton  Hover    фон FFFFFF, обводка 2px 7A7A7A
+            (как ComboBox) Pressed фон FFFFFF, обводка 3px 7A7A7A
+                          Selected фон FFFFFF, обводка 1px 7A7A7A, стрелка вверх,
+                                   список: фон FFFFFF, обводка 1px 7A7A7A
+                          Пункт списка 20px: Default фон FFFFFF, Hover E5E5E5, Pressed D5D5D5
+                          Disabled фон F8F8F8, обводка 1px CACACA, стрелка 50%
+    -->
     <UserControl.Resources>
-		<ControlTheme x:Key="SceneToggleButtonTheme" TargetType="ToggleButton">
+		<!-- Кнопка (правило Button): наполнение + 12px по бокам и 8px сверху/снизу, высота около 32px. -->
+		<ControlTheme x:Key="SceneButtonTheme" TargetType="Button">
 			<Setter Property="Template">
 				<ControlTemplate>
 					<Border Name="PART_Border"
 							Background="{TemplateBinding Background}"
-							CornerRadius="4">
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="0">
 						<ContentPresenter Name="PART_ContentPresenter"
 										  Content="{TemplateBinding Content}"
-										  HorizontalAlignment="Center"
-										  VerticalAlignment="Center"/>
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  Padding="{TemplateBinding Padding}"
+										  HorizontalAlignment="Stretch"
+										  VerticalAlignment="Stretch"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
 					</Border>
 				</ControlTemplate>
 			</Setter>
 
-			<!-- Базовый цвет (не нажат) -->
-			<Setter Property="Background" Value="LightGray"/>
-			<Setter Property="Foreground" Value="Black"/>
+			<!-- Default -->
+			<Setter Property="Background" Value="#FFE1E1E1"/>
+			<Setter Property="BorderBrush" Value="#FF969696"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="#FF000000"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Padding" Value="12,8"/>
+			<Setter Property="MinHeight" Value="32"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
 
-			<!-- Наведение -->
+			<!-- Hover -->
 			<Style Selector="^:pointerover">
-				<Setter Property="Background" Value="LightGray"/>
+				<Setter Property="Background" Value="#FFC5C5C5"/>
+				<Setter Property="BorderBrush" Value="#FF969696"/>
+				<Setter Property="BorderThickness" Value="1"/>
 			</Style>
 
-			<!-- Нажата в момент клика -->
+			<!-- Pressed -->
 			<Style Selector="^:pressed">
-				<Setter Property="Background" Value="LightGray"/>
+				<Setter Property="Background" Value="#FFC5C5C5"/>
+				<Setter Property="BorderBrush" Value="#FF969696"/>
+				<Setter Property="BorderThickness" Value="2"/>
 			</Style>
 
-			<!-- Включена (checked) -->
+			<!-- Disabled -->
+			<Style Selector="^:disabled">
+				<Setter Property="Background" Value="#FFF0F0F0"/>
+				<Setter Property="BorderBrush" Value="#FFCBCBCB"/>
+				<Setter Property="BorderThickness" Value="1"/>
+				<Setter Property="Foreground" Value="#FF626262"/>
+			</Style>
+		</ControlTheme>
+
+		<!-- Кнопка-переключатель внутри раскрытой панели: визуал по правилу Button; включённый
+		     (активный) режим показываем нажатым состоянием той же палитры. -->
+		<ControlTheme x:Key="SceneButtonToggleTheme" TargetType="ToggleButton">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Name="PART_Border"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="0">
+						<ContentPresenter Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  Padding="{TemplateBinding Padding}"
+										  HorizontalAlignment="Stretch"
+										  VerticalAlignment="Stretch"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+
+			<!-- Default -->
+			<Setter Property="Background" Value="#FFE1E1E1"/>
+			<Setter Property="BorderBrush" Value="#FF969696"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="#FF000000"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Padding" Value="12,8"/>
+			<Setter Property="MinHeight" Value="32"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+
+			<!-- Hover -->
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="#FFC5C5C5"/>
+				<Setter Property="BorderBrush" Value="#FF969696"/>
+				<Setter Property="BorderThickness" Value="1"/>
+			</Style>
+
+			<!-- Pressed -->
+			<Style Selector="^:pressed">
+				<Setter Property="Background" Value="#FFC5C5C5"/>
+				<Setter Property="BorderBrush" Value="#FF969696"/>
+				<Setter Property="BorderThickness" Value="2"/>
+			</Style>
+
+			<!-- Selected (включённый режим поворота) — как нажатое состояние -->
 			<Style Selector="^:checked">
-				<Setter Property="Background" Value="LightGray"/>
-				<Setter Property="Foreground" Value="Black"/>
+				<Setter Property="Background" Value="#FFC5C5C5"/>
+				<Setter Property="BorderBrush" Value="#FF969696"/>
+				<Setter Property="BorderThickness" Value="2"/>
 			</Style>
 
-			<!-- Включена + наведение -->
-			<Style Selector="^:checked:pointerover">
-				<Setter Property="Background" Value="LightGray"/>
+			<!-- Disabled -->
+			<Style Selector="^:disabled">
+				<Setter Property="Background" Value="#FFF0F0F0"/>
+				<Setter Property="BorderBrush" Value="#FFCBCBCB"/>
+				<Setter Property="BorderThickness" Value="1"/>
+				<Setter Property="Foreground" Value="#FF626262"/>
+			</Style>
+		</ControlTheme>
+
+		<!-- «Якорь» раскрывающейся панели на ToggleButton — эмуляция ComboBox: высота 20px, стрелка справа
+		     (Default/Hover/Pressed — вниз, Selected — вверх). Используется для панели видов. -->
+		<ControlTheme x:Key="SceneDropdownToggleTheme" TargetType="ToggleButton">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Name="PART_Border"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="0">
+						<Grid ColumnDefinitions="*,Auto">
+							<ContentPresenter Name="PART_ContentPresenter"
+											  Grid.Column="0"
+											  Content="{TemplateBinding Content}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  Padding="{TemplateBinding Padding}"
+											  HorizontalAlignment="Stretch"
+											  VerticalAlignment="Center"
+											  HorizontalContentAlignment="Left"
+											  VerticalContentAlignment="Center"/>
+							<Path Name="PART_Arrow"
+								  Grid.Column="1"
+								  Data="M 0,0 L 4,4 L 0,8"
+								  Stroke="#FF000000" StrokeThickness="1.5"
+								  Margin="6,0,4,0"
+								  VerticalAlignment="Center"
+								  RenderTransformOrigin="50%,50%"/>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+
+			<!-- Default: фон FFFFFF, обводка 1px 7A7A7A -->
+			<Setter Property="Background" Value="#FFFFFFFF"/>
+			<Setter Property="BorderBrush" Value="#FF7A7A7A"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="#FF000000"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Padding" Value="8,0"/>
+			<Setter Property="MinHeight" Value="20"/>
+			<Setter Property="HorizontalContentAlignment" Value="Left"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+
+			<!-- Стрелка смотрит вниз (Default/Hover/Pressed) -->
+			<Style Selector="^ /template/ Path#PART_Arrow">
+				<Setter Property="RenderTransform" Value="rotate(90deg)"/>
+				<Setter Property="Transitions">
+					<Transitions>
+						<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15"/>
+					</Transitions>
+				</Setter>
+			</Style>
+
+			<!-- Hover: обводка 2px 7A7A7A -->
+			<Style Selector="^:pointerover">
+				<Setter Property="BorderThickness" Value="2"/>
+			</Style>
+
+			<!-- Pressed: обводка 3px 7A7A7A -->
+			<Style Selector="^:pressed">
+				<Setter Property="BorderThickness" Value="3"/>
+			</Style>
+
+			<!-- Selected (список раскрыт): обводка 1px 7A7A7A, стрелка вверх -->
+			<Style Selector="^:checked">
+				<Setter Property="BorderThickness" Value="1"/>
+			</Style>
+			<Style Selector="^:checked /template/ Path#PART_Arrow">
+				<Setter Property="RenderTransform" Value="rotate(270deg)"/>
+			</Style>
+
+			<!-- Disabled: фон F8F8F8, обводка 1px CACACA, стрелка 50% -->
+			<Style Selector="^:disabled">
+				<Setter Property="Background" Value="#FFF8F8F8"/>
+				<Setter Property="BorderBrush" Value="#FFCACACA"/>
+				<Setter Property="BorderThickness" Value="1"/>
+				<Setter Property="Foreground" Value="#FF626262"/>
+			</Style>
+			<Style Selector="^:disabled /template/ Path#PART_Arrow">
+				<Setter Property="Opacity" Value="0.5"/>
+			</Style>
+		</ControlTheme>
+		<!-- Пункт выпадающего списка ComboBox (правило ComboBox): высота 20px, фон FFFFFF,
+		     пункт под курсором — Hover E5E5E5, Pressed D5D5D5. -->
+		<ControlTheme x:Key="SceneComboBoxItemTheme" TargetType="ComboBoxItem">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Name="PART_Border"
+							Background="{TemplateBinding Background}"
+							CornerRadius="0">
+						<ContentPresenter Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  Padding="{TemplateBinding Padding}"
+										  HorizontalAlignment="Stretch"
+										  VerticalAlignment="Center"
+										  HorizontalContentAlignment="Left"
+										  VerticalContentAlignment="Center"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+
+			<!-- Default -->
+			<Setter Property="Background" Value="#FFFFFFFF"/>
+			<Setter Property="Foreground" Value="#FF000000"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Padding" Value="8,0"/>
+			<Setter Property="MinHeight" Value="20"/>
+			<Setter Property="HorizontalContentAlignment" Value="Left"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+
+			<!-- Hover: фон E5E5E5 -->
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="#FFE5E5E5"/>
+			</Style>
+
+			<!-- Pressed: фон D5D5D5 -->
+			<Style Selector="^:pressed">
+				<Setter Property="Background" Value="#FFD5D5D5"/>
+			</Style>
+
+			<!-- Disabled -->
+			<Style Selector="^:disabled">
+				<Setter Property="Background" Value="#FFF8F8F8"/>
+				<Setter Property="Foreground" Value="#FF626262"/>
+			</Style>
+		</ControlTheme>
+
+		<!-- ComboBox (правило ComboBox): выбранное значение + стрелка справа, выпадающий список
+		     — фон FFFFFF, обводка 1px 7A7A7A (только у списка, не у пунктов). -->
+		<ControlTheme x:Key="SceneComboBoxTheme" TargetType="ComboBox">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Grid ColumnDefinitions="*,Auto">
+						<Border Name="PART_Border"
+								Grid.ColumnSpan="2"
+								Background="{TemplateBinding Background}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="{TemplateBinding BorderThickness}"
+								CornerRadius="0"/>
+						<TextBlock Name="PART_Placeholder"
+								   Grid.Column="0"
+								   Text="{TemplateBinding PlaceholderText}"
+								   Foreground="{TemplateBinding PlaceholderForeground}"
+								   Padding="{TemplateBinding Padding}"
+								   VerticalAlignment="Center"
+								   HorizontalAlignment="Left"
+								   IsVisible="{Binding SelectionBoxItem, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNull}}"/>
+						<ContentPresenter Name="PART_ContentPresenter"
+										  Grid.Column="0"
+										  Content="{TemplateBinding SelectionBoxItem}"
+										  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+										  Padding="{TemplateBinding Padding}"
+										  HorizontalAlignment="Stretch"
+										  VerticalAlignment="Center"
+										  HorizontalContentAlignment="Left"
+										  VerticalContentAlignment="Center"/>
+						<Path Name="PART_Arrow"
+							  Grid.Column="1"
+							  Data="M 0,0 L 4,4 L 0,8"
+							  Stroke="#FF000000" StrokeThickness="1.5"
+							  Margin="6,0,4,0"
+							  VerticalAlignment="Center"
+							  RenderTransformOrigin="50%,50%"/>
+						<Popup Name="PART_Popup"
+							   WindowManagerAddShadowHint="False"
+							   IsLightDismissEnabled="True"
+							   IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+							   MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+							   MaxHeight="{TemplateBinding MaxDropDownHeight}"
+							   Placement="BottomEdgeAlignedLeft">
+							<Border Background="#FFFFFFFF"
+									BorderBrush="#FF7A7A7A"
+									BorderThickness="1"
+									CornerRadius="0">
+								<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+											  VerticalScrollBarVisibility="Auto">
+									<ItemsPresenter Name="PART_ItemsPresenter"
+													ItemsPanel="{TemplateBinding ItemsPanel}"/>
+								</ScrollViewer>
+							</Border>
+						</Popup>
+					</Grid>
+				</ControlTemplate>
+			</Setter>
+
+			<!-- Default: фон FFFFFF, обводка 1px 7A7A7A -->
+			<Setter Property="Background" Value="#FFFFFFFF"/>
+			<Setter Property="BorderBrush" Value="#FF7A7A7A"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="#FF000000"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Padding" Value="8,0"/>
+			<Setter Property="MinHeight" Value="20"/>
+			<Setter Property="HorizontalContentAlignment" Value="Left"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="PlaceholderForeground" Value="#FF7A7A7A"/>
+
+			<!-- Стрелка смотрит вниз (Default/Hover/Pressed) -->
+			<Style Selector="^ /template/ Path#PART_Arrow">
+				<Setter Property="RenderTransform" Value="rotate(90deg)"/>
+				<Setter Property="Transitions">
+					<Transitions>
+						<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15"/>
+					</Transitions>
+				</Setter>
+			</Style>
+
+			<!-- Hover: обводка 2px 7A7A7A -->
+			<Style Selector="^:pointerover">
+				<Setter Property="BorderThickness" Value="2"/>
+			</Style>
+
+			<!-- Pressed: обводка 3px 7A7A7A -->
+			<Style Selector="^:pressed">
+				<Setter Property="BorderThickness" Value="3"/>
+			</Style>
+
+			<!-- Selected (список раскрыт): обводка 1px 7A7A7A, стрелка вверх -->
+			<Style Selector="^:dropdownopen">
+				<Setter Property="BorderThickness" Value="1"/>
+			</Style>
+			<Style Selector="^:dropdownopen /template/ Path#PART_Arrow">
+				<Setter Property="RenderTransform" Value="rotate(270deg)"/>
+			</Style>
+
+			<!-- Disabled: фон F8F8F8, обводка 1px CACACA, стрелка 50% -->
+			<Style Selector="^:disabled">
+				<Setter Property="Background" Value="#FFF8F8F8"/>
+				<Setter Property="BorderBrush" Value="#FFCACACA"/>
+				<Setter Property="BorderThickness" Value="1"/>
+				<Setter Property="Foreground" Value="#FF626262"/>
+			</Style>
+			<Style Selector="^:disabled /template/ Path#PART_Arrow">
+				<Setter Property="Opacity" Value="0.5"/>
 			</Style>
 		</ControlTheme>
         <Bitmap x:Key="XY">avares://BazisAvaloniaGUI/Scene/Assets/xy.png</Bitmap>
@@ -54,153 +392,110 @@
 	</UserControl.Resources>
 
     <UserControl.Styles>
-        <Style Selector="Path#ExpandArrow">
-            <Setter Property="RenderTransform" Value="rotate(0deg)" />
-            <Setter Property="Transitions">
-                <Transitions> 
-                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15" />
-                </Transitions>
-            </Setter>
+        <!-- Иконка в disabled-состоянии — 50% прозрачности (правило Button).
+             Селектор-потомок нельзя размещать прямо внутри ControlTheme, поэтому стиль вынесен сюда. -->
+        <Style Selector="Button:disabled Image">
+            <Setter Property="Opacity" Value="0.5"/>
         </Style>
-        <Style Selector="ToggleButton:checked Path#ExpandArrow">
-            <Setter Property="RenderTransform" Value="rotate(90deg)" />
-        </Style>
-
-        <!-- Кнопка с чёрной обводкой: рамка всегда толщиной 1, меняется только цвет (Transparent ↔ Black),
-             чтобы содержимое не смещалось на пиксель при переключении. -->
-        <Style Selector="ToggleButton.OutlineButton /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-        </Style>
-        <Style Selector="ToggleButton.OutlineButton:checked /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="BorderBrush" Value="Black" />
-        </Style>
-        <!-- У включённой кнопки фон оставляем тем же: Fluent по умолчанию красит его в акцентный. -->
-        <Style Selector="ToggleButton.OutlineButton:checked /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="WhiteSmoke" />
+        <Style Selector="ToggleButton:disabled Image">
+            <Setter Property="Opacity" Value="0.5"/>
         </Style>
     </UserControl.Styles>
 
     <Panel>
         <scene:SceneSurface x:Name="surface" Focusable="True" />
-        <StackPanel Margin="10" Spacing="4"
+        <StackPanel Spacing="4"
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top">
-            <ToggleButton x:Name="OverlayToggle" 
-                         Theme="{StaticResource SceneToggleButtonTheme}"
-                          Padding="8,4"
-                          Foreground="Black"
-                          HorizontalAlignment="Left"
-                          Width="120"
-                          Height="25">
-                <StackPanel Orientation="Horizontal" Spacing="6">
-                    <TextBlock Text="  Select  " 
-                               VerticalAlignment="Center" />
-                    <Path x:Name="ExpandArrow_1"
-                          Data="M 0,0 L 4,4 L 0,8"
-                          Stroke="#FF000000" StrokeThickness="1.5"
-                          VerticalAlignment="Center" />
-                </StackPanel>
-            </ToggleButton>
-
-            <StackPanel x:Name="ExtraButtonsPanel"
-                        Spacing="1"
-                        IsVisible="False">
-                <ItemsControl x:Name="SetsList">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="scene:SetButton">
-                            <Button Content="{Binding Title}"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    HorizontalContentAlignment="Center"
-                                    Background="LightGray"
-                                    Click="OnSetButtonClick" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+            <!-- «Select»: ComboBox со списком наборов модели — по правилу ComboBox.
+                 Margin="3,3,0,0" — сдвиг на 3px от левого/верхнего края панели. -->
+            <ComboBox x:Name="SetsCombo"
+                      Theme="{StaticResource SceneComboBoxTheme}"
+                      ItemContainerTheme="{StaticResource SceneComboBoxItemTheme}"
+                      PlaceholderText="Select"
+                      Margin="3,3,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Width="200">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="scene:SetButton">
+                        <TextBlock Text="{Binding Title}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
 
-        <StackPanel Margin="0,10,20,0" Spacing="4"
+        <StackPanel Spacing="4"
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Top">
-            <ToggleButton x:Name="ViewToggle" 
-                         Theme="{StaticResource SceneToggleButtonTheme}"
-                          Padding="8,4"
-                          Foreground="Black"
+            <!-- «View»: кнопка-переключатель раскрытия панели видов — по правилу ComboBox. -->
+            <ToggleButton x:Name="ViewToggle"
+                          Theme="{StaticResource SceneDropdownToggleTheme}"
+                          Margin="0,3,25,0"
+                          Content="View"
                           HorizontalAlignment="Left"
-                          Width="120"
-                          Height="25">
-                <StackPanel Orientation="Horizontal" Spacing="6">
-                    <TextBlock Text="View" 
-                               VerticalAlignment="Center" />
-                    <Path x:Name="ExpandArrow_2"
-                          Data="M 0,0 L 4,4 L 0,8"
-                          Stroke="#FF000000" StrokeThickness="1.5"
-                          VerticalAlignment="Center"/>
-                </StackPanel>
-            </ToggleButton>
+                          VerticalAlignment="Top"
+                          Width="120"/>
 
             <Canvas x:Name="ViewButtonsPanel"
                         IsVisible="False">
-                <Button Name="btnXY" Background="WhiteSmoke" 
-                        Canvas.Right="10" 
-                        Canvas.Top="40"
+                <!-- Иконки 20x20: высоту держим в пределах стандартных ~32px (Padding по вертикали не задаём). -->
+                <Button Name="btnXY"
+                        Theme="{StaticResource SceneButtonTheme}"
+                        Canvas.Right="5"
+                        Canvas.Top="35"
                         Click="OnViewChangeClick">
                     <Image Source="{StaticResource XY}"/>
                 </Button>
-                <Button Name="btnZX" 
-                        Background="WhiteSmoke" 
-                        Canvas.Right="10" 
-                        Canvas.Top="80"
+                <Button Name="btnZX"
+                        Theme="{StaticResource SceneButtonTheme}"
+                        Canvas.Right="5"
+                        Canvas.Top="75"
+                        Padding="12,8"
                         Click="OnViewChangeClick">
                     <Image Source="{StaticResource ZX}"/>
                 </Button>
-                <Button Name="btnZY" 
-                        Background="WhiteSmoke" 
-                        Canvas.Right="10"
-                        Canvas.Top="120"
+                <Button Name="btnZY"
+                        Theme="{StaticResource SceneButtonTheme}"
+                        Canvas.Right="5"
+                        Canvas.Top="115"
+                        Padding="12,8"
                         Click="OnViewChangeClick">
                     <Image Source="{StaticResource ZY}"/>
                 </Button>
-                <ToggleButton Name="btnRotX" 
-                              Classes="OutlineButton"
-                              Background="WhiteSmoke"
-                              Canvas.Right="10"
-                              Canvas.Top="160"
-                              Click = "OnRotateChangeModeClick">
+                <ToggleButton Name="btnRotX"
+                              Theme="{StaticResource SceneButtonToggleTheme}"
+                              Canvas.Right="5"
+                              Canvas.Top="155"
+                              Click="OnRotateChangeModeClick">
                     <Image Source="{StaticResource rotX}"/>
                 </ToggleButton>
-                <ToggleButton Name="btnRotY" 
-                              Classes="OutlineButton"
-                              Background="WhiteSmoke"
-                              Canvas.Right="10"
-                              Canvas.Top="200"
-                              Click = "OnRotateChangeModeClick">
+                <ToggleButton Name="btnRotY"
+                              Theme="{StaticResource SceneButtonToggleTheme}"
+                              Canvas.Right="5"
+                              Canvas.Top="195"
+                              Click="OnRotateChangeModeClick">
                     <Image Source="{StaticResource rotY}"/>
                 </ToggleButton>
-                <ToggleButton Name="btnRotZ" 
-                              Classes="OutlineButton"
-                              Background="WhiteSmoke"
-                              Canvas.Right="10"
-                              Canvas.Top="240"
-                              Click = "OnRotateChangeModeClick">
+                <ToggleButton Name="btnRotZ"
+                              Theme="{StaticResource SceneButtonToggleTheme}"
+                              Canvas.Right="5"
+                              Canvas.Top="235"
+                              Click="OnRotateChangeModeClick">
                     <Image Source="{StaticResource rotZ}"/>
                 </ToggleButton>
-                <ToggleButton Name="btnRotHor" 
-                              Classes="OutlineButton"
-                              Background="WhiteSmoke"
-                              Canvas.Right="10"
-                              Canvas.Top="280"
-                              Click = "OnRotateByRightAngle">
+                <ToggleButton Name="btnRotHor"
+                              Theme="{StaticResource SceneButtonToggleTheme}"
+                              Canvas.Right="5"
+                              Canvas.Top="275"
+                              Click="OnRotateByRightAngle">
                     <Image Source="{StaticResource rotHor}"/>
                 </ToggleButton>
-                <ToggleButton Name="btnRotVer" 
-                              Classes="OutlineButton"
-                              Background="WhiteSmoke"
-                              Canvas.Right="10"
-                              Canvas.Top="320"
-                              Click = "OnRotateByRightAngle">
+                <ToggleButton Name="btnRotVer"
+                              Theme="{StaticResource SceneButtonToggleTheme}"
+                              Canvas.Right="5"
+                              Canvas.Top="315"
+                              Click="OnRotateByRightAngle">
                     <Image Source="{StaticResource rotVer}"/>
                 </ToggleButton>
             </Canvas>

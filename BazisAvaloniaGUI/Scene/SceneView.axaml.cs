@@ -10,17 +10,23 @@ using OperationalController;
 
 namespace BazisAvaloniaGUI;
 
-/// <summary>Строка панели дополнительных кнопок: подпись и набор, с которым работает кнопка.</summary>
+/// <summary>Пункт выпадающего списка наборов: подпись набора.</summary>
 internal sealed record SetButton(string Title);
 
 /// <summary>
 /// Представление сцены: разметка — SceneView.axaml, содержимое — SceneSurface.
 /// Своей логики нет; работа со сценой идёт через <see cref="Surface"/>.
-/// Список кнопок-наборов строится по данным проекта.
+/// Пункты выпадающего списка наборов строятся по данным проекта.
 /// </summary>
 internal partial class SceneView : UserControl
 {
+    /// <summary>Подпись пункта «фильтр не задан» — показывает все объекты.</summary>
+    private const string AllObjectsTitle = "Все объекты";
+
     private readonly ObservableCollection<SetButton> setButtons = new();
+
+    /// <summary>Признак перестройки списка: чтобы программная смена выбора не трогала сцену.</summary>
+    private bool isUpdatingSets;
 
     /// <summary>Текущий режим вращения мышью; XYZ — свободный поворот (значение по умолчанию в SceneInputController).</summary>
     private ViewAxis rotationMode = ViewAxis.XYZ;
@@ -29,16 +35,13 @@ internal partial class SceneView : UserControl
     {
         InitializeComponent();
 
-        // Кнопки панели строятся по коллекции: сколько наборов вернёт проект — столько кнопок и будет.
-        SetsList.ItemsSource = setButtons;
+        // Пункты выпадающего списка строятся по коллекции: сколько наборов вернёт проект — столько пунктов и будет.
+        SetsCombo.ItemsSource = setButtons;
+        SetsCombo.SelectionChanged += OnSetSelectionChanged;
 
-        // Панель дополнительных кнопок — обычный оверлей внутри Panel (не Popup):
-        // открывается/закрывается вместе с кнопкой-якорем.
+        // Список кнопок видов раскрывается обычным оверлеем внутри Panel (не Popup).
         // Присваивание вручную, т.к. у ToggleButton.IsChecked тип bool?, а у IsVisible — bool.
-        OverlayToggle.IsCheckedChanged += (_, _) =>
-            ExtraButtonsPanel.IsVisible = OverlayToggle.IsChecked == true;
-
-        ViewToggle.IsCheckedChanged += (_, _) => 
+        ViewToggle.IsCheckedChanged += (_, _) =>
             ViewButtonsPanel.IsVisible = ViewToggle.IsChecked == true;
 
         Surface.ProjectShown += UpdateSets;
@@ -46,31 +49,46 @@ internal partial class SceneView : UserControl
 
     public SceneSurface Surface { get => surface; }
 
-    /// <summary>Перечитывает наборы проекта и перестраивает кнопки панели.</summary>
+    /// <summary>Перечитывает наборы проекта и перестраивает пункты выпадающего списка.</summary>
     private void UpdateSets(ProjectController project)
     {
-        setButtons.Clear();
-        var objects = project.GetAllModelSetsInfo().Where(v => v.NumberOfObjects > 0);
-        if(objects != null)
+        // Пока список перестраивается, программная смена выбора не должна трогать сцену.
+        isUpdatingSets = true;
+        try
         {
-            setButtons.Add(new SetButton("Все объекты"));
-            foreach (var set in objects.Select(v => v.ObjType).Distinct())
+            setButtons.Clear();
+            setButtons.Add(new SetButton(AllObjectsTitle));
+            foreach (var set in project.GetAllModelSetsInfo()
+                                        .Where(v => v.NumberOfObjects > 0)
+                                        .Select(v => v.ObjType)
+                                        .Distinct())
                 setButtons.Add(new SetButton(set.ToString()));
+
+            // Выбор по умолчанию — «Все объекты».
+            SetsCombo.SelectedIndex = 0;
         }
+        finally
+        {
+            isUpdatingSets = false;
+        }
+
+        // Новая модель — прошлый набор может быть неактуален, показываем все объекты.
+        Surface.SelectedObjectType = null;
     }
 
-    /// <summary>Клик по кнопке набора. Действие над <see cref="SetButton.Set"/> добавить здесь.</summary>
-    private void OnSetButtonClick(object? sender, RoutedEventArgs e)
+    /// <summary>Выбор пункта списка: набор фильтрует сцену, «Все объекты» снимает фильтр.</summary>
+    private void OnSetSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if ((sender as Button)?.DataContext is SetButton item)
+        if (isUpdatingSets || SetsCombo.SelectedItem is not SetButton item)
+            return;
+
+        if (item.Title == AllObjectsTitle)
         {
-            if(item.Title.Contains("Все объекты"))
-            {
-                Surface.SelectedObjectType = null;
-                return;
-            }
-            Surface.SelectedObjectType = (ObjType)Enum.Parse(typeof(ObjType), item.Title);
+            Surface.SelectedObjectType = null;
+            return;
         }
+
+        Surface.SelectedObjectType = (ObjType)Enum.Parse(typeof(ObjType), item.Title);
     }
 
     private void OnViewChangeClick(object? sender, RoutedEventArgs e)
