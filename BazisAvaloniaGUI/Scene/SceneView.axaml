@@ -392,6 +392,64 @@
 				<Setter Property="Opacity" Value="0.5"/>
 			</Style>
 		</ControlTheme>
+
+		<!-- Пункт контекстного меню сцены: иконка 16x16 + текст, высота строки 22px как в WinForms
+		     (у меню ImageScalingSize = 24x24, но у пунктов ImageScaling = None — иконка нативная).
+		     Свой шаблон безопасен: MenuItem ищет в шаблоне только PART_Popup и с null-проверкой,
+		     а подменю здесь нет. -->
+		<ControlTheme x:Key="SceneMenuItemTheme" TargetType="MenuItem">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Name="PART_Border"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="0">
+						<Grid ColumnDefinitions="Auto,*">
+							<ContentPresenter Name="PART_IconPresenter"
+											  Grid.Column="0"
+											  Content="{TemplateBinding Icon}"
+											  Width="16" Height="16"
+											  Margin="4,0,6,0"
+											  HorizontalAlignment="Center"
+											  VerticalAlignment="Center"/>
+							<ContentPresenter Name="PART_HeaderPresenter"
+											  Grid.Column="1"
+											  Content="{TemplateBinding Header}"
+											  ContentTemplate="{TemplateBinding HeaderTemplate}"
+											  Margin="0,0,10,0"
+											  HorizontalAlignment="Left"
+											  VerticalAlignment="Center"/>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+
+			<!-- Default: прозрачный фон, ширина строки по содержимому -->
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderBrush" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Foreground" Value="#FF000000"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="MinHeight" Value="22"/>
+
+			<!-- Hover / выбор с клавиатуры / нажатие -->
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="#FFE5E5E5"/>
+			</Style>
+			<Style Selector="^:selected">
+				<Setter Property="Background" Value="#FFE5E5E5"/>
+			</Style>
+			<Style Selector="^:pressed">
+				<Setter Property="Background" Value="#FFD5D5D5"/>
+			</Style>
+
+			<!-- Disabled -->
+			<Style Selector="^:disabled">
+				<Setter Property="Foreground" Value="#FF626262"/>
+			</Style>
+		</ControlTheme>
         <Bitmap x:Key="XY">avares://BazisAvaloniaGUI/Scene/Assets/xy.png</Bitmap>
         <Bitmap x:Key="ZX">avares://BazisAvaloniaGUI/Scene/Assets/zx.png</Bitmap>
         <Bitmap x:Key="ZY">avares://BazisAvaloniaGUI/Scene/Assets/zy.png</Bitmap>
@@ -410,6 +468,15 @@
         <Bitmap x:Key="screenShot">avares://BazisAvaloniaGUI/Scene/Assets/screenShot.png</Bitmap>
         <Bitmap x:Key="insideObjects">avares://BazisAvaloniaGUI/Scene/Assets/insideObjects.png</Bitmap>
         <Bitmap x:Key="advSelect">avares://BazisAvaloniaGUI/Scene/Assets/advSelect.png</Bitmap>
+        <!-- Контекстное меню сцены (WinForms BaseForm.contextMenu) — иконки 16x16, как нативные
+             при ImageScaling = None у пунктов меню. -->
+        <Bitmap x:Key="createGroup">avares://BazisAvaloniaGUI/Scene/Assets/createGroup.png</Bitmap>
+        <Bitmap x:Key="hideSelected">avares://BazisAvaloniaGUI/Scene/Assets/hideSelected.png</Bitmap>
+        <Bitmap x:Key="showAllHidden">avares://BazisAvaloniaGUI/Scene/Assets/showAllHidden.png</Bitmap>
+        <Bitmap x:Key="objectInfo">avares://BazisAvaloniaGUI/Scene/Assets/objectInfo.png</Bitmap>
+        <Bitmap x:Key="setRotationPoint">avares://BazisAvaloniaGUI/Scene/Assets/setRotationPoint.png</Bitmap>
+        <Bitmap x:Key="showAdjacent">avares://BazisAvaloniaGUI/Scene/Assets/showAdjacent.png</Bitmap>
+        <Bitmap x:Key="deleteSelected">avares://BazisAvaloniaGUI/Scene/Assets/deleteSelected.png</Bitmap>
 	</UserControl.Resources>
 
     <UserControl.Styles>
@@ -424,7 +491,70 @@
     </UserControl.Styles>
 
     <Panel>
-        <scene:SceneSurface x:Name="surface" Focusable="True" />
+        <scene:SceneSurface x:Name="surface" Focusable="True">
+            <!--
+                Контекстное меню сцены — перенос WinForms BaseForm.contextMenu
+                (Methods/Scene/MouseEvents.cs: contextMenu.Show(scene, e.Location) по правой кнопке).
+                Placement у ContextMenu по умолчанию Pointer, поэтому меню раскрывается в точке клика.
+                Обработчики пунктов пока не подключены.
+
+                Порядок и тексты как в WinForms (BaseForm.resx):
+                    Create a new group      — «Создать новую группу»
+                    Hide selected           — «Скрыть выбранное»
+                    Show all hidden         — «Показать все скрытые»
+                    Selected objects        — «Выбранные объекты»
+                    Set rotation point      — «Задать точку вращения»
+                    Show paired             — «Показать сопряженные»
+                    Remove selected         — «Удалить выбранное»
+            -->
+            <scene:SceneSurface.ContextMenu>
+                <!-- Палитра меню — как у выпадающего списка ComboBox: фон FFFFFF, обводка 1px 7A7A7A,
+                     без скруглений. Стилизация задана прямо на экземпляре: штатный шаблон
+                     ContextMenu содержит Popup (PART_Popup), трогать его не нужно. -->
+                <ContextMenu Background="#FFFFFFFF"
+                             BorderBrush="#FF7A7A7A"
+                             BorderThickness="1"
+                             CornerRadius="0"
+                             Padding="1"
+                             WindowManagerAddShadowHint="False">
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Create a new group">
+                        <MenuItem.Icon>
+                            <Image Source="{StaticResource createGroup}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Hide selected">
+                        <MenuItem.Icon>
+                            <Image Source="{StaticResource hideSelected}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Show all hidden">
+                        <MenuItem.Icon>
+                            <Image Source="{StaticResource showAllHidden}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Selected objects">
+                        <MenuItem.Icon>
+                            <Image Source="{StaticResource objectInfo}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Set rotation point">
+                        <MenuItem.Icon>
+                            <Image Source="{StaticResource setRotationPoint}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Show paired">
+                        <MenuItem.Icon>
+                            <Image Source="{StaticResource showAdjacent}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Remove selected">
+                        <MenuItem.Icon>
+                            <Image Source="{StaticResource deleteSelected}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </scene:SceneSurface.ContextMenu>
+        </scene:SceneSurface>
         <StackPanel Spacing="4"
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top">
