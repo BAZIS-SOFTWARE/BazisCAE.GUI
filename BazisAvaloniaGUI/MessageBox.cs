@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BazisAvaloniaGUI
 {
-    internal enum MessageBoxButtons { OK, YesNo }
-    internal enum DialogResult { None, OK, Yes, No }
+    internal enum MessageBoxButtons { OK, YesNo, OKCancel }
+    internal enum DialogResult { None, OK, Yes, No, Cancel }
 
     /// <summary>
     /// Avalonia-аналог System.Windows.Forms.MessageBox. Окно модальное, но вызов асинхронный.
@@ -38,6 +38,11 @@ namespace BazisAvaloniaGUI
             {
                 actions.Children.Add(Button("Да", () => dialog.Close(DialogResult.Yes)));
                 actions.Children.Add(Button("Нет", () => dialog.Close(DialogResult.No)));
+            }
+            else if (buttons == MessageBoxButtons.OKCancel)
+            {
+                actions.Children.Add(Button("OK", () => dialog.Close(DialogResult.OK)));
+                actions.Children.Add(Button("Отмена", () => dialog.Close(DialogResult.Cancel)));
             }
             else
                 actions.Children.Add(Button("OK", () => dialog.Close(DialogResult.OK)));

@@ -1,34 +1,129 @@
+using System;
+using System.Drawing;
+using System.Data;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
-using BazisAvaloniaGUI.Localization;
+using System.Threading.Tasks;
+using System.IO;
+using Newtonsoft.Json;
+
+using PropertiesCalculator;
 using MaterialDB.FunctionData;
 using MaterialDB.MaterialData;
-using Newtonsoft.Json;
-using PropertiesCalculator;
-using System;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using BazisAvaloniaGUI.Localization;
+
 
 namespace BazisAvaloniaGUI.Databases
 {
-    internal sealed class FunctionDataBasePage : DataBasePage
+    internal sealed class FunctionDataBasePage : DataBasePage//, ILocalizableHeaderControl
     {
         public event Action OnMutationEvent;
         public FunctionDataBasePage()
         {
+            SaveEvent += SafeDBEventHandler;
             Loader = new LoadFunctionDataBaseFromTextFormat();
             Saver = new SaveFunctionDataBaseToTextFormat();
         }
 
+        public string GetLocalizableHeaderText() => Resources.FunctionDataBasePage_headerName_text;
+
         public FunctionDBData Functions { get; set; }
         = new FunctionDBData() { Name = "newFuncDataBase.jsf" };
+
+        public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+
+        }
+
+        public override void DelBrachButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Functions.Remove(TreeView.SelectedNode.Name.Split(',')[0]))
+                {
+                    //MessageBox.Show(this, "Данные удалены успешно");
+                    RemoveNode(TreeView.SelectedNode);
+                    OnMutationEvent?.Invoke();
+                }
+
+                else throw new Exception(Resources.DelBranchException);
+            }
+            catch (Exception ex) { MessageBox.Show(this, ex.Message); }
+
+        }
+
+        public override void AddNewRowButton_Click(object sender, EventArgs e)
+        {
+            if (TreeView.SelectedNode == null) return;
+            var fun = TreeView.SelectedNode.Name.Split(',')[0];
+            float number = 0;
+            Functions[fun].DataTable.Rows.Add(number, number);
+        }
+
+        public void AddTreeNode(Property function)
+        {
+            var matMenu = new ContextMenu();
+            var name = $"{function.Name},{function.Units}";
+            var funNode = new TreeNode(name) { Name = name };
+
+            var renameFunItem = new MenuItem { Header = Resources.Rename };
+            var deleteFunItem = new MenuItem { Header = Resources.Remove };
+            renameFunItem.Click += RenameMatItem_Click;
+            deleteFunItem.Click += DeleteMaterialItem_Click;
+            matMenu.Items.Add(renameFunItem);
+            matMenu.Items.Add(deleteFunItem);
+            funNode.ContextMenu = matMenu;
+
+
+            TreeView.Nodes.Add(funNode);
+        }
+
+        public override void Resort_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (TreeView.SelectedNode != null)
+                {
+                    var dataAr = TreeView.SelectedNode.FullPath.Split('\\', ',');
+
+                    var fun = dataAr[0];
+
+                    var property = Functions[fun];
+                    if (property.DataTable == null)
+                        throw new Exception(Resources.PropertyTableIsMissing);
+
+                    var dt = Resort(property.DataTable, "X", "ASC");
+                    property.DataTable = dt;
+
+                    DataGridView.DataSource = property.DataTable;
+
+                    var header = property.Name;
+                    var xUnit = property.X_unit;
+                    var yUnit = property.Y_unit;
+
+                    var grDataRange = SetGraphData(property.DataTable, header, Color.Orange, xUnit, yUnit);
+                    if (grDataRange.Count != 0)
+                        GraphContainer.CreateGraphData(header, grDataRange, new AxisFormat(), new AxisFormat());
+
+                    //TreeView.SelectedNode = e.Node;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(this, ex.Message); }
+        }
+
+        public override void DelAllRowsButton_Click(object sender, EventArgs e)
+        {
+            //TO DO реализовать метод очистки столбца
+        }
 
         /// <summary>
         /// Load
         /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="addFlag"></param>
+
         public void Load(string fileName, bool addFlag)
         {
             try
@@ -83,19 +178,125 @@ namespace BazisAvaloniaGUI.Databases
 
         public void PresentFunctions()
         {
-            TreeView.ItemsSource = Functions.Values.Select(function => $"{function.Name},{function.Units}").ToList();
+            TreeView.Nodes.Clear();
+            foreach (var function in Functions)
+                AddTreeNode(function.Value);
         }
+
+        private void RenameMatItem_Click(object sender, EventArgs e)
+        {
+            LabelEditFlag = true;
+            BeginLabelEdit(TreeView.SelectedNode);
+            OnMutationEvent?.Invoke();
+        }
+
+        private void DeleteMaterialItem_Click(object sender, EventArgs e)
+        {
+            if (TreeView.SelectedNode == null)
+            {
+                MessageBox.Show(this, Resources.SelectAFunction);
+                return;
+            }
+
+            Functions.Remove(TreeView.SelectedNode.Text.Split(',')[0]);
+            RemoveNode(TreeView.SelectedNode);
+            OnMutationEvent?.Invoke();
+        }
+/// <inheritdoc/>
 
         public void SafeDBEventHandler(string dbFullPath)
         {
 
-            var settingsSerializer = new JsonSerializerSettings
+                var settingsSerializer = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    Formatting = Formatting.Indented
+                };
+                var propertyString = JsonConvert.SerializeObject(Functions, settingsSerializer);
+                File.WriteAllText(dbFullPath, propertyString);
+        }
+/// <inheritdoc/>
+
+        public override void AddBranchButton_Click(object sender, EventArgs e)
+        {
+            try
             {
-                TypeNameHandling = TypeNameHandling.Auto,
-                Formatting = Formatting.Indented
-            };
-            var propertyString = JsonConvert.SerializeObject(Functions, settingsSerializer);
-            File.WriteAllText(dbFullPath, propertyString);
+                var number = TreeView.Nodes.Count;
+
+                var dbPath = string.Empty;
+                var name = string.Empty;
+                dbPath = Directory.GetFiles(AppContext.BaseDirectory, "functions_draft.txt", SearchOption.AllDirectories)[0];
+                name = GetNextName(Resources.New_function_, Functions.Keys);
+
+                var dataSet = Loader.LoadDataBase(dbPath);
+                var function = ConvertToFunctions(dataSet);
+
+                var oldName = function.Last().Key;
+                var values = function.Last().Value;
+
+                values.Name = name;
+                Functions.Add(name, values);
+
+                AddTreeNode(values);
+                OnMutationEvent?.Invoke();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"{Resources.AddBranch_ExceptionMessage} : {ex.Message}");
+            }
+        }
+/// <inheritdoc/>
+
+        public override void TreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            try
+            {
+                var funName = e.Node.Name.Split(',')[0];
+
+                var table = Functions[funName].DataTable;
+                if (table != null)
+                {
+                    DataGridView.DataSource = table;
+
+                    var header = Functions[funName].Name;
+
+                    var xUnit = Functions[funName].X_unit;
+                    var yUnit = Functions[funName].Y_unit;
+                    var units = Functions[funName].Units;
+
+                    var grDataRange = SetGraphData(table, header, Color.Orange, xUnit, yUnit);
+                    if (grDataRange.Count != 0)
+                        GraphContainer.CreateGraphData(Functions[funName].Name, grDataRange, new AxisFormat(), new AxisFormat());
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(this, ex.Message); }
+        }
+
+        public override void TreeView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            try
+            {
+                if (e.Label == null | e.Label == "" | Functions.ContainsKey(e.Label)
+                    | e.Label.Split(',').Count() < 2 || e.Label.Split(',')[1].Split('-').Count() < 2)
+                    e.CancelEdit = true;
+                else
+                {
+                    var oldName = e.Node.Text.Split(',')[0];
+                    var newName = e.Label;
+                    e.Node.Name = newName;
+                    var fun = Functions[oldName];
+                    fun.Name = newName.Split(',')[0];
+
+                    Functions.Remove(oldName);
+                    Functions.Add(newName.Split(',')[0], fun);
+                }
+                LabelEditFlag = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message);
+            }
         }
 
         public override async void AddDB_Click(object sender, RoutedEventArgs e)
@@ -154,5 +355,41 @@ namespace BazisAvaloniaGUI.Databases
 
             return functions;
         }
+        /// <summary>
+        /// CreateCopy_Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void CreateCopy_Click(object sender, EventArgs e)
+        {
+            if (TreeView.SelectedNode != null && TreeView.SelectedNode.Level == 0)
+            {
+                var functionName = TreeView.SelectedNode.Name.Split(',')[0];
+                var copyName = functionName + Resources.CopySuffics;
+                if (Functions.ContainsKey(copyName))
+                {
+                    MessageBox.Show(this,
+                        Resources.Function +
+                        $" \"{copyName}\" " +
+                        Resources.Function,
+                        BazisAvaloniaGUI.Localization.Localization.GetAttentionCaption(),
+                        MessageBoxButtons.OK);
+                    return;
+                }
+                var newFunction = Functions[functionName].Copy(copyName);
+                Functions.Add(newFunction.Name, newFunction);
+
+                var newNod = (TreeNode)TreeView.SelectedNode.Clone();
+                newNod.Name = newFunction.Name + "," + TreeView.SelectedNode.Name.Split(',')[1];
+                newNod.Text = newFunction.Name + "," + TreeView.SelectedNode.Name.Split(',')[1];
+                TreeView.Nodes.Add(newNod);
+                OnMutationEvent?.Invoke();
+            }
+            else MessageBox.Show(this, Resources.SelectAFunction,
+                BazisAvaloniaGUI.Localization.Localization.GetAttentionCaption(),
+                MessageBoxButtons.OK);
+        }
+
+
     }
 }

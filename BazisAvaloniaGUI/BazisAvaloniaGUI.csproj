@@ -18,5 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Include="Navigator\Assets\*.png" />
+    <Content Include="..\GUI\DataBases\Materials\materials_draft.txt" Link="DataBases\Materials\materials_draft.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\GUI\DataBases\Functions\functions_draft.txt" Link="DataBases\Functions\functions_draft.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
