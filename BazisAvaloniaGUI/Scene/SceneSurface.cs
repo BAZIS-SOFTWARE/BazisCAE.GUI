@@ -16,6 +16,7 @@ using Model.Interfaces.ObjectsCollections;
 using OpenTK.Graphics.OpenGL;
 using OperationalController;
 using OperationalController.ModelScenePresentator;
+using System.Collections.Concurrent;
 
 namespace BazisAvaloniaGUI;
 
@@ -28,6 +29,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     private readonly SceneProjectPresenter presenter = new();
     private readonly SceneSelection selection = new();
     private readonly HashSet<ISetInfo> changedSets = new(ReferenceEqualityComparer.Instance);
+    private readonly ConcurrentQueue<IObjsPresenter> customObjects = new();
     private SceneController? controller;
     private ProjectController? project;
     private bool projectNeedsDisplay;
@@ -114,19 +116,18 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         if (controller == null || project == null)
             return;
 
-        controller.DeleteVBObjects(ContoursVboName);
+        var edges = new List<ILineObject<Model.MeshObjects.Node>>();
         if (visible)
         {
             var nodes = project.FindBoundaryEdges();
-            var edges = project.CreateBoundaryEdges(nodes);
-            var linePresenter = new PresentersCreator().CreateLineObjectsPresenter(edges.ToList(), System.Drawing.Color.DarkGray);
-            linePresenter.Name = ContoursVboName;
-
-            var vbo = presenter.CreateVbo(linePresenter, controller.VboController);
-            if (vbo != null)
-                controller.VboController.AddVbo(vbo);
+            var newEdges = project.CreateBoundaryEdges(nodes);
+            edges.AddRange(newEdges);
         }
+        var linePresenter = new PresentersCreator().CreateLineObjectsPresenter(edges.ToList(), System.Drawing.Color.DarkGray);
+        linePresenter.Name = "Boundary";
 
+        customObjects.Enqueue(linePresenter);
+        
         RequestNextFrameRendering();
     }
 
@@ -253,6 +254,8 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
                 Dispatcher.UIThread.Post(() => ProjectDisplayFailed?.Invoke(this, error));
             }
         }
+        while (customObjects.TryDequeue(out var objs))
+            presenter.Refresh(controller, objs);
 
         controller.DisplayObjects(fb);
 

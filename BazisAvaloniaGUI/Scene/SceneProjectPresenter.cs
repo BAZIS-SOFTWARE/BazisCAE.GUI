@@ -35,6 +35,19 @@ internal class SceneProjectPresenter
             vboController.AddVbo(vbo);
         }
     }
+    /// <summary>Перестройка кастомных GL-объектов(например получения Boundary) по существующему презентатору</summary>
+    public void Refresh(SceneController scene, IObjsPresenter presenter)
+    {
+        var vboController = scene.VboController;
+        vboController.DeleteVBObjects(presenter.Name);
+        if(presenter.Count() == 0)
+            return;
+        var vbo = CreateVbo(presenter, vboController);
+        if (vbo == null)
+            return;
+
+        vboController.AddVbo(vbo);
+    }
 
     /// <summary>
     /// Создаёт GL-объект из презентера: разбор массивов и выбор типа объекта.
