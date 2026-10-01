@@ -39,10 +39,13 @@ internal partial class SceneView : UserControl
         SetsCombo.ItemsSource = setButtons;
         SetsCombo.SelectionChanged += OnSetSelectionChanged;
 
-        // Список кнопок видов раскрывается обычным оверлеем внутри Panel (не Popup).
+        // Панели кнопок видов и механизмов отображения раскрываются обычными оверлеями внутри Panel (не Popup).
         // Присваивание вручную, т.к. у ToggleButton.IsChecked тип bool?, а у IsVisible — bool.
         ViewToggle.IsCheckedChanged += (_, _) =>
             ViewButtonsPanel.IsVisible = ViewToggle.IsChecked == true;
+
+        DisplayStatesToggle.IsCheckedChanged += (_, _) =>
+            DisplayStatesPanel.IsVisible = DisplayStatesToggle.IsChecked == true;
 
         Surface.ProjectShown += UpdateSets;
     }
@@ -162,4 +165,52 @@ internal partial class SceneView : UserControl
         "btnRotVer" => (ViewAxis.X, 90f),
         _ => null
     };
+
+    /// <summary>«Вписать в экран»: масштаб и центр камеры по габаритам модели.</summary>
+    private void OnFitToScreenClick(object? sender, RoutedEventArgs e) => Surface.FitToScreen();
+
+    /// <summary>«Снимок экрана»: кадр сохраняется в PNG рядом с приложением.</summary>
+    private void OnMakeScreenShotClick(object? sender, RoutedEventArgs e) => Surface.RequestScreenShot();
+
+    /// <summary>«Внутренние объекты»: показать/скрыть внутренние поверхности модели.</summary>
+    private void OnShowInsideObjectsClick(object? sender, RoutedEventArgs e) =>
+        Surface.HideInsideSurfaces = !Surface.HideInsideSurfaces;
+
+    /// <summary>Режим отображения: стороны / рёбра / стороны+рёбра — кнопки взаимоисключающие.</summary>
+    private void OnViewModeClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleButton button)
+            return;
+
+        var mode = button.Name switch
+        {
+            "btnShowSides" => ViewMode.Surface,
+            "btnShowRibs" => ViewMode.Line,
+            _ => ViewMode.LineSurface
+        };
+
+        foreach (var other in DisplayStatesPanel.Children.OfType<ToggleButton>())
+            if (IsViewModeButton(other.Name))
+                other.IsChecked = ReferenceEquals(other, button);
+
+        Surface.SetViewMode(mode);
+    }
+
+    /// <summary>Имя кнопки относится к выбору режима отображения (а не к базису/контурам).</summary>
+    private static bool IsViewModeButton(string? buttonName) =>
+        buttonName is "btnShowSides" or "btnShowRibs" or "btnShowSidesRibs";
+
+    /// <summary>«Базис»: показ осей и сферы в начале координат.</summary>
+    private void OnBasisClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is ToggleButton button)
+            Surface.DisplayBasis = button.IsChecked == true;
+    }
+
+    /// <summary>«Контуры»: показ граничных рёбер модели.</summary>
+    private void OnContoursClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is ToggleButton button)
+            Surface.SetContoursVisible(button.IsChecked == true);
+    }
 }

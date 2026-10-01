@@ -36,14 +36,8 @@ internal partial class MainWindow : Window
         };*/
 
         scene.Surface.ProjectDisplayFailed += (_, error) => Status.Text = error.Message;
+        scene.Surface.MessageReported += message => Status.Text = message;
         scene.Surface.SelectionApplied += (count, selected) => Status.Text = selected ? $"Выбрано объектов: {count}" : $"Снято выделение: {count}";
-
-        // ВРЕМЕННО: фактические размеры поверхности в заголовке окна (удалить вместе с бортиком).
-        scene.Surface.PropertyChanged += (_, e) =>
-        {
-            if (e.Property == BoundsProperty)
-                Title = $"BazisAvaloniaGUI — 3D сцена | surface {(int)scene.Surface.Bounds.Width}×{(int)scene.Surface.Bounds.Height}";
-        };
     }
 
     /// <summary>Открывает файл проекта и передаёт модель сцене для создания GL-объектов.</summary>

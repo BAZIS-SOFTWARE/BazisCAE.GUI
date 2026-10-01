@@ -11,6 +11,8 @@
         «Select» — настоящий ComboBox со списком наборов; «View» — ToggleButton, эмулирующий
         ComboBox и раскрывающий панель кнопок-иконок. Кнопки внутри панелей — по правилу Button.
         Шрифт: Sans Serif, 12 кегль, цвет 000000. Скруглений нет — сохраняем угловатость исходного интерфейса.
+        Высота ВСЕХ элементов управления в этом контроле — 28px, кнопки-иконки квадратные 28x28
+        (ширину не фиксируем только у ComboBox и ToggleButton-«якорей»).
 
         Палитра:
             Button        Default  фон E1E1E1, обводка 1px 969696
@@ -26,7 +28,8 @@
                           Disabled фон F8F8F8, обводка 1px CACACA, стрелка 50%
     -->
     <UserControl.Resources>
-		<!-- Кнопка (правило Button): наполнение + 12px по бокам и 8px сверху/снизу, высота около 32px. -->
+		<!-- Кнопка-иконка 28x28 (единая высота элементов панели, см. заголовок файла).
+		     Для текстовых кнопок задавать Width явно: в теме он фиксирован. -->
 		<ControlTheme x:Key="SceneButtonTheme" TargetType="Button">
 			<Setter Property="Template">
 				<ControlTemplate>
@@ -53,8 +56,9 @@
 			<Setter Property="BorderThickness" Value="1"/>
 			<Setter Property="Foreground" Value="#FF000000"/>
 			<Setter Property="FontSize" Value="12"/>
-			<Setter Property="Padding" Value="12,8"/>
-			<Setter Property="MinHeight" Value="32"/>
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="Width" Value="28"/>
+			<Setter Property="Height" Value="28"/>
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
 
@@ -81,7 +85,7 @@
 			</Style>
 		</ControlTheme>
 
-		<!-- Кнопка-переключатель внутри раскрытой панели: визуал по правилу Button; включённый
+		<!-- Кнопка-переключатель внутри раскрытой панели (28x28): визуал по правилу Button; включённый
 		     (активный) режим показываем нажатым состоянием той же палитры. -->
 		<ControlTheme x:Key="SceneButtonToggleTheme" TargetType="ToggleButton">
 			<Setter Property="Template">
@@ -109,8 +113,9 @@
 			<Setter Property="BorderThickness" Value="1"/>
 			<Setter Property="Foreground" Value="#FF000000"/>
 			<Setter Property="FontSize" Value="12"/>
-			<Setter Property="Padding" Value="12,8"/>
-			<Setter Property="MinHeight" Value="32"/>
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="Width" Value="28"/>
+			<Setter Property="Height" Value="28"/>
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
 
@@ -144,8 +149,8 @@
 			</Style>
 		</ControlTheme>
 
-		<!-- «Якорь» раскрывающейся панели на ToggleButton — эмуляция ComboBox: высота 20px, стрелка справа
-		     (Default/Hover/Pressed — вниз, Selected — вверх). Используется для панели видов. -->
+		<!-- «Якорь» раскрывающейся панели на ToggleButton — эмуляция ComboBox: высота 28px (как у кнопок
+		     панели), стрелка справа (Default/Hover/Pressed — вниз, Selected — вверх). Используется для панели видов. -->
 		<ControlTheme x:Key="SceneDropdownToggleTheme" TargetType="ToggleButton">
 			<Setter Property="Template">
 				<ControlTemplate>
@@ -183,7 +188,7 @@
 			<Setter Property="Foreground" Value="#FF000000"/>
 			<Setter Property="FontSize" Value="12"/>
 			<Setter Property="Padding" Value="8,0"/>
-			<Setter Property="MinHeight" Value="20"/>
+			<Setter Property="Height" Value="28"/>
 			<Setter Property="HorizontalContentAlignment" Value="Left"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
 
@@ -224,6 +229,12 @@
 			</Style>
 			<Style Selector="^:disabled /template/ Path#PART_Arrow">
 				<Setter Property="Opacity" Value="0.5"/>
+			</Style>
+
+			<!-- Вариант стрелки "влево" (класс ArrowLeft): при раскрытии стрелка смотрит влево,
+			     а не вверх — для панелей, которые раскрываются вбок. -->
+			<Style Selector="^.ArrowLeft:checked /template/ Path#PART_Arrow">
+				<Setter Property="RenderTransform" Value="rotate(180deg)"/>
 			</Style>
 		</ControlTheme>
 		<!-- Пункт выпадающего списка ComboBox (правило ComboBox): высота 20px, фон FFFFFF,
@@ -272,7 +283,7 @@
 			</Style>
 		</ControlTheme>
 
-		<!-- ComboBox (правило ComboBox): выбранное значение + стрелка справа, выпадающий список
+		<!-- ComboBox (правило ComboBox, высота 28px): выбранное значение + стрелка справа, выпадающий список
 		     — фон FFFFFF, обводка 1px 7A7A7A (только у списка, не у пунктов). -->
 		<ControlTheme x:Key="SceneComboBoxTheme" TargetType="ComboBox">
 			<Setter Property="Template">
@@ -337,7 +348,7 @@
 			<Setter Property="Foreground" Value="#FF000000"/>
 			<Setter Property="FontSize" Value="12"/>
 			<Setter Property="Padding" Value="8,0"/>
-			<Setter Property="MinHeight" Value="20"/>
+			<Setter Property="Height" Value="28"/>
 			<Setter Property="HorizontalContentAlignment" Value="Left"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
 			<Setter Property="PlaceholderForeground" Value="#FF7A7A7A"/>
@@ -389,6 +400,16 @@
         <Bitmap x:Key="rotZ">avares://BazisAvaloniaGUI/Scene/Assets/rotZ.png</Bitmap>
         <Bitmap x:Key="rotHor">avares://BazisAvaloniaGUI/Scene/Assets/rotHor90.png</Bitmap>
         <Bitmap x:Key="rotVer">avares://BazisAvaloniaGUI/Scene/Assets/rotVer90.png</Bitmap>
+        <!-- Механизм отображения и одиночные действия — иконки WinForms-панели сцены (20x20). -->
+        <Bitmap x:Key="showSidesRibs">avares://BazisAvaloniaGUI/Scene/Assets/showSidesRibs.png</Bitmap>
+        <Bitmap x:Key="showRibs">avares://BazisAvaloniaGUI/Scene/Assets/showRibs.png</Bitmap>
+        <Bitmap x:Key="showSides">avares://BazisAvaloniaGUI/Scene/Assets/showSides.png</Bitmap>
+        <Bitmap x:Key="basis">avares://BazisAvaloniaGUI/Scene/Assets/basis.png</Bitmap>
+        <Bitmap x:Key="contours">avares://BazisAvaloniaGUI/Scene/Assets/contours.png</Bitmap>
+        <Bitmap x:Key="fitToScreen">avares://BazisAvaloniaGUI/Scene/Assets/fitToScreen.png</Bitmap>
+        <Bitmap x:Key="screenShot">avares://BazisAvaloniaGUI/Scene/Assets/screenShot.png</Bitmap>
+        <Bitmap x:Key="insideObjects">avares://BazisAvaloniaGUI/Scene/Assets/insideObjects.png</Bitmap>
+        <Bitmap x:Key="advSelect">avares://BazisAvaloniaGUI/Scene/Assets/advSelect.png</Bitmap>
 	</UserControl.Resources>
 
     <UserControl.Styles>
@@ -407,38 +428,140 @@
         <StackPanel Spacing="4"
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top">
-            <!-- «Select»: ComboBox со списком наборов модели — по правилу ComboBox.
-                 Margin="3,3,0,0" — сдвиг на 3px от левого/верхнего края панели. -->
-            <ComboBox x:Name="SetsCombo"
-                      Theme="{StaticResource SceneComboBoxTheme}"
-                      ItemContainerTheme="{StaticResource SceneComboBoxItemTheme}"
-                      PlaceholderText="Select"
-                      Margin="3,3,0,0"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Top"
-                      Width="200">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="scene:SetButton">
-                        <TextBlock Text="{Binding Title}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <!-- «Select» + кнопка дополнительного выбора — порядок и зазоры как в WinForms:
+                 btnSelect (108px, «Select») → 3px → btnAdvSelection (27x27, X=114). -->
+            <StackPanel Orientation="Horizontal" Spacing="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                <!-- «Select»: ComboBox со списком наборов модели — по правилу ComboBox.
+                     Margin="3,3,0,0" — сдвиг на 3px от левого/верхнего края панели. -->
+                <ComboBox x:Name="SetsCombo"
+                          Theme="{StaticResource SceneComboBoxTheme}"
+                          ItemContainerTheme="{StaticResource SceneComboBoxItemTheme}"
+                          PlaceholderText="Select"
+                          Margin="3,3,0,0"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          Width="200">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="scene:SetButton">
+                            <TextBlock Text="{Binding Title}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <!-- Дополнительный выбор (btnAdvSelection в WinForms). В WinForms кнопка включена только когда
+                     есть модель и доступен подходящий тип объектов, а по клику открывается отдельное окно
+                     AdvanceSelection — оно в Avalonia ещё не портировано, поэтому кнопка пока недоступна. -->
+                <Button Name="btnAdvSelect"
+                        Theme="{StaticResource SceneButtonTheme}"
+                        Margin="3,3,0,0"
+                        IsEnabled="False"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                    <Image Source="{StaticResource advSelect}"/>
+                </Button>
+            </StackPanel>
         </StackPanel>
 
         <StackPanel Spacing="4"
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Top">
-            <!-- «View»: кнопка-переключатель раскрытия панели видов — по правилу ComboBox. -->
-            <ToggleButton x:Name="ViewToggle"
-                          Theme="{StaticResource SceneDropdownToggleTheme}"
-                          Margin="0,3,25,0"
-                          Content="View"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Top"
-                          Width="120"/>
+            <!-- Верхний ряд панели сцены — порядок и зазоры как в WinForms-раскладке:
+                 5 кнопок механизма отображения, 9px, стрелка, 9px, «Снимок», 3px, «Вписать»,
+                 3px, «Внутренние объекты», 3px, «Вид». Панель механизмов раскрывается справа налево
+                 (в WinForms: кнопки X=265…412, стрелка X=421, то есть 9px до стрелки). -->
+            <StackPanel Orientation="Horizontal" Spacing="0"
+                        Margin="0,3,25,0"
+                        HorizontalAlignment="Right">
+                <!-- Механизм отображения: 5 кнопок на одной линии слева от стрелки.
+                     Справа-налево: контуры, базис, стороны, рёбра, стороны+рёбра. -->
+                <StackPanel x:Name="DisplayStatesPanel"
+                            Orientation="Horizontal"
+                            Spacing="0"
+                            VerticalAlignment="Center"
+                            IsVisible="False">
+                    <ToggleButton Name="btnShowSidesRibs"
+                                  Theme="{StaticResource SceneButtonToggleTheme}"
+                                  Click="OnViewModeClick">
+                        <Image Source="{StaticResource showSidesRibs}"/>
+                    </ToggleButton>
+                    <ToggleButton Name="btnShowRibs"
+                                  Theme="{StaticResource SceneButtonToggleTheme}"
+                                  Margin="3,0,0,0"
+                                  Click="OnViewModeClick">
+                        <Image Source="{StaticResource showRibs}"/>
+                    </ToggleButton>
+                    <ToggleButton Name="btnShowSides"
+                                  Theme="{StaticResource SceneButtonToggleTheme}"
+                                  Margin="3,0,0,0"
+                                  Click="OnViewModeClick">
+                        <Image Source="{StaticResource showSides}"/>
+                    </ToggleButton>
+                    <!-- Базис виден по умолчанию: SceneRenderSettings.DisplayBasis = true. -->
+                    <ToggleButton Name="btnBazis"
+                                  Theme="{StaticResource SceneButtonToggleTheme}"
+                                  IsChecked="True"
+                                  Margin="3,0,0,0"
+                                  Click="OnBasisClick">
+                        <Image Source="{StaticResource basis}"/>
+                    </ToggleButton>
+                    <!-- Ближайшая к стрелке кнопка — контуры (9px задаёт Margin у стрелки). -->
+                    <ToggleButton Name="btnContours"
+                                  Theme="{StaticResource SceneButtonToggleTheme}"
+                                  Margin="3,0,0,0"
+                                  Click="OnContoursClick">
+                        <Image Source="{StaticResource contours}"/>
+                    </ToggleButton>
+                </StackPanel>
+
+                <!-- Стрелка раскрытия механизмов отображения: без подписи, вниз → влево при раскрытии;
+                     9px до ближайшей кнопки панели. -->
+                <ToggleButton x:Name="DisplayStatesToggle"
+                              Theme="{StaticResource SceneDropdownToggleTheme}"
+                              Classes="ArrowLeft"
+                              Width="20"
+                              Padding="0"
+                              Margin="9,0,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"/>
+                <!-- «Снимок экрана» (9px от стрелки) -->
+                <Button Name="btnMakeScreenShot"
+                        Theme="{StaticResource SceneButtonTheme}"
+                        Margin="9,0,0,0"
+                        Click="OnMakeScreenShotClick">
+                    <Image Source="{StaticResource screenShot}"/>
+                </Button>
+
+                <!-- «Вписать в экран» -->
+                <Button Name="btnFitToScreen"
+                        Theme="{StaticResource SceneButtonTheme}"
+                        Margin="3,0,0,0"
+                        Click="OnFitToScreenClick">
+                    <Image Source="{StaticResource fitToScreen}"/>
+                </Button>
+                
+                <!-- «Внутренние объекты» -->
+                <Button Name="btnShowInsideObjects"
+                        Theme="{StaticResource SceneButtonTheme}"
+                        Margin="3,0,0,0"
+                        Click="OnShowInsideObjectsClick">
+                    <Image Source="{StaticResource insideObjects}"/>
+                </Button>
+
+                <!-- «View»: кнопка-переключатель раскрытия панели видов — по правилу ComboBox. -->
+                <ToggleButton x:Name="ViewToggle"
+                              Theme="{StaticResource SceneDropdownToggleTheme}"
+                              Margin="3,0,0,0"
+                              Content="View"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              Width="120"/>
+            </StackPanel>
 
             <Canvas x:Name="ViewButtonsPanel"
-                        IsVisible="False">
+                        IsVisible="False"
+                        Height="360">
                 <!-- Иконки 20x20: высоту держим в пределах стандартных ~32px (Padding по вертикали не задаём). -->
                 <Button Name="btnXY"
                         Theme="{StaticResource SceneButtonTheme}"
@@ -450,51 +573,49 @@
                 <Button Name="btnZX"
                         Theme="{StaticResource SceneButtonTheme}"
                         Canvas.Right="5"
-                        Canvas.Top="75"
-                        Padding="12,8"
+                        Canvas.Top="66"
                         Click="OnViewChangeClick">
                     <Image Source="{StaticResource ZX}"/>
                 </Button>
                 <Button Name="btnZY"
                         Theme="{StaticResource SceneButtonTheme}"
                         Canvas.Right="5"
-                        Canvas.Top="115"
-                        Padding="12,8"
+                        Canvas.Top="97"
                         Click="OnViewChangeClick">
                     <Image Source="{StaticResource ZY}"/>
                 </Button>
                 <ToggleButton Name="btnRotX"
                               Theme="{StaticResource SceneButtonToggleTheme}"
                               Canvas.Right="5"
-                              Canvas.Top="155"
+                              Canvas.Top="128"
                               Click="OnRotateChangeModeClick">
                     <Image Source="{StaticResource rotX}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotY"
                               Theme="{StaticResource SceneButtonToggleTheme}"
                               Canvas.Right="5"
-                              Canvas.Top="195"
+                              Canvas.Top="159"
                               Click="OnRotateChangeModeClick">
                     <Image Source="{StaticResource rotY}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotZ"
                               Theme="{StaticResource SceneButtonToggleTheme}"
                               Canvas.Right="5"
-                              Canvas.Top="235"
+                              Canvas.Top="190"
                               Click="OnRotateChangeModeClick">
                     <Image Source="{StaticResource rotZ}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotHor"
                               Theme="{StaticResource SceneButtonToggleTheme}"
                               Canvas.Right="5"
-                              Canvas.Top="275"
+                              Canvas.Top="221"
                               Click="OnRotateByRightAngle">
                     <Image Source="{StaticResource rotHor}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotVer"
                               Theme="{StaticResource SceneButtonToggleTheme}"
                               Canvas.Right="5"
-                              Canvas.Top="315"
+                              Canvas.Top="252"
                               Click="OnRotateByRightAngle">
                     <Image Source="{StaticResource rotVer}"/>
                 </ToggleButton>

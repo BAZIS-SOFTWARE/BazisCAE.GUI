@@ -6,6 +6,7 @@ using Avalonia.OpenGL.Controls;
 using Avalonia.Rendering;
 using Avalonia.Threading;
 using BazisGUI.Scene.Core;
+using BazisGUI.Scene.Core.Capture;
 using BazisGUI.Scene.Core.Input;
 using BazisGUI.Scene.EventsArgs;
 using BazisGUI.Scene.Interfaces;
@@ -14,6 +15,7 @@ using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using OpenTK.Graphics.OpenGL;
 using OperationalController;
+using OperationalController.ModelScenePresentator;
 
 namespace BazisAvaloniaGUI;
 
@@ -32,6 +34,12 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     private int width;
     private int height;
     private SceneMouseButton pressedButton;
+
+    /// <summary>Имя GL-объекта с граничными рёбрами модели (кнопка «Контуры»).</summary>
+    private const string ContoursVboName = "Boundary";
+
+    /// <summary>Снимок экрана делается сразу после ближайшей отрисовки — из обработчика кнопки буфер ещё пуст.</summary>
+    private bool captureRequested;
 
     public event EventHandler<Exception>? ProjectDisplayFailed;
     public event Action<int, bool>? SelectionApplied;
@@ -54,6 +62,82 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     public SceneSurface()
     {
         Focusable = true;
+    }
+
+    /// <summary>Отображение базиса (три оси + сфера в начале координат).</summary>
+    public bool DisplayBasis
+    {
+        get => controller?.DisplayBasis ?? false;
+        set
+        {
+            if (controller == null)
+                return;
+
+            controller.DisplayBasis = value;
+            RequestNextFrameRendering();
+        }
+    }
+
+    /// <summary>Сообщение для строки состояния окна (снимок экрана и т.п.).</summary>
+    public event Action<string>? MessageReported;
+
+    /// <summary>Вписывает объекты модели в окно сцены.</summary>
+    public void FitToScreen()
+    {
+        if (controller == null)
+            return;
+
+        controller.FitObjectsToScreen();
+        RequestNextFrameRendering();
+    }
+
+    /// <summary>Задаёт режим отображения (стороны / рёбра / стороны+рёбра) для наборов поверхностей и элементов.</summary>
+    public void SetViewMode(ViewMode mode)
+    {
+        if (controller == null || project == null)
+            return;
+
+        var modelView = project.ModelView;
+        using (modelView.BeginUpdate())
+        {
+            foreach (var type in new[] { ObjType.Поверхность, ObjType.Элемент2D, ObjType.Элемент3D })
+                foreach (var set in project.GetModelSetsInfo(type))
+                    modelView.SetViewMode(set, mode);
+        }
+
+        RequestNextFrameRendering();
+    }
+
+    /// <summary>Показывает или скрывает контуры модели (граничные рёбра), как кнопка «Контуры» в WinForms.</summary>
+    public void SetContoursVisible(bool visible)
+    {
+        if (controller == null || project == null)
+            return;
+
+        controller.DeleteVBObjects(ContoursVboName);
+        if (visible)
+        {
+            var nodes = project.FindBoundaryEdges();
+            var edges = project.CreateBoundaryEdges(nodes);
+            var linePresenter = new PresentersCreator().CreateLineObjectsPresenter(edges.ToList(), System.Drawing.Color.DarkGray);
+            linePresenter.Name = ContoursVboName;
+
+            var vbo = presenter.CreateVbo(linePresenter, controller.VboController);
+            if (vbo != null)
+                controller.VboController.AddVbo(vbo);
+        }
+
+        RequestNextFrameRendering();
+    }
+
+    /// <summary>Просит снять текущий кадр в PNG: снимок делается сразу после ближайшей отрисовки.</summary>
+    public void RequestScreenShot()
+    {
+        if (controller == null)
+            return;
+
+        captureRequested = true;
+        RequestNextFrameRendering();
     }
 
     /// <summary>Делает поверхность OpenGL доступной для событий указателя.</summary>
@@ -171,6 +255,31 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         }
 
         controller.DisplayObjects(fb);
+
+        if (captureRequested)
+        {
+            captureRequested = false;
+            CaptureScreenShot();
+        }
+    }
+
+    /// <summary>Читает готовый кадр и сохраняет его в PNG рядом с приложением.</summary>
+    private void CaptureScreenShot()
+    {
+        if (controller == null)
+            return;
+
+        try
+        {
+            var png = controller.CaptureScreenshot(new GlFrameGrabber());
+            var path = Path.Combine(AppContext.BaseDirectory, "screenShot.png");
+            File.WriteAllBytes(path, png);
+            Dispatcher.UIThread.Post(() => MessageReported?.Invoke($"Снимок экрана сохранён: {path}"));
+        }
+        catch (Exception error)
+        {
+            Dispatcher.UIThread.Post(() => ProjectDisplayFailed?.Invoke(this, error));
+        }
     }
 
     protected override void OnOpenGlDeinit(GlInterface gl)
