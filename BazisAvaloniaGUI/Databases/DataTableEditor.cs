@@ -3,10 +3,12 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Controls.Shapes;
 using Avalonia.Threading;
 using System;
 using System.Data;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace BazisAvaloniaGUI.Databases;
 
@@ -49,6 +51,10 @@ internal sealed class DataTableEditor : UserControl
     public event EventHandler<DataGridViewRowCancelEventArgs> UserDeletingRow;
     public event Action<int> ColumnHeaderClick;
     public int SelectedColumn { get; set; } = -1;
+    public int SelectedRow { get; private set; } = -1;
+    private readonly List<(TextBox editor, int row, int column)> cells = new();
+    private readonly List<Avalonia.Controls.Shapes.Path> rowIndicators = new();
+    private readonly List<DataColumn> displayColumns = new();
     public TableCell this[int column, int row] => new(this, row, column);
     public DataTable DataSource
     {
@@ -57,11 +63,24 @@ internal sealed class DataTableEditor : UserControl
         {
             if (table != null) { table.RowChanged -= OnChanged; table.RowDeleted -= OnChanged; table.Columns.CollectionChanged -= OnColumnsChanged; }
             table = value;
+            displayColumns.Clear();
+            SelectedRow = table?.Rows.Count > 0 ? 0 : -1;
+            SelectedColumn = table?.Columns.Count > 0 ? 0 : -1;
             if (table != null) { table.RowChanged += OnChanged; table.RowDeleted += OnChanged; table.Columns.CollectionChanged += OnColumnsChanged; }
             Refresh();
         }
     }
-    public DataTableEditor() { Content = scroll; }
+    public DataTableEditor()
+    {
+        Content = scroll; scroll.Classes.Add("database-table-scroll");
+        SizeChanged += (_, _) => { if (scroll.Content is Grid grid) grid.MinWidth = Math.Max(0, Bounds.Width - 16); };
+        AddHandler(KeyDownEvent, (_, e) =>
+        {
+            // A selected cell or row header deletes its row; an active text edit keeps normal Delete behavior.
+            if (e.Key == Key.Delete && SelectedRow >= 0 && (e.Source is Button || e.Source is TextBox { IsReadOnly: true }))
+            { DeleteRow(SelectedRow); e.Handled = true; }
+        }, Avalonia.Interactivity.RoutingStrategies.Tunnel);
+    }
     private void OnChanged(object sender, DataRowChangeEventArgs e) => ScheduleRefresh();
     private void OnColumnsChanged(object sender, System.ComponentModel.CollectionChangeEventArgs e) => ScheduleRefresh();
     private void ScheduleRefresh()
@@ -83,34 +102,63 @@ internal sealed class DataTableEditor : UserControl
         var e = new DataGridViewRowCancelEventArgs(new TableRow(this, row));
         UserDeletingRow?.Invoke(this, e);
         if (!e.Cancel) table.Rows.RemoveAt(row);
+        SelectedRow = Math.Min(SelectedRow, table.Rows.Count - 1);
         Refresh();
     }
     public void Refresh()
     {
-        var grid = new Grid();
+        var grid = new Grid { MinWidth = Math.Max(0, Bounds.Width - 16) };
+        cells.Clear(); rowIndicators.Clear();
         scroll.Content = grid;
         if (table == null) return;
-        grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
-        for (var col = 0; col < table.Columns.Count; col++) grid.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(130)));
+        displayColumns.RemoveAll(column => column.Table != table);
+        foreach (DataColumn column in table.Columns) if (!displayColumns.Contains(column)) displayColumns.Add(column);
+        grid.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(22)));
+        for (var col = 0; col < table.Columns.Count; col++) grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star) { MinWidth = 60 });
         for (var row = 0; row <= table.Rows.Count; row++) grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
-        for (var col = 0; col < table.Columns.Count; col++)
+        var headers = new List<(DataColumn column, Button button)>();
+        for (var col = 0; col < displayColumns.Count; col++)
         {
-            var index = col;
-            var header = new Button { Content = table.Columns[col].ColumnName, Padding = new Thickness(4), HorizontalAlignment = HorizontalAlignment.Stretch,
-                Background = index == SelectedColumn ? Brushes.Orange : Brush.Parse("#E1E1E1") };
+            var column = displayColumns[col];
+            var index = column.Ordinal;
+            var header = new Button { Name = "ColumnHeader", Content = column.ColumnName, Padding = new Thickness(2, 0), Height = 20, MinHeight = 20,
+                HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Left,
+                Background = Brushes.White };
+            headers.Add((column, header));
+            Point? dragStart = null;
+            header.AddHandler(PointerPressedEvent, (_, e) => { if (e.GetCurrentPoint(header).Properties.IsLeftButtonPressed) dragStart = e.GetPosition(this); }, Avalonia.Interactivity.RoutingStrategies.Tunnel);
+            header.AddHandler(PointerReleasedEvent, (_, e) =>
+            {
+                var position = e.GetPosition(this);
+                if (!dragStart.HasValue || Math.Abs(position.X - dragStart.Value.X) < 4) { dragStart = null; return; }
+                dragStart = null;
+                foreach (var (targetColumn, target) in headers)
+                {
+                    var origin = target.TranslatePoint(new Point(), this);
+                    if (!origin.HasValue || !new Rect(origin.Value, target.Bounds.Size).Contains(position)) continue;
+                    var oldIndex = displayColumns.IndexOf(column); var newIndex = displayColumns.IndexOf(targetColumn);
+                    displayColumns.RemoveAt(oldIndex); displayColumns.Insert(newIndex, column);
+                    e.Pointer.Capture(null); e.Handled = true; Refresh(); break;
+                }
+            }, Avalonia.Interactivity.RoutingStrategies.Tunnel);
             header.Click += (_, _) => { SelectedColumn = index; ColumnHeaderClick?.Invoke(index); Refresh(); };
             Grid.SetColumn(header, col + 1); grid.Children.Add(header);
         }
         for (var row = 0; row < table.Rows.Count; row++)
         {
             var rowIndex = row;
-            var delete = new Button { Content = "×", Padding = new Thickness(4), Name = "DeleteRow" };
-            delete.Click += (_, _) => DeleteRow(rowIndex);
-            Grid.SetRow(delete, row + 1); grid.Children.Add(delete);
-            for (var col = 0; col < table.Columns.Count; col++)
+            var indicator = new Avalonia.Controls.Shapes.Path { Data = Avalonia.Media.Geometry.Parse("M0,0 L5,5 L0,10 Z"), Fill = Brushes.Black, Width = 5, Height = 10 };
+            rowIndicators.Add(indicator);
+            var rowHeader = new Button { Content = indicator, Padding = new Thickness(2, 0), Name = "RowHeader", Height = 20, MinHeight = 20, MinWidth = 0 };
+            rowHeader.Click += (_, _) => { SelectedRow = rowIndex; UpdateSelection(); };
+            Grid.SetRow(rowHeader, row + 1); grid.Children.Add(rowHeader);
+            for (var col = 0; col < displayColumns.Count; col++)
             {
-                var columnIndex = col;
-                var editor = new TextBox { Text = Convert.ToString(table.Rows[row][col], CultureInfo.CurrentCulture), Height = 20, MinHeight = 20, Padding = new Thickness(2, 0), FontSize = 11 };
+                var columnIndex = displayColumns[col].Ordinal;
+                var editor = new TextBox { Text = Convert.ToString(table.Rows[row][columnIndex], CultureInfo.CurrentCulture), Height = 20, MinHeight = 20, Padding = new Thickness(2, 0), FontSize = 11, IsReadOnly = true };
+                editor.Classes.Add("database-cell");
+                cells.Add((editor, rowIndex, columnIndex));
+                editor.GotFocus += (_, _) => { SelectedRow = rowIndex; SelectedColumn = columnIndex; UpdateSelection(); };
                 var original = editor.Text;
                 void Commit()
                 {
@@ -126,10 +174,28 @@ internal sealed class DataTableEditor : UserControl
                     catch (Exception ex) { editor.Text = Convert.ToString(table.Rows[rowIndex][columnIndex]); _ = MessageBox.Show(this, ex.Message); }
                     finally { committing = false; }
                 }
-                editor.LostFocus += (_, _) => Commit();
-                editor.KeyDown += (_, e) => { if (e.Key == Key.Enter) { Commit(); e.Handled = true; } };
+                editor.DoubleTapped += (_, _) => { editor.IsReadOnly = false; editor.SelectAll(); };
+                editor.AddHandler(TextInputEvent, (_, _) => { if (editor.IsReadOnly) { editor.IsReadOnly = false; editor.SelectAll(); } }, Avalonia.Interactivity.RoutingStrategies.Tunnel);
+                editor.LostFocus += (_, _) => { Commit(); editor.IsReadOnly = true; };
+                editor.KeyDown += (_, e) =>
+                {
+                    if (e.Key == Key.Enter) { Commit(); editor.IsReadOnly = true; e.Handled = true; }
+                    if (e.Key == Key.F2) { editor.IsReadOnly = false; editor.SelectAll(); e.Handled = true; }
+                    if (e.Key == Key.Escape) { editor.Text = original; editor.IsReadOnly = true; e.Handled = true; }
+                };
                 Grid.SetRow(editor, row + 1); Grid.SetColumn(editor, col + 1); grid.Children.Add(editor);
             }
+        }
+        UpdateSelection();
+    }
+    private void UpdateSelection()
+    {
+        for (var i = 0; i < rowIndicators.Count; i++) rowIndicators[i].IsVisible = i == SelectedRow;
+        foreach (var (editor, row, column) in cells)
+        {
+            var selected = row == SelectedRow && column == SelectedColumn;
+            editor.Background = selected ? Brush.Parse("#0078D7") : Brushes.White;
+            editor.Foreground = selected ? Brushes.White : Brushes.Black;
         }
     }
 }

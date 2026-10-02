@@ -7,6 +7,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.VisualTree;
+using Avalonia.Markup.Xaml.Styling;
 using MaterialDB.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -43,32 +44,36 @@ internal class DataBasePage : UserControl
     public object OldCellValue { get; private set; }
     public object NewCellValue { get; private set; }
     internal List<Window> AuxiliaryWindows { get; } = new();
+    internal IStorageProvider StorageProvider { get; set; }
+    protected IStorageProvider FileStorage => StorageProvider ?? TopLevel.GetTopLevel(this).StorageProvider;
 
     public DataBasePage()
     {
         FontFamily = new FontFamily("Microsoft Sans Serif"); FontSize = 11;
-        var treeTools = new WrapPanel();
-        void Tool(Panel panel, string text, string name, Action<object, EventArgs> action)
+        Styles.Add(new StyleInclude(new Uri("avares://BazisAvaloniaGUI/")) { Source = new Uri("avares://BazisAvaloniaGUI/Databases/DatabaseStyles.axaml") });
+        var treeTools = new DatabaseToolbar();
+        void Tool(DatabaseToolbar panel, string image, string name, Action<object, EventArgs> action)
         {
-            var button = new Button { Content = text, Name = name, Padding = new Thickness(5, 4), Margin = new Thickness(1) };
+            var button = new Button { Content = DatabaseIcons.Create(image), Name = name };
+            button.Classes.Add("database-tool");
             AutomationProperties.SetName(button, name);
             var key = name switch { "OpenFileDB" => "btnOpenDB.Text", "AddDB" => "btnAddDB.Text", "SaveDB" => "btnSafeFile.Text", "AddBranch" => "addBranchButton.Text", "DeleteBranch" => "delBrachButton.Text", "CreateCopy" => "btnCreateCopy.Text", "AddRow" => "btnAddNewRow.Text", "ClearRows" => "btnDelRow.Text", _ => "btnAscSort.Text" };
             ToolTip.SetTip(button, DatabaseControlResources.Get("DataBasePage", key));
-            button.Click += (sender, e) => action(sender, e); panel.Children.Add(button);
+            button.Click += (sender, e) => action(sender, e); panel.Add(button);
         }
-        Tool(treeTools, "↗", "OpenFileDB", (s,e) => OpenFileDB_Click(s, new RoutedEventArgs()));
-        Tool(treeTools, "⊕", "AddDB", (s,e) => AddDB_Click(s, new RoutedEventArgs()));
-        Tool(treeTools, "↓", "SaveDB", SafeFileButton_Click);
-        Tool(treeTools, "+", "AddBranch", AddBranchButton_Click);
-        Tool(treeTools, "−", "DeleteBranch", DelBrachButton_Click);
-        Tool(treeTools, "⧉", "CreateCopy", CreateCopy_Click);
-        var tableTools = new WrapPanel();
-        Tool(tableTools, "+", "AddRow", AddNewRowButton_Click);
-        Tool(tableTools, "−", "ClearRows", DelAllRowsButton_Click);
-        Tool(tableTools, "↑", "SortRows", Resort_Click);
+        Tool(treeTools, "database-open.png", "OpenFileDB", (s,e) => OpenFileDB_Click(s, new RoutedEventArgs()));
+        Tool(treeTools, "database-add.png", "AddDB", (s,e) => AddDB_Click(s, new RoutedEventArgs()));
+        Tool(treeTools, "database-save.png", "SaveDB", SafeFileButton_Click);
+        Tool(treeTools, "branch-add.png", "AddBranch", AddBranchButton_Click);
+        Tool(treeTools, "branch-delete.png", "DeleteBranch", DelBrachButton_Click);
+        Tool(treeTools, "database-copy.png", "CreateCopy", CreateCopy_Click);
+        var tableTools = new DatabaseToolbar();
+        Tool(tableTools, "table-row-add.png", "AddRow", AddNewRowButton_Click);
+        Tool(tableTools, "table-rows-clear.png", "ClearRows", DelAllRowsButton_Click);
+        Tool(tableTools, "table-sort-ascending.png", "SortRows", Resort_Click);
         Control Pane(string title, Control content, Control toolbar = null)
         {
-            var grid = new Grid { RowDefinitions = new RowDefinitions("20,Auto,*") };
+            var grid = new Grid { RowDefinitions = new RowDefinitions("17,Auto,*") };
             var heading = new Border { Background = Brush.Parse("#C0C0C0"), Child = new TextBlock { Text = title, Margin = new Thickness(4,0) } };
             headings.Add(heading); grid.Children.Add(heading);
             if (toolbar != null) { Grid.SetRow(toolbar, 1); grid.Children.Add(toolbar); }
@@ -78,7 +83,7 @@ internal class DataBasePage : UserControl
         var treePane = Pane(Resources.List, TreeView, treeTools);
         var tablePane = Pane(Resources.Data, DataGridView, tableTools);
         var graphPane = Pane(Resources.Graph, GraphContainer);
-        var layout = new Grid { ColumnDefinitions = new ColumnDefinitions("2*,5,3*"), RowDefinitions = new RowDefinitions("*,5,*") };
+        var layout = new Grid { ColumnDefinitions = new ColumnDefinitions("29*,3,71*"), RowDefinitions = new RowDefinitions("47.55*,3,52.45*") };
         Grid.SetRowSpan(treePane, 3); layout.Children.Add(treePane);
         Grid.SetColumn(tablePane, 2); layout.Children.Add(tablePane);
         Grid.SetColumn(graphPane, 2); Grid.SetRow(graphPane, 2); layout.Children.Add(graphPane);
@@ -104,7 +109,7 @@ internal class DataBasePage : UserControl
     public virtual void AddDB_Click(object sender, RoutedEventArgs e) => LoadEvent?.Invoke();
     public async void SafeFileButton_Click(object sender, EventArgs e)
     {
-        var file = await TopLevel.GetTopLevel(this).StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        var file = await FileStorage.SaveFilePickerAsync(new FilePickerSaveOptions
         { DefaultExtension = "jsf", FileTypeChoices = [new FilePickerFileType("(*.jsf)") { Patterns = ["*.jsf"] }] });
         if (file?.TryGetLocalPath() is string path && path.Length > 0) SaveEvent?.Invoke(path);
     }

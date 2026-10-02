@@ -54,7 +54,8 @@ public partial class AvaloniaTests
             foreach (var name in new[] { "OpenFileDB", "AddDB", "SaveDB", "AddBranch", "DeleteBranch", "CreateCopy", "AddRow", "ClearRows", "SortRows" })
             {
                 var toolbarButton = Find<Button>(page, b => b.Name == name);
-                Assert.That(toolbarButton.Content!.ToString()!.Length, Is.EqualTo(1));
+                Assert.That(toolbarButton.Content, Is.TypeOf<Image>());
+                Assert.That(((Image)toolbarButton.Content!).Source, Is.Not.Null);
                 Assert.That(ToolTip.GetTip(toolbarButton), Is.Not.Null.And.Not.Empty);
             }
             var node = page.TreeView.Nodes[0];

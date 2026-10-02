@@ -49,11 +49,15 @@ namespace BazisAvaloniaGUI.Shell
                     console.PrintInfo($"{Resources.DataBaseMainMenuEvents_OpenDB_Message} {matBasePage.Materials.Name} {Resources.DataBaseMainMenuEvents_OpenDB_SuccessfullyAdded_Message}", Color.Green);
                 };
 
-                matBasePage.OnMutationEvent += () => OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
+                matBasePage.OnMutationEvent += () =>
+                {
+                    project.MaterialsDB = matBasePage.Materials;
+                    OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project.MaterialsDB.Keys.ToArray()));
+                };
 
                 OnProjectLoaded += () =>
                 {
-                    matBasePage.Materials = project.MaterialsDB;
+                    matBasePage.Materials = project.MaterialsDB ?? new MaterialDB.MaterialData.MaterialDBData() { Name = "newMatDataBase.jsf" };
                     matBasePage.PresentMaterials();
                     OnChangeMaterials?.Invoke(this, new ChangeMaterialsEventArgs(project?.MaterialsDB?.Keys?.ToArray() ?? Array.Empty<string>()));
                 };
@@ -105,13 +109,17 @@ namespace BazisAvaloniaGUI.Shell
                     console.PrintInfo($"{Resources.DataBaseMainMenuEvents_OpenDB_Message} {funBasePage.Functions.Name} {Resources.DataBaseMainMenuEvents_OpenDB_SuccessfullyAdded_Message}", Color.Green);
                 };
 
-                funBasePage.OnMutationEvent += () => OnChangeFunctions(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
+                funBasePage.OnMutationEvent += () =>
+                {
+                    project.FunctionsDB = funBasePage.Functions;
+                    OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
+                };
 
                 OnProjectLoaded += () =>
                 {
-                    funBasePage.Functions = project.FunctionsDB;
+                    funBasePage.Functions = project.FunctionsDB ?? new MaterialDB.FunctionData.FunctionDBData() { Name = "newFuncDataBase.jsf" };
                     funBasePage.PresentFunctions();
-                    OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(project.FunctionsDB.Keys.ToArray()));
+                    OnChangeFunctions?.Invoke(this, new ChangeFunctionsEventArgs(funBasePage.Functions.Keys.ToArray()));
                 };
 
                 // Проект может существовать без базы материалов. Например если старт с геометрии.

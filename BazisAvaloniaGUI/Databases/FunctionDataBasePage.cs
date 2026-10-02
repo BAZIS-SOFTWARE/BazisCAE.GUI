@@ -124,11 +124,15 @@ namespace BazisAvaloniaGUI.Databases
         /// <param name="fileName"></param>
         /// <param name="addFlag"></param>
 
-        public void Load(string fileName, bool addFlag)
+        public void Load(string fileName, bool addFlag) => TryLoad(fileName, addFlag);
+
+        private bool TryLoad(string fileName, bool addFlag)
         {
             try
             {
-                var ext = Path.GetExtension(fileName);
+                if (string.IsNullOrWhiteSpace(fileName))
+                    throw new IOException(Resources.LoadDBCorruptedException);
+                var ext = Path.GetExtension(fileName).ToLowerInvariant();
                 DataExtension = ext;
 
                 FunctionDBData functions = new FunctionDBData();
@@ -148,7 +152,16 @@ namespace BazisAvaloniaGUI.Databases
                         functions = JsonConvert.DeserializeObject<FunctionDBData>
                             (File.ReadAllText(fileName), settingsSerializer);
                         break;
+                    default:
+                        throw new InvalidDataException(Resources.LoadDBCorruptedException);
                 }
+
+                if (functions == null)
+                    throw new InvalidDataException(Resources.LoadDBCorruptedException);
+
+                foreach (var function in functions)
+                    if (function.Value == null || string.IsNullOrEmpty(function.Value.Name) || function.Key != function.Value.Name)
+                        throw new InvalidDataException(Resources.LoadDBCorruptedException);
 
                 if (addFlag)
                 {
@@ -160,25 +173,31 @@ namespace BazisAvaloniaGUI.Databases
                         if (!Functions.ContainsKey(function.Key))
                             Functions.Add(function.Key, function.Value);
                     }
-                    OnMutationEvent?.Invoke();
                 }
                 else
                 {
-                    if (functions == null)
-                        throw new Exception(Resources.LoadDBCorruptedException);
                     Functions = functions;
                     var name = Path.GetFileName(fileName);
                     Functions.Name = name;
                 }
 
                 PresentFunctions();
+                if (addFlag) OnMutationEvent?.Invoke();
+                return true;
             }
-            catch (Exception ex) { MessageBox.Show(this, ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"{fileName}: {ex.Message}");
+                return false;
+            }
         }
 
         public void PresentFunctions()
         {
             TreeView.Nodes.Clear();
+            DataGridView.DataSource = null;
+            GraphContainer.ClearData();
+            if (Functions == null) return;
             foreach (var function in Functions)
                 AddTreeNode(function.Value);
         }
@@ -301,37 +320,39 @@ namespace BazisAvaloniaGUI.Databases
 
         public override async void AddDB_Click(object sender, RoutedEventArgs e)
         {
-            var top = TopLevel.GetTopLevel(this);
-            var files = await top.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            try
             {
-                AllowMultiple = false,
-                FileTypeFilter =
-                [
-                    new FilePickerFileType("jsf files (*.jsf)") { Patterns = ["*.jsf"] },
-                    new FilePickerFileType("txt files (*.txt)") { Patterns = ["*.txt"] },
-                    FilePickerFileTypes.All
-                ]
-            });
+                var files = await FileStorage.OpenFilePickerAsync(new FilePickerOpenOptions
+                {
+                    AllowMultiple = false,
+                    FileTypeFilter =
+                    [
+                        new FilePickerFileType("jsf files (*.jsf)") { Patterns = ["*.jsf"] },
+                        new FilePickerFileType("txt files (*.txt)") { Patterns = ["*.txt"] },
+                        FilePickerFileTypes.All
+                    ]
+                });
 
-            if (files.Count == 0)
-                return;
+                if (files.Count == 0)
+                    return;
 
-            Load(files[0].TryGetLocalPath(), true);
-
-            base.AddDB_Click(sender, e);
+                if (TryLoad(files[0].TryGetLocalPath() ?? throw new IOException($"{files[0].Path}: {Resources.LoadDBCorruptedException}"), true)) base.AddDB_Click(sender, e);
+            }
+            catch (Exception ex) { await MessageBox.Show(this, ex.Message); }
         }
 
         public override async void OpenFileDB_Click(object sender, RoutedEventArgs e)
         {
-            var top = TopLevel.GetTopLevel(this);
-            var files = await top.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { AllowMultiple = false });
+            try
+            {
+                var files = await FileStorage.OpenFilePickerAsync(new FilePickerOpenOptions { AllowMultiple = false });
 
-            if (files.Count == 0)
-                return;
+                if (files.Count == 0)
+                    return;
 
-            Load(files[0].TryGetLocalPath(), false);
-
-            base.OpenFileDB_Click(sender, e);
+                if (TryLoad(files[0].TryGetLocalPath() ?? throw new IOException($"{files[0].Path}: {Resources.LoadDBCorruptedException}"), false)) base.OpenFileDB_Click(sender, e);
+            }
+            catch (Exception ex) { await MessageBox.Show(this, ex.Message); }
         }
 
         private FunctionDBData ConvertToFunctions(DataSet dataSet)

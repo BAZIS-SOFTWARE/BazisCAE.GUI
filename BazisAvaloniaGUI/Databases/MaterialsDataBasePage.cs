@@ -48,26 +48,30 @@ namespace BazisAvaloniaGUI.Databases
 
         public override async void AddDB_Click(object sender, RoutedEventArgs e)
         {
-            var fileName = await OpenDBFile();
-            if (fileName == null)
-                return;
+            try
+            {
+                var fileName = await OpenDBFile();
+                if (fileName == null)
+                    return;
 
-            Load(fileName, true);
-
-            base.AddDB_Click(sender, e);
+                if (TryLoad(fileName, true)) base.AddDB_Click(sender, e);
+            }
+            catch (Exception ex) { await MessageBox.Show(this, ex.Message); }
         }
 /// <inheritdoc/>
 
 
         public override async void OpenFileDB_Click(object sender, RoutedEventArgs e)
         {
-            var fileName = await OpenDBFile();
-            if (fileName == null)
-                return;
+            try
+            {
+                var fileName = await OpenDBFile();
+                if (fileName == null)
+                    return;
 
-            Load(fileName, false);
-
-            base.OpenFileDB_Click(sender, e);
+                if (TryLoad(fileName, false)) base.OpenFileDB_Click(sender, e);
+            }
+            catch (Exception ex) { await MessageBox.Show(this, ex.Message); }
         }
 
         /// <summary>
@@ -77,11 +81,15 @@ namespace BazisAvaloniaGUI.Databases
         /// <param name="addFlag"></param>
 
 
-        public void Load(string fileName, bool addFlag)
+        public void Load(string fileName, bool addFlag) => TryLoad(fileName, addFlag);
+
+        private bool TryLoad(string fileName, bool addFlag)
         {
             try
             {
-                var ext = Path.GetExtension(fileName);
+                if (string.IsNullOrWhiteSpace(fileName))
+                    throw new IOException(Resources.LoadDBCorruptedException);
+                var ext = Path.GetExtension(fileName).ToLowerInvariant();
                 DataExtension = ext;
 
                 MaterialDBData materials = new MaterialDBData();
@@ -101,6 +109,25 @@ namespace BazisAvaloniaGUI.Databases
                         materials = JsonConvert.DeserializeObject<MaterialDBData>
                             (File.ReadAllText(fileName), settingsSerializer);
                         break;
+                    default:
+                        throw new InvalidDataException(Resources.LoadDBCorruptedException);
+                }
+
+                if (materials == null)
+                    throw new InvalidDataException(Resources.LoadDBCorruptedException);
+
+                foreach (var material in materials)
+                {
+                    if (material.Value == null || string.IsNullOrEmpty(material.Value.Name) || material.Key != material.Value.Name || material.Value.CategoryData == null)
+                        throw new InvalidDataException(Resources.LoadDBCorruptedException);
+                    foreach (var category in material.Value.CategoryData)
+                    {
+                        if (category.Value == null || category.Value.Name != category.Key || category.Value.PropertyData == null)
+                            throw new InvalidDataException(Resources.LoadDBCorruptedException);
+                        foreach (var property in category.Value.PropertyData)
+                            if (property.Value == null || property.Value.Name != property.Key)
+                                throw new InvalidDataException(Resources.LoadDBCorruptedException);
+                    }
                 }
 
                 if (addFlag)
@@ -113,25 +140,31 @@ namespace BazisAvaloniaGUI.Databases
                         if (!Materials.ContainsKey(material.Key))
                             Materials.Add(material.Key, material.Value);
                     }
-                    OnMutationEvent?.Invoke();
                 }
                 else
                 {
-                    if (materials == null)
-                        throw new Exception(Resources.LoadDBCorruptedException);
                     Materials = materials;
                     var name = Path.GetFileName(fileName);
                     Materials.Name = name;
                 }
 
                 PresentMaterials();
+                if (addFlag) OnMutationEvent?.Invoke();
+                return true;
             }
-            catch (Exception ex) { MessageBox.Show(this, ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"{fileName}: {ex.Message}");
+                return false;
+            }
         }
 
         public void PresentMaterials()
         {
             TreeView.Nodes.Clear();
+            DataGridView.DataSource = null;
+            GraphContainer.ClearData();
+            if (Materials == null) return;
             foreach (var material in Materials)
                 AddTreeNode(material.Value);
         }
@@ -764,8 +797,7 @@ namespace BazisAvaloniaGUI.Databases
 
         private async Task<string> OpenDBFile()
         {
-            var top = TopLevel.GetTopLevel(this);
-            var files = await top.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            var files = await FileStorage.OpenFilePickerAsync(new FilePickerOpenOptions
             {
                 AllowMultiple = false,
                 FileTypeFilter =
@@ -775,7 +807,8 @@ namespace BazisAvaloniaGUI.Databases
                     FilePickerFileTypes.All
                 ]
             });
-            return files.Count == 0 ? null : files[0].TryGetLocalPath();
+            if (files.Count == 0) return null;
+            return files[0].TryGetLocalPath() ?? throw new IOException($"{files[0].Path}: {Resources.LoadDBCorruptedException}");
         }
     }
 }
