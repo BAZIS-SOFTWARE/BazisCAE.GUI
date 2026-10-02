@@ -48,6 +48,7 @@ internal partial class SceneView : UserControl
             DisplayStatesPanel.IsVisible = DisplayStatesToggle.IsChecked == true;
 
         Surface.ProjectShown += UpdateSets;
+        Surface.SelectionReset += OnSelectionReset;
     }
 
     public SceneSurface Surface { get => surface; }
@@ -76,6 +77,14 @@ internal partial class SceneView : UserControl
         }
 
         // Новая модель — прошлый набор может быть неактуален, показываем все объекты.
+        Surface.SelectedObjectType = null;
+    }
+
+    /// <summary>Esc в сцене сбросил выделение — возвращаем фильтр наборов на «Все объекты».</summary>
+    private void OnSelectionReset()
+    {
+        // Смена индекса вызовет OnSetSelectionChanged и обнулит Surface.SelectedObjectType.
+        SetsCombo.SelectedIndex = 0;
         Surface.SelectedObjectType = null;
     }
 

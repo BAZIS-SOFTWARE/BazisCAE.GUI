@@ -57,6 +57,9 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     public event EventHandler<Exception>? ProjectDisplayFailed;
     public event Action<int, bool>? SelectionApplied;
 
+    /// <summary>Сцена сбросила выделение (Esc) — UI возвращает фильтр наборов на «Все объекты».</summary>
+    public event Action? SelectionReset;
+
     /// <summary>Сцена получила проект — UI может перечитать его наборы.</summary>
     public event Action<ProjectController>? ProjectShown;
 
@@ -644,12 +647,55 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         if (controller == null)
             return;
 
-        var args = new SceneKeyEventArgs
+        var key = e.Key switch
         {
-            Key = e.Key == Key.F ? SceneKey.F : SceneKey.None,
-            Modifiers = CreateModifiers(e.KeyModifiers)
+            Key.F => SceneKey.F,
+            Key.C => SceneKey.C,
+            Key.Escape => SceneKey.Escape,
+            _ => SceneKey.None
         };
-        controller.OnKeyDown(args);
+
+        switch (key)
+        {
+            // C — только запрос точки вращения (тяжёлая часть считается в OnOpenGlRender).
+            case SceneKey.C:
+                RotationPointRequest();
+                return;
+
+            // Esc — снять выделение (как WinForms GlControl_KeyDown: SelectedObjects = Select).
+            case SceneKey.Escape:
+                ClearSelection();
+                return;
+        }
+
+        controller.OnKeyDown(new SceneKeyEventArgs
+        {
+            Key = key,
+            Modifiers = CreateModifiers(e.KeyModifiers)
+        });
+    }
+
+    /// <summary>
+    /// Снимает выделение со всех объектов — порт ветки Escape из WinForms BaseForm.GlControl_KeyDown.
+    /// Перерисовку/пересборку наборов выполняет подписка OnModelViewChanged.
+    /// </summary>
+    private void ClearSelection()
+    {
+        if (project == null)
+            return;
+
+        try
+        {
+            using (project.ModelView.BeginUpdate())
+                project.ModelView.ClearSelection();
+        }
+        catch (Exception error)
+        {
+            MessageReported?.Invoke(error.Message);
+        }
+
+        SelectionReset?.Invoke();
+        RequestNextFrameRendering();
     }
 
     private void RequestRendering()
