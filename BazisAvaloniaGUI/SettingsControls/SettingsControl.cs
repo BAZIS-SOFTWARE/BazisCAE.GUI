@@ -32,6 +32,8 @@ namespace BazisAvaloniaGUI.SettingsControls
 
         public event Action<string> SetSolverPathEvent;
         public event Action<bool> SetLightingEvent;
+        /// <summary>«Рёбра внутренних элементов»: показ задних рёбер поверхностей при прозрачной отрисовке.</summary>
+        public event Action<bool> SetBackRibbersEvent;
         public Action<int> SetLightingIntensityEvent;
         public Action<System.Drawing.Point> SetLighterPositionEvent;
         public Action<bool> SetTransparencyEvent;
@@ -71,7 +73,27 @@ namespace BazisAvaloniaGUI.SettingsControls
             cmbLanguage.ItemsSource = Enum.GetValues<Culture>().Select(GetLanguageByCulture).ToArray();
         }
 
+        /// <summary>
+        /// Идёт заполнение страницы из конфигурации. В Avalonia ValueChanged/SelectionChanged срабатывают и при
+        /// программной установке значения (в WinForms Scroll — только от пользователя), поэтому события
+        /// изменения настроек в это время не поднимаются.
+        /// </summary>
+        private bool isLoading;
+
         public void SetSettings(SettingsConfig settingsConfig)
+        {
+            isLoading = true;
+            try
+            {
+                LoadSettings(settingsConfig);
+            }
+            finally
+            {
+                isLoading = false;
+            }
+        }
+
+        private void LoadSettings(SettingsConfig settingsConfig)
         {
             SetPanelColor(panelBackGroundColor, settingsConfig.BackGroundColor);
             SetPanelColor(pnlSelectionObjsColor, settingsConfig.SelectObjectColor);
@@ -187,16 +209,21 @@ namespace BazisAvaloniaGUI.SettingsControls
 
         private void chbBackRibbers_Click(object sender, RoutedEventArgs e)
         {
-
+            // В WinForms обработчик пустой; флажок управляет показом задних рёбер в рендере прозрачности.
+            SetBackRibbersEvent?.Invoke(chbBackRibbers.IsChecked == true);
         }
 
         private void clslLigthingIntensity_Scroll(object sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
+            if (isLoading)
+                return;
             SetLightingIntensityEvent?.Invoke((int)e.NewValue);
         }
 
         private void clslTransparency_Scroll(object sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
+            if (isLoading)
+                return;
             SetTransparencyValueEvent?.Invoke((int)e.NewValue);
         }
 
@@ -246,6 +273,8 @@ namespace BazisAvaloniaGUI.SettingsControls
 
         private void cmbLanguage_TextChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (isLoading)
+                return;
             SetLanguageEvent?.Invoke(GetCultureByLanguage(cmbLanguage.SelectedItem as string).ToString());
         }
 
@@ -299,10 +328,15 @@ namespace BazisAvaloniaGUI.SettingsControls
             var lightingBorder = new Border { Background = Avalonia.Media.Brushes.White, BorderBrush = Avalonia.Media.Brushes.Black, BorderThickness = new Thickness(1), Child = lightingControl, MinHeight = 150 };
             Grid.SetColumnSpan(lightingBorder, 2);
             AddCell(tableLayoutPanel1, lightingBorder, 3, 0);
-            AddCell(tableLayoutPanel1, SliderWithValue(clslLigthingIntensity), 4, 0);
+            // Ползунки растягиваются на всю ширину страницы, как рамка источника света.
+            var lightingIntensity = SliderWithValue(clslLigthingIntensity);
+            Grid.SetColumnSpan(lightingIntensity, 2);
+            AddCell(tableLayoutPanel1, lightingIntensity, 4, 0);
             AddCell(tableLayoutPanel1, Label("label4"), 5, 0);
             AddCell(tableLayoutPanel1, chbTransparency, 5, 1);
-            AddCell(tableLayoutPanel1, SliderWithValue(clslTransparency), 6, 0);
+            var transparencyValue = SliderWithValue(clslTransparency);
+            Grid.SetColumnSpan(transparencyValue, 2);
+            AddCell(tableLayoutPanel1, transparencyValue, 6, 0);
             AddCell(tableLayoutPanel1, Label("label5"), 7, 0);
             AddCell(tableLayoutPanel1, chbOrtoProjection, 7, 1);
 

@@ -458,6 +458,10 @@ namespace BazisAvaloniaGUI.Shell
 
         private void OnClosingForm(object sender, WindowClosingEventArgs e)
         {
+            // Страница настроек закрывается вместе с окном: изменения сохраняются без сообщения.
+            isClosing = true;
+            if (savedConfigSnapshot != null)
+                SaveConfigIfChanged(showMessage: false);
             project?.UnloadGeometry();
         }
 

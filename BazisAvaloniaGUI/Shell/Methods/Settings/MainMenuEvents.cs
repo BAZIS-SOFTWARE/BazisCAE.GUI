@@ -19,6 +19,8 @@ namespace BazisAvaloniaGUI.Shell
             if (btn.IsChecked)
             {
                 var settings = new SettingsControl();
+                // Сообщение о сохранении — только если на странице что-то изменили.
+                RememberSavedConfig();
                 SubscribeLeave(settings, Settings_Leave);
                 settings.SetSettings(settingsConfig);
                 SetSettingsToConfig(settings);
@@ -30,7 +32,7 @@ namespace BazisAvaloniaGUI.Shell
 
         private void Settings_Leave(object sender, EventArgs e)
         {
-            SaveConfig(settingsConfig);
+            SaveConfigIfChanged(showMessage: !isClosing);
         }
 
         /// <summary>
@@ -57,7 +59,22 @@ namespace BazisAvaloniaGUI.Shell
             }
 
             AddHandler(GotFocusEvent, OnWindowGotFocus, Avalonia.Interactivity.RoutingStrategies.Bubble, handledEventsToo: true);
-            control.DetachedFromVisualTree += (_, _) => RemoveHandler(GotFocusEvent, OnWindowGotFocus);
+            // Страницу можно скрыть (переключение вкладок) и показать снова — подписка восстанавливается.
+            control.AttachedToVisualTree += (_, _) =>
+            {
+                RemoveHandler(GotFocusEvent, OnWindowGotFocus);
+                AddHandler(GotFocusEvent, OnWindowGotFocus, Avalonia.Interactivity.RoutingStrategies.Bubble, handledEventsToo: true);
+            };
+            control.DetachedFromVisualTree += (_, _) =>
+            {
+                RemoveHandler(GotFocusEvent, OnWindowGotFocus);
+                // Страницу закрыли, не уводя с неё фокус: изменения тоже сохраняются (если они есть).
+                if (focusInside)
+                {
+                    focusInside = false;
+                    leave(control, EventArgs.Empty);
+                }
+            };
         }
 
         // Цвет фона, освещение, проекция, прозрачность отрисовки и положение источника света в BaseForm
@@ -79,9 +96,20 @@ namespace BazisAvaloniaGUI.Shell
             settings.SetNodeColorEvent += (ar) =>
             {
                 settingsConfig.NodeColor = ar;
-                var setInfo = project.GetModelSetsInfo(ObjType.Узел).FirstOrDefault();
+                var setInfo = project?.GetModelSetsInfo(ObjType.Узел).FirstOrDefault();
                 if (setInfo != null)
                     project.ModelView.SetColor(setInfo, ar);
+            };
+
+            // В BaseForm события цвета 2D/3D-элементов не обрабатывались: цвет задаётся наборам текущей модели,
+            // как цвет узлов.
+            settings.Set3DElemColorEvent += (ar) => SetElementsColor(ObjType.Элемент3D, ar);
+            settings.Set2DElemColorEvent += (ar) => SetElementsColor(ObjType.Элемент2D, ar);
+
+            settings.SetBackRibbersEvent += (ar) =>
+            {
+                settingsConfig.BackRibbers = ar;
+                ApplySceneSettings();
             };
 
             settings.SetSolverPathEvent += (ar) =>
@@ -153,6 +181,17 @@ namespace BazisAvaloniaGUI.Shell
                     settingsConfig.Language = ar;
                 }
             };
+        }
+
+        /// <summary>Цвет всех наборов элементов заданного типа в текущей модели.</summary>
+        private void SetElementsColor(ObjType elementType, System.Drawing.Color color)
+        {
+            if (project == null)
+                return;
+
+            using (project.ModelView.BeginUpdate())
+                foreach (var setInfo in project.GetModelSetsInfo(elementType))
+                    project.ModelView.SetColor(setInfo, color);
         }
     }
 }

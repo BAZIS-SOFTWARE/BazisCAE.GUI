@@ -272,7 +272,10 @@ namespace BazisAvaloniaGUI.Shell
                 sceneController.BackGroundColor = config.BackGroundColor;
                 sceneController.IsLighting = config.Lighting;
                 if (sceneController.AverageColorRenderer != null)
+                {
                     sceneController.AverageColorRenderer.IsEnable = config.Transparency;
+                    sceneController.AverageColorRenderer.ShowSurfaceBackEdges = config.BackRibbers;
+                }
                 if (applyProjection)
                     sceneController.Projection = config.Projection;
                 sceneController.UpdateProjection();

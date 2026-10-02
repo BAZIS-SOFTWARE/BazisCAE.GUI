@@ -50,6 +50,8 @@ namespace BazisGUI.Scene.Core.Rendering
             else
                 RenderWithTransparency(context);
 
+            MakeFrameOpaque();
+
             GL.Finish();
         }
 
@@ -86,6 +88,20 @@ namespace BazisGUI.Scene.Core.Rendering
 
             if (!blended)
                 transparency.BlendFramebuffers();
+        }
+
+        /// <summary>
+        /// Делает готовый кадр непрозрачным. Avalonia смешивает кадр OpenGL с окном по альфа-каналу
+        /// (GLControl в WinForms его игнорировал): фон очищается с альфой 0, а грани с прозрачностью
+        /// ModelView записывают альфу меньше 1 — без этого вместо цвета фона виден цвет окна,
+        /// а модель просвечивает.
+        /// </summary>
+        private static void MakeFrameOpaque()
+        {
+            GL.ColorMask(false, false, false, true);
+            GL.ClearColor(0, 0, 0, 1);
+            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.ColorMask(true, true, true, true);
         }
 
         private void ClearBuffers(IRenderContext context)
