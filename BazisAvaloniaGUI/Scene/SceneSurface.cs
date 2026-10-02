@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.OpenGL;
 using Avalonia.OpenGL.Controls;
 using Avalonia.Rendering;
@@ -37,8 +38,11 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     private int height;
     private SceneMouseButton pressedButton;
 
-    /// <summary>Имя GL-объекта с граничными рёбрами модели (кнопка «Контуры»).</summary>
-    private const string ContoursVboName = "Boundary";
+    /// <summary>Позиция нажатия правой кнопки — нужна, чтобы отличить клик от перетаскивания сцены.</summary>
+    private Point rightPressPosition;
+
+    /// <summary>Смещение (в пикселях), после которого движение считается перетаскиванием, а не дрожанием.</summary>
+    private const double RightButtonDragThreshold = 4;
 
     /// <summary>Снимок экрана делается сразу после ближайшей отрисовки — из обработчика кнопки буфер ещё пуст.</summary>
     private bool captureRequested;
@@ -63,7 +67,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
     public SceneSurface()
     {
-        Focusable = true;
+        AddHandler(ContextRequestedEvent, OnContextRequested, RoutingStrategies.Tunnel);
     }
 
     /// <summary>Отображение базиса (три оси + сфера в начале координат).</summary>
@@ -319,6 +323,8 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
             : point.Properties.IsRightButtonPressed ? SceneMouseButton.Right
             : SceneMouseButton.None;
         pressedButton = args.Button;
+        if (pressedButton == SceneMouseButton.Right)
+            rightPressPosition = point.Position;
         if (pressedButton != SceneMouseButton.None)
             e.Pointer.Capture(this);
         if (pressedButton == SceneMouseButton.Left && project != null)
@@ -369,6 +375,21 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         pressedButton = SceneMouseButton.None;
         if (e.Pointer.Captured == this)
             e.Pointer.Capture(null);
+    }
+
+    /// <summary>
+    /// Подавляет автоматическое открытие контекстного меню, если правой кнопкой выполнялось
+    /// перетаскивание сцены. Позицию отпускания берём из самого события, а не храним флаг движения.
+    /// </summary>
+    private void OnContextRequested(object? sender, ContextRequestedEventArgs e)
+    {
+        if (!e.TryGetPosition(this, out var releasePosition))
+            return;
+
+        var dx = releasePosition.X - rightPressPosition.X;
+        var dy = releasePosition.Y - rightPressPosition.Y;
+        if (dx * dx + dy * dy > RightButtonDragThreshold * RightButtonDragThreshold)
+            e.Handled = true;
     }
 
     protected override void OnPointerCaptureLost(PointerCaptureLostEventArgs e)
