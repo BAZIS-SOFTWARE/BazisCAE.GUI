@@ -30,7 +30,7 @@ public partial class AvaloniaTests
             Assert.That(disabled, Is.EquivalentTo(new[]
             {
                 "геометрияToolStripMenuItem", "сеткаToolStripMenuItem", "dataBasesMenuItem", "tasksMenuItem",
-                "расчетыToolStripMenuItem", "результатыMenuItem", "инструментыToolStripMenuItem", "настройкиToolStripMenuItem"
+                "расчетыToolStripMenuItem", "результатыMenuItem", "инструментыToolStripMenuItem"
             }));
             Assert.That(top.All(item => item.Header is string header && !header.Contains('&')), Is.True);
         }

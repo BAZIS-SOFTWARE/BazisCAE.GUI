@@ -1,11 +1,14 @@
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Controls.Templates;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using BazisAvaloniaGUI.Localization;
@@ -14,15 +17,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Resources;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Color = System.Drawing.Color;
 
 namespace BazisAvaloniaGUI.Console
 {
-    /// <summary>Строка вывода консоли (аналог фрагмента текста RichTextBox с цветом).</summary>
-    internal sealed record ConsoleMessage(string Text, Color Color);
-
     internal sealed class ConsoleControl : UserControl
     {
         // Avalonia: перекрывает StyledElement.Resources, чтобы Resources.X ссылался на строковые ресурсы.
@@ -43,13 +44,16 @@ namespace BazisAvaloniaGUI.Console
 
         public event Func<string, Task<string>> ConsoleCommandEnteredEvent;
         public event Action CommandsListRequestedEvent;
+        // PinnedPage: щелчок по крестику в заголовке (в BaseForm у консоли не подписан).
+        public event Action ControlCollapseEvent;
 
-        // Avalonia: вместо RichTextBox — цветные строки вывода и отдельная строка ввода команды.
+        // Avalonia: вместо RichTextBox — цветные строки вывода, последняя строка поля — ввод команды.
         internal ObservableCollection<ConsoleMessage> Messages { get; } = new();
-        private readonly TextBox rtxbInput = new() { AcceptsReturn = false, MinHeight = 20, Padding = new Thickness(3, 0) };
+        private readonly TextBox rtxbInput = new() { AcceptsReturn = false };
         private readonly ScrollViewer tlscOut;
-        private readonly Grid rtxbField;
+        private readonly Border rtxbField;
         private readonly Button link;
+        private readonly ConsoleMessage sessionHeader;
 
         public ConsoleControl()
         {
@@ -57,7 +61,8 @@ namespace BazisAvaloniaGUI.Console
 
             var path = $" > {Resources.CurrentSession} ";
 
-            Messages.Add(new ConsoleMessage(path, Color.Green));
+            sessionHeader = new ConsoleMessage(path, Color.Green);
+            Messages.Add(sessionHeader);
             Loaded += ConsoleControl_Load;
         }
 
@@ -99,8 +104,7 @@ namespace BazisAvaloniaGUI.Console
             var rnd = new Random();
             SessionNumber = rnd.Next(0, 10000);
 
-            link.Content = new TextBlock { Text = GetSessionLogPath, TextTrimming = TextTrimming.CharacterEllipsis };
-            ToolTip.SetTip(link, GetSessionLogPath);
+            link.Content = new TextBlock { Text = GetSessionLogPath, TextDecorations = TextDecorations.Underline };
         }
 
         private void ClearAll_Click(object sender, RoutedEventArgs e)
@@ -253,73 +257,115 @@ namespace BazisAvaloniaGUI.Console
 
         // ---- Avalonia: визуальное дерево (аналог InitializeComponent из ConsoleControl.Designer.cs) ----
 
-        private void InitializeComponent(out ScrollViewer output, out Grid field, out Button logLink)
+        private void InitializeComponent(out ScrollViewer output, out Border field, out Button logLink)
         {
             FontFamily = new FontFamily("Microsoft Sans Serif");
             FontSize = 11;
-            var root = new Grid { RowDefinitions = new RowDefinitions("20,*"), ColumnDefinitions = new ColumnDefinitions("*,26") };
-            var title = new Border
-            {
-                Background = Brushes.Gainsboro,
-                Padding = new Thickness(3, 0),
-                Child = new TextBlock { Text = Resources.ConsoleControl_headerName_text, VerticalAlignment = VerticalAlignment.Center }
-            };
-            Grid.SetColumnSpan(title, 2);
-            root.Children.Add(title);
 
-            field = new Grid { RowDefinitions = new RowDefinitions("Auto,*,Auto"), Background = Brush.Parse("#F0F0F0") };
+            // PinnedPage: заголовок высотой Padding.Top (в BaseForm console.Padding = 0,15,0,0),
+            // название с x = 15 и крестик 8x8 в (Width - 15, Padding.Top / 2 - 4).
+            var root = new Grid { RowDefinitions = new RowDefinitions("15,*"), ColumnDefinitions = new ColumnDefinitions("*,Auto") };
+            var header = new Grid { Background = Brushes.Gainsboro };
+            header.Children.Add(new TextBlock { Text = Resources.ConsoleControl_headerName_text, Foreground = Brushes.Black, Margin = new Thickness(15, 0, 0, 0) });
+            var close = new Button
+            {
+                Name = "ControlCollapse",
+                Classes = { "console-close" },
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(0, 3, 6, 0),
+                Content = new Avalonia.Controls.Shapes.Path
+                {
+                    Data = Avalonia.Media.Geometry.Parse("M0.5,0.5 H8.5 V8.5 H0.5 Z M1.5,1.5 L7.5,7.5 M1.5,7.5 L7.5,1.5"),
+                    Stroke = Brushes.Black,
+                    StrokeThickness = 1
+                }
+            };
+            close.Click += (_, _) => ControlCollapseEvent?.Invoke();
+            header.Children.Add(close);
+            Grid.SetColumnSpan(header, 2);
+            root.Children.Add(header);
+
+            // rtxbField: строки вывода и строка ввода в одном поле без рамки (BorderStyle.None, SystemColors.Control).
+            logLink = new Button { Classes = { "console-log" }, Cursor = new Cursor(StandardCursorType.Hand) };
+            logLink.Click += Link_LinkClicked;
+
+            var lines = new ItemsControl
+            {
+                ItemsSource = Messages,
+                ItemTemplate = new FuncDataTemplate<ConsoleMessage>((message, _) => CreateLine(message))
+            };
+            rtxbInput.Classes.Add("console-input");
+            AutomationProperties.SetName(rtxbInput, "Команда консоли");
+            rtxbInput.KeyDown += KeyDownEventHadler;
+            output = new ScrollViewer
+            {
+                Content = new StackPanel { Children = { lines, rtxbInput } },
+                HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+                VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto
+            };
+            field = new Border { Background = Brush.Parse("#F0F0F0"), Cursor = new Cursor(StandardCursorType.Ibeam), Child = output };
+            // В RichTextBox щелчок в любом месте поля ставит каретку; здесь — переводит фокус на строку ввода.
+            field.PointerPressed += (_, _) => rtxbInput.Focus();
             Grid.SetRow(field, 1);
             root.Children.Add(field);
 
-            logLink = new Button
-            {
-                Classes = { "console-log" },
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                HorizontalContentAlignment = HorizontalAlignment.Left,
-                Padding = new Thickness(3, 0),
-                MinHeight = 20
-            };
-            logLink.Click += Link_LinkClicked;
-            field.Children.Add(logLink);
-
-            var messages = new ItemsControl
-            {
-                ItemsSource = Messages,
-                ItemTemplate = new FuncDataTemplate<ConsoleMessage>((message, _) => new SelectableTextBlock
-                {
-                    Text = message?.Text,
-                    TextWrapping = TextWrapping.Wrap,
-                    Foreground = message == null ? Brushes.Black : PropertiesPanelControl.ColorBrush(message.Color)
-                })
-            };
-            output = new ScrollViewer { Content = messages, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled };
-            Grid.SetRow(output, 1);
-            field.Children.Add(output);
-
-            rtxbInput.Classes.Add("console-input");
-            AutomationProperties.SetName(rtxbInput, "Команда консоли");
-            Grid.SetRow(rtxbInput, 2);
-            field.Children.Add(rtxbInput);
-            rtxbInput.KeyDown += KeyDownEventHadler;
-
-            var actions = new StackPanel { Background = Brushes.Gainsboro };
-            actions.Children.Add(ActionButton("?", "btnDictionary", btnDictionary_Click));
-            actions.Children.Add(ActionButton("×", "ClearAll", ClearAll_Click));
-            actions.Children.Add(ActionButton("◐", "btnBackGroundInfo", btnBackGroundInfo_Click));
-            actions.Children.Add(ActionButton("▶", "btnStartMacro", btnStartMacro_Click));
+            // toolStripEx1 в RightToolStripPanel: кнопки 25x25, картинки 16x16 из ConsoleControl.resx.
+            var resources = new ResourceManager(typeof(ConsoleControl));
+            var actions = new StackPanel { Background = Brush.Parse("#F0F0F0") };
+            actions.Children.Add(ActionButton(resources, "spbDictionary", "dictionary.png", btnDictionary_Click));
+            actions.Children.Add(ActionButton(resources, "toolStripButton1", "background.png", btnBackGroundInfo_Click));
+            actions.Children.Add(ActionButton(resources, "toolStripButton2", "clear.png", ClearAll_Click));
+            actions.Children.Add(ActionButton(resources, "btnStartMacro", "start-macro.png", btnStartMacro_Click));
             Grid.SetRow(actions, 1);
             Grid.SetColumn(actions, 1);
             root.Children.Add(actions);
             Content = new Border { BorderBrush = Brushes.DarkGray, BorderThickness = new Thickness(1), Child = root };
         }
 
-        private static Button ActionButton(string symbol, string name, EventHandler<RoutedEventArgs> handler)
+        // Аналог HighlightPhrase: заголовок сессии зелёный целиком, у PrintInfo цветом выделяется только сообщение.
+        private Control CreateLine(ConsoleMessage message)
         {
-            var button = new Button { Content = symbol, Width = 24, Height = 24, Padding = new Thickness(2), Classes = { "console-action" } };
-            AutomationProperties.SetName(button, name);
-            ToolTip.SetTip(button, name);
+            var line = new SelectableTextBlock { Foreground = Brushes.Black, TextWrapping = TextWrapping.NoWrap };
+            if (message == null)
+                return line;
+
+            var inlines = new InlineCollection();
+            var colored = message.Text;
+            if (!ReferenceEquals(message, sessionHeader) && colored.StartsWith(" > "))
+            {
+                inlines.Add(new Run(" > "));
+                colored = colored.Substring(3);
+            }
+            inlines.Add(new Run(colored) { Foreground = PropertiesPanelControl.ColorBrush(message.Color) });
+            line.Inlines = inlines;
+
+            if (!ReferenceEquals(message, sessionHeader))
+                return line;
+
+            // LinkLabel с путём журнала стоит в первой строке сразу после " > Текущая сессия ".
+            (link.Parent as Panel)?.Children.Remove(link);
+            return new StackPanel { Orientation = Orientation.Horizontal, Children = { line, link } };
+        }
+
+        private static Button ActionButton(ResourceManager resources, string name, string image, EventHandler<RoutedEventArgs> handler)
+        {
+            using var stream = AssetLoader.Open(new Uri($"avares://BazisAvaloniaGUI/Console/Assets/{image}"));
+            var text = resources.GetString(name + ".Text");
+            var button = new Button
+            {
+                Name = name,
+                Classes = { "console-action" },
+                Content = new Image { Source = new Bitmap(stream), Width = 16, Height = 16, Stretch = Stretch.Fill }
+            };
+            AutomationProperties.SetName(button, text);
+            ToolTip.SetTip(button, text);
             button.Click += handler;
             return button;
         }
     }
+
+    /// <summary>Строка вывода консоли (аналог фрагмента текста RichTextBox с цветом).</summary>
+    // Объявлена после ConsoleControl: ресурсы ConsoleControl.resx получают имя по первому типу файла.
+    internal sealed record ConsoleMessage(string Text, Color Color);
 }

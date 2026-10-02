@@ -2,8 +2,11 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
 using BazisAvaloniaGUI.Args;
+using BazisAvaloniaGUI.Chamfer.Services;
 using BazisAvaloniaGUI.Localization;
 using BazisAvaloniaGUI.SettingsControls;
+using ClientLogic;
+using LicenseInfo;
 using MaterialDB.FunctionData;
 using MaterialDB.MaterialData;
 using Model.Interfaces;
@@ -16,9 +19,11 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace BazisAvaloniaGUI.Shell
 {
@@ -61,6 +66,7 @@ namespace BazisAvaloniaGUI.Shell
 
         ProjectController project;
         IODataController dataController;
+        PreProc.PreProc preProc = new();
         IPresentersCreator presentersCreator = new PresentersCreator();
 
         SettingsConfig settingsConfig = new()
@@ -126,11 +132,13 @@ namespace BazisAvaloniaGUI.Shell
                     if (args.Length - 1 - resInd < 1)
                         throw new Exception(Resources.HandleArgsResultsAbsenceException);
 
+                    var fullPath = Path.GetFullPath(args[resInd + 1]);
+
                     if (project == null)
                         throw new Exception(Resources.HandleArgsResultsLoadingWithoutProjectException);
 
-                    // Результаты (ResultDbPath, FillingResultsData) в Avalonia ещё не перенесены.
-                    console.PrintInfo("-res: результаты в Avalonia-версии ещё не перенесены.", Color.Orange);
+                    ResultDbPath = fullPath;
+                    FillingResultsData();
                 }
                 if (args.Contains("-cad"))
                 {
@@ -177,6 +185,52 @@ namespace BazisAvaloniaGUI.Shell
         {
             var form = new AboutProgrammWindow() { Title = Resources.About };
             form.ShowDialog(this);
+        }
+
+        private async void сведенияMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new AboutLicenseWindow() { Title = Resources.LicenseInfo };
+
+            try
+            {
+                if (TryServerConnection())
+                {
+                    serverConnection.RequestServer("CheckLicenseInfo");
+                    var licInfo = JsonConvert.DeserializeObject<License>(serverConnection.Answer);
+
+                    if (licInfo != null)
+                    {
+                        form.KeysInfo = string.Empty;
+
+                        foreach (var key in licInfo.Keys)
+                            form.KeysInfo += $"{key}\n";
+
+                        form.OwnerInfo = licInfo.Company;
+                    }
+                    form.AdressInfo = $"{serverConnection.IPAddress} : {serverConnection.Port}";
+                }
+                else
+                {
+                    var res = await MessageBox.Show(this,
+                        Resources.BazisServerPathMissingMessage,
+                        Localization.Localization.GetAttentionCaption(), MessageBoxButtons.YesNo);
+
+                    if (res == DialogResult.Yes)
+                        // StartLisenceForm: форма ClientGUI.ClientControl реализована на WinForms и в Avalonia не перенесена.
+                        console.PrintInfo($"{Resources.Licensing}: форма подключения к серверу лицензий в Avalonia-версии ещё не перенесена.", Color.Orange);
+                    else
+                        serverConnection = new ClientController(IPAddress.Loopback, 8001);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex is Newtonsoft.Json.JsonReaderException)
+                    await MessageBox.Show(this, Resources.GetLicenseInfoException);
+                else
+                    await MessageBox.Show(this, ex.Message);
+            }
+
+            await form.ShowDialog(this);
         }
 
         private async void создатьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -226,7 +280,7 @@ namespace BazisAvaloniaGUI.Shell
 
                 ClearAllDataOnScene();
                 PresentProject();
-                // PresentCompDataOnTree(new List<string>()) — расчёты в Avalonia ещё не перенесены.
+                PresentCompDataOnTree(new List<string>());
                 UnblockInterface();
                 OnProjectLoaded?.Invoke();
 
@@ -308,8 +362,11 @@ namespace BazisAvaloniaGUI.Shell
             сеткаToolStripMenuItem.IsEnabled = true;
             dataBasesMenuItem.IsEnabled = true;
             tasksMenuItem.IsEnabled = true;
-            // расчеты, результаты, инструменты и кнопки панели сцены (btnAdvSelection, btnDisplayStates,
-            // btnDisplayViews, btnFitToScreen, btnMakeScreenShot, btnShowInsideObjects) в Avalonia ещё не перенесены.
+            расчетыToolStripMenuItem.IsEnabled = true;
+            результатыMenuItem.IsEnabled = true;
+            инструментыToolStripMenuItem.IsEnabled = true;
+            // Кнопки панели сцены (btnAdvSelection, btnDisplayStates, btnDisplayViews, btnFitToScreen,
+            // btnMakeScreenShot, btnShowInsideObjects) — часть SceneView.
 
             console.IsEnabled = true;
         }
@@ -454,6 +511,55 @@ namespace BazisAvaloniaGUI.Shell
                 OwnedWindows.FirstOrDefault(window => window.Name == "Загрузка")?.Close();
                 await MessageBox.Show(this, Localization.Localization.GetErrorWithStackMessage(ex), Localization.Localization.GetErrorCaption());
             }
+        }
+
+        private void addChamferToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // CheckOnClick: MenuItem с ToggleType = CheckBox переключает IsChecked до события Click.
+            if (addChamferToolStripMenuItem.IsChecked)
+            {
+                SelectedObjects = SelectionType.Curves;
+                var synchronizationContext = SynchronizationContext.Current;
+                var operationService = new SynchronizationContextChamferOperationService(synchronizationContext, RequestChamferByAngle, RequestChamferByLengths, RequestChamferPreview, RequestClearChamferPreview);
+                ChamferWindowService.Show(operationService, () => synchronizationContext.Post(_ => OnChamferWindowClosed(), null));
+            }
+            else
+                ChamferWindowService.Close();
+        }
+
+        /// <summary>
+        /// Приводит состояние пункта меню построения фаски в соответствие с фактическим состоянием окна.
+        /// </summary>
+        /// <remarks>
+        /// Вызывается после закрытия окна любым способом: как по команде <see cref="ChamferWindowService.Close"/>,
+        /// так и при закрытии окна самим пользователем. Программное снятие флажка не вызывает событие
+        /// <see cref="MenuItem.Click"/>, поэтому повторного закрытия окна не происходит.
+        /// </remarks>
+        private void OnChamferWindowClosed()
+        {
+            if (!IsVisible)
+                return;
+
+            addChamferToolStripMenuItem.IsChecked = false;
+        }
+
+        /// <summary>
+        /// Действие, выполняемое после изменения выбора на сцене.
+        /// <c>null</c>, если дополнительное обновление сцены не требуется.
+        /// </summary>
+        private Action sceneSelectionChangedAction;
+
+        private void RequestChamferByAngle(double length, double angle, bool reflected) => CreateChamfer(length, angle, true, reflected);
+        private void RequestChamferByLengths(double length1, double length2, bool reflected) => CreateChamfer(length1, length2, false, reflected);
+        private void RequestChamferPreview(double length, double valueSecond, bool isAngle, bool isReflected)
+        {
+            sceneSelectionChangedAction = () => PreviewChamfer(length, valueSecond, isAngle, isReflected);
+            sceneSelectionChangedAction();
+        }
+        private void RequestClearChamferPreview()
+        {
+            sceneSelectionChangedAction = null;
+            ClearChamferPreview(true);
         }
 
         /// <summary>

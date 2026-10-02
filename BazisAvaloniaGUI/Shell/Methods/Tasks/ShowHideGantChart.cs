@@ -1,0 +1,33 @@
+using Avalonia.Controls;
+using BazisAvaloniaGUI.GantChart;
+using System;
+using System.Drawing;
+
+namespace BazisAvaloniaGUI.Shell
+{
+    internal partial class MainWindow
+    {
+        private void показатьНаДиаграммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var btn = sender as MenuItem;
+                // CheckOnClick: MenuItem с ToggleType = CheckBox переключает IsChecked до события Click.
+                var name = (string)btn.Header;
+                if (btn.IsChecked)
+                {
+                    var ganttContol = new cntrГант();
+                    ganttContol.AddConds(project.GetAllCondData());
+                    TabButtonsService.AddControl(name, ganttContol);
+                }
+
+                else
+                    TabButtonsService.RemoveControl(name);
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+    }
+}

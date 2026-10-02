@@ -28,8 +28,7 @@ namespace BazisAvaloniaGUI.Shell
         {
             var btn = материалыMenuItem;
             var name = Resources.BaseForm_материалыMenuItem_Click_Materials;
-            // CheckOnClick: в Avalonia флажок переключается вручную.
-            btn.IsChecked = !btn.IsChecked;
+            // CheckOnClick: MenuItem с ToggleType = CheckBox переключает IsChecked до события Click.
             if (btn.IsChecked)
                 OpenMaterialsDB(name);
             else
@@ -84,8 +83,7 @@ namespace BazisAvaloniaGUI.Shell
             var btn = функцииMenuItem;
             var name = Resources.BaseForm_функцииMenuItem_Click_Functions;
 
-            // CheckOnClick: в Avalonia флажок переключается вручную.
-            btn.IsChecked = !btn.IsChecked;
+            // CheckOnClick: MenuItem с ToggleType = CheckBox переключает IsChecked до события Click.
             if (btn.IsChecked)
                 OpenFunctionsDB(name);
             else

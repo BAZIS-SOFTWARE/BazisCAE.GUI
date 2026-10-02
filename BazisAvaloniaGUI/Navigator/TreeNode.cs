@@ -1,47 +1,33 @@
-using Avalonia;
-using Avalonia.Automation;
-using Avalonia.Controls;
-using Avalonia.Layout;
-using Avalonia.Media;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DrawingColor = System.Drawing.Color;
 
 namespace BazisAvaloniaGUI.Navigator
 {
     /// <summary>
-    /// Avalonia-аналог System.Windows.Forms.TreeNode поверх TreeViewItem.
+    /// Avalonia-аналог System.Windows.Forms.TreeNode.
     /// Нужен, чтобы код обработчиков навигатора переносился из WinForms без изменений.
+    /// Узел не владеет визуальными элементами: NavigatorControl показывает только раскрытые узлы
+    /// плоским виртуализируемым списком, поэтому тысячи объектов набора не создают тысячи контролов.
     /// </summary>
     internal sealed class TreeNode
     {
-        private readonly TextBlock text;
-        private readonly Image image;
+        private string text;
         private int imageIndex = -1;
         private DrawingColor foreColor = DrawingColor.Empty;
+        private bool isSelected;
 
-        internal TreeViewItem Item { get; }
-        internal NavigatorControl Owner { get; set; }
+        internal NavigatorControl Owner { get; private set; }
         internal TreeNodeCollection Collection { get; set; }
+
+        /// <summary>Изменилось отображаемое состояние узла (текст, цвет, иконка, раскрытие, выделение).</summary>
+        internal event Action Changed;
 
         public TreeNode(string text)
         {
-            this.text = new TextBlock { Text = text, Foreground = Brushes.Black, VerticalAlignment = VerticalAlignment.Center };
-            image = new Image { Width = 16, Height = 16, VerticalAlignment = VerticalAlignment.Center, IsVisible = false };
-            var header = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 4 };
-            header.Children.Add(image);
-            header.Children.Add(this.text);
-            Item = new TreeViewItem
-            {
-                Header = header,
-                Tag = this,
-                MinHeight = 18,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Padding = new Thickness(0)
-            };
-            AutomationProperties.SetName(Item, text);
-            Nodes = new TreeNodeCollection(Item.Items, this);
+            this.text = text;
+            Nodes = new TreeNodeCollection(this);
         }
 
         public string Name { get; set; } = string.Empty;
@@ -50,11 +36,11 @@ namespace BazisAvaloniaGUI.Navigator
 
         public string Text
         {
-            get => text.Text;
+            get => text;
             set
             {
-                text.Text = value;
-                AutomationProperties.SetName(Item, value);
+                text = value;
+                RaiseChanged();
             }
         }
 
@@ -64,7 +50,7 @@ namespace BazisAvaloniaGUI.Navigator
             set
             {
                 foreColor = value;
-                text.Foreground = value.IsEmpty ? Brushes.Black : Properties.PropertiesPanelControl.ColorBrush(value);
+                RaiseChanged();
             }
         }
 
@@ -74,7 +60,7 @@ namespace BazisAvaloniaGUI.Navigator
             set
             {
                 imageIndex = value;
-                UpdateImage();
+                RaiseChanged();
             }
         }
 
@@ -88,85 +74,124 @@ namespace BazisAvaloniaGUI.Navigator
 
         public int Index => Collection?.IndexOf(this) ?? -1;
 
-        public bool IsExpanded => Item.IsExpanded;
+        public bool IsExpanded { get; internal set; }
 
-        public void Expand() => Item.IsExpanded = true;
+        internal bool IsSelected
+        {
+            get => isSelected;
+            set
+            {
+                if (isSelected == value)
+                    return;
+                isSelected = value;
+                RaiseChanged();
+            }
+        }
 
-        public void Collapse() => Item.IsExpanded = false;
+        public void Expand()
+        {
+            if (Owner != null)
+                Owner.ExpandNode(this);
+            else
+                IsExpanded = true;
+        }
+
+        public void Collapse()
+        {
+            if (Owner != null)
+                Owner.CollapseNode(this);
+            else
+                IsExpanded = false;
+        }
+
+        internal void Toggle()
+        {
+            if (IsExpanded)
+                Collapse();
+            else
+                Expand();
+        }
 
         public void Remove() => Collection?.Remove(this);
 
         internal void Attach(NavigatorControl owner)
         {
             Owner = owner;
-            UpdateImage();
-            foreach (TreeNode child in Nodes)
+            foreach (var child in Nodes.Items)
                 child.Attach(owner);
         }
 
-        private void UpdateImage()
-        {
-            var bitmap = imageIndex < 0 ? null : Owner?.GetImage(imageIndex);
-            image.Source = bitmap;
-            image.IsVisible = bitmap != null;
-        }
+        internal void RaiseChanged() => Changed?.Invoke();
 
         public override string ToString() => $"TreeNode: {Text}";
     }
 
     /// <summary>
     /// Avalonia-аналог System.Windows.Forms.TreeNodeCollection.
+    /// Изменения раскрытых коллекций сразу переносятся в видимые строки навигатора.
     /// </summary>
     internal sealed class TreeNodeCollection : IEnumerable
     {
-        private readonly ItemCollection items;
+        private readonly List<TreeNode> nodes = new();
 
         internal TreeNode OwnerNode { get; }
         internal NavigatorControl OwnerControl { get; set; }
 
-        internal TreeNodeCollection(ItemCollection items, TreeNode ownerNode)
+        internal TreeNodeCollection(TreeNode ownerNode)
         {
-            this.items = items;
             OwnerNode = ownerNode;
         }
 
         private NavigatorControl Control => OwnerNode?.Owner ?? OwnerControl;
 
-        private IEnumerable<TreeNode> Nodes => items.OfType<TreeViewItem>().Select(item => (TreeNode)item.Tag);
+        internal IReadOnlyList<TreeNode> Items => nodes;
 
-        public int Count => items.Count;
+        public int Count => nodes.Count;
 
-        public TreeNode this[int index] => (TreeNode)((TreeViewItem)items[index]).Tag;
+        public TreeNode this[int index] => nodes[index];
 
-        public TreeNode this[string key] => Nodes.FirstOrDefault(node => node.Name == key);
+        public TreeNode this[string key] => nodes.Find(node => node.Name == key);
 
         public int Add(TreeNode node)
         {
-            node.Collection = this;
-            node.Attach(Control);
-            items.Add(node.Item);
-            return items.Count - 1;
+            AddRange(new[] { node });
+            return nodes.Count - 1;
         }
 
-        public void AddRange(TreeNode[] nodes)
+        public void AddRange(TreeNode[] newNodes)
         {
-            foreach (var node in nodes)
-                Add(node);
+            var control = Control;
+            var startIndex = nodes.Count;
+            foreach (var node in newNodes)
+            {
+                node.Collection = this;
+                node.Attach(control);
+                nodes.Add(node);
+            }
+            control?.OnNodesInserted(this, startIndex, newNodes);
+            OwnerNode?.RaiseChanged();
         }
 
         public void Clear()
         {
-            foreach (var node in Nodes.ToList())
+            Control?.OnChildrenRemoving(this);
+            foreach (var node in nodes)
                 node.Collection = null;
-            items.Clear();
+            nodes.Clear();
+
+            // Как в WinForms: узел без дочерних элементов не остаётся раскрытым,
+            // поэтому повторно добавленный виртуальный узел загружается при следующем Expand.
+            if (OwnerNode != null)
+                OwnerNode.IsExpanded = false;
+            OwnerNode?.RaiseChanged();
         }
 
-        public bool ContainsKey(string key) => Nodes.Any(node => node.Name == key);
+        public bool ContainsKey(string key) => nodes.Exists(node => node.Name == key);
 
         public TreeNode[] Find(string key, bool searchAllChildren)
         {
             var result = new List<TreeNode>();
-            foreach (var node in Nodes)
+            foreach (var node in nodes)
             {
                 if (node.Name == key)
                     result.Add(node);
@@ -176,14 +201,19 @@ namespace BazisAvaloniaGUI.Navigator
             return result.ToArray();
         }
 
-        internal int IndexOf(TreeNode node) => items.IndexOf(node.Item);
+        internal int IndexOf(TreeNode node) => nodes.IndexOf(node);
 
         internal void Remove(TreeNode node)
         {
-            items.Remove(node.Item);
+            if (!nodes.Contains(node))
+                return;
+            Control?.OnNodeRemoving(node);
+            nodes.Remove(node);
             node.Collection = null;
+            OwnerNode?.RaiseChanged();
         }
 
-        public IEnumerator GetEnumerator() => Nodes.ToList().GetEnumerator();
+        // Копия позволяет обработчикам изменять коллекцию во время перебора, как это делал код WinForms.
+        public IEnumerator GetEnumerator() => nodes.ToArray().GetEnumerator();
     }
 }

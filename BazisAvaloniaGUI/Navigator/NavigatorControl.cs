@@ -1,14 +1,12 @@
 using Avalonia;
-using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Collections;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Templates;
 using Avalonia.Input;
-using Avalonia.Interactivity;
-using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using Avalonia.VisualTree;
 using BazisAvaloniaGUI.Extensions;
 using BazisAvaloniaGUI.Localization;
 using System;
@@ -56,13 +54,24 @@ namespace BazisAvaloniaGUI.Navigator
         {
             get
             {
-                return (treeView.SelectedItem as TreeViewItem)?.Tag as TreeNode;
+                return treeView.SelectedItem as TreeNode;
             }
         }
 
+        /// <summary>Аналог treeView.SelectedNode = node: как в WinForms, свёрнутые родители раскрываются.</summary>
         public void SelectNode(TreeNode treeNode)
         {
-            treeView.SelectedItem = treeNode?.Item;
+            if (treeNode == null)
+            {
+                treeView.SelectedItem = null;
+                return;
+            }
+
+            for (var parent = treeNode.Parent; parent != null; parent = parent.Parent)
+                if (!parent.IsExpanded)
+                    ExpandNode(parent);
+            treeView.SelectedItem = treeNode;
+            treeView.ScrollIntoView(treeNode);
         }
 
         private const string VIRTUALNODE = "VIRT";
@@ -128,28 +137,26 @@ namespace BazisAvaloniaGUI.Navigator
         public event Action<TreeNode> GetResultInfoEvent;
         public event Action DelCondEvent;
 
-        // Avalonia: TreeView вместо System.Windows.Forms.TreeView; дополнительные иконки
-        // действий рисуются отдельным слоем поверх выбранного узла (аналог DrawImages).
-        private readonly TreeView treeView = new()
+        // Avalonia: вместо System.Windows.Forms.TreeView — плоский виртуализируемый список видимых узлов.
+        // Avalonia TreeView создаёт контейнер на каждый узел без виртуализации вложенных уровней,
+        // из-за чего раскрытие и сворачивание наборов с тысячами объектов заметно тормозило.
+        private readonly ListBox treeView = new()
         {
             Background = Brush.Parse("#F0F0F0"),
             FontFamily = new FontFamily("Microsoft Sans Serif"),
             FontSize = 10.6667 // WinForms treeView: 8 pt at 96 DPI
         };
-        private readonly Grid viewport = new();
-        private readonly Canvas actionLayer = new();
-        private readonly StackPanel visibleActions = new() { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Center };
-        private readonly Border actionOverlay = new();
+        private readonly AvaloniaList<TreeNode> rows = new();
         private readonly Dictionary<int, Bitmap> imageList = new();
         private readonly Dictionary<int, Bitmap> helpImageList_loc = new();
-        private ScrollViewer scrollViewer;
+        private TreeNode selectedNode;
 
         public TreeNodeCollection Nodes { get; }
 
         public NavigatorControl()
         {
             InitializeComponent();
-            Nodes = new TreeNodeCollection(treeView.Items, null) { OwnerControl = this };
+            Nodes = new TreeNodeCollection(null) { OwnerControl = this };
 
             genImgDict = new Dictionary<NodeName, int>()
             {
@@ -425,7 +432,7 @@ namespace BazisAvaloniaGUI.Navigator
         /// Аналог treeView_NodeMouseClick: в Avalonia иконки действий — отдельные элементы,
         /// поэтому вместо проверки координат щелчка сразу известна позиция иконки.
         /// </summary>
-        private void treeView_NodeMouseClick(TreeNode node, int position)
+        internal void treeView_NodeMouseClick(TreeNode node, int position)
         {
             SelectNode(node);
             if (node.Name == "VIRT")
@@ -553,50 +560,181 @@ namespace BazisAvaloniaGUI.Navigator
         {
         }
 
-        // ---- Avalonia: построение визуального дерева и иконок действий (DrawImages) ----
+        // ---- Avalonia: видимые строки, раскрытие узлов и иконки действий (DrawImages) ----
 
         private void InitializeComponent()
         {
             Background = Brush.Parse("#F0F0F0");
             treeView.Classes.Add("navigator-tree");
-            SetTreeColors();
-            treeView.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
-            actionOverlay.Height = 18;
-            actionOverlay.Background = Brush.Parse("#C4C4C4");
-            actionOverlay.Padding = new Thickness(4, 0, 0, 0);
-            actionOverlay.Child = visibleActions;
-            actionOverlay.IsVisible = false;
-            Canvas.SetRight(actionOverlay, 16);
-            actionLayer.Children.Add(actionOverlay);
-            viewport.Children.Add(treeView);
-            viewport.Children.Add(actionLayer);
-            Content = viewport;
+            treeView.SelectionMode = SelectionMode.Single;
+            treeView.ItemsSource = rows;
+            treeView.ItemTemplate = new FuncDataTemplate<TreeNode>((_, _) => new NavigatorRow(this), true);
+            // Иконки действий прижаты к правому краю видимой области, как в DrawImages WinForms.
+            treeView.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
+            Content = treeView;
 
-            treeView.LayoutUpdated += (_, _) =>
-            {
-                if (scrollViewer == null) AttachScrollViewer();
-                UpdateActionPosition();
-            };
-            AttachedToVisualTree += (_, _) => AttachScrollViewer();
-            DetachedFromVisualTree += (_, _) => DetachScrollViewer();
             treeView.SelectionChanged += (_, _) =>
             {
                 var node = SelectedNode;
-                DrawImages(node);
-                if (node != null)
-                    treeView_AfterSelect(node);
+                if (selectedNode != null)
+                    selectedNode.IsSelected = false;
+                selectedNode = node;
+                if (node == null)
+                    return;
+                node.IsSelected = true;
+                treeView_AfterSelect(node);
             };
-            treeView.AddHandler(TreeViewItem.ExpandedEvent, (_, e) =>
+            treeView.KeyDown += TreeView_KeyDown;
+        }
+
+        // Стрелки влево/вправо сворачивают и раскрывают узел, как в WinForms TreeView.
+        private void TreeView_KeyDown(object sender, KeyEventArgs e)
+        {
+            var node = SelectedNode;
+            if (node == null)
+                return;
+
+            if (e.Key == Key.Right && node.Nodes.Count > 0)
             {
-                if ((e.Source as TreeViewItem)?.Tag is not TreeNode node) return;
-                treeView_BeforeExpand(node);
-                treeView_AfterExpand(node);
-            });
-            treeView.AddHandler(TreeViewItem.CollapsedEvent, (_, e) =>
+                if (node.IsExpanded)
+                    SelectNode(node.Nodes[0]);
+                else
+                    ExpandNode(node);
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Left)
             {
-                if ((e.Source as TreeViewItem)?.Tag is TreeNode node)
-                    treeView_AfterCollapse(node);
-            });
+                if (node.IsExpanded)
+                    CollapseNode(node);
+                else if (node.Parent != null)
+                    SelectNode(node.Parent);
+                e.Handled = true;
+            }
+        }
+
+        internal void ExpandNode(TreeNode node)
+        {
+            if (node.IsExpanded)
+                return;
+
+            treeView_BeforeExpand(node);
+            node.IsExpanded = true;
+            if (IsShown(node))
+            {
+                var descendants = new List<TreeNode>();
+                CollectVisibleDescendants(node, descendants);
+                rows.InsertRange(rows.IndexOf(node) + 1, descendants);
+            }
+            treeView_AfterExpand(node);
+            node.RaiseChanged();
+        }
+
+        internal void CollapseNode(TreeNode node)
+        {
+            if (!node.IsExpanded)
+                return;
+
+            if (IsShown(node))
+            {
+                // WinForms переносит выделение со скрываемого потомка на сворачиваемый узел.
+                if (selectedNode != null && IsDescendant(selectedNode, node))
+                    SelectNode(node);
+                var count = CountVisibleDescendants(node);
+                if (count > 0)
+                    rows.RemoveRange(rows.IndexOf(node) + 1, count);
+            }
+            node.IsExpanded = false;
+            treeView_AfterCollapse(node);
+            node.RaiseChanged();
+        }
+
+        internal void OnNodesInserted(TreeNodeCollection collection, int startIndex, IReadOnlyList<TreeNode> nodes)
+        {
+            if (nodes.Count == 0 || !IsChildrenShown(collection))
+                return;
+
+            int position;
+            if (startIndex > 0)
+            {
+                var previous = collection[startIndex - 1];
+                position = rows.IndexOf(previous) + 1 + CountVisibleDescendants(previous);
+            }
+            else
+                position = collection.OwnerNode == null ? 0 : rows.IndexOf(collection.OwnerNode) + 1;
+
+            var inserted = new List<TreeNode>(nodes.Count);
+            foreach (var node in nodes)
+            {
+                inserted.Add(node);
+                CollectVisibleDescendants(node, inserted);
+            }
+            rows.InsertRange(position, inserted);
+        }
+
+        internal void OnNodeRemoving(TreeNode node)
+        {
+            if (!IsShown(node))
+                return;
+            rows.RemoveRange(rows.IndexOf(node), 1 + CountVisibleDescendants(node));
+        }
+
+        internal void OnChildrenRemoving(TreeNodeCollection collection)
+        {
+            if (collection.Count == 0 || !IsChildrenShown(collection))
+                return;
+
+            var count = 0;
+            foreach (var node in collection.Items)
+                count += 1 + CountVisibleDescendants(node);
+            rows.RemoveRange(rows.IndexOf(collection[0]), count);
+        }
+
+        private bool IsChildrenShown(TreeNodeCollection collection)
+        {
+            if (collection.OwnerNode == null)
+                return collection == Nodes;
+            return collection.OwnerNode.IsExpanded && IsShown(collection.OwnerNode);
+        }
+
+        private bool IsShown(TreeNode node)
+        {
+            var current = node;
+            while (current.Parent != null)
+            {
+                current = current.Parent;
+                if (!current.IsExpanded)
+                    return false;
+            }
+            return current.Collection == Nodes;
+        }
+
+        private static bool IsDescendant(TreeNode node, TreeNode ancestor)
+        {
+            for (var parent = node.Parent; parent != null; parent = parent.Parent)
+                if (parent == ancestor)
+                    return true;
+            return false;
+        }
+
+        private static void CollectVisibleDescendants(TreeNode node, List<TreeNode> result)
+        {
+            if (!node.IsExpanded)
+                return;
+            foreach (var child in node.Nodes.Items)
+            {
+                result.Add(child);
+                CollectVisibleDescendants(child, result);
+            }
+        }
+
+        private static int CountVisibleDescendants(TreeNode node)
+        {
+            if (!node.IsExpanded)
+                return 0;
+            var count = 0;
+            foreach (var child in node.Nodes.Items)
+                count += 1 + CountVisibleDescendants(child);
+            return count;
         }
 
         internal Bitmap GetImage(int index)
@@ -608,7 +746,7 @@ namespace BazisAvaloniaGUI.Navigator
             return icon;
         }
 
-        private Bitmap GetHelpImage(int index)
+        internal Bitmap GetHelpImage(int index)
         {
             if (helpImageList_loc.TryGetValue(index, out var icon)) return icon;
             using var stream = AssetLoader.Open(new Uri($"avares://BazisAvaloniaGUI/Navigator/Assets/action-{index}.png"));
@@ -617,89 +755,13 @@ namespace BazisAvaloniaGUI.Navigator
             return icon;
         }
 
-        private void DrawImages(TreeNode node)
+        /// <summary>Индексы иконок действий узла (условие DrawImages: не корень и не виртуальный узел).</summary>
+        internal IReadOnlyList<int> GetActionImageIndexes(TreeNode node)
         {
-            visibleActions.Children.Clear();
-            actionOverlay.IsVisible = false;
-            if (node == null || !(node.Level > 0 & node.Name != VIRTUALNODE))
-                return;
-
-            var indexes = helpImgDict[node.Name.ToEnum<NodeName>()];
-            for (var position = 0; position < indexes.Length; position++)
-            {
-                var actionPosition = position;
-                var icon = new Image
-                {
-                    Source = GetHelpImage(indexes[position]),
-                    Width = 16,
-                    Height = 16,
-                    Margin = new Thickness(4, 0, 0, 0),
-                    Cursor = new Cursor(StandardCursorType.Hand)
-                };
-                AutomationProperties.SetName(icon, $"{node.Name}.{actionPosition}");
-                icon.PointerPressed += (_, e) =>
-                {
-                    e.Handled = true;
-                    treeView_NodeMouseClick(node, actionPosition);
-                };
-                visibleActions.Children.Add(icon);
-            }
-            UpdateActionPosition();
+            if (node.Level == 0 || node.Name == VIRTUALNODE || !helpImgDict.TryGetValue(node.Name.ToEnum<NodeName>(), out var indexes))
+                return Array.Empty<int>();
+            return indexes;
         }
 
-        private void AttachScrollViewer()
-        {
-            DetachScrollViewer();
-            scrollViewer = treeView.GetVisualDescendants().OfType<ScrollViewer>().FirstOrDefault();
-            if (scrollViewer != null) scrollViewer.ScrollChanged += OnTreeScrolled;
-            UpdateActionPosition();
-        }
-
-        private void DetachScrollViewer()
-        {
-            if (scrollViewer != null) scrollViewer.ScrollChanged -= OnTreeScrolled;
-            scrollViewer = null;
-        }
-
-        private void OnTreeScrolled(object sender, ScrollChangedEventArgs e) => UpdateActionPosition();
-
-        private void UpdateActionPosition()
-        {
-            if (visibleActions.Children.Count == 0 || treeView.SelectedItem is not TreeViewItem selected)
-            {
-                actionOverlay.IsVisible = false;
-                return;
-            }
-            var header = selected.GetVisualDescendants().OfType<StackPanel>().FirstOrDefault();
-            var position = (header as Visual ?? selected).TranslatePoint(new Point(0, 0), viewport);
-            if (position is not { } point || point.Y < 0 || point.Y + 18 > treeView.Bounds.Height)
-            {
-                actionOverlay.IsVisible = false;
-                return;
-            }
-            Canvas.SetTop(actionOverlay, point.Y);
-            actionOverlay.IsVisible = true;
-        }
-
-        private void SetTreeColors()
-        {
-            var selected = Brush.Parse("#C4C4C4");
-            var normal = Brush.Parse("#F0F0F0");
-            treeView.Resources["TreeViewItemBackground"] = normal;
-            treeView.Resources["TreeViewItemBackgroundPointerOver"] = normal;
-            treeView.Resources["TreeViewItemBackgroundPressed"] = selected;
-            treeView.Resources["TreeViewItemBackgroundSelected"] = selected;
-            treeView.Resources["TreeViewItemBackgroundSelectedPointerOver"] = selected;
-            treeView.Resources["TreeViewItemBackgroundSelectedPressed"] = selected;
-            treeView.Resources["TreeViewItemForeground"] = Brushes.Black;
-            treeView.Resources["TreeViewItemForegroundPointerOver"] = Brushes.Black;
-            treeView.Resources["TreeViewItemForegroundPressed"] = Brushes.Black;
-            treeView.Resources["TreeViewItemForegroundSelected"] = Brushes.Black;
-            treeView.Resources["TreeViewItemForegroundSelectedPointerOver"] = Brushes.Black;
-            treeView.Resources["TreeViewItemForegroundSelectedPressed"] = Brushes.Black;
-            treeView.Resources["TreeViewItemBorderBrushSelected"] = Brushes.Transparent;
-            treeView.Resources["TreeViewItemBorderBrushSelectedPointerOver"] = Brushes.Transparent;
-            treeView.Resources["TreeViewItemBorderBrushSelectedPressed"] = Brushes.Transparent;
-        }
     }
 }

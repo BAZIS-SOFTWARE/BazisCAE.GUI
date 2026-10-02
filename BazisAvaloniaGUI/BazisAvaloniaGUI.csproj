@@ -9,9 +9,16 @@
     <InternalsVisibleTo Include="BazisAvaloniaGUI.Tests" />
     <PackageReference Include="Avalonia.Desktop" Version="12.1.0" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="OperationalController" Version="4.10.5" />
+    <PackageReference Include="PostProc" Version="2.2.7" />
+    <PackageReference Include="PreProc" Version="2.6.8" />
+    <PackageReference Include="ClientLogicCP" Version="1.1.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PropertiesCalculator" Version="1.1.2" />
+    <Reference Include="LicenseInfo">
+      <HintPath>..\Libs\LicenseInfo.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SceneCore\SceneCore.csproj" />
@@ -19,6 +26,8 @@
   <ItemGroup>
     <AvaloniaResource Include="Navigator\Assets\*.png" />
     <AvaloniaResource Include="Databases\Assets\*.png" />
+    <AvaloniaResource Include="Console\Assets\*.png" />
+    <AvaloniaResource Include="Chamfer\Assets\*.png" />
     <Content Include="..\GUI\DataBases\Materials\materials_draft.txt" Link="DataBases\Materials\materials_draft.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\GUI\DataBases\Functions\functions_draft.txt" Link="DataBases\Functions\functions_draft.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

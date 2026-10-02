@@ -102,6 +102,10 @@ namespace BazisAvaloniaGUI.Shell
         {
         }
 
+        public void DisplayDistance(Segment3D line)
+        {
+        }
+
         /// <summary>Тип объектов для выбора на сцене (в BaseForm хранится в кнопке btnSelect).</summary>
         public SelectionType SelectedObjects
         {
@@ -149,6 +153,9 @@ namespace BazisAvaloniaGUI.Shell
                     else
                         console.PrintInfo($"{Resources.SelectByRect_Hidden_Message} {count} {objStr}", Color.Black);
                 }
+
+                // В BaseForm вызывается из SelectObjects (SceneEvents.cs) после выбора точкой или рамкой.
+                sceneSelectionChangedAction?.Invoke();
             }
             catch (Exception ex)
             {

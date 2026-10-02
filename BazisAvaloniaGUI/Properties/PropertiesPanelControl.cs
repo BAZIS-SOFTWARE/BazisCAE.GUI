@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
@@ -51,9 +52,11 @@ namespace BazisAvaloniaGUI.Properties
 
         public void ClearTable()
         {
+            // Avalonia: строки очищаются до удаления редакторов — их LostFocus при отсоединении
+            // не должен применять незавершённую правку к уже новой таблице (как Rows.Clear в DataGridView).
+            gridRows.Clear();
             dataGridView1.Children.Clear();
             dataGridView1.RowDefinitions.Clear();
-            gridRows.Clear();
         }
 
         /// <summary>
@@ -174,7 +177,7 @@ namespace BazisAvaloniaGUI.Properties
                 }
             }
 
-            if (value != "")
+            if (value != "" && IsCurrentRow(row, rowIndex))
             {
                 DataGridView1_CellBeginEdit(rowIndex);
                 SetCellValue(rowIndex, value);
@@ -302,6 +305,10 @@ namespace BazisAvaloniaGUI.Properties
             return cell;
         }
 
+        /// <summary>Строка ещё показана в таблице (таблица не была перерисована во время правки).</summary>
+        private bool IsCurrentRow(DataGridViewRowEx row, int rowIndex) =>
+            rowIndex < gridRows.Count && ReferenceEquals(gridRows[rowIndex], row);
+
         private void UpdateCellBackground(DataGridViewRowEx row)
         {
             if (row.ValueCell != null && row.CellBackColor.HasValue)
@@ -376,15 +383,27 @@ namespace BazisAvaloniaGUI.Properties
                 MinHeight = 20
             };
             numeric.Classes.Add("property-editor");
-            var updating = false;
-            row.Refresh = value => { updating = true; numeric.Value = Convert.ToDecimal(value); updating = false; };
-            numeric.ValueChanged += (_, args) =>
+            row.Refresh = value => numeric.Value = Convert.ToDecimal(value);
+            // Avalonia: NumericUpDown меняет Value на каждый символ; как DataGridViewNumericUpDownCell,
+            // значение фиксируется только по окончании правки (Enter или уход фокуса).
+            void EndEdit()
             {
-                if (updating) return;
-                _oldValue = args.OldValue?.ToString();
-                row.Value = numeric.Value;
+                if (!IsCurrentRow(row, rowIndex)) return;
+                if (numeric.Value == null)
+                {
+                    numeric.Value = Convert.ToDecimal(row.Value);
+                    return;
+                }
+                if (numeric.Value == Convert.ToDecimal(row.Value)) return;
+                DataGridView1_CellBeginEdit(rowIndex);
+                row.Value = numeric.Value.Value;
                 dataGridView1_CellValueChanged(rowIndex);
-            };
+            }
+            numeric.AddHandler(KeyDownEvent, (_, e) =>
+            {
+                if (e.Key == Key.Enter) EndEdit();
+            }, RoutingStrategies.Bubble, true);
+            numeric.LostFocus += (_, _) => EndEdit();
             return numeric;
         }
 
@@ -510,14 +529,19 @@ namespace BazisAvaloniaGUI.Properties
             if (row.ReadOnly) return host;
 
             TextBox box = null;
+            string editOldValue = null;
             void Finish(bool save)
             {
                 if (box == null) return;
                 var text = box.Text ?? string.Empty;
                 box = null;
                 host.Child = preview;
-                if (save && text != row.Value?.ToString())
+                // Avalonia: правка, завершённая уходом фокуса после перерисовки таблицы, к новым строкам не относится.
+                if (save && IsCurrentRow(row, rowIndex) && text != row.Value?.ToString())
                 {
+                    // Avalonia: клик по другой строке успевает начать её правку до LostFocus этой —
+                    // восстанавливаем старое значение именно этой ячейки.
+                    _oldValue = editOldValue;
                     preview.Text = text;
                     row.Value = text;
                     dataGridView1_CellValueChanged(rowIndex);
@@ -527,6 +551,7 @@ namespace BazisAvaloniaGUI.Properties
             {
                 if (box != null) return;
                 DataGridView1_CellBeginEdit(rowIndex);
+                editOldValue = _oldValue;
                 box = new TextBox
                 {
                     Text = row.Value?.ToString(), Height = 22, Padding = new Thickness(3, 0),
@@ -541,7 +566,8 @@ namespace BazisAvaloniaGUI.Properties
                 };
                 box.LostFocus += (_, _) => Finish(true);
                 host.Child = box;
-                Dispatcher.UIThread.Post(() => box?.Focus());
+                // Как EditOnEnter в DataGridView: текст ячейки выделяется целиком и заменяется вводом.
+                Dispatcher.UIThread.Post(() => { box?.Focus(); box?.SelectAll(); });
             };
             return host;
         }

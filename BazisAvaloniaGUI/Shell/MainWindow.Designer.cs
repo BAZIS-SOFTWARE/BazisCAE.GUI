@@ -58,8 +58,22 @@ namespace BazisAvaloniaGUI.Shell
         private MenuItem загрузитьМастерToolStripMenuItem;
         private MenuItem показатьНаДиаграммеToolStripMenuItem;
         private MenuItem расчетыToolStripMenuItem;
+        private MenuItem открытьИнструкцииToolStripMenuItem;
+        private MenuItem сформироватьИнструкцииToolStripMenuItem;
+        private MenuItem запуститьToolStripMenuItem;
+        private MenuItem остановитьToolStripMenuItem;
         private MenuItem результатыMenuItem;
+        private MenuItem открытьToolStripMenuItem1;
+        private MenuItem объединитьToolStripMenuItem;
+        private MenuItem построитьГрафикToolStripMenuItem;
+        private MenuItem построитьДиаграммуToolStripMenuItem;
+        private MenuItem создатьАнимациюToolStripMenuItem;
+        private MenuItem экспортироватьРезультатыToolStripMenuItem;
+        private MenuItem toolStripMenuItem4;
         private MenuItem инструментыToolStripMenuItem;
+        private MenuItem измеритьToolStripMenuItem;
+        private MenuItem скрытьПлоскостьюToolStripMenuItem;
+        private MenuItem рассечьПлоскостьюToolStripMenuItem;
         private MenuItem настройкиToolStripMenuItem;
         private MenuItem справкаToolStripMenuItem;
         private MenuItem содержаниеToolStripMenuItem;
@@ -83,6 +97,13 @@ namespace BazisAvaloniaGUI.Shell
         private GridLength panel1Width;
         private GridLength panel2Height;
 
+        // Минимальные размеры панелей (аналог SplitContainer.Panel1MinSize и Panel2MinSize).
+        // GridSplitter не сдвигается дальше MinWidth/MinHeight колонки или строки.
+        // В BaseForm они не заданы (WinForms по умолчанию 25 px); боковая панель и консоль ограничены по требованию.
+        private const double PanelMinSize = 25;
+        private const double NavigatorPanelMinWidth = 300;
+        private const double ConsolePanelMinHeight = 150;
+
         /// <summary>Аналог splitContainer3.Panel1Collapsed (навигатор и свойства).</summary>
         private bool Panel1Collapsed
         {
@@ -92,8 +113,10 @@ namespace BazisAvaloniaGUI.Shell
                 if (value == Panel1Collapsed) return;
                 if (value) panel1Width = splitContainer3.ColumnDefinitions[0].Width;
                 splitContainer3Panel1.IsVisible = splitContainer3Splitter.IsVisible = !value;
+                splitContainer3.ColumnDefinitions[0].MinWidth = value ? 0 : NavigatorPanelMinWidth;
                 splitContainer3.ColumnDefinitions[0].Width = value ? new GridLength(0) : panel1Width;
                 splitContainer3.ColumnDefinitions[1].Width = new GridLength(value ? 0 : 8);
+                toolStripMenuItem2.IsChecked = !value;
             }
         }
 
@@ -107,7 +130,9 @@ namespace BazisAvaloniaGUI.Shell
                 if (value) panel2Height = splitContainer2.RowDefinitions[2].Height;
                 console.IsVisible = splitContainer2Splitter.IsVisible = !value;
                 splitContainer2.RowDefinitions[1].Height = new GridLength(value ? 0 : 8);
+                splitContainer2.RowDefinitions[2].MinHeight = value ? 0 : ConsolePanelMinHeight;
                 splitContainer2.RowDefinitions[2].Height = value ? new GridLength(0) : panel2Height;
+                toolStripMenuItem3.IsChecked = !value;
             }
         }
 
@@ -120,7 +145,9 @@ namespace BazisAvaloniaGUI.Shell
 
             Width = 942;
             Height = 625;
-            MinWidth = 415;
+            // BaseForm: 415 px; увеличено, чтобы поместились боковая панель (NavigatorPanelMinWidth), разделитель,
+            // минимальная сцена и поля splitContainer3.
+            MinWidth = Math.Max(415, NavigatorPanelMinWidth + 8 + PanelMinSize + 10);
             MinHeight = 320;
             WindowState = WindowState.Maximized;
             Background = Brushes.White;
@@ -146,6 +173,9 @@ namespace BazisAvaloniaGUI.Shell
 
             toolStripMenuItem2 = Item("toolStripMenuItem2", toolStripMenuItem2_Click);
             toolStripMenuItem3 = Item("toolStripMenuItem3", toolStripMenuItem3_Click);
+            // В BaseForm у пунктов нет флажка; добавлен, чтобы показывать видимость панелей, как у пунктов баз данных.
+            toolStripMenuItem2.ToggleType = toolStripMenuItem3.ToggleType = MenuItemToggleType.CheckBox;
+            toolStripMenuItem2.IsChecked = toolStripMenuItem3.IsChecked = true;
             viewMenuItem = Item("viewMenuItem", null, toolStripMenuItem2, toolStripMenuItem3);
 
             // В WinForms у пунктов создания геометрии обработчики не назначены.
@@ -153,8 +183,8 @@ namespace BazisAvaloniaGUI.Shell
             создатьЛиниюToolStripMenuItem = Item("создатьЛиниюToolStripMenuItem", null);
             создатьПлоскостьToolStripMenuItem = Item("создатьПлоскостьToolStripMenuItem", null);
             создатьОбъемToolStripMenuItem = Item("создатьОбъемToolStripMenuItem", null);
-            addChamferToolStripMenuItem = Item("addChamferToolStripMenuItem", null);
-            addChamferToolStripMenuItem.IsEnabled = false; // фаска в Avalonia-оболочке ещё не перенесена
+            addChamferToolStripMenuItem = Item("addChamferToolStripMenuItem", addChamferToolStripMenuItem_Click);
+            addChamferToolStripMenuItem.ToggleType = MenuItemToggleType.CheckBox;
             геометрияToolStripMenuItem = Item("геометрияToolStripMenuItem", null, создатьТочкуToolStripMenuItem,
                 создатьЛиниюToolStripMenuItem, создатьПлоскостьToolStripMenuItem, создатьОбъемToolStripMenuItem,
                 addChamferToolStripMenuItem);
@@ -178,7 +208,9 @@ namespace BazisAvaloniaGUI.Shell
             сеткаToolStripMenuItem.IsEnabled = false;
 
             материалыMenuItem = Item("материалыMenuItem", материалыMenuItem_Click);
+            материалыMenuItem.ToggleType = MenuItemToggleType.CheckBox;
             функцииMenuItem = Item("функцииMenuItem", функцииMenuItem_Click);
+            функцииMenuItem.ToggleType = MenuItemToggleType.CheckBox;
             dataBasesMenuItem = Item("dataBasesMenuItem", null, материалыMenuItem, функцииMenuItem);
             dataBasesMenuItem.IsEnabled = false;
 
@@ -186,34 +218,57 @@ namespace BazisAvaloniaGUI.Shell
             загрузитьМастерToolStripMenuItem = Item("загрузитьМастерToolStripMenuItem", null);
             загрузитьМастерToolStripMenuItem.IsEnabled = false; // мастера в Avalonia-оболочке ещё не перенесены
             мастерToolStripMenuItem = Item("мастерToolStripMenuItem", null, new Separator(), загрузитьМастерToolStripMenuItem, new Separator());
-            показатьНаДиаграммеToolStripMenuItem = Item("показатьНаДиаграммеToolStripMenuItem", null);
-            показатьНаДиаграммеToolStripMenuItem.IsEnabled = false; // диаграмма Ганта ещё не перенесена
+            показатьНаДиаграммеToolStripMenuItem = Item("показатьНаДиаграммеToolStripMenuItem", показатьНаДиаграммеToolStripMenuItem_Click);
+            показатьНаДиаграммеToolStripMenuItem.ToggleType = MenuItemToggleType.CheckBox;
             tasksMenuItem = Item("tasksMenuItem", null, создатьToolStripMenuItem1, мастерToolStripMenuItem, показатьНаДиаграммеToolStripMenuItem);
             tasksMenuItem.IsEnabled = false;
 
-            // Расчёты, результаты, инструменты, настройки и лицензия в Avalonia ещё не перенесены.
-            расчетыToolStripMenuItem = Item("расчетыToolStripMenuItem", null,
-                Item("открытьИнструкцииToolStripMenuItem", null), Item("сформироватьИнструкцииToolStripMenuItem", null),
-                Item("запуститьToolStripMenuItem", null), Item("остановитьToolStripMenuItem", null));
+            открытьИнструкцииToolStripMenuItem = Item("открытьИнструкцииToolStripMenuItem", открытьИнструкцииToolStripMenuItem_Click);
+            сформироватьИнструкцииToolStripMenuItem = Item("сформироватьИнструкцииToolStripMenuItem", сформироватьИнструкцииToolStripMenuItem_Click);
+            запуститьToolStripMenuItem = Item("запуститьToolStripMenuItem", запуститьToolStripMenuItem_Click);
+            остановитьToolStripMenuItem = Item("остановитьToolStripMenuItem", остановитьToolStripMenuItem_Click);
+            расчетыToolStripMenuItem = Item("расчетыToolStripMenuItem", null, открытьИнструкцииToolStripMenuItem,
+                сформироватьИнструкцииToolStripMenuItem, запуститьToolStripMenuItem, остановитьToolStripMenuItem);
             расчетыToolStripMenuItem.IsEnabled = false;
-            результатыMenuItem = Item("результатыMenuItem", null,
-                Item("открытьToolStripMenuItem1", null), Item("объединитьToolStripMenuItem", null),
-                Item("построитьГрафикToolStripMenuItem", null), Item("построитьДиаграммуToolStripMenuItem", null),
-                Item("создатьАнимациюToolStripMenuItem", null), Item("экспортироватьРезультатыToolStripMenuItem", null),
-                Item("toolStripMenuItem4", null));
+
+            открытьToolStripMenuItem1 = Item("открытьToolStripMenuItem1", открытьToolStripMenuItem1_Click);
+            объединитьToolStripMenuItem = Item("объединитьToolStripMenuItem", MergeDataBase_Click);
+            объединитьToolStripMenuItem.IsEnabled = false;
+            // Графики, диаграммы, анимация и отражение результатов выводят поля результатов на сцену
+            // и в Avalonia ещё не перенесены.
+            построитьГрафикToolStripMenuItem = Item("построитьГрафикToolStripMenuItem", null);
+            построитьГрафикToolStripMenuItem.IsEnabled = false;
+            построитьДиаграммуToolStripMenuItem = Item("построитьДиаграммуToolStripMenuItem", null);
+            построитьДиаграммуToolStripMenuItem.IsEnabled = false;
+            создатьАнимациюToolStripMenuItem = Item("создатьАнимациюToolStripMenuItem", null);
+            создатьАнимациюToolStripMenuItem.IsEnabled = false;
+            экспортироватьРезультатыToolStripMenuItem = Item("экспортироватьРезультатыToolStripMenuItem", null);
+            экспортироватьРезультатыToolStripMenuItem.IsEnabled = false;
+            toolStripMenuItem4 = Item("toolStripMenuItem4", null);
+            toolStripMenuItem4.IsEnabled = false;
+            результатыMenuItem = Item("результатыMenuItem", null, открытьToolStripMenuItem1, объединитьToolStripMenuItem,
+                построитьГрафикToolStripMenuItem, построитьДиаграммуToolStripMenuItem, создатьАнимациюToolStripMenuItem,
+                экспортироватьРезультатыToolStripMenuItem, toolStripMenuItem4);
             результатыMenuItem.IsEnabled = false;
-            инструментыToolStripMenuItem = Item("инструментыToolStripMenuItem", null,
-                Item("измеритьToolStripMenuItem", null), Item("скрытьПлоскостьюToolStripMenuItem", null),
-                Item("рассечьПлоскостьюToolStripMenuItem", null));
+
+            измеритьToolStripMenuItem = Item("измеритьToolStripMenuItem", измеритьToolStripMenuItem_Click);
+            измеритьToolStripMenuItem.ToggleType = MenuItemToggleType.CheckBox;
+            // Скрытие плоскостью управляет отсекателем сцены (Advanced3DClipper) и в Avalonia ещё не перенесено;
+            // у рассечения плоскостью в WinForms нет обработчика.
+            скрытьПлоскостьюToolStripMenuItem = Item("скрытьПлоскостьюToolStripMenuItem", null);
+            скрытьПлоскостьюToolStripMenuItem.IsEnabled = false;
+            рассечьПлоскостьюToolStripMenuItem = Item("рассечьПлоскостьюToolStripMenuItem", null);
+            рассечьПлоскостьюToolStripMenuItem.IsEnabled = false;
+            инструментыToolStripMenuItem = Item("инструментыToolStripMenuItem", null, измеритьToolStripMenuItem,
+                скрытьПлоскостьюToolStripMenuItem, рассечьПлоскостьюToolStripMenuItem);
             инструментыToolStripMenuItem.IsEnabled = false;
-            настройкиToolStripMenuItem = Item("настройкиToolStripMenuItem", null);
-            настройкиToolStripMenuItem.IsEnabled = false;
+            настройкиToolStripMenuItem = Item("настройкиToolStripMenuItem", настройкиToolStripMenuItem_Click);
+            настройкиToolStripMenuItem.ToggleType = MenuItemToggleType.CheckBox;
 
             содержаниеToolStripMenuItem = Item("содержаниеToolStripMenuItem", содержаниеToolStripMenuItem_Click);
             опрограммеToolStripMenuItem = Item("опрограммеToolStripMenuItem", опрограммеToolStripMenuItem_Click);
             справкаToolStripMenuItem = Item("справкаToolStripMenuItem", null, содержаниеToolStripMenuItem, опрограммеToolStripMenuItem);
-            сведенияMenuItem = Item("сведенияMenuItem", null);
-            сведенияMenuItem.IsEnabled = false;
+            сведенияMenuItem = Item("сведенияMenuItem", сведенияMenuItem_Click);
             лицензияToolStripMenuItem = Item("лицензияToolStripMenuItem", null, сведенияMenuItem);
 
             menuStrip = new Menu
@@ -235,10 +290,13 @@ namespace BazisAvaloniaGUI.Shell
             root.Children.Add(menuStrip);
 
             splitContainer3 = new Grid { ColumnDefinitions = new ColumnDefinitions("304,8,*"), MinHeight = 0, Margin = new Thickness(5) };
+            splitContainer3.ColumnDefinitions[0].MinWidth = NavigatorPanelMinWidth;
+            splitContainer3.ColumnDefinitions[2].MinWidth = PanelMinSize;
             Grid.SetRow(splitContainer3, 1);
             root.Children.Add(splitContainer3);
 
             cntrНавигатор = new Grid { RowDefinitions = new RowDefinitions("298*,8,253*") };
+            cntrНавигатор.RowDefinitions[0].MinHeight = cntrНавигатор.RowDefinitions[2].MinHeight = PanelMinSize;
             cntrНавигатор.Children.Add(CreatePinnedPage(Resources.NavigatorControl_headerName_text, navigator));
             var navigatorSplitter = new GridSplitter { Height = 8, ResizeDirection = GridResizeDirection.Rows, Background = Brushes.Gainsboro };
             Grid.SetRow(navigatorSplitter, 1);
@@ -246,7 +304,7 @@ namespace BazisAvaloniaGUI.Shell
             var propertiesPage = CreatePinnedPage(Resources.PropertiesPanelControl_headerName_text, propertiesPanel);
             Grid.SetRow(propertiesPage, 2);
             cntrНавигатор.Children.Add(propertiesPage);
-            splitContainer3Panel1 = new Grid { MinWidth = 150 };
+            splitContainer3Panel1 = new Grid();
             splitContainer3.Children.Add(splitContainer3Panel1);
 
             splitContainer3Splitter = new GridSplitter { Width = 8, ResizeDirection = GridResizeDirection.Columns, Background = Brushes.Gainsboro };
@@ -254,6 +312,8 @@ namespace BazisAvaloniaGUI.Shell
             splitContainer3.Children.Add(splitContainer3Splitter);
 
             splitContainer2 = new Grid { RowDefinitions = new RowDefinitions("*,8,140"), MinWidth = 0 };
+            splitContainer2.RowDefinitions[0].MinHeight = PanelMinSize;
+            splitContainer2.RowDefinitions[2].MinHeight = ConsolePanelMinHeight;
             Grid.SetColumn(splitContainer2, 2);
             splitContainer3.Children.Add(splitContainer2);
 

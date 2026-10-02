@@ -1,0 +1,47 @@
+using Model.Interfaces;
+using Geometry;
+using Avalonia.Threading;
+using System;
+using System.Drawing;
+using System.Linq;
+
+namespace BazisAvaloniaGUI.Shell
+{
+    internal partial class MainWindow
+    {
+        private void CreateChamfer(double length, double angle, bool isByAngle, bool reflected)
+        {
+            try
+            {
+                var selObjs = project.ModelView.GetSelected(ObjType.Кривая).ToArray();
+                var s = project.CreateChamfer(selObjs, length, angle, isByAngle, reflected);
+                VBOController.DeleteAllVBObjects();
+                CreateVBObjects("Объекты");
+                PresentMeshData();
+                RequestRedraw();
+                PresentGeoData();
+            }
+            catch (Exception ex) 
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+            RequestClearChamferPreview();
+        }
+
+
+        private void ClearChamferPreview(bool redraw = true)
+        {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.Post(() => ClearChamferPreview(redraw));
+                return;
+            }
+
+            chamferPreviewSegments = Array.Empty<Segment3D>();
+            DisplayGeometryObjectEvent -= DisplayChamferPreview;
+
+            if (redraw)
+                RequestRedraw();
+        }
+    }
+}

@@ -1,8 +1,11 @@
+using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Headless;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using BazisAvaloniaGUI.Console;
 using NUnit.Framework;
 using System.Drawing;
@@ -48,7 +51,7 @@ public partial class AvaloniaTests
         try
         {
             console.Messages.Add(new ConsoleMessage("line", Color.Black));
-            Find<Button>(console, button => AutomationProperties.GetName(button) == "ClearAll")
+            Find<Button>(console, button => button.Name == "toolStripButton2")
                 .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             Assert.That(console.Messages, Has.Count.EqualTo(1));
             Assert.That(console.Messages[0].Color, Is.EqualTo(Color.Green));
@@ -119,5 +122,79 @@ public partial class AvaloniaTests
             Assert.That(input.Text, Is.EqualTo("\"Create task\""));
         }
         finally { window.Close(); }
+    }
+
+    [Test]
+    public void ToolbarMatchesWinFormsToolStrip()
+    {
+        var (window, console) = ShowConsole();
+        try
+        {
+            var buttons = console.GetVisualDescendants().OfType<Button>().Where(button => button.Classes.Contains("console-action")).ToList();
+            Assert.That(buttons.Select(button => button.Name), Is.EqualTo(new[] { "spbDictionary", "toolStripButton1", "toolStripButton2", "btnStartMacro" }));
+            foreach (var button in buttons)
+            {
+                Assert.That(button.Content, Is.TypeOf<Image>());
+                Assert.That(((Image)button.Content!).Source, Is.Not.Null);
+                Assert.That(ToolTip.GetTip(button), Is.Not.Null.And.Not.EqualTo(button.Name));
+            }
+
+            var requested = false;
+            console.CommandsListRequestedEvent += () => requested = true;
+            buttons[0].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            Assert.That(requested, Is.True);
+        }
+        finally { window.Close(); }
+    }
+
+    [Test]
+    public void SessionLinkIsOnFirstLineAndInputIsInsideField()
+    {
+        var (window, console) = ShowConsole();
+        try
+        {
+            var header = Find<SelectableTextBlock>(console);
+            var link = Find<Button>(console, button => button.Classes.Contains("console-log"));
+            var linkText = (TextBlock)link.Content!;
+            Assert.That(linkText.Text, Does.EndWith("bazis.session.txt"));
+            Assert.That(linkText.TextDecorations, Is.EqualTo(Avalonia.Media.TextDecorations.Underline));
+
+            var headerOrigin = header.TranslatePoint(new Avalonia.Point(), console)!.Value;
+            var linkOrigin = link.TranslatePoint(new Avalonia.Point(), console)!.Value;
+            Assert.That(linkOrigin.Y, Is.EqualTo(headerOrigin.Y).Within(1));
+            Assert.That(linkOrigin.X, Is.GreaterThanOrEqualTo(headerOrigin.X + header.Bounds.Width - 1));
+
+            // Ввод — последняя строка поля, без отдельной рамки.
+            var input = Find<TextBox>(console);
+            Assert.That(console.GetVisualDescendants().OfType<TextBox>().Count(), Is.EqualTo(1));
+            Assert.That(input.BorderThickness, Is.EqualTo(new Avalonia.Thickness(0)));
+            Assert.That(input.TranslatePoint(new Avalonia.Point(), console)!.Value.Y, Is.GreaterThan(headerOrigin.Y));
+
+            var collapsed = false;
+            console.ControlCollapseEvent += () => collapsed = true;
+            Find<Button>(console, button => button.Name == "ControlCollapse").RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            Assert.That(collapsed, Is.True);
+
+            console.PrintInfo("error", Color.Red);
+            Dispatcher.UIThread.RunJobs();
+            var line = console.GetVisualDescendants().OfType<SelectableTextBlock>().Last();
+            var runs = line.Inlines!.OfType<Avalonia.Controls.Documents.Run>().ToList();
+            Assert.That(runs.Select(run => run.Text), Is.EqualTo(new[] { " > ", "error" }));
+            Assert.That(((Avalonia.Media.ISolidColorBrush)runs[1].Foreground!).Color, Is.EqualTo(Avalonia.Media.Colors.Red));
+
+            using var frame = window.CaptureRenderedFrame();
+            Assert.That(frame, Is.Not.Null);
+            var snapshots = Environment.GetEnvironmentVariable("BAZIS_CONSOLE_SNAPSHOT_DIR");
+            if (!string.IsNullOrEmpty(snapshots))
+            {
+                Directory.CreateDirectory(snapshots);
+                frame!.Save(Path.Combine(snapshots, "console.png"), new Avalonia.Media.Imaging.PngBitmapEncoderOptions());
+            }
+        }
+        finally
+        {
+            window.Close();
+            File.Delete(console.GetSessionLogPath);
+        }
     }
 }

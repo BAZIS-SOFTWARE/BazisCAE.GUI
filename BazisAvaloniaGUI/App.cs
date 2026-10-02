@@ -12,6 +12,10 @@ internal class App : Application
     public override void Initialize()
     {
         RequestedThemeVariant = ThemeVariant.Light;
+        Resources.MergedDictionaries.Add(new ResourceInclude(new Uri("avares://BazisAvaloniaGUI/"))
+        {
+            Source = new Uri("avares://BazisAvaloniaGUI/Styles/ShellResources.axaml")
+        });
         Styles.Add(new FluentTheme());
         Styles.Add(new StyleInclude(new Uri("avares://BazisAvaloniaGUI/"))
         {
