@@ -38,7 +38,7 @@ namespace BazisAvaloniaGUI.Shell
             }
 
             chamferPreviewSegments = Array.Empty<Segment3D>();
-            DisplayGeometryObjectEvent -= DisplayChamferPreview;
+            HideGeometryObj(nameof(DisplayChamferPreview));
 
             if (redraw)
                 RequestRedraw();

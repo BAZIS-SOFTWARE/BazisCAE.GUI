@@ -1,5 +1,6 @@
 using System;
 using BazisGUI.Scene.Core.Layers;
+using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene; // AverageColorRenderer, Advanced3DClipper (существующий переиспользуемый GL-слой)
 using OpenTK.Graphics.OpenGL;
 
@@ -40,14 +41,51 @@ namespace BazisGUI.Scene.Core.Rendering
             GL.DrawBuffer(context.TargetFramebuffer == 0 ? DrawBufferMode.Back : DrawBufferMode.ColorAttachment0);
             ResetViewMatrix(context);
 
-            foreach (var layer in layers.GetOrdered())
-                if (layer.IsVisible)
-                    layer.Draw(context);
-
-            if (transparency.IsEnable && !clipper.IsEnable)
-                transparency.BlendFramebuffers();
+            if (!transparency.IsEnable || clipper.IsEnable)
+            {
+                foreach (var layer in layers.GetOrdered())
+                    if (layer.IsVisible)
+                        layer.Draw(context);
+            }
+            else
+                RenderWithTransparency(context);
 
             GL.Finish();
+        }
+
+        /// <summary>
+        /// Отрисовка с прозрачностью. Смешивание (BlendFramebuffers) перекрывает весь кадр, поэтому, как в
+        /// BaseForm.DisplayObjects, объекты в координатах модели, рисуемые до модели (базис, вспомогательная
+        /// геометрия, плоскости), попадают в буфер геометрии рендера прозрачности и смешиваются с моделью
+        /// по глубине, а экранные слои после модели (компас, подписи, шкала, рамка выбора) рисуются поверх
+        /// уже смешанного кадра.
+        /// </summary>
+        private void RenderWithTransparency(IRenderContext context)
+        {
+            var blended = false;
+            foreach (var layer in layers.GetOrdered())
+            {
+                if (!layer.IsVisible)
+                    continue;
+
+                if (blended)
+                    layer.Draw(context);
+                else if (layer is ModelObjectsLayer)
+                {
+                    layer.Draw(context);
+                    transparency.BlendFramebuffers();
+                    blended = true;
+                }
+                else
+                {
+                    transparency.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                    layer.Draw(context);
+                    transparency.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+                }
+            }
+
+            if (!blended)
+                transparency.BlendFramebuffers();
         }
 
         private void ClearBuffers(IRenderContext context)

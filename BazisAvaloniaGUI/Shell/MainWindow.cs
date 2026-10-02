@@ -68,6 +68,7 @@ namespace BazisAvaloniaGUI.Shell
         IODataController dataController;
         PreProc.PreProc preProc = new();
         IPresentersCreator presentersCreator = new PresentersCreator();
+        PostProc.PostProcController resultsController = new();
 
         SettingsConfig settingsConfig = new()
         {
@@ -102,6 +103,8 @@ namespace BazisAvaloniaGUI.Shell
             if (config != null)
                 settingsConfig = config;
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(settingsConfig.Language);
+            // Сообщения команд консоли выводятся из фоновых задач — язык ресурсов должен совпадать.
+            CultureInfo.DefaultThreadCurrentUICulture = Thread.CurrentThread.CurrentUICulture;
 
             InitializeComponent();
             dataController = new IODataController(this);
@@ -156,9 +159,14 @@ namespace BazisAvaloniaGUI.Shell
         {
             try
             {
-                // resultsController.FillRange(...) — результаты в Avalonia ещё не перенесены.
-                // Цвет фона, прозрачность, освещение и проекция (sceneController, averageColorRenderer,
-                // UpdateProjection) задаются сцене — реализация сцены.
+                var intervals = settingsConfig.Scale_Intervals == 0 ? 2 : settingsConfig.Scale_Intervals;
+                var min = settingsConfig.Scale_MinValue;
+                var max = settingsConfig.Scale_MaxValue;
+                var pre = settingsConfig.Scale_Precision;
+                resultsController.FillRange(min, max, intervals, pre);
+                // Цвет фона, прозрачность, освещение и проекция (в BaseForm — sceneController,
+                // averageColorRenderer, UpdateProjection).
+                ApplySceneSettings();
             }
             catch (Exception ex)
             {

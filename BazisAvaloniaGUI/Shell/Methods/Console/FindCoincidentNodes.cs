@@ -22,6 +22,9 @@ namespace BazisAvaloniaGUI.Shell
             Dispatcher.UIThread.Invoke(new Action(() =>
             {
                 ClearAllDataOnScene();
+                // В BaseForm буферы после очистки не восстанавливались, и найденные узлы не были видны
+                // до подтверждения; модель возвращается на сцену, чтобы выделение было видно.
+                CreateVBObjects("Объекты");
 
                 var numbers = coincidentNodes.SelectMany(x => x).ToList();
                 ApplySelectionColor();

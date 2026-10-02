@@ -42,8 +42,8 @@ namespace BazisAvaloniaGUI.Shell
                     form.Closed += (s1, s2) =>
                     {
                         btn.IsChecked = false;
-                        DisplayGeometryObjectEvent = null;
-                        DisplayText3DEvent = null;
+                        HideAllGeometryObjects();
+                        HideAllText3D();
                         RequestRedraw();
                     };
 
@@ -51,8 +51,8 @@ namespace BazisAvaloniaGUI.Shell
                     measuringControl.PreparingMeasureEvent += (ar) =>
                     {
                         SelectedObjects = Converters.ConvertObjTypeToSelectionType(ar);
-                        DisplayGeometryObjectEvent = null;
-                        DisplayText3DEvent = null;
+                        HideAllGeometryObjects();
+                        HideAllText3D();
                         RequestRedraw();
                     };
                     measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;

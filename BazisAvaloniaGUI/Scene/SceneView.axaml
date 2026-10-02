@@ -1,7 +1,8 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:scene="using:BazisAvaloniaGUI"
-             x:Class="BazisAvaloniaGUI.SceneView"
+             xmlns:scene="using:BazisAvaloniaGUI.Scene"
+             xmlns:loc="using:BazisAvaloniaGUI.Localization"
+             x:Class="BazisAvaloniaGUI.Scene.SceneView"
              FontFamily="Sans Serif"
              FontSize="12"
              Foreground="#FF000000">
@@ -488,6 +489,28 @@
         <Style Selector="ToggleButton:disabled Image">
             <Setter Property="Opacity" Value="0.5"/>
         </Style>
+
+        <!-- Стили оболочки (Styles/ShellStyles.axaml) имеют приоритет над сеттерами ControlTheme и
+             перебивают размеры элементов сцены: Padding="12,8" у Button не оставляет места иконке 28x28,
+             ComboBox сжимается до 20px, у MenuItem появляются фон и отступы. Локальные стили ближе
+             к элементам, поэтому возвращают значения тем сцены. -->
+        <Style Selector="Button">
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Padding" Value="8,0"/>
+        </Style>
+        <Style Selector="MenuItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style Selector="MenuItem:pointerover, MenuItem:selected">
+            <Setter Property="Background" Value="#FFE5E5E5"/>
+        </Style>
+        <Style Selector="MenuItem:pressed">
+            <Setter Property="Background" Value="#FFD5D5D5"/>
+        </Style>
     </UserControl.Styles>
 
     <Panel>
@@ -518,49 +541,49 @@
                              Padding="1"
                              WindowManagerAddShadowHint="False">
                     <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
-							  Header="Create a new group"
+							  Header="{x:Static loc:SceneViewLocalization.CreateGroup}"
                               Click="OnCreateGroup">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource createGroup}"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
-							  Header="Hide selected"
+							  Header="{x:Static loc:SceneViewLocalization.HideSelected}"
 							  Click="OnHideSelected">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource hideSelected}"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
-							  Header="Show all hidden"
+							  Header="{x:Static loc:SceneViewLocalization.ShowAllHidden}"
 							  Click="OnShowHidden">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource showAllHidden}"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
-							  Header="Selected objects"
+							  Header="{x:Static loc:SceneViewLocalization.SelectedObjects}"
 							  Click="OnSelectedObjects">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource objectInfo}"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
-							  Header="Set rotation point"
+							  Header="{x:Static loc:SceneViewLocalization.SetRotationPoint}"
 							  Click="OnSetRotationPoint">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource setRotationPoint}"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
-							  Header="Show paired"
+							  Header="{x:Static loc:SceneViewLocalization.ShowPaired}"
 							  Click="OnShowPaired">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource showAdjacent}"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
-						      Header="Remove selected"
+						      Header="{x:Static loc:SceneViewLocalization.RemoveSelected}"
 							  Click="OnRemoveSelected">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource deleteSelected}"/>
@@ -582,7 +605,7 @@
                 <ComboBox x:Name="SetsCombo"
                           Theme="{StaticResource SceneComboBoxTheme}"
                           ItemContainerTheme="{StaticResource SceneComboBoxItemTheme}"
-                          PlaceholderText="Select"
+                          PlaceholderText="{x:Static loc:SceneViewLocalization.Select}"
                           Margin="3,3,0,0"
                           HorizontalAlignment="Left"
                           VerticalAlignment="Top"
@@ -594,13 +617,14 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                <!-- Дополнительный выбор (btnAdvSelection в WinForms). В WinForms кнопка включена только когда
-                     есть модель и доступен подходящий тип объектов, а по клику открывается отдельное окно
-                     AdvanceSelection — оно в Avalonia ещё не портировано, поэтому кнопка пока недоступна. -->
+                <!-- Дополнительный выбор (btnAdvSelection в WinForms): по клику оболочка открывает окно
+                     AdvanceSelection (наборы, в плоскости, по направлению; для геометрии — по объемлющим объектам). -->
                 <Button Name="btnAdvSelect"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.AdvSelectToolTip}"
+                        ToolTip.ShowOnDisabled="True"
                         Theme="{StaticResource SceneButtonTheme}"
                         Margin="3,3,0,0"
-                        IsEnabled="False"
+                        Click="OnAdvSelectClick"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top">
                     <Image Source="{StaticResource advSelect}"/>
@@ -626,17 +650,20 @@
                             VerticalAlignment="Center"
                             IsVisible="False">
                     <ToggleButton Name="btnShowSidesRibs"
+                            ToolTip.Tip="{x:Static loc:SceneViewLocalization.ShowSidesRibsToolTip}"
                                   Theme="{StaticResource SceneButtonToggleTheme}"
                                   Click="OnViewModeClick">
                         <Image Source="{StaticResource showSidesRibs}"/>
                     </ToggleButton>
                     <ToggleButton Name="btnShowRibs"
+                            ToolTip.Tip="{x:Static loc:SceneViewLocalization.ShowRibsToolTip}"
                                   Theme="{StaticResource SceneButtonToggleTheme}"
                                   Margin="3,0,0,0"
                                   Click="OnViewModeClick">
                         <Image Source="{StaticResource showRibs}"/>
                     </ToggleButton>
                     <ToggleButton Name="btnShowSides"
+                            ToolTip.Tip="{x:Static loc:SceneViewLocalization.ShowSidesToolTip}"
                                   Theme="{StaticResource SceneButtonToggleTheme}"
                                   Margin="3,0,0,0"
                                   Click="OnViewModeClick">
@@ -644,6 +671,7 @@
                     </ToggleButton>
                     <!-- Базис виден по умолчанию: SceneRenderSettings.DisplayBasis = true. -->
                     <ToggleButton Name="btnBazis"
+                            ToolTip.Tip="{x:Static loc:SceneViewLocalization.BasisToolTip}"
                                   Theme="{StaticResource SceneButtonToggleTheme}"
                                   IsChecked="True"
                                   Margin="3,0,0,0"
@@ -652,6 +680,7 @@
                     </ToggleButton>
                     <!-- Ближайшая к стрелке кнопка — контуры (9px задаёт Margin у стрелки). -->
                     <ToggleButton Name="btnContours"
+                            ToolTip.Tip="{x:Static loc:SceneViewLocalization.ContoursToolTip}"
                                   Theme="{StaticResource SceneButtonToggleTheme}"
                                   Margin="3,0,0,0"
                                   Click="OnContoursClick">
@@ -662,6 +691,7 @@
                 <!-- Стрелка раскрытия механизмов отображения: без подписи, вниз → влево при раскрытии;
                      9px до ближайшей кнопки панели. -->
                 <ToggleButton x:Name="DisplayStatesToggle"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.DisplayStatesToolTip}"
                               Theme="{StaticResource SceneDropdownToggleTheme}"
                               Classes="ArrowLeft"
                               Width="20"
@@ -671,6 +701,7 @@
                               VerticalAlignment="Center"/>
                 <!-- «Снимок экрана» (9px от стрелки) -->
                 <Button Name="btnMakeScreenShot"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.ScreenShotToolTip}"
                         Theme="{StaticResource SceneButtonTheme}"
                         Margin="9,0,0,0"
                         Click="OnMakeScreenShotClick">
@@ -679,6 +710,7 @@
 
                 <!-- «Вписать в экран» -->
                 <Button Name="btnFitToScreen"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.FitToScreenToolTip}"
                         Theme="{StaticResource SceneButtonTheme}"
                         Margin="3,0,0,0"
                         Click="OnFitToScreenClick">
@@ -687,6 +719,7 @@
                 
                 <!-- «Внутренние объекты» -->
                 <Button Name="btnShowInsideObjects"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.InsideObjectsToolTip}"
                         Theme="{StaticResource SceneButtonTheme}"
                         Margin="3,0,0,0"
                         Click="OnShowInsideObjectsClick">
@@ -697,7 +730,7 @@
                 <ToggleButton x:Name="ViewToggle"
                               Theme="{StaticResource SceneDropdownToggleTheme}"
                               Margin="3,0,0,0"
-                              Content="View"
+                              Content="{x:Static loc:SceneViewLocalization.View}"
                               HorizontalAlignment="Left"
                               VerticalAlignment="Center"
                               Width="120"/>
@@ -708,6 +741,7 @@
                         Height="360">
                 <!-- Иконки 20x20: высоту держим в пределах стандартных ~32px (Padding по вертикали не задаём). -->
                 <Button Name="btnXY"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.PlaneXYToolTip}"
                         Theme="{StaticResource SceneButtonTheme}"
                         Canvas.Right="5"
                         Canvas.Top="35"
@@ -715,6 +749,7 @@
                     <Image Source="{StaticResource XY}"/>
                 </Button>
                 <Button Name="btnZX"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.PlaneZXToolTip}"
                         Theme="{StaticResource SceneButtonTheme}"
                         Canvas.Right="5"
                         Canvas.Top="66"
@@ -722,6 +757,7 @@
                     <Image Source="{StaticResource ZX}"/>
                 </Button>
                 <Button Name="btnZY"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.PlaneZYToolTip}"
                         Theme="{StaticResource SceneButtonTheme}"
                         Canvas.Right="5"
                         Canvas.Top="97"
@@ -729,6 +765,7 @@
                     <Image Source="{StaticResource ZY}"/>
                 </Button>
                 <ToggleButton Name="btnRotX"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.RotateXToolTip}"
                               Theme="{StaticResource SceneButtonToggleTheme}"
                               Canvas.Right="5"
                               Canvas.Top="128"
@@ -736,6 +773,7 @@
                     <Image Source="{StaticResource rotX}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotY"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.RotateYToolTip}"
                               Theme="{StaticResource SceneButtonToggleTheme}"
                               Canvas.Right="5"
                               Canvas.Top="159"
@@ -743,6 +781,7 @@
                     <Image Source="{StaticResource rotY}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotZ"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.RotateZToolTip}"
                               Theme="{StaticResource SceneButtonToggleTheme}"
                               Canvas.Right="5"
                               Canvas.Top="190"
@@ -750,6 +789,7 @@
                     <Image Source="{StaticResource rotZ}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotHor"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.RotateHorizontal90ToolTip}"
                               Theme="{StaticResource SceneButtonToggleTheme}"
                               Canvas.Right="5"
                               Canvas.Top="221"
@@ -757,6 +797,7 @@
                     <Image Source="{StaticResource rotHor}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotVer"
+                        ToolTip.Tip="{x:Static loc:SceneViewLocalization.RotateVertical90ToolTip}"
                               Theme="{StaticResource SceneButtonToggleTheme}"
                               Canvas.Right="5"
                               Canvas.Top="252"

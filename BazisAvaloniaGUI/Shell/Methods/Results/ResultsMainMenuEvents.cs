@@ -1,4 +1,9 @@
 using Avalonia.Platform.Storage;
+using Avalonia.Threading;
+using BazisAvaloniaGUI.Localization;
+using Model.Interfaces;
+using Model.Interfaces.MeshObjects;
+using Project.Interfaces.Tasks;
 using BazisAvaloniaGUI.Navigator;
 using ResultDB;
 using ResultDB.IO;
@@ -13,9 +18,6 @@ namespace BazisAvaloniaGUI.Shell
     // В BaseForm объявлен в GUI/Methods/Navigator/NavigatorMethods.cs.
     enum ResultType { nodes, elements }
 
-    // Из GUI/Methods/Results/ResultsMainMenuEvents.cs перенесены пункты меню "Открыть" и "Объединить"
-    // и заполнение дерева результатов. Вывод полей результатов на сцену (PresentResultsField, ShowResultValue)
-    // и MergeResults используются выбором результатов в навигаторе, который в Avalonia ещё не перенесён.
     internal partial class MainWindow
     {
         IEnumerable<float> resultTimes;
@@ -135,6 +137,101 @@ namespace BazisAvaloniaGUI.Shell
                 var vn = navigator.CreateVirtualNode(NodeName.Result);
                 rn.Nodes.Add(vn);
                 results[0].Nodes.Add(rn);
+            }
+        }
+
+        private void PresentResultsField(Result result, string resName, string tableName)
+        {
+            var scaleItems = resultsController.GetItems();
+            resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.ToArray());
+            resultsController.ResultsFieldsCreator.ScaleFactor = settingsConfig.Scale_scale;
+
+            IEnumerable<ISurfaceElement> elems;
+
+            if (project.TaskType == TaskType.Volume | project.TaskType == TaskType.Volume_mixed)
+                elems = project.GetModelSurfaceElements(3);
+            else
+                elems = project.GetModelSurfaceElements(2);
+
+            var resultFigures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, tableName, resName, elems).ToList();
+            var colors = resultFigures.Select(resultFigure => resultFigure.Color).ToList();
+            var pre = presentersCreator.CreateSurfaceObjectsPresenter(resultFigures, colors);
+            pre.Name = resName;
+
+            VBOController.DeleteAllVBObjects();
+            var vb = CreateVBObject(pre);
+            VBOController.AddVbo(vb);
+        }
+
+        /// <summary>
+        /// BaseForm.DisplaySceneScale: шкала результатов в координатах окна, интервалы — из resultsController.
+        /// </summary>
+        public void DisplaySceneScale(string title, string info)
+        {
+            var items = resultsController.GetItems().ToList();
+            var x = settingsConfig.Scale_X_Coord;
+            var y = settingsConfig.Scale_Y_Coord;
+            scene.Surface.Invoke(sceneController => sceneController.DisplaySceneScale(title, info, items, x, y));
+        }
+
+        private Tuple<float, float> GetMaxMin(Result result, string tableName, string resName)
+        {
+            var max = (float)result.Data.Tables[tableName].Compute($"Max({resName})", "");
+            var min = (float)result.Data.Tables[tableName].Compute($"Min({resName})", "");
+
+            return new Tuple<float, float>(max, min);
+        }
+
+        public void MergeResults(Result result)
+        {
+            try
+            {
+                Dictionary<int, List<int>> interfaceNodes;
+                if (project.TaskType == TaskType.Volume |
+                    project.TaskType == TaskType.Volume_mixed)
+                    interfaceNodes = project.FindInterfacedNodes(3);
+                else
+                    interfaceNodes = project.FindInterfacedNodes(2);
+
+                console.PrintInfo($"{Resources.ResultsMainMenuEvents_MergeResults_RecalculationOnNodes_Message} " +
+                    $"{result.Time}", Color.Black);
+                console.PrintInfo("", Color.Black);
+
+                var resNames = result.Data.Tables[(int)ResultType.elements].GetTableSchema();
+
+                for (int i = 1; i < resNames.Length; i++)
+                {
+                    resultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], result);
+
+                    var resultName = resNames[i];
+                    Dispatcher.UIThread.Invoke(new Action(() => console.PrintInfo($"{Resources.ResultsMainMenuEvents_MergeResults_RecalculationOnNodesResNames_Message} {resultName}", Color.Black)));
+                }
+
+                console.PrintInfo(Resources.ResultsMainMenuEvents_MergeResults_Recalculated_Message, Color.Green);
+            }
+            catch (Exception ex)
+            {
+                Dispatcher.UIThread.Invoke(new Action(() => console.PrintInfo(ex.Message, Color.Red)));
+            }
+        }
+
+        private void ShowResultValue(ResultType resType, string resName, Result result)
+        {
+            IEnumerable<IModelObject> objs;
+
+            if (resType == ResultType.nodes)
+                objs = project.GetAllModelNodes();
+            else
+                objs = project.GetAllModelElements();
+
+            foreach (var obj in objs)
+            {
+                if (project.ModelView.IsSelected(obj.ObjType, obj.Number))
+                {
+                    var coord = obj.CalcCentr();
+                    var res = result.GetValue((int)resType, obj.Number, resName);
+                    DisplayText3D(res.ToString(), Color.Black, coord);
+                }
             }
         }
     }

@@ -61,8 +61,7 @@ namespace BazisAvaloniaGUI.Shell
         }
 
         // Цвет фона, освещение, проекция, прозрачность отрисовки и положение источника света в BaseForm
-        // передаются sceneController/averageColorRenderer. Настройка рендера — реализация SceneView, поэтому
-        // здесь значения только сохраняются в settingsConfig (как и в SetGeneralSettings).
+        // передаются sceneController/averageColorRenderer; здесь — через ApplySceneSettings (SceneConnection.cs).
         private void SetSettingsToConfig(SettingsControl settings)
         {
 
@@ -92,19 +91,20 @@ namespace BazisAvaloniaGUI.Shell
             settings.SetBackGroundColorEvent += (ar) =>
             {
                 settingsConfig.BackGroundColor = ar;
-                RequestRedraw();
+                ApplySceneSettings();
             };
 
 
             settings.SetLightingEvent += (ar) =>
             {
                 settingsConfig.Lighting = ar;
-                RequestRedraw();
+                ApplySceneSettings();
             };
 
             settings.SetTransparencyEvent += (ar) =>
             {
                 settingsConfig.Transparency = ar;
+                ApplySceneSettings();
                 ClearAllDataOnScene();
                 if (project != null)
                     CreateVBObjects("Объекты");
@@ -114,7 +114,7 @@ namespace BazisAvaloniaGUI.Shell
             settings.SetOrtoProjectionEvent += (ar) =>
             {
                 settingsConfig.Projection = ar ? ViewProjection.Parallel : ViewProjection.Perspective;
-                RequestRedraw();
+                ApplySceneSettings(applyProjection: true);
             };
 
             settings.SetTransparencyValueEvent += (ar1) =>
@@ -127,7 +127,7 @@ namespace BazisAvaloniaGUI.Shell
             settings.SetLightingIntensityEvent += (ar) =>
             {
                 settingsConfig.LightingIntensity = ar;
-                RequestRedraw();
+                ApplySceneSettings(applyLight: true);
             };
 
 
@@ -142,7 +142,7 @@ namespace BazisAvaloniaGUI.Shell
                 settingsConfig.LighterPosition.X = (int)x;
                 settingsConfig.LighterPosition.Y = (int)y;
 
-                RequestRedraw();
+                ApplySceneSettings(applyLight: true);
             };
 
             settings.SetLanguageEvent += (ar) =>

@@ -89,7 +89,7 @@ namespace BazisAvaloniaGUI.Shell
                 }
             });
 
-            DisplayText2DEvent = null;
+            HideAllText2D();
             RequestRedraw();
 
             PressedKey = Key.None;

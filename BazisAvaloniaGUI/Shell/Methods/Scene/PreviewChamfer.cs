@@ -1,4 +1,6 @@
+using BazisGUI.Scene.Core.Rendering;
 using Geometry;
+using OpenTK.Graphics.OpenGL;
 using Model.Interfaces;
 using Avalonia.Threading;
 using BazisAvaloniaGUI.Localization;
@@ -190,18 +192,35 @@ namespace BazisAvaloniaGUI.Shell
             }
 
             chamferPreviewSegments = segments ?? Array.Empty<Segment3D>();
-            DisplayGeometryObjectEvent -= DisplayChamferPreview;
-            DisplayGeometryObjectEvent += DisplayChamferPreview;
-            RequestRedraw();
+            var previewSegments = chamferPreviewSegments;
+            HideGeometryObj(nameof(DisplayChamferPreview));
+            DisplayGeometryObject(nameof(DisplayChamferPreview), context => DisplayChamferPreview(context, previewSegments));
         }
 
         /// <summary>
-        /// В BaseForm рисует превью фаски линиями OpenGL в проходе DisplayGeometryObjectEvent.
-        /// Вывод вспомогательной геометрии — реализация сцены (см. SceneConnection), поэтому здесь
-        /// сохраняются только рассчитанные отрезки <see cref="chamferPreviewSegments"/>.
+        /// Draws the current chamfer preview as immediate-mode OpenGL lines.
+        /// Called from the regular OpenGL render pass of the scene.
         /// </summary>
-        private void DisplayChamferPreview()
+        private static void DisplayChamferPreview(IRenderContext context, Segment3D[] segments)
         {
+            if (segments.Length == 0)
+                return;
+
+            var position = context.Camera.Position;
+            GL.PushMatrix();
+            GL.Translate(-position._x, -position._y, -position._z);
+            GL.Color4(0.0f, 0.0f, 0.0f, 1.0f);
+            GL.LineWidth(3.0f);
+            GL.Begin(PrimitiveType.Lines);
+
+            foreach (var segment in segments)
+            {
+                GL.Vertex3(segment.P0._x, segment.P0._y, segment.P0._z);
+                GL.Vertex3(segment.P1._x, segment.P1._y, segment.P1._z);
+            }
+
+            GL.End();
+            GL.PopMatrix();
         }
     }
 }

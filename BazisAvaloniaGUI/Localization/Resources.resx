@@ -2167,4 +2167,64 @@ Create variable?</value>
   <data name="TaskKind_Mechanical" xml:space="preserve">
     <value>Mechanical</value>
   </data>
+  <data name="SceneView.CreateGroup.NothingSelected.Message" xml:space="preserve">
+    <value>Group not created: no objects selected</value>
+  </data>
+  <data name="SceneView.RemoveSelected.Message" xml:space="preserve">
+    <value>Objects removed</value>
+  </data>
+  <data name="SceneView.ToolTip.AdvSelect" xml:space="preserve">
+    <value>Advanced selection</value>
+  </data>
+  <data name="SceneView.ToolTip.ShowSidesRibs" xml:space="preserve">
+    <value>Show sides and edges</value>
+  </data>
+  <data name="SceneView.ToolTip.ShowRibs" xml:space="preserve">
+    <value>Show edges</value>
+  </data>
+  <data name="SceneView.ToolTip.ShowSides" xml:space="preserve">
+    <value>Show sides</value>
+  </data>
+  <data name="SceneView.ToolTip.Basis" xml:space="preserve">
+    <value>Show basis</value>
+  </data>
+  <data name="SceneView.ToolTip.Contours" xml:space="preserve">
+    <value>Show contours</value>
+  </data>
+  <data name="SceneView.ToolTip.DisplayStates" xml:space="preserve">
+    <value>Display modes</value>
+  </data>
+  <data name="SceneView.ToolTip.ScreenShot" xml:space="preserve">
+    <value>Take a screenshot</value>
+  </data>
+  <data name="SceneView.ToolTip.FitToScreen" xml:space="preserve">
+    <value>Fit to screen</value>
+  </data>
+  <data name="SceneView.ToolTip.InsideObjects" xml:space="preserve">
+    <value>Show/hide inner objects</value>
+  </data>
+  <data name="SceneView.ToolTip.PlaneXY" xml:space="preserve">
+    <value>XY plane view</value>
+  </data>
+  <data name="SceneView.ToolTip.PlaneZX" xml:space="preserve">
+    <value>ZX plane view</value>
+  </data>
+  <data name="SceneView.ToolTip.PlaneZY" xml:space="preserve">
+    <value>ZY plane view</value>
+  </data>
+  <data name="SceneView.ToolTip.RotateX" xml:space="preserve">
+    <value>Rotate around the X axis</value>
+  </data>
+  <data name="SceneView.ToolTip.RotateY" xml:space="preserve">
+    <value>Rotate around the Y axis</value>
+  </data>
+  <data name="SceneView.ToolTip.RotateZ" xml:space="preserve">
+    <value>Rotate around the Z axis</value>
+  </data>
+  <data name="SceneView.ToolTip.RotateHorizontal90" xml:space="preserve">
+    <value>Rotate 90° horizontally</value>
+  </data>
+  <data name="SceneView.ToolTip.RotateVertical90" xml:space="preserve">
+    <value>Rotate 90° vertically</value>
+  </data>
 </root>

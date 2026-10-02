@@ -18,6 +18,14 @@ internal static class Localization
     }
 
     /// <summary>
+    /// Получение подписи элемента формы BaseForm (MainWindow.resx) на текущей языковой культуре
+    /// </summary>
+    public static string GetFormText(string name)
+    {
+        return formResources.GetString(name);
+    }
+
+    /// <summary>
     /// Получение подписи об ошибке на текущей языковой культуре
     /// </summary>
     public static string GetErrorCaption()

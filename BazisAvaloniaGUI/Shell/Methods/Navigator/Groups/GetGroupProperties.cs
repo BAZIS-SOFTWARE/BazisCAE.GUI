@@ -1,3 +1,4 @@
+using Geometry;
 using BazisAvaloniaGUI.Localization;
 using BazisAvaloniaGUI.Properties;
 using Model.Interfaces;
@@ -55,11 +56,20 @@ namespace BazisAvaloniaGUI.Shell
             return rows;
         }
 
+        /// <summary>
+        /// Показ направления группы: сферы в первом и последнем объектах группы
+        /// (в BaseForm — gluSphere через DisplayGeometryObjectEvent).
+        /// </summary>
         private Task NewMethod2(IGroup obj)
         {
-            // Avalonia: в BaseForm направление рисуется сферами gluSphere (glu32.dll, только Windows)
-            // через DisplayGeometryObjectEvent; кроссплатформенной замены в SceneCore пока нет.
-            console.PrintInfo("Показ направления группы в Avalonia-версии ещё не перенесён (требует gluSphere).", Color.Orange);
+            var objs = new List<IModelObject>() { obj.First(), obj.Last() };
+
+            HideAllGeometryObjects();
+            foreach (var item in objs)
+            {
+                var centre = new Point3D(item._x, item._y, item._z);
+                scene.Surface.Invoke(sceneController => sceneController.DisplayMarker(centre, 1.5f, Color.Red));
+            }
             return Task.CompletedTask;
         }
 

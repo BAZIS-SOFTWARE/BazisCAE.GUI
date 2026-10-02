@@ -358,9 +358,28 @@ namespace BazisGUI.Scene.Core
         public void DeleteAllVBObjects() => vboController.DeleteAllVBObjects();
         public void ChangeViewModeVBObjects(string objsName, ObjView objView) => vboController.ChangeViewModeVBObjects(objsName, objView);
 
-        public void HideGeometryObj(string searchMethod) => geometryObjectsLayer.Remove(searchMethod);
-        public bool FindGeometryObj(string searchMethod) => geometryObjectsLayer.Contains(searchMethod);
-        public void HideAllGeometryObjs() => geometryObjectsLayer.Clear();
+        // Как в BaseForm.HideGeometryObj/FindGeometryObj: поиск по имени метода, добавившего объект
+        // (ключ объекта — "<имя метода>:<guid>", см. GeometryKey).
+        public void HideGeometryObj(string searchMethod)
+        {
+            if (searchMethod == nameof(DisplaySceneScale))
+                sceneScaleLayer.Clear();
+            if (searchMethod == nameof(DisplayReflectionPlane))
+                reflectionPlaneLayer.Clear();
+            geometryObjectsLayer.RemoveWhere(key => key.Contains(searchMethod));
+        }
+
+        public bool FindGeometryObj(string searchMethod) => geometryObjectsLayer.Any(key => key.Contains(searchMethod));
+
+        public void HideAllGeometryObjs()
+        {
+            geometryObjectsLayer.Clear();
+            sceneScaleLayer.Clear();
+            reflectionPlaneLayer.Clear();
+        }
+
+        private static string GeometryKey([System.Runtime.CompilerServices.CallerMemberName] string method = "") =>
+            $"{method}:{Guid.NewGuid()}";
 
         public void HideDisplayText3D() => textLayer.Labels.RemoveWhere(l => !l.IsScreenSpace);
         public void HideDisplayText2D() => textLayer.Labels.RemoveWhere(l => l.IsScreenSpace);
@@ -383,6 +402,13 @@ namespace BazisGUI.Scene.Core
             return scale;
         }
 
+        /// <summary>
+        /// Перенос BaseForm.DisplaySceneScale(title, info): интервалы шкалы берутся из
+        /// ResultsController.GetItems(), положение — из настроек (Scale_X_Coord/Scale_Y_Coord).
+        /// </summary>
+        public void DisplaySceneScale(string title, string info, IEnumerable<ItemRange> items, int x, int y) =>
+            sceneScaleLayer.Show(new SceneScale { Title = title, Info = info, Coord_X = x, Coord_Y = y }, items.ToList());
+
         public void DisplaySceneScale(ISceneScale scale)
         {
             if (scale is SceneScale concrete && scaleItems.TryGetValue(scale, out var items))
@@ -391,7 +417,7 @@ namespace BazisGUI.Scene.Core
 
         public void DisplayLocalFrame(Frame frame)
         {
-            geometryObjectsLayer.Add(Guid.NewGuid().ToString(), ctx =>
+            geometryObjectsLayer.Add(GeometryKey(), ctx =>
             {
                 var position = ctx.Camera.Position;
                 GL.PushMatrix();
@@ -422,7 +448,7 @@ namespace BazisGUI.Scene.Core
                 return;
 
             var path = new ScenePath(points);
-            geometryObjectsLayer.Add(Guid.NewGuid().ToString(), ctx => path.Display(ctx.Camera.Position));
+            geometryObjectsLayer.Add(GeometryKey(), ctx => path.Display(ctx.Camera.Position));
 
             var p0 = path[path.PointsQuantity - 2];
             var p1 = path[path.PointsQuantity - 1];
@@ -430,12 +456,43 @@ namespace BazisGUI.Scene.Core
                 new Point3D((p0._x + p1._x) / 2, (p0._y + p1._y) / 2, (p0._z + p1._z) / 2));
         }
 
-        public void DisplayLine(Point3D p0, Point3D p1, Color objColor) => AddLine(p0, p1, objColor);
-        public void DisplaySpiral(Point3D p0, Point3D p1, Color objColor) => AddLine(p0, p1, objColor);
+        public void DisplayLine(Point3D p0, Point3D p1, Color objColor) => AddLine(p0, p1, objColor, GeometryKey());
+        public void DisplaySpiral(Point3D p0, Point3D p1, Color objColor) => AddLine(p0, p1, objColor, GeometryKey());
 
-        private void AddLine(Point3D p0, Point3D p1, Color objColor)
+        /// <summary>
+        /// Перенос BaseForm.DisplayVector: отрезок из точки posit длиной length, масштаб которого
+        /// не зависит от приближения камеры (делится на ScaleFactor).
+        /// </summary>
+        public void DisplayVector(Point3D length, Point3D posit, Color objColor)
         {
-            geometryObjectsLayer.Add(Guid.NewGuid().ToString(), ctx =>
+            geometryObjectsLayer.Add(GeometryKey(), ctx =>
+            {
+                var position = ctx.Camera.Position;
+                var scale = 1 / ctx.ScaleFactor;
+                GL.PushMatrix();
+                GL.Translate(-position._x, -position._y, -position._z);
+                GL.Translate(posit._x, posit._y, posit._z);
+                GL.Scale(scale, scale, scale);
+                GL.Color3(objColor.R, objColor.G, objColor.B);
+                GL.LineWidth(5.0f);
+                GL.Begin(PrimitiveType.Lines);
+                GL.Vertex3(0, 0, 0);
+                GL.Vertex3(length._x, length._y, length._z);
+                GL.End();
+                GL.PopMatrix();
+            });
+        }
+
+        /// <summary>
+        /// Произвольный вспомогательный объект, рисуемый в проходе геометрии.
+        /// Ключ <paramref name="name"/> — то же, что имя метода в HideGeometryObj/FindGeometryObj.
+        /// </summary>
+        public void DisplayGeometryObject(string name, Action<IRenderContext> draw) =>
+            geometryObjectsLayer.Add(GeometryKey(name), draw);
+
+        private void AddLine(Point3D p0, Point3D p1, Color objColor, string key)
+        {
+            geometryObjectsLayer.Add(key, ctx =>
             {
                 var position = ctx.Camera.Position;
                 GL.PushMatrix();
@@ -453,7 +510,7 @@ namespace BazisGUI.Scene.Core
         public void DisplayConus(float upperDiam, float bottomDiam, float length, Frame frame)
         {
             var mesh = meshFactory.CreateCylinder(bottomDiam / 2, upperDiam / 2, length, Color.Red);
-            geometryObjectsLayer.Add(Guid.NewGuid().ToString(), ctx =>
+            geometryObjectsLayer.Add(GeometryKey(), ctx =>
             {
                 var position = ctx.Camera.Position;
                 GL.PushMatrix();
@@ -473,7 +530,7 @@ namespace BazisGUI.Scene.Core
         public void DisplaySphere(float width, Frame frame)
         {
             var mesh = meshFactory.CreateSphere(width / 2, Color.Red);
-            geometryObjectsLayer.Add(Guid.NewGuid().ToString(), ctx =>
+            geometryObjectsLayer.Add(GeometryKey(), ctx =>
             {
                 var position = ctx.Camera.Position;
                 GL.PushMatrix();
@@ -489,9 +546,27 @@ namespace BazisGUI.Scene.Core
             });
         }
 
+        /// <summary>
+        /// Сплошная сфера-маркер радиуса <paramref name="radius"/> в точке <paramref name="centre"/>
+        /// (в BaseForm — gluSphere при показе направления группы).
+        /// </summary>
+        public void DisplayMarker(Point3D centre, float radius, Color color)
+        {
+            var mesh = meshFactory.CreateSphere(radius, color);
+            geometryObjectsLayer.Add(GeometryKey(), ctx =>
+            {
+                var position = ctx.Camera.Position;
+                GL.PushMatrix();
+                GL.Translate(-position._x, -position._y, -position._z);
+                GL.Translate(centre._x, centre._y, centre._z);
+                mesh.Load();
+                GL.PopMatrix();
+            });
+        }
+
         public void DisplayDistance(Segment3D line)
         {
-            geometryObjectsLayer.Add(Guid.NewGuid().ToString(), ctx =>
+            geometryObjectsLayer.Add(GeometryKey(), ctx =>
             {
                 var position = ctx.Camera.Position;
                 GL.PushMatrix();

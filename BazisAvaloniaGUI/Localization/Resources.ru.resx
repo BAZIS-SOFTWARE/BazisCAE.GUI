@@ -2092,4 +2092,64 @@
   <data name="TaskKind_Mechanical" xml:space="preserve">
     <value>Механическая</value>
   </data>
+  <data name="SceneView.CreateGroup.NothingSelected.Message" xml:space="preserve">
+    <value>Группа не создана: не выбрано ни одного объекта</value>
+  </data>
+  <data name="SceneView.RemoveSelected.Message" xml:space="preserve">
+    <value>Удалено объектов</value>
+  </data>
+  <data name="SceneView.ToolTip.AdvSelect" xml:space="preserve">
+    <value>Расширенный выбор</value>
+  </data>
+  <data name="SceneView.ToolTip.ShowSidesRibs" xml:space="preserve">
+    <value>Показать стороны и рёбра</value>
+  </data>
+  <data name="SceneView.ToolTip.ShowRibs" xml:space="preserve">
+    <value>Показать рёбра</value>
+  </data>
+  <data name="SceneView.ToolTip.ShowSides" xml:space="preserve">
+    <value>Показать стороны</value>
+  </data>
+  <data name="SceneView.ToolTip.Basis" xml:space="preserve">
+    <value>Показать базис</value>
+  </data>
+  <data name="SceneView.ToolTip.Contours" xml:space="preserve">
+    <value>Показать контуры</value>
+  </data>
+  <data name="SceneView.ToolTip.DisplayStates" xml:space="preserve">
+    <value>Режимы отображения</value>
+  </data>
+  <data name="SceneView.ToolTip.ScreenShot" xml:space="preserve">
+    <value>Сделать снимок экрана</value>
+  </data>
+  <data name="SceneView.ToolTip.FitToScreen" xml:space="preserve">
+    <value>Вписать в экран</value>
+  </data>
+  <data name="SceneView.ToolTip.InsideObjects" xml:space="preserve">
+    <value>Показать/скрыть внутренние объекты</value>
+  </data>
+  <data name="SceneView.ToolTip.PlaneXY" xml:space="preserve">
+    <value>Вид на плоскость XY</value>
+  </data>
+  <data name="SceneView.ToolTip.PlaneZX" xml:space="preserve">
+    <value>Вид на плоскость ZX</value>
+  </data>
+  <data name="SceneView.ToolTip.PlaneZY" xml:space="preserve">
+    <value>Вид на плоскость ZY</value>
+  </data>
+  <data name="SceneView.ToolTip.RotateX" xml:space="preserve">
+    <value>Вращение вокруг оси X</value>
+  </data>
+  <data name="SceneView.ToolTip.RotateY" xml:space="preserve">
+    <value>Вращение вокруг оси Y</value>
+  </data>
+  <data name="SceneView.ToolTip.RotateZ" xml:space="preserve">
+    <value>Вращение вокруг оси Z</value>
+  </data>
+  <data name="SceneView.ToolTip.RotateHorizontal90" xml:space="preserve">
+    <value>Повернуть на 90° по горизонтали</value>
+  </data>
+  <data name="SceneView.ToolTip.RotateVertical90" xml:space="preserve">
+    <value>Повернуть на 90° по вертикали</value>
+  </data>
 </root>

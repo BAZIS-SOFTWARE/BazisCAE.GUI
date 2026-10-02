@@ -31,8 +31,6 @@ namespace BazisAvaloniaGUI.Shell
             project.DeleteCond(index);
         }
 
-        // navigator_RemoveResultsEvent, navigator_HideResultsEvent, navigator_GetResultInfoEvent —
-        // результаты в Avalonia ещё не перенесены.
 
         private void navigator_GetObjectsInfoEvent(TreeNode node)
         {

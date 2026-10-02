@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BazisGUI.Scene.Core.Rendering;
 
 namespace BazisGUI.Scene.Core.Layers
@@ -23,6 +24,14 @@ namespace BazisGUI.Scene.Core.Layers
         public bool Remove(string key) => items.Remove(key);
 
         public bool Contains(string key) => items.ContainsKey(key);
+
+        public void RemoveWhere(Func<string, bool> predicate)
+        {
+            foreach (var key in items.Keys.Where(predicate).ToList())
+                items.Remove(key);
+        }
+
+        public bool Any(Func<string, bool> predicate) => items.Keys.Any(predicate);
 
         public void Clear() => items.Clear();
 

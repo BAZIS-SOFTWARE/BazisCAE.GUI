@@ -45,7 +45,14 @@ namespace BazisAvaloniaGUI.Shell
                     ChangeTaskProperties(obj);
                 else if (nodeName == NodeName.Geometry)
                     ChangeGeoProperties(obj);
-                // NodeName.Calculations, NodeName.Results — расчёты и результаты в Avalonia ещё не перенесены.
+                else if (nodeName == NodeName.Calculations)
+                    ChangeCompProperties(obj);
+                else if (nodeName == NodeName.Results)
+                {
+                    ChangeResultsProperty(obj);
+                    var rows = GetResultsProperties();
+                    propertiesPanel.DrawTable(rows);
+                }
 
             }
 
@@ -146,6 +153,11 @@ namespace BazisAvaloniaGUI.Shell
                     navigator.DrawNodeFrozen = false;
 
                 }
+                else if (parentName == NodeName.Calculations)
+                {
+                    var s = navigator.SelectedNode.Text;
+                    ChangeCompProperties(obj, s);
+                }
 
             }
 
@@ -221,7 +233,104 @@ namespace BazisAvaloniaGUI.Shell
             }
         }
 
-        // ChangeResultsProperty и связанные HandleMin/MaxValueParameter, HandleShowResultsScale —
-        // результаты в Avalonia ещё не перенесены.
+        private void ChangeResultsProperty(PropertyChangedEventArgs obj)
+        {
+            if (Enum.TryParse(obj.Key, out ResultPropertyKeys key))
+            {
+                switch (key) 
+                {
+                    case ResultPropertyKeys.ResultScale:
+                        settingsConfig.Scale_scale = int.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.MinScaleValue:
+                        HandleMinValueParameter(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.MaxScaleValue:
+                        HandleMaxValueParameter(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ShowScale:
+                        HandleShowResultsScale(obj.NewValue);
+                        break;
+
+
+                    // TO DO
+                    //
+                    // При активации создать и показать еще две строки
+                    // При деактивации -убрать строки
+                    /*
+                    - Макс. значение; (settingsConfig.Scale_MaxValue)
+                    - Мин. значение; (settingsConfig.Scale_MinValue)
+                     */
+                    case ResultPropertyKeys.ClarifyValues:
+                        settingsConfig.IsScaleMaxMinManual = bool.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ShowFields:
+                        settingsConfig.ShowResultsField = bool.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ShowNodesValues:
+                        settingsConfig.ShowNodeResultsValue = bool.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ShowElementsValues:
+                        settingsConfig.ShowElementsResultsValue = bool.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.MergeResultsValues:
+                        settingsConfig.MergeResultsValue = bool.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ScalePrecision:
+                        settingsConfig.Scale_Precision = int.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ScaleIntervals:
+                        settingsConfig.Scale_Intervals = int.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ScaleXPos:
+                        settingsConfig.Scale_X_Coord = int.Parse(obj.NewValue);
+                        break;
+
+                    case ResultPropertyKeys.ScaleYPos:
+                        settingsConfig.Scale_Y_Coord = int.Parse(obj.NewValue);
+                        break;
+                }
+            }
+        }
+
+
+        private void HandleMinValueParameter(string newValue)
+        {
+
+            settingsConfig.Scale_MinValue = float.Parse(newValue);
+            HandleIntervalsAfterMinMaxValueChanged();
+        }
+
+        private void HandleMaxValueParameter(string newValue)
+        {
+            settingsConfig.Scale_MaxValue = float.Parse(newValue);
+            HandleIntervalsAfterMinMaxValueChanged();
+        }
+
+        private void HandleIntervalsAfterMinMaxValueChanged()
+        {
+            var intervals = settingsConfig.Scale_Intervals;
+            var pre = settingsConfig.Scale_Precision;
+            resultsController.FillRange(
+                settingsConfig.Scale_MinValue, settingsConfig.Scale_MaxValue, intervals, pre);
+        }
+
+        private void HandleShowResultsScale(string newValue)
+        {
+            settingsConfig.ShowResultsScale = bool.Parse(newValue);
+
+            if (!settingsConfig.ShowResultsScale)
+                HideGeometryObj("DisplaySceneScale");
+        }
     }
 }

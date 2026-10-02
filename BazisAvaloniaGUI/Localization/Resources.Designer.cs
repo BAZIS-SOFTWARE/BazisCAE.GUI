@@ -1229,6 +1229,46 @@ internal class Resources
 
     internal static string SceneEvents_Info_Selected => ResourceManager.GetString("SceneEvents.Info.Selected", Culture);
 
+    internal static string SceneView_CreateGroup_NothingSelected_Message => ResourceManager.GetString("SceneView.CreateGroup.NothingSelected.Message", Culture);
+
+    internal static string SceneView_RemoveSelected_Message => ResourceManager.GetString("SceneView.RemoveSelected.Message", Culture);
+
+    internal static string SceneView_ToolTip_AdvSelect => ResourceManager.GetString("SceneView.ToolTip.AdvSelect", Culture);
+
+    internal static string SceneView_ToolTip_ShowSidesRibs => ResourceManager.GetString("SceneView.ToolTip.ShowSidesRibs", Culture);
+
+    internal static string SceneView_ToolTip_ShowRibs => ResourceManager.GetString("SceneView.ToolTip.ShowRibs", Culture);
+
+    internal static string SceneView_ToolTip_ShowSides => ResourceManager.GetString("SceneView.ToolTip.ShowSides", Culture);
+
+    internal static string SceneView_ToolTip_Basis => ResourceManager.GetString("SceneView.ToolTip.Basis", Culture);
+
+    internal static string SceneView_ToolTip_Contours => ResourceManager.GetString("SceneView.ToolTip.Contours", Culture);
+
+    internal static string SceneView_ToolTip_DisplayStates => ResourceManager.GetString("SceneView.ToolTip.DisplayStates", Culture);
+
+    internal static string SceneView_ToolTip_ScreenShot => ResourceManager.GetString("SceneView.ToolTip.ScreenShot", Culture);
+
+    internal static string SceneView_ToolTip_FitToScreen => ResourceManager.GetString("SceneView.ToolTip.FitToScreen", Culture);
+
+    internal static string SceneView_ToolTip_InsideObjects => ResourceManager.GetString("SceneView.ToolTip.InsideObjects", Culture);
+
+    internal static string SceneView_ToolTip_PlaneXY => ResourceManager.GetString("SceneView.ToolTip.PlaneXY", Culture);
+
+    internal static string SceneView_ToolTip_PlaneZX => ResourceManager.GetString("SceneView.ToolTip.PlaneZX", Culture);
+
+    internal static string SceneView_ToolTip_PlaneZY => ResourceManager.GetString("SceneView.ToolTip.PlaneZY", Culture);
+
+    internal static string SceneView_ToolTip_RotateX => ResourceManager.GetString("SceneView.ToolTip.RotateX", Culture);
+
+    internal static string SceneView_ToolTip_RotateY => ResourceManager.GetString("SceneView.ToolTip.RotateY", Culture);
+
+    internal static string SceneView_ToolTip_RotateZ => ResourceManager.GetString("SceneView.ToolTip.RotateZ", Culture);
+
+    internal static string SceneView_ToolTip_RotateHorizontal90 => ResourceManager.GetString("SceneView.ToolTip.RotateHorizontal90", Culture);
+
+    internal static string SceneView_ToolTip_RotateVertical90 => ResourceManager.GetString("SceneView.ToolTip.RotateVertical90", Culture);
+
     internal static string SelectAFunction => ResourceManager.GetString("SelectAFunction", Culture);
 
     internal static string SelectAPropertyOrReactionToRemove => ResourceManager.GetString("SelectAPropertyOrReactionToRemove", Culture);

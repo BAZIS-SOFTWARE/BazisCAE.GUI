@@ -28,6 +28,8 @@
     <AvaloniaResource Include="Databases\Assets\*.png" />
     <AvaloniaResource Include="Console\Assets\*.png" />
     <AvaloniaResource Include="Chamfer\Assets\*.png" />
+    <AvaloniaResource Include="Scene\Assets\*.png" />
+    <AvaloniaResource Include="Player\Assets\*.png" />
     <Content Include="..\GUI\DataBases\Materials\materials_draft.txt" Link="DataBases\Materials\materials_draft.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\GUI\DataBases\Functions\functions_draft.txt" Link="DataBases\Functions\functions_draft.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

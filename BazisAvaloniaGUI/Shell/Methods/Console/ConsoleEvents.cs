@@ -127,8 +127,8 @@ namespace BazisAvaloniaGUI.Shell
         {
             project.MoveMesh(ObjType.Узел, new Point3D(x, y, z));
 
-            DisplayGeometryObjectEvent = null;
-            DisplayText2DEvent = null;
+            HideAllGeometryObjects();
+            HideAllText2D();
 
             foreach (var set in project.GetAllModelSetsInfo())
             {
@@ -159,9 +159,9 @@ namespace BazisAvaloniaGUI.Shell
 
             project.RotateMesh(ObjType.Узел, point, angle);
 
-            DisplayGeometryObjectEvent = null;
-            DisplayText2DEvent = null;
-            DisplayText3DEvent = null;
+            HideAllGeometryObjects();
+            HideAllText2D();
+            HideAllText3D();
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {

@@ -22,7 +22,16 @@ namespace BazisAvaloniaGUI.Shell
                 if (project == null)
                     return;
 
-                // checkPlayerControl (проверка условий во времени) в Avalonia ещё не перенесён.
+                checkPlayerControl.StopChecking();
+                CheckPlayerControl_StopCheckingEvent(checkPlayerControl);
+                var conditions = project.GetAllCondData().ToList();
+                conditionCheckStartTime = conditions.Count == 0 ? 0 : conditions.Min(data => data.StartTime);
+                conditionCheckStopTime = conditions.Count == 0 ? 0 : conditions.Max(data => data.StopTime);
+                var duration = Math.Max(0, conditionCheckStopTime - conditionCheckStartTime);
+                var steps = Math.Ceiling(duration);
+                checkPlayerControl.StartValue = 0;
+                checkPlayerControl.StopValue = checked((int)steps);
+                checkPlayerControl.CurrentValue = 0;
 
                 List<RowProperty> rows = new List<RowProperty>();
 
@@ -61,8 +70,5 @@ namespace BazisAvaloniaGUI.Shell
                 console.PrintInfo(ex.Message, Color.Red);
             }
         }
-
-        // Из GUI/Methods/Navigator/Comp/SelectCompEvent.cs (расчёты в Avalonia ещё не перенесены).
-        private string Indent(int level, string header) => new string(' ', 3 * level) + header;
     }
 }

@@ -84,6 +84,7 @@ namespace BazisAvaloniaGUI.Shell
         private SceneView scene;
         private NavigatorControl navigator;
         private PropertiesPanelControl propertiesPanel;
+        private BazisAvaloniaGUI.Player.PlayerControl checkPlayerControl;
         private ConsoleControl console;
         private TextBlock lblStatus;
         private TextBlock lblVersion;
@@ -141,6 +142,10 @@ namespace BazisAvaloniaGUI.Shell
             scene = new SceneView();
             navigator = new NavigatorControl();
             propertiesPanel = new PropertiesPanelControl();
+            checkPlayerControl = new BazisAvaloniaGUI.Player.PlayerControl { SpeedValue = 500, StartValue = 0, StopValue = 100, CurrentValue = 50 };
+            checkPlayerControl.CheckingEvent += CheckPlayerControl_CheckingEvent;
+            checkPlayerControl.StopCheckingEvent += CheckPlayerControl_StopCheckingEvent;
+            checkPlayerControl.StartCheckingEvent += CheckPlayerControl_StartCheckingEvent;
             console = new ConsoleControl();
 
             Width = 942;
@@ -234,18 +239,15 @@ namespace BazisAvaloniaGUI.Shell
             открытьToolStripMenuItem1 = Item("открытьToolStripMenuItem1", открытьToolStripMenuItem1_Click);
             объединитьToolStripMenuItem = Item("объединитьToolStripMenuItem", MergeDataBase_Click);
             объединитьToolStripMenuItem.IsEnabled = false;
-            // Графики, диаграммы, анимация и отражение результатов выводят поля результатов на сцену
-            // и в Avalonia ещё не перенесены.
-            построитьГрафикToolStripMenuItem = Item("построитьГрафикToolStripMenuItem", null);
-            построитьГрафикToolStripMenuItem.IsEnabled = false;
-            построитьДиаграммуToolStripMenuItem = Item("построитьДиаграммуToolStripMenuItem", null);
-            построитьДиаграммуToolStripMenuItem.IsEnabled = false;
-            создатьАнимациюToolStripMenuItem = Item("создатьАнимациюToolStripMenuItem", null);
-            создатьАнимациюToolStripMenuItem.IsEnabled = false;
+            построитьГрафикToolStripMenuItem = Item("построитьГрафикToolStripMenuItem", построитьГрафикToolStripMenuItem_Click);
+            построитьДиаграммуToolStripMenuItem = Item("построитьДиаграммуToolStripMenuItem", построитьДиаграммуToolStripMenuItem_Click);
+            создатьАнимациюToolStripMenuItem = Item("создатьАнимациюToolStripMenuItem", создатьАнимациюToolStripMenuItem_Click);
+            создатьАнимациюToolStripMenuItem.ToggleType = MenuItemToggleType.CheckBox;
+            // В BaseForm у экспорта результатов нет обработчика.
             экспортироватьРезультатыToolStripMenuItem = Item("экспортироватьРезультатыToolStripMenuItem", null);
             экспортироватьРезультатыToolStripMenuItem.IsEnabled = false;
-            toolStripMenuItem4 = Item("toolStripMenuItem4", null);
-            toolStripMenuItem4.IsEnabled = false;
+            toolStripMenuItem4 = Item("toolStripMenuItem4", отзеркаливаниеToolStripMenuItem_Click);
+            toolStripMenuItem4.ToggleType = MenuItemToggleType.CheckBox;
             результатыMenuItem = Item("результатыMenuItem", null, открытьToolStripMenuItem1, объединитьToolStripMenuItem,
                 построитьГрафикToolStripMenuItem, построитьДиаграммуToolStripMenuItem, создатьАнимациюToolStripMenuItem,
                 экспортироватьРезультатыToolStripMenuItem, toolStripMenuItem4);
@@ -253,11 +255,12 @@ namespace BazisAvaloniaGUI.Shell
 
             измеритьToolStripMenuItem = Item("измеритьToolStripMenuItem", измеритьToolStripMenuItem_Click);
             измеритьToolStripMenuItem.ToggleType = MenuItemToggleType.CheckBox;
-            // Скрытие плоскостью управляет отсекателем сцены (Advanced3DClipper) и в Avalonia ещё не перенесено;
-            // у рассечения плоскостью в WinForms нет обработчика.
-            скрытьПлоскостьюToolStripMenuItem = Item("скрытьПлоскостьюToolStripMenuItem", null);
-            скрытьПлоскостьюToolStripMenuItem.IsEnabled = false;
-            рассечьПлоскостьюToolStripMenuItem = Item("рассечьПлоскостьюToolStripMenuItem", null);
+            скрытьПлоскостьюToolStripMenuItem = Item("скрытьПлоскостьюToolStripMenuItem", скрытьПлоскостьюToolStripMenuItem_Click);
+            скрытьПлоскостьюToolStripMenuItem.ToggleType = MenuItemToggleType.CheckBox;
+            // В BaseForm у пункта нет обработчика, а окно сечения (btnCrossSection) не подключено к интерфейсу;
+            // пункт открывает перенесённое окно сечения, но, как в BaseForm.resx, отключён.
+            рассечьПлоскостьюToolStripMenuItem = Item("рассечьПлоскостьюToolStripMenuItem", рассечьПлоскостьюToolStripMenuItem_Click);
+            рассечьПлоскостьюToolStripMenuItem.ToggleType = MenuItemToggleType.CheckBox;
             рассечьПлоскостьюToolStripMenuItem.IsEnabled = false;
             инструментыToolStripMenuItem = Item("инструментыToolStripMenuItem", null, измеритьToolStripMenuItem,
                 скрытьПлоскостьюToolStripMenuItem, рассечьПлоскостьюToolStripMenuItem);
@@ -301,9 +304,14 @@ namespace BazisAvaloniaGUI.Shell
             var navigatorSplitter = new GridSplitter { Height = 8, ResizeDirection = GridResizeDirection.Rows, Background = Brushes.Gainsboro };
             Grid.SetRow(navigatorSplitter, 1);
             cntrНавигатор.Children.Add(navigatorSplitter);
+            // tableLayoutPanel1 в BaseForm: панель свойств и под ней плеер проверки условий/результатов.
             var propertiesPage = CreatePinnedPage(Resources.PropertiesPanelControl_headerName_text, propertiesPanel);
-            Grid.SetRow(propertiesPage, 2);
-            cntrНавигатор.Children.Add(propertiesPage);
+            var tableLayoutPanel1 = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
+            tableLayoutPanel1.Children.Add(propertiesPage);
+            Grid.SetRow(checkPlayerControl, 1);
+            tableLayoutPanel1.Children.Add(checkPlayerControl);
+            Grid.SetRow(tableLayoutPanel1, 2);
+            cntrНавигатор.Children.Add(tableLayoutPanel1);
             splitContainer3Panel1 = new Grid();
             splitContainer3.Children.Add(splitContainer3Panel1);
 
@@ -370,13 +378,26 @@ namespace BazisAvaloniaGUI.Shell
             navigator.SelectMeshEvent += navigator_SelectMeshEvent;
             navigator.SelectGeneralInfoEvent += navigator_SelectGeneralInfoEvent;
             navigator.DelCondEvent += navigator_DelCondEvent;
-            // HideResults/RemoveResults/SelectResults/SelectComp(s)/SelectTime/SelectResult/GetResultInfo —
-            // результаты и расчёты в Avalonia ещё не перенесены.
+            navigator.HideResultsEvent += navigator_HideResultsEvent;
+            navigator.RemoveResultsEvent += navigator_RemoveResultsEvent;
+            navigator.SelectResultsEvent += navigator_SelectResultsEvent;
+            navigator.SelectCompEvent += Navigator_SelectCompEvent;
+            navigator.SelectCompsEvent += Navigator_SelectCompsEvent;
+            navigator.SelectTimeEvent += navigator_SelectTimeEvent;
+            navigator.SelectResultEvent += navigator_SelectResultEvent;
+            navigator.GetResultInfoEvent += navigator_GetResultInfoEvent;
 
             propertiesPanel.PropertyUpdateEvent += PropertiesPanel_OnPropertyUpdate;
 
-            scene.SelectionApplied += scene_SelectionApplied;
-            scene.ProjectDisplayFailed += (sender, ex) => console.PrintInfo(ex.Message, System.Drawing.Color.Red);
+            scene.Surface.SelectionApplied += scene_SelectionApplied;
+            scene.Surface.ProjectDisplayFailed += (sender, ex) => console.PrintInfo(ex.Message, System.Drawing.Color.Red);
+            scene.Surface.MessageReported += (message, color) => console.PrintInfo(message, color);
+            scene.Surface.GroupCreated += scene_GroupCreated;
+            scene.Surface.ObjectsRemoved += scene_ObjectsRemoved;
+            scene.Surface.SelectedObjectTypeChanged += scene_SelectedObjectTypeChanged;
+            // Esc на сцене: в BaseForm.GlControl_KeyDown также закрывается окно дополнительного выбора.
+            scene.Surface.SelectionReset += CloseAdvancedSelectionForm;
+            scene.AdvancedSelectionRequested += scene_AdvancedSelectionRequested;
 
             Opened += BaseForm_Load;
             Closing += OnClosingForm;

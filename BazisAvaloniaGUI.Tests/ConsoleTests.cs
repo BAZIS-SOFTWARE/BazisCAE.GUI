@@ -9,6 +9,7 @@ using Avalonia.VisualTree;
 using BazisAvaloniaGUI.Console;
 using NUnit.Framework;
 using System.Drawing;
+using System.Globalization;
 using System.Reflection;
 
 namespace BazisAvaloniaGUI.Tests;
@@ -24,6 +25,27 @@ public partial class AvaloniaTests
         // Номер сессии вне диапазона Random.Next(0, 10000), чтобы не задеть журналы приложения.
         console.SessionNumber = 100000 + Random.Shared.Next(100000);
         return (window, console);
+    }
+
+    [Test]
+    public void ConsoleNumbersAreParsedWithDotOnRussianSystemCulture()
+    {
+        var current = CultureInfo.CurrentCulture;
+        var defaultCulture = CultureInfo.DefaultThreadCurrentCulture;
+        try
+        {
+            // Команда "Find Coincident" "nodes" "0.2" падала с FormatException при русской локали ОС.
+            CultureInfo.CurrentCulture = new CultureInfo("ru-RU");
+            Program.ConfigureCulture();
+
+            Assert.That(float.Parse("0.2"), Is.EqualTo(0.2f));
+            Assert.That(Task.Run(() => double.Parse("0.2")).Result, Is.EqualTo(0.2));
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = current;
+            CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+        }
     }
 
     [Test]

@@ -7,10 +7,16 @@ using OperationalController;
 
 namespace BazisAvaloniaGUI.Scene;
 
+/// <summary>
+/// Итог выбора на сцене: сколько объектов затронуто, был ли это выбор точкой
+/// и какой объект выбран точкой (BaseForm.SelectByPoint берёт один объект).
+/// </summary>
+internal sealed record SceneSelectionResult(int Count, bool IsSelected, bool IsPoint, ObjType? Type, int Number);
+
 internal class SceneSelection
 {
     /// <summary>Применяет найденные на сцене объекты к выбору в представлении модели.</summary>
-    public int Apply(ProjectController project, SceneController scene, ObjType? selectedType, SelectObjectsEventArgs selection)
+    public SceneSelectionResult Apply(ProjectController project, SceneController scene, ObjType? selectedType, SelectObjectsEventArgs selection)
     {
         var sourceSets = selectedType.HasValue
             ? project.GetModelSetsInfo(selectedType.Value)
@@ -19,21 +25,39 @@ internal class SceneSelection
         var hits = new List<InfoObjectsEventArgs>();
         void CollectHit(object? sender, InfoObjectsEventArgs hit) => hits.Add(hit);
 
+        var isPoint = !selection.IsSorted;
         scene.InfoRequested += CollectHit;
         try
         {
-            if (selection.IsSorted)
-                scene.SelectByRect(sets, selection.SelectionBox, selection.IsSelected, project.ModelView.GetVisible);
-            else
+            if (isPoint)
             {
                 var box = selection.SelectionBox;
                 var point = new Point2D((box.Left + box.Right) / 2, (box.Bottom + box.Top) / 2);
                 scene.SelectByPoint(sets, point, selection.IsSelected, project.ModelView.GetVisible);
             }
+            else
+                scene.SelectByRect(sets, selection.SelectionBox, selection.IsSelected, project.ModelView.GetVisible);
         }
         finally
         {
             scene.InfoRequested -= CollectHit;
+        }
+
+        // BaseForm.SelectByPoint: из попаданий точкой берётся первый набор и последний номер в нём.
+        if (isPoint)
+        {
+            var hit = hits.FirstOrDefault();
+            var set = hit == null ? null : sets.Find(item => item.Name == hit.ObjsName);
+            var numbers = hit?.GetObjectsIndexes().ToList();
+            if (set == null || numbers.Count == 0)
+                return new SceneSelectionResult(0, selection.IsSelected, true, null, 0);
+
+            var number = numbers.Last();
+            if (selection.IsSelected)
+                project.ModelView.Select(set.ObjType, [number]);
+            else
+                project.ModelView.Deselect(set.ObjType, [number]);
+            return new SceneSelectionResult(1, selection.IsSelected, true, set.ObjType, number);
         }
 
         var count = 0;
@@ -53,7 +77,6 @@ internal class SceneSelection
                     project.ModelView.Deselect(set.ObjType, numbers);
             }
         }
-        return count;
+        return new SceneSelectionResult(count, selection.IsSelected, false, null, 0);
     }
-
 }

@@ -57,7 +57,8 @@ namespace BazisAvaloniaGUI.Shell
 
                 propertiesPanel.DrawTable(rows);
 
-                // checkPlayerControl (проверка условий во времени) в Avalonia ещё не перенесён.
+                checkPlayerControl.StopChecking();
+                CheckPlayerControl_StopCheckingEvent(checkPlayerControl);
                 var modelView = project.ModelView;
                 var color = settingsConfig.SelectGroupColor;
                 var numbers = data.Group.Select(x => x.Number);

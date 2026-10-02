@@ -1,8 +1,13 @@
+using BazisAvaloniaGUI.Extensions;
 using BazisAvaloniaGUI.Scene;
 using BazisAvaloniaGUI.Utilities;
+using BazisGUI.Scene.Core;
+using BazisGUI.Scene.Core.Rendering;
+using BazisGUI.Scene.Interfaces;
 using Geometry;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
+using OpenTK.Graphics.OpenGL;
 using OperationalController;
 using System;
 using System.Drawing;
@@ -15,7 +20,7 @@ namespace BazisAvaloniaGUI.Shell
     /// <summary>
     /// Точки подключения сцены. Отображение, буферы, выбор объектов и кнопки сцены реализует SceneView;
     /// здесь сохранены имена методов BaseForm, через которые прикладная логика обращается к сцене,
-    /// и они переадресованы в публичный API SceneView.
+    /// и они переадресованы в публичный API SceneView (очередь <see cref="SceneSurface.Invoke"/>).
     /// </summary>
     internal partial class MainWindow
     {
@@ -26,14 +31,17 @@ namespace BazisAvaloniaGUI.Shell
 
         internal sealed class SceneBuffers(SceneView scene)
         {
-            public void DeleteVBObjects(string objsName) => scene.RefreshProject();
+            public void DeleteVBObjects(string objsName) => scene.Surface.DeleteObjects(objsName);
 
-            public void DeleteAllVBObjects() => scene.RefreshProject();
+            public void DeleteAllVBObjects() => scene.Surface.DeleteAllObjects();
 
-            // В BaseForm сюда передаётся VBObject, созданный CreateVBObject; создание буферов — часть сцены,
-            // поэтому передаётся представление (presenter). Представления вне модели (например, "transPoints")
-            // SceneView пока не показывает.
-            public void AddVbo(IObjsPresenter presenter) => scene.RefreshProject();
+            // В BaseForm сюда передаётся VBObject, созданный CreateVBObject; буфер создаётся в GL-контексте
+            // сцены, поэтому передаётся представление (presenter), а буфер строится на ближайшем кадре.
+            public void AddVbo(IObjsPresenter presenter)
+            {
+                if (presenter != null)
+                    scene.Surface.AddPresenter(presenter);
+            }
         }
 
         /// <summary>В BaseForm создаёт VBObject; в Avalonia буферы создаёт сцена, поэтому возвращается представление.</summary>
@@ -51,75 +59,189 @@ namespace BazisAvaloniaGUI.Shell
             subscribedModelView = modelView;
             // В BaseForm здесь ApplyModelViewSettings(): цвет выделения и ModelView.Transparency из settingsConfig.
             // Avalonia смешивает кадр OpenGL с окном по альфа-каналу (GLControl его игнорирует), поэтому
-            // TransparencyValue = 0 делает грани невидимыми. Прозрачность передаётся сцене вместе с остальными
-            // настройками отображения (см. SetGeneralSettings), здесь — только цвет выделения.
+            // TransparencyValue = 0 делает грани невидимыми. Прозрачность задаётся через SetTransparencyValueEvent,
+            // здесь — только цвет выделения.
             ApplySelectionColor();
             if (project != null)
-                scene.ShowProject(project);
+                scene.Surface.ShowProject(project);
         }
 
-        public void CreateVBObjects(string objects) => scene.RefreshProject();
+        public void CreateVBObjects(string objects)
+        {
+            if (project == null)
+                return;
 
-        public void CreateVBObjsByObjsType(ObjType objType) => scene.RefreshProject();
+            if (objects == "Объекты")
+            {
+                scene.Surface.RefreshSets(project.GetAllModelSetsInfo());
+            }
+            else if (objects == "Элементы")
+            {
+                CreateVBObjsByObjsType(ObjType.Элемент1D);
+                CreateVBObjsByObjsType(ObjType.Элемент2D);
+                CreateVBObjsByObjsType(ObjType.Элемент3D);
+            }
+            else if (objects == "Геометрия")
+            {
+                CreateVBObjsByObjsType(ObjType.Кривая);
+                CreateVBObjsByObjsType(ObjType.Поверхность);
+            }
+            else
+                CreateVBObjsByObjsType(objects.ToEnum<ObjType>());
+        }
 
-        public void DeleteVBObjects(string objects) => scene.RefreshProject();
+        public void CreateVBObjsByObjsType(ObjType objType)
+        {
+            if (project != null)
+                scene.Surface.RefreshSets(project.GetModelSetsInfo(objType).Where(set => set.NumberOfObjects > 0));
+        }
 
-        public void DeleteVBObjsByObjsType(ObjType objType) => scene.RefreshProject();
+        public void DeleteVBObjects(string objects)
+        {
+            if (objects == "Объекты")
+                VBOController.DeleteAllVBObjects();
+            else if (objects == "Элементы")
+            {
+                DeleteVBObjsByObjsType(ObjType.Элемент1D);
+                DeleteVBObjsByObjsType(ObjType.Элемент2D);
+                DeleteVBObjsByObjsType(ObjType.Элемент3D);
+            }
+            else if (objects == "Геометрия")
+            {
+                DeleteVBObjsByObjsType(ObjType.Точка);
+                DeleteVBObjsByObjsType(ObjType.Кривая);
+                DeleteVBObjsByObjsType(ObjType.Поверхность);
+            }
+            else
+                DeleteVBObjsByObjsType(objects.ToEnum<ObjType>());
+        }
 
-        private void RefreshModelSetBuffer(ISetInfo setInfo) => scene.RefreshProject();
+        public void DeleteVBObjsByObjsType(ObjType objType)
+        {
+            if (project == null)
+                return;
 
-        public void SetVBObjectAttribute(IObjsPresenter presenter, string attribName) => scene.RefreshProject();
+            foreach (var setInfo in project.GetModelSetsInfo(objType))
+                VBOController.DeleteVBObjects(setInfo.Name);
+        }
+
+        private void RefreshModelSetBuffer(ISetInfo setInfo) => scene.Surface.RefreshSets([setInfo]);
+
+        public void SetVBObjectAttribute(IObjsPresenter presenter, string attribName) => scene.Surface.SetAttribute(presenter, attribName);
+
+        /// <summary>BaseForm.ColorObjects: обновляет цвета буферов наборов заданного типа без пересборки.</summary>
+        internal void ColorObjects(string objTypeStr)
+        {
+            if (objTypeStr == "Объекты")
+            {
+                foreach (var type in Enum.GetValues<ObjType>())
+                    ColorVBObjsByObjsType(type);
+            }
+            else if (objTypeStr == "Элементы")
+            {
+                ColorVBObjsByObjsType(ObjType.Элемент1D);
+                ColorVBObjsByObjsType(ObjType.Элемент2D);
+                ColorVBObjsByObjsType(ObjType.Элемент3D);
+            }
+            else
+            {
+                var objType = Enum.TryParse(objTypeStr, out ObjType parsed) ? parsed :
+                    throw new Exception($"{Resources.ColorObjects_ObjectConversion_Exception} {objTypeStr}");
+                ColorVBObjsByObjsType(objType);
+            }
+
+            RequestRedraw();
+        }
+
+        public void ColorVBObjsByObjsType(ObjType objType)
+        {
+            foreach (var setInfo in project.GetModelSetsInfo(objType))
+                if (setInfo.NumberOfObjects > 0)
+                    SetVBObjectAttribute(project.CreateModelObjectsPresentor(setInfo), "цвет");
+        }
+
+        public void ClearAllGeometryDataOnScene() => DeleteVBObjects("Геометрия");
+
+        public void ClearAllMeshDataOnScene()
+        {
+            DeleteVBObjsByObjsType(ObjType.Узел);
+            DeleteVBObjects("Элементы");
+        }
 
         public void ClearAllDataOnScene()
         {
-            DisplayGeometryObjectEvent = null;
-            DisplayText2DEvent = null;
-            DisplayText3DEvent = null;
+            HideAllGeometryObjects();
+            HideAllText2D();
+            HideAllText3D();
+            VBOController.DeleteAllVBObjects();
         }
 
-        // SceneView сам запрашивает кадр при изменении ModelView и после RefreshProject/ShowProject.
-        public void RequestRedraw()
-        {
-        }
+        /// <summary>BaseForm: DisplayGeometryObjectEvent = null — убрать всю вспомогательную геометрию.</summary>
+        public void HideAllGeometryObjects() => scene.Surface.Invoke(sceneController => sceneController.HideAllGeometryObjs());
 
-        // Отдельного метода вписывания у SceneView пока нет: ShowProject перестраивает буферы и вписывает модель в экран.
-        public void FitObjectsToScreen()
-        {
-            if (project != null)
-                scene.ShowProject(project);
-        }
+        /// <summary>BaseForm: DisplayText3DEvent = null — убрать все подписи в координатах модели.</summary>
+        public void HideAllText3D() => scene.Surface.Invoke(sceneController => sceneController.HideDisplayText3D());
 
-        // Вывод текста и вспомогательной геометрии на сцену — реализация сцены (в BaseForm — GL-события).
-        Action DisplayGeometryObjectEvent { get; set; }
-        Action DisplayText3DEvent { get; set; }
-        Action DisplayText2DEvent { get; set; }
+        /// <summary>BaseForm: DisplayText2DEvent = null — убрать все подписи в координатах окна.</summary>
+        public void HideAllText2D() => scene.Surface.Invoke(sceneController => sceneController.HideDisplayText2D());
 
-        public void DisplayText3D(string str, Color color, Point3D coord)
-        {
-        }
+        /// <summary>Убирает вспомогательную геометрию, добавленную методом с именем <paramref name="searchMethod"/>.</summary>
+        public void HideGeometryObj(string searchMethod) => scene.Surface.Invoke(sceneController => sceneController.HideGeometryObj(searchMethod));
 
-        public void DisplayText2D(string str, Color color, Point2D coord)
-        {
-        }
+        // Сцена (SceneSurface) сама запрашивает кадр при изменении ModelView и при каждом действии над сценой.
+        public void RequestRedraw() => scene.Surface.Redraw();
 
-        public void DisplayDistance(Segment3D line)
-        {
-        }
+        public void FitObjectsToScreen() => scene.Surface.FitToScreen();
+
+        public void DisplayText3D(string str, Color color, Point3D coord) =>
+            scene.Surface.Invoke(sceneController => sceneController.DisplayText3D(str, color, coord));
+
+        public void DisplayText2D(string str, Color color, Point2D coord) =>
+            scene.Surface.Invoke(sceneController => sceneController.DisplayText2D(str, color, coord));
+
+        public void DisplayDistance(Segment3D line) =>
+            scene.Surface.Invoke(sceneController => sceneController.DisplayDistance(line));
+
+        public void DisplayLocalFrame(Frame frame) =>
+            scene.Surface.Invoke(sceneController => sceneController.DisplayLocalFrame(frame));
+
+        public void DisplayPath(Point3D[] points) =>
+            scene.Surface.Invoke(sceneController => sceneController.DisplayPath(points));
+
+        public void DisplayVector(Point3D length, Point3D posit, Color objColor) =>
+            scene.Surface.Invoke(sceneController => sceneController.DisplayVector(length, posit, objColor));
+
+        public void DisplaySpiral(Point3D p0, Point3D p1, Color objColor) =>
+            scene.Surface.Invoke(sceneController => sceneController.DisplaySpiral(p0, p1, objColor));
+
+        public void DisplayConus(float upperDiam, float bottomDiam, float length, Frame frame) =>
+            scene.Surface.Invoke(sceneController => sceneController.DisplayConus(upperDiam, bottomDiam, length, frame));
+
+        public void DisplaySphere(float width, Frame frame) =>
+            scene.Surface.Invoke(sceneController => sceneController.DisplaySphere(width, frame));
+
+        /// <summary>
+        /// Вспомогательный объект с собственной отрисовкой (в BaseForm — подписка на DisplayGeometryObjectEvent).
+        /// <paramref name="name"/> — ключ для <see cref="HideGeometryObj"/>.
+        /// </summary>
+        public void DisplayGeometryObject(string name, Action<IRenderContext> draw) =>
+            scene.Surface.Invoke(sceneController => sceneController.DisplayGeometryObject(name, draw));
 
         /// <summary>Тип объектов для выбора на сцене (в BaseForm хранится в кнопке btnSelect).</summary>
         public SelectionType SelectedObjects
         {
-            get => scene.SelectedObjectType.HasValue
-                ? Converters.ConvertObjTypeToSelectionType(scene.SelectedObjectType.Value)
+            get => scene.Surface.SelectedObjectType.HasValue
+                ? Converters.ConvertObjTypeToSelectionType(scene.Surface.SelectedObjectType.Value)
                 : SelectionType.Objects;
             set
             {
-                scene.SelectedObjectType = Converters.TryConvertSelectionTypeToObjType(value, out var objType) ? objType : null;
+                scene.Surface.SelectedObjectType = Converters.TryConvertSelectionTypeToObjType(value, out var objType) ? objType : null;
                 SetBackColorToAllObjects();
             }
         }
 
-        // Кнопки выбора типа объектов (btnSelect и objButtons) — часть сцены.
+        // Кнопки выбора типа объектов (btnSelect и objButtons) — часть сцены: список наборов SceneView
+        // перечитывается при показе проекта.
         public void PresentModelObjectsForSelection()
         {
         }
@@ -131,27 +253,72 @@ namespace BazisAvaloniaGUI.Shell
         }
 
         /// <summary>
+        /// Перенос части BaseForm.SetGeneralSettings и обработчиков настроек: цвет фона, освещение,
+        /// прозрачность отрисовки, проекция, положение и интенсивность источника света передаются сцене.
+        /// </summary>
+        /// <param name="applyProjection">
+        /// Проекция из настроек: в BaseForm она задаётся сцене только при смене в окне настроек,
+        /// при запуске сцена открывается в перспективной проекции.
+        /// </param>
+        /// <param name="applyLight">
+        /// Положение и интенсивность источника света: в BaseForm тоже задаются только при смене в окне
+        /// настроек, при запуске действует освещение OpenGL по умолчанию (без затухания).
+        /// </param>
+        private void ApplySceneSettings(bool applyProjection = false, bool applyLight = false)
+        {
+            var config = settingsConfig;
+            scene.Surface.Invoke(sceneController =>
+            {
+                sceneController.BackGroundColor = config.BackGroundColor;
+                sceneController.IsLighting = config.Lighting;
+                if (sceneController.AverageColorRenderer != null)
+                    sceneController.AverageColorRenderer.IsEnable = config.Transparency;
+                if (applyProjection)
+                    sceneController.Projection = config.Projection;
+                sceneController.UpdateProjection();
+                if (applyLight)
+                {
+                    sceneController.LightTranslateX = config.LighterPosition.X;
+                    sceneController.LightTranslateY = config.LighterPosition.Y;
+                    GL.Light(LightName.Light0, LightParameter.LinearAttenuation, 1 - config.LightingIntensity / 100.0f);
+                }
+            });
+        }
+
+        /// <summary>
         /// Реакция оболочки на выбор, выполненный сценой: та часть SelectByPoint/SelectByRect из BaseForm,
         /// которая выводит сообщение в консоль и свойства объекта в панель.
         /// </summary>
-        private void scene_SelectionApplied(int count, bool isSelected)
+        private void scene_SelectionApplied(SceneSelectionResult result)
         {
             try
             {
-                var selected = project?.ModelView.GetSelection().Take(2).ToList();
-                if (count == 1 && selected?.Count == 1)
+                if (project == null)
+                    return;
+
+                ApplySelectionColor();
+                if (result.IsPoint)
                 {
-                    var setInfo = project.GetModelSetInfo(selected[0].ObjType, selected[0].Number);
-                    console.PrintInfo($"{Resources.SelectByPoint_ObjectSelected_Message} : {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(selected[0].ObjType))} {selected[0].Number}", Color.Black);
-                    CreateObjectProperties(setInfo, selected[0].Number);
+                    // BaseForm.SelectObjects(Point2D): без попадания ничего не выводится.
+                    if (result.Type is not { } type)
+                        return;
+
+                    if (IsAdvancedSelectionOpened)
+                        DispatchSelection([result.Number], result.IsSelected);
+                    else
+                    {
+                        var setInfo = project.GetModelSetInfo(type, result.Number);
+                        console.PrintInfo($"{Resources.SelectByPoint_ObjectSelected_Message} : {Localization.Localization.GetSelectionTypeLocalization(Converters.ConvertObjTypeToSelectionType(type))} {result.Number}", Color.Black);
+                        CreateObjectProperties(setInfo, result.Number);
+                    }
                 }
                 else
                 {
-                    var objStr = Declination(count);
-                    if (isSelected)
-                        console.PrintInfo($"{Resources.SelectByRect_Selected_Message} {count} {objStr}", Color.Black);
+                    var objStr = Declination(result.Count);
+                    if (result.IsSelected)
+                        console.PrintInfo($"{Resources.SelectByRect_Selected_Message} {result.Count} {objStr}", Color.Black);
                     else
-                        console.PrintInfo($"{Resources.SelectByRect_Hidden_Message} {count} {objStr}", Color.Black);
+                        console.PrintInfo($"{Resources.SelectByRect_Hidden_Message} {result.Count} {objStr}", Color.Black);
                 }
 
                 // В BaseForm вызывается из SelectObjects (SceneEvents.cs) после выбора точкой или рамкой.
@@ -161,6 +328,21 @@ namespace BazisAvaloniaGUI.Shell
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        /// <summary>Группа создана из выделения на сцене (контекстное меню) — BaseForm.создатьГруппуItem_Click.</summary>
+        private void scene_GroupCreated(IGroup group)
+        {
+            PresentGroupDataOnTree();
+            OnGroupCreated?.Invoke(group.ObjType, group.Number, group.Name);
+        }
+
+        /// <summary>Выделенные объекты удалены со сцены — BaseForm.menuItem_DeleteSelectedObjects_Click.</summary>
+        private void scene_ObjectsRemoved()
+        {
+            PresentMeshData();
+            PresentGroupDataOnTree();
+            PresentCondDataOnTree();
         }
     }
 }

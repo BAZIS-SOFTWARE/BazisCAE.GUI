@@ -3,15 +3,16 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
+using BazisAvaloniaGUI.Localization;
 using BazisGUI.Scene.Interfaces;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using OperationalController;
 
-namespace BazisAvaloniaGUI;
+namespace BazisAvaloniaGUI.Scene;
 
-/// <summary>Пункт выпадающего списка наборов: подпись набора.</summary>
-internal sealed record SetButton(string Title);
+/// <summary>Пункт выпадающего списка наборов: тип объектов (null — все объекты) и его подпись.</summary>
+internal sealed record SetButton(ObjType? Type, string Title);
 
 /// <summary>
 /// Представление сцены: разметка — SceneView.axaml, содержимое — SceneSurface.
@@ -20,9 +21,6 @@ internal sealed record SetButton(string Title);
 /// </summary>
 internal partial class SceneView : UserControl
 {
-    /// <summary>Подпись пункта «фильтр не задан» — показывает все объекты.</summary>
-    private const string AllObjectsTitle = "Все объекты";
-
     private readonly ObservableCollection<SetButton> setButtons = new();
 
     /// <summary>Признак перестройки списка: чтобы программная смена выбора не трогала сцену.</summary>
@@ -61,12 +59,12 @@ internal partial class SceneView : UserControl
         try
         {
             setButtons.Clear();
-            setButtons.Add(new SetButton(AllObjectsTitle));
+            setButtons.Add(new SetButton(null, SceneViewLocalization.ObjectType(null)));
             foreach (var set in project.GetAllModelSetsInfo()
                                         .Where(v => v.NumberOfObjects > 0)
                                         .Select(v => v.ObjType)
                                         .Distinct())
-                setButtons.Add(new SetButton(set.ToString()));
+                setButtons.Add(new SetButton(set, SceneViewLocalization.ObjectType(set)));
 
             // Выбор по умолчанию — «Все объекты».
             SetsCombo.SelectedIndex = 0;
@@ -94,13 +92,7 @@ internal partial class SceneView : UserControl
         if (isUpdatingSets || SetsCombo.SelectedItem is not SetButton item)
             return;
 
-        if (item.Title == AllObjectsTitle)
-        {
-            Surface.SelectedObjectType = null;
-            return;
-        }
-
-        Surface.SelectedObjectType = (ObjType)Enum.Parse(typeof(ObjType), item.Title);
+        Surface.SelectedObjectType = item.Type;
     }
 
     private void OnViewChangeClick(object? sender, RoutedEventArgs e)
@@ -222,6 +214,11 @@ internal partial class SceneView : UserControl
         if (sender is ToggleButton button)
             Surface.SetContoursVisible(button.IsChecked == true);
     }
+
+    /// <summary>Кнопка дополнительного выбора (btnAdvSelection): окно режимов выбора открывает оболочка.</summary>
+    public event Action? AdvancedSelectionRequested;
+
+    private void OnAdvSelectClick(object? sender, RoutedEventArgs e) => AdvancedSelectionRequested?.Invoke();
 
     /// <summary>Пункт контекстного меню «Create a new group»: создать группу из выделенного.</summary>
     private void OnCreateGroup(object? sender, RoutedEventArgs e) => Surface.CreateGroupFromSelection();

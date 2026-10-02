@@ -6,6 +6,7 @@ using Avalonia.OpenGL;
 using Avalonia.OpenGL.Controls;
 using Avalonia.Rendering;
 using Avalonia.Threading;
+using BazisAvaloniaGUI.Localization;
 using BazisGUI.Scene.Core;
 using BazisGUI.Scene.Core.Capture;
 using BazisGUI.Scene.Core.Input;
@@ -18,22 +19,32 @@ using OpenTK.Graphics.OpenGL;
 using OperationalController;
 using OperationalController.ModelScenePresentator;
 using System.Collections.Concurrent;
+using DrawingColor = System.Drawing.Color;
 
-namespace BazisAvaloniaGUI;
+namespace BazisAvaloniaGUI.Scene;
 
 /// <summary>
 /// OpenGL-поверхность сцены: рендер, ввод (мышь/клавиатура) и выбор объектов.
 /// Разметки нет — OpenGlControlBase рисуется кодом; контейнер/представление — SceneView.axaml.
 /// </summary>
+/// <remarks>
+/// Всё, что меняет содержимое сцены (буферы наборов, текст, вспомогательная геометрия, плоскости),
+/// ставится в одну очередь <see cref="Invoke"/> и выполняется в OnOpenGlRender, где GL-контекст текущий.
+/// Единая очередь сохраняет порядок вызовов, как в BaseForm, где всё выполнялось синхронно.
+/// </remarks>
 internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 {
+    // Как в BaseForm.ModelView_Changed: что требует пересборки буфера, а что — только перекраски.
+    private const ModelViewChange RebuildChanges = ModelViewChange.Visibility | ModelViewChange.InsideSurfaces | ModelViewChange.ViewMode;
+    private const ModelViewChange ColorChanges = ModelViewChange.Selection | ModelViewChange.SetColor | ModelViewChange.ObjectColor | ModelViewChange.SelectionColor | ModelViewChange.Transparency;
+
     private readonly SceneProjectPresenter presenter = new();
     private readonly SceneSelection selection = new();
-    private readonly HashSet<ISetInfo> changedSets = new(ReferenceEqualityComparer.Instance);
-    private readonly ConcurrentQueue<IObjsPresenter> customObjects = new();
+    private readonly ConcurrentQueue<Action<SceneController>> sceneActions = new();
+    private readonly ConcurrentQueue<TaskCompletionSource<byte[]>> frameCaptures = new();
     private SceneController? controller;
     private ProjectController? project;
-    private bool projectNeedsDisplay;
+    private bool wasInitialized;
     private int width;
     private int height;
     private SceneMouseButton pressedButton;
@@ -55,7 +66,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     private bool rotatePointRequested;
 
     public event EventHandler<Exception>? ProjectDisplayFailed;
-    public event Action<int, bool>? SelectionApplied;
+    public event Action<SceneSelectionResult>? SelectionApplied;
 
     /// <summary>Сцена сбросила выделение (Esc) — UI возвращает фильтр наборов на «Все объекты».</summary>
     public event Action? SelectionReset;
@@ -63,7 +74,31 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     /// <summary>Сцена получила проект — UI может перечитать его наборы.</summary>
     public event Action<ProjectController>? ProjectShown;
 
-    public ObjType? SelectedObjectType { get; set; }
+    /// <summary>Из выделения создана группа (пункт контекстного меню) — оболочка обновляет дерево групп.</summary>
+    public event Action<IGroup>? GroupCreated;
+
+    /// <summary>Выделенные объекты удалены (пункт контекстного меню) — оболочка обновляет дерево.</summary>
+    public event Action? ObjectsRemoved;
+
+    /// <summary>Сообщение для консоли окна (снимок экрана, результат операции и т.п.).</summary>
+    public event Action<string, DrawingColor>? MessageReported;
+
+    /// <summary>Тип объектов для выбора; null — «Объекты» (все наборы).</summary>
+    public ObjType? SelectedObjectType
+    {
+        get => selectedObjectType;
+        set
+        {
+            if (selectedObjectType == value)
+                return;
+            selectedObjectType = value;
+            SelectedObjectTypeChanged?.Invoke(value);
+        }
+    }
+    private ObjType? selectedObjectType;
+
+    /// <summary>Сменился тип объектов для выбора (BaseForm.OnChangeSelectedObjectsEvent).</summary>
+    public event Action<ObjType?>? SelectedObjectTypeChanged;
 
     public bool HideInsideSurfaces
     {
@@ -84,33 +119,67 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     public bool DisplayBasis
     {
         get => controller?.DisplayBasis ?? false;
-        set
-        {
-            if (controller == null)
-                return;
-
-            controller.DisplayBasis = value;
-            RequestNextFrameRendering();
-        }
+        set => Invoke(scene => scene.DisplayBasis = value);
     }
 
-    /// <summary>Сообщение для строки состояния окна (снимок экрана и т.п.).</summary>
-    public event Action<string>? MessageReported;
+    /// <summary>
+    /// Выполняет действие над контроллером сцены на ближайшем кадре, когда GL-контекст текущий,
+    /// и запрашивает этот кадр. Можно вызывать из любого потока.
+    /// </summary>
+    public void Invoke(Action<SceneController> action)
+    {
+        sceneActions.Enqueue(action);
+        Redraw();
+    }
+
+    /// <summary>
+    /// Как <see cref="Invoke"/>, но возвращает результат действия, когда оно выполнится на ближайшем кадре.
+    /// </summary>
+    public Task<T> InvokeAsync<T>(Func<SceneController, T> func)
+    {
+        var completion = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
+        Invoke(scene =>
+        {
+            try
+            {
+                completion.SetResult(func(scene));
+            }
+            catch (Exception error)
+            {
+                completion.SetException(error);
+            }
+        });
+        return completion.Task;
+    }
+
+    /// <summary>
+    /// Снимает в PNG кадр, нарисованный после выполнения всех ранее поставленных действий
+    /// (в BaseForm — RenderNow + CreateScreenShot).
+    /// </summary>
+    public Task<byte[]> CaptureFrameAsync()
+    {
+        var completion = new TaskCompletionSource<byte[]>(TaskCreationOptions.RunContinuationsAsynchronously);
+        frameCaptures.Enqueue(completion);
+        Redraw();
+        return completion.Task;
+    }
+
+    /// <summary>Запрашивает перерисовку сцены (BaseForm.RequestRedraw). Можно вызывать из любого потока.</summary>
+    public void Redraw()
+    {
+        if (Dispatcher.UIThread.CheckAccess())
+            RequestNextFrameRendering();
+        else
+            Dispatcher.UIThread.Post(RequestNextFrameRendering);
+    }
 
     /// <summary>Вписывает объекты модели в окно сцены.</summary>
-    public void FitToScreen()
-    {
-        if (controller == null)
-            return;
-
-        controller.FitObjectsToScreen();
-        RequestNextFrameRendering();
-    }
+    public void FitToScreen() => Invoke(scene => scene.FitObjectsToScreen());
 
     /// <summary>Задаёт режим отображения (стороны / рёбра / стороны+рёбра) для наборов поверхностей и элементов.</summary>
     public void SetViewMode(ViewMode mode)
     {
-        if (controller == null || project == null)
+        if (project == null)
             return;
 
         var modelView = project.ModelView;
@@ -121,41 +190,63 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
                     modelView.SetViewMode(set, mode);
         }
 
-        RequestNextFrameRendering();
+        Redraw();
     }
 
     /// <summary>Показывает или скрывает контуры модели (граничные рёбра), как кнопка «Контуры» в WinForms.</summary>
     public void SetContoursVisible(bool visible)
     {
-        if (controller == null || project == null)
+        if (project == null)
             return;
-        Task.Run(()=> 
+
+        var currentProject = project;
+        Task.Run(() =>
         {
             var edges = new List<ILineObject<Model.MeshObjects.Node>>();
             if (visible)
             {
-                var nodes = project.FindBoundaryEdges();
-                var newEdges = project.CreateBoundaryEdges(nodes);
-                edges.AddRange(newEdges);
+                var nodes = currentProject.FindBoundaryEdges();
+                edges.AddRange(currentProject.CreateBoundaryEdges(nodes));
             }
-            var linePresenter = new PresentersCreator().CreateLineObjectsPresenter(edges.ToList(), System.Drawing.Color.DarkGray);
+            var linePresenter = new PresentersCreator().CreateLineObjectsPresenter(edges.ToList(), DrawingColor.DarkGray);
             linePresenter.Name = "Boundary";
 
-            Dispatcher.UIThread.Post(() => {
-                customObjects.Enqueue(linePresenter); 
-                RequestNextFrameRendering();
-            });
+            AddPresenter(linePresenter);
         });
     }
+
+    /// <summary>
+    /// Добавляет на сцену буфер, построенный по представлению вне наборов модели
+    /// (точки сетки на кривых, поле результатов, сечение и т.п.), заменяя буфер с тем же именем.
+    /// </summary>
+    public void AddPresenter(IObjsPresenter objsPresenter) => Invoke(scene => presenter.Refresh(scene, objsPresenter));
+
+    /// <summary>Удаляет буфер по имени (BaseForm.VBOController.DeleteVBObjects).</summary>
+    public void DeleteObjects(string name) => Invoke(scene => scene.VboController.DeleteVBObjects(name));
+
+    /// <summary>Удаляет все буферы сцены (BaseForm.VBOController.DeleteAllVBObjects).</summary>
+    public void DeleteAllObjects() => Invoke(scene => scene.VboController.DeleteAllVBObjects());
+
+    /// <summary>Пересоздаёт буферы наборов модели (BaseForm.CreateVBObjsByObjsType для перечисленных наборов).</summary>
+    public void RefreshSets(IEnumerable<ISetInfo> sets)
+    {
+        var setList = sets.ToList();
+        Invoke(scene =>
+        {
+            if (project != null)
+                presenter.Refresh(project, scene, setList);
+        });
+    }
+
+    /// <summary>Обновляет цвета или координаты существующего буфера (BaseForm.SetVBObjectAttribute).</summary>
+    public void SetAttribute(IObjsPresenter objsPresenter, string attribName) =>
+        Invoke(scene => presenter.SetAttribute(scene, objsPresenter, attribName));
 
     /// <summary>Просит снять текущий кадр в PNG: снимок делается сразу после ближайшей отрисовки.</summary>
     public void RequestScreenShot()
     {
-        if (controller == null)
-            return;
-
         captureRequested = true;
-        RequestNextFrameRendering();
+        Redraw();
     }
 
     /// <summary>
@@ -169,10 +260,17 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
         try
         {
+            // Как в WinForms: группа создаётся только из объектов одного типа (не «Объекты»).
+            if (SelectedObjectType == null)
+            {
+                MessageReported?.Invoke($"{Localization.Resources.SceneEvents_CreateGroup_InvalidGroupTypeWarning}: {SceneViewLocalization.ObjectType(null)}", DrawingColor.Orange);
+                return;
+            }
+
             var selected = project.ModelView.GetSelection().ToList();
             if (selected.Count == 0)
             {
-                MessageReported?.Invoke("Группа не создана: не выбрано ни одного объекта");
+                MessageReported?.Invoke(Localization.Resources.SceneView_CreateGroup_NothingSelected_Message, DrawingColor.Black);
                 return;
             }
 
@@ -180,14 +278,15 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
             // Как в WinForms: только что созданную группу берём последней в списке.
             var group = project.GetAllModelGroups().Last();
-            MessageReported?.Invoke($"Создана группа: {group.Name}");
+            MessageReported?.Invoke($"{Localization.Resources.SceneEvents_CreateGroup_SuccessCaption}: {group.Name}", DrawingColor.Black);
+            GroupCreated?.Invoke(group);
         }
         catch (Exception error)
         {
-            MessageReported?.Invoke(error.Message);
+            MessageReported?.Invoke(error.Message, DrawingColor.Red);
         }
     }
-    
+
     /// <summary>
     /// Скрывает выделенные объекты и снимает с них выделение — порт пункта «Скрыть выбранное»
     /// контекстного меню (WinForms BaseForm.скрытьВыбранноеItem_Click).
@@ -204,7 +303,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         }
         catch (Exception error)
         {
-            MessageReported?.Invoke(error.Message);
+            MessageReported?.Invoke(error.Message, DrawingColor.Red);
         }
     }
 
@@ -224,14 +323,13 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         }
         catch (Exception error)
         {
-            MessageReported?.Invoke(error.Message);
+            MessageReported?.Invoke(error.Message, DrawingColor.Red);
         }
     }
 
     /// <summary>
-    /// Показывает сведения о выделенных объектах — порт пункта «Выбранные объекты» контекстного меню
-    /// (WinForms BaseForm.menuItem_InfoSelectedObjects_Click). В WinForms список уходит в консоль,
-    /// здесь — одной строкой в строку состояния.
+    /// Выводит в консоль сведения о выделенных объектах — порт пункта «Выбранные объекты» контекстного меню
+    /// (WinForms BaseForm.menuItem_InfoSelectedObjects_Click).
     /// </summary>
     public void SelectedObjects()
     {
@@ -241,15 +339,15 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         try
         {
             var selected = project.ModelView.GetSelection().ToList();
-            var type = SelectedObjectType?.ToString() ?? "Все объекты";
-            var numbers = string.Join(", ", selected.Select(x => x.ToString()));
-            MessageReported?.Invoke(selected.Count == 0
-                ? $"Объекты выбраны {type}: 0"
-                : $"Объекты выбраны {type}: {selected.Count} — {numbers}");
+            var type = SceneViewLocalization.ObjectType(SelectedObjectType);
+            var message = $"{Localization.Resources.SceneEvents_Info_Selected} {type}: {selected.Count}";
+            if (selected.Count > 0)
+                message += "\n" + string.Join("\n", selected.Select(x => x.ToString()));
+            MessageReported?.Invoke(message, DrawingColor.Black);
         }
         catch (Exception error)
         {
-            MessageReported?.Invoke(error.Message);
+            MessageReported?.Invoke(error.Message, DrawingColor.Red);
         }
     }
 
@@ -260,7 +358,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     public void RotationPointRequest()
     {
         rotatePointRequested = true;
-        RequestNextFrameRendering();
+        Redraw();
     }
 
     private void SetRotationPoint()
@@ -307,26 +405,57 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
             }
             catch (Exception error)
             {
-                Dispatcher.UIThread.Post(() => MessageReported?.Invoke(error.Message));
+                Dispatcher.UIThread.Post(() => MessageReported?.Invoke(error.Message, DrawingColor.Red));
             }
         }
     }
 
     /// <summary>
-    /// Делает видимыми смежные (сопряжённые) объекты для выделенных — порт пункта «Показать сопряжённые»
-    /// контекстного меню (WinForms BaseForm.показатьСопряженныеItem_Click).
+    /// Делает видимыми смежные (сопряжённые) геометрические объекты для выделенных — порт пункта
+    /// «Показать сопряжённые» контекстного меню (WinForms BaseForm.показатьСопряженныеItem_Click).
     /// ModelView.SetVisible поднимает Changed, поэтому перестройку VBO делает подписка OnModelViewChanged.
     /// </summary>
     public void ShowPaired()
     {
-        //Не работает: Нужно реализовывать
+        if (project == null)
+            return;
+
+        try
+        {
+            var selected = project.ModelView.GetSelection().ToList();
+            using (project.ModelView.BeginUpdate())
+            {
+                foreach (var item in selected)
+                {
+                    var (upperNumbers, lowerNumbers) = project.GetAdjacentGeometryObjects(item.Dim, item.Number);
+
+                    if (item.Dim > 0)
+                        ShowAdjacent((ObjType)(item.Dim - 1), lowerNumbers);
+
+                    if (item.Dim < 2)
+                        ShowAdjacent((ObjType)(item.Dim + 1), upperNumbers);
+                }
+            }
+        }
+        catch (Exception error)
+        {
+            MessageReported?.Invoke(error.Message, DrawingColor.Red);
+        }
+
+        void ShowAdjacent(ObjType type, IEnumerable<int> numbers)
+        {
+            foreach (var number in numbers)
+            {
+                var obj = project.GetModelObject(type, number);
+                project.ModelView.SetVisible(obj.ObjType, [obj.Number], true);
+            }
+        }
     }
 
     /// <summary>
     /// Удаляет выделенные объекты модели — порт пункта «Удалить выбранное» контекстного меню
     /// (WinForms BaseForm.menuItem_DeleteSelectedObjects_Click).
-    /// Геометрию со сцены не удаляем (в WinForms — только через дерево). Пересборка VBO затронутых
-    /// наборов идёт в потоке рендера (OnOpenGlRender) через changedSets — VBO требует GL-контекста.
+    /// Геометрию со сцены не удаляем (в WinForms — только через дерево).
     /// </summary>
     public void RemoveSelected()
     {
@@ -357,15 +486,14 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
             project.ClearNotExistedModelData();
 
-            foreach (var set in affectedSets.Distinct())
-                changedSets.Add(set);
-            RequestNextFrameRendering();
+            RefreshSets(affectedSets.Distinct());
 
-            MessageReported?.Invoke($"Удалено объектов: {selected.Count}");
+            MessageReported?.Invoke($"{Localization.Resources.SceneView_RemoveSelected_Message}: {selected.Count}", DrawingColor.Black);
+            ObjectsRemoved?.Invoke();
         }
         catch (Exception error)
         {
-            MessageReported?.Invoke(error.Message);
+            MessageReported?.Invoke(error.Message, DrawingColor.Red);
         }
     }
 
@@ -379,24 +507,28 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
             this.project.ModelView.Changed -= OnModelViewChanged;
         this.project = project;
         project.ModelView.Changed += OnModelViewChanged;
-        changedSets.Clear();
-        projectNeedsDisplay = true;
-        RequestNextFrameRendering();
+        Invoke(scene => presenter.Display(project, scene, fitToScreen: true));
         ProjectShown?.Invoke(project);
+    }
+
+    /// <summary>
+    /// Пересоздаёт буферы всех наборов модели, сохраняя камеру (BaseForm: DeleteAllVBObjects + CreateVBObjects("Объекты")).
+    /// Буферы вне модели (поля результатов, сечения) при этом удаляются, как и в BaseForm.
+    /// </summary>
+    public void RefreshProject()
+    {
+        Invoke(scene =>
+        {
+            if (project != null)
+                presenter.Display(project, scene, fitToScreen: false);
+        });
     }
 
     /// <summary>
     /// Выравнивает камеру по координатной плоскости (XY/XZ/YZ) и запрашивает перерисовку.
     /// Масштаб сохраняется: SceneController.PlaneObjs берёт текущий ScaleFactor камеры.
     /// </summary>
-    public void SetPlane(ViewPlane plane)
-    {
-        if (controller == null)
-            return;
-
-        controller.PlaneObjs(plane);
-        RequestNextFrameRendering();
-    }
+    public void SetPlane(ViewPlane plane) => Invoke(scene => scene.PlaneObjs(plane));
 
     /// <summary>
     /// Задаёт ось вращения для протягивания мышью: X/Y/Z — только вокруг этой оси, XYZ — свободный поворот.
@@ -413,21 +545,33 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     /// <summary>
     /// Разовый поворот сцены на заданный угол вокруг оси (кнопки поворота на 90°) с перерисовкой.
     /// </summary>
-    public void RotateBy(ViewAxis axis, float angle)
-    {
-        if (controller == null)
-            return;
+    public void RotateBy(ViewAxis axis, float angle) => Invoke(scene => scene.RotateObjs(axis, angle));
 
-        controller.RotateObjs(axis, angle);
-        RequestNextFrameRendering();
-    }
-
-    /// <summary>Ставит изменённые наборы в очередь обновления на следующем кадре OpenGL.</summary>
+    /// <summary>
+    /// Ставит изменённые наборы в очередь обновления на следующем кадре OpenGL
+    /// (BaseForm.ModelView_Changed: пересборка или только перекраска буфера).
+    /// </summary>
     private void OnModelViewChanged(object? sender, ModelViewChangedEventArgs e)
     {
+        var rebuild = new List<ISetInfo>();
+        var recolor = new List<ISetInfo>();
         foreach (var set in e.GetChangedSets())
-            changedSets.Add(set);
-        RequestNextFrameRendering();
+        {
+            if (e.HasAny(set, RebuildChanges))
+                rebuild.Add(set);
+            else if (e.HasAny(set, ColorChanges))
+                recolor.Add(set);
+        }
+
+        var changedProject = sender as IModelView;
+        Invoke(scene =>
+        {
+            if (project == null || !ReferenceEquals(changedProject, project.ModelView))
+                return;
+
+            presenter.Refresh(project, scene, rebuild);
+            presenter.Recolor(project, scene, recolor);
+        });
     }
 
     protected override void OnOpenGlInit(GlInterface gl)
@@ -439,7 +583,15 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         controller.RenderRequested += RequestRendering;
         controller.SelectionChanged += OnSelectionChanged;
         controller.Initialization();
-        projectNeedsDisplay = project != null;
+        width = height = 0;
+
+        // Контекст пересоздан (например, панель сцены переподключена) — буферы прежнего контекста потеряны.
+        if (wasInitialized && project != null)
+        {
+            var currentProject = project;
+            sceneActions.Enqueue(scene => presenter.Display(currentProject, scene, fitToScreen: false));
+        }
+        wasInitialized = true;
     }
 
     protected override void OnOpenGlRender(GlInterface gl, int fb)
@@ -457,33 +609,17 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
             controller.Resize(width, height);
         }
 
-        if (projectNeedsDisplay && project != null)
+        while (sceneActions.TryDequeue(out var action))
         {
-            projectNeedsDisplay = false;
             try
             {
-                presenter.Display(project, controller);
-                changedSets.Clear();
+                action(controller);
             }
             catch (Exception error)
             {
                 Dispatcher.UIThread.Post(() => ProjectDisplayFailed?.Invoke(this, error));
             }
         }
-        else if (changedSets.Count > 0 && project != null)
-        {
-            try
-            {
-                presenter.Refresh(project, controller, changedSets);
-                changedSets.Clear();
-            }
-            catch (Exception error)
-            {
-                Dispatcher.UIThread.Post(() => ProjectDisplayFailed?.Invoke(this, error));
-            }
-        }
-        while (customObjects.TryDequeue(out var objs))
-            presenter.Refresh(controller, objs);
 
         SetRotationPoint();
 
@@ -493,6 +629,18 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         {
             captureRequested = false;
             CaptureScreenShot();
+        }
+
+        while (frameCaptures.TryDequeue(out var capture))
+        {
+            try
+            {
+                capture.SetResult(controller.CaptureScreenshot(new GlFrameGrabber()));
+            }
+            catch (Exception error)
+            {
+                capture.SetException(error);
+            }
         }
     }
 
@@ -507,7 +655,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
             var png = controller.CaptureScreenshot(new GlFrameGrabber());
             var path = Path.Combine(AppContext.BaseDirectory, "screenShot.png");
             File.WriteAllBytes(path, png);
-            Dispatcher.UIThread.Post(() => MessageReported?.Invoke($"Снимок экрана сохранён: {path}"));
+            Dispatcher.UIThread.Post(() => MessageReported?.Invoke($"{Localization.Resources.MakeScreenShot_ScreenShotTaken_Message}: {path}", DrawingColor.Black));
         }
         catch (Exception error)
         {
@@ -676,26 +824,32 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     }
 
     /// <summary>
-    /// Снимает выделение со всех объектов — порт ветки Escape из WinForms BaseForm.GlControl_KeyDown.
-    /// Перерисовку/пересборку наборов выполняет подписка OnModelViewChanged.
+    /// Порт ветки Escape из WinForms BaseForm.GlControl_KeyDown: убирает вспомогательную геометрию
+    /// и текст и снимает выделение со всех объектов. Пересборку наборов выполняет подписка OnModelViewChanged.
     /// </summary>
     private void ClearSelection()
     {
-        if (project == null)
-            return;
+        Invoke(scene =>
+        {
+            scene.HideAllGeometryObjs();
+            scene.HideDisplayText2D();
+            scene.HideDisplayText3D();
+        });
 
-        try
+        if (project != null)
         {
-            using (project.ModelView.BeginUpdate())
-                project.ModelView.ClearSelection();
-        }
-        catch (Exception error)
-        {
-            MessageReported?.Invoke(error.Message);
+            try
+            {
+                using (project.ModelView.BeginUpdate())
+                    project.ModelView.ClearSelection();
+            }
+            catch (Exception error)
+            {
+                MessageReported?.Invoke(error.Message, DrawingColor.Red);
+            }
         }
 
         SelectionReset?.Invoke();
-        RequestNextFrameRendering();
     }
 
     private void RequestRendering()
@@ -711,8 +865,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
         try
         {
-            var count = selection.Apply(project, controller, SelectedObjectType, e);
-            SelectionApplied?.Invoke(count, e.IsSelected);
+            SelectionApplied?.Invoke(selection.Apply(project, controller, SelectedObjectType, e));
         }
         catch (Exception error)
         {
