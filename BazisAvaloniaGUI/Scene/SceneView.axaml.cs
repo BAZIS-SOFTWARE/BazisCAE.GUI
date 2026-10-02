@@ -213,4 +213,25 @@ internal partial class SceneView : UserControl
         if (sender is ToggleButton button)
             Surface.SetContoursVisible(button.IsChecked == true);
     }
+
+    /// <summary>Пункт контекстного меню «Create a new group»: создать группу из выделенного.</summary>
+    private void OnCreateGroup(object? sender, RoutedEventArgs e) => Surface.CreateGroupFromSelection();
+
+    /// <summary>Пункт контекстного меню «Hide selected»: скрыть выделенные объекты.</summary>
+    private void OnHideSelected(object? sender, RoutedEventArgs e) => Surface.HideSelected();
+
+    /// <summary>Пункт контекстного меню «Show all hidden»: показать все скрытые объекты.</summary>
+    private void OnShowHidden(object? sender, RoutedEventArgs e) => Surface.ShowHidden();
+
+    /// <summary>Пункт контекстного меню «Selected objects»: сведения о выделенных объектах.</summary>
+    private void OnSelectedObjects(object? sender, RoutedEventArgs e) => Surface.SelectedObjects();
+
+    /// <summary>Пункт контекстного меню «Set rotation point»: центр вращения по точке под курсором.</summary>
+    private void OnSetRotationPoint(object? sender, RoutedEventArgs e) => Surface.RotationPointRequest();
+
+    /// <summary>Пункт контекстного меню «Show paired»: показать смежные объекты выделенных.</summary>
+    private void OnShowPaired(object? sender, RoutedEventArgs e) => Surface.ShowPaired();
+
+    /// <summary>Пункт контекстного меню «Remove selected»: удалить выделенные объекты модели.</summary>
+    private void OnRemoveSelected(object? sender, RoutedEventArgs e) => Surface.RemoveSelected();
 }

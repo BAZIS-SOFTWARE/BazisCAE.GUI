@@ -41,11 +41,18 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     /// <summary>Позиция нажатия правой кнопки — нужна, чтобы отличить клик от перетаскивания сцены.</summary>
     private Point rightPressPosition;
 
+    /// <summary>Последняя позиция указателя на поверхности (DIP) — аналог WinForms ScreenMousePosition.</summary>
+    private Point lastPointerPosition;
+
     /// <summary>Смещение (в пикселях), после которого движение считается перетаскиванием, а не дрожанием.</summary>
     private const double RightButtonDragThreshold = 4;
 
     /// <summary>Снимок экрана делается сразу после ближайшей отрисовки — из обработчика кнопки буфер ещё пуст.</summary>
     private bool captureRequested;
+    /// <summary>
+    /// Запрошена смена точки поворота
+    /// </summary>
+    private bool rotatePointRequested;
 
     public event EventHandler<Exception>? ProjectDisplayFailed;
     public event Action<int, bool>? SelectionApplied;
@@ -146,6 +153,217 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
         captureRequested = true;
         RequestNextFrameRendering();
+    }
+
+    /// <summary>
+    /// Создаёт группу из текущего выделения сцены — порт пункта «Создать новую группу»
+    /// контекстного меню (WinForms BaseForm.создатьГруппуItem_Click).
+    /// </summary>
+    public void CreateGroupFromSelection()
+    {
+        if (project == null)
+            return;
+
+        try
+        {
+            var selected = project.ModelView.GetSelection().ToList();
+            if (selected.Count == 0)
+            {
+                MessageReported?.Invoke("Группа не создана: не выбрано ни одного объекта");
+                return;
+            }
+
+            project.CreateGroup(selected);
+
+            // Как в WinForms: только что созданную группу берём последней в списке.
+            var group = project.GetAllModelGroups().Last();
+            MessageReported?.Invoke($"Создана группа: {group.Name}");
+        }
+        catch (Exception error)
+        {
+            MessageReported?.Invoke(error.Message);
+        }
+    }
+    
+    /// <summary>
+    /// Скрывает выделенные объекты и снимает с них выделение — порт пункта «Скрыть выбранное»
+    /// контекстного меню (WinForms BaseForm.скрытьВыбранноеItem_Click).
+    /// ModelView.HideSelected поднимает Changed, поэтому перестройку VBO делает подписка OnModelViewChanged.
+    /// </summary>
+    public void HideSelected()
+    {
+        if (project == null)
+            return;
+
+        try
+        {
+            project.ModelView.HideSelected();
+        }
+        catch (Exception error)
+        {
+            MessageReported?.Invoke(error.Message);
+        }
+    }
+
+    /// <summary>
+    /// Показывает все скрытые объекты — порт пункта «Показать все скрытые» контекстного меню
+    /// (WinForms BaseForm.показатьСкрытыеItem_Click).
+    /// ModelView.ShowAll поднимает Changed, поэтому перестройку VBO делает подписка OnModelViewChanged.
+    /// </summary>
+    public void ShowHidden()
+    {
+        if (project == null)
+            return;
+
+        try
+        {
+            project.ModelView.ShowAll();
+        }
+        catch (Exception error)
+        {
+            MessageReported?.Invoke(error.Message);
+        }
+    }
+
+    /// <summary>
+    /// Показывает сведения о выделенных объектах — порт пункта «Выбранные объекты» контекстного меню
+    /// (WinForms BaseForm.menuItem_InfoSelectedObjects_Click). В WinForms список уходит в консоль,
+    /// здесь — одной строкой в строку состояния.
+    /// </summary>
+    public void SelectedObjects()
+    {
+        if (project == null)
+            return;
+
+        try
+        {
+            var selected = project.ModelView.GetSelection().ToList();
+            var type = SelectedObjectType?.ToString() ?? "Все объекты";
+            var numbers = string.Join(", ", selected.Select(x => x.ToString()));
+            MessageReported?.Invoke(selected.Count == 0
+                ? $"Объекты выбраны {type}: 0"
+                : $"Объекты выбраны {type}: {selected.Count} — {numbers}");
+        }
+        catch (Exception error)
+        {
+            MessageReported?.Invoke(error.Message);
+        }
+    }
+
+    /// <summary>
+    /// Задаёт точку вращения камеры по ближайшей к камере вершине под курсором — порт пункта
+    /// «Задать точку вращения» контекстного меню (WinForms BaseForm.menuItem_SetRotPoint_Click).
+    /// </summary>
+    public void RotationPointRequest()
+    {
+        rotatePointRequested = true;
+        RequestNextFrameRendering();
+    }
+
+    private void SetRotationPoint()
+    {
+        if(rotatePointRequested)
+        {
+            rotatePointRequested = false;
+            if (controller == null || width == 0 || height == 0)
+                return;
+
+            try
+            {
+                var scaling = TopLevel.GetTopLevel(this)?.RenderScaling ?? 1;
+                var mouseX = lastPointerPosition.X * scaling;
+                var mouseY = lastPointerPosition.Y * scaling;
+                var left = (int)(mouseX - width / 2f);
+                var bottom = (int)(height / 2f - mouseY) - 10;
+                var selectionBox = new RectangleBox(left, left + 10, bottom, bottom + 10);
+
+                var camera = controller.GetCamera();
+
+                var candidates = new List<(Point3D Model, float Depth)>();
+                foreach (var vbo in controller.VboController.GetVBObjs())
+                {
+                    var coords = vbo.PointsCoords;
+                    var count = coords.Length / 3;
+                    for (var i = 0; i < count; i++)
+                    {
+                        var x = coords[3 * i + 0];
+                        var y = coords[3 * i + 1];
+                        var z = coords[3 * i + 2];
+
+                        var scene = camera.GetSceenCoord(x, y, z);
+                        if (selectionBox.IsPointInside(camera.GetScreenCoord(scene)))
+                            candidates.Add((new Point3D(x, y, z), scene._z));
+                    }
+                }
+
+                if (candidates.Count > 0)
+                {
+                    var nearest = candidates.OrderByDescending(c => c.Depth).First();
+                    controller.SetRotationCentre(nearest.Model);
+                }
+            }
+            catch (Exception error)
+            {
+                Dispatcher.UIThread.Post(() => MessageReported?.Invoke(error.Message));
+            }
+        }
+    }
+
+    /// <summary>
+    /// Делает видимыми смежные (сопряжённые) объекты для выделенных — порт пункта «Показать сопряжённые»
+    /// контекстного меню (WinForms BaseForm.показатьСопряженныеItem_Click).
+    /// ModelView.SetVisible поднимает Changed, поэтому перестройку VBO делает подписка OnModelViewChanged.
+    /// </summary>
+    public void ShowPaired()
+    {
+        //Не работает: Нужно реализовывать
+    }
+
+    /// <summary>
+    /// Удаляет выделенные объекты модели — порт пункта «Удалить выбранное» контекстного меню
+    /// (WinForms BaseForm.menuItem_DeleteSelectedObjects_Click).
+    /// Геометрию со сцены не удаляем (в WinForms — только через дерево). Пересборка VBO затронутых
+    /// наборов идёт в потоке рендера (OnOpenGlRender) через changedSets — VBO требует GL-контекста.
+    /// </summary>
+    public void RemoveSelected()
+    {
+        if (project == null)
+            return;
+
+        if (SelectedObjectType is ObjType.Точка or ObjType.Кривая or ObjType.Поверхность)
+            return;
+
+        try
+        {
+            var selected = project.ModelView.GetSelection().ToList();
+            if (selected.Count == 0)
+                return;
+
+            var affectedSets = selected
+                .Select(item => project.GetModelSetInfo(item.ObjType, item.Number))
+                .OfType<ISetInfo>()
+                .Distinct()
+                .ToList();
+
+            if (selected.Any(item => item.ObjType == ObjType.Узел))
+                foreach (var elementType in new[] { ObjType.Элемент1D, ObjType.Элемент2D, ObjType.Элемент3D })
+                    affectedSets.AddRange(project.GetModelSetsInfo(elementType));
+
+            foreach (var item in selected)
+                item.ExistState = false;
+
+            project.ClearNotExistedModelData();
+
+            foreach (var set in affectedSets.Distinct())
+                changedSets.Add(set);
+            RequestNextFrameRendering();
+
+            MessageReported?.Invoke($"Удалено объектов: {selected.Count}");
+        }
+        catch (Exception error)
+        {
+            MessageReported?.Invoke(error.Message);
+        }
     }
 
     /// <summary>Делает поверхность OpenGL доступной для событий указателя.</summary>
@@ -264,6 +482,8 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         while (customObjects.TryDequeue(out var objs))
             presenter.Refresh(controller, objs);
 
+        SetRotationPoint();
+
         controller.DisplayObjects(fb);
 
         if (captureRequested)
@@ -317,6 +537,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
             return;
 
         var point = e.GetCurrentPoint(this);
+        lastPointerPosition = point.Position;
         var args = CreateMouseArgs(e);
         args.Button = point.Properties.IsLeftButtonPressed ? SceneMouseButton.Left
             : point.Properties.IsMiddleButtonPressed ? SceneMouseButton.Middle
@@ -339,6 +560,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     protected override void OnPointerMoved(PointerEventArgs e)
     {
         base.OnPointerMoved(e);
+        lastPointerPosition = e.GetPosition(this);
         if (controller == null || pressedButton == SceneMouseButton.None)
             return;
 

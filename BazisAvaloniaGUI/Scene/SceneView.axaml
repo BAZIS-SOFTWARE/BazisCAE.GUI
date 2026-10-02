@@ -517,37 +517,51 @@
                              CornerRadius="0"
                              Padding="1"
                              WindowManagerAddShadowHint="False">
-                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Create a new group">
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
+							  Header="Create a new group"
+                              Click="OnCreateGroup">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource createGroup}"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Hide selected">
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
+							  Header="Hide selected"
+							  Click="OnHideSelected">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource hideSelected}"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Show all hidden">
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
+							  Header="Show all hidden"
+							  Click="OnShowHidden">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource showAllHidden}"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Selected objects">
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
+							  Header="Selected objects"
+							  Click="OnSelectedObjects">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource objectInfo}"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Set rotation point">
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
+							  Header="Set rotation point"
+							  Click="OnSetRotationPoint">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource setRotationPoint}"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Show paired">
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
+							  Header="Show paired"
+							  Click="OnShowPaired">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource showAdjacent}"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" Header="Remove selected">
+                    <MenuItem Theme="{StaticResource SceneMenuItemTheme}" 
+						      Header="Remove selected"
+							  Click="OnRemoveSelected">
                         <MenuItem.Icon>
                             <Image Source="{StaticResource deleteSelected}"/>
                         </MenuItem.Icon>

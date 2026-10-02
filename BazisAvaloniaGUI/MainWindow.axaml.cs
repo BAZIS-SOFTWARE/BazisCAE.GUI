@@ -17,23 +17,12 @@ internal partial class MainWindow : Window
     {
         InitializeComponent();
 
-        /*ObjectSelector.Items.Add("Все объекты");
-        foreach (var type in selectionTypes)
-            ObjectSelector.Items.Add(type.ToString());
-        ObjectSelector.SelectedIndex = 0;*/
-
         LoadButton.Click += async (_, _) => await LoadProject();
         InsideButton.Click += (_, _) =>
         {
             scene.Surface.HideInsideSurfaces = !scene.Surface.HideInsideSurfaces;
             UpdateInsideButton();
         };
-        /*ObjectSelector.SelectionChanged += (_, _) =>
-        {
-            var index = ObjectSelector.SelectedIndex;
-            scene.Surface.SelectedObjectType = index > 0 ? selectionTypes[index - 1] : null;
-            scene.Surface.Focus();   // возвращаем фокус сцене, чтобы работали её клавиши
-        };*/
 
         scene.Surface.ProjectDisplayFailed += (_, error) => Status.Text = error.Message;
         scene.Surface.MessageReported += message => Status.Text = message;
