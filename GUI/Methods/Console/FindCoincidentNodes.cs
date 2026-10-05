@@ -12,7 +12,7 @@ namespace BazisGUI
     {
         private async Task FindCoincidentNodes(float distance)
         {
-            if (project == null)
+            if (!project.HasProject)
                 return;
             Invoke(new Action(() => { console.PrintInfo(Resources.FindCoincidentNodes_Action_Message, Color.Black); }));
 
@@ -25,7 +25,7 @@ namespace BazisGUI
 
                 var numbers = coincidentNodes.SelectMany(x => x).ToList();
                 ApplySelectionColor();
-                project.ModelView.SetSelection(ObjType.Узел, numbers);
+                project.SetSelection(ObjType.Узел, numbers);
 
                 //var ndSet = project.GetModelSetsInfo(ObjType.Узел).First();
                 //var pres = project.CreateModelObjectsPresentor(ndSet);

@@ -16,7 +16,7 @@ namespace BazisGUI
         {
             try
             {
-                if (project == null || !project.IsGeometryInitialized)
+                if (!project.HasProject || !project.IsGeometryInitialized)
                     throw new InvalidOperationException(Resources.GenerateMesh3DEvents_Generate3D_GMSHNull_Exception);
 
                 DeleteMeshObjects(ObjType.Узел);

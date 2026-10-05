@@ -26,7 +26,7 @@ namespace BazisGUI
                 set = project.GetModelSetInfo(ObjType.Поверхность, ObjType.Поверхность.ToString());
 
                 var numbers = set.GetNumbers();
-                project.ModelView.SetVisible(set.ObjType, numbers, viewState);
+                project.SetVisible(set.ObjType, numbers, viewState);
             }
             else
             {
@@ -38,7 +38,7 @@ namespace BazisGUI
                 //var objType = Converters.ConvertNavigatorNodeNameToObjType(nodeName);
                 set = project.GetModelSetInfo(objType, setName);
                 var numbers = set.GetNumbers();
-                project.ModelView.SetVisible(objType, numbers, viewState);
+                project.SetVisible(objType, numbers, viewState);
             }
             // Сделать выключение vbo не получиться. Потеряется синхронизация.
             //VBOController.SwitchVBObject(setName, viewState);

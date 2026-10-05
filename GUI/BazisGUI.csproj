@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <BazisCoreSource>$(MSBuildThisFileDirectory)..\..\BazisComponents\BazisCore\OperationalController\OperationalController.csproj</BazisCoreSource>
+    <UseBazisCoreSource Condition="'$(UseBazisCoreSource)' == '' and Exists('$(BazisCoreSource)')">true</UseBazisCoreSource>
     <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <PublishUrl>publish\</PublishUrl>
@@ -60,7 +62,8 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
     <PackageReference Include="Avalonia.Win32.Interoperability" Version="12.1.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-    <PackageReference Include="OperationalController" Version="4.10.5" />
+    <PackageReference Include="OperationalController" Version="4.10.6" Condition="'$(UseBazisCoreSource)' != 'true'" />
+    <ProjectReference Include="$(BazisCoreSource)" Condition="'$(UseBazisCoreSource)' == 'true'" />
     <PackageReference Include="PostProc" Version="2.2.7" />
     <PackageReference Include="PreProc" Version="2.6.8" />
     <Reference Include="ClientGUI">

@@ -14,14 +14,14 @@ namespace BazisGUI
             try
             {  
                 var group = project.GetModelGroup(grIndex); // закраска объектов в выделяемой группе
-                using (project.ModelView.BeginUpdate())
+                using (project.BeginViewUpdate())
                 {
-                    project.ModelView.SelectionColor = settingsConfig.SelectGroupColor;
-                    project.ModelView.ClearSelection();
+                    project.SetSelectionColor(settingsConfig.SelectGroupColor);
+                    project.ClearSelection();
                     foreach (var objType in group.Select(x => x.ObjType).Distinct())
                     {
                         var numbers = group.Where(x => x.ObjType == objType).Select(x => x.Number);
-                        project.ModelView.Select(objType, numbers);
+                        project.Select(objType, numbers);
                     }
                 }
 

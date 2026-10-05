@@ -18,7 +18,7 @@ namespace BazisGUI
         public void InitializeMaster(IBaseMaster master)
         {
             if (master == null) throw new ArgumentNullException(nameof(master));
-            if (project == null) throw new Exception("Не определен проект");
+            if (!project.HasProject) throw new Exception("Project is not open.");
 
             master.SetCommandExecutor(ExecuteCommand);
 

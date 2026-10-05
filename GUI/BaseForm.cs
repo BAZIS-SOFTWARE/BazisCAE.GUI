@@ -83,7 +83,7 @@ namespace BazisGUI
         VBOController VBOController => sceneController.VboController;
 
         //BasePage module;
-        ProjectController project;
+        IProjectController project;
         IODataController dataController = new();
         PreProc.PreProc preProc = new();
         PostProcController resultsController = new();
@@ -126,6 +126,9 @@ namespace BazisGUI
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(settingsConfig.Language);
 
             InitializeComponent();
+            project = new ProjectController();
+            ApplyModelViewSettings();
+            project.Message += Project_Message;
 
             propertiesPanel.HeaderName = Resources.PropertiesPanelControl_headerName_text;
             navigator.HeaderName = Resources.NavigatorControl_headerName_text;
@@ -170,7 +173,7 @@ namespace BazisGUI
 
                     var fullPath = Path.GetFullPath(args[resInd + 1]);
 
-                    if (project == null)
+                    if (!project.HasProject)
                         throw new Exception(Resources.HandleArgsResultsLoadingWithoutProjectException);
 
                     ResultDbPath = fullPath;
@@ -422,10 +425,9 @@ namespace BazisGUI
 
                 var folderName = dialog.SelectedPath;
 
-                project = new ProjectController();
-                project.CreateProject("newProject.bpf2");
-
-                lblStatus.Text = $"{folderName}\\{project.Name}";
+                suppressProjectMessages = true;
+                project.Create(Path.Combine(folderName, "newProject.bpf2"));
+                lblStatus.Text = project.FilePath;
 
                 var appDirName = Path.GetDirectoryName(Application.ExecutablePath);
 
@@ -462,11 +464,13 @@ namespace BazisGUI
                 PresentCompDataOnTree(new List<string>());
                 UnblockInterface();
                 OnProjectLoaded?.Invoke();
+                suppressProjectMessages = false;
 
                 RequestRedraw();
             }
             catch (Exception ex)
             {
+                suppressProjectMessages = false;
                 MessageBox.Show(Localization.Localization.GetErrorWithStackMessage(ex), Localization.Localization.GetErrorCaption());
             }
         }
@@ -477,16 +481,8 @@ namespace BazisGUI
             {
                 var ext = Path.GetExtension(filePath).ToLower();
 
-                if (projFilter.Contains(ext))
+                if (geomFilter.Contains(ext))
                 {
-                    project = await dataController.OpenProject(filePath);
-                }
-
-                else if (geomFilter.Contains(ext))
-                {
-                    if (project == null)
-                        project = new ProjectController();
-
                     if (!project.IsGeometryInitialized)
                     {
                         var gmshLibraryPath = dataController.GetGmshLibraryPath();
@@ -498,15 +494,20 @@ namespace BazisGUI
                         //GmshController.Gmsh.Option.SetNumber("General.AbortOnError", 0);
                     }
 
-                    project.ImportCAD(filePath);
+                    suppressProjectMessages = true;
+                    try
+                    {
+                        project.ImportGeometry(filePath);
+                    }
+                    finally
+                    {
+                        suppressProjectMessages = false;
+                    }
                 }
-
                 else
-                {
-                    project = await dataController.ImportMesh(filePath);
-                }
+                    await LoadModelWithProgress(filePath, false);
 
-                lblStatus.Text = filePath;
+                lblStatus.Text = project.FilePath ?? filePath;
 
                 ClearAllDataOnScene();
                 PresentProject();
@@ -521,6 +522,43 @@ namespace BazisGUI
             {
                 MessageBox.Show(Localization.Localization.GetErrorWithStackMessage(ex), Localization.Localization.GetErrorCaption());
                 Application.OpenForms["Загрузка"]?.Close();
+            }
+        }
+
+        /// <summary>
+        /// Читает проект или сетку в рабочем потоке и показывает процент чтения файла.
+        /// </summary>
+        private async Task LoadModelWithProgress(string filePath, bool append)
+        {
+            var loadingView = new MessageBoxEx.MessageBoxEx { Dock = DockStyle.Fill };
+            loadingView.Message = append ? Resources.ImportMeshCaption : Resources.LoadingForm_Text;
+            using var loadingForm = dataController.CreateMessageBoxExForm(loadingView);
+            var progressBar = new ProgressBar { Dock = DockStyle.Bottom, Minimum = 0, Maximum = 100, Height = 18, Style = ProgressBarStyle.Marquee };
+            loadingForm.ClientSize = new Size(loadingView.Width, loadingView.Height + progressBar.Height);
+            loadingForm.Controls.Add(progressBar);
+            progressBar.BringToFront();
+            var progress = new Progress<int>(value =>
+            {
+                if (progressBar.Style == ProgressBarStyle.Marquee)
+                    progressBar.Style = ProgressBarStyle.Continuous;
+                progressBar.Value = Math.Clamp(value, 0, 100);
+            });
+
+            suppressProjectMessages = true;
+            loadingForm.Show();
+            Enabled = false;
+            try
+            {
+                if (append)
+                    await Task.Run(() => project.Append(filePath, progress));
+                else
+                    await Task.Run(() => project.Open(filePath, progress));
+            }
+            finally
+            {
+                Enabled = true;
+                loadingForm.Close();
+                suppressProjectMessages = false;
             }
         }
 
@@ -583,14 +621,14 @@ namespace BazisGUI
                 if (saveDialog.ShowDialog() == DialogResult.Cancel)
                     return;
 
-                if (project == null)
+                if (!project.HasProject)
                     MessageBox.Show(Resources.SaveWithoutProjectMessage);
                 else
                 {
                     var newFolder = Path.GetDirectoryName(saveDialog.FileName);
                     var oldFolder = Path.GetDirectoryName(lblStatus.Text);
 
-                    project.Name = Path.GetFileName(saveDialog.FileName);
+                    project.ChangeProjectName(Path.GetFileName(saveDialog.FileName));
 
                     // Пробуем не использовать это свойство
                     //project.Path = newFolder;
@@ -618,7 +656,8 @@ namespace BazisGUI
             try
             {
                 //Path.GetDirectoryName
-                project?.Save(lblStatus.Text);
+                if (project.HasProject)
+                    project.Save(lblStatus.Text);
                 console.PrintInfo(Resources.ProjectSavedCaption, Color.Black);
             }
             catch (Exception ex)
@@ -630,7 +669,6 @@ namespace BazisGUI
 
         private void PresentProject()
         {
-            SubscribeToModelView();
             CreateVBObjects("Объекты");
 
             PresentGeoData();
@@ -642,6 +680,7 @@ namespace BazisGUI
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)
         {
+            project.Message -= Project_Message;
             project?.UnloadGeometry();
         }
 
@@ -681,31 +720,14 @@ namespace BazisGUI
         {
             try
             {
-                if (project != null)
+                if (project.HasProject)
                 {
                     OpenFileDialog dialog = new OpenFileDialog();
                     dialog.Filter = meshFilter + "|" + projFilter;
                     if (dialog.ShowDialog() == DialogResult.Cancel)
                         return;
 
-                    var mb = new MessageBoxEx.MessageBoxEx()
-                    { Dock = DockStyle.Fill };
-                    var mbf = dataController.CreateMessageBoxExForm(mb);
-                    mbf.Show();
-                    await Task.Run(new Action(() =>
-                    {
-                        project.MessageEvent += (ar1) =>
-                        {
-                            mb.Invoke(new Action(() =>
-                            {
-                                mb.Message = ar1;
-                            }));
-                        };
-                        project.Append(dialog.FileName);
-
-                    }));
-                    mbf.Close();
-                    project.UnsubMessasge();
+                    await LoadModelWithProgress(dialog.FileName, true);
                     // сбрасывать gmsh  не обязательно
                     //gmshController?.Gmsh?.Clear();
 

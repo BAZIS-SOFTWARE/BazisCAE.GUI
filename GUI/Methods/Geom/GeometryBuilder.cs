@@ -86,7 +86,7 @@ namespace BazisGUI
         {
             // -1 означает ошибка
             var tag = -1;
-            if (project == null || !project.IsGeometryInitialized)
+            if (!project.HasProject || !project.IsGeometryInitialized)
                 return tag;
 
             switch (type)

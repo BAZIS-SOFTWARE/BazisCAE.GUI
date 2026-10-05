@@ -64,7 +64,7 @@ namespace BazisGUI
             var set = project?.GetModelSetsInfo(objType).FirstOrDefault();
             if (set == null)
                 return;
-            project.ModelView.ClearSelection(objType);
+            project.ClearSelection(objType);
         }
     }
 }

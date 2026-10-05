@@ -55,7 +55,7 @@ namespace BazisGUI
                             DisplayDirection(arg2.Time, data, group);
                         var color = GetConditionColor(data.Kind);
                         var numbers = group.Select(x => x.Number);
-                        project.ModelView.SetColor(group.ObjType, numbers, color);
+                        project.SetColor(group.ObjType, numbers, color);
                     }
                 }
             }

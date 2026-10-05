@@ -10,12 +10,12 @@ namespace BazisGUI
         private void ChangeGroupViewState(IGroup group, bool viewState)
         {
             // TO DO сделать метод group.HideObjects() в целях инкапсуляции
-            using (project.ModelView.BeginUpdate())
+            using (project.BeginViewUpdate())
             {
                 foreach (var objType in group.Select(x => x.ObjType).Distinct())
                 {
                     var numbers = group.Where(x => x.ObjType == objType).Select(x => x.Number);
-                    project.ModelView.SetVisible(objType, numbers, viewState);
+                    project.SetVisible(objType, numbers, viewState);
                 }
             }
         }

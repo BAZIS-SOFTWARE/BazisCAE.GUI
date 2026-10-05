@@ -12,25 +12,9 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        IModelView subscribedModelView;
-
-        /// <summary>
-        /// Подключает обновление сцены к состоянию представления текущего проекта.
-        /// </summary>
-        private void SubscribeToModelView()
-        {
-            var modelView = project?.ModelView;
-            if (ReferenceEquals(subscribedModelView, modelView))
-                return;
-
-            if (subscribedModelView != null)
-                subscribedModelView.Changed -= ModelView_Changed;
-
-            subscribedModelView = modelView;
-            ApplyModelViewSettings();
-            if (subscribedModelView != null)
-                subscribedModelView.Changed += ModelView_Changed;
-        }
+        bool projectPresentationQueued;
+        bool projectLoadedNotificationQueued;
+        volatile bool suppressProjectMessages;
 
         const ModelViewChange RebuildChanges = ModelViewChange.Visibility | ModelViewChange.InsideSurfaces | ModelViewChange.ViewMode;
         const ModelViewChange ColorChanges = ModelViewChange.Selection | ModelViewChange.SetColor | ModelViewChange.ObjectColor | ModelViewChange.SelectionColor | ModelViewChange.Transparency;
@@ -39,26 +23,92 @@ namespace BazisGUI
         /// Обновляет буферы наборов, затронутых изменением представления, и запрашивает кадр.
         /// Событие само перечисляет затронутые наборы, поэтому обходить всю модель не нужно.
         /// </summary>
-        private void ModelView_Changed(object sender, ModelViewChangedEventArgs e)
+        private void Project_Message(object sender, ProjectMessageEventArgs e)
         {
-            if (IsDisposed || project == null || !ReferenceEquals(sender, project.ModelView))
+            if (IsDisposed || suppressProjectMessages || !ReferenceEquals(sender, project))
                 return;
 
-            if (InvokeRequired) // перенаправление в UI-поток, если вызов из другого потока (например, из BackgroundWorker)
+            if (InvokeRequired)
             {
-                BeginInvoke(new Action(() => ModelView_Changed(sender, e)));
+                BeginInvoke(new Action(() => Project_Message(sender, e)));
                 return;
             }
 
-            foreach (var setInfo in e.GetChangedSets())
+            if (e.Change is ViewChange viewChange)
             {
-                if (e.HasAny(setInfo, RebuildChanges))
-                    RefreshModelSetBuffer(setInfo);
-                else if (e.HasAny(setInfo, ColorChanges))
-                    RecolorModelSetBuffer(setInfo);
+                foreach (var setInfo in viewChange.AffectedSets)
+                {
+                    var kind = viewChange.GetChangeKind(setInfo);
+                    if ((kind & RebuildChanges) != 0)
+                        RefreshModelSetBuffer(setInfo);
+                    else if ((kind & ColorChanges) != 0)
+                        RecolorModelSetBuffer(setInfo);
+                }
+                RequestRedraw();
+                return;
             }
 
-            RequestRedraw();
+            if (e.Change is ProjectChange projectChange && projectChange.ChangeKind == ProjectChangeKind.PropertyChanged)
+            {
+                if (projectChange.Property == ProjectProperty.Name && !string.IsNullOrWhiteSpace(lblStatus.Text))
+                {
+                    var folder = System.IO.Path.GetDirectoryName(lblStatus.Text);
+                    lblStatus.Text = System.IO.Path.Combine(folder ?? string.Empty, project.Name);
+                }
+                else if (projectChange.Property == ProjectProperty.FilePath)
+                    lblStatus.Text = project.FilePath ?? string.Empty;
+                else if (projectChange.Property == ProjectProperty.MaterialsDB || projectChange.Property == ProjectProperty.FunctionsDB)
+                    OnProjectLoaded?.Invoke();
+                else if (projectChange.Property == ProjectProperty.TaskKind || projectChange.Property == ProjectProperty.TaskType)
+                    PresentCondDataOnTree();
+                return;
+            }
+
+            if (e.Change is CondChange)
+            {
+                PresentCondDataOnTree();
+                return;
+            }
+
+            if (e.Change is MeshChange meshChange && meshChange.DataKind == MeshDataKind.Group)
+            {
+                PresentGroupDataOnTree();
+                PresentCondDataOnTree();
+                return;
+            }
+
+            if (e.Change is ProjectChange)
+                projectLoadedNotificationQueued = true;
+            if (e.Change is ProjectChange || e.Change is GeoChange || e.Change is MeshChange)
+                QueueProjectPresentation();
+        }
+
+        /// <summary>
+        /// Объединяет несколько изменений данных в одно обновление сцены и навигатора.
+        /// </summary>
+        private void QueueProjectPresentation()
+        {
+            if (projectPresentationQueued)
+                return;
+            projectPresentationQueued = true;
+            BeginInvoke(new Action(() =>
+            {
+                projectPresentationQueued = false;
+                if (IsDisposed || suppressProjectMessages)
+                {
+                    projectLoadedNotificationQueued = false;
+                    return;
+                }
+                ClearAllDataOnScene();
+                if (project.HasProject)
+                    PresentProject();
+                if (projectLoadedNotificationQueued)
+                {
+                    projectLoadedNotificationQueued = false;
+                    OnProjectLoaded?.Invoke();
+                }
+                RequestRedraw();
+            }));
         }
 
         /// <summary>
@@ -97,7 +147,7 @@ namespace BazisGUI
         /// </summary>
         private bool IsSelected(IModelObject modelObject)
         {
-            return project.ModelView.IsSelected(modelObject.ObjType, modelObject.Number);
+            return project.IsSelected(modelObject.ObjType, modelObject.Number);
         }
 
         /// <summary>
@@ -106,7 +156,7 @@ namespace BazisGUI
         private IEnumerable<int> GetVisibleNumbers(ISetInfo setInfo)
         {
             foreach (var number in setInfo.GetNumbers())
-                if (project.ModelView.GetVisible(setInfo.ObjType, number))
+                if (project.GetVisible(setInfo.ObjType, number))
                     yield return number;
         }
 
@@ -116,7 +166,7 @@ namespace BazisGUI
         private void ApplySelectionColor()
         {
             if (project != null)
-                project.ModelView.SelectionColor = settingsConfig.SelectObjectColor;
+                project.SetSelectionColor(settingsConfig.SelectObjectColor);
         }
 
         /// <summary>
@@ -127,8 +177,8 @@ namespace BazisGUI
             if (project == null)
                 return;
 
-            project.ModelView.SelectionColor = settingsConfig.SelectObjectColor;
-            project.ModelView.Transparency = GetModelViewTransparency();
+            project.SetSelectionColor(settingsConfig.SelectObjectColor);
+            project.SetTransparency(GetModelViewTransparency());
         }
 
         /// <summary>

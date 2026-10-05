@@ -155,7 +155,7 @@ namespace BazisGUI
                 if (res.Result is IPoint node)
                 {
                     nodes.Add(node);
-                    project.ModelView.ClearSelection(ObjType.Узел);
+                    project.ClearSelection(ObjType.Узел);
                 }
                 else break;
 
@@ -184,7 +184,7 @@ namespace BazisGUI
 
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var selObjs = project.ModelView.GetSelected(objType)
+                var selObjs = project.GetSelected(objType)
                     .Select(number => project.GetModelObject(objType, number));
 
                 if (selObjs.Count() == 0)
@@ -213,7 +213,7 @@ namespace BazisGUI
         private void CalcVolume(SelectionType selection)
         {
             var objType = Converters.ConvertSelectionTypeToObjType(selection);
-            var selObjs = project.ModelView.GetSelected(objType)
+            var selObjs = project.GetSelected(objType)
                 .Select(number => project.GetModelObject(objType, number));
 
             var vol = 0.0f;
@@ -228,7 +228,7 @@ namespace BazisGUI
         private void CalcSquare(SelectionType select)
         {
             var objType = Converters.ConvertSelectionTypeToObjType(select);
-            var selObjs = project.ModelView.GetSelected(objType)
+            var selObjs = project.GetSelected(objType)
                 .Select(number => project.GetModelObject(objType, number));
             var square = 0.0;
             foreach (var obj in selObjs)
@@ -247,7 +247,7 @@ namespace BazisGUI
             if (plane is null)
                 return;
 
-            project.ModelView.ClearSelection(objType);
+            project.ClearSelection(objType);
             var message = $@"{Resources.UtilityToolStrip_DistancePointToPlane_InstructionPart1} {Localization.Localization.GetSelectionTypeLocalization(SelectionType.Nodes)} {Resources.UtilityToolStrip_DistancePointToPlane_InstructionPart1}";
             var res = SelectObjectAsync(objType, message);
             await res;
@@ -265,7 +265,7 @@ namespace BazisGUI
         private void DistancePointToPoint(SelectionType objTypeStr)
         {
             var objType = Converters.ConvertSelectionTypeToObjType(objTypeStr);
-            var selObjs = project.ModelView.GetSelected(objType)
+            var selObjs = project.GetSelected(objType)
                 .Select(number => project.GetModelObject(objType, number))
                 .ToList();
 
@@ -358,7 +358,7 @@ namespace BazisGUI
 
         private void CreateSectionSurfacesFromNodes()
         {
-            var selObjs = project.ModelView.GetSelected(ObjType.Узел)
+            var selObjs = project.GetSelected(ObjType.Узел)
                 .Select(number => project.GetModelObject(ObjType.Узел, number))
                 .ToArray();
             if (selObjs.Length < 3)
@@ -583,7 +583,7 @@ namespace BazisGUI
         private void CreateCaptureElements(List<List<int>> indices)
         {
             var index = 0;
-            using (project.ModelView.BeginUpdate())
+            using (project.BeginViewUpdate())
             {
                 foreach (var set in project.GetModelSetsInfo(ObjType.Элемент3D).Where(v => GetVisibleNumbers(v).Any()).ToArray())
                 {
@@ -592,7 +592,7 @@ namespace BazisGUI
                     foreach (var element in project.GetModelElements(3, set.Name))
                     {
                         var isVisible = indexSet.Contains(indexElems);
-                        project.ModelView.SetVisible(ObjType.Элемент3D, [element.Number], isVisible);
+                        project.SetVisible(ObjType.Элемент3D, [element.Number], isVisible);
                         ++indexElems;
                     }
 

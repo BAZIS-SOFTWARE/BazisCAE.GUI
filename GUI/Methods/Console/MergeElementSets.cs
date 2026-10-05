@@ -28,7 +28,7 @@ namespace BazisGUI
                 // Выделение снимается до слияния: событие Changed от ClearSelection
                 // перекрашивает буферы наборов по их текущему составу, а состав
                 // master/slave меняется только ниже, явным пересозданием буферов.
-                project.ModelView.ClearSelection();
+                project.ClearSelection();
 
                 project.MergeElements(objType, masterSet, slaveSet);
 

@@ -59,12 +59,12 @@ namespace BazisGUI
 
                 if (obj != null)
                 {
-                    using (project.ModelView.BeginUpdate())
+                    using (project.BeginViewUpdate())
                     {
                         foreach (var item in project.GetModelSetsInfo(objType))
-                            project.ModelView.SetVisible(objType, item.GetNumbers(), false);
+                            project.SetVisible(objType, item.GetNumbers(), false);
 
-                        project.ModelView.SetVisible(objType, [(int)number], true);
+                        project.SetVisible(objType, [(int)number], true);
                     }
                 }
                 else
@@ -91,7 +91,7 @@ namespace BazisGUI
                 // технологичный для отображения найденных элементов
                 var numbers = findElmems.Select(x => x.Number).ToList();
                 ApplySelectionColor();
-                project.ModelView.SetSelection(ObjType.Элемент3D, numbers);
+                project.SetSelection(ObjType.Элемент3D, numbers);
             }
             Invoke(new Action(() => { console.PrintInfo($"{Resources.ConsoleEvents_ConsoleInEvent_ObjectFound_Message} {findElmems.Count()} {Resources.ConsoleEvents_ConsoleInEvents_VolumeElements_Message}", Color.Black); }));
         }

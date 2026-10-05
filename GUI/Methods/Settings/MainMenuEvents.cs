@@ -55,7 +55,7 @@ namespace BazisGUI
                 settingsConfig.NodeColor = ar;
                 var setInfo = project.GetModelSetsInfo(ObjType.Узел).FirstOrDefault();
                 if (setInfo != null)
-                    project.ModelView.SetColor(setInfo, ar);
+                    project.SetColor(setInfo, ar);
             };
 
             settings.SetSolverPathEvent += (ar) =>
@@ -99,7 +99,7 @@ namespace BazisGUI
             {
                 settingsConfig.TransparencyValue = ar1;
                 if (project != null)
-                    project.ModelView.Transparency = GetModelViewTransparency();
+                    project.SetTransparency(GetModelViewTransparency());
             };
 
             settings.SetLightingIntensityEvent += (ar) =>

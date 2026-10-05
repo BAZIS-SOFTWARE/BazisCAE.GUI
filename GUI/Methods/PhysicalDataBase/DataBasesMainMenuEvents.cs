@@ -90,7 +90,7 @@ namespace BazisGUI
             try
             {
                 // Подстраховка, если контроллер null
-                if (project == null)
+                if (!project.HasProject)
                     return;
 
                 var funBasePage = new FunctionDataBasePage() {  HeadColor = Color.Gainsboro };
