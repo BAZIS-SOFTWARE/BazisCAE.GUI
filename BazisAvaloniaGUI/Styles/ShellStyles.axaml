@@ -61,7 +61,8 @@
     <Setter Property="BorderThickness" Value="2" />
   </Style>
   <Style Selector="MenuItem">
-    <Setter Property="Background" Value="#DCDCDC" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Background" Value="#F0F0F0" />
     <Setter Property="Foreground" Value="#000000" />
     <Setter Property="Padding" Value="8,3" />
   </Style>
@@ -70,6 +71,24 @@
   </Style>
   <Style Selector="MenuItem:disabled">
     <Setter Property="Foreground" Value="#7B7B7B" />
+  </Style>
+  <Style Selector="MenuItem /template/ ContentControl#PART_ToggleIconPresenter">
+    <Setter Property="Width" Value="10" />
+    <Setter Property="Height" Value="10" />
+  </Style>
+  <Style Selector="MenuItem Separator">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="#F0F0F0" Padding="12,4">
+          <Border Height="1" Background="#969696" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Slider /template/ Thumb">
+    <Setter Property="Background" Value="Silver" />
+    <Setter Property="BorderBrush" Value="Black" />
+    <Setter Property="BorderThickness" Value="1" />
   </Style>
   <!-- CheckBox и RadioButton: индикатор 16 x 16, рамка 1/2/3 px в обычном состоянии, при наведении и нажатии.
        Цвета задаются в ShellResources.axaml; рамку отмеченного CheckBox Fluent рисует цветом заливки. -->

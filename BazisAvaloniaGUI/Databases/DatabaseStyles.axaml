@@ -45,29 +45,28 @@
     <Setter Property="Foreground" Value="#000000" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Grid RowDefinitions="18,Auto" ColumnDefinitions="16,*">
-          <Canvas Grid.Row="0" Width="16" Height="18">
-            <Path Data="M8,0 L8,18 M8,9 L16,9" Stroke="#FFA500" StrokeThickness="1" StrokeDashArray="1,2" />
-          </Canvas>
-          <ToggleButton Name="PART_ExpandCollapseChevron" Grid.Row="0" Grid.Column="0" Width="9" Height="9"
+        <Grid RowDefinitions="18,Auto">
+          <Grid Grid.Row="0" ColumnDefinitions="16,*">
+          <ToggleButton Name="PART_ExpandCollapseChevron" Grid.Row="0" Grid.Column="0" Width="16" Height="18"
                         MinWidth="0" MinHeight="0" Padding="0" Focusable="False" ClickMode="Press"
                         IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
             <ToggleButton.Template>
               <ControlTemplate>
-                <Border Background="#FFFFFF" BorderBrush="#7A7A7A" BorderThickness="1">
-                  <Grid>
-                    <Path Data="M1,3 L6,3" Stroke="#5A5A5A" StrokeThickness="1" />
-                    <Path Name="DatabaseExpandPlus" Data="M3,1 L3,6" Stroke="#5A5A5A" StrokeThickness="1" />
-                  </Grid>
+                <Border Background="#FFFFFF">
+                  <Path Name="DatabaseExpandChevron" Data="M 2,0 L 6,4 L 2,8"
+                        Stroke="#606060" StrokeThickness="1.2"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
               </ControlTemplate>
             </ToggleButton.Template>
           </ToggleButton>
           <Border Name="DatabaseNodeHeader" Grid.Row="0" Grid.Column="1" Background="Transparent">
             <ContentPresenter Name="PART_HeaderPresenter" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"
-                              VerticalAlignment="Center" HorizontalAlignment="Left" />
+                              VerticalAlignment="Center" HorizontalAlignment="Left"
+                              HorizontalContentAlignment="Left" />
           </Border>
-          <ItemsPresenter Name="PART_ItemsPresenter" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+          </Grid>
+          <ItemsPresenter Name="PART_ItemsPresenter" Grid.Row="1"
                           Margin="16,0,0,0" IsVisible="{TemplateBinding IsExpanded}" />
         </Grid>
       </ControlTemplate>
@@ -76,8 +75,8 @@
   <Style Selector="TreeView.database-tree TreeViewItem:empty /template/ ToggleButton#PART_ExpandCollapseChevron">
     <Setter Property="IsVisible" Value="False" />
   </Style>
-  <Style Selector="TreeView.database-tree TreeViewItem /template/ ToggleButton:checked /template/ Path#DatabaseExpandPlus">
-    <Setter Property="IsVisible" Value="False" />
+  <Style Selector="TreeView.database-tree TreeViewItem /template/ ToggleButton:checked /template/ Path#DatabaseExpandChevron">
+    <Setter Property="Data" Value="M 0,2 L 4,6 L 8,2" />
   </Style>
   <Style Selector="TreeView.database-tree TreeViewItem:selected">
     <Setter Property="Foreground" Value="#FFFFFF" />

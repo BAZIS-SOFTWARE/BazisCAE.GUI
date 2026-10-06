@@ -155,7 +155,7 @@ namespace BazisAvaloniaGUI.Shell
             MinWidth = Math.Max(415, NavigatorPanelMinWidth + 8 + PanelMinSize + 10);
             MinHeight = 320;
             WindowState = WindowState.Maximized;
-            Background = Brushes.White;
+            Background = Brush.Parse("#F0F0F0");
             RequestedThemeVariant = ThemeVariant.Light;
             FontFamily = new FontFamily("Microsoft Sans Serif");
             FontSize = 11; // BaseForm: 8.25 pt at 96 DPI
@@ -188,6 +188,11 @@ namespace BazisAvaloniaGUI.Shell
             создатьЛиниюToolStripMenuItem = Item("создатьЛиниюToolStripMenuItem", null);
             создатьПлоскостьToolStripMenuItem = Item("создатьПлоскостьToolStripMenuItem", null);
             создатьОбъемToolStripMenuItem = Item("создатьОбъемToolStripMenuItem", null);
+            // Обработчиков нет и в WinForms — пункты скрыты, пока создание геометрии не реализовано.
+            создатьТочкуToolStripMenuItem.IsVisible = false;
+            создатьЛиниюToolStripMenuItem.IsVisible = false;
+            создатьПлоскостьToolStripMenuItem.IsVisible = false;
+            создатьОбъемToolStripMenuItem.IsVisible = false;
             addChamferToolStripMenuItem = Item("addChamferToolStripMenuItem", addChamferToolStripMenuItem_Click);
             addChamferToolStripMenuItem.ToggleType = MenuItemToggleType.CheckBox;
             геометрияToolStripMenuItem = Item("геометрияToolStripMenuItem", null, создатьТочкуToolStripMenuItem,
@@ -276,7 +281,7 @@ namespace BazisAvaloniaGUI.Shell
 
             menuStrip = new Menu
             {
-                Background = Brushes.Gainsboro,
+                Background = Brush.Parse("#F0F0F0"),
                 Height = 24,
                 FontFamily = new FontFamily("Segoe UI"),
                 FontSize = 11,
@@ -287,6 +292,9 @@ namespace BazisAvaloniaGUI.Shell
                     настройкиToolStripMenuItem, справкаToolStripMenuItem, лицензияToolStripMenuItem
                 }
             };
+
+            // Fluent задаёт радиус панели Popup локальной ссылкой на ресурс, поверх сеттеров стиля.
+            menuStrip.Resources["OverlayCornerRadius"] = new CornerRadius(0);
 
             // Компоновка: splitContainer3 (навигатор | сцена+консоль), splitContainer2 (сцена / консоль).
             var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*,Auto") };
@@ -301,7 +309,7 @@ namespace BazisAvaloniaGUI.Shell
             cntrНавигатор = new Grid { RowDefinitions = new RowDefinitions("298*,8,253*") };
             cntrНавигатор.RowDefinitions[0].MinHeight = cntrНавигатор.RowDefinitions[2].MinHeight = PanelMinSize;
             cntrНавигатор.Children.Add(CreatePinnedPage(Resources.NavigatorControl_headerName_text, navigator));
-            var navigatorSplitter = new GridSplitter { Height = 8, ResizeDirection = GridResizeDirection.Rows, Background = Brushes.Gainsboro };
+            var navigatorSplitter = new GridSplitter { Height = 8, ResizeDirection = GridResizeDirection.Rows, Background = Brush.Parse("#F0F0F0") };
             Grid.SetRow(navigatorSplitter, 1);
             cntrНавигатор.Children.Add(navigatorSplitter);
             // tableLayoutPanel1 в BaseForm: панель свойств и под ней плеер проверки условий/результатов.
@@ -315,7 +323,7 @@ namespace BazisAvaloniaGUI.Shell
             splitContainer3Panel1 = new Grid();
             splitContainer3.Children.Add(splitContainer3Panel1);
 
-            splitContainer3Splitter = new GridSplitter { Width = 8, ResizeDirection = GridResizeDirection.Columns, Background = Brushes.Gainsboro };
+            splitContainer3Splitter = new GridSplitter { Width = 8, ResizeDirection = GridResizeDirection.Columns, Background = Brush.Parse("#F0F0F0") };
             Grid.SetColumn(splitContainer3Splitter, 1);
             splitContainer3.Children.Add(splitContainer3Splitter);
 
@@ -328,7 +336,7 @@ namespace BazisAvaloniaGUI.Shell
             // splitContainer2.Panel1: место сцены. Сама сцена и её кнопки (btnSelect, виды, вписывание и т.д.) — SceneView.
             splitContainer2.Children.Add(scene);
 
-            splitContainer2Splitter = new GridSplitter { Height = 8, ResizeDirection = GridResizeDirection.Rows, Background = Brushes.Gainsboro };
+            splitContainer2Splitter = new GridSplitter { Height = 8, ResizeDirection = GridResizeDirection.Rows, Background = Brush.Parse("#F0F0F0") };
             Grid.SetRow(splitContainer2Splitter, 1);
             splitContainer2.Children.Add(splitContainer2Splitter);
             Grid.SetRow(console, 2);
@@ -340,7 +348,7 @@ namespace BazisAvaloniaGUI.Shell
             DockPanel.SetDock(lblVersion, Dock.Right);
             statusStrip.Children.Add(lblVersion);
             statusStrip.Children.Add(lblStatus);
-            var statusBorder = new Border { Background = Brushes.Gainsboro, Height = 32, Padding = new Thickness(5, 3), Child = statusStrip };
+            var statusBorder = new Border { Background = Brush.Parse("#F0F0F0"), Height = 32, Padding = new Thickness(5, 3), Child = statusStrip };
             Grid.SetRow(statusBorder, 2);
             root.Children.Add(statusBorder);
             Content = root;

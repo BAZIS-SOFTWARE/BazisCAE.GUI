@@ -16,9 +16,10 @@
         (ширину не фиксируем только у ComboBox и ToggleButton-«якорей»).
 
         Палитра:
-            Button        Default  фон E1E1E1, обводка 1px 969696
+            Button        Default  фон FFFFFF, обводка 1px 969696
                           Hover    фон C5C5C5, обводка 1px 969696
                           Pressed  фон C5C5C5, обводка 2px 969696
+                          Checked  фон FFFFFF, обводка 2px FFA500 (кнопки режимов)
                           Disabled фон F0F0F0, обводка 1px CBCBCB, текст 626262, иконка 50%
             ComboBox /    Default  фон FFFFFF, обводка 1px 7A7A7A, стрелка вниз
             ToggleButton  Hover    фон FFFFFF, обводка 2px 7A7A7A
@@ -29,6 +30,9 @@
                           Disabled фон F8F8F8, обводка 1px CACACA, стрелка 50%
     -->
     <UserControl.Resources>
+        <!-- Fluent использует эти ресурсы внутри панелей выпадающих меню. -->
+        <CornerRadius x:Key="OverlayCornerRadius">0</CornerRadius>
+        <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
 		<!-- Кнопка-иконка 28x28 (единая высота элементов панели, см. заголовок файла).
 		     Для текстовых кнопок задавать Width явно: в теме он фиксирован. -->
 		<ControlTheme x:Key="SceneButtonTheme" TargetType="Button">
@@ -52,7 +56,7 @@
 			</Setter>
 
 			<!-- Default -->
-			<Setter Property="Background" Value="#FFE1E1E1"/>
+			<Setter Property="Background" Value="#FFFFFFFF"/>
 			<Setter Property="BorderBrush" Value="#FF969696"/>
 			<Setter Property="BorderThickness" Value="1"/>
 			<Setter Property="Foreground" Value="#FF000000"/>
@@ -109,7 +113,7 @@
 			</Setter>
 
 			<!-- Default -->
-			<Setter Property="Background" Value="#FFE1E1E1"/>
+			<Setter Property="Background" Value="#FFFFFFFF"/>
 			<Setter Property="BorderBrush" Value="#FF969696"/>
 			<Setter Property="BorderThickness" Value="1"/>
 			<Setter Property="Foreground" Value="#FF000000"/>
@@ -134,10 +138,10 @@
 				<Setter Property="BorderThickness" Value="2"/>
 			</Style>
 
-			<!-- Selected (включённый режим поворота) — как нажатое состояние -->
+			<!-- Selected (включённый режим) — активная кнопка: фон остаётся белым, активность — оранжевой рамкой -->
 			<Style Selector="^:checked">
-				<Setter Property="Background" Value="#FFC5C5C5"/>
-				<Setter Property="BorderBrush" Value="#FF969696"/>
+				<Setter Property="Background" Value="#FFFFFFFF"/>
+				<Setter Property="BorderBrush" Value="#FFFFA500"/>
 				<Setter Property="BorderThickness" Value="2"/>
 			</Style>
 
@@ -160,9 +164,8 @@
 							BorderBrush="{TemplateBinding BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}"
 							CornerRadius="0">
-						<Grid ColumnDefinitions="*,Auto">
+						<Panel>
 							<ContentPresenter Name="PART_ContentPresenter"
-											  Grid.Column="0"
 											  Content="{TemplateBinding Content}"
 											  ContentTemplate="{TemplateBinding ContentTemplate}"
 											  Padding="{TemplateBinding Padding}"
@@ -170,14 +173,14 @@
 											  VerticalAlignment="Center"
 											  HorizontalContentAlignment="Left"
 											  VerticalContentAlignment="Center"/>
+							<!-- Позиция стрелки (Margin/HorizontalAlignment) задаётся стилями ниже:
+							     в шаблоне их нельзя задавать локально, иначе стиль их не перебьёт. -->
 							<Path Name="PART_Arrow"
-								  Grid.Column="1"
-								  Data="M 0,0 L 4,4 L 0,8"
-								  Stroke="#FF000000" StrokeThickness="1.5"
-								  Margin="6,0,4,0"
-								  VerticalAlignment="Center"
-								  RenderTransformOrigin="50%,50%"/>
-						</Grid>
+									  Data="M 0,0 L 4,4 L 0,8"
+									  Stroke="#FF000000" StrokeThickness="1.5"
+									  VerticalAlignment="Center"
+									  RenderTransformOrigin="50%,50%"/>
+						</Panel>
 					</Border>
 				</ControlTemplate>
 			</Setter>
@@ -213,7 +216,7 @@
 				<Setter Property="BorderThickness" Value="3"/>
 			</Style>
 
-			<!-- Selected (список раскрыт): обводка 1px 7A7A7A, стрелка вверх -->
+			<!-- Selected (список раскрыт): стандартная обводка 1px 7A7A7A, стрелка вверх -->
 			<Style Selector="^:checked">
 				<Setter Property="BorderThickness" Value="1"/>
 			</Style>
@@ -236,6 +239,18 @@
 			     а не вверх — для панелей, которые раскрываются вбок. -->
 			<Style Selector="^.ArrowLeft:checked /template/ Path#PART_Arrow">
 				<Setter Property="RenderTransform" Value="rotate(180deg)"/>
+			</Style>
+
+			<!-- Стрелка-индикатор: по умолчанию прижата вправо (на 8px левее исходного). -->
+			<Style Selector="^ /template/ Path#PART_Arrow">
+				<Setter Property="HorizontalAlignment" Value="Right"/>
+				<Setter Property="Margin" Value="6,0,10,0"/>
+			</Style>
+
+			<!-- Кнопка только со стрелкой без подписи (DisplayStatesToggle): стрелка по центру кнопки. -->
+			<Style Selector="^.ArrowCenter /template/ Path#PART_Arrow">
+				<Setter Property="HorizontalAlignment" Value="Center"/>
+				<Setter Property="Margin" Value="0"/>
 			</Style>
 		</ControlTheme>
 		<!-- Пункт выпадающего списка ComboBox (правило ComboBox): высота 20px, фон FFFFFF,
@@ -317,7 +332,7 @@
 							  Grid.Column="1"
 							  Data="M 0,0 L 4,4 L 0,8"
 							  Stroke="#FF000000" StrokeThickness="1.5"
-							  Margin="6,0,4,0"
+							  Margin="6,0,10,0"
 							  VerticalAlignment="Center"
 							  RenderTransformOrigin="50%,50%"/>
 						<Popup Name="PART_Popup"
@@ -496,6 +511,13 @@
              к элементам, поэтому возвращают значения тем сцены. -->
         <Style Selector="Button">
             <Setter Property="Padding" Value="0"/>
+            <Setter Property="Background" Value="#FFFFFFFF"/>
+        </Style>
+        <Style Selector="Button:pointerover, Button:pressed">
+            <Setter Property="Background" Value="#FFC5C5C5"/>
+        </Style>
+        <Style Selector="Button:disabled">
+            <Setter Property="Background" Value="#FFF0F0F0"/>
         </Style>
         <Style Selector="ComboBox">
             <Setter Property="Height" Value="28"/>
@@ -510,6 +532,22 @@
         </Style>
         <Style Selector="MenuItem:pressed">
             <Setter Property="Background" Value="#FFD5D5D5"/>
+        </Style>
+
+        <!-- Иконки кнопок панели сцены: исходники 26x26, а рабочая область кнопки 28x28 (обводка 1px)
+             даёт те же 26x26 — картинка садится вплотную к рамке. Ограничиваем иконку 22x22,
+             контент центрируется → визуальный отступ 2px от рамки со всех сторон.
+             Stretch=Uniform сохраняет пропорции (basis 26x24, contours/showSides/insideObjects 25x26).
+             Пункты контекстного меню (16x16) не затрагиваются — они не внутри Button/ToggleButton. -->
+        <Style Selector="Button Image">
+            <Setter Property="Width" Value="22"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Stretch" Value="Uniform"/>
+        </Style>
+        <Style Selector="ToggleButton Image">
+            <Setter Property="Width" Value="22"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Stretch" Value="Uniform"/>
         </Style>
     </UserControl.Styles>
 
@@ -632,7 +670,7 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Spacing="4"
+        <StackPanel Spacing="3"
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Top">
             <!-- Верхний ряд панели сцены — порядок и зазоры как в WinForms-раскладке:
@@ -640,7 +678,7 @@
                  3px, «Внутренние объекты», 3px, «Вид». Панель механизмов раскрывается справа налево
                  (в WinForms: кнопки X=265…412, стрелка X=421, то есть 9px до стрелки). -->
             <StackPanel Orientation="Horizontal" Spacing="0"
-                        Margin="0,3,25,0"
+                        Margin="0,3,3,0"
                         HorizontalAlignment="Right">
                 <!-- Механизм отображения: 5 кнопок на одной линии слева от стрелки.
                      Справа-налево: контуры, базис, стороны, рёбра, стороны+рёбра. -->
@@ -693,7 +731,7 @@
                 <ToggleButton x:Name="DisplayStatesToggle"
                         ToolTip.Tip="{x:Static loc:SceneViewLocalization.DisplayStatesToolTip}"
                               Theme="{StaticResource SceneDropdownToggleTheme}"
-                              Classes="ArrowLeft"
+                              Classes="ArrowLeft ArrowCenter"
                               Width="20"
                               Padding="0"
                               Margin="9,0,0,0"
@@ -738,69 +776,69 @@
 
             <Canvas x:Name="ViewButtonsPanel"
                         IsVisible="False"
-                        Height="360">
+                        Height="245">
                 <!-- Иконки 20x20: высоту держим в пределах стандартных ~32px (Padding по вертикали не задаём). -->
                 <Button Name="btnXY"
                         ToolTip.Tip="{x:Static loc:SceneViewLocalization.PlaneXYToolTip}"
                         Theme="{StaticResource SceneButtonTheme}"
-                        Canvas.Right="5"
-                        Canvas.Top="35"
+                        Canvas.Right="3"
+                        Canvas.Top="0"
                         Click="OnViewChangeClick">
                     <Image Source="{StaticResource XY}"/>
                 </Button>
                 <Button Name="btnZX"
                         ToolTip.Tip="{x:Static loc:SceneViewLocalization.PlaneZXToolTip}"
                         Theme="{StaticResource SceneButtonTheme}"
-                        Canvas.Right="5"
-                        Canvas.Top="66"
+                        Canvas.Right="3"
+                        Canvas.Top="31"
                         Click="OnViewChangeClick">
                     <Image Source="{StaticResource ZX}"/>
                 </Button>
                 <Button Name="btnZY"
                         ToolTip.Tip="{x:Static loc:SceneViewLocalization.PlaneZYToolTip}"
                         Theme="{StaticResource SceneButtonTheme}"
-                        Canvas.Right="5"
-                        Canvas.Top="97"
+                        Canvas.Right="3"
+                        Canvas.Top="62"
                         Click="OnViewChangeClick">
                     <Image Source="{StaticResource ZY}"/>
                 </Button>
                 <ToggleButton Name="btnRotX"
                         ToolTip.Tip="{x:Static loc:SceneViewLocalization.RotateXToolTip}"
                               Theme="{StaticResource SceneButtonToggleTheme}"
-                              Canvas.Right="5"
-                              Canvas.Top="128"
+                              Canvas.Right="3"
+                              Canvas.Top="93"
                               Click="OnRotateChangeModeClick">
                     <Image Source="{StaticResource rotX}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotY"
                         ToolTip.Tip="{x:Static loc:SceneViewLocalization.RotateYToolTip}"
                               Theme="{StaticResource SceneButtonToggleTheme}"
-                              Canvas.Right="5"
-                              Canvas.Top="159"
+                              Canvas.Right="3"
+                              Canvas.Top="124"
                               Click="OnRotateChangeModeClick">
                     <Image Source="{StaticResource rotY}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotZ"
                         ToolTip.Tip="{x:Static loc:SceneViewLocalization.RotateZToolTip}"
                               Theme="{StaticResource SceneButtonToggleTheme}"
-                              Canvas.Right="5"
-                              Canvas.Top="190"
+                              Canvas.Right="3"
+                              Canvas.Top="155"
                               Click="OnRotateChangeModeClick">
                     <Image Source="{StaticResource rotZ}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotHor"
                         ToolTip.Tip="{x:Static loc:SceneViewLocalization.RotateHorizontal90ToolTip}"
                               Theme="{StaticResource SceneButtonToggleTheme}"
-                              Canvas.Right="5"
-                              Canvas.Top="221"
+                              Canvas.Right="3"
+                              Canvas.Top="186"
                               Click="OnRotateByRightAngle">
                     <Image Source="{StaticResource rotHor}"/>
                 </ToggleButton>
                 <ToggleButton Name="btnRotVer"
                         ToolTip.Tip="{x:Static loc:SceneViewLocalization.RotateVertical90ToolTip}"
                               Theme="{StaticResource SceneButtonToggleTheme}"
-                              Canvas.Right="5"
-                              Canvas.Top="252"
+                              Canvas.Right="3"
+                              Canvas.Top="217"
                               Click="OnRotateByRightAngle">
                     <Image Source="{StaticResource rotVer}"/>
                 </ToggleButton>

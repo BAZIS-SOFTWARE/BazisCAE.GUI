@@ -16,6 +16,16 @@
   <Color x:Key="SystemAccentColorLight2">#4BA0E1</Color>
   <Color x:Key="SystemAccentColorLight3">#7AB8E8</Color>
 
+  <!-- Фон выпадающего меню, включая отступы вокруг разделителей. -->
+  <SolidColorBrush x:Key="MenuFlyoutPresenterBackground" Color="#F0F0F0" />
+
+  <!-- Прямоугольный бегунок плеера используется всеми слайдерами GUI. -->
+  <CornerRadius x:Key="SliderThumbCornerRadius">0</CornerRadius>
+  <x:Double x:Key="SliderHorizontalThumbWidth">12</x:Double>
+  <x:Double x:Key="SliderHorizontalThumbHeight">20</x:Double>
+  <x:Double x:Key="SliderVerticalThumbWidth">20</x:Double>
+  <x:Double x:Key="SliderVerticalThumbHeight">12</x:Double>
+
   <!-- Button -->
   <SolidColorBrush x:Key="ButtonBackground" Color="#E1E1E1" />
   <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#C5C5C5" />

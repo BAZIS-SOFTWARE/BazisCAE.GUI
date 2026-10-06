@@ -42,6 +42,25 @@ public partial class AvaloniaTests
     }
 
     [Test]
+    public void MainMenuPopupHasSquareCorners()
+    {
+        var window = new MainWindow();
+        window.Show();
+        Dispatcher.UIThread.RunJobs();
+        try
+        {
+            var item = MenuItemByName(window, "viewMenuItem");
+            item.IsSubMenuOpen = true;
+            Dispatcher.UIThread.RunJobs();
+            var popup = Find<Avalonia.Controls.Primitives.Popup>(item);
+            Assert.That(popup.IsOpen, Is.True);
+            var border = (Border)popup.Child!;
+            Assert.That(border.CornerRadius, Is.EqualTo(new CornerRadius(0)));
+        }
+        finally { window.Close(); }
+    }
+
+    [Test]
     public void ProjectLoadingUnblocksMenusLikeBaseForm()
     {
         var window = ShowWindowWithProject();
