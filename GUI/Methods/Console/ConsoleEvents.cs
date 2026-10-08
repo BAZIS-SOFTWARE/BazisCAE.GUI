@@ -30,15 +30,6 @@ namespace BazisGUI
         private void CreateMesh2DPoligon(Point2D p1, Point2D p2, Point2D p3, Point2D p4, int numberOfElemsInt)
         {
             project.CreateQuadMeshOnPoligon(new List<Point2D>() { p1, p2, p3, p4 }, numberOfElemsInt);
-            PresentMeshData();
-            PresentModelObjectsForSelection();
-
-            var set = project.GetModelSetsInfo(ObjType.Элемент2D).Last();
-            var pres = project.CreateModelObjectsPresentor(set);
-            var vbo = CreateVBObject(pres);
-
-            VBOController.AddVbo(vbo);
-            RequestRedraw();
         }
 
         private void FindObjectParserStr(string str, out ObjType objType, out uint number)
@@ -59,12 +50,12 @@ namespace BazisGUI
 
                 if (obj != null)
                 {
-                    using (project.ModelView.BeginUpdate())
+                    using (project.BeginViewUpdate())
                     {
                         foreach (var item in project.GetModelSetsInfo(objType))
-                            project.ModelView.SetVisible(objType, item.GetNumbers(), false);
+                            project.SetVisible(objType, item.GetNumbers(), false);
 
-                        project.ModelView.SetVisible(objType, [(int)number], true);
+                        project.SetVisible(objType, [(int)number], true);
                     }
                 }
                 else
@@ -91,7 +82,7 @@ namespace BazisGUI
                 // технологичный для отображения найденных элементов
                 var numbers = findElmems.Select(x => x.Number).ToList();
                 ApplySelectionColor();
-                project.ModelView.SetSelection(ObjType.Элемент3D, numbers);
+                project.SetSelection(ObjType.Элемент3D, numbers);
             }
             Invoke(new Action(() => { console.PrintInfo($"{Resources.ConsoleEvents_ConsoleInEvent_ObjectFound_Message} {findElmems.Count()} {Resources.ConsoleEvents_ConsoleInEvents_VolumeElements_Message}", Color.Black); }));
         }

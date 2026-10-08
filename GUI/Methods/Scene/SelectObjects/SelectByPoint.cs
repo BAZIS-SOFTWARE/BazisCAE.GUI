@@ -14,7 +14,7 @@ namespace BazisGUI
     // Геометрический подбор (проекция координат, попадание в полигон/сегмент) теперь считает
     // ScenePicker внутри sceneController — см. GUI/Documents/scene.avalonia.md, раздел 6.
     // Здесь остаётся то, что Core сознательно не делает: применение выбора к модели
-    // (project.ModelView.Select/Deselect), вывод в консоль/панель свойств. Результат подбора
+    // (project.Select/Deselect), вывод в консоль/панель свойств. Результат подбора
     // (какой набор/номер задет) сообщается через sceneController.InfoRequested — см. pickHits
     // в SceneInitialization.cs.
     public partial class BaseForm
@@ -24,7 +24,7 @@ namespace BazisGUI
             var setList = sets.ToList();
             pickHits.Clear();
 
-            var selFlag = sceneController.SelectByPoint(setList, selectionPoint, isSelected, project.ModelView.GetVisible);
+            var selFlag = sceneController.SelectByPoint(setList, selectionPoint, isSelected, project.GetVisible);
 
             if (selFlag && pickHits.Count > 0)
             {
@@ -34,9 +34,9 @@ namespace BazisGUI
 
                 ApplySelectionColor();
                 if (isSelected)
-                    project.ModelView.Select(tempSetInfo.ObjType, [tempNumb]);
+                    project.Select(tempSetInfo.ObjType, [tempNumb]);
                 else
-                    project.ModelView.Deselect(tempSetInfo.ObjType, [tempNumb]);
+                    project.Deselect(tempSetInfo.ObjType, [tempNumb]);
 
                 if (bool.Parse(btnAdvSelection.Tag.ToString()))
                     DispatchSelection(new List<int>() { tempNumb }, isSelected);

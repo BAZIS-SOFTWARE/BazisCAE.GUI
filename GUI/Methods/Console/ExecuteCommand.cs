@@ -301,12 +301,10 @@ namespace BazisGUI
                         break;
                     case GenCmd.CreateSurfaceNodesGroup:
                         returnValue = project.CreateOpenSurfaceNodesGroup(cmds[1]);
-                        PresentGroupDataOnTree();
                         break;
                     case GenCmd.CreateGroupByGeoObjs:
                         PrepareDataForCreateGroupByGeo(cmds[1], cmds[2], cmds[3], out int _meshDim, out int _geoDim, out int _tag);
                         returnValue = project.CreateGroupByGeoObjs(_meshDim, _geoDim, _tag);
-                        PresentGroupDataOnTree();
                         break;
                     case GenCmd.LoadMaterialDB:
                         project.MaterialsDB = LoadDB<MaterialDBData>(cmds[1]);
@@ -327,14 +325,12 @@ namespace BazisGUI
                         PrepareDataForCreateVolumeMaterial(cmds[1], cmds[2], cmds[3], cmds[4], out IGroup groupVolumeMaterial, out float _startV, out float _stopV);
                         var matV = new MatData(project.MaterialsDB[cmds[1]], groupVolumeMaterial, _startV, _stopV);
                         project.AddTaskData(matV);
-                        PresentCondDataOnTree();
                         returnValue = matV.Value.ToString();
                         break;
                     case GenCmd.CreateBeamMaterial:
                         PrepareDataForCreateBeamMaterial(cmds[1], cmds[2], cmds[3], cmds[4], cmds[5], out IGroup groupBeamMaterial, out float _diametr, out float _startB, out float _stopB);
                         var matB = new BeamMatData(_diametr, project.MaterialsDB[cmds[1]], groupBeamMaterial, _startB, _stopB);
                         project.AddTaskData(matB);
-                        PresentCondDataOnTree();
                         returnValue = matB.Value.ToString();
                         break;
                     case GenCmd.CreateHeat:
@@ -344,7 +340,6 @@ namespace BazisGUI
                         heat = PrepareSourceDataForCreateHeat(cmds[2], cmds[3], heat);
                         heat = PrepareFrameDataForCreateHeat(cmds[4], cmds[5], heat);
                         project.AddTaskData(heat);
-                        PresentCondDataOnTree();
                         returnValue = heat.Value.ToString(CultureInfo.InvariantCulture);
                         break;
                     case GenCmd.CreateGroup:
@@ -353,7 +348,6 @@ namespace BazisGUI
                         project.CreateGroup(objects);
                         var group = project.GetAllModelGroups().Last();
                         console.PrintInfo($"{Resources.SelectSetEvent_CreateGroupBySet_Message}: {group.Name}", Color.Black);
-                        PresentGroupDataOnTree();
                         returnValue = group.Name;
                         break;
                     case GenCmd.GetRelatedGeometryObjects:
@@ -396,7 +390,6 @@ namespace BazisGUI
                 return;
             }
             project.ChangeTaskType(_taskType);
-            PresentCondDataOnTree();
         }
 
         private void ChangeTaskKind(string taskKind)
@@ -428,7 +421,6 @@ namespace BazisGUI
             }
 
             project.ChangeTaskKind(parsedTaskKind);
-            PresentCondDataOnTree();
         }
 
         private bool CheckTask() =>

@@ -98,7 +98,7 @@ namespace BazisAvaloniaGUI.Shell
                 settingsConfig.NodeColor = ar;
                 var setInfo = project?.GetModelSetsInfo(ObjType.Узел).FirstOrDefault();
                 if (setInfo != null)
-                    project.ModelView.SetColor(setInfo, ar);
+                    project.SetColor(setInfo, ar);
             };
 
             // В BaseForm события цвета 2D/3D-элементов не обрабатывались: цвет задаётся наборам текущей модели,
@@ -149,7 +149,7 @@ namespace BazisAvaloniaGUI.Shell
             {
                 settingsConfig.TransparencyValue = ar1;
                 if (project != null)
-                    project.ModelView.Transparency = GetModelViewTransparency();
+                    project.SetTransparency(GetModelViewTransparency());
             };
 
             settings.SetLightingIntensityEvent += (ar) =>
@@ -189,9 +189,9 @@ namespace BazisAvaloniaGUI.Shell
             if (project == null)
                 return;
 
-            using (project.ModelView.BeginUpdate())
+            using (project.BeginViewUpdate())
                 foreach (var setInfo in project.GetModelSetsInfo(elementType))
-                    project.ModelView.SetColor(setInfo, color);
+                    project.SetColor(setInfo, color);
         }
     }
 }

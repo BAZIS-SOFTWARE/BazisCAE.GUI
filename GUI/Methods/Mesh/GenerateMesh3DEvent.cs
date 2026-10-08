@@ -16,7 +16,7 @@ namespace BazisGUI
         {
             try
             {
-                if (project == null || !project.IsGeometryInitialized)
+                if (!project.HasProject || !project.IsGeometryInitialized)
                     throw new InvalidOperationException(Resources.GenerateMesh3DEvents_Generate3D_GMSHNull_Exception);
 
                 DeleteMeshObjects(ObjType.Узел);
@@ -34,12 +34,6 @@ namespace BazisGUI
                 if (!string.IsNullOrEmpty(error))
                     console.PrintInfo(error, Color.Red);
 
-                DeleteVBObjsByObjsType(ObjType.Узел);
-                CreateVBObjsByObjsType(ObjType.Узел);
-                DeleteVBObjects("Элементы");
-                CreateVBObjects("Элементы");
-                PresentMeshData();
-                PresentModelObjectsForSelection();
                 FitObjectsToScreen();
                 RequestRedraw();
 

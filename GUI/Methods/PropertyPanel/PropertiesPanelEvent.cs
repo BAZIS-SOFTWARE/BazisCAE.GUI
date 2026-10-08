@@ -67,8 +67,6 @@ namespace BazisGUI
                         )
                     {
                         ChangeMeshGroupProperties(obj, index);
-                        PresentGroupDataOnTree();
-                        PresentCondDataOnTree();
                     }
                 }
                 else if (parentName == NodeName.Mesh)

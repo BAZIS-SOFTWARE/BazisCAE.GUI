@@ -28,7 +28,7 @@ namespace BazisAvaloniaGUI.Shell
 
                 var numbers = coincidentNodes.SelectMany(x => x).ToList();
                 ApplySelectionColor();
-                project.ModelView.SetSelection(ObjType.Узел, numbers);
+                project.SetSelection(ObjType.Узел, numbers);
 
             }));
             var actConfirm = new Func<Tuple<bool, object>>(() =>

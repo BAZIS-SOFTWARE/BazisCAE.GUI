@@ -44,7 +44,7 @@ namespace BazisGUI
 
         public void ChangeInsideObjects(bool flag)
         {
-            project.ModelView.HideInsideSurfaces = !flag;
+            project.SetHideInsideSurfaces(!flag);
 
             if (!flag)
                 console.PrintInfo(Resources.ShowInsideObjects_HideInnerObjects_Message, Color.Black);

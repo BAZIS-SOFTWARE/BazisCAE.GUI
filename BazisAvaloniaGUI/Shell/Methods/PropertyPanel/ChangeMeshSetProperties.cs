@@ -36,14 +36,14 @@ namespace BazisAvaloniaGUI.Shell
                         {
                             var color = HandleSetColorParameter(obj.NewValue.ToString());
                             if (_objectsSet != null)
-                                project.ModelView.SetColor(_objectsSet, color);
+                                project.SetColor(_objectsSet, color);
                             break;
                         }
 
                     case SetPropertyKeys.View:
                         {
                             var viewMode = obj.NewValue.ToString().ToEnum<ViewMode>();
-                            project.ModelView.SetViewMode(_objectsSet, viewMode);
+                            project.SetViewMode(_objectsSet, viewMode);
                             break;
                         }
 

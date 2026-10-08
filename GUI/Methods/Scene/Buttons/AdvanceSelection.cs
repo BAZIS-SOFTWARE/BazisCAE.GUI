@@ -225,12 +225,12 @@ namespace BazisGUI
             {
                 var setNumbers = setInfo.GetNumbers();
                 if (isSelected)
-                    project.ModelView.Select(selectType, setNumbers);
+                    project.Select(selectType, setNumbers);
                 else
-                    project.ModelView.Deselect(selectType, setNumbers);
+                    project.Deselect(selectType, setNumbers);
             }
 
-            var selectedCount = project.ModelView.GetSelected(selectType).ToList();
+            var selectedCount = project.GetSelected(selectType).ToList();
 
             console.PrintInfo($"{selectType}, {Resources.AdvaneSelectionSelectedCaption}: {selectedCount}", Color.Black);
             return selectedCount;
@@ -251,11 +251,11 @@ namespace BazisGUI
 
             ApplySelectionColor();
             if (isSelected)
-                project.ModelView.Select(objType, scopedNumbers);
+                project.Select(objType, scopedNumbers);
             else
-                project.ModelView.Deselect(objType, scopedNumbers);
+                project.Deselect(objType, scopedNumbers);
 
-            var selectedCount = project.ModelView.SelectedCount;
+            var selectedCount = project.SelectedCount;
             
             console.PrintInfo($"{objType}, {Resources.AdvaneSelectionSelectedCaption}: {selectedCount}", Color.Black);
         }

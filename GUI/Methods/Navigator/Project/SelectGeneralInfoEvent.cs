@@ -13,7 +13,7 @@ namespace BazisGUI
         {
             try
             {
-                if (project == null)
+                if (!project.HasProject)
                     return;
 
                 

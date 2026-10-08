@@ -8,17 +8,8 @@ namespace BazisGUI
         {
             var node = navigator.SelectedNode;
             var group = project.GetModelGroup(node.Index);
-            var objType = group.ObjType;
-            var number = group.Number;
 
             project.DeleteModelGroup(group.Name);
-            OnGroupDeleted?.Invoke(objType, number);
-
-            //удаляем узел
-            node.Remove();
-
-            //if (arg1 is TaskPage taskPage)
-            PresentCondDataOnTree();
         }
     }
 }

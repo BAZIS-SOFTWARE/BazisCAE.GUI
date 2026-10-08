@@ -35,14 +35,14 @@ namespace BazisAvaloniaGUI.Shell
                 if (objInfo.TryToEnum(out objType))
                 {
                     set = project.GetModelSetInfo(objType, number);
-                    project.ModelView.SetVisible(objType, [number], flag);
+                    project.SetVisible(objType, [number], flag);
                 }
                 else
                 {
                     set = project.GetModelSetsInfo(ObjType.Поверхность).First();
                     var vol = project.GetModelVolumes().First(x => x.Number == number);
                     var numbers = vol.GetSurfaceFigures().Select(x => x.Number);
-                    project.ModelView.SetVisible(ObjType.Поверхность, numbers, flag);
+                    project.SetVisible(ObjType.Поверхность, numbers, flag);
                 }
 
 

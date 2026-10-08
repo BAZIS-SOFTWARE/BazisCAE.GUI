@@ -47,12 +47,12 @@ namespace BazisAvaloniaGUI.Shell
         /// <summary>В BaseForm создаёт VBObject; в Avalonia буферы создаёт сцена, поэтому возвращается представление.</summary>
         public IObjsPresenter CreateVBObject(IObjsPresenter presenter) => presenter;
 
-        IModelView subscribedModelView;
+        IProjectController subscribedModelView;
 
         /// <summary>Передаёт проект сцене (в BaseForm — подписка на ModelView.Changed для обновления буферов).</summary>
         private void SubscribeToModelView()
         {
-            var modelView = project?.ModelView;
+            var modelView = project;
             if (ReferenceEquals(subscribedModelView, modelView))
                 return;
 
@@ -249,7 +249,7 @@ namespace BazisAvaloniaGUI.Shell
         internal void SetBackColorToAllObjects()
         {
             if (project != null)
-                project.ModelView.ClearSelection();
+                project.ClearSelection();
         }
 
         /// <summary>

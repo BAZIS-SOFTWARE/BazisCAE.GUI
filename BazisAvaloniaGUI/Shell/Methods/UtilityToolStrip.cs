@@ -140,7 +140,7 @@ namespace BazisAvaloniaGUI.Shell
                 if (res.Result is IPoint node)
                 {
                     nodes.Add(node);
-                    project.ModelView.ClearSelection(ObjType.Узел);
+                    project.ClearSelection(ObjType.Узел);
                 }
                 else break;
 
@@ -169,7 +169,7 @@ namespace BazisAvaloniaGUI.Shell
 
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var selObjs = project.ModelView.GetSelected(objType)
+                var selObjs = project.GetSelected(objType)
                     .Select(number => project.GetModelObject(objType, number));
 
                 if (selObjs.Count() == 0)
@@ -198,7 +198,7 @@ namespace BazisAvaloniaGUI.Shell
         private void CalcVolume(SelectionType selection)
         {
             var objType = Converters.ConvertSelectionTypeToObjType(selection);
-            var selObjs = project.ModelView.GetSelected(objType)
+            var selObjs = project.GetSelected(objType)
                 .Select(number => project.GetModelObject(objType, number));
 
             var vol = 0.0f;
@@ -213,7 +213,7 @@ namespace BazisAvaloniaGUI.Shell
         private void CalcSquare(SelectionType select)
         {
             var objType = Converters.ConvertSelectionTypeToObjType(select);
-            var selObjs = project.ModelView.GetSelected(objType)
+            var selObjs = project.GetSelected(objType)
                 .Select(number => project.GetModelObject(objType, number));
             var square = 0.0;
             foreach (var obj in selObjs)
@@ -232,7 +232,7 @@ namespace BazisAvaloniaGUI.Shell
             if (plane is null)
                 return;
 
-            project.ModelView.ClearSelection(objType);
+            project.ClearSelection(objType);
             var message = $@"{Resources.UtilityToolStrip_DistancePointToPlane_InstructionPart1} {Localization.Localization.GetSelectionTypeLocalization(SelectionType.Nodes)} {Resources.UtilityToolStrip_DistancePointToPlane_InstructionPart1}";
             var res = SelectObjectAsync(objType, message);
             await res;
@@ -250,7 +250,7 @@ namespace BazisAvaloniaGUI.Shell
         private void DistancePointToPoint(SelectionType objTypeStr)
         {
             var objType = Converters.ConvertSelectionTypeToObjType(objTypeStr);
-            var selObjs = project.ModelView.GetSelected(objType)
+            var selObjs = project.GetSelected(objType)
                 .Select(number => project.GetModelObject(objType, number))
                 .ToList();
 

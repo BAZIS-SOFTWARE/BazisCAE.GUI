@@ -19,7 +19,7 @@ namespace BazisGUI
                 List<TreeNode> tasks;
                 var search = navigator.TrySearchNodes(NodeName.Task, out tasks);
 
-                if (project == null)
+                if (!project.HasProject)
                     throw new Exception(Resources.CreateTaskWithoutProjectExc);
 
                 if (!search)

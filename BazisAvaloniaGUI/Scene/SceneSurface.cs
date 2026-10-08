@@ -102,11 +102,11 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
     public bool HideInsideSurfaces
     {
-        get => project?.ModelView.HideInsideSurfaces ?? false;
+        get => project?.HideInsideSurfaces ?? false;
         set
         {
             if (project != null)
-                project.ModelView.HideInsideSurfaces = value;
+                project.SetHideInsideSurfaces(value);
         }
     }
 
@@ -182,8 +182,8 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         if (project == null)
             return;
 
-        var modelView = project.ModelView;
-        using (modelView.BeginUpdate())
+        var modelView = project;
+        using (modelView.BeginViewUpdate())
         {
             foreach (var type in new[] { ObjType.Поверхность, ObjType.Элемент2D, ObjType.Элемент3D })
                 foreach (var set in project.GetModelSetsInfo(type))
@@ -267,7 +267,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
                 return;
             }
 
-            var selected = project.ModelView.GetSelection().ToList();
+            var selected = project.GetSelection().ToList();
             if (selected.Count == 0)
             {
                 MessageReported?.Invoke(Localization.Resources.SceneView_CreateGroup_NothingSelected_Message, DrawingColor.Black);
@@ -290,7 +290,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     /// <summary>
     /// Скрывает выделенные объекты и снимает с них выделение — порт пункта «Скрыть выбранное»
     /// контекстного меню (WinForms BaseForm.скрытьВыбранноеItem_Click).
-    /// ModelView.HideSelected поднимает Changed, поэтому перестройку VBO делает подписка OnModelViewChanged.
+    /// ModelView.HideSelected поднимает Changed, поэтому перестройку VBO делает подписка OnProjectMessage.
     /// </summary>
     public void HideSelected()
     {
@@ -299,7 +299,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
         try
         {
-            project.ModelView.HideSelected();
+            project.HideSelected();
         }
         catch (Exception error)
         {
@@ -310,7 +310,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     /// <summary>
     /// Показывает все скрытые объекты — порт пункта «Показать все скрытые» контекстного меню
     /// (WinForms BaseForm.показатьСкрытыеItem_Click).
-    /// ModelView.ShowAll поднимает Changed, поэтому перестройку VBO делает подписка OnModelViewChanged.
+    /// ModelView.ShowAll поднимает Changed, поэтому перестройку VBO делает подписка OnProjectMessage.
     /// </summary>
     public void ShowHidden()
     {
@@ -319,7 +319,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
         try
         {
-            project.ModelView.ShowAll();
+            project.ShowAll();
         }
         catch (Exception error)
         {
@@ -338,7 +338,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
         try
         {
-            var selected = project.ModelView.GetSelection().ToList();
+            var selected = project.GetSelection().ToList();
             var type = SceneViewLocalization.ObjectType(SelectedObjectType);
             var message = $"{Localization.Resources.SceneEvents_Info_Selected} {type}: {selected.Count}";
             if (selected.Count > 0)
@@ -413,7 +413,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     /// <summary>
     /// Делает видимыми смежные (сопряжённые) геометрические объекты для выделенных — порт пункта
     /// «Показать сопряжённые» контекстного меню (WinForms BaseForm.показатьСопряженныеItem_Click).
-    /// ModelView.SetVisible поднимает Changed, поэтому перестройку VBO делает подписка OnModelViewChanged.
+    /// ModelView.SetVisible поднимает Changed, поэтому перестройку VBO делает подписка OnProjectMessage.
     /// </summary>
     public void ShowPaired()
     {
@@ -422,8 +422,8 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
         try
         {
-            var selected = project.ModelView.GetSelection().ToList();
-            using (project.ModelView.BeginUpdate())
+            var selected = project.GetSelection().ToList();
+            using (project.BeginViewUpdate())
             {
                 foreach (var item in selected)
                 {
@@ -447,7 +447,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
             foreach (var number in numbers)
             {
                 var obj = project.GetModelObject(type, number);
-                project.ModelView.SetVisible(obj.ObjType, [obj.Number], true);
+                project.SetVisible(obj.ObjType, [obj.Number], true);
             }
         }
     }
@@ -467,7 +467,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
         try
         {
-            var selected = project.ModelView.GetSelection().ToList();
+            var selected = project.GetSelection().ToList();
             if (selected.Count == 0)
                 return;
 
@@ -504,9 +504,9 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     public void ShowProject(ProjectController project)
     {
         if (this.project != null)
-            this.project.ModelView.Changed -= OnModelViewChanged;
+            this.project.Message -= OnProjectMessage;
         this.project = project;
-        project.ModelView.Changed += OnModelViewChanged;
+        project.Message += OnProjectMessage;
         Invoke(scene => presenter.Display(project, scene, fitToScreen: true));
         ProjectShown?.Invoke(project);
     }
@@ -551,29 +551,40 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     /// Ставит изменённые наборы в очередь обновления на следующем кадре OpenGL
     /// (BaseForm.ModelView_Changed: пересборка или только перекраска буфера).
     /// </summary>
-    private void OnModelViewChanged(object? sender, ModelViewChangedEventArgs e)
+    private void OnProjectMessage(object? sender, ProjectMessageEventArgs e)
     {
-        var rebuild = new List<ISetInfo>();
-        var recolor = new List<ISetInfo>();
-        foreach (var set in e.GetChangedSets())
-        {
-            if (e.HasAny(set, RebuildChanges))
-                rebuild.Add(set);
-            else if (e.HasAny(set, ColorChanges))
-                recolor.Add(set);
-        }
-
-        var changedProject = sender as IModelView;
         Invoke(scene =>
         {
-            if (project == null || !ReferenceEquals(changedProject, project.ModelView))
+            if (project == null || !ReferenceEquals(sender, project))
                 return;
 
+            var rebuild = new HashSet<ISetInfo>();
+            var recolor = new HashSet<ISetInfo>();
+            foreach (var change in e.Changes)
+            {
+                if (change is ViewChange viewChange)
+                {
+                    foreach (var set in viewChange.AffectedSets)
+                    {
+                        var kind = viewChange.GetChangeKind(set);
+                        if ((kind & RebuildChanges) != 0)
+                            rebuild.Add(set);
+                        else if ((kind & ColorChanges) != 0)
+                            recolor.Add(set);
+                    }
+                }
+                else if (change is ProjectChange projectChange && projectChange.ChangeKind != ProjectChange.ProjectChangeKind.PropertyChanged
+                    || change is GeoChange or MeshChange or SetDelete or SetRename)
+                {
+                    presenter.Display(project, scene, fitToScreen: false);
+                    return;
+                }
+            }
+            recolor.ExceptWith(rebuild);
             presenter.Refresh(project, scene, rebuild);
             presenter.Recolor(project, scene, recolor);
         });
     }
-
     protected override void OnOpenGlInit(GlInterface gl)
     {
         GL.LoadBindings(new AvaloniaGlBindingsContext(gl));
@@ -825,7 +836,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
 
     /// <summary>
     /// Порт ветки Escape из WinForms BaseForm.GlControl_KeyDown: убирает вспомогательную геометрию
-    /// и текст и снимает выделение со всех объектов. Пересборку наборов выполняет подписка OnModelViewChanged.
+    /// и текст и снимает выделение со всех объектов. Пересборку наборов выполняет подписка OnProjectMessage.
     /// </summary>
     private void ClearSelection()
     {
@@ -840,8 +851,8 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
         {
             try
             {
-                using (project.ModelView.BeginUpdate())
-                    project.ModelView.ClearSelection();
+                using (project.BeginViewUpdate())
+                    project.ClearSelection();
             }
             catch (Exception error)
             {

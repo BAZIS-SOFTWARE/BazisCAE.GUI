@@ -11,7 +11,7 @@ namespace BazisAvaloniaGUI.Shell
     {
         public List<RowProperty> GetSetProperty(ISetInfo _objectsSet)
         {
-            var modelView = project.ModelView;
+            var modelView = project;
             return new List<RowProperty>
             {
                new RowProperty(SetPropertyKeys.Name.ToString(), Resources.Header_set_name, _objectsSet.Name, isReadOnly: true),

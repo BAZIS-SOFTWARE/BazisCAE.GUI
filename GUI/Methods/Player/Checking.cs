@@ -33,11 +33,10 @@ namespace BazisGUI
                         DisplayText3DEvent = null;
 
                         var time = Math.Min(conditionCheckStartTime + arg2, conditionCheckStopTime);
-                        var modelView = project.ModelView;
                         var conditions = project.GetAllCondData();
-                        using (modelView.BeginUpdate())
+                        using (project.BeginViewUpdate())
                         {
-                            modelView.ClearColor();
+                            project.ClearColor();
                             foreach (var data in conditions)
                             {
                                 if (time < data.StartTime || time > data.StopTime)
@@ -68,7 +67,7 @@ namespace BazisGUI
                                     DisplayDirection(time, data, group);
                                 var color = GetConditionColor(data.Kind);
                                 var numbers = group.Select(modelObject => modelObject.Number);
-                                modelView.SetColor(group.ObjType, numbers, color);
+                                project.SetColor(group.ObjType, numbers, color);
                             }
                         }
                         RequestRedraw();
@@ -106,7 +105,7 @@ namespace BazisGUI
             if (checkingConditions)
             {
                 checkingConditions = false;
-                project?.ModelView.ClearColor();
+                project?.ClearColor();
             }
             RequestRedraw();
         }

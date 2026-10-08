@@ -41,7 +41,7 @@ namespace BazisAvaloniaGUI.Shell
                 foreach (var type in types)
                 {
                     foreach (var set in project.GetModelSetsInfo(type))
-                        project.ModelView.SetVisible(type, set.GetNumbers(), state);
+                        project.SetVisible(type, set.GetNumbers(), state);
                 }
 
             }

@@ -33,9 +33,9 @@ namespace BazisAvaloniaGUI.Shell
                         HideAllText3D();
 
                         var time = Math.Min(conditionCheckStartTime + arg2, conditionCheckStopTime);
-                        var modelView = project.ModelView;
+                        var modelView = project;
                         var conditions = project.GetAllCondData();
-                        using (modelView.BeginUpdate())
+                        using (modelView.BeginViewUpdate())
                         {
                             modelView.ClearColor();
                             foreach (var data in conditions)
@@ -105,7 +105,7 @@ namespace BazisAvaloniaGUI.Shell
             if (checkingConditions)
             {
                 checkingConditions = false;
-                project?.ModelView.ClearColor();
+                project?.ClearColor();
             }
             RequestRedraw();
         }

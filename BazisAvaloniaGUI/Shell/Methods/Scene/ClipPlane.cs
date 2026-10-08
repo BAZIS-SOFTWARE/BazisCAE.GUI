@@ -276,7 +276,7 @@ namespace BazisAvaloniaGUI.Shell
         /// <param name="indices">Преобразованные индексы элементов, полученные из шейдера</param>
         private void CreateCaptureElements(Model.Interfaces.ObjectsCollections.ISetInfo[] sets, List<List<int>> indices)
         {
-            using (project.ModelView.BeginUpdate())
+            using (project.BeginViewUpdate())
             {
                 for (var index = 0; index < sets.Length; ++index)
                 {
@@ -288,7 +288,7 @@ namespace BazisAvaloniaGUI.Shell
                     foreach (var element in project.GetModelElements(3, sets[index].Name))
                     {
                         var isVisible = indexSet.Contains(indexElems);
-                        project.ModelView.SetVisible(ObjType.Элемент3D, [element.Number], isVisible);
+                        project.SetVisible(ObjType.Элемент3D, [element.Number], isVisible);
                         ++indexElems;
                     }
                 }
@@ -373,7 +373,7 @@ namespace BazisAvaloniaGUI.Shell
 
         private void CreateSectionSurfacesFromNodes()
         {
-            var selObjs = project.ModelView.GetSelected(ObjType.Узел)
+            var selObjs = project.GetSelected(ObjType.Узел)
                 .Select(number => project.GetModelObject(ObjType.Узел, number))
                 .ToArray();
 

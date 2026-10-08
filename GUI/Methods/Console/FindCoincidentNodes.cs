@@ -12,7 +12,7 @@ namespace BazisGUI
     {
         private async Task FindCoincidentNodes(float distance)
         {
-            if (project == null)
+            if (!project.HasProject)
                 return;
             Invoke(new Action(() => { console.PrintInfo(Resources.FindCoincidentNodes_Action_Message, Color.Black); }));
 
@@ -21,11 +21,9 @@ namespace BazisGUI
             Invoke(new Action(() => { console.PrintInfo($"{Resources.FindCoincidentNodes_Action_Found_Message} {coincidentNodes.Count()} {Resources.FindCoincidentNodes_Action_Matches_Message}", Color.Black); }));
             Invoke(new Action(() =>
             {
-                ClearAllDataOnScene();
-
                 var numbers = coincidentNodes.SelectMany(x => x).ToList();
                 ApplySelectionColor();
-                project.ModelView.SetSelection(ObjType.Узел, numbers);
+                project.SetSelection(ObjType.Узел, numbers);
 
                 //var ndSet = project.GetModelSetsInfo(ObjType.Узел).First();
                 //var pres = project.CreateModelObjectsPresentor(ndSet);
@@ -38,18 +36,9 @@ namespace BazisGUI
 
                 Invoke(new Action(() =>
                 {
-                    var set = project.GetModelSetsInfo(ObjType.Узел).First();
-
                     //navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> objects);
                     //objects[0].Nodes[0].Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
                     console.PrintInfo(Resources.FindCoincidentNodes_ActionConfirm_MergeNodes_Message, Color.Green);
-                    PresentMeshData();
-                    PresentCondDataOnTree();
-
-                    VBOController.DeleteAllVBObjects();
-                    CreateVBObjects("Объекты");
-                    RequestRedraw();
-
                 }));
                 return new Tuple<bool, object>(true, new object());
             });

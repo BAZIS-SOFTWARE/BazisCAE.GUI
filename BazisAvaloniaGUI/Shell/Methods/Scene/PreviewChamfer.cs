@@ -21,7 +21,7 @@ namespace BazisAvaloniaGUI.Shell
         {
             try
             {
-                var curveTags = project.ModelView.GetSelected(ObjType.Кривая).ToArray();
+                var curveTags = project.GetSelected(ObjType.Кривая).ToArray();
 
                 var segments = new List<Segment3D>(curveTags.Length * 4);
 

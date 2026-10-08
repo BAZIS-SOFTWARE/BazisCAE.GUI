@@ -40,7 +40,7 @@ namespace BazisAvaloniaGUI.Shell
 
         public void NewMethod1(ISetInfo item, bool state)
         {
-            project.ModelView.SetVisible(item.ObjType, item.GetNumbers(), state);
+            project.SetVisible(item.ObjType, item.GetNumbers(), state);
 
         }
     }

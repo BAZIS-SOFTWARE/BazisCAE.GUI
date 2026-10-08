@@ -59,10 +59,10 @@ namespace BazisAvaloniaGUI.Shell
 
                 checkPlayerControl.StopChecking();
                 CheckPlayerControl_StopCheckingEvent(checkPlayerControl);
-                var modelView = project.ModelView;
+                var modelView = project;
                 var color = settingsConfig.SelectGroupColor;
                 var numbers = data.Group.Select(x => x.Number);
-                using (modelView.BeginUpdate())
+                using (modelView.BeginViewUpdate())
                 {
                     modelView.ClearColor();
                     modelView.SetColor(data.Group.ObjType, numbers, color);

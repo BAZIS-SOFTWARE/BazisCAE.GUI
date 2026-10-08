@@ -30,7 +30,7 @@ namespace BazisGUI
                 else
                 {
                     //CreatedMeshGroupEvent?.Invoke(this, spbSelectObject.ToolTipText);
-                    var selObjs = project.ModelView.GetSelection().ToList();
+                    var selObjs = project.GetSelection().ToList();
 
                     if (selObjs.Count() > 0)
                     {
@@ -43,9 +43,6 @@ namespace BazisGUI
                         var gr = project.GetAllModelGroups().Last();
 
                         console.PrintInfo($"{Resources.SceneEvents_CreateGroup_SuccessCaption}: {gr.Name}", Color.Black);
-
-                        PresentGroupDataOnTree();
-                        OnGroupCreated?.Invoke(gr.ObjType, gr.Number, gr.Name);
                     }
                 }
             }
@@ -59,7 +56,7 @@ namespace BazisGUI
         {
             try
             {
-                project.ModelView.HideSelected();
+                project.HideSelected();
             }
             catch (Exception ex)
             {
@@ -71,7 +68,7 @@ namespace BazisGUI
         {
             try
             {
-                project.ModelView.ShowAll();
+                project.ShowAll();
             }
             catch (Exception ex)
             {
@@ -83,7 +80,7 @@ namespace BazisGUI
         {
             try
             {
-                var selObjs = project.ModelView.GetSelection().ToList();
+                var selObjs = project.GetSelection().ToList();
 
                 var message = $"{Resources.SceneEvents_Info_Selected} {SelectedObjects}: {selObjs.Count()}";
 
@@ -149,23 +146,12 @@ namespace BazisGUI
                     SelectedObjects == SelectionType.Surfaces)
                     return;
 
-                var selObjs = project.ModelView.GetSelection().ToList();
-                var affectedSets = selObjs.Select(item => project.GetModelSetInfo(item.ObjType, item.Number)).Where(setInfo => setInfo != null).Distinct().ToList();
-                if (selObjs.Any(item => item.ObjType == ObjType.Узел))
-                {
-                    foreach (var elementType in new[] { ObjType.Элемент1D, ObjType.Элемент2D, ObjType.Элемент3D })
-                    {
-                        var elementSets = project.GetModelSetsInfo(elementType);
-                        affectedSets.AddRange(elementSets);
-                    }
-                }
+                var selObjs = project.GetSelection().ToList();
 
                 foreach (var item in selObjs)
                     item.ExistState = false;
 
                 project.ClearNotExistedModelData();
-                foreach (var setInfo in affectedSets.Distinct())
-                    RefreshModelSetBuffer(setInfo);
                 //project.ClearEmptySet();
                 //project.ClearNotExistedGroupData();
                 //project.ClearNotExistedCondData();
@@ -174,10 +160,6 @@ namespace BazisGUI
                 //project.ModelData.ObjectData.ClearEmptySet();
                 //project.ModelData.GroupData.ClearNotExisted();
                 //project.TaskData.ClearNotExisted(project.ModelData.GroupData);
-
-                PresentMeshData();
-                PresentGroupDataOnTree();
-                PresentCondDataOnTree();
 
             }
             catch (Exception ex)
@@ -194,7 +176,7 @@ namespace BazisGUI
         internal void SetBackColorToAllObjects()
         {
             if (project != null)
-                project.ModelView.ClearSelection();
+                project.ClearSelection();
         }
 
         private void GlControl_KeyDown(object sender, KeyEventArgs e)

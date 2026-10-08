@@ -226,7 +226,7 @@ namespace BazisAvaloniaGUI.Shell
 
             foreach (var obj in objs)
             {
-                if (project.ModelView.IsSelected(obj.ObjType, obj.Number))
+                if (project.IsSelected(obj.ObjType, obj.Number))
                 {
                     var coord = obj.CalcCentr();
                     var res = result.GetValue((int)resType, obj.Number, resName);

@@ -19,7 +19,7 @@ namespace BazisAvaloniaGUI.Shell
         /// </summary>
         private bool IsSelected(IModelObject modelObject)
         {
-            return project.ModelView.IsSelected(modelObject.ObjType, modelObject.Number);
+            return project.IsSelected(modelObject.ObjType, modelObject.Number);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BazisAvaloniaGUI.Shell
         private IEnumerable<int> GetVisibleNumbers(ISetInfo setInfo)
         {
             foreach (var number in setInfo.GetNumbers())
-                if (project.ModelView.GetVisible(setInfo.ObjType, number))
+                if (project.GetVisible(setInfo.ObjType, number))
                     yield return number;
         }
 
@@ -38,7 +38,7 @@ namespace BazisAvaloniaGUI.Shell
         private void ApplySelectionColor()
         {
             if (project != null)
-                project.ModelView.SelectionColor = settingsConfig.SelectObjectColor;
+                project.SetSelectionColor(settingsConfig.SelectObjectColor);
         }
 
         /// <summary>
@@ -49,8 +49,8 @@ namespace BazisAvaloniaGUI.Shell
             if (project == null)
                 return;
 
-            project.ModelView.SelectionColor = settingsConfig.SelectObjectColor;
-            project.ModelView.Transparency = GetModelViewTransparency();
+            project.SetSelectionColor(settingsConfig.SelectObjectColor);
+            project.SetTransparency(GetModelViewTransparency());
         }
 
         /// <summary>

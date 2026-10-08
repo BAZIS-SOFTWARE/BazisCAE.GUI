@@ -38,15 +38,14 @@ namespace BazisGUI
         {
             try
             {
-                var modelView = project.ModelView;
-                using (modelView.BeginUpdate())
+                using (project.BeginViewUpdate())
                 {
                     foreach (var item in project.GetModelSetsInfo(ObjType.Поверхность))
-                        modelView.SetViewMode(item, arg2);
+                        project.SetViewMode(item, arg2);
                     foreach (var item in project.GetModelSetsInfo(ObjType.Элемент2D))
-                        modelView.SetViewMode(item, arg2);
+                        project.SetViewMode(item, arg2);
                     foreach (var item in project.GetModelSetsInfo(ObjType.Элемент3D))
-                        modelView.SetViewMode(item, arg2);
+                        project.SetViewMode(item, arg2);
                 }
             }
             catch (Exception ex)

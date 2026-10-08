@@ -19,13 +19,13 @@ namespace BazisGUI
             //SelectedObjects = group.ObjType.ToString();
 
             ApplySelectionColor();
-            using (project.ModelView.BeginUpdate())
+            using (project.BeginViewUpdate())
             {
-                project.ModelView.ClearSelection();
+                project.ClearSelection();
                 foreach (var objType in group.Select(x => x.ObjType).Distinct())
                 {
                     var numbers = group.Where(x => x.ObjType == objType).Select(x => x.Number);
-                    project.ModelView.Select(objType, numbers);
+                    project.Select(objType, numbers);
                 }
             }
             //Thread.Sleep(100);
@@ -40,7 +40,7 @@ namespace BazisGUI
         {
             var actConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var selObj = project.ModelView.GetSelection().ToList();
+                var selObj = project.GetSelection().ToList();
 
                 if (selObj.Count() == 0)
                 {

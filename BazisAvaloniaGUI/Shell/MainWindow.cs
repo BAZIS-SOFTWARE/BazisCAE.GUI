@@ -413,7 +413,7 @@ namespace BazisAvaloniaGUI.Shell
                 var newFolder = Path.GetDirectoryName(fileName);
                 var oldFolder = Path.GetDirectoryName(lblStatus.Text);
 
-                project.Name = Path.GetFileName(fileName);
+                project.ChangeProjectName(Path.GetFileName(fileName));
 
                 if (oldFolder != newFolder)
                 {
@@ -493,20 +493,13 @@ namespace BazisAvaloniaGUI.Shell
                     var mb = new TextBlock { TextWrapping = Avalonia.Media.TextWrapping.Wrap };
                     var mbf = dataController.CreateMessageBoxExForm(mb);
                     mbf.Show(this);
+                    var progress = new Progress<int>(value => mb.Text = $"{value}%");
                     await Task.Run(new Action(() =>
                     {
-                        project.MessageEvent += (ar1) =>
-                        {
-                            Avalonia.Threading.Dispatcher.UIThread.Invoke(new Action(() =>
-                            {
-                                mb.Text = ar1;
-                            }));
-                        };
-                        project.Append(fileName);
+                        project.Append(fileName, progress);
 
                     }));
                     mbf.Close();
-                    project.UnsubMessasge();
 
                     ClearAllDataOnScene();
                     PresentProject();

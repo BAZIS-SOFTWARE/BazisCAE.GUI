@@ -18,12 +18,12 @@ namespace BazisGUI
 
                 if(freeNodes.Count() != 0)
                 {
-                    using (project.ModelView.BeginUpdate())
+                    using (project.BeginViewUpdate())
                     {
                         foreach (var set in project.GetModelSetsInfo(ObjType.Узел))
-                            project.ModelView.SetVisible(ObjType.Узел, set.GetNumbers(), false);
+                            project.SetVisible(ObjType.Узел, set.GetNumbers(), false);
 
-                        project.ModelView.SetVisible(ObjType.Узел, freeNodes, true);
+                        project.SetVisible(ObjType.Узел, freeNodes, true);
                     }
                 }
             }));

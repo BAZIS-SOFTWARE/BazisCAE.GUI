@@ -19,17 +19,17 @@ namespace BazisAvaloniaGUI.Shell
                 var firstRes = await SelectObjectAsync(ObjType.Узел, message);
                 var fNode = firstRes as Node;
 
-                project.ModelView.ClearSelection();
+                project.ClearSelection();
 
                 message = $@"Выберите второй узел и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
                 var secondRes = await SelectObjectAsync(ObjType.Узел, message);
                 var sNode = secondRes as Node;
 
-                project.ModelView.ClearSelection();
+                project.ClearSelection();
 
                 await SelectContainerAsync(@"Выберите узлы для перемещения и нажмите на клавишу ""E"" для подтверждения");
 
-                var nodes = project.ModelView.GetSelected(ObjType.Узел)
+                var nodes = project.GetSelected(ObjType.Узел)
                     .Select(number => project.GetModelObject(ObjType.Узел, number) as Node)
                     .Where(node => node != null)
                     .ToList();

@@ -97,7 +97,7 @@ namespace BazisAvaloniaGUI.Shell
                 {
                     var curveNumbers = new List<int>();
                     foreach (var curve in project.GetModelObjects(ObjType.Кривая))
-                        if (project.ModelView.GetVisible(ObjType.Кривая, curve.Number))
+                        if (project.GetVisible(ObjType.Кривая, curve.Number))
                             curveNumbers.Add(curve.Number);
 
                     var points = new List<GeometryPoint>();
@@ -130,7 +130,7 @@ namespace BazisAvaloniaGUI.Shell
 
             foreach (var item in project.GetModelObjects(objType))
             {
-                if (project.ModelView.GetVisible(item.ObjType, item.Number))
+                if (project.GetVisible(item.ObjType, item.Number))
                 {
                     var point = objType == ObjType.Точка
                         ? item.CalcCentr()
@@ -153,7 +153,7 @@ namespace BazisAvaloniaGUI.Shell
             {
                 var obj = project.GetModelObject(objType, item);
 
-                if (project.ModelView.GetVisible(obj.ObjType, obj.Number))
+                if (project.GetVisible(obj.ObjType, obj.Number))
                 {
                     var point = objType == ObjType.Точка
                         ? obj.CalcCentr()
@@ -170,7 +170,7 @@ namespace BazisAvaloniaGUI.Shell
         {
             foreach (var item in project.GetModelVolumes())
             {
-                if (item.GetSurfaceFigures().Any(x => project.ModelView.GetVisible(ObjType.Поверхность, x.Number)))
+                if (item.GetSurfaceFigures().Any(x => project.GetVisible(ObjType.Поверхность, x.Number)))
                 {
                     var point = GetCenterOfGeometryEntity(3, item.Number);
                     var text = $"Объем {item.Number}";
@@ -190,7 +190,7 @@ namespace BazisAvaloniaGUI.Shell
         {
             foreach (var curve in project.GetModelObjects(ObjType.Кривая))
             {
-                if (project.ModelView.GetVisible(ObjType.Кривая, curve.Number))
+                if (project.GetVisible(ObjType.Кривая, curve.Number))
                 {
                     var settings = project.GetCurveMeshingSettings(curve.Number);
 

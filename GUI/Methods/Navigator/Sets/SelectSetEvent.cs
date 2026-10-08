@@ -53,9 +53,6 @@ namespace BazisGUI
                                         project.CreateGroup(set.Name, objects);
                                         var group = project.GetAllModelGroups().Last();
                                         console.PrintInfo($"{Resources.SelectSetEvent_CreateGroupBySet_Message}: {group.Name}", Color.Black);
-
-                                        PresentGroupDataOnTree();
-                                        OnGroupCreated?.Invoke(group.ObjType, group.Number, group.Name);
                                     })));
                             }
                             propertiesPanel.DrawTable(rows);

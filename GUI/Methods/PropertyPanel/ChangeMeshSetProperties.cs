@@ -38,14 +38,14 @@ namespace BazisGUI
                     {
                         var color = HandleSetColorParameter(obj.NewValue.ToString());
                         if (_objectsSet != null)
-                            project.ModelView.SetColor(_objectsSet, color);
+                            project.SetColor(_objectsSet, color);
                         break;  
                     }
 
                     case SetPropertyKeys.View:
                     {
                         var viewMode = obj.NewValue.ToString().ToEnum<ViewMode>();
-                        project.ModelView.SetViewMode(_objectsSet, viewMode);
+                        project.SetViewMode(_objectsSet, viewMode);
                         break;
                     }
 
@@ -61,8 +61,6 @@ namespace BazisGUI
             
             var setName = navigator.SelectedNode.Text.Split(' ')[1];
             var objInfo = navigator.SelectedNode.Text.Split(' ')[0];
-            
-            var isExpand = navigator.SelectedNode.IsExpanded;
 
             var objType = objInfo.ToEnum<ObjType>();
 
@@ -72,28 +70,11 @@ namespace BazisGUI
                 project.ChangeMeshSetOrder(2, setName, obj);
             else if (objType == ObjType.Элемент3D)
                 project.ChangeMeshSetOrder(3, setName, obj);
-
-            PresentMeshData();
-            navigator.TrySearchNodes(NodeName.Mesh, out List<TreeNode> mesh);
-
-            mesh.First().Collapse();
-            mesh.First().Expand();
-
-
-            if (isExpand)
-            {
-                var nodeName = navigator.SelectedNode.Name;
-                var nodes = mesh.First().Nodes.Find(nodeName, false);
-                nodes.FirstOrDefault(x => x.Text.Contains(setName))?.Expand();
-            }
         }
 
         private void HandleSetNameParameter(int dimm, string oldValue, string newValue)
         {
-            project.ChangeMeshSetName(dimm,
-                    oldValue.ToString(),
-                    newValue.ToString());
-            PresentMeshData();
+            project.ChangeMeshSetName(dimm, oldValue.ToString(), newValue.ToString());
         }
 
         private Color HandleSetColorParameter(string newValue)

@@ -11,7 +11,7 @@ namespace BazisAvaloniaGUI.Scene;
 internal class SceneProjectPresenter
 {
     /// <summary>Создаёт GL-объекты для видимых наборов загруженного проекта.</summary>
-    public void Display(ProjectController project, SceneController scene, bool fitToScreen = true)
+    public void Display(IProjectController project, SceneController scene, bool fitToScreen = true)
     {
         var vboController = scene.VboController;
         vboController.DeleteAllVBObjects();
@@ -25,7 +25,7 @@ internal class SceneProjectPresenter
     /// Перестраивает GL-объекты только для наборов с изменившимся представлением.
     /// Как BaseForm.RefreshModelSetBuffer: объект рисования (прозрачность, отсекатель) переходит к новому буферу.
     /// </summary>
-    public void Refresh(ProjectController project, SceneController scene, IEnumerable<ISetInfo> sets)
+    public void Refresh(IProjectController project, SceneController scene, IEnumerable<ISetInfo> sets)
     {
         var vboController = scene.VboController;
         foreach (var set in sets)
@@ -52,7 +52,7 @@ internal class SceneProjectPresenter
     /// Обновляет цвета буферов наборов без пересборки геометрии — BaseForm.RecolorModelSetBuffer.
     /// Если буфера набора на сцене нет (например, вместо модели показано поле результатов), ничего не делает.
     /// </summary>
-    public void Recolor(ProjectController project, SceneController scene, IEnumerable<ISetInfo> sets)
+    public void Recolor(IProjectController project, SceneController scene, IEnumerable<ISetInfo> sets)
     {
         foreach (var set in sets)
             SetAttribute(scene, project.CreateModelObjectsPresentor(set), "цвет");

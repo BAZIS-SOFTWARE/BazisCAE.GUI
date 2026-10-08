@@ -53,36 +53,7 @@ namespace BazisGUI
             return path;
         }
 
-        public async Task<ProjectController> ImportMesh(string fullPath)
-        {
-            var controller = new ProjectController();
-
-            MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
-            { Dock = DockStyle.Fill };
-
-            var mbf = CreateMessageBoxExForm(mb);
-            mbf.Show();
-            mb.Message = Resources.ImportMeshCaption;
-            await Task.Run(new Action(() =>
-            {
-                controller.MessageEvent += (ar1) =>
-                {
-                    mb.Invoke(new Action(() =>
-                    {
-                        mb.Message = ar1;
-                    }));
-                };
-                controller.ImportMesh(fullPath);
-            }));
-            mbf.Close();
-
-            controller.UnsubMessasge();
-
-            controller.Name = "новый_проект.bpf2";
-            return controller;
-        }
-
-        public async Task<string> ExportMesh(ProjectController project)
+        public async Task<string> ExportMesh(IProjectController project)
         {
 
             var filter =
@@ -96,43 +67,8 @@ namespace BazisGUI
 
             project.ExportMesh(dialog.FileName);
 
-            //var ext = Path.GetExtension(dialog.FileName);
-
-
-            //if (ext == ".STL" | ext == ".stl")
-            //{
-            //    var saver = new SaveToTxtSTLFile();
-            //    saver.Save(modelData, dialog.FileName);
-            //}
-
             return dialog.FileName;
         }
-
-        //public async Task<Controller> LoadProjectAsync(string path)
-        //{
-        //    var controller = new Controller();
-        //    MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
-        //    { Dock = DockStyle.Fill };
-
-        //    var mbf = CreateMessageBoxExForm(mb);
-        //    mbf.Show();
-        //    await Task.Run(new Action(() =>
-        //    {
-        //        // TO DO Сделать динамическое отображение данных при загрузке
-        //        controller.MessageEvent += (ar1) =>
-        //        {
-        //            mb.Invoke(new Action(() =>
-        //            {
-        //                mb.Message = ar1;
-        //            }));
-        //        };
-        //        controller.Load(path);
-
-        //    }));
-        //    mbf.Close();
-
-        //    return controller;
-        //}
 
         public Form CreateMessageBoxExForm(MessageBoxEx.MessageBoxEx mb)
         {
@@ -152,45 +88,5 @@ namespace BazisGUI
             mbf.Controls.Add(mb);
             return mbf;
         }
-
-        public async Task<ProjectController> OpenProject(string fullPath)
-        {
-            var controller = new ProjectController();
-            MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
-            { Dock = DockStyle.Fill };
-
-            var mbf = CreateMessageBoxExForm(mb);
-            mbf.Show();
-            await Task.Run(new Action(() =>
-            {
-                controller.MessageEvent += (ar1) =>
-                {
-                    mb.Invoke(new Action(() =>
-                    {
-                        mb.Message = ar1;
-                    }));
-                };
-                controller.Load(fullPath);
-
-            }));
-            mbf.Close();
-            controller.UnsubMessasge();
-            return controller;
-        }
-
-
-
-        //public async Task<Controller> OpenProject(string fullPath)
-        //{
-        //    var path = Path.GetDirectoryName(fullPath);
-        //    var name = Path.GetFileName(fullPath);
-
-        //    var project = CreateNewProject(path, name);
-
-        //    LoadProjectAsync(project);
-        //    //await res;
-        //    return project;
-
-        //}
     }
 }

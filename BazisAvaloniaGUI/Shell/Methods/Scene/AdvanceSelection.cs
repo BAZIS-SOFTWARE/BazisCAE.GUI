@@ -192,19 +192,19 @@ namespace BazisAvaloniaGUI.Shell
             var uniqueSets = numbers.Select(number => project.GetModelSetInfo(selectType, number)).GroupBy(setInfo => setInfo.Name).Select(g => g.First()).ToList();
 
             ApplySelectionColor();
-            using (project.ModelView.BeginUpdate())
+            using (project.BeginViewUpdate())
             {
                 foreach (var setInfo in uniqueSets)
                 {
                     var setNumbers = setInfo.GetNumbers();
                     if (isSelected)
-                        project.ModelView.Select(selectType, setNumbers);
+                        project.Select(selectType, setNumbers);
                     else
-                        project.ModelView.Deselect(selectType, setNumbers);
+                        project.Deselect(selectType, setNumbers);
                 }
             }
 
-            var selected = project.ModelView.GetSelected(selectType).ToList();
+            var selected = project.GetSelected(selectType).ToList();
 
             console.PrintInfo($"{selectType}, {Resources.AdvaneSelectionSelectedCaption}: {selected.Count}", Color.Black);
             return selected;
@@ -224,11 +224,11 @@ namespace BazisAvaloniaGUI.Shell
 
             ApplySelectionColor();
             if (isSelected)
-                project.ModelView.Select(objType, scopedNumbers);
+                project.Select(objType, scopedNumbers);
             else
-                project.ModelView.Deselect(objType, scopedNumbers);
+                project.Deselect(objType, scopedNumbers);
 
-            var selectedCount = project.ModelView.SelectedCount;
+            var selectedCount = project.SelectedCount;
 
             console.PrintInfo($"{objType}, {Resources.AdvaneSelectionSelectedCaption}: {selectedCount}", Color.Black);
         }

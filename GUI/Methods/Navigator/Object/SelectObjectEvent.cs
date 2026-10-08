@@ -22,7 +22,7 @@ namespace BazisGUI
                 if (objInfo.TryToEnum(out objType))
                 {
                     ApplySelectionColor();
-                    project.ModelView.SetSelection(objType, [number]);
+                    project.SetSelection(objType, [number]);
 
                     CreateObjectProperties(objType, number);
                 }
@@ -31,7 +31,7 @@ namespace BazisGUI
                     var vol = project.GetModelVolumes().First(x => x.Number == number);
                     var numbers = vol.GetSurfaceFigures().Select(x => x.Number);
                     ApplySelectionColor();
-                    project.ModelView.SetSelection(ObjType.Поверхность, numbers);
+                    project.SetSelection(ObjType.Поверхность, numbers);
 
                     CreateVolProperties(number);
                 }

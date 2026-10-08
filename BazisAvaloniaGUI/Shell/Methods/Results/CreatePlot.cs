@@ -52,7 +52,7 @@ namespace BazisAvaloniaGUI.Shell
                 // выбор объектов
                 await SelectContainerAsync(Resources.CreatePlot_BuildGraph_SelectContainerAsync_SelectNodes_Message);
 
-                var nodes = project.ModelView.GetSelected(ObjType.Узел)
+                var nodes = project.GetSelected(ObjType.Узел)
                     .Select(number => project.GetModelObject(ObjType.Узел, number))
                     .ToList();
 

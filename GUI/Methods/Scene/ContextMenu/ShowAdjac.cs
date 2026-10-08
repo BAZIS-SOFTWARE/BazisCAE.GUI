@@ -17,7 +17,7 @@ namespace BazisGUI
             try
             {
                 // TODO подумать над улучшением производительности
-                var selObjs = project.ModelView.GetSelection().ToList();
+                var selObjs = project.GetSelection().ToList();
                 foreach (var item in selObjs)
                 {
                     var adjacentObjects = project.GetAdjacentGeometryObjects(item.Dim, item.Number);
@@ -30,7 +30,7 @@ namespace BazisGUI
                         foreach (var number in lowerNumbers)
                         {
                             var obj = project.GetModelObject(lowerType, number);
-                            project.ModelView.SetVisible(obj.ObjType, [obj.Number], true);
+                            project.SetVisible(obj.ObjType, [obj.Number], true);
                         }
                     }
 
@@ -40,7 +40,7 @@ namespace BazisGUI
                         foreach (var number in upperNumbers)
                         {
                             var obj = project.GetModelObject(upperType, number);
-                            project.ModelView.SetVisible(obj.ObjType, [obj.Number], true);
+                            project.SetVisible(obj.ObjType, [obj.Number], true);
                         }
                     }
                 }

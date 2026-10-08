@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <BazisCoreSource>$(MSBuildThisFileDirectory)..\..\BazisComponents\BazisCore\OperationalController\OperationalController.csproj</BazisCoreSource>
+    <UseBazisCoreSource Condition="'$(UseBazisCoreSource)' == '' and Exists('$(BazisCoreSource)')">true</UseBazisCoreSource>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -10,8 +12,9 @@
     <PackageReference Include="Avalonia.Desktop" Version="12.1.0" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-    <PackageReference Include="OperationalController" Version="4.10.5" />
-    <PackageReference Include="PostProc" Version="2.2.7" />
+    <PackageReference Include="OperationalController" Version="4.10.7" Condition="'$(UseBazisCoreSource)' != 'true'" />
+    <ProjectReference Include="$(BazisCoreSource)" Condition="'$(UseBazisCoreSource)' == 'true'" />
+    <PackageReference Include="PostProc" Version="2.2.8" />
     <PackageReference Include="PreProc" Version="2.6.8" />
     <PackageReference Include="ClientLogicCP" Version="1.1.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

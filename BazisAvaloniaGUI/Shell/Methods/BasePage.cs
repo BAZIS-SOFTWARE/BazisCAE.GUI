@@ -24,7 +24,7 @@ namespace BazisAvaloniaGUI.Shell
             var message = @$"{Resources.BasePage_CreateSurfaceAsync_AsyncContainer_Message}";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var selObjs = project.ModelView.GetSelection()
+                var selObjs = project.GetSelection()
                     .Where(x => x.ObjType == objType)
                     .ToArray();
 

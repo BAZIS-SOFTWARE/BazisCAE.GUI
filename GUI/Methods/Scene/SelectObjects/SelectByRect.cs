@@ -19,11 +19,11 @@ namespace BazisGUI
             var setList = sets.ToList();
             pickHits.Clear();
 
-            sceneController.SelectByRect(setList, selectionBox, isSelected, project.ModelView.GetVisible);
+            sceneController.SelectByRect(setList, selectionBox, isSelected, project.GetVisible);
 
             var counter = 0;
             ApplySelectionColor();
-            using (project.ModelView.BeginUpdate())
+            using (project.BeginViewUpdate())
             {
                 foreach (var hit in pickHits)
                 {
@@ -32,9 +32,9 @@ namespace BazisGUI
                     counter += numbers.Count;
 
                     if (isSelected)
-                        project.ModelView.Select(setInfo.ObjType, numbers);
+                        project.Select(setInfo.ObjType, numbers);
                     else
-                        project.ModelView.Deselect(setInfo.ObjType, numbers);
+                        project.Deselect(setInfo.ObjType, numbers);
                 }
             }
 

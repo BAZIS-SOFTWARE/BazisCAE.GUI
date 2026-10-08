@@ -20,7 +20,7 @@ namespace BazisAvaloniaGUI.Shell
                 var elements = project.GetModelElements(dim, setName);
 
                 var numbers = elements.SelectMany(x => x.GetVertexes()).Select(x => x.Number);
-                project.ModelView.SetVisible(ObjType.Узел, numbers, true);
+                project.SetVisible(ObjType.Узел, numbers, true);
             }
         }
     }
