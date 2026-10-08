@@ -8,6 +8,6 @@
 | `ДК. MainWindow.Avalonia.mdpuml` | главное окно, `MainWindowViewModel`, главное меню по группам и пунктам, сервисы оболочки (`MessageLog`, `AppSettings`, `IDialogService`, `IOperationRunner`, `IUiDispatcher`, `ILicenseService`) |
 | `ДК. Panels.Avalonia.mdpuml` | навигатор (модель узлов, построитель дерева), панель свойств (`ActiveItem`, `IPropertySource`, строки и значения), консоль (реестр команд, разбор строки) |
 
-PNG рядом с каждым исходником — визуализация актуального исходника (PlantUML 1.2025.4).
+Исходник `ДК. Scene.Avalonia.Detail.mdpuml` обновлён для публичного API `IProjectController` и события `Message`. Соответствующий PNG пока отражает прежнюю версию диаграммы: локальный рендер PlantUML недоступен.
 
 Пояснения к исходной схеме сцены — [scene.avalonia.md](../../GUI/Documents/scene.avalonia.md), к отображению условий — [CondView.md](../../GUI/Documents/CondView.md).

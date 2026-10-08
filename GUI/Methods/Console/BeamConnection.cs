@@ -26,16 +26,6 @@ namespace BazisGUI
             project.ConnectByBeams(master, slave, radius, maxBeams);
 
             var beams = project.GetModelSetsInfo(ObjType.Элемент1D).Last();
-
-            if (beams.NumberOfObjects > 0)
-            {
-                var pre = project.CreateModelObjectsPresentor(beams);
-                var vbo = CreateVBObject(pre);
-                VBOController.AddVbo(vbo);
-                RequestRedraw();
-
-                PresentMeshData();
-            }
             Invoke(new Action(() => { console.PrintInfo($"{Resources.BeamConnection_BeamConnection_ObjectsCreated_Message} {beams.ObjType}", Color.Black); }));
             return beams.Name;
         }

@@ -64,15 +64,11 @@ namespace BazisGUI
             if(node.Parent.Parent.Text == Resources.Navigator_TreeView_Node_Text_Geometry)
             {
                 if (info[1].TryToEnum(out ObjType objType))
-                {
                     Navigator_DeleteGeometry((int)objType, number);
-                    RefreshGeometry(objType);
-                }
                 else
                 {
                     Navigator_DeleteGeometry(3, number);
                 }
-                RequestRedraw();
             }
             else if(node.Parent.Parent.Text == Resources.Navigator_TreeView_Node_Text_Mesh)
             {
@@ -81,32 +77,7 @@ namespace BazisGUI
                     var obj = project.GetModelObject(objType, number);
                     obj.ExistState = false;
 
-                    var set = project.GetModelSetInfo(objType, number);
-                    var elementSets = new List<ISetInfo>();
-                    if (objType == ObjType.Узел)
-                    {
-                        foreach (var elementType in new[] { ObjType.Элемент1D, ObjType.Элемент2D, ObjType.Элемент3D })
-                        {
-                            var setsOfType = project.GetModelSetsInfo(elementType);
-                            elementSets.AddRange(setsOfType);
-                        }
-                    }
-
                     project.ClearNotExistedModelData();
-
-                    foreach (var elementSet in elementSets)
-                        RefreshModelSetBuffer(elementSet);
-
-                    // Объект удаляется прямым выбором в навигаторе, а не через выделение
-                    // вида, поэтому собственный буфер набора обновляется явно даже
-                    // после очистки состояния представления.
-                    if (set != null)
-                        RefreshModelSetBuffer(set);
-
-                    PresentMeshData();
-                    PresentGroupDataOnTree();
-                    PresentCondDataOnTree();
-                    RequestRedraw();
                 }
             }
         }
@@ -116,7 +87,6 @@ namespace BazisGUI
             try
             {
                 project.DeleteGeometryObject(dim, number);
-                PresentGeoData();
             }
             catch (Exception ex)
             {

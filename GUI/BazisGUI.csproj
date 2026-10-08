@@ -62,10 +62,10 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
     <PackageReference Include="Avalonia.Win32.Interoperability" Version="12.1.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-    <PackageReference Include="OperationalController" Version="4.10.6" Condition="'$(UseBazisCoreSource)' != 'true'" />
+    <PackageReference Include="OperationalController" Version="4.10.7" Condition="'$(UseBazisCoreSource)' != 'true'" />
     <ProjectReference Include="$(BazisCoreSource)" Condition="'$(UseBazisCoreSource)' == 'true'" />
-    <PackageReference Include="PostProc" Version="2.2.7" />
-    <PackageReference Include="PreProc" Version="2.6.8" />
+    <PackageReference Include="PostProc" Version="2.2.8" />
+    <PackageReference Include="PreProc" Version="2.6.9" />
     <Reference Include="ClientGUI">
       <HintPath>..\Libs\ClientGUI.dll</HintPath>
     </Reference>

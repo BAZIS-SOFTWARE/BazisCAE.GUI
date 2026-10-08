@@ -16,16 +16,7 @@ namespace BazisGUI
                 if (navigator.SelectedNode.Name == NodeName.Mesh.ToString())
                 {
                     project.ClearModelCollection(ObjType.Узел);
-
-                    //PresentGeoData();
-                    PresentMeshData();
-                    PresentGroupDataOnTree();
-                    PresentCondDataOnTree();
-                    PresentModelObjectsForSelection();
-                    ClearAllDataOnScene();
                 }
-
-                RequestRedraw();
             }
             catch (Exception ex)
             {

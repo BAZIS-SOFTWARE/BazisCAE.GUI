@@ -39,23 +39,6 @@ namespace BazisGUI
                     else
                         return;
 
-                    VBOController.DeleteVBObjects(setName);
-
-                    //удаляем узел
-                    node.Remove();
-
-                    PresentGroupDataOnTree();
-                    PresentCondDataOnTree();
-                    PresentMeshData();
-                    PresentModelObjectsForSelection();
-                    if (navigator.TrySearchNodes(NodeName.Mesh, out List<TreeNode> nodes))
-                    {
-                        nodes.First().Collapse();
-                        nodes.First().Expand();
-                    }
-
-                    RequestRedraw();
-
                 }
                 else
                     return;        

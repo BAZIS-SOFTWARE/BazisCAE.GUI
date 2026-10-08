@@ -43,9 +43,6 @@ namespace BazisGUI
                         var gr = project.GetAllModelGroups().Last();
 
                         console.PrintInfo($"{Resources.SceneEvents_CreateGroup_SuccessCaption}: {gr.Name}", Color.Black);
-
-                        PresentGroupDataOnTree();
-                        OnGroupCreated?.Invoke(gr.ObjType, gr.Number, gr.Name);
                     }
                 }
             }
@@ -150,22 +147,11 @@ namespace BazisGUI
                     return;
 
                 var selObjs = project.GetSelection().ToList();
-                var affectedSets = selObjs.Select(item => project.GetModelSetInfo(item.ObjType, item.Number)).Where(setInfo => setInfo != null).Distinct().ToList();
-                if (selObjs.Any(item => item.ObjType == ObjType.Узел))
-                {
-                    foreach (var elementType in new[] { ObjType.Элемент1D, ObjType.Элемент2D, ObjType.Элемент3D })
-                    {
-                        var elementSets = project.GetModelSetsInfo(elementType);
-                        affectedSets.AddRange(elementSets);
-                    }
-                }
 
                 foreach (var item in selObjs)
                     item.ExistState = false;
 
                 project.ClearNotExistedModelData();
-                foreach (var setInfo in affectedSets.Distinct())
-                    RefreshModelSetBuffer(setInfo);
                 //project.ClearEmptySet();
                 //project.ClearNotExistedGroupData();
                 //project.ClearNotExistedCondData();
@@ -174,10 +160,6 @@ namespace BazisGUI
                 //project.ModelData.ObjectData.ClearEmptySet();
                 //project.ModelData.GroupData.ClearNotExisted();
                 //project.TaskData.ClearNotExisted(project.ModelData.GroupData);
-
-                PresentMeshData();
-                PresentGroupDataOnTree();
-                PresentCondDataOnTree();
 
             }
             catch (Exception ex)

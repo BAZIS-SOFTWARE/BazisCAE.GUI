@@ -40,7 +40,6 @@ namespace BazisGUI
                     project.AddTaskData(cond);
 
                 }
-                PresentCondDataOnTree();
                 console.PrintInfo(Resources.HandleBaseMaster_Success_Message, Color.Green);
             };
         }

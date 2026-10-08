@@ -15,11 +15,6 @@ namespace BazisGUI
             {
                 var selObjs = project.GetSelected(ObjType.Кривая).ToArray();
                 var s = project.CreateChamfer(selObjs, length, angle, isByAngle, reflected);
-                VBOController.DeleteAllVBObjects();
-                CreateVBObjects("Объекты");
-                PresentMeshData();
-                RequestRedraw();
-                PresentGeoData();
             }
             catch (Exception ex) 
             {

@@ -17,8 +17,7 @@ namespace BazisGUI
                 switch (key)
                 {
                     case GroupPropertyKeys.Name:
-                        _objectsGr.Name = obj.NewValue.ToString();
-                        OnGroupRenamed?.Invoke(_objectsGr.ObjType, _objectsGr.Number, obj.NewValue);
+                        project.ChangeGroupName(grName, obj.NewValue.ToString());
                         break;
 
                     case GroupPropertyKeys.CreateCond:
@@ -42,7 +41,6 @@ namespace BazisGUI
                             cond = new LoadData(_objectsGr, 0, 1);
 
                         project.AddTaskData(cond);
-                        PresentCondDataOnTree();
                         break;
                 }
             }

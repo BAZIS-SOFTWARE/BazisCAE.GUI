@@ -18,8 +18,6 @@ namespace BazisGUI
             try
             {
                 project.ClearTaskData();
-                navigator.SelectedNode.Nodes.Clear();
-                PresentCondDataOnTree();
             }
             catch (Exception ex)
             {

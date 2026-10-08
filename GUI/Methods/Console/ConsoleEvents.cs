@@ -30,15 +30,6 @@ namespace BazisGUI
         private void CreateMesh2DPoligon(Point2D p1, Point2D p2, Point2D p3, Point2D p4, int numberOfElemsInt)
         {
             project.CreateQuadMeshOnPoligon(new List<Point2D>() { p1, p2, p3, p4 }, numberOfElemsInt);
-            PresentMeshData();
-            PresentModelObjectsForSelection();
-
-            var set = project.GetModelSetsInfo(ObjType.Элемент2D).Last();
-            var pres = project.CreateModelObjectsPresentor(set);
-            var vbo = CreateVBObject(pres);
-
-            VBOController.AddVbo(vbo);
-            RequestRedraw();
         }
 
         private void FindObjectParserStr(string str, out ObjType objType, out uint number)

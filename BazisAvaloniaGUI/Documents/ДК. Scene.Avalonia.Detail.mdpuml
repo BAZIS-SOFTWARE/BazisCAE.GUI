@@ -70,15 +70,20 @@ package "BazisAvaloniaGUI. SceneView" {
     - controller : SceneController
     - presenter : SceneProjectPresenter
     - selection : SceneSelection
-    + ShowProject(...) : void
+    - project : IProjectController
+    + HideInsideSurfaces : bool
+    + {event} ProjectDisplayFailed : EventHandler<Exception>
+    + {event} SelectionApplied : Action<int, bool>
+    + ShowProject(project : IProjectController) : void
+    - OnProjectMessage(sender : object, e : ProjectMessageEventArgs) : void
     # OnOpenGlRender(...) : void
   }
   class SceneProjectPresenter <<current>> {
-    + Display(...) : void
-    + Refresh(...) : void
+    + Display(project : IProjectController, scene : SceneController) : void
+    + Refresh(project : IProjectController, scene : SceneController, sets : IEnumerable<ISetInfo>) : void
   }
   class SceneSelection <<current>> {
-    + Apply(...) : int
+    + Apply(project : IProjectController, scene : SceneController, ...) : int
   }
   class AvaloniaGlBindingsContext <<current>> {
     <<IBindingsContext>>
@@ -111,15 +116,24 @@ package "SceneCore. SceneController" {
 }
 
 package "OperationalController. ProjectController" {
-  interface IProjectController <<current>>
-  class ProjectController <<current>> {
-    + ModelView : IModelView
-    + CreateProject(path : string) : void
-    + Load(path : string) : void
-    + Save(path : string) : void
-    + UnloadGeometry() : void
+  interface IProjectController <<current>> {
+    + {event} Message : EventHandler<ProjectMessageEventArgs>
+    + HideInsideSurfaces : bool
+    + GetVisible(type : ObjType, number : int) : bool
+    + SetHideInsideSurfaces(hide : bool) : void
+    + BeginViewUpdate() : IDisposable
+    + Select(type : ObjType, numbers : IEnumerable<int>) : void
+    + Deselect(type : ObjType, numbers : IEnumerable<int>) : void
   }
-  interface IModelView <<current>>
+  class ProjectController <<current>> {
+    + Load(path : string) : void
+  }
+  class ProjectMessageEventArgs <<current>> {
+    + Changes : IReadOnlyList<ChangeMessage>
+  }
+  class ViewChange <<current>> {
+    + AffectedSets : IEnumerable<ISetInfo>
+  }
 }
 
 Program --> App : запускает
@@ -135,25 +149,26 @@ ProjectSession *-- "0..1" ProjectController : владеет текущим пр
 ProjectSession *-- "0..1" ResultsSession
 ProjectSession ..> ProjectDataKind
 IProjectController <|.. ProjectController
-ProjectController --> IModelView : ModelView
+ProjectController ..> ProjectMessageEventArgs : Message
+ProjectMessageEventArgs --> ViewChange : содержит
 
 SceneView *-- SceneController : владеет
 SceneView *-- SceneProjectPresenter
 SceneView *-- SceneSelection
 SceneView ..> AvaloniaGlBindingsContext : создаёт для OpenGL
-SceneView ..> ProjectController : отображает (сейчас)
-SceneView ..> IModelView : подписка Changed
+SceneView --> IProjectController : отображает и вызывает команды
+SceneView ..> ProjectMessageEventArgs : подписка Message
 SceneView --> ProjectSession : ProjectChanged / DataChanged (план)
 ISceneTools <|.. SceneView
 SceneView *-- CondView : (план)
-CondView --> IModelView : цвета условий
+CondView --> IProjectController : цвета условий (план)
 CondView --> SceneController : слой условий
 
 note right of ProjectSession
   При открытии создаётся новый ProjectController.
   CurrentProject меняется только после успешной загрузки.
   ProjectChanged уведомляет оболочку в UI-потоке.
-  При замене проекта подписчики переключают ModelView.Changed,
+  При замене проекта подписчики переключают ProjectController.Message,
   а сеанс освобождает связанные с прежним проектом ресурсы.
   DataChanged — изменились данные проекта (геометрия, сетка,
   наборы, группы, условия, расчёты, результаты); поднимают
@@ -162,7 +177,7 @@ note right of ProjectSession
 end note
 
 note bottom of SceneView
-  Сейчас SceneView хранит свою ссылку на ProjectController.
+  Сейчас SceneView хранит свою ссылку на IProjectController.
   В плане проект берётся из ProjectSession по ProjectChanged,
   собственная ссылка не держится.
 end note

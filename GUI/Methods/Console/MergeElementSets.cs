@@ -31,16 +31,6 @@ namespace BazisGUI
                 project.ClearSelection();
 
                 project.MergeElements(objType, masterSet, slaveSet);
-
-                PresentMeshData();
-
-                VBOController.DeleteVBObjects(slaveSet);
-                VBOController.DeleteVBObjects(masterSet);
-
-                var set = project.GetModelSetInfo(objType, masterSet);
-                var pre = project.CreateModelObjectsPresentor(set);
-                RefreshModelSetBuffer(set);
-                RequestRedraw();
             }
             catch (Exception ex)
             {

@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <BazisCoreSource>$(MSBuildThisFileDirectory)..\..\BazisComponents\BazisCore\OperationalController\OperationalController.csproj</BazisCoreSource>
+    <UseBazisCoreSource Condition="'$(UseBazisCoreSource)' == '' and Exists('$(BazisCoreSource)')">true</UseBazisCoreSource>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -8,7 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="12.1.0" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
-    <PackageReference Include="OperationalController" Version="4.10.5" />
+    <PackageReference Include="OperationalController" Version="4.10.7" Condition="'$(UseBazisCoreSource)' != 'true'" />
+    <ProjectReference Include="$(BazisCoreSource)" Condition="'$(UseBazisCoreSource)' == 'true'" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SceneCore\SceneCore.csproj" />

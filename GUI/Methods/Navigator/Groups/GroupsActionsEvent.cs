@@ -40,11 +40,6 @@ namespace BazisGUI
             {
                 project.ClearGroupData();
                 project.ClearTaskData();
-
-                PresentGroupDataOnTree();
-
-                //if (arg1 is TaskPage taskPage)
-                PresentCondDataOnTree();
             }
             catch (Exception ex)
             {

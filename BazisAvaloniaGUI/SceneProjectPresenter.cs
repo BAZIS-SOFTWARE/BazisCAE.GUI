@@ -9,7 +9,7 @@ namespace BazisAvaloniaGUI;
 internal class SceneProjectPresenter
 {
     /// <summary>Создаёт GL-объекты для видимых наборов загруженного проекта.</summary>
-    public void Display(ProjectController project, SceneController scene)
+    public void Display(IProjectController project, SceneController scene)
     {
         var vboController = scene.VboController;
         vboController.DeleteAllVBObjects();
@@ -19,7 +19,7 @@ internal class SceneProjectPresenter
     }
 
     /// <summary>Перестраивает GL-объекты только для наборов с изменившимся представлением.</summary>
-    public void Refresh(ProjectController project, SceneController scene, IEnumerable<ISetInfo> sets)
+    public void Refresh(IProjectController project, SceneController scene, IEnumerable<ISetInfo> sets)
     {
         var vboController = scene.VboController;
         foreach (var set in sets)

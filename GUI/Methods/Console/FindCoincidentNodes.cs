@@ -21,8 +21,6 @@ namespace BazisGUI
             Invoke(new Action(() => { console.PrintInfo($"{Resources.FindCoincidentNodes_Action_Found_Message} {coincidentNodes.Count()} {Resources.FindCoincidentNodes_Action_Matches_Message}", Color.Black); }));
             Invoke(new Action(() =>
             {
-                ClearAllDataOnScene();
-
                 var numbers = coincidentNodes.SelectMany(x => x).ToList();
                 ApplySelectionColor();
                 project.SetSelection(ObjType.Узел, numbers);
@@ -38,18 +36,9 @@ namespace BazisGUI
 
                 Invoke(new Action(() =>
                 {
-                    var set = project.GetModelSetsInfo(ObjType.Узел).First();
-
                     //navigator.TrySearchNodes(NodeName.сетка, out List<TreeNode> objects);
                     //objects[0].Nodes[0].Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
                     console.PrintInfo(Resources.FindCoincidentNodes_ActionConfirm_MergeNodes_Message, Color.Green);
-                    PresentMeshData();
-                    PresentCondDataOnTree();
-
-                    VBOController.DeleteAllVBObjects();
-                    CreateVBObjects("Объекты");
-                    RequestRedraw();
-
                 }));
                 return new Tuple<bool, object>(true, new object());
             });

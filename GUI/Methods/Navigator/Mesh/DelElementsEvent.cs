@@ -32,13 +32,7 @@ namespace BazisGUI
                 var names = project.GetModelSetsInfo(objType).
     Select(x => x.Name).ToList();
                 foreach (var item in names)
-                {
                     project.DeleteModelSet(objType, item);
-                    VBOController.DeleteVBObjects(item);
-                }
-                RequestRedraw();
-                PresentMeshData();
-                PresentModelObjectsForSelection();
             }
             catch (Exception ex)
             {

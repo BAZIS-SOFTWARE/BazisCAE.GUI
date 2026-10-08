@@ -22,7 +22,7 @@ internal class SceneView : OpenGlControlBase, ICustomHitTest
     private readonly SceneSelection selection = new();
     private readonly HashSet<ISetInfo> changedSets = new(ReferenceEqualityComparer.Instance);
     private SceneController? controller;
-    private ProjectController? project;
+    private IProjectController? project;
     private bool projectNeedsDisplay;
     private int width;
     private int height;
@@ -35,11 +35,11 @@ internal class SceneView : OpenGlControlBase, ICustomHitTest
 
     public bool HideInsideSurfaces
     {
-        get => project?.ModelView.HideInsideSurfaces ?? false;
+        get => project?.HideInsideSurfaces ?? false;
         set
         {
             if (project != null)
-                project.ModelView.HideInsideSurfaces = value;
+                project.SetHideInsideSurfaces(value);
         }
     }
 
@@ -52,22 +52,39 @@ internal class SceneView : OpenGlControlBase, ICustomHitTest
     bool ICustomHitTest.HitTest(Point point) => new Rect(Bounds.Size).Contains(point);
 
     /// <summary>Передаёт загруженный проект в поток рендера для создания VBO.</summary>
-    public void ShowProject(ProjectController project)
+    public void ShowProject(IProjectController project)
     {
         if (this.project != null)
-            this.project.ModelView.Changed -= OnModelViewChanged;
+            this.project.Message -= OnProjectMessage;
         this.project = project;
-        project.ModelView.Changed += OnModelViewChanged;
+        project.Message += OnProjectMessage;
         changedSets.Clear();
         projectNeedsDisplay = true;
         RequestNextFrameRendering();
     }
 
     /// <summary>Ставит изменённые наборы в очередь обновления на следующем кадре OpenGL.</summary>
-    private void OnModelViewChanged(object? sender, ModelViewChangedEventArgs e)
+    private void OnProjectMessage(object? sender, ProjectMessageEventArgs e)
     {
-        foreach (var set in e.GetChangedSets())
-            changedSets.Add(set);
+        if (!ReferenceEquals(sender, project))
+            return;
+        if (!Dispatcher.UIThread.CheckAccess())
+        {
+            Dispatcher.UIThread.Post(() => OnProjectMessage(sender, e));
+            return;
+        }
+
+        foreach (var change in e.Changes)
+        {
+            if (change is ViewChange viewChange)
+            {
+                foreach (var set in viewChange.AffectedSets)
+                    changedSets.Add(set);
+            }
+            else if (change is ProjectChange projectChange && projectChange.ChangeKind != ProjectChange.ProjectChangeKind.PropertyChanged
+                || change is GeoChange or MeshChange or SetDelete or SetRename)
+                projectNeedsDisplay = true;
+        }
         RequestNextFrameRendering();
     }
 

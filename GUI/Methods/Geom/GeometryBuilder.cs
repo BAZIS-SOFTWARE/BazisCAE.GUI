@@ -21,7 +21,6 @@ namespace BazisGUI
             var useTransfiniteMesh = ParseTransfiniteOption(transfinite);
 
             var setName = ExtrudeCurve(surfaceTag, curveTags, startPointTag, extrusionStep, useTransfiniteMesh);
-            PresentExtrude();
             return setName;
         }
 
@@ -34,7 +33,6 @@ namespace BazisGUI
             var useTransfiniteMesh = ParseTransfiniteOption(transfinite);
 
             var resultSetName = ExtrudeCurve(setName, curveTags, startPointTag, extrusionStep, useTransfiniteMesh);
-            PresentExtrude();
             return resultSetName;
         }
 
@@ -46,7 +44,6 @@ namespace BazisGUI
             ParseCurvePathParameters(curveNumbers, startPoint, step, out var curveTags, out var startPointTag, out var extrusionStep);
 
             var setName = project.ExtrudeElement1DAlongCurve(curveTags, startPointTag, nodeTag, extrusionStep);
-            PresentExtrude();
             return setName;
         }
 
@@ -136,8 +133,6 @@ namespace BazisGUI
                 default:
                     throw new NotSupportedException();
             }
-            PresentGeoData();
-            RequestRedraw();
             return tag;
         }
 
@@ -167,60 +162,37 @@ namespace BazisGUI
         private int AddPoint(double x, double y, double z, double meshSize = 0)
         {
             var pointTag = project.CreatePoint(x, y, z);
-            RefreshGeometry(ObjType.Точка);
             return pointTag;
         }
 
         private int AddLine(int startTag, int endTag, int tag = -1)
         {
             var lineTag = project.CreateLine(startTag, endTag);
-            RefreshGeometry(ObjType.Кривая);
             return lineTag;
         }
 
         private int AddPlane(List<int> linesNumber)
         {
             var planeTag = project.CreateSurface(linesNumber.ToArray());
-            RefreshGeometry(ObjType.Поверхность);
             return planeTag;
         }
 
         private int AddPointByVector(int startTag, int endTag, double step)
         {
             var pointTag = project.CreatePointByVector(startTag, endTag, step);
-            RefreshGeometry(ObjType.Точка);
             return pointTag;    
         }
 
         private int AddPointProjectionOntoPlane(int pointNumber, int dim, int surfaceTag)
         {
             var pointTag = project.CreatePointProjectionOntoGeometry(pointNumber, dim, surfaceTag);
-            RefreshGeometry(ObjType.Точка);
             return pointTag;
         }
 
         private int AddPointProjectionOntoCurve(int pointNumber, int dim, int curveTag)
         {
             var pointTag = project.CreatePointProjectionOntoGeometry(pointNumber, dim, curveTag);
-            RefreshGeometry(ObjType.Точка);
             return pointTag;
-        }
-
-        private void RefreshGeometry(ObjType objType)
-        {
-            foreach (var setInfo in project.GetModelSetsInfo(objType))
-                VBOController.DeleteVBObjects(setInfo.Name);
-
-            CreateVBObjsByObjsType(objType);
-        }
-
-        private void PresentExtrude()
-        {
-            VBOController.DeleteAllVBObjects();
-            CreateVBObjects("Объекты");
-
-            PresentMeshData();
-            RequestRedraw();
         }
     }
 }

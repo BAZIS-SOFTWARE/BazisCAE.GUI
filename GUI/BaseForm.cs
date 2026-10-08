@@ -51,7 +51,7 @@ namespace BazisGUI
         {
             get
             {
-                return Path.GetDirectoryName(lblStatus.Text);
+                return Path.GetDirectoryName(project?.FilePath);
             }
         }
 
@@ -425,9 +425,7 @@ namespace BazisGUI
 
                 var folderName = dialog.SelectedPath;
 
-                suppressProjectMessages = true;
                 project.Create(Path.Combine(folderName, "newProject.bpf2"));
-                lblStatus.Text = project.FilePath;
 
                 var appDirName = Path.GetDirectoryName(Application.ExecutablePath);
 
@@ -459,18 +457,9 @@ namespace BazisGUI
                     }
                 }
 
-                ClearAllDataOnScene();
-                PresentProject();
-                PresentCompDataOnTree(new List<string>());
-                UnblockInterface();
-                OnProjectLoaded?.Invoke();
-                suppressProjectMessages = false;
-
-                RequestRedraw();
             }
             catch (Exception ex)
             {
-                suppressProjectMessages = false;
                 MessageBox.Show(Localization.Localization.GetErrorWithStackMessage(ex), Localization.Localization.GetErrorCaption());
             }
         }
@@ -494,29 +483,10 @@ namespace BazisGUI
                         //GmshController.Gmsh.Option.SetNumber("General.AbortOnError", 0);
                     }
 
-                    suppressProjectMessages = true;
-                    try
-                    {
-                        project.ImportGeometry(filePath);
-                    }
-                    finally
-                    {
-                        suppressProjectMessages = false;
-                    }
+                    project.ImportGeometry(filePath);
                 }
                 else
                     await LoadModelWithProgress(filePath, false);
-
-                lblStatus.Text = project.FilePath ?? filePath;
-
-                ClearAllDataOnScene();
-                PresentProject();
-                OnProjectLoaded?.Invoke();
-
-                UnblockInterface();
-
-                FitObjectsToScreen();
-                RequestRedraw();
             }
             catch (Exception ex)
             {
@@ -544,7 +514,6 @@ namespace BazisGUI
                 progressBar.Value = Math.Clamp(value, 0, 100);
             });
 
-            suppressProjectMessages = true;
             loadingForm.Show();
             Enabled = false;
             try
@@ -553,12 +522,17 @@ namespace BazisGUI
                     await Task.Run(() => project.Append(filePath, progress));
                 else
                     await Task.Run(() => project.Open(filePath, progress));
+
+                if (append)
+                {
+                    FitObjectsToScreen();
+                    RequestRedraw();
+                }
             }
             finally
             {
                 Enabled = true;
                 loadingForm.Close();
-                suppressProjectMessages = false;
             }
         }
 
@@ -626,7 +600,7 @@ namespace BazisGUI
                 else
                 {
                     var newFolder = Path.GetDirectoryName(saveDialog.FileName);
-                    var oldFolder = Path.GetDirectoryName(lblStatus.Text);
+                    var oldFolder = Path.GetDirectoryName(project.FilePath);
 
                     project.ChangeProjectName(Path.GetFileName(saveDialog.FileName));
 
@@ -644,7 +618,6 @@ namespace BazisGUI
                     project.Save(saveDialog.FileName);
 
                     console.PrintInfo(Resources.ProjectSavedCaption, Color.Black);
-                    lblStatus.Text = saveDialog.FileName;
                 }
             }
 
@@ -655,9 +628,9 @@ namespace BazisGUI
         {
             try
             {
-                //Path.GetDirectoryName
-                if (project.HasProject)
-                    project.Save(lblStatus.Text);
+                if (!project.HasProject || !project.IsModified)
+                    return;
+                project.Save(project.FilePath);
                 console.PrintInfo(Resources.ProjectSavedCaption, Color.Black);
             }
             catch (Exception ex)
@@ -730,14 +703,6 @@ namespace BazisGUI
                     await LoadModelWithProgress(dialog.FileName, true);
                     // сбрасывать gmsh  не обязательно
                     //gmshController?.Gmsh?.Clear();
-
-                    ClearAllDataOnScene();
-                    PresentProject();
-
-                    UnblockInterface();
-
-                    FitObjectsToScreen();
-                    RequestRedraw();
                 }
             }
 

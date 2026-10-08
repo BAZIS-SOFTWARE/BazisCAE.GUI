@@ -14,13 +14,6 @@ namespace BazisGUI
             if (!string.IsNullOrEmpty(error))
                 console.PrintInfo(error, Color.Red);
 
-            DeleteVBObjsByObjsType(ObjType.Узел);
-            CreateVBObjsByObjsType(ObjType.Узел);
-            DeleteVBObjects("Элементы");
-            CreateVBObjects("Элементы");
-            PresentMeshData();
-            PresentModelObjectsForSelection();
-            RequestRedraw();
         }
     }
 }

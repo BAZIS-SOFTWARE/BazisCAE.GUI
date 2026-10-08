@@ -10,7 +10,7 @@ namespace BazisAvaloniaGUI;
 internal class SceneSelection
 {
     /// <summary>Применяет найденные на сцене объекты к выбору в представлении модели.</summary>
-    public int Apply(ProjectController project, SceneController scene, ObjType? selectedType, SelectObjectsEventArgs selection)
+    public int Apply(IProjectController project, SceneController scene, ObjType? selectedType, SelectObjectsEventArgs selection)
     {
         var sourceSets = selectedType.HasValue
             ? project.GetModelSetsInfo(selectedType.Value)
@@ -23,12 +23,12 @@ internal class SceneSelection
         try
         {
             if (selection.IsSorted)
-                scene.SelectByRect(sets, selection.SelectionBox, selection.IsSelected, project.ModelView.GetVisible);
+                scene.SelectByRect(sets, selection.SelectionBox, selection.IsSelected, project.GetVisible);
             else
             {
                 var box = selection.SelectionBox;
                 var point = new Point2D((box.Left + box.Right) / 2, (box.Bottom + box.Top) / 2);
-                scene.SelectByPoint(sets, point, selection.IsSelected, project.ModelView.GetVisible);
+                scene.SelectByPoint(sets, point, selection.IsSelected, project.GetVisible);
             }
         }
         finally
@@ -37,7 +37,7 @@ internal class SceneSelection
         }
 
         var count = 0;
-        using (project.ModelView.BeginUpdate())
+        using (project.BeginViewUpdate())
         {
             foreach (var hit in hits)
             {
@@ -48,9 +48,9 @@ internal class SceneSelection
                 var numbers = new List<int>(hit.GetObjectsIndexes());
                 count += numbers.Count;
                 if (selection.IsSelected)
-                    project.ModelView.Select(set.ObjType, numbers);
+                    project.Select(set.ObjType, numbers);
                 else
-                    project.ModelView.Deselect(set.ObjType, numbers);
+                    project.Deselect(set.ObjType, numbers);
             }
         }
         return count;

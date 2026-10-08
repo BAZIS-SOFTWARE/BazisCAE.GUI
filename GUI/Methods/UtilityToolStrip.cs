@@ -622,7 +622,6 @@ namespace BazisGUI
                 }
             }
 
-            PresentGroupDataOnTree();
         }
 
         private List<List<int>> FetchData(List<int> dataBuffers, List<int> queries)
