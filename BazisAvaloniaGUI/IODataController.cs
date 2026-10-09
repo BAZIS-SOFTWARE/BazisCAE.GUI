@@ -43,6 +43,13 @@ namespace BazisAvaloniaGUI
                 ? Environment.GetEnvironmentVariable("BazisMeshPath", EnvironmentVariableTarget.Machine)
                 : Environment.GetEnvironmentVariable("BazisMeshPath");
 
+            if (string.IsNullOrWhiteSpace(path) && OperatingSystem.IsLinux())
+            {
+                var bundledLibrary = Path.Combine(AppContext.BaseDirectory, "libgmsh.so");
+                if (File.Exists(bundledLibrary))
+                    return bundledLibrary;
+            }
+
             if (path == null || path == "")
             {
                 var files = await owner.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
@@ -50,7 +57,9 @@ namespace BazisAvaloniaGUI
                     AllowMultiple = false,
                     FileTypeFilter =
                     [
-                        new FilePickerFileType("dinamic library(*.dll)") { Patterns = ["*.dll"] },
+                        OperatingSystem.IsLinux()
+                            ? new FilePickerFileType("Gmsh (*.so)") { Patterns = ["*.so", "*.so.*"] }
+                            : new FilePickerFileType("Gmsh (*.dll)") { Patterns = ["*.dll"] },
                         FilePickerFileTypes.All
                     ]
                 });

@@ -240,10 +240,11 @@ namespace BazisAvaloniaGUI.Shell
             }
         }
 
-        // Кнопки выбора типа объектов (btnSelect и objButtons) — часть сцены: список наборов SceneView
-        // перечитывается при показе проекта.
+        // Кнопки выбора типа объектов (btnSelect и objButtons) — часть SceneView.
         public void PresentModelObjectsForSelection()
         {
+            if (project != null)
+                scene.UpdateSets(project);
         }
 
         internal void SetBackColorToAllObjects()

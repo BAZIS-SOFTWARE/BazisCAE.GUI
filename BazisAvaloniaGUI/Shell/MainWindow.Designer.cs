@@ -409,7 +409,20 @@ namespace BazisAvaloniaGUI.Shell
 
             Opened += BaseForm_Load;
             Closing += OnClosingForm;
-            AddHandler(KeyDownEvent, (sender, e) => BaseForm_KeyDown(sender, e), RoutingStrategies.Tunnel);
+            AddHandler(KeyDownEvent, (sender, e) =>
+            {
+                if (e.Key != Key.Escape)
+                    BaseForm_KeyDown(sender, e);
+            }, RoutingStrategies.Tunnel);
+            AddHandler(KeyDownEvent, (sender, e) =>
+            {
+                if (e.Key != Key.Escape)
+                    return;
+
+                BaseForm_KeyDown(sender, e);
+                scene.Surface.ClearSelection();
+                e.Handled = true;
+            }, RoutingStrategies.Bubble);
         }
 
         private static MenuItem Item(string name, EventHandler<RoutedEventArgs> click, params object[] items)

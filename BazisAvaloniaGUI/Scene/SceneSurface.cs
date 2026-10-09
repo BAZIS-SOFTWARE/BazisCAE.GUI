@@ -821,9 +821,8 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
                 RotationPointRequest();
                 return;
 
-            // Esc — снять выделение (как WinForms GlControl_KeyDown: SelectedObjects = Select).
+            // Esc обрабатывается главным окном после локальных обработчиков контролов.
             case SceneKey.Escape:
-                ClearSelection();
                 return;
         }
 
@@ -838,7 +837,7 @@ internal class SceneSurface : OpenGlControlBase, ICustomHitTest
     /// Порт ветки Escape из WinForms BaseForm.GlControl_KeyDown: убирает вспомогательную геометрию
     /// и текст и снимает выделение со всех объектов. Пересборку наборов выполняет подписка OnProjectMessage.
     /// </summary>
-    private void ClearSelection()
+    public void ClearSelection()
     {
         Invoke(scene =>
         {

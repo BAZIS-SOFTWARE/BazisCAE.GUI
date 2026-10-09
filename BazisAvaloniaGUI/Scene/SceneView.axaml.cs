@@ -45,15 +45,16 @@ internal partial class SceneView : UserControl
         DisplayStatesToggle.IsCheckedChanged += (_, _) =>
             DisplayStatesPanel.IsVisible = DisplayStatesToggle.IsChecked == true;
 
-        Surface.ProjectShown += UpdateSets;
+        Surface.ProjectShown += project => UpdateSets(project, resetSelection: true);
         Surface.SelectionReset += OnSelectionReset;
     }
 
     public SceneSurface Surface { get => surface; }
 
     /// <summary>Перечитывает наборы проекта и перестраивает пункты выпадающего списка.</summary>
-    private void UpdateSets(ProjectController project)
+    public void UpdateSets(ProjectController project, bool resetSelection = false)
     {
+        var selectedType = resetSelection ? null : Surface.SelectedObjectType;
         // Пока список перестраивается, программная смена выбора не должна трогать сцену.
         isUpdatingSets = true;
         try
@@ -66,16 +67,14 @@ internal partial class SceneView : UserControl
                                         .Distinct())
                 setButtons.Add(new SetButton(set, SceneViewLocalization.ObjectType(set)));
 
-            // Выбор по умолчанию — «Все объекты».
-            SetsCombo.SelectedIndex = 0;
+            SetsCombo.SelectedItem = setButtons.FirstOrDefault(item => item.Type == selectedType) ?? setButtons[0];
         }
         finally
         {
             isUpdatingSets = false;
         }
 
-        // Новая модель — прошлый набор может быть неактуален, показываем все объекты.
-        Surface.SelectedObjectType = null;
+        Surface.SelectedObjectType = ((SetButton)SetsCombo.SelectedItem!).Type;
     }
 
     /// <summary>Esc в сцене сбросил выделение — возвращаем фильтр наборов на «Все объекты».</summary>

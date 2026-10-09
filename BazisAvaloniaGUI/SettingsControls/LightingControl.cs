@@ -14,7 +14,16 @@ namespace BazisAvaloniaGUI.SettingsControls
     internal sealed class LightingControl : UserControl
     {
         public Action<System.Drawing.Point> SetBallPositionEvent;
-        public System.Drawing.Point BallPosition { get; set; }
+        private System.Drawing.Point ballPosition;
+        public System.Drawing.Point BallPosition
+        {
+            get => ballPosition;
+            set
+            {
+                ballPosition = value;
+                panel.InvalidateVisual();
+            }
+        }
         private int BallRadius { get; set; }
         private bool IsPointInsideBall { get; set; }
         private bool IsMouseDownState { get; set; }
@@ -30,21 +39,19 @@ namespace BazisAvaloniaGUI.SettingsControls
             panel.PointerMoved += OnMove;
             panel.PointerReleased += OnUp;
             panel.PointerExited += panel_MouseLeave;
+            panel.PointerCaptureLost += (_, _) =>
+            {
+                IsPointInsideBall = false;
+                IsMouseDownState = false;
+            };
 
             // tableLayoutPanel1: панель и пустая строка 20 px снизу.
             var layout = new Grid { RowDefinitions = new RowDefinitions("*,20") };
             layout.Children.Add(panel);
             Content = layout;
 
-            Loaded += OnLoad;
-        }
-
-        private void OnLoad(object sender, EventArgs e)
-        {
             BallRadius = 5;
-            BallPosition = new System.Drawing.Point();
             BallBrush = Brushes.Black;
-            panel.InvalidateVisual();
         }
 
         private void OnMove(object sender, PointerEventArgs e)
@@ -58,7 +65,6 @@ namespace BazisAvaloniaGUI.SettingsControls
                 if (position.Y - BallRadius >= 0 && position.Y + BallRadius < panel.Bounds.Height && status == true)
                 {
                     BallPosition = new System.Drawing.Point((int)position.X - (int)(panel.Bounds.Width / 2), -(int)position.Y + (int)(panel.Bounds.Height / 2));
-                    panel.InvalidateVisual();
                 }
             }
         }
@@ -66,25 +72,33 @@ namespace BazisAvaloniaGUI.SettingsControls
         private void OnDown(object sender, PointerPressedEventArgs e)
         {
             var position = e.GetPosition(panel);
-            if (!IsMouseDownState)
+            if (!IsMouseDownState && e.GetCurrentPoint(panel).Properties.IsLeftButtonPressed)
             {
-                // Как в WinForms: центр считается по размеру всего контрола, а не панели.
-                var xDif = (int)position.X - (int)(Bounds.Width / 2) - BallPosition.X;
+                // Захват и отрисовка используют центр одной и той же панели без нижнего отступа.
+                var xDif = position.X - panel.Bounds.Width / 2 - BallPosition.X;
                 var xPow = xDif * xDif;
-                var yDif = -(int)position.Y + (int)(Bounds.Height / 2) - BallPosition.Y;
+                var yDif = -position.Y + panel.Bounds.Height / 2 - BallPosition.Y;
                 var yPow = yDif * yDif;
                 if (xPow + yPow <= BallRadius * BallRadius)
+                {
                     IsPointInsideBall = true;
-                IsMouseDownState = true;
+                    IsMouseDownState = true;
+                    e.Pointer.Capture(panel);
+                    e.Handled = true;
+                }
             }
         }
 
         private void OnUp(object sender, PointerReleasedEventArgs e)
         {
+            if (!IsMouseDownState || e.InitialPressMouseButton != MouseButton.Left)
+                return;
+
             IsPointInsideBall = false;
             IsMouseDownState = false;
-
-            SetBallPositionEvent(BallPosition);
+            e.Pointer.Capture(null);
+            SetBallPositionEvent?.Invoke(BallPosition);
+            e.Handled = true;
         }
 
         private void OnPaint(DrawingContext context)
@@ -100,6 +114,9 @@ namespace BazisAvaloniaGUI.SettingsControls
 
         private void panel_MouseLeave(object sender, PointerEventArgs e)
         {
+            if (IsMouseDownState)
+                return;
+
             IsPointInsideBall = false;
             IsMouseDownState = false;
         }

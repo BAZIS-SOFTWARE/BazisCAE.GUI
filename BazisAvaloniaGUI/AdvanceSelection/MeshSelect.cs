@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.Markup.Xaml.Styling;
 using BazisAvaloniaGUI.Shell;
 using BazisAvaloniaGUI.Utilities;
 using Model.Interfaces;
@@ -39,26 +40,67 @@ namespace BazisAvaloniaGUI.AdvanceSelection
 
         public MeshSelect(SelectionType selectedObjects)
         {
+            Styles.Add(new StyleInclude(new Uri("avares://BazisAvaloniaGUI/"))
+            {
+                Source = new Uri("avares://BazisAvaloniaGUI/AdvanceSelection/AdvancedSelectionStyles.axaml")
+            });
             var resources = new ResourceManager(typeof(MeshSelect));
             rbtSet = new RadioButton { Name = "rbtSet", Content = resources.GetString("rbtSet.Text"), GroupName = "meshSelect", IsChecked = true };
             rbtSurface = new RadioButton { Name = "rbtSurface", Content = resources.GetString("rbtSurface.Text"), GroupName = "meshSelect" };
             rbtDirection = new RadioButton { Name = "rbtDirection", Content = resources.GetString("rbtDirection.Text"), GroupName = "meshSelect" };
             foreach (var radio in new[] { rbtSet, rbtSurface, rbtDirection })
+            {
+                radio.Margin = new Thickness(8, 0, 0, 0);
+                radio.VerticalAlignment = VerticalAlignment.Center;
                 radio.IsCheckedChanged += Rbt_CheckedChanged;
+            }
 
             lblAngle = new TextBlock { Name = "lblAngle", Text = resources.GetString("lblAngle.Text"), VerticalAlignment = VerticalAlignment.Center };
-            txbAngle = new TextBox { Name = "txbAngle", Text = resources.GetString("txbAngle.Text") ?? "5", Width = 60, Margin = new Thickness(6, 0, 0, 0) };
-            chbChangeDirection = new CheckBox { Name = "chbChangeDirection", Content = resources.GetString("chbChangeDirection.Text") };
+            lblAngle.Margin = new Thickness(8, 0, 0, 0);
+            txbAngle = new TextBox
+            {
+                Name = "txbAngle",
+                Text = resources.GetString("txbAngle.Text") ?? "5",
+                Height = 20,
+                MinHeight = 20,
+                Padding = new Thickness(3, 0),
+                Margin = new Thickness(0, 0, 20, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                VerticalContentAlignment = VerticalAlignment.Center
+            };
+            chbChangeDirection = new CheckBox
+            {
+                Name = "chbChangeDirection",
+                Content = resources.GetString("chbChangeDirection.Text"),
+                Margin = new Thickness(8, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center
+            };
             chbChangeDirection.IsCheckedChanged += chbChangeDirection_CheckedChanged;
 
-            var angle = new StackPanel { Orientation = Orientation.Horizontal, Children = { lblAngle, txbAngle } };
-            Content = new StackPanel
+            // WinForms: клиентская область 225 x 150, пять строк по 30 px, колонки 30/70%.
+            var generalPanel = new Grid
             {
                 Name = "generalPanel",
-                Spacing = 6,
-                Margin = new Thickness(10),
-                Children = { rbtSet, rbtSurface, rbtDirection, angle, chbChangeDirection }
+                Width = 225,
+                RowDefinitions = new RowDefinitions("30,30,30,30,30"),
+                ColumnDefinitions = new ColumnDefinitions("3*,7*")
             };
+            var radios = new[] { rbtSet, rbtSurface, rbtDirection };
+            for (var row = 0; row < radios.Length; row++)
+            {
+                Grid.SetRow(radios[row], row);
+                Grid.SetColumnSpan(radios[row], 2);
+                generalPanel.Children.Add(radios[row]);
+            }
+            Grid.SetRow(lblAngle, 3);
+            Grid.SetRow(txbAngle, 3);
+            Grid.SetColumn(txbAngle, 1);
+            Grid.SetRow(chbChangeDirection, 4);
+            Grid.SetColumnSpan(chbChangeDirection, 2);
+            generalPanel.Children.Add(lblAngle);
+            generalPanel.Children.Add(txbAngle);
+            generalPanel.Children.Add(chbChangeDirection);
+            Content = generalPanel;
 
             SetAvailableModes(selectedObjects);
         }

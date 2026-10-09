@@ -1,5 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Layout;
+using Avalonia.Markup.Xaml.Styling;
 using BazisAvaloniaGUI.Shell;
 using System;
 using System.Collections.Generic;
@@ -27,18 +29,31 @@ namespace BazisAvaloniaGUI.AdvanceSelection
 
         public GeomSelect(SelectionType selectedObjects)
         {
+            Styles.Add(new StyleInclude(new Uri("avares://BazisAvaloniaGUI/"))
+            {
+                Source = new Uri("avares://BazisAvaloniaGUI/AdvanceSelection/AdvancedSelectionStyles.axaml")
+            });
             var resources = new ResourceManager(typeof(GeomSelect));
             rbtVolume = new RadioButton { Name = "rbtVolume", Content = resources.GetString("rbtVolume.Text"), GroupName = "geomSelect", IsChecked = true };
             rbtSurface = new RadioButton { Name = "rbtSurface", Content = resources.GetString("rbtSurface.Text"), GroupName = "geomSelect" };
             rbtCurve = new RadioButton { Name = "rbtCurve", Content = resources.GetString("rbtCurve.Text"), GroupName = "geomSelect" };
 
-            Content = new StackPanel
+            // WinForms: клиентская область 225 x 90, три строки по 30 px.
+            var generalPanel = new Grid
             {
                 Name = "generalPanel",
-                Spacing = 6,
-                Margin = new Thickness(10),
-                Children = { rbtVolume, rbtSurface, rbtCurve }
+                Width = 225,
+                RowDefinitions = new RowDefinitions("30,30,30")
             };
+            var radios = new[] { rbtVolume, rbtSurface, rbtCurve };
+            for (var row = 0; row < radios.Length; row++)
+            {
+                radios[row].Margin = new Thickness(8, 0, 0, 0);
+                radios[row].VerticalAlignment = VerticalAlignment.Center;
+                Grid.SetRow(radios[row], row);
+                generalPanel.Children.Add(radios[row]);
+            }
+            Content = generalPanel;
 
             SetAvailableModes(selectedObjects);
         }
